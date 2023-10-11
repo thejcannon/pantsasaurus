@@ -28,12 +28,12 @@ const config = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           editUrl:
-            "https://github.com/thejcannon/pantsasaurus/tree/main/website/docs/",
+            "https://github.com/thejcannon/pantsasaurus/edit/main/website/",
         },
         blog: {
           showReadingTime: true,
           editUrl:
-            "https://github.com/thejcannon/pantsasaurus/tree/main/website/blog",
+            "https://github.com/thejcannon/pantsasaurus/edit/main/website/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -67,11 +67,17 @@ const config = {
         items: [
           {
             type: "docSidebar",
-            sidebarId: "tutorialSidebar",
             position: "left",
+            sidebarId: "docsSidebar",
             label: "Docs",
           },
-          { to: "/reference", label: "Reference", position: "left" },
+          {
+            type: "docSidebar",
+            position: "left",
+            sidebarId: "referenceSidebar",
+            label: "Reference",
+            docsPluginId: 'reference',
+          },
           { to: "/404", label: "Community", position: "left" },
           { to: "/404", label: "Testimonials", position: "left" },
           { to: "/404", label: "Users", position: "left" },
