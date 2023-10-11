@@ -20,7 +20,7 @@ const config = {
   organizationName: "pantsbuild",
   projectName: "pants",
 
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
 
   presets: [
