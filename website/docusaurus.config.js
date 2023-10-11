@@ -10,11 +10,8 @@ const config = {
   tagline: "The ergonomic build system",
   favicon: "img/favicon.ico",
 
-  // Set the production url of your site here
   url: "https://thejcannon.github.io",
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/",
+  baseUrl: "/pantsasaurus/",
   trailingSlash: false,
 
   organizationName: "pantsbuild",
@@ -30,17 +27,13 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+            "https://github.com/thejcannon/pantsasaurus/tree/main/website/docs/",
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+            "https://github.com/thejcannon/pantsasaurus/tree/main/website/blog",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
