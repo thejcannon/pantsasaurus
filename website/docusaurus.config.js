@@ -41,18 +41,6 @@ const config = {
       }),
     ],
   ],
-  plugins: [
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "reference",
-        path: "reference",
-        routeBasePath: "reference",
-        sidebarPath: require.resolve("./sidebarsReference.js"),
-        // ... other options
-      },
-    ],
-  ],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -76,7 +64,6 @@ const config = {
             position: "left",
             sidebarId: "referenceSidebar",
             label: "Reference",
-            docsPluginId: 'reference',
           },
           { to: "/404", label: "Community", position: "left" },
           { to: "/404", label: "Testimonials", position: "left" },
