@@ -1,6 +1,4 @@
 // @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
-
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
@@ -27,6 +25,7 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
+          routeBasePath: "/",
           editUrl:
             "https://github.com/thejcannon/pantsasaurus/edit/main/website/",
         },
@@ -65,11 +64,17 @@ const config = {
             sidebarId: "referenceSidebar",
             label: "Reference",
           },
-          { to: "/404", label: "Community", position: "left" },
-          { to: "/404", label: "Testimonials", position: "left" },
+          { to: "/community", label: "Community", position: "left" },
+          { to: "/testimonials", label: "Testimonials", position: "left" },
           { to: "/404", label: "Users", position: "left" },
           { to: "/404", label: "Jobs", position: "left" },
           { to: "/blog", label: "Blog", position: "left" },
+          // Right
+          {
+            type: "docsVersionDropdown",
+            position: 'right',
+            dropdownActiveClassDisabled: true,
+          },
           {
             href: "https://github.com/pantsbuild/pants",
             label: "GitHub",
