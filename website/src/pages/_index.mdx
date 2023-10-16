@@ -1,15 +1,17 @@
-import clsx from 'clsx';
-import styles from './index.module.css';
+import clsx from "clsx";
+import styles from "./index.module.css";
 
 export const Card = ({ children }) => {
-    return <div className={clsx('col col--4')}>
-        <div className="text--left padding-horiz--md">
-            {children}
-        </div>
+  return (
+    <div className={clsx("col col--4")}>
+      <div className="text--left padding-horiz--md">{children}</div>
     </div>
-}
+  );
+};
 
-export const Row = ({ children }) => <div className="row padding-vert--md">{children}</div>
+export const Row = ({ children }) => (
+  <div className="row padding-vert--md">{children}</div>
+);
 
 <header className={clsx('hero hero--primary', styles.heroBanner)}>
 <div className="container">
@@ -24,6 +26,7 @@ with support for other languages and frameworks coming soon.
 
 Here you'll find guides to help you get started with Pants, comprehensive documentation on how to
 configure, run and customize Pants, and information on how to get help from the Pants community.
+
 </div>
 </header>
 
@@ -53,6 +56,7 @@ It uses a combination of static analysis and sensible defaults to infer most of 
 So your BUILD files can be very minimal — and even those can be
 [generated](https://www.pantsbuild.org/docs/reference-tailor) and
 [updated](https://www.pantsbuild.org/docs/reference-update-build-files) for you!
+
 </Card>
 
 <Card>
@@ -62,6 +66,7 @@ So your BUILD files can be very minimal — and even those can be
 Pants has out-of-the-box support for multiple dependency resolves and their corresponding lockfiles,
 so you can have hermetic, repeatable builds that are resilient to supply chain attacks,
 even in complex situations where you have multiple versions of the same dependencies in different parts of the codebase.
+
 </Card>
 
 <Card>
@@ -71,6 +76,7 @@ even in complex situations where you have multiple versions of the same dependen
 Pants operates, underneath it all, at the file level. So even if you have fine-grained dependency
 tangles (or even cycles!) that prevent you from creating modular BUILD targets and dependencies,
 Pants can work with that.
+
 </Card>
 </Row>
 
@@ -81,6 +87,7 @@ Pants can work with that.
 
 Pants has a rich plugin API that uses idiomatic async Python 3, in case you need any customizations.
 In fact the built-in rules use that same API.
+
 </Card>
 
 <Card>
@@ -89,6 +96,7 @@ In fact the built-in rules use that same API.
 
 Pants natively speaks git, so you can do things like "run all the tests affected by changes between
 main and my current branch".
+
 </Card>
 
 <Card>
@@ -96,6 +104,7 @@ main and my current branch".
 ### First-class Python.
 
 You'll find no subsets like Starlark here. Pants empowers you with full support for Python.
+
 </Card>
 </Row>
 
@@ -121,6 +130,7 @@ Docker, Helm, many linting and formatting tools, packaging, coverage, and more.
 Pants community is welcoming, quick to answer questions, and genuinely interested in your thoughts
 and contributions. So [come say hi on the Slack](https://www.pantsbuild.org/docs/getting-help#slack)
 and tell us what you need next!
+
 </Card>
 
 <Card>
@@ -132,6 +142,7 @@ by [Astranis](https://blog.pantsbuild.org/astranis-case-study-wrangling-python-i
 [IBM](https://developer.ibm.com/blogs/case-study-incrementally-migrating-a-python-monorepo-from-bazel-to-pants/),
 [iManage](https://g-cassie.github.io/2021/10/02/django-pants.html),
 and [more](https://www.pantsbuild.org/docs/media#case-studies).
+
 </Card>
 
 <Card>
@@ -140,6 +151,7 @@ and [more](https://www.pantsbuild.org/docs/media#case-studies).
 
 Pants is trusted by organizations of all sizes, including Coinbase, IBM, Orca Security, Rippling,
 Slack, Salesforce, and [many others](https://www.pantsbuild.org/page/who-uses-pants).
+
 </Card>
 </Row>
 

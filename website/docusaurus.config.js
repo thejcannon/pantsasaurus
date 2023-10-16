@@ -29,7 +29,7 @@ const config = {
           routeBasePath: "/",
           versions: {
             current: {
-              label: '(local build)',
+              label: "(local build)",
             },
           },
           editUrl:
@@ -70,15 +70,14 @@ const config = {
             sidebarId: "referenceSidebar",
             label: "Reference",
           },
-          { to: "/community", label: "Community", position: "left" },
           { to: "/testimonials", label: "Testimonials", position: "left" },
-          { to: "/404", label: "Users", position: "left" },
+          { to: "/users", label: "Users", position: "left" },
           { to: "/404", label: "Jobs", position: "left" },
           { to: "/blog", label: "Blog", position: "left" },
           // Right
           {
             type: "docsVersionDropdown",
-            position: 'right',
+            position: "right",
             dropdownActiveClassDisabled: true,
           },
           {

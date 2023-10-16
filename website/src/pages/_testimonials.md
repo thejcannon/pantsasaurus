@@ -9,9 +9,9 @@ Over the last year at iManage Closing Folders, we transitioned a mature Django m
 
 Additionally, the safety and speed of our deployment process was drastically augmented by Pants ability to build fully self-contained .pex files.
 
-For day-to-day work, Pants has empowered developers to create clear separation of concerns between disparate parts of the application, eliminating unnecessary dependencies and improving stability and maintainability.  It has also brought sanity to keeping linting, formatting, third party dependency versioning and python versions consistent across the codebase.
+For day-to-day work, Pants has empowered developers to create clear separation of concerns between disparate parts of the application, eliminating unnecessary dependencies and improving stability and maintainability. It has also brought sanity to keeping linting, formatting, third party dependency versioning and python versions consistent across the codebase.
 
-Compared to other build tools, Pants is drastically more approachable for a small team of python developers, making it possible for an early-stage company to lay the groundwork for a maintainable codebase at an early stage.  Perhaps most importantly, it is backed by a passionate team who are an absolute joy to work with. I would recommend Pants highly to any team!
+Compared to other build tools, Pants is drastically more approachable for a small team of python developers, making it possible for an early-stage company to lay the groundwork for a maintainable codebase at an early stage. Perhaps most importantly, it is backed by a passionate team who are an absolute joy to work with. I would recommend Pants highly to any team!
 
 </blockquote>
 
@@ -65,7 +65,7 @@ Pants makes our monorepo keep its promises. In theory, monorepos let any develop
 <blockquote>
 Moving from "serially building all docker containers with a build script" to "parallel builds using pants": we went from 28.8 minutes (1730 sec) to 611.88 seconds, about a 2.8x improvement! And there's one spectacularly long-build container that's responsible for the long tail; most were built much faster so if it weren't for that laggard this would look even better.
 
-And that's not even counting the impressive dependency checking, etc. that goes with a proper build system.  Very pleased with this.  Thanks for the fantastic support!
+And that's not even counting the impressive dependency checking, etc. that goes with a proper build system. Very pleased with this. Thanks for the fantastic support!
 
 </blockquote>
 </figure>
