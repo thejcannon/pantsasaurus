@@ -15,6 +15,7 @@ const config = {
   organizationName: "pantsbuild",
   projectName: "pants",
 
+  // @TODO: This should error!
   onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
 
@@ -26,6 +27,11 @@ const config = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           routeBasePath: "/",
+          versions: {
+            current: {
+              label: '(local build)',
+            },
+          },
           editUrl:
             "https://github.com/thejcannon/pantsasaurus/edit/main/website/",
         },
