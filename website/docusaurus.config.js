@@ -72,7 +72,7 @@ const config = {
           },
           { to: "/testimonials", label: "Testimonials", position: "left" },
           { to: "/users", label: "Users", position: "left" },
-          { to: "/404", label: "Jobs", position: "left" },
+          { to: "/jobs", label: "Jobs", position: "left" },
           { to: "/blog", label: "Blog", position: "left" },
           // Right
           {
@@ -94,8 +94,12 @@ const config = {
             title: "Docs",
             items: [
               {
-                label: "Tutorial",
-                to: "/docs/intro",
+                label: "Introduction",
+                to: "/docs/404",
+              },
+              {
+                label: "Getting Started",
+                to: "/docs/404",
               },
             ],
           },
@@ -103,16 +107,16 @@ const config = {
             title: "Community",
             items: [
               {
-                label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus",
-              },
-              {
-                label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus",
+                label: "Slack",
+                href: "https://pantsbuild.slack.com/",
               },
               {
                 label: "Twitter",
-                href: "https://twitter.com/docusaurus",
+                href: "https://twitter.com/pantsbuild",
+              },
+              {
+                label: "Mailing List",
+                href: "https://groups.google.com/forum/#!forum/pants-devel",
               },
             ],
           },
@@ -122,6 +126,10 @@ const config = {
               {
                 label: "Blog",
                 to: "/blog",
+              },
+              {
+                label: "Jobs",
+                to: "/jobs",
               },
               {
                 label: "GitHub",
