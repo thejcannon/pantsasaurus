@@ -70,10 +70,8 @@ const config = {
             sidebarId: "referenceSidebar",
             label: "Reference",
           },
-          { to: "/testimonials", label: "Testimonials", position: "left" },
-          { to: "/users", label: "Users", position: "left" },
-          { to: "/jobs", label: "Jobs", position: "left" },
           { to: "/blog", label: "Blog", position: "left" },
+          { to: "/sponsor", label: "Sponsor", position: "left" },
           // Right
           {
             type: "docsVersionDropdown",
@@ -91,19 +89,23 @@ const config = {
         style: "dark",
         links: [
           {
-            title: "Docs",
+            title: "Spotlight",
             items: [
               {
-                label: "Introduction",
-                to: "/404",
+                label: "Users",
+                to: "/users",
               },
               {
-                label: "Getting Started",
-                to: "/404",
+                label: "Testimonials",
+                to: "/testimonials",
               },
               {
-                label: "Getting Help",
-                to: "/404",
+                label: "Whos Hiring?",
+                to: "/jobs",
+              },
+              {
+                label: "Media",
+                to: "/media",
               },
             ],
           },
@@ -115,8 +117,16 @@ const config = {
                 href: "https://pantsbuild.slack.com/",
               },
               {
+                label: "GitHub",
+                href: "https://github.com/pantsbuild/pants",
+              },
+              {
                 label: "Twitter",
                 href: "https://twitter.com/pantsbuild",
+              },
+              {
+                label: "YouTube",
+                href: "https://www.youtube.com/@pantsbuild",
               },
               {
                 label: "Mailing List",
@@ -132,12 +142,8 @@ const config = {
                 to: "/blog",
               },
               {
-                label: "Jobs",
-                to: "/jobs",
-              },
-              {
-                label: "GitHub",
-                href: "https://github.com/facebook/docusaurus",
+                label: "Sponsor",
+                href: "/sponsorship",
               },
             ],
           },
