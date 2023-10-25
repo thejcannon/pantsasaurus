@@ -1,0 +1,90 @@
+---
+    authors: [nathanael]
+    tags: [python,case-studies]
+---
+
+# Astranis Case Study: Wrangling Python In a Monorepo
+
+<CaptionedImg src={require("./splash.jpg").default}>Photo by [NASA](https://unsplash.com/@nasa?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+
+"Code development at Astranis has been migrating towards a monorepo structure. Astranis has grown rapidly since this migration started and, along with it, so has the volume of Python hosted in our monorepo. We went looking for new tooling to bring us into the future."
+
+<!--truncate-->
+
+🟩
+
+About the guest author: _Nathanael England is a Ground Software Engineer at Astranis Space Technologies Corp., a private American geostationary communications satellite operator and manufacturer headquartered in San Francisco, California._
+
+---
+
+## Internal Requirements
+
+Code development at [Astranis](https://www.astranis.com/) has been migrating towards a monorepo structure and this has been a net improvement for a variety of reasons. A major portion of code migrated to this monorepo was written in Python and had legacy usages of setuptools and more classical forms of distribution tooling.  Astranis has grown rapidly since this migration started and, along with it, so has the volume of Python hosted in our monorepo. It was becoming apparent that this solution was not scalable long term. Knowing that this problem was only going to get worse as time went on, we went looking for some new  tooling to bring us into the future. To start that journey, we made a wishlist. We wanted...
+
+- Something that will cache test results and identify dependencies to minimize what has to be tested.
+- A faster, simpler process for packaging our Python microservices into Docker containers.
+- Better third-party dependency resolution and locking support.
+- An easy way to package code to share internal libraries with repos that hadn't been migrated.
+- To minimize disturbance to developers' workflows. Changing the monorepo structure overnight could critically inhibit our mission at Astranis. The best way to do this is to incrementally adopt a new tool and slowly deprecate the legacy system.
+- A build system that wasn't specific for Python since we develop in multiple languages.
+
+## What Did We Explore?
+
+### Poetry
+
+Astranis certainly wasn't the first to make use of a monorepo with a heavy helping of Python. One tool caught our eye during initial explorations for more modern tooling: [Poetry](https://python-poetry.org/). For the uninitiated, Poetry is a dependency management and packaging tool specifically for Python. They offer excellent support for lockfiles, cache virtual environments to allow easily switching between projects, and have native support for packaging and publishing projects. While not natively supported, they do give excellent insights as to how Python microservices can be containerized with Docker from the information Poetry stores about a particular project.
+
+In reading up on it, we found a helpful article over on Medium specifically addressing the problems that come with a Python monorepo and how their team had solved it. Here's some of our key takeaways after investigating Poetry for our needs:
+
+- **Intuitive command line tooling** – The Poetry CLI was very easy to pick up. With simple commands, dependencies could be added with lockfiles  automatically updated and modules could be run without having to worry about which virtual environment to activate.
+- **Good documentation** – The Poetry tool has a good mix of practical/use case driven documentation and specific details about their API.
+- **Our code structure would have to change** – Poetry makes heavy use of the notion of libraries (i.e. code to be shared/published) and projects (i.e. a  microservice). Our code did not follow any kind of obvious segmentation between libraries are projects. The organization would have to be heavily  reworked to create minimal microservices that had exactly only the dependencies (both internal and third-party) that they needed. A transition like this  would require us to develop good rules for what constitutes a library and a project and consistently apply those across Astranis.
+- **No test caching** – Even after a restructure, as the team at Medium has pointed out, Poetry doesn't offer any support for intelligent test caching. For large  monorepos, developers must choose between maintaining complex rules to walk the dependees of changed projects and libraries or rerun all tests every  commit to guarantee nothing has been broken.
+- **Only supports Python** – Poetry is a tool specifically for Python and will not be extended.
+
+While we enjoyed how much of an improvement Poetry was over our existing setuptools + pip legacy system, it didn't seem to check enough boxes to  warrant a switch.
+
+### Bazel
+
+[Bazel](bazel.build/) was next on the investigation list. We'd been using it successfully for managing our C++ portions of our monorepo and has good support for Python.  Bazel is a completely different style of tool compared to Poetry. It works by constructing dependency graphs from the repository structure. Because it  intimately knows the structure of the source code, it will know exactly what needs to be tested or rebuilt as code is developed. The open source community for extending Bazel is very expansive, but we wanted to limit our tooling to only what we felt would be maintained by a set of core developers. This  restricted our investigation to `rules_python`. Here's what we learned in attempting to work Bazel into our existing Python infrastructure:
+
+- **Difficult or missing documentation** – Bazel seems to prioritize documentation about their API. This often made it hard to understand how to extend more  simple examples of rules_python usage.
+- **Tedious BUILD file management** – BUILD files would have to get updated every time Python module names changed or got restructured. This could  significantly slow down development for those not as familiar with the build tooling. `rules_python` does attempt to provide some support for Gazelle to automate the BUILD file management process, but our team found it in too much of an alpha stage to be useful at this time.
+- **Native lockfile support** – Rules like compile_pip_requirements could be used to easily generate lockfiles which maintain reproducibility across different  developer and CI/CD machines.
+- **Intuitive containerization support** – If we could get our code successfully framed into py_binary and py_library targets, it was a simple extension to use  something like rules_docker to package up and deploy our microservices.
+
+While Bazel solved many of the problems that Poetry couldn't, our team found maintaining BUILD files properly far too difficult to feel confident about managing our Python source code. We would also be losing the existing capabilities we had for things like running static type checking engines and  packaging code to send out to other internal repositories.
+
+### Pants
+
+[Pants](https://pantsbuild.org) ([sometimes called Pantsbuild](__GHOST_URL__/you-can-call-us-pantsbuild-or-pants-whichever-you-prefer/)) was the last tool we investigated and was inspired by [the good things said by the team over at Semaphore](https://semaphoreci.com/blog/building-python-projects-with-pants). Our initial impressions were that it [seemed to be a lot like Bazel, but with more intentional support for Python projects](__GHOST_URL__/pants-vs-bazel/). After installing their tool, _what took many hours of setup in Bazel took just over half an hour with Pants_. Some features that particularly surprised us were integrations for Google's [protocol buffers](https://www.pantsbuild.org/docs/protobuf-python), [PEX](https://www.pantsbuild.org/docs/pex-files) binaries, and targets for [building and running Docker images](__GHOST_URL__/optimizing-python-docker-deploys-using-pants/). Here's a summary of what we learned after investigating Pants:
+
+- **Great Documentation** – The Pants team has written [incredible documentation](https://pantsbuild.org/docs/). It ranges from high-level API descriptions all the way down to thorough example use cases and esoteric debugging tips. Whether you're just starting to integrate Pants into your project or you're trying to figure out why your third party dependencies aren't being inferred properly, there's a good chance there's a doc for it.
+- **Simple BUILD files** – Pants is intentionally developed to have minimal boilerplate inside BUILD files. A huge benefit of this is we often don't have to modify the BUILD files at all when we're working with our Python code. [If things get renamed or added in, there's a good chance Pants will pick it up like it was there all along.](https://www.pantsbuild.org/docs/how-does-pants-work#dependency-inference) To further simplify the developer experience, Pants ships with tooling that scans the repository to determine if BUILD files are missing or need updating. The tools are incredibly fast and [can even be used in a CI system to inform authors of potential errors](https://www.pantsbuild.org/docs/using-pants-in-ci).
+- **Expansive Python support** – We touched on this already, but the native support for tooling like [protobufs](https://www.pantsbuild.org/docs/protobuf-python) and [containerization](https://www.pantsbuild.org/docs/docker) were huge for us. The  team has also taken on efforts to support [more tooling for linting](__GHOST_URL__/monorepository-linting-via-pants-project-introspection/) and formatting, static typing analysis, and packaging.
+- **Few supported languages** – While the support for Python has been great, it seems most other aspects are in more alpha and beta stages. Since the Pants team has focused so much on building out a strong backing infrastructure, it seems likely that getting support for more languages is only a matter of  time. `[Editor's note: Pants now supports [Python](https://www.pantsbuild.org/docs/python), [Go](https://www.pantsbuild.org/docs/go), [Java](https://www.pantsbuild.org/docs/jvm-overview), [Kotlin](https://www.pantsbuild.org/docs/reference-kotlin), Protobuf, [Scala](https://www.pantsbuild.org/docs/jvm-overview), [Shell](https://www.pantsbuild.org/docs/shell), and [Thrift](https://www.pantsbuild.org/docs/thrift-python). Javascript/Typescript and Rust are next on the [language support roadmap](https://www.pantsbuild.org/page/language-support).]`
+- **Intentional CI support** – We didn't start our search for new tooling with this in mind, but Pants pleasantly surprised us with [how much the documentation speaks to working with continuous integration systems](https://www.pantsbuild.org/docs/using-pants-in-ci). They give detailed examples of code to add for builds and provide tooling to hook in [remote caching and execution](https://www.pantsbuild.org/docs/remote-caching-execution). The guidance made it very easy to determine how we should adjust our CI build steps.
+
+Overall, Pants checked enough boxes on our wishlist and would solve some substantial development problems we were having in our repository.
+
+## What Did Our Migration Look Like?
+
+Initial investigations are fun, but you might be wondering how the migration really went. Thankfully, Pants put together some nice recommendations on [how to incrementally adopt](https://www.pantsbuild.org/docs/existing-repositories) their tooling, which wasn't something we had seen from other tools we investigated. We're still very early in our adoption  process, but here's what it has looked like so far.
+
+### Set up a minimal pants.toml file
+
+Our first pass at a toml file was intentionally minimal and aimed to keep Pants restricted to only the portions of our monorepo that we were ready to migrate. We chose to [name our BUILD files BUILD.pants to avoid confusion with existing Bazel integrations](https://www.pantsbuild.org/docs/existing-repositories#migrating-from-other-build-tools-set-custom-build-file-names). For almost all of the BUILD.pants files we added (thanks to the help of `tailor`) we decided to add a `skip_tests=True` for the `python_tests` targets that got added.
+
+### Work through the code and remove `skip_tests=True` where possible
+
+Our next step was to go through the repository and pull in small groups of tests to be executed by Pants. Many times, we found that the tests already worked, and it was as simple as removing the `skip_tests` declaration. Other times, tests were dependent on other file types (yaml, prototxt, etc.) and needed to be manually included into the BUILD files. The last type of cases that took more work were actually due to the structure of our code. We had modules that fundamentally did not work with the [sandboxing](__GHOST_URL__/pycon-us-2022-talk/) that tools like Pants use.
+
+### Tune continuous integration performance
+
+One of the main reasons for choosing Pants was the ability to make our build system more scalable and only execute what was necessary. We found it incredibly easy to hook in our existing [remote caching](https://www.pantsbuild.org/docs/remote-caching) systems to Pants, and added other nice features like running `[tailor](https://www.pantsbuild.org/docs/reference-tailor)` in a check-only mode to highlight any inconsistencies in our repo. As a side benefit, Pants has helped us gain better insight into our repository by being able to easily scan for and report the transitive dependencies of modules. Having that insight has helped us plan out how to minimize the coupling of our modules.
+
+### Use Docker integrations for packaging microservices
+
+Prior to using Pants, we had a laborious process that involved building our repository as a wheel and installing that into our Docker containers. This process only got worse as our repo grew, so it was high on our list to remediate. Pants solved this issue for us fairly easily through the use of [PEX binaries in Docker containers](__GHOST_URL__/optimizing-python-docker-deploys-using-pants/). Pants already has great support for both of these targets, so the transition was easy to manage. The only issue we came across was learning that some of our files targets had to be turned into resources to get packaged along with our PEX binaries.
+
+Overall, there has been a pretty minimal impact to our developer workflows and our software developers have adopted it fairly easily. As with any new tool,  there are always interesting edge cases of memory and CPU usage that pop up from time to time. We're excited for the future of Pants to see how we can  continue to integrate it more deeply into our repository!

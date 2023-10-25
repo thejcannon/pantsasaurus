@@ -20,3 +20,9 @@
   --ifm-color-primary-lightest: #bbdeff;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+figcaption {
+  font-size: 0.8rem;
+  text-align: center;
+  padding-bottom: 1rem;
+}
