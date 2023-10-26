@@ -13,7 +13,7 @@
 
 Deploying Python applications in Docker images has traditionally been pretty clunky. The [Pants build system](https://www.pantsbuild.org/) now makes it a breeze!
 
-[Pants 2.7](__GHOST_URL__/introducing-pants-2-7/) added [support](__GHOST_URL__/docker-support/) for building Docker images, thanks to our new maintainer [Andreas Stenius](__GHOST_URL__/meet-our-newest-maintainer-andreas-stenius/). This support unlocks several really neat optimizations that make deploying Python code in Docker images much more efficient, particularly when multiple services are involved.
+[Pants 2.7](../2021-09-27-introducing-pants-2-7/index.md) added [support](../2021-09-28-docker-support/index.md) for building Docker images, thanks to our new maintainer [Andreas Stenius](../2021-09-14-meet-our-newest-maintainer-andreas-stenius/index.md). This support unlocks several really neat optimizations that make deploying Python code in Docker images much more efficient, particularly when multiple services are involved.
 
 > I think I need to revisit my previous reply on the best way to put [#python](https://twitter.com/hashtag/python?src=hash&ref_src=twsrc%5Etfw) into [#docker](https://twitter.com/hashtag/docker?src=hash&ref_src=twsrc%5Etfw) containers. The award now goes to [@pantsbuild](https://twitter.com/pantsbuild?ref_src=twsrc%5Etfw) ... [https://t.co/5vb0b8jJ0T](https://t.co/5vb0b8jJ0T)
 >

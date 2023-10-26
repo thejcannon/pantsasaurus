@@ -9,7 +9,7 @@
 
 <!--truncate-->
 
-With the latest [2.7 release](__GHOST_URL__/introducing-pants-2-7/), Pants now supports the [YAPF Python autoformatter](https://github.com/google/yapf), in addition to Black, isort, Docformatter, and Shfmt!
+With the latest [2.7 release](../2021-09-27-introducing-pants-2-7/index.md), Pants now supports the [YAPF Python autoformatter](https://github.com/google/yapf), in addition to Black, isort, Docformatter, and Shfmt!
 
 For example, if we start with this code:
 

@@ -17,7 +17,7 @@ We got lots of great responses, with participation by everyone from long-time us
 
 ### Remembering 2021
 
-If you're wondering to what extent this survey will benefit the user community, looking back at last year is instructive. We got some excellent suggestions from the [2021 survey](https://groups.google.com/u/1/g/pants-devel/c/F8Saug3BrFw?hl=en), and were able to implement many of them, such as support for [multiple Python lockfiles](https://www.pantsbuild.org/v2.11/docs/python-third-party-dependencies#lockfiles), The [tailor](__GHOST_URL__/tailoring-pants-to-your-codebase/) goal, support for live reload with `[--loop](https://www.pantsbuild.org/docs/goals#running-goals)` for the \`repl\` and \`run\` goals, [exporting](https://www.pantsbuild.org/docs/reference-export) a virtualenv and generated code for IDE consumption, and more.
+If you're wondering to what extent this survey will benefit the user community, looking back at last year is instructive. We got some excellent suggestions from the [2021 survey](https://groups.google.com/u/1/g/pants-devel/c/F8Saug3BrFw?hl=en), and were able to implement many of them, such as support for [multiple Python lockfiles](https://www.pantsbuild.org/v2.11/docs/python-third-party-dependencies#lockfiles), The [tailor](../2021-03-19-tailoring-pants-to-your-codebase/index.md) goal, support for live reload with `[--loop](https://www.pantsbuild.org/docs/goals#running-goals)` for the \`repl\` and \`run\` goals, [exporting](https://www.pantsbuild.org/docs/reference-export) a virtualenv and generated code for IDE consumption, and more.
 
 So the 2021 survey was a great example of how community feedback drives major improvements to Pants, and we will continue this trend in 2022.
 
@@ -85,7 +85,7 @@ We want to make sure that our [documentation](https://www.pantsbuild.org/docs) i
 
 This can be a source of problems, as when a suitable interpreter can't be found, or when the interpreter gets updated. It also makes the runner script complex.
 
-Instead, we'd like to distribute Pants as a standalone binary, with an embedded Python interpreter. Applying the recently added [PyOxidizer support](__GHOST_URL__/packaging-python-with-the-pyoxidizer-pants-plugin/) to Pants itself seems like a good way to go about this.
+Instead, we'd like to distribute Pants as a standalone binary, with an embedded Python interpreter. Applying the recently added [PyOxidizer support](../2022-02-18-packaging-python-with-the-pyoxidizer-pants-plugin/index.md) to Pants itself seems like a good way to go about this.
 
 #### Misc
 
@@ -95,7 +95,7 @@ There were [other ideas](https://github.com/pantsbuild/pants/issues?page=1&q=is%
 
 Note that although we're taking the community's priorities seriously as we lay out the 2022 roadmap, we must also balance those with our big-picture view of the project, of how the various pieces fit together, and of the available developer resources and their own priorities.  So we can't promise that the roadmap will exactly reflect the survey results.
 
-For example, even though it didn't feature in the survey, we plan to work on supporting [cross-platform remote execution](https://github.com/pantsbuild/pants/issues/11148), as this is a key feature for dramatically improving Pants's performance.  Similarly, we plan to polish and improve our recently-added [JVM](__GHOST_URL__/pants-2-9/) and [Go](__GHOST_URL__/golang-support-pants-28/) support, so we can continue to support and grow our user base for those languages.
+For example, even though it didn't feature in the survey, we plan to work on supporting [cross-platform remote execution](https://github.com/pantsbuild/pants/issues/11148), as this is a key feature for dramatically improving Pants's performance.  Similarly, we plan to polish and improve our recently-added [JVM](../2022-01-12-pants-2-9/index.md) and [Go](../2021-11-10-golang-support-pants-28/index.md) support, so we can continue to support and grow our user base for those languages.
 
 But the wonderful thing about open-source, is that anyone is free to participate! So if there are ideas and issues that you particularly care about, you're [invited to jump in](https://www.pantsbuild.org/docs/getting-help) and work on them. We will gladly mentor you and get you up to speed!
 

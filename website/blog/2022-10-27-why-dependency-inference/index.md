@@ -82,7 +82,7 @@ There are two main steps:
 
 With this mapping in place, it's straightforward to map a file's imported symbols to the files that provide those symbols. And this work is cached on disk and memoized in the Pants daemon's memory, so repeated incremental updates are very fast.
 
-As you can imagine, most of this has to be implemented per-language, e.g. for Python, Java, Scala, Kotlin, Go, Shell and so on, as it requires understanding each language's import/export syntax and semantics (see [here](__GHOST_URL__/automatically-unlocking-concurrent-builds-and-fine-grained-caching-on-the-jvm-with-dependency-inference/) for more details about the implementation of dependency inference for JVM languages). And, in fact, we implement dependency inference not just for programming languages but also for frameworks!
+As you can imagine, most of this has to be implemented per-language, e.g. for Python, Java, Scala, Kotlin, Go, Shell and so on, as it requires understanding each language's import/export syntax and semantics (see [here](../2021-11-22-automatically-unlocking-concurrent-builds-and-fine-grained-caching-on-the-jvm-with-dependency-inference/index.md) for more details about the implementation of dependency inference for JVM languages). And, in fact, we implement dependency inference not just for programming languages but also for frameworks!
 
 For example, the Docker backend can map images referenced in a Dockerfile (e.g., in FROM statements) back to the Dockerfiles that created those images. And the Protocol Buffer backend can map a dependency between .proto files into the corresponding dependency between the source files generated from them!
 

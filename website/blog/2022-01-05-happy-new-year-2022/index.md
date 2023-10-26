@@ -13,7 +13,7 @@ Hi Pants community,
 
 2021 was another massive year for the project, even as the pandemic continued to disrupt our lives in so many challenging ways.
 
-We grew our Python user base significantly, engaged in critical [developer relations](https://www.pantsbuild.org/docs/media) efforts, gained new community members, including several new maintainers and contributors, and added support for new languages and frameworks, including Shell, [Go](__GHOST_URL__/golang-support-pants-28/), [Java, Scala](__GHOST_URL__/automatically-unlocking-concurrent-builds-and-fine-grained-caching-on-the-jvm-with-dependency-inference/) and [Docker](__GHOST_URL__/pants-pex-and-docker/).
+We grew our Python user base significantly, engaged in critical [developer relations](https://www.pantsbuild.org/docs/media) efforts, gained new community members, including several new maintainers and contributors, and added support for new languages and frameworks, including Shell, [Go](../2021-11-10-golang-support-pants-28/index.md), [Java, Scala](../2021-11-22-automatically-unlocking-concurrent-builds-and-fine-grained-caching-on-the-jvm-with-dependency-inference/index.md) and [Docker](../2021-10-13-pants-pex-and-docker/index.md).
 
 2022 will be another busy year, in which we plan to continue to grow the user community, add further language support, and improve performance. In fact, you can help shape the roadmap by submitting ideas [here](https://groups.google.com/g/pants-devel/c/UFt3Os--6ps/m/FCjGTnlRBQAJ)!
 

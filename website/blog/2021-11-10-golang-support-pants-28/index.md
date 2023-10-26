@@ -34,7 +34,7 @@ Go's built-in tooling is already excellent! Many projects may be fine using only
 - `./pants lint ::` runs all linters and formatters (in check-mode) in parallel.
 - `./pants test ::` runs all tests in parallel, regardless of language and test framework.
 - `./pants check ::` runs all compilation and type checkers like MyPy in parallel.
-- `./pants package ::` builds all binaries, e.g. Go binaries and Python wheels. (Also see [Streamline your Docker builds with Pants](__GHOST_URL__/pants-pex-and-docker/))
+- `./pants package ::` builds all binaries, e.g. Go binaries and Python wheels. (Also see [Streamline your Docker builds with Pants](../2021-10-13-pants-pex-and-docker/index.md))
 
 ```text
 ❯ ./pants lint ::

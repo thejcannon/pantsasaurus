@@ -45,9 +45,9 @@ thrift/models/name.thrift
 
 Dependency inference understands the unique semantics of Thrift, like what happens if you leave off `namespace py`. It also understands dependencies amongst Thrift files via `include` directives.
 
-This fine-grained dependency information is what unlocks fine-grained caching of builds, like running tests and [packaging Python binaries with Docker](__GHOST_URL__/pants-pex-and-docker/). If none of the inputs have changed, Pants can safely use the cache.
+This fine-grained dependency information is what unlocks fine-grained caching of builds, like running tests and [packaging Python binaries with Docker](../2021-10-13-pants-pex-and-docker/index.md). If none of the inputs have changed, Pants can safely use the cache.
 
-As discussed in [our post on Pants's performance](__GHOST_URL__/fast-incremental-builds-speculation-cancellation/), this inference is 1) very safe and 2) very fast. Because Pants invokes processes hermetically with a sandbox, failing to infer a dependency can never cause the wrong thing to be cached. Further, the inference is fast thanks to Pants's core being implemented in Rust, along with a daemon, parallelism, and very fine-grained invalidation.
+As discussed in [our post on Pants's performance](../2021-02-01-fast-incremental-builds-speculation-cancellation/index.md), this inference is 1) very safe and 2) very fast. Because Pants invokes processes hermetically with a sandbox, failing to infer a dependency can never cause the wrong thing to be cached. Further, the inference is fast thanks to Pants's core being implemented in Rust, along with a daemon, parallelism, and very fine-grained invalidation.
 
 ## Trying out Pants
 
@@ -55,7 +55,7 @@ In addition to generating Thrift and Protobuf/gRPC, Pants automates and improves
 
 - Run linters and formatters with a single consistent interface, parallelizing them all when safe. Including: Black, isort, Yapf, Flake8, Pylint, Shellcheck, Shfmt.
 - Execute tests with hermeticity, safe parallelization, and fine-grained caching.
-- Package your code into PEX binaries, [PyOxidizer binaries](__GHOST_URL__/packaging-python-with-the-pyoxidizer-pants-plugin/), AWS Lambdas, Google Cloud Functions, and Python wheels/sdists.
+- Package your code into PEX binaries, [PyOxidizer binaries](../2022-02-18-packaging-python-with-the-pyoxidizer-pants-plugin/index.md), AWS Lambdas, Google Cloud Functions, and Python wheels/sdists.
 - Provide insight via [project introspection](https://www.pantsbuild.org/v2.10/docs/project-introspection), such as querying which files depend on which.
 
 Check out the [example-codegen repository](https://github.com/pantsbuild/example-codegen) to try out Pants 2.10's Thrift support. And let us know what you think in [Slack](https://www.pantsbuild.org/docs/getting-help) and [GitHub](https://github.com/pantsbuild/pants/issues)!

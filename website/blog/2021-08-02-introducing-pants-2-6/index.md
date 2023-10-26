@@ -19,7 +19,7 @@ Pants now understands Poetry's `pyproject.toml` configuration for third-party de
 
 Poetry support makes it even easier [to incrementally adopt Pants](https://www.pantsbuild.org/docs/existing-repositories), and you can keep using Poetry for third-party dependency management after Pants adoption. Thanks to Pants's dependency inference, you can build multiple distinct wheels/binaries using only a single pyproject.toml.
 
-See our recent blog post ["Poetry support for Pants 2.6"](__GHOST_URL__/poetry-support-for-pants-2-6/) for a more detailed introduction, along with the personal story behind [Toolchain](https://toolchain.com/)'s intern Liam Wilson adding this highly requested feature.
+See our recent blog post ["Poetry support for Pants 2.6"](../2021-07-29-poetry-support-for-pants-2-6/index.md) for a more detailed introduction, along with the personal story behind [Toolchain](https://toolchain.com/)'s intern Liam Wilson adding this highly requested feature.
 
 # Third-party type stubs and MyPy 0.900+
 

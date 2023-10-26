@@ -9,7 +9,7 @@
 
 <!--truncate-->
 
-Interested in blogging about Pants? Any member of the community is encouraged to pitch topics for the [Pants Blog](__GHOST_URL__/). You can DM pitches to me (@cczona) over at [pantsbuild.slack.com](https://pantsbuild.slack.com). Likewise, we encourage writing for your company blog, personal blog, or other organizations' blogs where appropriate for your topic. If you'd like a Pants maintainer's feedback on a draft post, or would like other writing assistance, we're happy to provide 1:1 support so you can feel maximum confidence in what you've written.
+Interested in blogging about Pants? Any member of the community is encouraged to pitch topics for the [Pants Blog](https://blog.pantsbuild.org). You can DM pitches to me (@cczona) over at [pantsbuild.slack.com](https://pantsbuild.slack.com). Likewise, we encourage writing for your company blog, personal blog, or other organizations' blogs where appropriate for your topic. If you'd like a Pants maintainer's feedback on a draft post, or would like other writing assistance, we're happy to provide 1:1 support so you can feel maximum confidence in what you've written.
 
 Here are some of the topics that make particularly great posts:
 
@@ -49,7 +49,7 @@ Whatever you're doing with PEX, if you find it interesting others probably will 
 
 ## SCIE
 
-[SCIE](__GHOST_URL__/the-pants-launcher-binary-a-much-simpler-way-to-install-and-run-pants/) is the latest project from the Pantsbuild team, and we’re very excited about its potential. We’d love to see some posts about how you’re using SCIE and highlighting its merits for others to tap.
+[SCIE](../2023-02-23-the-pants-launcher-binary-a-much-simpler-way-to-install-and-run-pants/index.md) is the latest project from the Pantsbuild team, and we’re very excited about its potential. We’d love to see some posts about how you’re using SCIE and highlighting its merits for others to tap.
 
 # Public speaking
 

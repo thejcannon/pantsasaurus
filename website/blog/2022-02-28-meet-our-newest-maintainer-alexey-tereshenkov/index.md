@@ -19,7 +19,7 @@ Alexey lives in Oxford, UK, a home to world-famous Oxford university. He is self
 
 He first learned QuickBasic 4.5 on a [Soviet BK computer](https://en.wikipedia.org/wiki/Electronika_BK) in the late 1990s and then experimented with Pascal and [Borland Delphi](https://en.wikipedia.org/wiki/Delphi_%28software%29 "https://en.wikipedia.org/wiki/Delphi_(software)"). He fell in love with Python later on and it has been his language of choice ever since. When not working, Alexey enjoys training and competing in triathlon, taking part in chess tournaments, and spending time with his family.
 
-Since becoming involved with Pants, Alexey has made several contributions, notably including [Yapf formatter support for Python](https://github.com/pantsbuild/pants/pull/12317), writing several [blog posts](__GHOST_URL__/author/alexey/), docs improvements, and adding a [long-requested `python_distribution` improvement](https://github.com/pantsbuild/pants/pull/14448). He's also been driving [Debian + Python packaging support](https://github.com/pantsbuild/pants/issues/12421) for a while now.
+Since becoming involved with Pants, Alexey has made several contributions, notably including [Yapf formatter support for Python](https://github.com/pantsbuild/pants/pull/12317), writing several blog posts, docs improvements, and adding a [long-requested `python_distribution` improvement](https://github.com/pantsbuild/pants/pull/14448). He's also been driving [Debian + Python packaging support](https://github.com/pantsbuild/pants/issues/12421) for a while now.
 
 ## Join the Pants community
 

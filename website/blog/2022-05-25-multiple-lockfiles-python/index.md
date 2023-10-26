@@ -80,7 +80,7 @@ Several Python tools like Poetry allow you to have one lockfile per project, e.g
     └── pyproject.toml
 ```
 
-Often, each project lives in a distinct Git repository, or the "polyrepo" approach. But it's also possible for the distinct projects to live near each other in a "[monorepo](__GHOST_URL__/the-monorepo-approach-to-code-management/)".
+Often, each project lives in a distinct Git repository, or the "polyrepo" approach. But it's also possible for the distinct projects to live near each other in a "[monorepo](../2022-03-09-the-monorepo-approach-to-code-management/index.md)".
 
 While this approach seems simple at first, teams often run into problems when projects depend on other projects, such as having a common utils project. Projects shared together must have compatible dependencies. When they do not, you typically:
 
@@ -157,6 +157,6 @@ This granularity allows you to have the minimum number of lockfiles necessary, w
 
 ## Trying out Pants
 
-Pants 2.10 added initial support for multiple lockfiles, which was improved in the recently released [Pants 2.11](__GHOST_URL__/introducing-pants-2-11/).
+Pants 2.10 added initial support for multiple lockfiles, which was improved in the recently released [Pants 2.11](../2022-05-02-introducing-pants-2-11/index.md).
 
 Try out our [example-python](https://github.com/pantsbuild/example-python) repository to see more how lockfile support works, along with other ways Pants improves Python builds like running all your formatters and linters in parallel with caching. And let us know what you think in [Slack!](https://www.pantsbuild.org/docs/getting-help)

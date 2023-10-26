@@ -11,7 +11,7 @@
 
 I'm psyched to announce that the [latest stable release](https://pypi.org/project/pantsbuild.pants/) of the Pants Build System, 2.3.0, is out now.
 
-A major highlight of this release is the `tailor` goal, which [generates BUILD file boilerplate for you](__GHOST_URL__/tailoring-pants-to-your-codebase/)! This makes getting Pants up and running in existing repos a lot easier, as well as streamlining ongoing metadata maintenance.
+A major highlight of this release is the `tailor` goal, which [generates BUILD file boilerplate for you](../2021-03-19-tailoring-pants-to-your-codebase/index.md)! This makes getting Pants up and running in existing repos a lot easier, as well as streamlining ongoing metadata maintenance.
 
 This release also provides performance improvements and better remote caching support. For more detail, see the [release notes](https://www.pantsbuild.org/docs/release-notes-2-3). And see [here](https://www.pantsbuild.org/) for how to get started with Pants, including how to connect with the Pants Build community. It's easier than ever!
 

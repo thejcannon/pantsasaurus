@@ -11,7 +11,7 @@
 
 There are many benefits of using a monorepo. Among them, cleaner code, enhanced communication, and easier collaboration. _The codebase can scale._ The big catch is performance. If the experience of performance deteriorates for developers or deployers, that deservedly gets firm pushback. The processes and systems we use with monorepos are crucial for fulfilling the promise of monorepo benefits.
 
-In this new [April 2021 conversation with SemaphoreCI](https://semaphoreci.com/blog/monorepo-building-at-scale), long-time Pants Build maintainer [Benjy Weinberger](__GHOST_URL__/author/benjy/) discusses some of the key ways Pants ensures snappy performance throughout the stages of developing, building, and deploying from a monorepo.
+In this new [April 2021 conversation with SemaphoreCI](https://semaphoreci.com/blog/monorepo-building-at-scale), long-time Pants Build maintainer Benjy Weinberger discusses some of the key ways Pants ensures snappy performance throughout the stages of developing, building, and deploying from a monorepo.
 
 ### Ergonomic design priorities
 
@@ -29,7 +29,7 @@ In this new [April 2021 conversation with SemaphoreCI](https://semaphoreci.com/b
 
 ### Eliminate BUILD file clutter with `tailor`
 
-> [Tailor](__GHOST_URL__/tailoring-pants-to-your-codebase/) helps you make your ‘pants’. Tailor basically generates build files by looking at what files you have. And it’s idempotent, so you can just keep running it as you go and it will add new build metadata as it goes.
+> [Tailor](../2021-03-19-tailoring-pants-to-your-codebase/index.md) helps you make your ‘pants’. Tailor basically generates build files by looking at what files you have. And it’s idempotent, so you can just keep running it as you go and it will add new build metadata as it goes.
 
 You can listen to, or read, the whole episode at [https://semaphoreci.com/blog/monorepo-building-at-scale](https://semaphoreci.com/blog/monorepo-building-at-scale).
 

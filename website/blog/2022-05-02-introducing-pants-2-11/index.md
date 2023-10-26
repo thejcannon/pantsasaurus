@@ -53,7 +53,7 @@ func TestGenerateUuid(t *testing.T) {
 }
 ```
 
-There's no need to manually regenerate your code or check generated files into version control. Pants will [ensure](__GHOST_URL__/thrift-python/) you are always using up-to-date files in your builds.
+There's no need to manually regenerate your code or check generated files into version control. Pants will [ensure](../2022-03-07-thrift-python/index.md) you are always using up-to-date files in your builds.
 
 We are excited that this is our first instance of code generation for a compiled language. With this foundation, we are adding codegen for Scala and Java. (Pants already supports [Thrift](https://www.pantsbuild.org/docs/thrift-python) and [Protobuf](https://www.pantsbuild.org/docs/protobuf-python) for Python.)
 
@@ -82,7 +82,7 @@ Thank you to Pants's [new Contributor Jonas Stendahl](https://groups.google.com/
 
 ## Pex lockfiles
 
-Pants 2.11 expands on the [lockfile support added in 2.10](__GHOST_URL__/introducing-pants-2-10/) by allowing you to use to the new lockfile mechanism from the Pex tool, as an alternative to generating the lockfile with Poetry.
+Pants 2.11 expands on the [lockfile support added in 2.10](../2022-03-23-introducing-pants-2-10/index.md) by allowing you to use to the new lockfile mechanism from the Pex tool, as an alternative to generating the lockfile with Poetry.
 
 This change brings several improvements:
 
@@ -118,7 +118,7 @@ shunit2_tests(
 
 Each parameter creates a uniquely identifiable target, so that you can, for example, run only one of the test variations. But you can also reference them all together. For example, `./pants test ::` will run every test in parallel.
 
-This feature pairs particularly well with the [multiple resolves](__GHOST_URL__/multiple-lockfiles-python/) (lockfiles) feature added in Pants 2.10. You can now more easily declare that some code should work with multiple lockfiles.
+This feature pairs particularly well with the [multiple resolves](../2022-05-25-multiple-lockfiles-python/index.md) (lockfiles) feature added in Pants 2.10. You can now more easily declare that some code should work with multiple lockfiles.
 
 ```python
 python_sources(

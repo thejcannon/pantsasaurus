@@ -21,7 +21,7 @@ Finally, we try to achieve this with minimal manual configuration, so that you c
 
 Pants has stable Python and Shell script support out of the box, and we recently announced preview support for Golang. Now, we’re offering preview support for Java and Scala!
 
-Check out [our recent blog post about Go support](__GHOST_URL__/golang-support-pants-28/) to see the benefits of a workflow tool that supports multiple languages. All of the `pants` commands that we support for Go also work for the JVM. This means your development team can jump between languages and not need to learn an entirely new set of tools for each language — you can use the best language for the job.
+Check out [our recent blog post about Go support](../2021-11-10-golang-support-pants-28/index.md) to see the benefits of a workflow tool that supports multiple languages. All of the `pants` commands that we support for Go also work for the JVM. This means your development team can jump between languages and not need to learn an entirely new set of tools for each language — you can use the best language for the job.
 
 Each language we support is implemented as a separate plug-in backend, which means each language’s toolchain runs in isolation, and as we add new languages you’ll keep that same consistent interface.
 

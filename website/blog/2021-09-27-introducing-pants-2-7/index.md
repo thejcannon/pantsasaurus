@@ -65,7 +65,7 @@ Hello, Docker!
 
 Pants also now supports [Hadolint](https://github.com/hadolint/hadolint) to lint your Dockerfiles. This gives you a consistent interface to run all your project's linters by running `./pants lint`: Pants will run all activated linters—selected from Hadolint, Shellcheck, Black, Flake8, isort, Pylint, and more—in parallel.
 
-See [https://www.pantsbuild.org/v2.7/docs/docker](https://www.pantsbuild.org/v2.7/docs/docker) to get started, and stay tuned for a blog post from [our newest maintainer](__GHOST_URL__/meet-our-newest-maintainer-andreas-stenius/) Andreas Stenius about adding this highly requested feature.
+See [https://www.pantsbuild.org/v2.7/docs/docker](https://www.pantsbuild.org/v2.7/docs/docker) to get started, and stay tuned for a blog post from [our newest maintainer](../2021-09-14-meet-our-newest-maintainer-andreas-stenius/index.md) Andreas Stenius about adding this highly requested feature.
 
 Disclaimer: this backend is still experimental and may change based on user feedback. Share what you think in [Slack](https://www.pantsbuild.org/docs/getting-help)!
 
@@ -111,7 +111,7 @@ $ ./pants peek helloworld/app.py
 ]
 ```
 
-For example, Pants supports [incremental tool adoption](__GHOST_URL__/introducing-pants-2-5/) where you can say to skip running the tool on some code by setting fields like `skip_flake8=True`. Now, you can combine `./pants peek` with [jq](https://stedolan.github.io/jq/) to find all targets where you set `skip_flake8=True`:
+For example, Pants supports [incremental tool adoption](../2021-05-20-introducing-pants-2-5/index.md) where you can say to skip running the tool on some code by setting fields like `skip_flake8=True`. Now, you can combine `./pants peek` with [jq](https://stedolan.github.io/jq/) to find all targets where you set `skip_flake8=True`:
 
 ```
 $ ./pants peek :: | jq -r '.[] | select(.skip_flake8 == true) | .["address"]'

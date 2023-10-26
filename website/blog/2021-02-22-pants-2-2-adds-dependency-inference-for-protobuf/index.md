@@ -76,7 +76,7 @@ protos/build/semver/semver.proto
 protos/google/api/annotations.proto
 ```
 
-As discussed in [our post on Pants's performance](__GHOST_URL__/fast-incremental-builds-speculation-cancellation/), this inference is 1) very safe and 2) very fast. Because Pants invokes processes hermetically with a sandbox, failing to infer a dependency can never cause the wrong thing to be cached. Further, the inference is fast thanks to Pants's core being implemented in Rust, along with a daemon, parallelism, and very fine-grained invalidation.
+As discussed in [our post on Pants's performance](../2021-02-01-fast-incremental-builds-speculation-cancellation/index.md), this inference is 1) very safe and 2) very fast. Because Pants invokes processes hermetically with a sandbox, failing to infer a dependency can never cause the wrong thing to be cached. Further, the inference is fast thanks to Pants's core being implemented in Rust, along with a daemon, parallelism, and very fine-grained invalidation.
 
 ## Trying out Pants
 

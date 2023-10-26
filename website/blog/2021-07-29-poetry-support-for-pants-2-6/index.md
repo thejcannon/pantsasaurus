@@ -13,7 +13,7 @@ Pants Contributor Liam Wilson delves into this new feature as well as his experi
 
 <!--truncate-->
 
-_Pants 2.6 can now understand Poetry’s `pyproject.toml` configuration for third-party dependency management, addressing one of our most requested features in the last year! Pants handles dependencies with more precision than Python projects using `requirements.txt` or Poetry. Pants Contributor [Liam Wilson](__GHOST_URL__/author/liam/) delves into this new feature as well as his experiences developing the macro as a [Toolchain](http://toolchain.com) intern._
+_Pants 2.6 can now understand Poetry’s `pyproject.toml` configuration for third-party dependency management, addressing one of our most requested features in the last year! Pants handles dependencies with more precision than Python projects using `requirements.txt` or Poetry. Pants Contributor Liam Wilson delves into this new feature as well as his experiences developing the macro as a [Toolchain](http://toolchain.com) intern._
 
 [Pants](https://www.pantsbuild.org/v2.6/) handles dependencies with more precision than Python projects using `requirements.txt` or [Poetry](https://python-poetry.org/). Whereas normally you have a single virtual environment, Pants can understand precisely which 3rd-party dependendencies each file in your project uses, automatically, through [dependency inference](https://www.pantsbuild.org/docs/how-does-pants-work#dependency-inference). When building your code — like running tests or packaging your code into wheel files — Pants only uses the third-party dependencies necessary for that particular file.
 

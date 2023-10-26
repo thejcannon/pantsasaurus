@@ -40,7 +40,7 @@ After a few minutes, the interactive graph will be ready. You can browse the gra
 
 Every repo is also cached so you can quickly return to the graph on future visits. We've already got graphs prepared for [Pants itself](https://graphmyrepo.com/app/repo/pantsbuild/pants), [Django](https://graphmyrepo.com/app/repo/django/django), and [Sentry](https://graphmyrepo.com/app/repo/getsentry/sentry) – check them out!
 
-Visualizing your dependency structure is a powerful benefit of Pants' automatic dependency inference. Pants users at companies like [IBM](https://developer.ibm.com/blogs/case-study-incrementally-migrating-a-python-monorepo-from-bazel-to-pants/), [Astranis](__GHOST_URL__/astranis-case-study-wrangling-python-in-a-monorepo/), [iManage](https://g-cassie.github.io/2021/10/02/django-pants.html), and others have described how dependency inference lends crucial insights that impact code quality. For instance:
+Visualizing your dependency structure is a powerful benefit of Pants' automatic dependency inference. Pants users at companies like [IBM](https://developer.ibm.com/blogs/case-study-incrementally-migrating-a-python-monorepo-from-bazel-to-pants/), [Astranis](../2022-08-12-astranis-case-study-wrangling-python-in-a-monorepo/index.md), [iManage](https://g-cassie.github.io/2021/10/02/django-pants.html), and others have described how dependency inference lends crucial insights that impact code quality. For instance:
 
 > "_Pants has helped us gain better insight into our repository by being able to easily scan for and report the transitive dependencies of modules. Having that insight has helped us plan out how to minimize the coupling of our modules."_ —Nathanael England, Astranis Space Technologies Corp
 

@@ -65,7 +65,7 @@ Now, with a PyOxidized CLI, I haven’t had to hop on a Zoom call in weeks.
 
 ### Server Applications
 
-Before PyOxidizer, my server deployment workflow consisted of creating [Docker](https://www.docker.com/) images with the correct Python base image, copying my `.pex` binaries into those containers, and using that as a distribution. It became easier with [Docker support in Pants](__GHOST_URL__/pants-pex-and-docker/), as Docker handles the copying and a few other tedious items.
+Before PyOxidizer, my server deployment workflow consisted of creating [Docker](https://www.docker.com/) images with the correct Python base image, copying my `.pex` binaries into those containers, and using that as a distribution. It became easier with [Docker support in Pants](../2021-10-13-pants-pex-and-docker/index.md), as Docker handles the copying and a few other tedious items.
 
 This solution has worked well for a long time, but it has always bugged me that I need Docker installed on all of my target systems. I have no problem with Docker, and I use it all the time to create custom development and build environments, but for a lot of my smaller deployments - I feel as though I’m using a sledgehammer to put up a painting.
 
@@ -149,7 +149,7 @@ The "single binary file" is a bit of a stretch too at the current state. If you�
 
 ### All the Pythons
 
-Selecting Pants Python interpreters in a coherent manner to avoid differing behaviour on developer machines, CI, and even in production, requires careful thought. Fortunately for all of us, Alexey Tereshenkov has taken care of most of that thought in his great (and aptly named) blog post: [Choosing a Python interpreter for a Pants project](__GHOST_URL__/choosing-a-python-interpreter-for-a-pants-project/)
+Selecting Pants Python interpreters in a coherent manner to avoid differing behaviour on developer machines, CI, and even in production, requires careful thought. Fortunately for all of us, Alexey Tereshenkov has taken care of most of that thought in his great (and aptly named) blog post: [Choosing a Python interpreter for a Pants project](../2022-02-15-choosing-a-python-interpreter-for-a-pants-project/index.md)
 
 During packaging, PyOxidizer will take that Python interpreter and bundle it in each and every binary executable. Some people might find it odd or unsettling that they have so many Python interpreter "copies" floating around on their machine. Personally, I find it comforting. I think the version of your Python interpreter should be viewed as a classical dependency, and thus, versioned and lockfile'd just like any other dependency in your project.
 

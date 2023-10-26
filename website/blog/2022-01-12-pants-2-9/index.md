@@ -27,11 +27,11 @@ In the last few years, we’ve learned a lot about how best to deal with more-sl
 
 #### Dependency inference and per-file compilation
 
-As described in our recent blog post, [dependency inference for Java and Scala](__GHOST_URL__/automatically-unlocking-concurrent-builds-and-fine-grained-caching-on-the-jvm-with-dependency-inference/) removes a ton of boilerplate.
+As described in our recent blog post, [dependency inference for Java and Scala](../2021-11-22-automatically-unlocking-concurrent-builds-and-fine-grained-caching-on-the-jvm-with-dependency-inference/index.md) removes a ton of boilerplate.
 
 But very fine-grained, always-accurate dependencies also enable per-file compilation, reducing the number of files that Pants needs to feed to `scalac`, and allowing for automatic file-level parallelization and the most accurate cache keys possible. From a correctness perspective, that means that unlike tools which use compilation libraries like [Zinc](https://github.com/sbt/zinc) (SBT, Bloop, Mill, optionally Bazel, and others) Pants `2.9.0` supports sandboxed, minimal incremental Java and Scala compilation, while preventing the under-compilation bugs that have historically troubled Scala developers.
 
-For more information on how dependency inference works for the JVM, [check out that post](__GHOST_URL__/automatically-unlocking-concurrent-builds-and-fine-grained-caching-on-the-jvm-with-dependency-inference/)!
+For more information on how dependency inference works for the JVM, [check out that post](../2021-11-22-automatically-unlocking-concurrent-builds-and-fine-grained-caching-on-the-jvm-with-dependency-inference/index.md)!
 
 #### Multiple resolves of third party dependencies
 
@@ -100,7 +100,7 @@ To do this, `tailor` gained a `--check` mode, and now supports [ignoring files](
 
 ## Changes to Go project layouts
 
-After [adding experimental support for Go](__GHOST_URL__/golang-support-pants-28/) in Pants `2.8`, we decided that a few changes to how Go targets are laid out in BUILD files would help to future proof the support.
+After [adding experimental support for Go](../2021-11-10-golang-support-pants-28/index.md) in Pants `2.8`, we decided that a few changes to how Go targets are laid out in BUILD files would help to future proof the support.
 
 To that end, in Pants `2.9`, each Go package now needs its own `go_package` declaration in a `BUILD` file. Thanks to dependency inference and `./pants tailor`, these BUILD files are very simple, can be created automatically, and rarely require adjustments. But when you do need to add metadata, the new layout [follows the 1:1:1 principle](https://github.com/pantsbuild/pants/issues/13488): metadata about your code should live near the code itself.
 
