@@ -71,7 +71,7 @@ const config = {
             label: "Reference",
           },
           { to: "/blog", label: "Blog", position: "left" },
-          { to: "/sponsor", label: "Sponsor", position: "left" },
+          { to: "/sponsorship", label: "Sponsor", position: "left" },
           // Right
           {
             type: "docsVersionDropdown",
