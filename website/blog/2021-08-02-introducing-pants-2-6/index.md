@@ -25,7 +25,7 @@ See our recent blog post ["Poetry support for Pants 2.6"](../2021-07-29-poetry-s
 
 [MyPy 0.900+ no longer includes typeshed](https://mypy-lang.blogspot.com/2021/06/mypy-0900-released.html), meaning that you must now install type stubs for many popular libraries. For example, you must install `types-requests` when using the `requests` library for MyPy to work properly.
 
-Pants now understands how to [infer dependencies](./2020-10-29-dependency-inference/index.md) for third-party type stubs. For example, if you have `import requests` in your code, Pants will infer a dependency on both the implementation and the type stub.
+Pants now understands how to [infer dependencies](../2020-10-29-dependency-inference/index.md) for third-party type stubs. For example, if you have `import requests` in your code, Pants will infer a dependency on both the implementation and the type stub.
 
 ```shell
 > ./pants dependencies project/app.py

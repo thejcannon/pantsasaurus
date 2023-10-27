@@ -105,7 +105,7 @@ $ ./pants lint ::
 
 ## Linting metadata from `BUILD` configuration files
 
-You set Pants metadata for your project in lightweight `BUILD` files. Usually, there are only a few auto-generated lines, thanks to sensible defaults and [dependency inference](./2020-10-29-dependency-inference/index.md). For example:
+You set Pants metadata for your project in lightweight `BUILD` files. Usually, there are only a few auto-generated lines, thanks to sensible defaults and [dependency inference](../2020-10-29-dependency-inference/index.md). For example:
 
 ```python
 python_tests(

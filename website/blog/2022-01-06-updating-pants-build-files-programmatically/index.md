@@ -15,7 +15,7 @@ Working with a monorepository implies dealing with build metadata files that pro
 
 As the adoption of Pants goes on, you may want to update your `BUILD` files across some parts or throughout the whole monorepository. This can be the case when you'd like to update your [`python_sources`](https://www.pantsbuild.org/v2.9/docs/reference-python_sources) targets to enable/disable some code formatters or linters (for instance, by adding `skip_black` and `skip_flake8` arguments). Likewise, updating `BUILD` files may be necessary if you'd need to tag multiple `python_tests` targets by setting the `tags` argument.
 
-Although in most cases Pants does not require you to declare the dependencies between targets (thanks to [dependency inference](./2020-10-29-dependency-inference/index.md#dependency-inference)), manually updating the `BUILD` files for any codebase of a decent size will get tedious rather soon which is why it is necessary to have appropriate tooling for updating the `BUILD` files programmatically.
+Although in most cases Pants does not require you to declare the dependencies between targets (thanks to [dependency inference](../2020-10-29-dependency-inference/index.md#dependency-inference)), manually updating the `BUILD` files for any codebase of a decent size will get tedious rather soon which is why it is necessary to have appropriate tooling for updating the `BUILD` files programmatically.
 
 ### Modifying BUILD files by using source code refactoring tools
 

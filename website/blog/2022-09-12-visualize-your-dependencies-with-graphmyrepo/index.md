@@ -13,7 +13,7 @@ To make it easier to understand the value and power of dependency inference, Too
 
 Pants automatically analyzes your code’s structure and dependencies and uses this data to speed up your builds. [Toolchain](https://toolchain.com) has built a site that lets you harness this power by creating an interactive visual code graph of a public repository.
 
-One of the most exciting features of Pants v2 is [dependency inference](./2020-10-29-dependency-inference/index.md): Pants uses static analysis and smart heuristics to automatically model and analyze the structure of your codebase, without you having to write thousands of lines of metadata.
+One of the most exciting features of Pants v2 is [dependency inference](../2020-10-29-dependency-inference/index.md): Pants uses static analysis and smart heuristics to automatically model and analyze the structure of your codebase, without you having to write thousands of lines of metadata.
 
 Dependency inference makes Pants powerful because it allows Pants to automatically understand fine-grained internal and external dependencies for every source file in your repo. In the vast majority of cases, it can do that with no manual metadata at all. Pants uses that knowledge to conserve resources and speed up your build and deploy cycles.
 

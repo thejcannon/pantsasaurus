@@ -53,7 +53,7 @@ As you can imagine, this kind of introspection is very useful for reasoning abou
 
 ### Dependency Inference
 
-Unlike other systems, you do not have to laboriously provide huge amounts of dependency metadata (e.g., in BUILD files). Instead, the data is [inferred](./2020-10-29-dependency-inference/index.md) by static analysis. Not having to create and maintain heaps of metadata spares you a lot of effort, and removes many headaches caused by inevitable mismatches between that manually provided information and the true state of your code.
+Unlike other systems, you do not have to laboriously provide huge amounts of dependency metadata (e.g., in BUILD files). Instead, the data is [inferred](../2020-10-29-dependency-inference/index.md) by static analysis. Not having to create and maintain heaps of metadata spares you a lot of effort, and removes many headaches caused by inevitable mismatches between that manually provided information and the true state of your code.
 
 ### Flexible codebase structure
 

@@ -13,7 +13,7 @@ Pants 2's design incorporated many lessons learned from the first version of Pan
 
 27 October 2022 (that's today!) marks the second anniversary of the release of Pants 2.0, a from-the-ground-up rewrite of the Pants build system, which had been around for almost 10 years at the time of Pants 2's release.
 
-Pants 2's design incorporated many lessons learned from the first version of Pants, and many of its contemporary build systems. On our second anniversary, we thought it would be a great opportunity to return to [some of the earliest decisions we made when rewriting Pants](./2020-10-27-introducing-pants-v2.md), and see how they've helped us evolve at a remarkable pace over the last two years.
+Pants 2's design incorporated many lessons learned from the first version of Pants, and many of its contemporary build systems. On our second anniversary, we thought it would be a great opportunity to return to [some of the earliest decisions we made when rewriting Pants](../2020-10-27-introducing-pants-v2/index.md), and see how they've helped us evolve at a remarkable pace over the last two years.
 
 ### Builds for large-scale codebases without the metadata
 

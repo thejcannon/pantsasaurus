@@ -19,7 +19,7 @@ To update, set `pants_version = "2.9.0"` in your `pants.toml`. See [upgrade tips
 
 We’re very happy to announce that support for Java and Scala has reached alpha quality in the `2.9.0` release!
 
-Pants 1.x had a long history of support for Java and Scala, going back to when it was first created at Twitter. In fact: they were the first supported languages! Consequently, (re-)adding support for these popular JVM languages has been high on our list ever since [the 2.x release](./2020-10-27-introducing-pants-v2.md) in late 2020.
+Pants 1.x had a long history of support for Java and Scala, going back to when it was first created at Twitter. In fact: they were the first supported languages! Consequently, (re-)adding support for these popular JVM languages has been high on our list ever since [the 2.x release](../2020-10-27-introducing-pants-v2/index.md) in late 2020.
 
 ### Improvements over Pants 1.x
 

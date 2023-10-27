@@ -140,7 +140,7 @@ pex_binary(
 )
 ```
 
-Pants will only [infer dependencies](./2020-10-29-dependency-inference/index.md) on code using the same lockfile. For example, if `helpers.py` doesn't work with the `data-science` lockfile, Pants won't let your `data_science_app.py` file incorrectly use it.
+Pants will only [infer dependencies](../2020-10-29-dependency-inference/index.md) on code using the same lockfile. For example, if `helpers.py` doesn't work with the `data-science` lockfile, Pants won't let your `data_science_app.py` file incorrectly use it.
 
 It's possible for requirements and source code to work with multiple lockfiles. For example, you can have a file like `utils.py` that works with all your lockfiles.
 

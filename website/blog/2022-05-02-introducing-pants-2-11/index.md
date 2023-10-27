@@ -144,7 +144,7 @@ pkgutil.get_data(__name__, "data/logo.svg")
 project/data/logo.svg
 ```
 
-As explained in our [blog on dependency inference](./2020-10-29-dependency-inference/index.md), this granular dependency information unlocks benefits like fine-grained cache invalidation.
+As explained in our [blog on dependency inference](../2020-10-29-dependency-inference/index.md), this granular dependency information unlocks benefits like fine-grained cache invalidation.
 
 To try this out, set `[python-infer].assets = true` in `pants.toml`.
 

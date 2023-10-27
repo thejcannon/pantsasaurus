@@ -19,7 +19,7 @@ In this new [April 2021 conversation with SemaphoreCI](https://semaphoreci.com/b
 
 ### Dependency inference
 
-> The first and probably most important one is [dependency inference](./2020-10-29-dependency-inference/index.md). So unlike other tools, we do not require you to explicitly enumerate your dependencies in those build metadata files if we can infer them from your import statements. Occasionally, there’s a dependency you can’t infer. Sometimes you load code by name at runtime or you depend on assets that are not imported. There are cases like that, and in those cases you have to potentially manually add those dependencies. But 99% of the time you don’t.
+> The first and probably most important one is [dependency inference](../2020-10-29-dependency-inference/index.md). So unlike other tools, we do not require you to explicitly enumerate your dependencies in those build metadata files if we can infer them from your import statements. Occasionally, there’s a dependency you can’t infer. Sometimes you load code by name at runtime or you depend on assets that are not imported. There are cases like that, and in those cases you have to potentially manually add those dependencies. But 99% of the time you don’t.
 >
 > And also, that logic is itself [pluggable](https://www.pantsbuild.org/docs/plugins-overview), the dependency inference logic.
 

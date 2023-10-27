@@ -13,7 +13,7 @@ As of Pants 2.2, Pants now knows how to use dependency inference with Protobuf! 
 
 <!--truncate-->
 
-As discussed [in our post on dependency inference](./2020-10-29-dependency-inference/index.md), Pants understands which files depend on which to offer fine-grained caching. If none of the inputs have changed, Pants can safely cache your builds like running tests and generating code.
+As discussed [in our post on dependency inference](../2020-10-29-dependency-inference/index.md), Pants understands which files depend on which to offer fine-grained caching. If none of the inputs have changed, Pants can safely cache your builds like running tests and generating code.
 
 With conventional scalable build tools, this fine-grained invalidation requires substantial boilerplate: maintaining BUILD files that explicitly declare every dependency. Instead, Pants uses _dependency inference_ to reduce this boilerplate by up to 90% by reading your code and figuring out the dependencies for you.
 
@@ -30,7 +30,7 @@ While Pants currently only generates code with Protobuf, we are eager to work wi
 
 Pants is a scalable build tool, meaning that it orchestrates the tools you use in a modern Python repository, like Black, Pytest, Protoc (Protobufs), and setuptools. Pants will run these and many other tools concurrently, and brings fine-grained caching with minimal boilerplate, including as your codebase scales up in size.
 
-See [blog.pantsbuild.org/introducing-pants-v2/](./2020-10-27-introducing-pants-v2.md).
+See [blog.pantsbuild.org/introducing-pants-v2/](../2020-10-27-introducing-pants-v2/index.md).
 
 ---
 

@@ -16,7 +16,7 @@ How the Pants build tool empowers incremental migrations by:
 
 From [Dropbox](https://dropbox.tech/application/how-we-rolled-out-one-of-the-largest-python-3-migrations-ever) to [Facebook](https://lwn.net/Articles/758159/) to [Pants's own migration](https://enterprise.foursquare.com/intersections/article/how-our-intern-led-pants-migration-to-python-3/), organizations that have completed Python 3 migrations repeat one theme: incremental migrations are essential to reduce risk.
 
-This blog dives into how the [Pants build tool](./2020-10-27-introducing-pants-v2.md) empowers incremental migrations by:
+This blog dives into how the [Pants build tool](../2020-10-27-introducing-pants-v2/index.md) empowers incremental migrations by:
 
 1.  giving fine-grained insights into your migration with minimal boilerplate, and
 2.  running all your tests and linters, in parallel, with the correct interpreter for each part of your code.
@@ -27,7 +27,7 @@ This blog dives into how the [Pants build tool](./2020-10-27-introducing-pants-v
 
 Pants is a build tool, meaning that it orchestrates the workflows and tools you use in a modern Python repository, like Black, Pytest, Protoc (Protobufs), and setuptools. Pants will run these and many other tools concurrently, and brings fine-grained caching with minimal boilerplate, including as your codebase scales up in size.
 
-See [blog.pantsbuild.org/introducing-pants-v2/](./2020-10-27-introducing-pants-v2.md).
+See [blog.pantsbuild.org/introducing-pants-v2/](../2020-10-27-introducing-pants-v2/index.md).
 
 ---
 
@@ -78,7 +78,7 @@ CPython==2.7.* OR CPython>=3.5
     helloworld/util/proto/config.proto
 ```
 
-Thanks to [dependency inference](./2020-10-29-dependency-inference/index.md)—where Pants identifies your code's dependencies by reading its import statements—you get this fine-grained understanding of your code's dependencies automatically: if you want to create lots of targets for more precise tracking of interpreter constraints, you don't need to repeat metadata like you do with other build tools.
+Thanks to [dependency inference](../2020-10-29-dependency-inference/index.md)—where Pants identifies your code's dependencies by reading its import statements—you get this fine-grained understanding of your code's dependencies automatically: if you want to create lots of targets for more precise tracking of interpreter constraints, you don't need to repeat metadata like you do with other build tools.
 
 Even though setting interpreter constraints is decentralized (a good thing), Pants can still generate a centralized view of your migration's status. Pants will even show how many dependencies each file has (how easy it is to port) and how many dependees a file has (how impactful it is to port).
 

@@ -44,7 +44,7 @@ Hello, world!
 
 Pants can now generate Python code from Apache Thrift files, in addition to [already supporting](https://www.pantsbuild.org/docs/protobuf-python) generating Python from Protobuf and gRPC.
 
-Pants understands precisely which files to generate through [dependency inference](./2020-10-29-dependency-inference/index.md), which automatically maps your import statements to the rest of your code.
+Pants understands precisely which files to generate through [dependency inference](../2020-10-29-dependency-inference/index.md), which automatically maps your import statements to the rest of your code.
 
 For example, if you have this Thrift file:
 

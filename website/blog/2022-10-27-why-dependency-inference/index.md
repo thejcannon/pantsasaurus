@@ -13,7 +13,7 @@ Unlike earlier build systems, Pants v2 automatically infers your code's internal
 
 Scalable build systems need to know about the structure and dependencies of your codebase in order to correctly invalidate work, compute cache keys, and apply concurrency. But how do they get this data?
 
-An important distinguishing feature of Pants v2 is its ability to automatically [infer your code's internal and external dependencies](./2020-10-29-dependency-inference/index.md). This is in contrast to earlier systems, such as Bazel, Buck, and Pants v1, which rely on handwritten metadata provided in BUILD files and checked into the repo alongside the code they describe.
+An important distinguishing feature of Pants v2 is its ability to automatically [infer your code's internal and external dependencies](../2020-10-29-dependency-inference/index.md). This is in contrast to earlier systems, such as Bazel, Buck, and Pants v1, which rely on handwritten metadata provided in BUILD files and checked into the repo alongside the code they describe.
 
 Why did we make this design choice? Read on to find out!
 
@@ -69,7 +69,7 @@ Dependency inference happens at the file level, so is very fine-grained, to supp
 
 In fact, thanks to new features like [target generators](https://www.pantsbuild.org/docs/targets#target-generation), [parametrization](https://www.pantsbuild.org/docs/targets#parametrizing-targets), and [subtree defaults](https://www.pantsbuild.org/docs/targets#field-default-values), we are on the way to allowing you to have a lot fewer BUILD files, sometimes even just one for an entire source tree! But, thanks to inference, your dependencies are still modeled at the per-file level.
 
-You can read more about the details and advantages of dependency inference in [this post](./2020-10-29-dependency-inference/index.md).
+You can read more about the details and advantages of dependency inference in [this post](../2020-10-29-dependency-inference/index.md).
 
 ### Detecting dependencies
 

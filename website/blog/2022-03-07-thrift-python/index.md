@@ -23,7 +23,7 @@ Instead, Pants automates generating exactly what is needed for the current task.
 
 ## Precise generation, without boilerplate
 
-Pants understands which files to generate through [_dependency inference_](./2020-10-29-dependency-inference/index.md), which automatically maps your import statements to the rest of your code.
+Pants understands which files to generate through [_dependency inference_](../2020-10-29-dependency-inference/index.md), which automatically maps your import statements to the rest of your code.
 
 For example, if you have this Thrift file:
 
