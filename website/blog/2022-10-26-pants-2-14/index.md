@@ -57,7 +57,7 @@ In Pants `2.14`, there is a new and shiny alternative to using console debuggers
 
 To try it out, run a test with `./pants test --debug-adapter $filename`. You’ll see a prompt like:
 
-```console
+```shell-session
 [INFO] Launching debug adapter at '127.0.0.1:5678', which will wait for a client connection…
 ```
 

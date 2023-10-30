@@ -19,7 +19,7 @@ _Pants 2.6 can now understand Poetry’s `pyproject.toml` configuration for thir
 
 For example, given this file:
 
-```Python3
+```python
 from django.http import HttpResponse
 
 def index(request):
@@ -43,7 +43,7 @@ Normally, Pants learns about your third-party dependencies by parsing `requireme
 
 For example, given this `pyproject.toml`:
 
-```TOML
+```toml
 [tool.poetry]
 name = "my_project"
 version = "0.1.0"
@@ -61,12 +61,13 @@ isort = ">=5.5.1,<5.6"
 
 Pants will map to these 3rd-party dependencies:
 
-````ansicolors
+```
+ansicolors
 zipp@git+https://github.com/jaraco/zipp.git
 requests[security] == 1.2.3; python_version >= 2.7
 complex_req>=1.9; python_version >= "2.7" and python_version < "3.0"
-complex_req<3.0.0,>=2.0; python_version == "3.4" or python_version == "3.5"```
-````
+complex_req<3.0.0,>=2.0; python_version == "3.4" or python_version == "3.5"
+```
 
 This teaches Pants about the universe of all the third-party dependencies your project uses. Pants will then use dependency inference to determine exactly which subset of your dependencies are used by each file. This allows a single repository (i.e. a monorepo) to safely package multiple wheels/binaries for their project using a single `pyproject.toml`, as opposed to having a unique requirements list for every package in their repo: Pants will use the proper subset of dependencies for each package, automatically.
 

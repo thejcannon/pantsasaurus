@@ -33,7 +33,7 @@ If you have a multi-platform CI build, you’d usually have to split your build 
 
 Because Pants natively supports building with multiple Environments concurrently, you can easily cross-build for multiple platforms at once. For example, running a test on macOS and Linux simultaneously:
 
-```console
+```shell-session
 $ ./pants test src/python/pants/util/dirutil_test.py
 ...
 ✓ src/python/pants/util/dirutil_test.py@environment=local_macos succeeded in 2.45s.

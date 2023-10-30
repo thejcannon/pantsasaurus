@@ -101,7 +101,7 @@ def visibility_private_component(**kwargs):
 
 Having this macro, you can keep your BUILD files concise:
 
-```#
+```
 python_sources()
 python_tests()
 visibility_private_component(

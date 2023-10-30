@@ -27,7 +27,7 @@ See our recent blog post ["Poetry support for Pants 2.6"](../2021-07-29-poetry-s
 
 Pants now understands how to [infer dependencies](../2020-10-29-dependency-inference/index.md) for third-party type stubs. For example, if you have `import requests` in your code, Pants will infer a dependency on both the implementation and the type stub.
 
-```shell
+```bash
 > ./pants dependencies project/app.py
 3rdparty/python:requests
 3rdparty/python:types-requests

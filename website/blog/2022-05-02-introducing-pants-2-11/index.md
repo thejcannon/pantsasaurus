@@ -35,7 +35,7 @@ message Person {
 
 Pants will detect whenever your first party code uses the package set by `option go_package`, and then generate and compile the precise code for you using Protoc.
 
-```golang
+```go
 package examples
 
 import "testing"

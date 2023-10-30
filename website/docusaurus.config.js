@@ -79,8 +79,31 @@ const config = {
             dropdownActiveClassDisabled: true,
           },
           {
+            type: "dropdown",
+            label: "Slack",
+            position: "right",
+            items: [
+              {
+                label: "Workspace",
+                href: "https://pantsbuild.slack.com",
+              },
+              {
+                label: "Workspace Invite",
+                href: "https://docs.google.com/forms/d/e/1FAIpQLSf9zgf-MXRnVDJbrVEST3urqneq7LCcy0zw8qU-GH4hPMn52A/viewform?usp=sf_link",
+              },
+              {
+                label: "Linen Mirror",
+                href: "https://chat.pantsbuild.org",
+              },
+            ],
+          },
+          {
             href: "https://github.com/pantsbuild/pants",
             label: "GitHub",
+            position: "right",
+          },
+          {
+            type: "search",
             position: "right",
           },
         ],
@@ -93,24 +116,28 @@ const config = {
             items: [
               {
                 label: "Users",
-                to: "/users",
+                to: "/spotlight/users",
               },
               {
                 label: "Testimonials",
-                to: "/testimonials",
+                to: "/spotlight/testimonials",
               },
               {
                 label: "Whos Hiring?",
-                to: "/jobs",
+                to: "/spotlight/jobs",
               },
               {
                 label: "Media",
-                to: "/media",
+                to: "/spotlight/media",
+              },
+              {
+                label: "Service Providers",
+                to: "/spotlight/service-providers",
               },
             ],
           },
           {
-            title: "Community",
+            title: "Connect",
             items: [
               {
                 label: "Slack",
@@ -147,10 +174,44 @@ const config = {
               },
             ],
           },
+          {
+            title: "Community",
+            items: [
+              {
+                label: "Members",
+                href: "/community/members",
+              },
+              {
+                label: "Code of Conduct",
+                href: "/community/code-of-conduct",
+              },
+              {
+                label: "Meet the Team",
+                href: "/community/meet-the-team",
+              },
+              {
+                label: "Maintainers",
+                href: "/community/maintainers",
+              },
+              {
+                label: "Contentious Decisions",
+                href: "/community/contentions-decisions",
+              },
+            ],
+          },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} Pants project contributors.`,
       },
       prism: {
+        additionalLanguages: [
+          "toml",
+          "protobuf",
+          "shell-session",
+          "bash",
+          "docker",
+          "go",
+          "java",
+        ],
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },

@@ -35,7 +35,7 @@ Pants can now create Docker images for you that include any of Pants’ supporte
 
 For example, given this Dockerfile and Pants metadata:
 
-```Docker
+```dockerfile
 # project/Dockerfile
 FROM python:3.8
 ENTRYPOINT ["/bin/my_app"]
