@@ -3,8 +3,6 @@
     position: 0
 ---
 
-
-
 ---
 
 # What is Pants?
@@ -27,7 +25,7 @@ Pants is designed for fast, consistent builds. Some noteworthy features include:
 
 # Which languages and frameworks does Pants support?
 
-Pants currently works with Python code, but support for other languages, including Javascript/Node, Java, Scala and more, is coming soon. 
+Pants currently works with Python code, but support for other languages, including Javascript/Node, Java, Scala and more, is coming soon.
 
 # How does Pants work?
 
@@ -42,4 +40,3 @@ Pants is an open-source software project, developed at [github.com/pantsbuild/pa
     This documentation is for Pants 2.0, which is a ground-up redesign of Pants based on lessons from the past 10 years of development. See [here](https://v1.pantsbuild.org/) for Pants v1 documentation, which includes support for Node, Go, Java, and Scala.
 
 :::
-

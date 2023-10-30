@@ -8,6 +8,7 @@ Ignoring Pants's byproduct files.
 ---
 
 If you use Git, we recommend adding these lines to your top-level `.gitignore` file:
+
 ```text title=".gitignore"
 # Pants workspace files
 /.pants.d/
@@ -15,8 +16,6 @@ If you use Git, we recommend adding these lines to your top-level `.gitignore` f
 /.pids
 /.pants.workdir.file_lock*
 ```
-
-
 
 :::note FYI: your `.gitignore` is used to auto-populate the option `pants_ignore`
 

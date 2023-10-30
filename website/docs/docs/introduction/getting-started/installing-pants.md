@@ -3,15 +3,13 @@
     position: 0
 ---
 
-
-
 ---
 
 # Prerequisites
 
 To run Pants, you need:
 
-- Linux (x86_64) or macOS. 
+- Linux (x86_64) or macOS.
 - Python 3.6+ discoverable on your `PATH`.
 - Internet access (so that Pants can fully bootstrap itself).
 
@@ -22,39 +20,31 @@ To run Pants, you need:
 
 :::
 
-
-
 :::caution Alpine Linux is not yet supported
 
-    Pants for Linux is currently distributed as a manylinux wheel. Alpine Linux is not covered by manylinux (it uses MUSL libc while manylinux requires glibc), so at present Pants will not run on Alpine Linux. 
-    
+    Pants for Linux is currently distributed as a manylinux wheel. Alpine Linux is not covered by manylinux (it uses MUSL libc while manylinux requires glibc), so at present Pants will not run on Alpine Linux.
+
     If you need to run Pants on Alpine, [let us know](../getting-help.md), so we can prioritize this work.
-    
+
     Meanwhile, you can try [building Pants yourself](#building-pants-from-sources) on Alpine.
 
 :::
 
-
-
 :::caution Linux on ARM is not yet supported
 
     Pants for Linux is currently only distributed as an x86_64 wheel.
-    
+
     If you need to run Pants on ARM, [let us know](../getting-help.md), so we can prioritize this work.
-    
+
     Meanwhile you can try [building Pants yourself](#building-pants-from-sources) on ARM.
 
 :::
-
-
 
 :::note Python 2 compatibility
 
     Pants requires Python 3.6+ to run itself, but it can build Python 2 code.
 
 :::
-
-
 
 :::note Using a proxy?
 
@@ -63,6 +53,7 @@ To run Pants, you need:
 :::
 
 # Creating the launch script
+
 Pants is invoked via a launch script named `./pants` , saved at the root of the repository.
 
 First, set up a minimal `pants.toml` config file to instruct the script to download the latest 2.0.x release:
@@ -90,8 +81,8 @@ Now, run this to bootstrap Pants and to verify the version it installs:
 
 :::
 
-
 ## Building Pants from sources
+
 We currently distribute Pants for Linux (x86_64) and MacOS.
 
 If you need to run Pants on some other platform, such as Linux on ARM, or Alpine Linux, you can try building it yourself by checking out the [Pants repo](https://github.com/pantsbuild/pants), and running `build-support/bin/release.sh -q`.
