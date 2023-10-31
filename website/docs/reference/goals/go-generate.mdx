@@ -1,0 +1,56 @@
+---
+title: go-generate
+---
+
+---
+
+```
+pants go-generate [args]
+```
+
+Run each command in a package described by a `//go:generate` directive. This is equivalent to running `go generate` on a Go package.
+
+Note: Just like with `go generate`, the `go-generate` goal is never run as part of the build and must be run manually to invoke the commands described by the `//go:generate` directives.
+
+See https://go.dev/blog/generate for details.
+
+Backend: <span style="color: purple"><code>pants.backend.experimental.go</code></span>
+Config section: <span style="color: purple"><code>[go-generate]</code></span>
+
+## Basic options
+
+None
+
+## Advanced options
+
+<div style="color: purple">
+
+### `env_vars`
+
+  <code>--go-generate-env-vars=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_GO_GENERATE_ENV_VARS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <pre>[
+  "LANG",
+  "LC&lowbar;CTYPE",
+  "LC&lowbar;ALL",
+  "PATH"
+]</pre></span>
+
+<br>
+
+Environment variables to set when invoking generator programs. Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants's own environment.
+
+Can be overriden by field `go_generate_env_vars` on `local_environment`, `docker_environment`, or `remote_environment` targets.
+
+</div>
+<br>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+[environments-preview](reference-environments-preview), [filter](reference-filter), [go-test](reference-go-test), [golang](reference-golang)

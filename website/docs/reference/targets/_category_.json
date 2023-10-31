@@ -1,7 +1,4 @@
 {
   "label": "Targets",
-  "link": {
-    "type": "generated-index",
-    "description": "Targets."
-  }
+  "position": 1000
 }

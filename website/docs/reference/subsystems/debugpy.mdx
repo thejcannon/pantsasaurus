@@ -1,0 +1,136 @@
+---
+title: debugpy
+---
+
+---
+
+An implementation of the Debug Adapter Protocol for Python (https://github.com/microsoft/debugpy).
+
+Backend: <span style="color: purple"><code>pants.backend.python</code></span>
+Config section: <span style="color: purple"><code>[debugpy]</code></span>
+
+## Basic options
+
+<div style="color: purple">
+
+### `args`
+
+  <code>--debugpy-args=&quot;[&lt;shell_str&gt;, &lt;shell_str&gt;, ...]&quot;</code><br>
+  <code>PANTS_DEBUGPY_ARGS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>[]</code></span>
+
+<br>
+
+Arguments to pass directly to debugpy, e.g. `--debugpy-args='--log-to-stderr'`.
+
+</div>
+<br>
+
+## Advanced options
+
+<div style="color: purple">
+
+### `install_from_resolve`
+
+  <code>--debugpy-install-from-resolve=&lt;str&gt;</code><br>
+  <code>PANTS_DEBUGPY_INSTALL_FROM_RESOLVE</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>None</code></span>
+
+<br>
+
+If specified, install the tool using the lockfile for this named resolve.
+
+This resolve must be defined in `[python].resolves`, as described in [Third-party dependencies](doc:python-third-party-dependencies#user-lockfiles).
+
+The resolve's entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don't want to invalidate the tool's outputs when the resolve incurs changes to unrelated requirements.
+
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+
+If unspecified, and the `lockfile` option is set, the tool will use the custom `debugpy` "tool lockfile" generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `requirements`
+
+  <code>--debugpy-requirements=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_DEBUGPY_REQUIREMENTS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>[]</code></span>
+
+<br>
+
+If `install_from_resolve` is specified, install these requirements, at the versions provided by the specified resolve's lockfile.
+
+Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of `python_requirement` targets (or targets that generate or depend on `python_requirement` targets).
+
+The lockfile will be validated against the requirements - if a lockfile doesn't provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
+
+If unspecified, install the entire lockfile.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `interpreter_constraints`
+
+  <code>--debugpy-interpreter-constraints=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_DEBUGPY_INTERPRETER_CONSTRAINTS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <pre>[
+  "CPython&gt;=3.7,&lt;4"
+]</pre></span>
+
+<br>
+
+Python interpreter constraints for this tool.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `console_script`
+
+  <code>--debugpy-console-script=&lt;str&gt;</code><br>
+  <code>PANTS_DEBUGPY_CONSOLE_SCRIPT</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>None</code></span>
+
+<br>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `entry_point`
+
+  <code>--debugpy-entry-point=&lt;str&gt;</code><br>
+  <code>PANTS_DEBUGPY_ENTRY_POINT</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>debugpy</code></span>
+
+<br>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</div>
+<br>
+
+## Deprecated options
+
+None

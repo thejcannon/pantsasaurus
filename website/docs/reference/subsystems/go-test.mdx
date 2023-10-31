@@ -1,0 +1,305 @@
+---
+title: go-test
+---
+
+---
+
+Options for Go tests.
+
+Backend: <span style="color: purple"><code>pants.backend.experimental.go</code></span>
+Config section: <span style="color: purple"><code>[go-test]</code></span>
+
+## Basic options
+
+<div style="color: purple">
+
+### `args`
+
+  <code>--go-test-args=&quot;[&lt;shell_str&gt;, &lt;shell_str&gt;, ...]&quot;, ... -- [&lt;shell_str&gt; [&lt;shell_str&gt; [...]]]</code><br>
+  <code>PANTS_GO_TEST_ARGS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>[]</code></span>
+
+<br>
+
+Arguments to pass directly to Go test binary, e.g. `--go-test-args='-run TestFoo -v'`.
+
+Known Go test options will be transformed into the form expected by the test binary, e.g. `-v` becomes `-test.v`. Run `go help testflag` from the Go SDK to learn more about the options supported by Go test binaries.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `cover_mode`
+
+  <code>--go-test-cover-mode=&lt;GoCoverMode&gt;</code><br>
+  <code>PANTS_GO_TEST_COVER_MODE</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">one of: <code>set, count, atomic</code></span><br>
+<span style="color: green">default: <code>set</code></span>
+
+<br>
+
+Coverage mode to use when running Go tests with coverage analysis enabled via `--test-use-coverage`. Valid values are `set`, `count`, and `atomic`:
+
+- `set`: bool: does this statement run?
+- `count`: int: how many times does this statement run?
+- `atomic`: int: count, but correct in multithreaded tests; significantly more expensive.
+  </div>
+<br>
+
+<div style="color: purple">
+
+### `coverage_html`
+
+  <code>--[no-]go-test-coverage-html</code><br>
+  <code>PANTS_GO_TEST_COVERAGE_HTML</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>True</code></span>
+
+<br>
+
+If true, then convert coverage reports to HTML format and write a `coverage.html` file next to the raw coverage data.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `coverage_packages`
+
+  <code>--go-test-coverage-packages=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_GO_TEST_COVERAGE_PACKAGES</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>[]</code></span>
+
+<br>
+
+A list of "import path patterns" for determining which import paths will be instrumented for code coverage.
+
+From `go help packages`:
+
+An import path is a pattern if it includes one or more "..." wildcards, each of which can match any string, including the empty string and strings containing slashes. Such a pattern expands to all package directories found in the GOPATH trees with names matching the patterns.
+
+To make common patterns more convenient, there are two special cases. First, /... at the end of the pattern can match an empty string, so that net/... matches both net and packages in its subdirectories, like net/http. Second, any slash-separated pattern element containing a wildcard never participates in a match of the "vendor" element in the path of a vendored package, so that ./... does not match packages in subdirectories of ./vendor or ./mycode/vendor, but ./vendor/... and ./mycode/vendor/... do. Note, however, that a directory named vendor that itself contains code is not a vendored package: cmd/vendor would be a command named vendor, and the pattern cmd/... matches it. See golang.org/s/go15vendor for more about vendoring.
+
+This option is similar to the `go test -coverpkg` option, but without support currently for reserved import path patterns like `std` and `all`.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `skip`
+
+  <code>--[no-]go-test-skip</code><br>
+  <code>PANTS_GO_TEST_SKIP</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>False</code></span>
+
+<br>
+
+If true, don't use Go test binary when running `pants test`.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `force_race`
+
+  <code>--[no-]go-test-force-race</code><br>
+  <code>PANTS_GO_TEST_FORCE_RACE</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>False</code></span>
+
+<br>
+
+If true, then always enable the Go data race detector when running tests regardless of the test-by-test `test_race` field on the relevant `go_package` target.
+
+See https://go.dev/doc/articles/race_detector for additional information about the Go data race detector.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `force_msan`
+
+  <code>--[no-]go-test-force-msan</code><br>
+  <code>PANTS_GO_TEST_FORCE_MSAN</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>False</code></span>
+
+<br>
+
+If true, then always enable interoperation between Go and the C/C++ "memory sanitizer" when running tests regardless of the test-by-test `msan` field on the relevant `go_package` target.
+
+See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `force_asan`
+
+  <code>--[no-]go-test-force-asan</code><br>
+  <code>PANTS_GO_TEST_FORCE_ASAN</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>False</code></span>
+
+<br>
+
+If true, then always enable interoperation between Go and the C/C++ "address sanitizer" when running tests regardless of the test-by-test `asan` field on the relevant `go_package` target.
+
+See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional information about the C/C++ address sanitizer.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `block_profile`
+
+  <code>--[no-]go-test-block-profile</code><br>
+  <code>PANTS_GO_TEST_BLOCK_PROFILE</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>False</code></span>
+
+<br>
+
+Capture a goroutine blocking profile from the execution of the test runner. The profile will be written to the file `block.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `cpu_profile`
+
+  <code>--[no-]go-test-cpu-profile</code><br>
+  <code>PANTS_GO_TEST_CPU_PROFILE</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>False</code></span>
+
+<br>
+
+Capture a CPU profile from the execution of the test runner. The profile will be written to the file `cpu.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `mem_profile`
+
+  <code>--[no-]go-test-mem-profile</code><br>
+  <code>PANTS_GO_TEST_MEM_PROFILE</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>False</code></span>
+
+<br>
+
+Capture an allocation profile from the execution of the test runner after tests have passed. The profile will be written to the file `mem.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `mutex_profile`
+
+  <code>--[no-]go-test-mutex-profile</code><br>
+  <code>PANTS_GO_TEST_MUTEX_PROFILE</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>False</code></span>
+
+<br>
+
+Capture a mutex contention profile from the execution of the test runner when all tests are complete. The profile will be written to the file `mutex.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `trace`
+
+  <code>--[no-]go-test-trace</code><br>
+  <code>PANTS_GO_TEST_TRACE</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>False</code></span>
+
+<br>
+
+Capture an execution trace from the execution of the test runner. The trace will be written to the file `trace.out` in the test extra output directory.
+
+</div>
+<br>
+
+## Advanced options
+
+<div style="color: purple">
+
+### `coverage_output_dir`
+
+  <code>--go-test-coverage-output-dir=&lt;str&gt;</code><br>
+  <code>PANTS_GO_TEST_COVERAGE_OUTPUT_DIR</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>{distdir}/coverage/go/{target&lowbar;spec}</code></span>
+
+<br>
+
+Path to write the Go coverage reports to. Must be relative to the build root.
+
+Replacements:
+
+- `{distdir}` is replaced with the Pants `distdir`.
+- `{target_spec}` is replaced with the address of the applicable `go_package` target with `/`
+  characters replaced with dots (`.`).
+- `{import_path}` is replaced with the applicable package's import path. Subdirectories will be made
+  for any path components separated by `/` characters.
+- `{import_path_escaped}` is replaced with the applicable package's import path but with
+  slashes converted to underscores. This is deprecated and only exists to support behavior from
+  earlier versions.
+  </div>
+<br>
+
+<div style="color: purple">
+
+### `output_test_binary`
+
+  <code>--[no-]go-test-output-test-binary</code><br>
+  <code>PANTS_GO_TEST_OUTPUT_TEST_BINARY</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>False</code></span>
+
+<br>
+
+Write the test binary to the test extra output directory.
+
+This is similar to the `go test -c` option, but will still run the underlying test.
+
+</div>
+<br>
+
+## Deprecated options
+
+None

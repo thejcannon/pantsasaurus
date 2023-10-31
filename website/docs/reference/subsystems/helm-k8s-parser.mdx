@@ -1,0 +1,87 @@
+---
+title: helm-k8s-parser
+---
+
+---
+
+Analyses K8S manifests rendered by Helm.
+
+Backend: <span style="color: purple"><code>pants.backend.experimental.helm</code></span>
+Config section: <span style="color: purple"><code>[helm-k8s-parser]</code></span>
+
+## Basic options
+
+None
+
+## Advanced options
+
+<div style="color: purple">
+
+### `install_from_resolve`
+
+  <code>--helm-k8s-parser-install-from-resolve=&lt;str&gt;</code><br>
+  <code>PANTS_HELM_K8S_PARSER_INSTALL_FROM_RESOLVE</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>None</code></span>
+
+<br>
+
+If specified, install the tool using the lockfile for this named resolve.
+
+This resolve must be defined in `[python].resolves`, as described in [Third-party dependencies](doc:python-third-party-dependencies#user-lockfiles).
+
+The resolve's entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don't want to invalidate the tool's outputs when the resolve incurs changes to unrelated requirements.
+
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+
+If unspecified, and the `lockfile` option is set, the tool will use the custom `helm-k8s-parser` "tool lockfile" generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `requirements`
+
+  <code>--helm-k8s-parser-requirements=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_HELM_K8S_PARSER_REQUIREMENTS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>[]</code></span>
+
+<br>
+
+If `install_from_resolve` is specified, install these requirements, at the versions provided by the specified resolve's lockfile.
+
+Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of `python_requirement` targets (or targets that generate or depend on `python_requirement` targets).
+
+The lockfile will be validated against the requirements - if a lockfile doesn't provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
+
+If unspecified, install the entire lockfile.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `interpreter_constraints`
+
+  <code>--helm-k8s-parser-interpreter-constraints=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_HELM_K8S_PARSER_INTERPRETER_CONSTRAINTS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <pre>[
+  "CPython&gt;=3.7,&lt;3.10"
+]</pre></span>
+
+<br>
+
+Python interpreter constraints for this tool.
+
+</div>
+<br>
+
+## Deprecated options
+
+None

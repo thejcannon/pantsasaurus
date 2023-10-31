@@ -1,0 +1,105 @@
+---
+title: export
+---
+
+---
+
+```
+pants export [args]
+```
+
+Export Pants data for use in other tools, such as IDEs.
+
+Backend: <span style="color: purple"><code>pants.core</code></span>
+Config section: <span style="color: purple"><code>[export]</code></span>
+
+## Basic options
+
+<div style="color: purple">
+
+### `resolve`
+
+  <code>--export-resolve=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_EXPORT_RESOLVE</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>[]</code></span>
+
+<br>
+
+Export the specified resolve(s). The export format is backend-specific, e.g., Python resolves are exported as virtualenvs.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `py_resolve_format`
+
+  <code>--export-py-resolve-format=&lt;PythonResolveExportFormat&gt;</code><br>
+  <code>PANTS_EXPORT_PY_RESOLVE_FORMAT</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">one of: <code>mutable_virtualenv, symlinked_immutable_virtualenv</code></span><br>
+<span style="color: green">default: <code>mutable&lowbar;virtualenv</code></span>
+
+<br>
+
+Export Python resolves using this format. Options are:
+
+- `mutable_virtualenv`: Export a standalone mutable virtualenv that you can
+  further modify.
+- `symlinked_immutable_virtualenv`: Export a symlink into a cached Python virtualenv.
+  This virtualenv will have no pip binary, and will be immutable. Any attempt to
+  modify it will corrupt the cache! It may, however, take significantly less time
+  to export than a standalone, mutable virtualenv.
+  </div>
+<br>
+
+## Advanced options
+
+<div style="color: purple">
+
+### `py_editable_in_resolve`
+
+  <code>--export-py-editable-in-resolve=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_EXPORT_PY_EDITABLE_IN_RESOLVE</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>[]</code></span>
+
+<br>
+
+When exporting a mutable virtualenv for a resolve, do PEP-660 editable installs of all 'python_distribution' targets that own code in the exported resolve.
+
+If a resolve name is not in this list, 'python_distribution' targets will not be installed in the virtualenv. This defaults to an empty list for backwards compatibility and to prevent unnecessary work to generate and install the PEP-660 editable wheels.
+
+This only applies when '[python].enable_resolves' is true and when exporting a 'mutable_virtualenv' ('symlinked_immutable_virtualenv' exports are not "full" virtualenvs because they must not be edited, and do not include 'pip').
+
+NOTE: If you are using legacy exports (not using the '--resolve' option), then this option has no effect. Legacy exports will not include any editable installs.
+
+</div>
+<br>
+
+## Deprecated options
+
+<div style="color: purple">
+
+### `symlink_python_virtualenv`
+
+  <code>--[no-]export-symlink-python-virtualenv</code><br>
+  <code>PANTS_EXPORT_SYMLINK_PYTHON_VIRTUALENV</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>False</code></span>
+<p style="color: darkred">Deprecated, is scheduled to be removed in version: 2.20.0.dev0.<br>Set the `[export].py_resolve_format` option to 'symlinked_immutable_virtualenv'</p>
+<br>
+
+Export a symlink into a cached Python virtualenv. This virtualenv will have no pip binary, and will be immutable. Any attempt to modify it will corrupt the cache! It may, however, take significantly less time to export than a standalone, mutable virtualenv will.
+
+</div>
+<br>
+
+## Related subsystems
+
+[environments-preview](reference-environments-preview), [filter](reference-filter)

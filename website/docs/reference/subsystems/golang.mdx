@@ -1,0 +1,389 @@
+---
+title: golang
+---
+
+---
+
+Options for Golang support.
+
+Backend: <span style="color: purple"><code>pants.backend.experimental.go</code></span>
+Config section: <span style="color: purple"><code>[golang]</code></span>
+
+## Basic options
+
+<div style="color: purple">
+
+### `minimum_expected_version`
+
+  <code>--golang-minimum-expected-version=&lt;str&gt;</code><br>
+  <code>PANTS_GOLANG_MINIMUM_EXPECTED_VERSION</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>1.17</code></span>
+
+<br>
+
+The minimum Go version the distribution discovered by Pants must support.
+
+For example, if you set `'1.17'`, then Pants will look for a Go binary that is 1.17+, e.g. 1.17 or 1.18.
+
+You should still set the Go version for each module in your `go.mod` with the `go` directive.
+
+Do not include the patch version.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `cgo_enabled`
+
+  <code>--[no-]golang-cgo-enabled</code><br>
+  <code>PANTS_GOLANG_CGO_ENABLED</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>True</code></span>
+
+<br>
+
+Enable Cgo support, which allows Go and C code to interact. This option must be enabled for any packages making use of Cgo to actually be compiled with Cgo support.
+
+See https://go.dev/blog/cgo and https://pkg.go.dev/cmd/cgo for additional information about Cgo.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `go_search_paths`
+
+  <code>--golang-go-search-paths=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_GOLANG_GO_SEARCH_PATHS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <pre>[
+  "&lt;PATH&gt;"
+]</pre></span>
+
+<br>
+
+A list of paths to search for Go.
+
+Specify absolute paths to directories with the `go` binary, e.g. `/usr/bin`. Earlier entries will be searched first.
+
+The following special strings are supported:
+
+- `<PATH>`, the contents of the PATH environment variable
+- `<ASDF>`, all Go versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
+- `<ASDF_LOCAL>`, the ASDF binary with the version in `BUILD_ROOT/.tool-versions`
+
+Can be overriden by field `golang_go_search_paths` on `local_environment`, `docker_environment`, or `remote_environment` targets.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `cgo_tool_search_paths`
+
+  <code>--golang-cgo-tool-search-paths=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_GOLANG_CGO_TOOL_SEARCH_PATHS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <pre>[
+  "&lt;PATH&gt;"
+]</pre></span>
+
+<br>
+
+A list of paths to search for tools needed by CGo (e.g., gcc, g++).
+
+Specify absolute paths to directories with tools needed by CGo , e.g. `/usr/bin`. Earlier entries will be searched first.
+
+The following special strings are supported:
+
+- `<PATH>`, the contents of the PATH environment variable
+
+Can be overriden by field `golang_cgo_tool_search_paths` on `local_environment`, `docker_environment`, or `remote_environment` targets.
+
+</div>
+<br>
+
+## Advanced options
+
+<div style="color: purple">
+
+### `tailor_go_mod_targets`
+
+  <code>--[no-]golang-tailor-go-mod-targets</code><br>
+  <code>PANTS_GOLANG_TAILOR_GO_MOD_TARGETS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>True</code></span>
+
+<br>
+
+If true, add a `go_mod` target with the `tailor` goal wherever there is a `go.mod` file.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `tailor_package_targets`
+
+  <code>--[no-]golang-tailor-package-targets</code><br>
+  <code>PANTS_GOLANG_TAILOR_PACKAGE_TARGETS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>True</code></span>
+
+<br>
+
+If true, add a `go_package` target with the `tailor` goal in every directory with a `.go` file.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `tailor_binary_targets`
+
+  <code>--[no-]golang-tailor-binary-targets</code><br>
+  <code>PANTS_GOLANG_TAILOR_BINARY_TARGETS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>True</code></span>
+
+<br>
+
+If true, add a `go_binary` target with the `tailor` goal in every directory with a `.go` file with `package main`.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `asdf_tool_name`
+
+  <code>--golang-asdf-tool-name=&lt;str&gt;</code><br>
+  <code>PANTS_GOLANG_ASDF_TOOL_NAME</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>go-sdk</code></span>
+
+<br>
+
+The ASDF tool name to use when searching for installed Go distributions using the ASDF tool manager (https://asdf-vm.com/). The default value for this option is for the `go-sdk` ASDF plugin (https://github.com/yacchi/asdf-go-sdk.git). There are other plugins. If you wish to use one of them, then set this option to the ASDF tool name under which that other plugin was installed into ASDF.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `asdf_bin_relpath`
+
+  <code>--golang-asdf-bin-relpath=&lt;str&gt;</code><br>
+  <code>PANTS_GOLANG_ASDF_BIN_RELPATH</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>bin</code></span>
+
+<br>
+
+The path relative to an ASDF install directory to use to find the `bin` directory within an installed Go distribution. The default value for this option works for the `go-sdk` ASDF plugin. Other ASDF plugins that install Go may have a different relative path to use.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `subprocess_env_vars`
+
+  <code>--golang-subprocess-env-vars=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_GOLANG_SUBPROCESS_ENV_VARS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <pre>[
+  "LANG",
+  "LC&lowbar;CTYPE",
+  "LC&lowbar;ALL",
+  "PATH"
+]</pre></span>
+
+<br>
+
+Environment variables to set when invoking the `go` tool. Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants's own environment.
+
+Can be overriden by field `golang_subprocess_env_vars` on `local_environment`, `docker_environment`, or `remote_environment` targets.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `cgo_gcc_binary_name`
+
+  <code>--golang-cgo-gcc-binary-name=&lt;str&gt;</code><br>
+  <code>PANTS_GOLANG_CGO_GCC_BINARY_NAME</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>gcc</code></span>
+
+<br>
+
+Name of the tool to use to compile C code included via CGo in a Go package. Pants will search for the tool using the paths specified by the `[golang].cgo_tool_search_paths` option.
+
+Can be overriden by field `golang_cgo_gcc_binary_name` on `local_environment`, `docker_environment`, or `remote_environment` targets.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `cgo_gxx_binary_name`
+
+  <code>--golang-cgo-gxx-binary-name=&lt;str&gt;</code><br>
+  <code>PANTS_GOLANG_CGO_GXX_BINARY_NAME</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>g++</code></span>
+
+<br>
+
+Name of the tool to use to compile C++ code included via CGo in a Go package. Pants will search for the tool using the paths specified by the `[golang].cgo_tool_search_paths` option.
+
+Can be overriden by field `golang_cgo_gxx_binary_name` on `local_environment`, `docker_environment`, or `remote_environment` targets.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `cgo_fortran_binary_name`
+
+  <code>--golang-cgo-fortran-binary-name=&lt;str&gt;</code><br>
+  <code>PANTS_GOLANG_CGO_FORTRAN_BINARY_NAME</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>gfortran</code></span>
+
+<br>
+
+Name of the tool to use to compile fortran code included via CGo in a Go package. Pants will search for the tool using the paths specified by the `[golang].cgo_tool_search_paths` option.
+
+Can be overriden by field `golang_cgo_fortran_binary_name` on `local_environment`, `docker_environment`, or `remote_environment` targets.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `external_linker_binary_name`
+
+  <code>--golang-external-linker-binary-name=&lt;str&gt;</code><br>
+  <code>PANTS_GOLANG_EXTERNAL_LINKER_BINARY_NAME</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>gcc</code></span>
+
+<br>
+
+Name of the tool to use as the "external linker" when invoking `go tool link`. Pants will search for the tool using the paths specified by the `[golang].cgo_tool_search_paths` option.
+
+Can be overriden by field `golang_external_linker_binary_name` on `local_environment`, `docker_environment`, or `remote_environment` targets.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `cgo_c_flags`
+
+  <code>--golang-cgo-c-flags=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_GOLANG_CGO_C_FLAGS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <pre>[
+  "-g",
+  "-O2"
+]</pre></span>
+
+<br>
+
+Compiler options used when compiling C code when Cgo is enabled. Equivalent to setting the CGO_CFLAGS environment variable when invoking `go`.
+
+Can be overriden by field `golang_cgo_c_flags` on `local_environment`, `docker_environment`, or `remote_environment` targets.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `cgo_cxx_flags`
+
+  <code>--golang-cgo-cxx-flags=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_GOLANG_CGO_CXX_FLAGS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <pre>[
+  "-g",
+  "-O2"
+]</pre></span>
+
+<br>
+
+Compiler options used when compiling C++ code when Cgo is enabled. Equivalent to setting the CGO_CXXFLAGS environment variable when invoking `go`.
+
+Can be overriden by field `golang_cgo_cxx_flags` on `local_environment`, `docker_environment`, or `remote_environment` targets.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `cgo_fortran_flags`
+
+  <code>--golang-cgo-fortran-flags=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_GOLANG_CGO_FORTRAN_FLAGS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <pre>[
+  "-g",
+  "-O2"
+]</pre></span>
+
+<br>
+
+Compiler options used when compiling Fortran code when Cgo is enabled. Equivalent to setting the CGO_FFLAGS environment variable when invoking `go`.
+
+Can be overriden by field `golang_cgo_fortran_flags` on `local_environment`, `docker_environment`, or `remote_environment` targets.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `cgo_linker_flags`
+
+  <code>--golang-cgo-linker-flags=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_GOLANG_CGO_LINKER_FLAGS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <pre>[
+  "-g",
+  "-O2"
+]</pre></span>
+
+<br>
+
+Compiler options used when linking native code when Cgo is enabled. Equivalent to setting the CGO_LDFLAGS environment variable when invoking `go`.
+
+Can be overriden by field `golang_cgo_linker_flags` on `local_environment`, `docker_environment`, or `remote_environment` targets.
+
+</div>
+<br>
+
+## Deprecated options
+
+None

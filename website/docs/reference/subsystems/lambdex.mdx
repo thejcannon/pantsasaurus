@@ -1,0 +1,144 @@
+---
+title: lambdex
+---
+
+---
+
+A tool for turning .pex files into Function-as-a-Service artifacts (https://github.com/pantsbuild/lambdex).
+
+Backend: <span style="color: purple"><code>pants.backend.awslambda.python</code></span>
+Config section: <span style="color: purple"><code>[lambdex]</code></span>
+
+## Basic options
+
+None
+
+## Advanced options
+
+<div style="color: purple">
+
+### `install_from_resolve`
+
+  <code>--lambdex-install-from-resolve=&lt;str&gt;</code><br>
+  <code>PANTS_LAMBDEX_INSTALL_FROM_RESOLVE</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>None</code></span>
+
+<br>
+
+If specified, install the tool using the lockfile for this named resolve.
+
+This resolve must be defined in `[python].resolves`, as described in [Third-party dependencies](doc:python-third-party-dependencies#user-lockfiles).
+
+The resolve's entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don't want to invalidate the tool's outputs when the resolve incurs changes to unrelated requirements.
+
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+
+If unspecified, and the `lockfile` option is set, the tool will use the custom `lambdex` "tool lockfile" generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `requirements`
+
+  <code>--lambdex-requirements=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_LAMBDEX_REQUIREMENTS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>[]</code></span>
+
+<br>
+
+If `install_from_resolve` is specified, install these requirements, at the versions provided by the specified resolve's lockfile.
+
+Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of `python_requirement` targets (or targets that generate or depend on `python_requirement` targets).
+
+The lockfile will be validated against the requirements - if a lockfile doesn't provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
+
+If unspecified, install the entire lockfile.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `interpreter_constraints`
+
+  <code>--lambdex-interpreter-constraints=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_LAMBDEX_INTERPRETER_CONSTRAINTS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <pre>[
+  "CPython&gt;=3.7,&lt;3.12"
+]</pre></span>
+
+<br>
+
+Python interpreter constraints for this tool.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `console_script`
+
+  <code>--lambdex-console-script=&lt;str&gt;</code><br>
+  <code>PANTS_LAMBDEX_CONSOLE_SCRIPT</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>lambdex</code></span>
+
+<br>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `entry_point`
+
+  <code>--lambdex-entry-point=&lt;str&gt;</code><br>
+  <code>PANTS_LAMBDEX_ENTRY_POINT</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>None</code></span>
+
+<br>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</div>
+<br>
+
+## Deprecated options
+
+<div style="color: purple">
+
+### `layout`
+
+  <code>--lambdex-layout=&lt;LambdexLayout&gt;</code><br>
+  <code>PANTS_LAMBDEX_LAYOUT</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">one of: <code>lambdex, zip</code></span><br>
+<span style="color: green">default: <code>zip</code></span>
+<p style="color: darkred">Deprecated, is scheduled to be removed in version: 2.19.0.dev0.<br>Remove the whole [lambdex] section, as Lambdex is deprecated and its functionality will be removed. If you have `layout = &quot;zip&quot;`, no further action is required, as you are already using the recommended layout.
+
+If you have `layout = &quot;lambdex&quot;`, removing the section will switch any `python_aws_lambda_function` (formerly `python_awslambda`) and `python_google_cloud_function` targets to using the `zip` layout, as recommended by cloud vendors. (If you are using `python_aws_lambda_function`, you will need to also update the handlers configured in the cloud from `lambdex_handler.handler` to `lambda_function.handler`.)
+
+See the docs for more details:
+
+- [AWS Lambda](doc:awslambda-python#migrating-from-pants-216-and-earlier)
+- [Google Cloud Functions](doc:google-cloud-function-python#migrating-from-pants-216-and-earlier)</p>
+  <br>
+
+Explicitly control the layout used for `python_aws_lambda_function` (formerly `python_awslambda`) and `python_google_cloud_function` targets. This option exists for the transition from Lambdex-based layout to the plain zip layout, as recommended by cloud vendors.
+
+</div>
+<br>

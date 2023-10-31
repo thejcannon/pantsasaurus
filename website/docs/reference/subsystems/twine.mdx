@@ -1,0 +1,214 @@
+---
+title: twine
+---
+
+---
+
+The utility for publishing Python distributions to PyPI and other Python repositories.
+
+Backend: <span style="color: purple"><code>pants.backend.experimental.python</code></span>
+Config section: <span style="color: purple"><code>[twine]</code></span>
+
+## Basic options
+
+<div style="color: purple">
+
+### `skip`
+
+  <code>--[no-]twine-skip</code><br>
+  <code>PANTS_TWINE_SKIP</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>False</code></span>
+
+<br>
+
+If true, don't use Twine when running `pants publish`.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `args`
+
+  <code>--twine-args=&quot;[&lt;shell_str&gt;, &lt;shell_str&gt;, ...]&quot;</code><br>
+  <code>PANTS_TWINE_ARGS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>[]</code></span>
+
+<br>
+
+Arguments to pass directly to Twine, e.g. `--twine-args='--skip-existing'`.
+
+</div>
+<br>
+
+## Advanced options
+
+<div style="color: purple">
+
+### `install_from_resolve`
+
+  <code>--twine-install-from-resolve=&lt;str&gt;</code><br>
+  <code>PANTS_TWINE_INSTALL_FROM_RESOLVE</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>None</code></span>
+
+<br>
+
+If specified, install the tool using the lockfile for this named resolve.
+
+This resolve must be defined in `[python].resolves`, as described in [Third-party dependencies](doc:python-third-party-dependencies#user-lockfiles).
+
+The resolve's entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don't want to invalidate the tool's outputs when the resolve incurs changes to unrelated requirements.
+
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+
+If unspecified, and the `lockfile` option is set, the tool will use the custom `twine` "tool lockfile" generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `requirements`
+
+  <code>--twine-requirements=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_TWINE_REQUIREMENTS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>[]</code></span>
+
+<br>
+
+If `install_from_resolve` is specified, install these requirements, at the versions provided by the specified resolve's lockfile.
+
+Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of `python_requirement` targets (or targets that generate or depend on `python_requirement` targets).
+
+The lockfile will be validated against the requirements - if a lockfile doesn't provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
+
+If unspecified, install the entire lockfile.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `interpreter_constraints`
+
+  <code>--twine-interpreter-constraints=&quot;['&lt;str&gt;', '&lt;str&gt;', ...]&quot;</code><br>
+  <code>PANTS_TWINE_INTERPRETER_CONSTRAINTS</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <pre>[
+  "CPython&gt;=3.7,&lt;4"
+]</pre></span>
+
+<br>
+
+Python interpreter constraints for this tool.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `console_script`
+
+  <code>--twine-console-script=&lt;str&gt;</code><br>
+  <code>PANTS_TWINE_CONSOLE_SCRIPT</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>twine</code></span>
+
+<br>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `entry_point`
+
+  <code>--twine-entry-point=&lt;str&gt;</code><br>
+  <code>PANTS_TWINE_ENTRY_POINT</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>None</code></span>
+
+<br>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `config`
+
+  <code>--twine-config=&lt;file_option&gt;</code><br>
+  <code>PANTS_TWINE_CONFIG</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>None</code></span>
+
+<br>
+
+Path to a .pypirc config file to use. (https://packaging.python.org/specifications/pypirc/)
+
+Setting this option will disable `[twine].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `config_discovery`
+
+  <code>--[no-]twine-config-discovery</code><br>
+  <code>PANTS_TWINE_CONFIG_DISCOVERY</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>True</code></span>
+
+<br>
+
+If true, Pants will include all relevant config files during runs (`.pypirc`).
+
+Use `[twine].config` instead if your config is in a non-standard location.
+
+</div>
+<br>
+
+<div style="color: purple">
+
+### `ca_certs_path`
+
+  <code>--twine-ca-certs-path=&lt;str&gt;</code><br>
+  <code>PANTS_TWINE_CA_CERTS_PATH</code><br>
+</div>
+<div style="padding-left: 2em;">
+<span style="color: green">default: <code>&lt;inherit&gt;</code></span>
+
+<br>
+
+Path to a file containing PEM-format CA certificates used for verifying secure connections when publishing python distributions.
+
+Uses the value from `[GLOBAL].ca_certs_path` by default. Set to `"<none>"` to not use any certificates.
+
+Even when using the `docker_environment` and `remote_environment` targets, this path will be read from the local host, and those certs will be used in the environment.
+
+This option cannot be overridden via environment targets, so if you need a different value than what the rest of your organization is using, override the value via an environment variable, CLI argument, or `.pants.rc` file. See [Options](doc:options).
+
+</div>
+<br>
+
+## Deprecated options
+
+None

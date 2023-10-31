@@ -1,7 +1,4 @@
 {
   "label": "Subsystems",
-  "link": {
-    "type": "generated-index",
-    "description": "Subsystems."
-  }
+  "position": 1000
 }
