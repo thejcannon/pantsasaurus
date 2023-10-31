@@ -11,8 +11,7 @@ Deprecations must live at least one minor release, meaning that if something is 
 
 Every deprecation message will include a description of how to respond to the change, such as renaming a value in your `pants.toml` config file. When possible, we will automate the deprecation via the `update-build-files` goal.
 
-Prohibited changes
-------------------
+## Prohibited changes
 
 - Removing options without a deprecation.
   - Deprecated options must behave the same as before.
@@ -21,18 +20,16 @@ Prohibited changes
 - Substantial performance regressions (slowdown of >= 10%).
   - If a new feature results in this slowdown, it should be put behind a flag that is disabled by default.
 
-Allowed changes
----------------
+## Allowed changes
 
 - Adding new options.
 - Adding new functionality.
 - Fixing bugs.
 - Changes that are required by law.
 
-Plugin API deprecation policy
------------------------------
+## Plugin API deprecation policy
 
-When [writing plugins](doc:plugins-overview), Pants is used as a _library_, rather than a _binary_. That is, you import Pants code to write plugins. We try to make this API stable for your plugins.
+When [writing plugins](../writing-plugins/plugins-overview.mdx), Pants is used as a _library_, rather than a _binary_. That is, you import Pants code to write plugins. We try to make this API stable for your plugins.
 
 ### What is public?
 
@@ -46,10 +43,10 @@ All other code defaults to being a private API and does not need to follow this 
 
 Examples:
 
-```python deprecation_example.py
+```python title="deprecation_example.py"
 """An example public module.
 
-This means that everything in this module is public, except for 
+This means that everything in this module is public, except for
 values prefixed with `_`.
 
 :API: public
@@ -57,7 +54,7 @@ values prefixed with `_`.
 
 def demo_function(x: int) -> None:
     """An example public top-level function.
-  
+
     :API: public
     """
     print(x)
@@ -65,16 +62,16 @@ def demo_function(x: int) -> None:
 
 class Demo:
     """An example public class.
-    
-    All methods and class properties are public, except for values 
+
+    All methods and class properties are public, except for values
     prefixed with `_`.
-    
+
     :API: public
     """
-    
+
     def demo_method(self, x: int) -> None:
         """An example public method.
-        
+
         :API: public
         """
         print(x)
@@ -104,8 +101,10 @@ These changes all require a deprecation.
 - Upgrading Pants to use new versions of third-party libraries.
 - Changes that are required by law.
 
-> 🚧 The Rules and Target APIs are still experimental
-> 
-> These two APIs do not yet follow this deprecation policy because we are actively shaping the API. 
-> 
-> We do try, however, to limit changes and may choose to respect the deprecation policy on a case-by-case basis.
+:::caution The Rules and Target APIs are still experimental
+
+    These two APIs do not yet follow this deprecation policy because we are actively shaping the API.
+
+    We do try, however, to limit changes and may choose to respect the deprecation policy on a case-by-case basis.
+
+:::

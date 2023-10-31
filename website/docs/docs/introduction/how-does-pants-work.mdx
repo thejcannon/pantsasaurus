@@ -3,39 +3,25 @@
     position: 1
 ---
 
-
-
 ---
 
-The Pants Engine
-----------------
+## The Pants Engine
 
 Pants is built around the "v2" engine, which is completely new technology, built from the ground up, based on lessons learned from working on the previous, "v1", technology.
 
-The Pants engine is written in [Rust](https://www.rust-lang.org/), for performance. The build rules that it uses are written in typed Python 3, for familiarity and simplicity. 
+The Pants engine is written in [Rust](https://www.rust-lang.org/), for performance. The build rules that it uses are written in typed Python 3, for familiarity and simplicity.
 
 The engine is designed so that fine-grained invalidation, concurrency, hermeticity, caching, and remote execution happen naturally, without rule authors needing to think about it.
 
-What are the benefits?
-----------------------
+## What are the benefits?
 
 ### Concurrency
 
 The engine can take full advantage of all the cores on your machine because relevant portions are implemented in Rust atop the [Tokio](https://tokio.rs/) framework.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/de72295-concurrency.gif",
-        "concurrency.gif"
-      ],
-      "caption": "Pants running multiple linters in parallel."
-    }
-  ]
-}
-[/block]
+<CaptionedImg src={require("/img/pants-concurrency.gif").default}>
+  Pants running multiple linters in parallel.
+</CaptionedImg>
 
 This means, for example, that you can run all of your linters at the same time, and fully utilize your cores to run tests in parallel.
 
@@ -43,19 +29,10 @@ This means, for example, that you can run all of your linters at the same time, 
 
 The engine caches processes precisely based on their inputs, and sandboxes execution to minimize side-effects and to make builds consistent and repeatable.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/603ef44-caching.gif",
-        "caching.gif"
-      ],
-      "caption": "We run both tests, then add a syntax error to one test and rerun; the unmodified test uses the cache and is isolated from the syntax error."
-    }
-  ]
-}
-[/block]
+<CaptionedImg src={require("/img/pants-caching.gif").default}>
+  We run both tests, then add a syntax error to one test and rerun; the
+  unmodified test uses the cache and is isolated from the syntax error.
+</CaptionedImg>
 
 ### Remote Execution
 
@@ -77,7 +54,7 @@ Pants analyzes your code's import statements to determine files' dependencies au
 
 Older build tools like Bazel:
 
-```python BUILD
+```python title="BUILD"
 python_library(
   name="lib"
   deps=[
@@ -102,14 +79,14 @@ python_tests(
 
 Pants 2:
 
-```python BUILD
+```python title="BUILD"
 python_sources(name="lib")
 python_tests(name="tests")
 ```
 
 ### A powerful plugin system
 
-With the [Pants plugin API](doc:plugins-overview), your custom rules will run with the same concurrency, caching, and remoting semantics as the core rules.
+With the [Pants plugin API](../writing-plugins/plugins-overview.mdx), your custom rules will run with the same concurrency, caching, and remoting semantics as the core rules.
 
 Some example plugins that users have written:
 
