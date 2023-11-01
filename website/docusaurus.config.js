@@ -195,7 +195,7 @@ const config = {
               },
               {
                 label: "Contentious Decisions",
-                href: "/community/contentions-decisions",
+                href: "/community/contentious-decisions",
               },
             ],
           },
