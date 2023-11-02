@@ -12,8 +12,8 @@ const config = {
   baseUrl: "/pantsasaurus/",
   trailingSlash: false,
 
-  organizationName: "pantsbuild",
-  projectName: "pants",
+  organizationName: "thejcannon",
+  projectName: "pantsasaurus",
 
   // @TODO: This should error!
   onBrokenLinks: "warn",
