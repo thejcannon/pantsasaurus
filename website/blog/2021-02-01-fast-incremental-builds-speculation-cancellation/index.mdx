@@ -13,7 +13,7 @@ Fast incremental re-builds are critical in large codebases and monorepos. Thanks
 
 # Overview
 
-Because they decouple your iteration time from the total size of your codebase, fast incremental re-builds are critical in large codebases and monorepos. As discussed in [our post about dependency inference](../2020-10-29-dependency-inference/index.md), having fine-grained dependency information reduces the amount of work that is invalidated after an edit by ignoring irrelevant changes.
+Because they decouple your iteration time from the total size of your codebase, fast incremental re-builds are critical in large codebases and monorepos. As discussed in [our post about dependency inference](../2020-10-29-dependency-inference/index.mdx), having fine-grained dependency information reduces the amount of work that is invalidated after an edit by ignoring irrelevant changes.
 
 But modern build tools are also able to avoid wasted work when a file that your build depends on _has_ (maybe!) changed. And thanks to its deep support for cancellation and side-effect free execution model, [Pants](https://www.pantsbuild.org/) is able to further reduce re-build latency by speculatively re-executing work!
 

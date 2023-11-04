@@ -25,7 +25,7 @@ The visibility backend lets you write rules that define allowed and forbidden de
 
 Visibility rules were one of our most requested features! Previously, "bad" dependencies could sneak in under the radar, particularly when relying on automatic [dependency inference](https://www.pantsbuild.org/v2.16/docs/how-does-pants-work#dependency-inference). Now, you can ensure that only dependencies that make sense for your repo architecture can exist.
 
-This is likely to have a profound effect on the structure of your repository, as it can enforce a clean interface between components and prevent unwanted cross-tier or cross-project dependencies. Given its significant scope, we published a blog post specifically about this feature. Please visit [Visibility features coming in Pants 2.16](../2023-04-25-visibility-feature-in-pants-2-16/index.md) to learn more.
+This is likely to have a profound effect on the structure of your repository, as it can enforce a clean interface between components and prevent unwanted cross-tier or cross-project dependencies. Given its significant scope, we published a blog post specifically about this feature. Please visit [Visibility features coming in Pants 2.16](../2023-04-25-visibility-feature-in-pants-2-16/index.mdx) to learn more.
 
 To help you get started, there's a [GitHub repository](https://github.com/pantsbuild/example-visibility) with a simple Python project where you will find some basic rules so that you could try to tweak them and explore.
 
@@ -37,7 +37,7 @@ If you haven’t seen this tool yet, take a close look! It may speed up your bui
 `pants.backend.experimental.python.lint.ruff` backend to make ruff available in your repository.
 Ruff support was added by a [first time contributor](https://github.com/pantsbuild/pants/pull/17945)! We're very grateful and excited to have new people coming on board and making such substantial changes. And this could be you! If you have a feature you'd like to add or a bug you need to fix, come talk to us [on Slack](https://www.pantsbuild.org/v2.16/docs/getting-help#community-chat). We'd love to help guide you through the contribution process.
 
-You can find more information about the linter addition process in a separate blog post. Please read [Linting Python at warp speed with Pants+Ruff](../2023-02-28-linting-python-at-warp-speed/index.md) to find out more.
+You can find more information about the linter addition process in a separate blog post. Please read [Linting Python at warp speed with Pants+Ruff](../2023-02-28-linting-python-at-warp-speed/index.mdx) to find out more.
 
 ## yamllint linter support
 
@@ -51,7 +51,7 @@ In fact, `yamllint` support, too, was added by a [first time contributor](https:
 
 ## Auto-installation of Python interpreters via pyenv
 
-Pants can now use [`pyenv`](https://github.com/pyenv/pyenv) to install Python interpreters for you! No more messing around with manually placing the right interpreter versions for your code on the PATH! Now Pants can now provide a hermetic version of Python for each relevant interpreter required to run user code. Enable the `pants.backend.python.providers.experimental.pyenv` backend to make it available in your repository. See our [separate blog post](../2023-03-31-two-hermetic-pythons/index.md) for more on this feature.
+Pants can now use [`pyenv`](https://github.com/pyenv/pyenv) to install Python interpreters for you! No more messing around with manually placing the right interpreter versions for your code on the PATH! Now Pants can now provide a hermetic version of Python for each relevant interpreter required to run user code. Enable the `pants.backend.python.providers.experimental.pyenv` backend to make it available in your repository. See our [separate blog post](../2023-03-31-two-hermetic-pythons/index.mdx) for more on this feature.
 
 ## Shell command improvements and running ad hoc tools
 

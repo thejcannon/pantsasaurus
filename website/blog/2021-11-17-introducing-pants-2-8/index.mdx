@@ -39,7 +39,7 @@ print(f"Hello {name}!")
 
 ## Publishing Docker images
 
-Pants 2.7 added experimental Docker support, which gives you a single command to [streamline deploying your Python applications with Docker](../2021-10-13-pants-pex-and-docker/index.md).
+Pants 2.7 added experimental Docker support, which gives you a single command to [streamline deploying your Python applications with Docker](../2021-10-13-pants-pex-and-docker/index.mdx).
 
 Pants 2.8 expands its Docker support to include [publishing images](https://www.pantsbuild.org/v2.8/docs/docker#publishing-images). Now, `./pants publish` will first build the Docker image—including copying in any relevant PEX binaries, Python wheels, and files. Pants will then publish the image to the registries you specify.
 
@@ -79,11 +79,11 @@ Pants now augments Go's (already excellent!) tooling with these unique benefits:
 3.  Remote caching and execution.
 4.  Unlike legacy build systems, these benefits all come with minimal boilerplate.
 
-Check out our [announcement](../2021-11-10-golang-support-pants-28/index.md) post for more, and an [example repository](https://github.com/pantsbuild/example-golang) to try it out.
+Check out our [announcement](../2021-11-10-golang-support-pants-28/index.mdx) post for more, and an [example repository](https://github.com/pantsbuild/example-golang) to try it out.
 
 ## PEP-517 packaging support
 
-As explained [in a previous post](../2021-10-27-pants-supports-pep-517/index.md), Pants can now act as a PEP 517 build frontend.
+As explained [in a previous post](../2021-10-27-pants-supports-pep-517/index.mdx), Pants can now act as a PEP 517 build frontend.
 
 Pants has long had the ability to generate setup.py files for you, to streamline creating and managing distributions. Pants 2.8 extends this with support for PEP 517, the Python standard for specifying how distributions should be built.
 
@@ -163,7 +163,7 @@ See the full [changelog](https://github.com/pantsbuild/pants/blob/main/src/pytho
 
 We are continuing to work on language support: adding more Go features and getting Java/Scala into alpha/beta state.
 
-We also plan to resume the redesign of Python lockfiles [started with Pants 2.7](../2021-09-27-introducing-pants-2-7/index.md)'s tool lockfiles.
+We also plan to resume the redesign of Python lockfiles [started with Pants 2.7](../2021-09-27-introducing-pants-2-7/index.mdx)'s tool lockfiles.
 
 \--
 

@@ -19,13 +19,13 @@ Pants now understands Poetry's `pyproject.toml` configuration for third-party de
 
 Poetry support makes it even easier [to incrementally adopt Pants](https://www.pantsbuild.org/docs/existing-repositories), and you can keep using Poetry for third-party dependency management after Pants adoption. Thanks to Pants's dependency inference, you can build multiple distinct wheels/binaries using only a single pyproject.toml.
 
-See our recent blog post ["Poetry support for Pants 2.6"](../2021-07-29-poetry-support-for-pants-2-6/index.md) for a more detailed introduction, along with the personal story behind [Toolchain](https://toolchain.com/)'s intern Liam Wilson adding this highly requested feature.
+See our recent blog post ["Poetry support for Pants 2.6"](../2021-07-29-poetry-support-for-pants-2-6/index.mdx) for a more detailed introduction, along with the personal story behind [Toolchain](https://toolchain.com/)'s intern Liam Wilson adding this highly requested feature.
 
 # Third-party type stubs and MyPy 0.900+
 
 [MyPy 0.900+ no longer includes typeshed](https://mypy-lang.blogspot.com/2021/06/mypy-0900-released.html), meaning that you must now install type stubs for many popular libraries. For example, you must install `types-requests` when using the `requests` library for MyPy to work properly.
 
-Pants now understands how to [infer dependencies](../2020-10-29-dependency-inference/index.md) for third-party type stubs. For example, if you have `import requests` in your code, Pants will infer a dependency on both the implementation and the type stub.
+Pants now understands how to [infer dependencies](../2020-10-29-dependency-inference/index.mdx) for third-party type stubs. For example, if you have `import requests` in your code, Pants will infer a dependency on both the implementation and the type stub.
 
 ```bash
 > ./pants dependencies project/app.py
