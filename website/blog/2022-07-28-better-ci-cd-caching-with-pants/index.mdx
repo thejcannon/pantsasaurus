@@ -7,7 +7,7 @@
 
 <CaptionedImg src={require("./splash.png").default}>Terminal output of a Pants run that retrieved test results from a remote cache instead of having to run the tests.</CaptionedImg>
 
-<!--truncate-->
+{/* truncate */}
 
 Pants is designed to utilize fine-grained caching to speed up builds. Users are often interested in how this interacts with CI providers' own caching features, which are necessary since CI jobs typically run in fresh containers, with no direct access to previous state. In particular, we get questions about how a remote caching service, such as that offered by [Toolchain](https://toolchain.com/) (full disclosure - that's where I work) relates to CI caching.
 

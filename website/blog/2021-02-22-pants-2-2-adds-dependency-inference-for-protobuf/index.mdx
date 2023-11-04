@@ -11,7 +11,7 @@ As of Pants 2.2, Pants now knows how to use dependency inference with Protobuf! 
 
 1. Protobuf imports of other Protobuf files, and 2) Python imports of generated Protobuf code, including gRPC.
 
-<!--truncate-->
+{/* truncate */}
 
 As discussed [in our post on dependency inference](../2020-10-29-dependency-inference/index.md), Pants understands which files depend on which to offer fine-grained caching. If none of the inputs have changed, Pants can safely cache your builds like running tests and generating code.
 

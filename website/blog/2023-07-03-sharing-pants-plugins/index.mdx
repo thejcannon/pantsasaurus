@@ -9,7 +9,7 @@
 
 If you need to make some functionality available to all engineers in your company, you can author and release a Pants plugin (either internally or via a public PyPI index) independently of the rest of the codebase...
 
-<!--truncate-->
+{/* truncate */}
 
 Pants v2 has been designed with extensibility in mind: the functionality of Pants that is available out of the box uses the very same building blocks that developers would use when writing their custom plugins using the standard Plugin API. For instance, you could add support for a new linter, a new target type, or even a new goal. You can submit your contributions to the Pants repository itself so that it becomes part of the core product if you think the functionality is generic enough so that other Pants users would be able to benefit from it. If the functionality is very specific to a particular organization, it may make little sense to distribute it as a core part of Pants so you will likely want to keep it internal to your company. In this blog post, we'll explore writing and publishing Pants plugins.
 
