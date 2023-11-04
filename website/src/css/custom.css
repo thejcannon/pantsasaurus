@@ -8,6 +8,7 @@
   --ifm-color-primary-lightest: #bbdeff;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --pants-reference-option-repr: #7c1dc8;
 }
 
 [data-theme="dark"] {
@@ -19,6 +20,7 @@
   --ifm-color-primary-lighter: #88c5ff;
   --ifm-color-primary-lightest: #bbdeff;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --pants-reference-option-repr: #ab5ee8;
 }
 
 figcaption {
