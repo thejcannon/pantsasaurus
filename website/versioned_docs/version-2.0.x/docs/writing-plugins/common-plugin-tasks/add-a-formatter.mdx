@@ -14,7 +14,10 @@ In Pants, every formatter is (typically) also a linter, meaning that if you can 
 
 :::note Example repository
 
-    This guide walks through each step of adding shfmt. See [here](https://github.com/pantsbuild/example-plugin/blob/main/pants-plugins/examples/bash/lint/shfmt) for the final result.
+```
+This guide walks through each step of adding shfmt. See [here](https://github.com/pantsbuild/example-plugin/blob/main/pants-plugins/examples/bash/lint/shfmt) for the final result.
+
+```
 
 :::
 
@@ -97,7 +100,10 @@ However, it is safe to run formatters belonging to different languages in parall
 
 :::note New Python formatters can skip this step
 
-    Pants already defines `PythonFmtTargets` and `PythonFmtRequest`, which are both defined in `pants.backend.python.lint.python_fmt`.
+```
+Pants already defines `PythonFmtTargets` and `PythonFmtRequest`, which are both defined in `pants.backend.python.lint.python_fmt`.
+
+```
 
 :::
 
@@ -345,7 +351,7 @@ If you have a `--config` option, you should use `Get(Digest, PathGlobs)` to find
 Use `Get(Digest, MergeDigests)` to combine the different inputs together, such as merging the source files, config file, and downloaded tool.
 
 Finally, update your plugin's `register.py` to activate this file's rules. Note that we must register the rules added in Step 2, as well.
-```python title="pants-plugins/bash/register.py"
+```python title="title="pants-plugins/bash/register.py""
 from bash import bash_formatters, shfmt
 
 

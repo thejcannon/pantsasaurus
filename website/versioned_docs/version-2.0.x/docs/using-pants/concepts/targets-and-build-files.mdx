@@ -19,7 +19,7 @@ This extra information lives in entities called `targets`. A target is a set of 
 ## BUILD files
 
 Target information lives in files with the name `BUILD`. For example:
-```python title="helloworld/greet/BUILD"
+```python title="title="helloworld/greet/BUILD""
 python_library(
     name = 'greet',
     sources = ['*.py', '!*_test.py'],
@@ -50,7 +50,10 @@ Addresses are globally unique, which is guaranteed by the fact that target names
 
 :::note Address Abbreviation
 
-    If the target name is the same as the name of the directory containing it, then you can omit the target name. For example, `helloworld/greet` is an abbreviated form of `helloworld/greet:greet`.
+```
+If the target name is the same as the name of the directory containing it, then you can omit the target name. For example, `helloworld/greet` is an abbreviated form of `helloworld/greet:greet`.
+
+```
 
 :::
 
@@ -73,7 +76,7 @@ Normally, you can leave off the `dependencies` field, thanks to _dependency infe
 However, dependency inference cannot infer everything. For example, dependency inference does not know how to infer dependencies on `resources()` and `files()` targets—or on generated code (like Protobuf)—so you will need to sometimes explicitly add the `dependencies` field. 
 
 To add a new explicit dependency, include the address to the target. This will result in all of the files from that target's `sources` field being included. See the below tool tip "Explicit file addresses" for how to instead use more granular dependencies, which is what dependency inference uses.
-```python title="helloworld/greet/BUILD"
+```python title="title="helloworld/greet/BUILD""
 python_library(
     dependencies=[
         "3rdparty/python:ansicolors",
@@ -87,17 +90,20 @@ You only need to declare direct dependencies; there is no need to include the de
 
 :::note Ignore dependencies with `!` and `!!`
 
-    If you don't like that Pants inferred a certain dependency, you can tell Pants to ignore it with `!`. Run `./pants dependencies` to find the address for the problematic dependency, then copy it into the `dependencies` field with a `!` prefix.
-    
-    ```python
-    python_library(
-        dependencies=["!3rdparty/python:numpy"],
-    )
-    ```
-    
-    You can use the prefix `!!` to _transitively_ exclude a dependency, meaning that even if a target's dependencies include the bad dependency, no matter what, the final result will not include the value. 
-    
-    Transitive excludes can only be used in target types that conventionally are not dependend upon by other targets, such `pex_binary` and `python_tests`. This is meant to limit confusion, as using `!!` in something like a `python_library` could result in surprising behavior for everything that depends on it. If you use `!!` when not allowed to, Pants will print a helpful error message saying where you can use it.
+```
+If you don't like that Pants inferred a certain dependency, you can tell Pants to ignore it with `!`. Run `./pants dependencies` to find the address for the problematic dependency, then copy it into the `dependencies` field with a `!` prefix.
+
+```python
+python_library(
+    dependencies=["!3rdparty/python:numpy"],
+)
+```
+
+You can use the prefix `!!` to _transitively_ exclude a dependency, meaning that even if a target's dependencies include the bad dependency, no matter what, the final result will not include the value. 
+
+Transitive excludes can only be used in target types that conventionally are not dependend upon by other targets, such `pex_binary` and `python_tests`. This is meant to limit confusion, as using `!!` in something like a `python_library` could result in surprising behavior for everything that depends on it. If you use `!!` when not allowed to, Pants will print a helpful error message saying where you can use it.
+
+```
 
 :::
 
@@ -105,9 +111,12 @@ You only need to declare direct dependencies; there is no need to include the de
 
 :::caution Dependency inference will no-op if >2 targets refer to the same file
 
-    If more than one target includes a certain file in their `sources` field, then Pants will not infer the dependency when that file is imported because Pants cannot safely decide which target you want to use. Instead, you will need to add an explicit dependency to the `dependencies` field.
-    
-    (Why would you ever have >1 target for the same file? Sometimes, it's helpful to have different metadata describing the same code. For example, you might want to have a `python_tests` target that runs with Python 2, and a `python_tests` target that runs the same tests, but with Python 3.)
+```
+If more than one target includes a certain file in their `sources` field, then Pants will not infer the dependency when that file is imported because Pants cannot safely decide which target you want to use. Instead, you will need to add an explicit dependency to the `dependencies` field.
+
+(Why would you ever have >1 target for the same file? Sometimes, it's helpful to have different metadata describing the same code. For example, you might want to have a `python_tests` target that runs with Python 2, and a `python_tests` target that runs the same tests, but with Python 3.)
+
+```
 
 :::
 
@@ -115,34 +124,37 @@ You only need to declare direct dependencies; there is no need to include the de
 
 :::note Explicit "file addresses"
 
-    When you declare an explicit dependency, like `helloworld/util:json_files`, you end up depending on every file in the `sources` field of `:json_files`, even if you only use some of the files. Often, this is what you meant. 
-    
-    However, sometimes you want to be more granular, which results in finer-grained invalidation for caching. To do this, you can use a "file address", which tells Pants to only depend on a specific file from a certain target.
-    
-    Pants's dependency inference automatically uses file addresses already, so you only need to use explicit file addresses when Pants cannot infer the dependency and you want more granular dependencies than normal target addresses.
-    
-    To add an explicit file address, add the file path, followed by `:target_name`. For example, `helloworld/util/f1.json:json_resources`. If the target name is the default name, you can leave off the `:target_name` part. If the file is in the same directory or a subdirectory, you can use a relative file path like `./f1.json:json_resources`.
-    
-    ```python
-    python_library(
-        dependencies=[
-            "helloworld/util/f1.json:json_resources",
-            "./f2.json:json_resources",  # Shorthand for "helloworld/util/f2.json:json_resources
-            "helloworld/app.py",  # Shorthand for "helloworld/app.py:helloworld"
-        ],
-    )
-    ```
-    
-    What if the file's target's BUILD file is in a different directory than that file? For example, consider this target definition:
-    
-    ```python
-    resources(
-      name="json_resources",
-      sources=["**/*.json"],
-    )
-    ```
-    
-    If the file is in a subdirectory from the original target definition, use `../` in the target_name section, e.g. `helloworld/util/f1.json:../json_resources`.
+```
+When you declare an explicit dependency, like `helloworld/util:json_files`, you end up depending on every file in the `sources` field of `:json_files`, even if you only use some of the files. Often, this is what you meant. 
+
+However, sometimes you want to be more granular, which results in finer-grained invalidation for caching. To do this, you can use a "file address", which tells Pants to only depend on a specific file from a certain target.
+
+Pants's dependency inference automatically uses file addresses already, so you only need to use explicit file addresses when Pants cannot infer the dependency and you want more granular dependencies than normal target addresses.
+
+To add an explicit file address, add the file path, followed by `:target_name`. For example, `helloworld/util/f1.json:json_resources`. If the target name is the default name, you can leave off the `:target_name` part. If the file is in the same directory or a subdirectory, you can use a relative file path like `./f1.json:json_resources`.
+
+```python
+python_library(
+    dependencies=[
+        "helloworld/util/f1.json:json_resources",
+        "./f2.json:json_resources",  # Shorthand for "helloworld/util/f2.json:json_resources
+        "helloworld/app.py",  # Shorthand for "helloworld/app.py:helloworld"
+    ],
+)
+```
+
+What if the file's target's BUILD file is in a different directory than that file? For example, consider this target definition:
+
+```python
+resources(
+  name="json_resources",
+  sources=["**/*.json"],
+)
+```
+
+If the file is in a subdirectory from the original target definition, use `../` in the target_name section, e.g. `helloworld/util/f1.json:../json_resources`.
+
+```
 
 :::
 
@@ -156,14 +168,14 @@ To cut down on boilerplate:
   For example, the default value for the `sources` field of a `python_library` target is `['*.py', '!*_test.py', '!test_*.py', '!conftest.py']`. That is, "all Python source files in this target's directory that aren't test-related".
 
 So, for example, the target above might be rewritten more succinctly as:
-```python title="helloworld/greet/BUILD"
+```python title="title="helloworld/greet/BUILD""
 python_library(
     compatibility = ">=3.6",
 )
 ```
 
 If we want to use the default `compatibility` value, we could simply write:
-```python title="helloworld/greet/BUILD"
+```python title="title="helloworld/greet/BUILD""
 python_library()
 ```
 
@@ -193,6 +205,9 @@ python_tests(name="tests")
 
 :::note Tips on setting up initial BUILD files
 
-    See [Adopting Pants in an Existing Repo](doc:existing-repositories) for tips on setting up Pants, including where to add BUILD files.
+```
+See [Adopting Pants in an Existing Repo](doc:existing-repositories) for tips on setting up Pants, including where to add BUILD files.
+
+```
 
 :::

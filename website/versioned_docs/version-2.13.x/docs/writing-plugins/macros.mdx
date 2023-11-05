@@ -16,7 +16,7 @@ However, also consider that introducing new symbols to BUILD files adds some ind
 
 Often, you can instead use the [`parametrize`](doc:targets) mechanism:
 
-```python BUILD
+```python title="BUILD"
 shell_tests(
     name="tests",
     shell=parametrize("bash", "zsh"),
@@ -36,7 +36,7 @@ Macros cannot import other modules, just like BUILD files cannot have import sta
 
 To define a new macro, add a function with `def` and the name of the new symbol. Usually, the last line of the macro will create a new target, like this:
 
-```python pants-plugins/macros.py
+```python title="pants-plugins/macros.py"
 def python2_sources(**kwargs):
     kwargs["interpreter_constraints"] = ["==2.7.*"]
     python_sources(**kwargs)
@@ -48,14 +48,14 @@ def python3_sources(**kwargs):
 
 Then, add this file to the option `[GLOBAL].build_file_prelude_globs`:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 build_file_prelude_globs = ["pants-plugins/macros.py"]
 ```
 
 Now, in BUILD files, you can use the new macros:
 
-```python project/BUILD
+```python title="project/BUILD"
 python2_sources(
     name="app_py2",
     sources=["app_py2.py"],
@@ -69,7 +69,7 @@ python3_sources(
 
 A macro can create multiple targets—although often it's better to use [`parametrize`](doc:targets):
 
-```python pants-plugins/macros.py
+```python title="pants-plugins/macros.py"
 def python23_tests(name, **kwargs):
     kwargs.pop("interpreter_constraints", None)
 
@@ -88,7 +88,7 @@ def python23_tests(name, **kwargs):
 
 A macro can perform validation:
 
-```python pants-plugins/macros.py
+```python title="pants-plugins/macros.py"
 def custom_python_sources(**kwargs):
     if "2.7" in kwargs.get("interpreter_constraints", ""):
         raise ValueError("Python 2.7 is banned!")
@@ -97,13 +97,13 @@ def custom_python_sources(**kwargs):
 
 A macro can take new parameters to generate the target dynamically. For example:
 
-```python pants-plugins/macros.py
+```python title="pants-plugins/macros.py"
 def custom_python_sources(has_type_hints: bool = True, **kwargs):
     if has_type_hints:
         kwargs["tags"] = kwargs.get("tags", []) + ["type_checked"]
     python_sources(**kwargs)
 ```
-```python project/BUILD
+```python title="project/BUILD"
 custom_python_sources(
     has_type_hints=False,
 )

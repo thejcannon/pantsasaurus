@@ -3,23 +3,22 @@
     position: 7
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 Tips for how to incrementally add Pants to your repository.
 
 ---
 
-[block:api-header]
-{
-  "title": "Recommended steps"
-}
-[/block]
+## Recommended steps
 We recommend using an incremental migration to adopt Pants, as it will help to ensure that your builds keep behaving how you'd expect.
-[block:callout]
-{
-  "type": "info",
-  "body": "We would love to help you with adopting Pants. Please reach out through [Slack](doc:community).",
-  "title": "Joining Slack"
-}
-[/block]
+
+:::note Joining Slack
+
+    We would love to help you with adopting Pants. Please reach out through [Slack](doc:community).
+
+:::
+
 ### 1. A basic `pants.toml`
 
 Follow the [Getting Started](doc:getting-started) guide to install Pants and set up an initial `pants.toml`. Validate that running `./pants count-loc '**'` works properly.
@@ -89,32 +88,15 @@ Some example plugins that users have written:
 * Building a Docker image with packages built via `./pants package`
 * Custom `setup.py` logic to compute the `version` dynamically
 * Jupyter support
-[block:api-header]
-{
-  "title": "Migrating from other BUILD tools? Set custom BUILD file names"
-}
-[/block]
+## Migrating from other BUILD tools? Set custom BUILD file names
 If you're migrating from another build tool that already uses the name `BUILD`, such as Bazel or Please, you can tell Pants to use a different file name than `BUILD` to avoid conflicts:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "[GLOBAL]\nbuild_patterns = [\"BUILD.pants\"]",
-      "language": "toml",
-      "name": "pants.toml"
-    }
-  ]
-}
-[/block]
+```toml title="pants.toml"
+[GLOBAL]
+build_patterns = ["BUILD.pants"]
+```
+
 Alternatively, you can tell Pants to not look for BUILD files in certain locations. This can be helpful, for example, if you use a tool like Bazel for Java, but use Pants for Python:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "[GLOBAL]\nbuild_ignore = [\"src/java\"]",
-      "language": "toml",
-      "name": "pants.toml"
-    }
-  ]
-}
-[/block]
+```toml title="pants.toml"
+[GLOBAL]
+build_ignore = ["src/java"]
+```

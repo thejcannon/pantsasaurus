@@ -76,9 +76,13 @@ backend_packages.add = [
 
 ```
 
-> 📘 The visibility implementation is marked "experimental"
->
-> This does not mean you should not use it, only that it is in "preview" mode meaning that things may change between releases without following our deprecation policy as we work on stabilizing this feature. See [the stabilization ticket](https://github.com/pantsbuild/pants/issues/17634) for what remains to be done for the visibility backend to graduate out of preview.
+
+:::note The visibility implementation is marked "experimental"
+
+    
+    This does not mean you should not use it, only that it is in "preview" mode meaning that things may change between releases without following our deprecation policy as we work on stabilizing this feature. See [the stabilization ticket](https://github.com/pantsbuild/pants/issues/17634) for what remains to be done for the visibility backend to graduate out of preview.
+
+:::
 
 
 Dependencies and dependents
@@ -87,11 +91,15 @@ Dependencies and dependents
 The visibility rules operates on the dependency link between two targets. Dependencies are directional, so if target `A` depends on another target `B` the dependency goes from the "origin" target `A` -> `B`, we say that `B` is the __dependency__ of `A`, while `A` is the __dependent__ of `B`.
 
 
-> 📘 The Direction of Dependency, `A` -> `B`.
->
-> Target `A` may have zero or more dependencies. For each of those dependencies `A` is their dependent.
->
-> Target `B` may be the dependency of zero or more dependents. For each of those dependents `B` is their dependency.
+
+:::note The Direction of Dependency, `A` -> `B`.
+
+    
+    Target `A` may have zero or more dependencies. For each of those dependencies `A` is their dependent.
+    
+    Target `B` may be the dependency of zero or more dependents. For each of those dependents `B` is their dependency.
+
+:::
 
 Dependency rules are configured in the BUILD files along with targets and any other BUILD file configuration. Rules may be provided on either end of a dependency link between two targets. There are two different keywords to use, one for each side of this link. As discussed above, any target may have both dependencies and dependents and these keywords map onto that:
 
@@ -99,21 +107,28 @@ Dependency rules are configured in the BUILD files along with targets and any ot
 * `__dependents_rules__` declares the rules that applies to a targets dependents.
 
 
-    `A` `__dependencies_rules__` -> `__dependents_rules__` `B` `__dependencies_rules__` -> ...
+```
+`A` `__dependencies_rules__` -> `__dependents_rules__` `B` `__dependencies_rules__` -> ...
 
 
-It may help to think about these terms in context of a sentence. For `__dependencies_rules__` it is "this X may only import from <...>", and for `__dependents_rules__` it is "this X may only be imported from <...>".
+```
+
+It may help to think about these terms in context of a sentence. For `__dependencies_rules__` it is "this X may only import from \<...\>", and for `__dependents_rules__` it is "this X may only be imported from \<...\>".
 
 For each dependency there may be up to 2 sets of rules consulted to determine if it should be `allowed` or `denied` (or just `warn`, see [Rule Actions](doc:targets#rule-actions)), one for each end of the dependency link. The rules themselves are merely [path globs](doc:targets#glob-syntax) applied in order until a matching rule is found. It is an error for there to not be any matching rule, if any rules are defined. That is, you may have a dependency without any rules and that will be allowed, but as soon as there are rules in play there must exist at least one that is a match for the dependency link that dictates the outcome. It is valid to declare either dependency rules or dependent rules you don't have to have both when using visibility rules.
 
 
-> 🚧 There are no default rules
->
-> When you setup a set of rules, it must be comprehensive or Pants will throw an error when it fails to find a matching rule for a dependency/dependent.
->
-> Without explicit rules defined, Pants allows all dependencies. This allows you to incrementally start to introduce rules.
->
-> **Warning: Rule sets propagate to their subtrees, unless you override them with new rule sets in a corresponding BUILD file.**
+
+:::caution There are no default rules
+
+    
+    When you setup a set of rules, it must be comprehensive or Pants will throw an error when it fails to find a matching rule for a dependency/dependent.
+    
+    Without explicit rules defined, Pants allows all dependencies. This allows you to incrementally start to introduce rules.
+    
+    **Warning: Rule sets propagate to their subtrees, unless you override them with new rule sets in a corresponding BUILD file.**
+
+:::
 
 Lets look at another dependency example, where we have the following BUILD files for the two source files `src/a/main.py` and `src/b/lib.py`:
 

@@ -39,14 +39,17 @@ $ ./pants \
 
 :::caution Using a version control system other than Git?
 
-    Please message us on Slack or open a GitHub issue (see [Community](doc:getting-help)). We would be happy to look into adding support for your VCS, such as helping you with a PR to add support.
+```
+Please message us on Slack or open a GitHub issue (see [Community](doc:getting-help)). We would be happy to look into adding support for your VCS, such as helping you with a PR to add support.
+
+```
 
 :::
 
 
 ## Tags: annotating targets
 Every target type has a field called `tags`, which allows you to add a sequence of strings. The strings can be whatever you'd like, such as `"integration_test"` or `"skip_lint"`.
-```python title="BUILD"
+```python title="title="BUILD""
 python_tests(
     name="integration",
     sources=["*_integration_test.py"],
@@ -99,7 +102,10 @@ helloworld/util:tests
 
 :::note Tip: centralized allow/block lists
 
-    Whereas `tags` are useful for _decentralized_ allow/block lists, `--spec-files` is useful when you want to define one single list of targets or files.
+```
+Whereas `tags` are useful for _decentralized_ allow/block lists, `--spec-files` is useful when you want to define one single list of targets or files.
+
+```
 
 :::
 
@@ -121,20 +127,23 @@ $ ./pants dependees helloworld/util | \
 
 :::note Alternative: use `--spec-files`
 
-    Sometimes, you may want to reuse the output of a Pants run for multiple subsequent Pants runs. Rather than repeating `xargs` multiple times, you can generate a file through stdout redirection and `--spec-files`.
-    
-    For example:
-    
-    ```bash
-    $ ./pants dependencies helloworld/util > util_dependencies.txt
-    $ ./pants --spec-files=util_dependencies.txt lint
-    ```
-    
-    If you don't want to save the output to an actual file—such as to not pollute version control—you can use a variable and a named pipe:
-    
-    ```bash
-    $ TARGETS=$(./pants dependencies helloworld/util)
-    $ ./pants --spec-files=<(echo $TARGETS) lint
-    ```
+```
+Sometimes, you may want to reuse the output of a Pants run for multiple subsequent Pants runs. Rather than repeating `xargs` multiple times, you can generate a file through stdout redirection and `--spec-files`.
+
+For example:
+
+```bash
+$ ./pants dependencies helloworld/util > util_dependencies.txt
+$ ./pants --spec-files=util_dependencies.txt lint
+```
+
+If you don't want to save the output to an actual file—such as to not pollute version control—you can use a variable and a named pipe:
+
+```bash
+$ TARGETS=$(./pants dependencies helloworld/util)
+$ ./pants --spec-files=<(echo $TARGETS) lint
+```
+
+```
 
 :::

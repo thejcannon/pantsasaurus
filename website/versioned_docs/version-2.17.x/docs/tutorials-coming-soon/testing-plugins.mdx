@@ -7,7 +7,7 @@ How to write tests for your custom plugin code.
 
 ---
 
-# Introduction
+## Introduction
 
 In this tutorial, we'll learn how to test the custom plugin we wrote earlier. Pants documentation provides comprehensive coverage of the [plugin testing](doc:rules-api-testing) and this tutorial should help you get started writing own tests.
 
@@ -17,7 +17,7 @@ Most of the plugin code that needs to be tested is in the following files:
 
 To author a test suite, it may make sense to write a very high level test first to confirm our code does what we expect. Let's write some [integration tests for Pants](doc:rules-api-testing#approach-4-run_pants-integration-tests-for-pants) so that we could run our goal from a test!
 
-## Testing with a complete Pants process
+### Testing with a complete Pants process
 
 Pants provides a convenient way to run a full Pants process as it would run on the command line. Writing such a test would be equal to having, say, a Shell script to confirm that the output of the `pants project-version myapp:` command is `{"path": "myapp/VERSION", "version": "0.0.1"}`. Keep in mind that running custom scripts with this type of tests would require having a Pants repository set up (including the `pants.toml` configuration), creating `BUILD` metadata files and so on. When writing custom acceptance tests using `pants.testutil` package, you, in contrast, don't have to worry about that and can focus on testing your plugin logic in the very minimalistic environment containing only what's absolutely necessary to run your plugin code. 
 
@@ -62,7 +62,7 @@ def test_reading_project_version_target() -> None:
 
 These tests do not need any special bootstrapping and can be run just like any other tests you may have in the repository with the `test` goal. They, however, are slow, and if there are lots of test cases to check (e.g. you want to test usage of flags and targets with various fields set), it may soon become impractical to run them often enough. You would most likely want to test your plugin logic in a more isolated fashion.
 
-## Testing goal rules
+### Testing goal rules
 
 You can exercise the goal rule by using [`rule_runner.run_goal_rule()`](doc:rules-api-testing#testing-goal_rules) which runs very fast and does not start a full Pants process. In the test below, we register all rules from the `project_version` plugin with the `RuleRunner` so that the engine can find them when a test is run. These tests scale nicely and if your plugins are fairly simple, they may suffice.
 
@@ -109,7 +109,7 @@ def test_project_version_goal(rule_runner: RuleRunner) -> None:
         rule_runner.run_goal_rule(ProjectVersionGoal, args=["project:"])
 ```
 
-## Testing individual rules
+### Testing individual rules
 
 If your plugin is more sophisticated, and there are many rules, you may want to test them in isolation. In our plugin, there are a couple of rules we could write tests for. For example, the `get_project_version_file_view` rule reads a target and returns an instance of `dataclass`, namely `ProjectVersionFileView`. This looks like a good candidate for a very isolated test.
 
@@ -221,7 +221,7 @@ def test_find_putative_avnpkg_files_targets(rule_runner: RuleRunner) -> None:
     )
 ```
 
-## Unit testing for rules
+### Unit testing for rules
 
 Finally, if your plugin is very complex and would benefit from a more rigorous testing, you may consider writing [unit tests for the rules](doc:rules-api-testing#approach-2-run_rule_with_mocks-unit-tests-for-rules) where some parts of the rules are going to be patched with mocks. For instance, there's `get_git_repo_version` rule which calls Git (in a subprocess) to describe the repository status. We could mock the `Process` call to make sure the inline logic of the rule is correct instead.
 

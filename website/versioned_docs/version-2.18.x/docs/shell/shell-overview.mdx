@@ -22,7 +22,7 @@ Pants uses [`shell_source`](doc:reference-shell_source) and [`shunit2_test`](doc
 
 To reduce boilerplate, the [`shell_sources`](doc:reference-shell_sources) target generates a `shell_source` target for each file in its `sources` field, and [`shunit2_tests`](doc:reference-shunit2_tests) generates a `shunit2_test` target for each file in its `sources` field.
 
-```python BUILD
+```python title="BUILD"
 shell_sources(name="lib", sources=["deploy.sh", "changelog.sh"])
 shell_tests(name="tests", sources=["changelog_test.sh"])
 
@@ -38,7 +38,7 @@ shell_tests(name="tests")
 
 First, activate the Shell backend in your `pants.toml`:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 backend_packages = [
   "pants.backend.shell",
@@ -61,32 +61,36 @@ You can also manually add targets, which is necessary if you have any scripts th
 shell_source(name="script_without_a_extension", source="script_without_an_extension")
 ```
 
-> 📘 Shell dependency inference
-> 
-> Pants will infer dependencies by looking for imports like `source script.sh` and `. script.sh`. You can check that the correct dependencies are inferred by running `pants dependencies path/to/script.sh` and `pants dependencies --transitive path/to/script.sh`.
-> 
-> Normally, Pants will not understand dynamic sources, e.g. using variable expansion. However, Pants uses Shellcheck for parsing, so you can use Shellcheck's syntax to give a hint to Pants:
-> 
-> ```shell
-> another_script="dir/some_script.sh"
-> 
-> # Normally Pants couldn't infer this, but we can give a hint like this:
-> # shellcheck source=dir/some_script.sh
-> source "${another_script}"
-> ```
-> 
-> Alternatively, you can explicitly add `dependencies` in the relevant BUILD file.
-> 
-> ```python
-> shell_sources(dependencies=["path/to:shell_source_tgt"])
-> ```
+
+:::note Shell dependency inference
+
+    
+    Pants will infer dependencies by looking for imports like `source script.sh` and `. script.sh`. You can check that the correct dependencies are inferred by running `pants dependencies path/to/script.sh` and `pants dependencies --transitive path/to/script.sh`.
+    
+    Normally, Pants will not understand dynamic sources, e.g. using variable expansion. However, Pants uses Shellcheck for parsing, so you can use Shellcheck's syntax to give a hint to Pants:
+    
+    ```shell
+    another_script="dir/some_script.sh"
+    
+    # Normally Pants couldn't infer this, but we can give a hint like this:
+    # shellcheck source=dir/some_script.sh
+    source "${another_script}"
+    ```
+    
+    Alternatively, you can explicitly add `dependencies` in the relevant BUILD file.
+    
+    ```python
+    shell_sources(dependencies=["path/to:shell_source_tgt"])
+    ```
+
+:::
 
 shfmt autoformatter
 -------------------
 
 To activate, add this to your `pants.toml`:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 backend_packages = [
   "pants.backend.shell",
@@ -135,18 +139,22 @@ Only run shfmt with `--lint-only` and `--fmt-only`:
 pants fmt --only=shfmt ::
 ```
 
-> 👍 Benefit of Pants: shfmt runs in parallel with Python, Java, Scala, and Go formatters
-> 
-> Normally, Pants runs formatters sequentially so that it can pipe the results of one formatter into the next. However, Pants will run shfmt in parallel to formatters for other languages, [like Python](doc:python-linters-and-formatters), because shfmt does not operate on those languages.
-> 
-> You can see this concurrency through Pants's dynamic UI.
+
+:::tip Benefit of Pants: shfmt runs in parallel with Python, Java, Scala, and Go formatters
+
+    
+    Normally, Pants runs formatters sequentially so that it can pipe the results of one formatter into the next. However, Pants will run shfmt in parallel to formatters for other languages, [like Python](doc:python-linters-and-formatters), because shfmt does not operate on those languages.
+    
+    You can see this concurrency through Pants's dynamic UI.
+
+:::
 
 Shellcheck linter
 -----------------
 
 To activate, add this to your `pants.toml`:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 backend_packages = [
   "pants.backend.shell",
@@ -194,9 +202,13 @@ Only run Shellcheck with `--lint-only`:
 pants lint --only=shellcheck ::
 ```
 
-> 👍 Benefit of Pants: Shellcheck runs in parallel with other linters
-> 
-> Pants will attempt to run all activated linters and formatters at the same time for improved performance, including [Python](doc:python-linters-and-formatters), Go, Java, and Scala linters. You can see this through Pants's dynamic UI.
+
+:::tip Benefit of Pants: Shellcheck runs in parallel with other linters
+
+    
+    Pants will attempt to run all activated linters and formatters at the same time for improved performance, including [Python](doc:python-linters-and-formatters), Go, Java, and Scala linters. You can see this through Pants's dynamic UI.
+
+:::
 
 shUnit2 test runner
 -------------------
@@ -206,20 +218,20 @@ shUnit2 test runner
 To use shunit2 with Pants:
 
 1. Create a test file like `tests.sh`, `test_foo.sh`, or `foo_test.sh`.
-   - Refer to <https://github.com/kward/shunit2/> for how to write shUnit2 tests.
+   - Refer to [https://github.com/kward/shunit2/](https://github.com/kward/shunit2/) for how to write shUnit2 tests.
 2. Create a `shunit2_test` or `shunit2_tests` target in the directory's BUILD file.
    - You can run [`pants tailor`](doc:initial-configuration#5-generate-build-files) to automate this step.
 3. Specify which shell to run your tests with, either by setting a shebang directly in the test file or by setting the field `shell` on the `shunit2_test` / `shunit2_tests` target.
    - See [here](doc:reference-shunit2_tests#codeshellcode) for all supported shells.
 
-```shell scripts/tests.sh
+```shell title="scripts/tests.sh"
 #!/usr/bin/env bash
 
 testEquality() {
   assertEquals 1 1
 }
 ```
-```python scripts/BUILD
+```python title="scripts/BUILD"
 shunit2_tests(name="tests")
 ```
 
@@ -240,7 +252,7 @@ Pants will download the `./shunit2` script and will add `source ./shunit2` with 
 
 You can import your production code by using `source`. Make sure the code belongs to a `shell_source` or `shell_sources` target. Pants's [dependency inference](doc:targets) will add the relevant dependencies, which you can confirm by running `pants dependencies scripts/tests.sh`. You can also manually add to the `dependencies` field of your `shunit2_tests` target.
 
-```shell scripts/tests.sh
+```shell title="scripts/tests.sh"
 #!/usr/bin/bash
 
 source scripts/lib.sh
@@ -249,38 +261,42 @@ testAdd() {
     assertEquals $(add_one 4) 5
 }
 ```
-```shell scripts/lib.sh
+```shell title="scripts/lib.sh"
 add_one() {
     echo $(($1 + 1))
 }
 ```
-```shell scripts/BUILD
+```shell title="scripts/BUILD"
 shell_sources(name="lib")
 shell_tests(name="tests")
 ```
 
-> 👍 Running your tests with multiple shells
-> 
-> Pants allows you to run the same tests against multiple shells, e.g. Bash and Zsh, to ensure your code works with each shell. 
-> 
-> To test multiple shells, use the `parametrize` mechanism, like this:
-> 
-> ```python
-> shunit2_tests(
->     name="tests",
->     shell=parametrize("bash", "zsh"),
-> )
-> ```
-> 
-> Then, use `pants test`:
-> 
-> ```bash
-> # Run tests with both shells.
-> pants test scripts/tests.sh
-> 
-> # Run tests with only Zsh.
-> pants test scripts/tests.sh:tests@shell=zsh
-> ```
+
+:::tip Running your tests with multiple shells
+
+    
+    Pants allows you to run the same tests against multiple shells, e.g. Bash and Zsh, to ensure your code works with each shell. 
+    
+    To test multiple shells, use the `parametrize` mechanism, like this:
+    
+    ```python
+    shunit2_tests(
+        name="tests",
+        shell=parametrize("bash", "zsh"),
+    )
+    ```
+    
+    Then, use `pants test`:
+    
+    ```bash
+    # Run tests with both shells.
+    pants test scripts/tests.sh
+    
+    # Run tests with only Zsh.
+    pants test scripts/tests.sh:tests@shell=zsh
+    ```
+
+:::
 
 ### Controlling output
 
@@ -288,7 +304,7 @@ By default, Pants only shows output for failed tests. You can change this by set
 
 You can permanently set the output format in your `pants.toml` like this:
 
-```toml pants.toml
+```toml title="pants.toml"
 [test]
 output = "all"
 ```
@@ -303,14 +319,14 @@ Test runs are _hermetic_, meaning that they are stripped of the parent `pants` p
 
 To add any arbitrary environment variable back to the process, use the option `extra_env_vars` in the `[test]` options scope. You can hardcode a value for the option, or leave off a value to "allowlist" it and read from the parent `pants` process's environment.
 
-```toml pants.toml
+```toml title="pants.toml"
 [test]
 extra_env_vars = ["VAR1", "VAR2=hardcoded_value"]
 ```
 
 Use `[bash-setup].executable_search_paths` to change the `$PATH` env var used during test runs. You can use the special string `"<PATH>"` to read the value from the parent `pants` process's environment.
 
-```toml pants.toml
+```toml title="pants.toml"
 [bash-setup]
 executable_search_paths = ["/usr/bin", "<PATH>"]
 ```
@@ -321,13 +337,13 @@ Pants can cancel tests that take too long, which is useful to prevent tests from
 
 To add a timeout, set the `timeout` field to an integer value of seconds, like this:
 
-```python BUILD
+```python title="BUILD"
 shunit2_test(name="tests", source="tests.sh", timeout=120)
 ```
 
 When you set `timeout` on the `shunit2_tests` target generator, the same timeout will apply to every generated `shunit2_test` target. Instead, you can use the `overrides` field:
 
-```python BUILD
+```python title="BUILD"
 shunit2_tests(
     name="tests",
     overrides={
@@ -339,7 +355,7 @@ shunit2_tests(
 
 You can also set a default value and a maximum value in `pants.toml`:
 
-```toml pants.toml
+```toml title="pants.toml"
 [test]
 timeout_default = 60
 timeout_maximum = 600
@@ -359,7 +375,7 @@ To depend on a built package, use the `runtime_package_dependencies` field on th
 
 For example:
 
-```python helloworld/BUILD
+```python title="helloworld/BUILD"
 python_source(name="py_src", source="say_hello.py")
 pex_binary(name="pex", entry_point="say_hello.py")
 
@@ -369,10 +385,10 @@ shunit2_test(
     runtime_package_dependencies=[":pex"],
 )
 ```
-```python helloworld/say_hello.py
+```python title="helloworld/say_hello.py"
 print("Hello, test!")
 ```
-```shell helloworld/tests.sh
+```shell title="helloworld/tests.sh"
 #!/usr/bin/bash
 
 testArchiveCreated() {

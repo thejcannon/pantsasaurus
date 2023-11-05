@@ -60,7 +60,7 @@ src/rust
 ## Configuring source roots using patterns
 
 You can provide a set of patterns that match your source roots:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [source]
 root_patterns = [
   '/src/python',
@@ -109,7 +109,7 @@ pkgutil.get_data("project.config", "prod.json")
 ```
 
 If you have no source roots, use this config:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [source]
 root_patterns = ["/"]
 ```
@@ -118,16 +118,19 @@ root_patterns = ["/"]
 
 :::note Default source roots
 
-    The default value of the `root_patterns` config key is `["/", "src", "src/python", "src/py"]`. 
-    
-    These capture a range of common cases, including a source root at the root of the repository. If your source roots match these patterns, you don't need to explicitly configure them.
+```
+The default value of the `root_patterns` config key is `["/", "src", "src/python", "src/py"]`. 
+
+These capture a range of common cases, including a source root at the root of the repository. If your source roots match these patterns, you don't need to explicitly configure them.
+
+```
 
 :::
 
 ## Configuring source roots using marker files
 
 You can also denote your source roots using specially-named marker files. To do so, first pick a name (or multiple names) to use:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [source]
 marker_filenames = ["SOURCE_ROOT"]
 ```
@@ -152,7 +155,7 @@ For example, given this Python repo, where we have a `setup.py` for each distinc
 ```
 
 We could use this config:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [source]
 marker_filenames = ["setup.py"]
 ```
@@ -238,7 +241,7 @@ import org.pantsbuild.project.util.Math
 ```
 
 ### Config:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [source]
 root_patterns = [
     "/src/java",
@@ -297,7 +300,7 @@ Note that even though the projects live in different top-level folders, you are 
 ### Config:
 
 Either of these are valid and they have the same result:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [source]
 root_patterns = [
   "/ads/py",
@@ -307,7 +310,7 @@ root_patterns = [
 ```
 
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [source]
 root_patterns = [
   "py",
@@ -347,13 +350,13 @@ pkgutil.get_data("project.config", "prod.json")
 ### Config:
 
 Either of these are valid and they have the same result:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [source]
 root_patterns = ["/"]
 ```
 
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [source]
 marker_filenames = ["pyproject.toml"]
 ```

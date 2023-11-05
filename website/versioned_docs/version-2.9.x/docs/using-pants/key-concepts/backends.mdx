@@ -3,100 +3,46 @@
     position: 3
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 How to enable specific functionality.
 
 ---
 
 Most Pants functionality is opt-in by adding the relevant _backend_ to the `[GLOBAL].backend_packages` option in `pants.toml`. For example:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "[GLOBAL]\nbackend_packages = [\n  \"pants.backend.shell\",\n  \"pants.backend.python\",\n  \"pants.backend.python.lint.black\",\n]",
-      "language": "toml",
-      "name": "pants.toml"
-    }
-  ]
-}
-[/block]
+```toml title="pants.toml"
+[GLOBAL]
+backend_packages = [
+  "pants.backend.shell",
+  "pants.backend.python",
+  "pants.backend.python.lint.black",
+]
+```
 
-[block:api-header]
-{
-  "title": "Available backends"
-}
-[/block]
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Backend",
-    "h-1": "What it does",
-    "8-0": "`pants.backend.python`",
-    "8-1": "Core Python support.",
-    "h-2": "Docs",
-    "8-2": "[Enabling Python support](doc:python-backend)",
-    "10-0": "`pants.backend.python.lint.bandit`",
-    "10-1": "Enables Bandit, the Python security linter: https://bandit.readthedocs.io/en/latest/.",
-    "10-2": "[Linters and formatters](doc:python-linters-and-formatters)",
-    "11-0": "`pants.backend.python.lint.black`",
-    "11-1": "Enables Black, the Python autoformatter: https://black.readthedocs.io/en/stable/.",
-    "11-2": "[Linters and formatters](doc:python-linters-and-formatters)",
-    "12-0": "`pants.backend.python.lint.docformatter`",
-    "12-1": "Enables Docformatter, the Python docstring autoformatter: https://github.com/myint/docformatter.",
-    "12-2": "[Linters and formatters](doc:python-linters-and-formatters)",
-    "13-0": "`pants.backend.python.lint.flake8`",
-    "14-0": "`pants.backend.python.lint.isort`",
-    "15-0": "`pants.backend.python.lint.pylint`",
-    "17-0": "`pants.backend.python.typecheck.mypy`",
-    "17-2": "[typecheck](doc:python-typecheck-goal)",
-    "13-2": "[Linters and formatters](doc:python-linters-and-formatters)",
-    "14-2": "[Linters and formatters](doc:python-linters-and-formatters)",
-    "15-2": "[Linters and formatters](doc:python-linters-and-formatters)",
-    "9-0": "`pants.backend.python.mixed_interpreter_constraints`",
-    "9-1": "Adds the `py-constraints` goal for insights on Python interpreter constraints.",
-    "9-2": "[Interpreter compatibility](doc:python-interpreter-compatibility)",
-    "0-0": "`pants.backend.awslambda.python`",
-    "1-0": "`pants.backend.codegen.protobuf.python`",
-    "1-1": "Enables generating Python from Protocol Buffers. Includes gRPC support.",
-    "1-2": "[Protobuf and gRPC](doc:protobuf)",
-    "0-1": "Enables generating an AWS Lambda zip file from Python code.",
-    "0-2": "[AWS Lambda](doc:awslambda-python)",
-    "13-1": "Enables Flake8, the Python linter: https://flake8.pycqa.org/en/latest/.",
-    "14-1": "Enables isort, the Python import autoformatter: https://timothycrosley.github.io/isort/.",
-    "15-1": "Enables Pylint, the Python linter: https://www.pylint.org",
-    "17-1": "Enables MyPy, the Python type checker: https://mypy.readthedocs.io/en/stable/.",
-    "18-0": "`pants.backend.shell`",
-    "18-1": "Core Shell support, including shUnit2 test runner.",
-    "18-2": "[Shell overview](doc:shell)",
-    "19-0": "`pants.backend.shell.lint.shfmt`",
-    "19-1": "Enables shfmt, a Shell autoformatter: https://github.com/mvdan/sh.",
-    "19-2": "[Shell overview](doc:shell)",
-    "20-0": "`pants.backend.shell.lint.shellcheck`",
-    "20-1": "Enables Shellcheck, a Shell linter: https://www.shellcheck.net/.",
-    "20-2": "[Shell overview](doc:shell)",
-    "4-0": "`pants.backend.experimental.go`",
-    "4-1": "Enables Go support.",
-    "4-2": "[Go overview](doc:go)",
-    "2-0": "`pants.backend.experimental.docker`",
-    "2-1": "Enables building, running, and publishing Docker images.",
-    "3-0": "`pants.backend.experimental.docker.lint.hadolint`",
-    "3-1": "Enables Hadolint, a Docker linter: https://github.com/hadolint/hadolint",
-    "3-2": "[Docker overview](doc:docker)",
-    "2-2": "[Docker overview](doc:docker)",
-    "5-0": "`pants.backend.experimental.python.lint.autoflake`",
-    "16-0": "`pants.backend.python.lint.yapf`",
-    "16-1": "Enables Yapf, the Python formatter: https://pypi.org/project/yapf/",
-    "16-2": "[Linters and formatters](doc:python-linters-and-formatters)",
-    "5-1": "Enables Autoflake, which removes unused Python imports: https://pypi.org/project/autoflake/",
-    "5-2": "[Linters and formatters](doc:python-linters-and-formatters)",
-    "6-0": "`pants.backend.experimental.python.lint.pyupgrade`",
-    "6-1": "Enables Pyupgrade, which upgrades to new Python syntax: https://pypi.org/project/pyupgrade/",
-    "6-2": "[Linters and formatters](doc:python-linters-and-formatters)",
-    "7-0": "`pants.backend.google_cloud_function.python`",
-    "7-1": "Enables generating a Google Cloud Function from Python code.",
-    "7-2": "[Google Cloud Function](doc:google-cloud-function-python)"
-  },
-  "cols": 3,
-  "rows": 21
-}
-[/block]
+## Available backends
+
+| Backend | What it does | Docs |
+| :--- | :--- | :--- |
+| `pants.backend.awslambda.python` | Enables generating an AWS Lambda zip file from Python code. | [AWS Lambda](doc:awslambda-python) |
+| `pants.backend.codegen.protobuf.python` | Enables generating Python from Protocol Buffers. Includes gRPC support. | [Protobuf and gRPC](doc:protobuf) |
+| `pants.backend.experimental.docker` | Enables building, running, and publishing Docker images. | [Docker overview](doc:docker) |
+| `pants.backend.experimental.docker.lint.hadolint` | Enables Hadolint, a Docker linter: https://github.com/hadolint/hadolint | [Docker overview](doc:docker) |
+| `pants.backend.experimental.go` | Enables Go support. | [Go overview](doc:go) |
+| `pants.backend.experimental.python.lint.autoflake` | Enables Autoflake, which removes unused Python imports: https://pypi.org/project/autoflake/ | [Linters and formatters](doc:python-linters-and-formatters) |
+| `pants.backend.experimental.python.lint.pyupgrade` | Enables Pyupgrade, which upgrades to new Python syntax: https://pypi.org/project/pyupgrade/ | [Linters and formatters](doc:python-linters-and-formatters) |
+| `pants.backend.google_cloud_function.python` | Enables generating a Google Cloud Function from Python code. | [Google Cloud Function](doc:google-cloud-function-python) |
+| `pants.backend.python` | Core Python support. | [Enabling Python support](doc:python-backend) |
+| `pants.backend.python.mixed_interpreter_constraints` | Adds the `py-constraints` goal for insights on Python interpreter constraints. | [Interpreter compatibility](doc:python-interpreter-compatibility) |
+| `pants.backend.python.lint.bandit` | Enables Bandit, the Python security linter: https://bandit.readthedocs.io/en/latest/. | [Linters and formatters](doc:python-linters-and-formatters) |
+| `pants.backend.python.lint.black` | Enables Black, the Python autoformatter: https://black.readthedocs.io/en/stable/. | [Linters and formatters](doc:python-linters-and-formatters) |
+| `pants.backend.python.lint.docformatter` | Enables Docformatter, the Python docstring autoformatter: https://github.com/myint/docformatter. | [Linters and formatters](doc:python-linters-and-formatters) |
+| `pants.backend.python.lint.flake8` | Enables Flake8, the Python linter: https://flake8.pycqa.org/en/latest/. | [Linters and formatters](doc:python-linters-and-formatters) |
+| `pants.backend.python.lint.isort` | Enables isort, the Python import autoformatter: https://timothycrosley.github.io/isort/. | [Linters and formatters](doc:python-linters-and-formatters) |
+| `pants.backend.python.lint.pylint` | Enables Pylint, the Python linter: https://www.pylint.org | [Linters and formatters](doc:python-linters-and-formatters) |
+| `pants.backend.python.lint.yapf` | Enables Yapf, the Python formatter: https://pypi.org/project/yapf/ | [Linters and formatters](doc:python-linters-and-formatters) |
+| `pants.backend.python.typecheck.mypy` | Enables MyPy, the Python type checker: https://mypy.readthedocs.io/en/stable/. | [typecheck](doc:python-typecheck-goal) |
+| `pants.backend.shell` | Core Shell support, including shUnit2 test runner. | [Shell overview](doc:shell) |
+| `pants.backend.shell.lint.shfmt` | Enables shfmt, a Shell autoformatter: https://github.com/mvdan/sh. | [Shell overview](doc:shell) |
+| `pants.backend.shell.lint.shellcheck` | Enables Shellcheck, a Shell linter: https://www.shellcheck.net/. | [Shell overview](doc:shell) |

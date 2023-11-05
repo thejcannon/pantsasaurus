@@ -3,6 +3,9 @@
     position: 2
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 How to add options to your plugin.
 
 ---
@@ -12,42 +15,69 @@ As explained in [Options](doc:options), options are partitioned into named scope
 To add new options:
 
 1. Define a subclass of `Subsystem` from `pants.subsystem.subsystem`.
-    1. Set the class property `options_scope` with the name of the subsystem.
-         * This value will be prepended to all options in the subsystem, e.g. `--skip` will become `--shellcheck-skip`.
-    1. Set the class property `help`, which is used by `./pants help`.
+```
+1. Set the class property `options_scope` with the name of the subsystem.
+     * This value will be prepended to all options in the subsystem, e.g. `--skip` will become `--shellcheck-skip`.
+1. Set the class property `help`, which is used by `./pants help`.
+```
+
 2. Add new options through the class method `register_options()`.
 3. Register the `Subsystem` with `SubsystemRule` and `register.py`.
-    - You don't need this if the `Subsystem` is used in an `@rule` because `collect_rules()` will recognize it. It doesn't hurt to keep this around, though.
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from pants.engine.rules import SubsystemRule\nfrom pants.option.subsystem import Subsystem\n\n\nclass ShellcheckSubsystem(Subsystem):\n    options_scope = \"shellcheck\"\n    help = \"The Shellcheck linter.\"\n    \n    @classmethod\n    def register_options(cls, register):\n        super().register_options(register)\n        register(\n            \"--skip\",\n            type=bool,\n            default=False,\n            help=\"Don't use Shellcheck when running `./pants lint`.\"\n        )\n\n        \ndef rules():\n    return [SubsystemRule(ShellcheckSubsystem)]",
-      "language": "python",
-      "name": "pants-plugins/example/shellcheck.py"
-    },
-    {
-      "code": "from example import shellcheck\n\ndef rules():\n    return [*shellcheck.rules()]",
-      "language": "python",
-      "name": "pants-plugins/example/register.py"
-    }
-  ]
-}
-[/block]
-The subsystem should now show up when you run `./pants help shellcheck`.
-[block:callout]
-{
-  "type": "info",
-  "title": "`GoalSubsystem`",
-  "body": "As explained in [Goal rules](doc:rules-api-goal-rules), goals use a subclass of  `Subsystem`: `GoalSubsystem` from `pants.engine.goal`.\n\n`GoalSubsystem` behaves the same way as a normal subsystem, except that you set the class property `name` rather than `options_scope`. The `name` will auto-populate the `options_scope`."
-}
-[/block]
+```
+- You don't need this if the `Subsystem` is used in an `@rule` because `collect_rules()` will recognize it. It doesn't hurt to keep this around, though.
 
-[block:api-header]
-{
-  "title": "`register()` parameters"
-}
-[/block]
+```
+
+<Tabs>
+<TabItem value="pants-plugins/example/shellcheck.py" label="pants-plugins/example/shellcheck.py">
+
+```python
+from pants.engine.rules import SubsystemRule
+from pants.option.subsystem import Subsystem
+
+
+class ShellcheckSubsystem(Subsystem):
+    options_scope = "shellcheck"
+    help = "The Shellcheck linter."
+    
+    @classmethod
+    def register_options(cls, register):
+        super().register_options(register)
+        register(
+            "--skip",
+            type=bool,
+            default=False,
+            help="Don't use Shellcheck when running `./pants lint`."
+        )
+
+        
+def rules():
+    return [SubsystemRule(ShellcheckSubsystem)]
+```
+</TabItem>
+<TabItem value="pants-plugins/example/register.py" label="pants-plugins/example/register.py">
+
+```python
+from example import shellcheck
+
+def rules():
+    return [*shellcheck.rules()]
+```
+</TabItem>
+</Tabs>
+
+The subsystem should now show up when you run `./pants help shellcheck`.
+
+:::note `GoalSubsystem`
+
+    As explained in [Goal rules](doc:rules-api-goal-rules), goals use a subclass of  `Subsystem`: `GoalSubsystem` from `pants.engine.goal`.
+    
+    `GoalSubsystem` behaves the same way as a normal subsystem, except that you set the class property `name` rather than `options_scope`. The `name` will auto-populate the `options_scope`.
+
+:::
+
+
+## `register()` parameters
 ### Flag name
 
 The first argument to `register()` should be a string with the option name, like, `--example-option`. 
@@ -68,48 +98,20 @@ If you leave this off, the `default` will depend on the `type` you specify.
 ### `type`
 
 Refer to [Options](doc:options#option-types) for how a user specifies these different types. 
-[block:parameters]
-{
-  "data": {
-    "h-0": "`type`",
-    "h-1": "Default (if not overridden)",
-    "h-2": "Other notes",
-    "0-0": "`str`",
-    "0-1": "`None`",
-    "1-0": "`int`",
-    "1-2": "Will error if a user passes a `float`.",
-    "1-1": "`None`",
-    "2-0": "`float`",
-    "2-2": "Will convert an `int` into a `float`.",
-    "2-1": "`None`",
-    "3-0": "`bool`",
-    "3-1": "`False` \n\nSet `default=UnsetBool` from `pants.option.custom_types` to represent a trinary state. If the user does not specify a value, the option will return `None`.",
-    "4-0": "Enums",
-    "4-1": "`None`",
-    "4-2": "Create an `enum.Enum`, with the value for each member as a string.\n\nSee below for an example.",
-    "5-0": "`list`",
-    "5-1": "`[]` (empty list)",
-    "5-2": "You must also set `member_type` to one of `str`, `int`, `float`, `dict`, `dir_option`, `file_option`, `target_option`, `shell_str`, or an `Enum`.",
-    "6-0": "`dict`",
-    "6-2": "",
-    "6-1": "`{}` (empty dictionary)",
-    "7-0": "`shell_str`",
-    "7-1": "`[]` (empty list)",
-    "7-2": "You must set `type=list` and `member_type=shell_str`.\n\nPants will [\"shlex\"](https://docs.python.org/3/library/shlex.html) the string passed by the user, i.e. to split on each space.\n\nFor example, `./pants --docformatter-args='--wrap-summaries 100 --wrap-descriptions 100'` will get converted into `[\"--wrap_summaries\", \"100\", \"--wrap-descriptions\", \"100\"]`.\n\nThe type is from `pants.option.custom_types`.",
-    "8-0": "`target_option`",
-    "8-1": "`None`",
-    "8-2": "This behaves like `str`, but changes the `metavar` so that `./pants help` is more useful.\n\nThe type is from `pants.option.custom_types`.",
-    "9-0": "`file_option`",
-    "9-1": "`None`",
-    "9-2": "This behaves like `str`, but changes the `metavar` so that `./pants help` is more useful. It will also validate that the file exists.\n\nThe type is from `pants.option.custom_types`.",
-    "10-0": "`dir_option`",
-    "10-1": "`None`",
-    "10-2": "This behaves like `str`, but changes the `metavar` so that `./pants help` is more useful. It will also validate that the directory exists.\n\nThe type is from `pants.option.custom_types`."
-  },
-  "cols": 3,
-  "rows": 11
-}
-[/block]
+| `type` | Default (if not overridden) | Other notes |
+| :--- | :--- | :--- |
+| `str` | `None` |  |
+| `int` | `None` | Will error if a user passes a `float`. |
+| `float` | `None` | Will convert an `int` into a `float`. |
+| `bool` | `False` <br/><br/>Set `default=UnsetBool` from `pants.option.custom_types` to represent a trinary state. If the user does not specify a value, the option will return `None`. |  |
+| Enums | `None` | Create an `enum.Enum`, with the value for each member as a string.<br/><br/>See below for an example. |
+| `list` | `[]` (empty list) | You must also set `member_type` to one of `str`, `int`, `float`, `dict`, `dir_option`, `file_option`, `target_option`, `shell_str`, or an `Enum`. |
+| `dict` | `{}` (empty dictionary) |  |
+| `shell_str` | `[]` (empty list) | You must set `type=list` and `member_type=shell_str`.<br/><br/>Pants will ["shlex"](https://docs.python.org/3/library/shlex.html) the string passed by the user, i.e. to split on each space.<br/><br/>For example, `./pants --docformatter-args='--wrap-summaries 100 --wrap-descriptions 100'` will get converted into `["--wrap_summaries", "100", "--wrap-descriptions", "100"]`.<br/><br/>The type is from `pants.option.custom_types`. |
+| `target_option` | `None` | This behaves like `str`, but changes the `metavar` so that `./pants help` is more useful.<br/><br/>The type is from `pants.option.custom_types`. |
+| `file_option` | `None` | This behaves like `str`, but changes the `metavar` so that `./pants help` is more useful. It will also validate that the file exists.<br/><br/>The type is from `pants.option.custom_types`. |
+| `dir_option` | `None` | This behaves like `str`, but changes the `metavar` so that `./pants help` is more useful. It will also validate that the directory exists.<br/><br/>The type is from `pants.option.custom_types`. |
+
 An example of an `Enum`:
 
 ```python
@@ -140,11 +142,7 @@ You should generally set this value if the option will primarily be used by code
 ### `help`
 
 This help message will show up when running `./pants help` and `./pants help-advanced`.
-[block:api-header]
-{
-  "title": "Using options in rules"
-}
-[/block]
+## Using options in rules
 To use a `Subsystem` or `GoalSubsystem` in your rule, request it as a parameter. Then, use the property `.options`, followed by the name of the option. Replace any `-` with `_`, e.g. `--my-option` becomes `my_option`.
 
 ```python
@@ -158,10 +156,35 @@ async def demo(shellcheck: Shellcheck) -> LintResults:
     extra_args = shellcheck.options.args
     ...
 ```
-[block:callout]
-{
-  "type": "info",
-  "title": "Tip: teach MyPy about your subsystem",
-  "body": "MyPy does not understand the property `.options`. \n\nInstead, you can create a `@property` for each option and use `typing.cast()` to teach MyPy what each value is.\n\n```python\nfrom typing import cast\n\nclass Shellcheck(Subsystem):\n    options_scope = \"shellcheck\"\n    help = \"The Shellcheck linter.\"\n    \n    @classmethod\n    def register_options(cls, register):\n        super().register_options(register)\n        register(\n            \"--skip\",\n            type=bool,\n            default=False,\n            help=\"Don't use Shellcheck when running `./pants lint`.\n        )\n    \n    @property\n    def skip(self) -> bool:\n        return cast(bool, self.options.skip)\n```\n\nThis is optional. It can make your call sites simpler and safer thanks to MyPy, but it requires some  boilerplate."
-}
-[/block]
+
+:::note Tip: teach MyPy about your subsystem
+
+    MyPy does not understand the property `.options`. 
+    
+    Instead, you can create a `@property` for each option and use `typing.cast()` to teach MyPy what each value is.
+    
+    ```python
+    from typing import cast
+    
+    class Shellcheck(Subsystem):
+        options_scope = "shellcheck"
+        help = "The Shellcheck linter."
+        
+        @classmethod
+        def register_options(cls, register):
+            super().register_options(register)
+            register(
+                "--skip",
+                type=bool,
+                default=False,
+                help="Don't use Shellcheck when running `./pants lint`.
+            )
+        
+        @property
+        def skip(self) -> bool:
+            return cast(bool, self.options.skip)
+    ```
+    
+    This is optional. It can make your call sites simpler and safer thanks to MyPy, but it requires some  boilerplate.
+
+:::

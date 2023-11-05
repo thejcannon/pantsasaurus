@@ -14,7 +14,10 @@ The `run` goal runs a single interactive process in the foreground, such as runn
 
 :::note Example repository
 
-    This guide walks through adding a simple `run` implementation for Bash that runs the equivalent `/bin/bash ./script.sh`. See [here](https://github.com/pantsbuild/example-plugin/blob/main/pants-plugins/examples/bash/run_binary.py) for the final implementation.
+```
+This guide walks through adding a simple `run` implementation for Bash that runs the equivalent `/bin/bash ./script.sh`. See [here](https://github.com/pantsbuild/example-plugin/blob/main/pants-plugins/examples/bash/run_binary.py) for the final implementation.
+
+```
 
 :::
 
@@ -144,7 +147,7 @@ In this example, we run the equivalent of `/bin/bash ./my_script.sh`. Typically,
 When using relative paths in `args` or `extra_env`, you should join the values with the template string `"{chroot}"`, e.g. `os.path.join("{chroot}", binary_sources.files[0])`. This ensures that you run on the correct file in the temporary directory created by Pants.
 
 Finally, update your plugin's `register.py` to activate this file's rules.
-```python title="pants-plugins/bash/register.py"
+```python title="title="pants-plugins/bash/register.py""
 from bash import run_binary
 
 

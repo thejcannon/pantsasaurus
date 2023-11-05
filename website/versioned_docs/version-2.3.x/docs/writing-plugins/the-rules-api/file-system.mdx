@@ -8,19 +8,15 @@ How to safely interact with the file system in your plugin.
 ---
 
 It is not safe to use functions like `open` or the non-pure operations of `pathlib.Path` like you normally might: this can break caching. Instead, Pants has several mechanisms to work with the file system in a safe and concurrent way.
-[block:callout]
-{
-  "type": "warning",
-  "title": "Missing certain file operations?",
-  "body": "If it would help you to have a certain file operation, please let us know by either opening a new [GitHub issue](https://github.com/pantsbuild/pants/issues) or by messaging us on [Slack](doc:community) in the #engine room."
-}
-[/block]
 
-[block:api-header]
-{
-  "title": "Core abstractions: `Digest` and `Snapshot`"
-}
-[/block]
+:::caution Missing certain file operations?
+
+    If it would help you to have a certain file operation, please let us know by either opening a new [GitHub issue](https://github.com/pantsbuild/pants/issues) or by messaging us on [Slack](doc:community) in the #engine room.
+
+:::
+
+
+## Core abstractions: `Digest` and `Snapshot`
 The core building block is a `Digest`, which is a lightweight reference to a set of files known about by the engine.
 
 - The `Digest` is only a reference; the files are stored in the engine's persistent [content-addressable storage (CAS)](https://en.wikipedia.org/wiki/Lightning_Memory-Mapped_Database).
@@ -58,11 +54,7 @@ async def demo(...) -> Foo:
     ...
     snapshot = await Get(Snapshot, Digest, my_digest)
 ``` 
-[block:api-header]
-{
-  "title": "`CreateDigest`"
-}
-[/block]
+## `CreateDigest`
 `CreateDigest` allows you to create a new digest with whichever files you would like, even if they do not exist on disk.
 
 ```python
@@ -78,11 +70,7 @@ async def demo(...) -> Foo:
 The `CreateDigest` constructor expects an iterable of `FileContent` objects, which take a `path: str` parameter, `contents: bytes` parameter, and optional `is_executable: bool` parameter with a default of `False`. 
 
 This does _not_ write the `Digest` to the build root. Use `Workspace.write_digest()` for that.
-[block:api-header]
-{
-  "title": "`PathGlobs`"
-}
-[/block]
+## `PathGlobs`
 `PathGlobs` allows you to read from the local file system.
 
 ```python
@@ -136,11 +124,7 @@ async def demo(...) -> Foo:
     paths = await Get(Paths, PathGlobs(["**/*.txt", "!ignore_me.txt"])
     logger.info(paths.files)
 ``` 
-[block:api-header]
-{
-  "title": "`DigestContents`"
-}
-[/block]
+## `DigestContents`
 `DigestContents` allows you to get the file contents from a `Digest`.
 
 ```python
@@ -157,19 +141,17 @@ async def demo(...) -> Foo:
 ``` 
 
 The result will be a sequence of `FileContent` objects, which each have a property `path: str` and a property `content: bytes`. You may want to call `content.decode()` to convert to `str`.
-[block:callout]
-{
-  "type": "warning",
-  "title": "You may not need `DigestContents`",
-  "body": "Only use `DigestContents` if you need to read and operate on the content of files directly in your rule.\n\nIf you are running a `Process`, you only need to pass the `Digest` as input and that process will be able to read all the files in its environment. If you only need a list of files included in the digest, use `Get(Snapshot, Digest)`."
-}
-[/block]
 
-[block:api-header]
-{
-  "title": "`MergeDigests`"
-}
-[/block]
+:::caution You may not need `DigestContents`
+
+    Only use `DigestContents` if you need to read and operate on the content of files directly in your rule.
+    
+    If you are running a `Process`, you only need to pass the `Digest` as input and that process will be able to read all the files in its environment. If you only need a list of files included in the digest, use `Get(Snapshot, Digest)`.
+
+:::
+
+
+## `MergeDigests`
 Often, you will need to provide a single `Digest` somewhere in your plugin—such as the `input_digest` for a `Process`—but you may have multiple `Digest`s that you want to use. Use `MergeDigests` to combine them all into a single `Digest`.
 
 ```python
@@ -188,11 +170,7 @@ async def demo(...) -> Foo:
 * It is okay if multiple digests include the same file, so long as they have identical content.
 * If any digests have different content for the same file, the engine will error. Unlike Git, the engine does not attempt to resolve merge conflicts.
 * It is okay if some of the digests are empty, i.e. `EMPTY_DIGEST`.
-[block:api-header]
-{
-  "title": "`DigestSubset`"
-}
-[/block]
+## `DigestSubset`
 To get certain files out of a `Digest`, use `DigestSubset`.
 
 ```python
@@ -208,11 +186,7 @@ async def demo(...) -> Foo:
 ```
 
 See the section `PathGlobs` for more details on how the type works.
-[block:api-header]
-{
-  "title": "`AddPrefix` and `RemovePrefix`"
-}
-[/block]
+## `AddPrefix` and `RemovePrefix`
 Use `AddPrefix` and `RemovePrefix` to change the paths of every file in the digest, while keeping the file contents the same.
 
 
@@ -229,11 +203,7 @@ async def demo(...) -> Foo:
 ```
 
 `RemovePrefix` will error if it encounters any files that do not have the request prefix.
-[block:api-header]
-{
-  "title": "`Workspace.write_digest()`"
-}
-[/block]
+## `Workspace.write_digest()`
 To write a digest to disk in the build root, request the type `Workspace`, then use its method `.write_digest()`.
 
 ```python
@@ -267,11 +237,7 @@ Good:
 merged_digest = await Get(Digest, MergeDigests(all_digests))
 workspace.write_digest(merged_digest)
 ```
-[block:api-header]
-{
-  "title": "`DownloadFile`"
-}
-[/block]
+## `DownloadFile`
 `DownloadFile` allows you to download an asset using a `GET` request.
 
 ```python
@@ -293,10 +259,13 @@ async def demo(...) -> Foo:
 `DownloadFile` expects a `url: str` parameter pointing to a stable URL for the asset, along with an `expected_digest: FileDigest` parameter. A `FileDigest` is like a normal `Digest`, but represents a single file, rather than a set of files/directories. To determine the `expected_digest`, manually download the file, then run `shasum -a 256` to compute the fingerprint and `wc -c` to compute the expected length of the downloaded file in bytes.
 
 Often, you will want to download a pre-compiled binary for a tool. When doing this, use `ExternalTool` instead for help with extracting the binary from the download. See [Installing tools](doc:rules-api-installing-tools).
-[block:callout]
-{
-  "type": "success",
-  "title": "Want support for HTTP requests? Let us know.",
-  "body": "It is not safe to use `DownloadFile` for most HTTP requests, as it will never ping the server for updates once it is cached. It is also not safe to use the `requests` library or similar because it will not be cached safely.\n\nIn the meantime, you can use a `Process` with uniquely identifying information in its arguments to run `/usr/bin/curl`.\n\nIf you would like proper support for HTTP requests to use in your plugin, please let us know by commenting on the tracking GitHub issue so that we know to prioritize this: https://github.com/pantsbuild/pants/issues/8347."
-}
-[/block]
+
+:::tip Want support for HTTP requests? Let us know.
+
+    It is not safe to use `DownloadFile` for most HTTP requests, as it will never ping the server for updates once it is cached. It is also not safe to use the `requests` library or similar because it will not be cached safely.
+    
+    In the meantime, you can use a `Process` with uniquely identifying information in its arguments to run `/usr/bin/curl`.
+    
+    If you would like proper support for HTTP requests to use in your plugin, please let us know by commenting on the tracking GitHub issue so that we know to prioritize this: https://github.com/pantsbuild/pants/issues/8347.
+
+:::

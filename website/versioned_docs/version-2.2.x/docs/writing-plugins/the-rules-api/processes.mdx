@@ -8,11 +8,7 @@ How to safely run subprocesses in your plugin.
 ---
 
 It is not safe to use `subprocess.run()` like you normally would because this can break caching and will not leverage Pants's parallelism. Instead, Pants has safe alternatives with `Process` and `InteractiveProcess`.
-[block:api-header]
-{
-  "title": "`Process`"
-}
-[/block]
+## `Process`
 `Process` is similar to `subprocess.Popen()`. The process will run in the background, and you can run multiple processes in parallel.
 
 ```python
@@ -43,13 +39,30 @@ To set environment variables, use the parameter `env: Mapping[str, str]`. You ge
 To capture output files from the process, set `output_files: Iterable[str]` and/or `output_directories: Iterable[str]`. Then, you can use the `ProcessResult.output_digest` field to get a [`Digest`](docs:rules-api-file-system) of the result.
 
 To use a timeout, set the `timeout_fields: int` field. Otherwise, the process will never time out, unless the user cancels Pants.
-[block:callout]
-{
-  "type": "info",
-  "title": "`UncacheableProcess`",
-  "body": "Normally, a `Process` will be cached to `~/.cache/pants/lmdb_store` if the `exit_code` is `0`. \n\nIf it not safe to cache your `Process`—such as when running `git`—you can instead wrap your `Process` in an `UncacheableProcess`.\n\n```python\nfrom pants.engine.process import Process, ProcessResult, UncacheableProcess\n\n@rule\nasync def demo(...) -> Foo:\n    process = Process(\n        argv=[\"/bin/echo\", \"hello world\"],\n        description=\"Never cached.\",\n        env=env,\n    )\n    result = await Get(ProcessResult, UncacheableProcess(process))\n```\n\nWarning: This API might change, such as using a keyword argument on `Process` to indicate it should not be cached."
-}
-[/block]
+
+:::note `UncacheableProcess`
+
+    Normally, a `Process` will be cached to `~/.cache/pants/lmdb_store` if the `exit_code` is `0`. 
+    
+    If it not safe to cache your `Process`—such as when running `git`—you can instead wrap your `Process` in an `UncacheableProcess`.
+    
+    ```python
+    from pants.engine.process import Process, ProcessResult, UncacheableProcess
+    
+    @rule
+    async def demo(...) -> Foo:
+        process = Process(
+            argv=["/bin/echo", "hello world"],
+            description="Never cached.",
+            env=env,
+        )
+        result = await Get(ProcessResult, UncacheableProcess(process))
+    ```
+    
+    Warning: This API might change, such as using a keyword argument on `Process` to indicate it should not be cached.
+
+:::
+
 ### FallibleProcessResult
 
 Normally, a `ProcessResult` will raise an exception if the return code is not `0`. Instead, a `FallibleProcessResult` allows for any return code.
@@ -57,11 +70,7 @@ Normally, a `ProcessResult` will raise an exception if the return code is not `0
 Use `Get(FallibleProcessResult, Process)` if you expect that the process may fail, such as when running a linter or tests.
 
 Like `ProcessResult`, `FallibleProcessResult` has the attributes `stdout: bytes`, `stderr: bytes`, and `output_digest: Digest`, and it adds `exit_code: int`.
-[block:api-header]
-{
-  "title": "`InteractiveProcess`"
-}
-[/block]
+## `InteractiveProcess`
 `InteractiveProcess` is similar to `subprocess.run()`. The process will run in the foreground and it is blocking. 
 
 Because the process is blocking, you may only run an `InteractiveProcess` in an [`@goal_rule`](doc:rules-api-goal-rules). Your `@goal_rule` must request `InteractiveRunner`, and then use its method `.run()`. Typically, you should only use `InteractiveProcess` for things that may require user input, such as running a REPL.

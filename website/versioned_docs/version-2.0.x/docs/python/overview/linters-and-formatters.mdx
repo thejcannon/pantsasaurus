@@ -21,7 +21,7 @@ Linter/formatter support is implemented in separate backends so that they are ea
 - `pants.backend.python.lint.pylint`: Supports the [pylint](https://www.pylint.org/) style and error checker.
 
 To enable linters/formatters, add the appropriate ones in `pants.toml`:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 ...
 backend_packages = [
@@ -32,7 +32,7 @@ backend_packages = [
 ```
 
 You'll now see `lint` and `fmt` goals in the output of `./pants goals`.
-```text title="Shell"
+```text title="title="Shell""
 $ ./pants goals
 
 Goals
@@ -54,7 +54,10 @@ lint          Run all linters and/or formatters in check mode.
 
 :::note How to activate MyPy
 
-    MyPy is run with the [typecheck goal](doc:python-typecheck-goal), rather than `lint`.
+```
+MyPy is run with the [typecheck goal](doc:python-typecheck-goal), rather than `lint`.
+
+```
 
 :::
 
@@ -68,7 +71,7 @@ Each formatter and linter allows you to configure
 * `--extra-requirements`: any additional libraries to install, such as any plugins.
 
 For example:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [black]
 config = "pyproject.toml"
 
@@ -86,9 +89,12 @@ Run `./pants help-advanced black`, `./pants help-advanced flake8`, and so on for
 
 :::caution Config files must be explicitly declared
 
-    Many tools will automatically discover their config files if it's at a standard location, like isort looking for the file `.isort.cfg`. This auto-discovery does not work with Pants; you must explicitly set the `--config` option for Pants to use the correct config file.
-    
-    (Why? When running the linters and formatters, Pants copies over all the relevant files into a temporary directory. This allows Pants to safely cache the result and to run the process in the cloud through remote execution. Pants will only know to copy the config file into the temporary directory if you explicitly set it with the `--config` option.)
+```
+Many tools will automatically discover their config files if it's at a standard location, like isort looking for the file `.isort.cfg`. This auto-discovery does not work with Pants; you must explicitly set the `--config` option for Pants to use the correct config file.
+
+(Why? When running the linters and formatters, Pants copies over all the relevant files into a temporary directory. This allows Pants to safely cache the result and to run the process in the cloud through remote execution. Pants will only know to copy the config file into the temporary directory if you explicitly set it with the `--config` option.)
+
+```
 
 :::
 
@@ -96,9 +102,12 @@ Run `./pants help-advanced black`, `./pants help-advanced flake8`, and so on for
 
 :::note How to use first-party Pylint plugins
 
-    Pants supports custom Pylint plugins written by you. Run `./pants help pylint_source_plugin` for instructions.
-    
-    If you want to write first-party plugins for other linters like Flake8, let us know on [Slack](doc:community).
+```
+Pants supports custom Pylint plugins written by you. Run `./pants help pylint_source_plugin` for instructions.
+
+If you want to write first-party plugins for other linters like Flake8, let us know on [Slack](doc:community).
+
+```
 
 :::
 

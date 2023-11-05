@@ -25,7 +25,10 @@ The program will have access to the same environment used by the parent `./pants
 
 :::note Tip: check the return code
 
-    Pants will propagate the return code from the underlying executable. Run `echo $?` after the Pants run to see the return code.
+```
+Pants will propagate the return code from the underlying executable. Run `echo $?` after the Pants run to see the return code.
+
+```
 
 :::
 
@@ -33,7 +36,10 @@ The program will have access to the same environment used by the parent `./pants
 
 :::caution Issues finding files?
 
-    Run `./pants dependencies --transitive path/to/binary.py` to ensure that all the files you need are showing up, including for any [resources](doc:resources) you intend to use.
+```
+Run `./pants dependencies --transitive path/to/binary.py` to ensure that all the files you need are showing up, including for any [resources](doc:resources) you intend to use.
+
+```
 
 :::
 

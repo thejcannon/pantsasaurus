@@ -149,8 +149,12 @@ This will prevent generation of the "default" partitioning rule, allowing you to
 -----------------------------------------
 
 
-> 🚧 This step is optional
-> Defining a partitioning rule is only required if you overrode the `partitioner_type` field in your `TestRequest` subclass to be `PartitionerType.CUSTOM`. Skip to the next section if your subclass is using the default `partitioner_type`.
+
+:::caution This step is optional
+
+    Defining a partitioning rule is only required if you overrode the `partitioner_type` field in your `TestRequest` subclass to be `PartitionerType.CUSTOM`. Skip to the next section if your subclass is using the default `partitioner_type`.
+
+:::
 Pants can run tests from multiple targets/files within the same process (for example, to share expensive setup/teardown logic across multiple files). Since it's not always safe/possible to batch test files together, each plugin defining a `test` implementation is expected to define a `@rule` for splitting field-sets into appropriate batches:
 
 ```python

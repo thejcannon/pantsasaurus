@@ -16,7 +16,7 @@ The implementation of this feature relies on a third-party [Python library](http
 so to use it you will need to activate the Python backend and its "experimental" extension, even if
 you're not otherwise using Python in your repo:
 
-```toml pants.toml
+```toml title="pants.toml"
 backend_packages.add = [
   ...
   "pants.backend.python",
@@ -30,7 +30,7 @@ The `vcs_version` target
 
 To utilize this functionality, you first create a `vcs_version` target in some BUILD file, e.g.,:
 
-```python src/foo/BUILD
+```python title="src/foo/BUILD"
 vcs_version(
     name="version",
     generate_to="src/foo/version.py",
@@ -61,7 +61,7 @@ Using the generated version
 
 Code that depends on the `vcs_version` target can import and use the generated file:
 
-```python src/util.py
+```python title="src/util.py"
 from version import version
 ...
 ```

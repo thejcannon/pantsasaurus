@@ -16,17 +16,17 @@ Prerequisites
 
 If you already have one, you can reuse it.
 
-You likely want to use the gpg implementation of pgp. On macOS, you can `brew install gpg`. Once gpg is installed, generate a new key: <https://docs.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key>.
+You likely want to use the gpg implementation of pgp. On macOS, you can `brew install gpg`. Once gpg is installed, generate a new key: [https://docs.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key).
 
 Please use a password for your key!
 
 ### 2. Add your PGP key to GitHub.
 
-See <https://docs.github.com/en/github/authenticating-to-github/adding-a-new-gpg-key-to-your-github-account>.
+See [https://docs.github.com/en/github/authenticating-to-github/adding-a-new-gpg-key-to-your-github-account](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-gpg-key-to-your-github-account).
 
 ### 3. Configure Git to use your PGP key.
 
-See <https://docs.github.com/en/github/authenticating-to-github/telling-git-about-your-signing-key>.
+See [https://docs.github.com/en/github/authenticating-to-github/telling-git-about-your-signing-key](https://docs.github.com/en/github/authenticating-to-github/telling-git-about-your-signing-key).
 
 Note: the last step is required on macOS.
 
@@ -111,7 +111,7 @@ To cherry-pick, for example, from 2.9.x:
 
 1. `git fetch https://github.com/pantsbuild/pants 2.9.x`
 2. `git checkout -b <new-branch-name> FETCH_HEAD`
-3. Find the commit SHA by running `git log main` or looking in GitHub: <https://github.com/pantsbuild/pants/commits/main>.
+3. Find the commit SHA by running `git log main` or looking in GitHub: [https://github.com/pantsbuild/pants/commits/main](https://github.com/pantsbuild/pants/commits/main).
 4. `git cherry-pick <sha>`, using the SHA from the previous step.
 5. Open a pull request to merge into the release branch, e.g. `2.9.x`.
 
@@ -131,15 +131,23 @@ This will generate the sections to copy into the release notes. Delete any empty
 
 You are encouraged to fix typos and tweak change descriptions for clarity to users. Ensure that there is exactly one blank line between descriptions, headers etc.
 
-> 🚧 Reminder: always do this against the `main` branch
-> 
-> Even if you are preparing notes for a release candidate, always prepare the notes in a branch based on `main` and, later, target your PR to merge with `main`.
 
-> 📘 See any weird PR titles?
-> 
-> Sometimes, committers accidentally use the wrong title when squashing and merging because GitHub pulls the title from the commit title when there is only one commit. 
-> 
-> If you see a vague or strange title like "fix bug", open the original PR to see if the PR title is more descriptive. If it is, please use the more descriptive title instead.
+:::caution Reminder: always do this against the `main` branch
+
+    
+    Even if you are preparing notes for a release candidate, always prepare the notes in a branch based on `main` and, later, target your PR to merge with `main`.
+
+:::
+
+
+:::note See any weird PR titles?
+
+    
+    Sometimes, committers accidentally use the wrong title when squashing and merging because GitHub pulls the title from the commit title when there is only one commit. 
+    
+    If you see a vague or strange title like "fix bug", open the original PR to see if the PR title is more descriptive. If it is, please use the more descriptive title instead.
+
+:::
 
 ### 2. Update `CONTRIBUTORS.md`
 
@@ -163,13 +171,17 @@ Open a pull request on GitHub to merge into `main`. Post the PR to the `#develop
 
 Merge once approved and green.
 
-> 🚧 Watch out for any recently landed PRs
-> 
-> From the time you put up your release prep until you hit "merge", be careful that no one merges any commits into main. 
-> 
-> If they do—and you're doing a `dev` or `a0` release—you should merge `main` into your PR and update the changelog with their changes. It's okay if the changes were internal only, but any public changes must be added to the changelog.
-> 
-> Once you click "merge", it is safe for people to merge changes again.
+
+:::caution Watch out for any recently landed PRs
+
+    
+    From the time you put up your release prep until you hit "merge", be careful that no one merges any commits into main. 
+    
+    If they do—and you're doing a `dev` or `a0` release—you should merge `main` into your PR and update the changelog with their changes. It's okay if the changes were internal only, but any public changes must be added to the changelog.
+    
+    Once you click "merge", it is safe for people to merge changes again.
+
+:::
 
 ### 5a. `a0` - create a new Git branch
 
@@ -201,7 +213,7 @@ On the relevant release branch, run `npx rdme docs docs/markdown --version v<pan
 
 ### Regenerate the references
 
-On the relevant release branch, run `./pants run build-support/bin/generate_docs.py -- --sync --api-key <key>` with your key from <https://dash.readme.com/project/pants/v2.8/api-key>.
+On the relevant release branch, run `./pants run build-support/bin/generate_docs.py -- --sync --api-key <key>` with your key from [https://dash.readme.com/project/pants/v2.8/api-key](https://dash.readme.com/project/pants/v2.8/api-key).
 
 ### `stable` releases - Update the default docsite
 
@@ -209,25 +221,33 @@ The first stable release of a branch should update the "default" version of the 
 
 Also, update the [Changelog](doc:changelog)'s "highlights" column with a link to the blog summarizing the release. See the section "Announce the release" below for more info on the blog.
 
-> 🚧 Don't have edit access?
-> 
-> Ping someone in the `#maintainers-confidential` channel in Slack to be added. Alternatively, you can "Suggest edits" in the top right corner.
+
+:::caution Don't have edit access?
+
+    
+    Ping someone in the `#maintainers-confidential` channel in Slack to be added. Alternatively, you can "Suggest edits" in the top right corner.
+
+:::
 
 Step 3: Wait for CI to build the wheels
 ---------------------------------------
 
 Once you have merged the `VERSION` bump—which will be on `main` for `dev` and `a0` releases and the release branch for release candidates—CI will start building the wheels you need to finish the release.
 
-Head to <https://github.com/pantsbuild/pants/actions> and find your relevant build. You need the "Build wheels and fs_util" jobs to pass.
+Head to [https://github.com/pantsbuild/pants/actions](https://github.com/pantsbuild/pants/actions) and find your relevant build. You need the "Build wheels and fs_util" jobs to pass.
 
 Step 4: Run `release.sh`
 ------------------------
 
 First, ensure that you are on your release branch at your version bump commit.
 
-> 📘 Tip: if new commits have landed after your release commit
-> 
-> You can reset to your release commit by running `git reset --hard <sha>`.
+
+:::note Tip: if new commits have landed after your release commit
+
+    
+    You can reset to your release commit by running `git reset --hard <sha>`.
+
+:::
 
 Then, run:
 
@@ -243,7 +263,7 @@ We also release a Pants Pex via GitHub releases. Run this:
 PANTS_PEX_RELEASE=STABLE ./build-support/bin/release.sh build-universal-pex
 ```
 
-Then go to <https://github.com/pantsbuild/pants/tags>, find your release's tag, click `Edit tag`, and upload the PEX located at `dist/pex.pants.<version>.pex`.
+Then go to [https://github.com/pantsbuild/pants/tags](https://github.com/pantsbuild/pants/tags), find your release's tag, click `Edit tag`, and upload the PEX located at `dist/pex.pants.<version>.pex`.
 
 Step 5: Test the release
 ------------------------
@@ -272,9 +292,13 @@ You can get a contributor list by running the following, where `<tag>` is the ta
 ./pants run ./build-support/bin/contributors.py -- -s <tag>
 ```
 
-> ❗️ Update the links in these templates!
-> 
-> When copy pasting these templates, please always check that all versions match the relevant release. When adding a link, use "Test this link" to ensure that it loads properly.
+
+:::danger Update the links in these templates!
+
+    
+    When copy pasting these templates, please always check that all versions match the relevant release. When adding a link, use "Test this link" to ensure that it loads properly.
+
+:::
 
 #### Dev release
 
@@ -329,7 +353,7 @@ Create a new email thread for `rc0`. For other `rc`s, reply to the email thread 
 
 #### Stable release
 
-For the first stable release in the series, first, write a blog post to summarize the series using <https://pants.ghost.io/ghost/#/site>. Please coordinate by posting to #development in Slack. If writing is not your thing, you can ask in `#maintainers` or `#development` if another Pants contributor would be willing to write the blog.
+For the first stable release in the series, first, write a blog post to summarize the series using [https://pants.ghost.io/ghost/#/site](https://pants.ghost.io/ghost/#/site). Please coordinate by posting to #development in Slack. If writing is not your thing, you can ask in `#maintainers` or `#development` if another Pants contributor would be willing to write the blog.
 
 > Subject: [stable release] pantsbuild.pants 2.9.0
 >

@@ -44,7 +44,7 @@ Pants sandboxes all processes that it executes, ensuring that cache keys are alw
 Pants analyzes your code's import statements to determine files' dependencies automatically. Dependency information is required for precise change detection and cache invalidation, but inference means that you don't need to declare dependencies manually (and hermetic execution guarantees that they are always accurate)!
 
 Before (Pants v1, other build tools like Bazel):
-```python title="BUILD"
+```python title="title="BUILD""
 python_library(
   dependencies=[
     'src/python/pants/backend/python/rules',
@@ -72,7 +72,7 @@ python_tests(
 ```
 
 After:
-```python title="BUILD"
+```python title="title="BUILD""
 python_library()
 
 python_tests(name='tests')

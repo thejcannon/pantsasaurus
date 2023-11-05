@@ -15,7 +15,7 @@ This guide assumes that you are running a formatter that already exists outside 
 
 If you are instead writing your own formatting logic inline, you can skip Step 1. In Step 4, you will not need to use `Process`.
 
-# 1. Install your formatter
+## 1. Install your formatter
 
 There are several ways for Pants to install your formatter. See [Installing tools](doc:rules-api-installing-tools).
 This example will use `ExternalTool` because there is already a pre-compiled binary for shfmt.
@@ -68,7 +68,7 @@ class Shfmt(ExternalTool):
         return f"./shfmt_{self.version}_{plat_str}"
 ```
 
-# 2. Set up a `FieldSet` and `FmtTargetsRequest`
+## 2. Set up a `FieldSet` and `FmtTargetsRequest`
 
 As described in [Rules and the Target API](doc:rules-api-and-target-api), a `FieldSet` is a way to tell Pants which `Field`s you care about targets having for your plugin to work.
 
@@ -100,7 +100,7 @@ class ShfmtRequest(FmtTargetsRequest):
     tool_subsystem = Shfmt
 ```
 
-# 3. Create `fmt` rules
+## 3. Create `fmt` rules
 
 You will need a rule for `fmt` which takes the `FmtTargetsRequest.Batch` from step 3  (e.g. `ShfmtRequest`) as a parameter and returns a `FmtResult`.
 
@@ -171,7 +171,7 @@ def rules():
 
 Finally, update your plugin's `register.py` to activate this file's rules. Note that we must register the rules added in Step 2, as well.
 
-```python pants-plugins/shell/register.py
+```python title="pants-plugins/shell/register.py"
 from shell import shfmt
 
 
@@ -181,6 +181,6 @@ def rules():
 
 Now, when you run `pants fmt ::` or `pants lint ::`, your new formatter should run.
 
-# 4. Add tests (optional)
+## 4. Add tests (optional)
 
 Refer to [Testing rules](doc:rules-api-testing).

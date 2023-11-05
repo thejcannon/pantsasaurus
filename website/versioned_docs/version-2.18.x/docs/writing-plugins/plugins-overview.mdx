@@ -25,11 +25,15 @@ Thanks to Pants's execution engine, your plugins will automatically bring you th
 - Concurrent execution.
 - Remote execution.
 
-> ❗️ The Plugin API is not yet stable
-> 
-> While we'll try our best to limit changes, the Plugin API does not yet follow the [Deprecation Policy](doc:deprecation-policy). Components of the API may change between minor versions—e.g. 2.7 to 2.8—without a deprecation.
-> 
-> We will document changes at [Plugin upgrade guide](doc:plugin-upgrade-guide).
+
+:::danger The Plugin API is not yet stable
+
+    
+    While we'll try our best to limit changes, the Plugin API does not yet follow the [Deprecation Policy](doc:deprecation-policy). Components of the API may change between minor versions—e.g. 2.7 to 2.8—without a deprecation.
+    
+    We will document changes at [Plugin upgrade guide](doc:plugin-upgrade-guide).
+
+:::
 
 Core concepts
 -------------
@@ -55,7 +59,7 @@ It's often convenient to use in-repo plugins, particularly when the plugin is on
 
 You consume published plugins by adding them to the `plugins` option:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 plugins = ["my.plugin==2.3.4"]
 ```
@@ -66,14 +70,18 @@ Conventionally, in-repo plugins live in a folder called `pants-plugins`, althoug
 
 You must specify the path to your plugin's top-level folder using the `pythonpath` option:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 pythonpath = ["%(buildroot)s/pants-plugins"]
 ```
 
-> 🚧 In-repo dependencies
-> 
-> In-repo plugin code should not depend on other in-repo code outside of the `pants-plugins` folder.  The `pants-plugins` folder helps isolate plugins from regular code, which is necessary due to how Pants's startup sequence works.
+
+:::caution In-repo dependencies
+
+    
+    In-repo plugin code should not depend on other in-repo code outside of the `pants-plugins` folder.  The `pants-plugins` folder helps isolate plugins from regular code, which is necessary due to how Pants's startup sequence works.
+
+:::
 
 You can depend on third-party dependencies in your in-repo plugin by adding a `requirements.txt` file next to
 the plugin `register.py` module:
@@ -84,7 +92,7 @@ ansicolors==1.18.0
 
 Or, although less recommended, you can add them to the `plugins` option:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 plugins = ["ansicolors==1.18.0"]
 ```
@@ -98,7 +106,7 @@ A Pants [_backend_](doc:enabling-backends) is a Python package that implements s
 
 A plugin will contain one or more backends, with the hooks for each one defined in a file called `register.py`.  To enable a custom plugin you add its backends to your `backend_packages` configuration:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 pythonpath = ["%(buildroot)s/pants-plugins"]
 backend_packages.add = [
@@ -108,7 +116,7 @@ backend_packages.add = [
   "subdir.plugin2",
 ]
 ```
-```python pants-plugins/plugin1/register.py
+```python title="pants-plugins/plugin1/register.py"
 from plugin1.lib import CustomTargetType, rule1, rule2
 
 
@@ -127,7 +135,7 @@ Because plugin code is written in Python, you can optionally use Pants's [Python
 
 To do so, activate the [Python backend](doc:python) and `plugin_development` backend, which adds the `pants_requirements` target type. Also add your `pants-plugins` directory as a source root:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 backend_packages = [
   "pants.backend.python",
@@ -143,7 +151,7 @@ root_patterns = [
 
 Then, add the `pants_requirements` target generator.
 
-```python pants-plugins/BUILD
+```python title="pants-plugins/BUILD"
 pants_requirements(name="pants")
 ```
 
@@ -153,7 +161,7 @@ The target generator dynamically sets the version downloaded to match your curre
 
 If you do not want your plugin requirements to mix with your normal requirements, it's often a good idea to set up a dedicated "resolve" (lockfile) for your plugins. See [Third-party dependencies](doc:python-third-party-dependencies) for more information. For example:
 
-```python pants.toml
+```python title="pants.toml"
 [python]
 enable_resolves = true
 # The repository's own constraints.

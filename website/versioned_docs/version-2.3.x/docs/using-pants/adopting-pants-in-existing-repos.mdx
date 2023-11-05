@@ -3,23 +3,22 @@
     position: 7
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 Tips for how to incrementally add Pants to your repository.
 
 ---
 
-[block:api-header]
-{
-  "title": "Recommended steps"
-}
-[/block]
+## Recommended steps
 We recommend using an incremental migration to adopt Pants, as it will help to ensure that your builds keep behaving how you'd expect.
-[block:callout]
-{
-  "type": "info",
-  "body": "We would love to help you with adopting Pants. Please reach out through [Slack](doc:community).",
-  "title": "Joining Slack"
-}
-[/block]
+
+:::note Joining Slack
+
+    We would love to help you with adopting Pants. Please reach out through [Slack](doc:community).
+
+:::
+
 ### 1. A basic `pants.toml`
 
 Follow the [Getting Started](doc:getting-started) guide to install Pants and set up an initial `pants.toml`. Validate that running `./pants count-loc '**'` works properly.
@@ -31,13 +30,13 @@ Add `backend_packages = ["pants.backend.python"]` to the `[GLOBAL]` section.
 Formatters and linters are often the simplest to get working because—for all tools other than Pylint— you do not need to worry about things like dependencies and third-party requirements.
 
 First, create a BUILD file in each directory with Python code. As explained in [Targets and BUILD files](doc:targets), you can use fewer BUILD files, such as one BUILD file per subproject; but we find that one BUILD file per directory is a good default.
-[block:callout]
-{
-  "type": "success",
-  "title": "Use `./pants tailor` to cut down on manual work",
-  "body": "The `tailor` goal will generate initial BUILD files for you! You may need to tweak them manually, but for the most part the auto-generated ones should get you off to a good start. You can run `./pants tailor` again as you add new files in the future."
-}
-[/block]
+
+:::tip Use `./pants tailor` to cut down on manual work
+
+    The `tailor` goal will generate initial BUILD files for you! You may need to tweak them manually, but for the most part the auto-generated ones should get you off to a good start. You can run `./pants tailor` again as you add new files in the future.
+
+:::
+
 If your directory only contains production code, use `python_library`:
 
 ```python
@@ -95,32 +94,15 @@ Some example plugins that users have written:
 * Building a Docker image with packages built via `./pants package`
 * Custom `setup.py` logic to compute the `version` dynamically
 * Jupyter support
-[block:api-header]
-{
-  "title": "Migrating from other BUILD tools? Set custom BUILD file names"
-}
-[/block]
+## Migrating from other BUILD tools? Set custom BUILD file names
 If you're migrating from another build tool that already uses the name `BUILD`, such as Bazel or Please, you can tell Pants to use a different file name than `BUILD` to avoid conflicts:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "[GLOBAL]\nbuild_patterns = [\"BUILD.pants\"]",
-      "language": "toml",
-      "name": "pants.toml"
-    }
-  ]
-}
-[/block]
+```toml title="pants.toml"
+[GLOBAL]
+build_patterns = ["BUILD.pants"]
+```
+
 Alternatively, you can tell Pants to not look for BUILD files in certain locations. This can be helpful, for example, if you use a tool like Bazel for Java, but use Pants for Python:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "[GLOBAL]\nbuild_ignore = [\"src/java\"]",
-      "language": "toml",
-      "name": "pants.toml"
-    }
-  ]
-}
-[/block]
+```toml title="pants.toml"
+[GLOBAL]
+build_ignore = ["src/java"]
+```

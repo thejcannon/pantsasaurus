@@ -48,9 +48,12 @@ When you run `./pants help my_target`, Pants will use your field definition to g
 
 :::note Reminder: subclass pre-existing fields to modify their behavior
 
-    If you want to change how a pre-existing field behaves, you should subclass the original field. For example, if you want to change a default value, subclass the original field.
-    
-    See [Concepts](doc:target-api-concepts) for how subclassing plays a key role in the Target API.
+```
+If you want to change how a pre-existing field behaves, you should subclass the original field. For example, if you want to change a default value, subclass the original field.
+
+See [Concepts](doc:target-api-concepts) for how subclassing plays a key role in the Target API.
+
+```
 
 :::
 
@@ -103,28 +106,31 @@ Use this when you expect a single string.
 
 :::note `StringField` can be like an enum
 
-    You can set the class property `valid_choices` to limit what strings are acceptable. This class property can either be a tuple of strings or an `enum.Enum`. 
-    
-    For example:
-    
-    ```python
-    class LeafyGreensField(StringField):
-        alias = "leafy_greens"
-        valid_choices = ("kale", "spinach", "chard")
-    ```
-    
-    or:
-    
-    ```python
-    class LeafyGreens(Enum):
-        KALE = "kale"
-        SPINACH = "spinach"
-        CHARD = "chard"
-    
-    class LeafyGreensField(StringField):
-        alias = "leafy_greens"
-        valid_choices = LeafyGreens
-    ```
+```
+You can set the class property `valid_choices` to limit what strings are acceptable. This class property can either be a tuple of strings or an `enum.Enum`. 
+
+For example:
+
+```python
+class LeafyGreensField(StringField):
+    alias = "leafy_greens"
+    valid_choices = ("kale", "spinach", "chard")
+```
+
+or:
+
+```python
+class LeafyGreens(Enum):
+    KALE = "kale"
+    SPINACH = "spinach"
+    CHARD = "chard"
+
+class LeafyGreensField(StringField):
+    alias = "leafy_greens"
+    valid_choices = LeafyGreens
+```
+
+```
 
 :::
 
@@ -224,14 +230,17 @@ class VersionField(PrimitiveField):
 
 :::tip Asking for help
 
-    Have a tricky field you're trying to write? We would love to help! See [Getting Help](doc:community).
+```
+Have a tricky field you're trying to write? We would love to help! See [Getting Help](doc:community).
+
+```
 
 :::
 
 
 ## Examples
 
-```python title="plugins/target_types.py"
+```python title="title="plugins/target_types.py""
 from typing import Optional
 
 from pants.engine.target import (

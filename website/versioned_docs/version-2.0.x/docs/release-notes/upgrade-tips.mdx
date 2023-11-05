@@ -13,9 +13,12 @@ How we recommend staying up-to-date with Pants.
 
 :::note Reminder: change the `pants_version` to upgrade
 
-    Change the `pants_version` option in the `[GLOBAL]` scope in your pants.toml to upgrade.
-    
-    You can see all releases at https://pypi.org/project/pantsbuild.pants/#history.
+```
+Change the `pants_version` option in the `[GLOBAL]` scope in your pants.toml to upgrade.
+
+You can see all releases at https://pypi.org/project/pantsbuild.pants/#history.
+
+```
 
 :::
 
@@ -39,9 +42,12 @@ It is also helpful to spot check that your main commands like `lint`, `package`,
 
 :::note Use dev releases for the newest
 
-    As described in our [Release strategy](doc:release-strategy), we make weekly dev releases with all the latest features and bug fixes we've been working on. While dev releases are less stable, they mean you get access to improvements sooner. 
-    
-    If you encounter any blocking issues, you can easily roll back to a prior version by changing the `pants_version` option. (Please let us know the issue by opening a [GitHub issue](https://github.com/pantsbuild/pants/issues) or messaging us on [Slack](doc:community)).
+```
+As described in our [Release strategy](doc:release-strategy), we make weekly dev releases with all the latest features and bug fixes we've been working on. While dev releases are less stable, they mean you get access to improvements sooner. 
+
+If you encounter any blocking issues, you can easily roll back to a prior version by changing the `pants_version` option. (Please let us know the issue by opening a [GitHub issue](https://github.com/pantsbuild/pants/issues) or messaging us on [Slack](doc:community)).
+
+```
 
 :::
 
@@ -50,7 +56,7 @@ It is also helpful to spot check that your main commands like `lint`, `package`,
 Sometimes when upgrading, you will not have time to fully fix the deprecation. The `ignore_pants_warnings` option allows you to silence those deprecations.
 
 The `ignore_pants_warnings` option expects a string with the start of the deprecation warning, like this:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 ignore_pants_warnings = [
   "DEPRECATED: the pantsbuild.pants.contrib",

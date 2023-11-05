@@ -7,11 +7,11 @@ Learning advanced concepts for writing plugins.
 
 ---
 
-# Introduction
+## Introduction
 
 In this tutorial, we continue from where we've left in the [previous tutorial](doc:create-a-new-goal). Having now a complete goal with a custom target, we are ready to make certain improvements and learn more advanced concepts that you would likely find useful when working on your own plugins.
 
-## Adding a custom `source` field
+### Adding a custom `source` field
 
 In the first tutorial, to keep things simple, we used the default `SingleSourceField` class for our `source` field where we provided the path to the `VERSION` file. We could have added [a custom field](https://www.pantsbuild.org/docs/target-api-new-fields) to provide a file path, however, when using the `source` field, you get a few features for free such as setting the `default` value and `expected_file_extensions`. Furthermore, with the `source` field, thanks to the [`unmatched_build_file_globs`](https://www.pantsbuild.org/docs/reference-global#unmatched_build_file_globs) option, you won't need to provide custom logic to handle errors when path globs do not expand to any files in your repository.
 
@@ -46,7 +46,7 @@ $ PANTS_UNMATCHED_BUILD_FILE_GLOBS=error pants project-version myapp:
 
 We would likely want to use the same name for the version file (`VERSION`) throughout the repo for consistency, so we should probably set a default value for the target to reduce the amount of boilerplate in the `BUILD` files. To change a default value, we have to subclass the original field. Visit [customizing fields through subclassing](https://www.pantsbuild.org/docs/target-api-concepts#customizing-fields-through-subclassing) to learn more.
 
-```python pants-plugins/project_version/target_types.py
+```python title="pants-plugins/project_version/target_types.py"
 from pants.engine.target import COMMON_TARGET_FIELDS, SingleSourceField, Target
 
 class ProjectVersionSourceField(SingleSourceField):
@@ -95,7 +95,7 @@ targets = [tgt for tgt in targets if tgt.has_field(ProjectVersionSourceField)]
 
 Using own classes via subclassing will also help with refactoring if you decide to deprecate the target alias in order to rename it. In a more advanced scenario, other plugins may import the `ProjectVersionSourceField` field and use it in their own custom targets, so that `project-version` specific behavior would still apply to those targets as well. 
 
-## Ensuring a version follows a semver convention
+### Ensuring a version follows a semver convention
 
 With the current implementation, we have simply returned the contents of the file as is. We may want to add some validation, for instance, to check that a version string follows a semver convention. Let's learn how to [bring a 3rd party Python package](https://www.pantsbuild.org/docs/plugins-overview#thirdparty-dependencies), namely, [packaging](https://pypi.org/project/packaging/), into our plugin to do that! 
 
@@ -141,7 +141,7 @@ $ pants project-version myapp:
     InvalidProjectVersionString: Invalid version string 'x.y.z' from 'myapp/VERSION'
 ```
 
-## Exploring caching
+### Exploring caching
 
 When you have run the goal a few times, you may have noticed that sometimes the command takes a few seconds to complete, and sometimes it completes immediately. If that's the case, then you have just seen [Pants caching](https://www.pantsbuild.org/docs/rules-api-tips#fyi-caching-semantics) working! Because we use Pants engine to read the `VERSION` file, it copies it into the cache. Pants knows that when the command is re-run, if there are no changes to the Python source code or the `VERSION` file, there's no need to re-run the code because the result is guaranteed to stay the same.
 
@@ -149,7 +149,7 @@ If your plugin uses 3rd party Python packages dependencies, it can be worth chec
 
 You can confirm that cache is being used by adding [log statements](https://www.pantsbuild.org/docs/rules-api-logging). When run for the first time, the logging messages will show up; on subsequent runs, they won't because the code of the rules won't be executed.
 
-## Showing output as JSON
+### Showing output as JSON
 
 We have so far shown the version string as part of the `ProjectVersionFileView` class:
 
@@ -199,13 +199,13 @@ $ pants project-version --as-json myapp: | jq
 }
 ```
 
-## Automating generation of `project_version` targets
+### Automating generation of `project_version` targets
 
 Pants provides a way to automate generation of standard targets using the [`tailor`](https://www.pantsbuild.org/docs/reference-tailor) goal. If a monorepository has many projects, each containing a `VERSION` file, it might be useful to generate `version_file` targets in every directory where the relevant files are found. This is what Pants does, for instance, when Docker backend is enabled, and you have `Dockerfile` files in the codebase. To make this work for our use case, however, we need to introduce the `tailor` goal to the `VERSION` files.
 
 We've reached the moment when the documentation won't be of help: there are no instructions on how to extend the `tailor` goal. In a situation like this, it may be worth exploring the Pants codebase to see how this was done in other plugins that are part of Pants. Once you find a piece of code that looks like it does what you want, you can copy it and tweak it to better suit your needs. For our use case, the code used in [generation of C++ source targets](https://github.com/pantsbuild/pants/blob/672ca1d662c76f2567e432347deee8949c14d35d/src/python/pants/backend/cc/goals/tailor.py) may get handy. After making a few changes, we have a new rule we can place in a new file:
 
-```python pants-plugins/project_version/tailor.py
+```python title="pants-plugins/project_version/tailor.py"
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -278,7 +278,7 @@ When the `tailor` goal is run, the build graph is analyzed to see when `Putative
 
 We also have to make sure that the new rule is collected:
 
-```python pants-plugins/project_version/register.py
+```python title="pants-plugins/project_version/register.py"
 ...
 def rules():
     return [*project_version_rules.rules(), *tailor_rules.rules()]
@@ -302,7 +302,7 @@ Would create myapp/BUILD:
 To fix `tailor` failures, run `pants tailor`.
 ```
 
-## Running system tools
+### Running system tools
 
 Pants lets you [run system applications](https://www.pantsbuild.org/docs/rules-api-installing-tools) your plugin may need. For our use case, we can assume that Git is installed and can be run from the `/usr/bin/git`. If there's a `VERSION` file in the root of the repository representing the final artifact version (in case of a monolith), we could use Git to confirm that the version string matches the latest tag the repository was tagged with.
 
@@ -433,7 +433,7 @@ as_json = true
 match_git = false
 ```
 
-## Putting it all together
+### Putting it all together
 
 We have now extended the plugin with extra functionality:
 
@@ -446,7 +446,7 @@ $ pants project-version myapp:
 
 Let's get all of this code in one place:
 
-```python pants-plugins/project_version/register.py
+```python title="pants-plugins/project_version/register.py"
 from typing import Iterable
 
 import project_version.rules as project_version_rules
@@ -462,7 +462,7 @@ def target_types() -> Iterable[type[Target]]:
 def rules():
     return [*project_version_rules.rules(), *tailor_rules.rules()]
 ```
-```python pants-plugins/project_version/rules.py
+```python title="pants-plugins/project_version/rules.py"
 import dataclasses
 import json
 from dataclasses import dataclass
@@ -597,7 +597,7 @@ async def get_git_repo_version() -> GitTagVersion:
 def rules():
     return collect_rules()
 ```
-```python pants-plugins/project_version/tailor.py
+```python title="pants-plugins/project_version/tailor.py"
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -655,7 +655,7 @@ def rules():
         UnionRule(PutativeTargetsRequest, PutativeProjectVersionTargetsRequest),
     ]
 ```
-```python pants-plugins/project_version/target_types.py
+```python title="pants-plugins/project_version/target_types.py"
 from pants.engine.target import COMMON_TARGET_FIELDS, SingleSourceField, Target
 
 

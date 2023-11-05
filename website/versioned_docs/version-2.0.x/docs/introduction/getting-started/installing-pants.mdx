@@ -17,8 +17,11 @@ To run Pants, you need:
 
 :::caution Some Linux distributions may need additional packages
 
-    On Ubuntu you may need to run:
-    `apt install -y python3-dev python3-distutils`.
+```
+On Ubuntu you may need to run:
+`apt install -y python3-dev python3-distutils`.
+
+```
 
 :::
 
@@ -26,11 +29,14 @@ To run Pants, you need:
 
 :::caution Alpine Linux is not yet supported
 
-    Pants for Linux is currently distributed as a manylinux wheel. Alpine Linux is not covered by manylinux (it uses MUSL libc while manylinux requires glibc), so at present Pants will not run on Alpine Linux. 
-    
-    If you need to run Pants on Alpine, [let us know](doc:community), so we can prioritize this work.
-    
-    Meanwhile, you can try [building Pants yourself](#building-pants-from-sources) on Alpine.
+```
+Pants for Linux is currently distributed as a manylinux wheel. Alpine Linux is not covered by manylinux (it uses MUSL libc while manylinux requires glibc), so at present Pants will not run on Alpine Linux. 
+
+If you need to run Pants on Alpine, [let us know](doc:community), so we can prioritize this work.
+
+Meanwhile, you can try [building Pants yourself](#building-pants-from-sources) on Alpine.
+
+```
 
 :::
 
@@ -38,11 +44,14 @@ To run Pants, you need:
 
 :::caution Linux on ARM is not yet supported
 
-    Pants for Linux is currently only distributed as an x86_64 wheel.
-    
-    If you need to run Pants on ARM, [let us know](doc:community), so we can prioritize this work.
-    
-    Meanwhile you can try [building Pants yourself](#building-pants-from-sources) on ARM.
+```
+Pants for Linux is currently only distributed as an x86_64 wheel.
+
+If you need to run Pants on ARM, [let us know](doc:community), so we can prioritize this work.
+
+Meanwhile you can try [building Pants yourself](#building-pants-from-sources) on ARM.
+
+```
 
 :::
 
@@ -50,7 +59,10 @@ To run Pants, you need:
 
 :::note Python 2 compatibility
 
-    Pants requires Python 3.6+ to run itself, but it can build Python 2 code.
+```
+Pants requires Python 3.6+ to run itself, but it can build Python 2 code.
+
+```
 
 :::
 
@@ -58,7 +70,10 @@ To run Pants, you need:
 
 :::note Using a proxy?
 
-    See [Proxies](doc:proxies) for instructions.
+```
+See [Proxies](doc:proxies) for instructions.
+
+```
 
 :::
 
@@ -86,7 +101,10 @@ Now, run this to bootstrap Pants and to verify the version it installs:
 
 :::note Tip: add `./pants` to version control
 
-    This will allow all users in the project to use Pants without having to install it themselves.
+```
+This will allow all users in the project to use Pants without having to install it themselves.
+
+```
 
 :::
 

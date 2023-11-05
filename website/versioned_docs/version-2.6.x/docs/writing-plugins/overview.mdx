@@ -3,6 +3,9 @@
     position: 0
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 An intro to the Pants engine's core concepts.
 
 ---
@@ -24,30 +27,24 @@ Thanks to Pants's execution engine, your plugins will automatically bring you th
 - Fine-grained caching.
 - Concurrent execution.
 - Remote execution.
-[block:callout]
-{
-  "type": "danger",
-  "title": "The Plugin API is not yet stable",
-  "body": "While we'll try our best to limit changes, the Plugin API does not yet follow the [Deprecation Policy](doc:deprecation-policy). Components of the API may change between minor versions—e.g. 2.1.0 to 2.2.0—without a deprecation.\n\nWe will document any changes in the release notes with a guide on how to navigate the change."
-}
-[/block]
 
-[block:api-header]
-{
-  "title": "Core concepts"
-}
-[/block]
+:::danger The Plugin API is not yet stable
+
+    While we'll try our best to limit changes, the Plugin API does not yet follow the [Deprecation Policy](doc:deprecation-policy). Components of the API may change between minor versions—e.g. 2.1.0 to 2.2.0—without a deprecation.
+    
+    We will document any changes in the release notes with a guide on how to navigate the change.
+
+:::
+
+
+## Core concepts
 The plugin API is split into two main interfaces:
 
 1. [The Target API](doc:target-api-concepts): a declarative interface for creating new target types and extending pre-existing targets.
 2. [The Rules API](doc:rules-api-concepts): where you define your logic and model each step of your build.
 
 Plugins are written in typed Python 3 code. You write your logic in Python, and then Pants will run your plugin in the Rust engine.
-[block:api-header]
-{
-  "title": "Locating Plugin code"
-}
-[/block]
+## Locating Plugin code
 Plugins can be consumed in either of two ways:
 
 -  From a published package in a repository such as [PyPI](https://pypi.org/).
@@ -58,131 +55,111 @@ It's often convenient to use in-repo plugins, when the plugin is only relevant t
 ### Published plugins
 
 You consume published plugins by adding them to the `plugins` option:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "[GLOBAL]\nplugins = [\n  \"my.plugin==2.3.4\",\n]",
-      "language": "toml",
-      "name": "pants.toml"
-    }
-  ]
-}
-[/block]
+```toml title="pants.toml"
+[GLOBAL]
+plugins = [
+  "my.plugin==2.3.4",
+]
+```
+
 ### In-repo plugins
 
 Conventionally, in-repo plugins live in a folder called `pants-plugins`, although they may be placed anywhere.
 
 You must specify the path to your plugin's top-level folder using the `pythonpath` option:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "[GLOBAL]\npythonpath = [\"%(buildroot)s/pants-plugins\"]\n",
-      "language": "toml",
-      "name": "pants.toml"
-    }
-  ]
-}
-[/block]
+```toml title="pants.toml"
+[GLOBAL]
+pythonpath = ["%(buildroot)s/pants-plugins"]
+```
 
-[block:callout]
-{
-  "type": "warning",
-  "title": "In-repo dependencies",
-  "body": "In-repo plugin code should not depend on other in-repo code outside of the `pants-plugins` folder.  The `pants-plugins` folder helps isolate plugins from regular code, which is necessary due to how Pants's startup sequence works."
-}
-[/block]
+
+
+:::caution In-repo dependencies
+
+    In-repo plugin code should not depend on other in-repo code outside of the `pants-plugins` folder.  The `pants-plugins` folder helps isolate plugins from regular code, which is necessary due to how Pants's startup sequence works.
+
+:::
+
 You can depend on third-party dependencies in your in-repo plugin by adding them to the `plugins` option:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "[GLOBAL]\nplugins = [\n  \"ansicolors==1.18.0\",\n]",
-      "language": "toml",
-      "name": "pants.toml"
-    }
-  ]
-}
-[/block]
+```toml title="pants.toml"
+[GLOBAL]
+plugins = [
+  "ansicolors==1.18.0",
+]
+```
 
-[block:api-header]
-{
-  "title": "Enabling Plugins with `register.py`"
-}
-[/block]
+
+## Enabling Plugins with `register.py`
 Recall that a Pants [_backend_](doc:enabling-backends) is a Python package that implements some required functionality, and uses hooks to register itself with Pants.  
 
 A plugin will contain one or more backends, with the hooks for each one defined in a file called `register.py`.  To enable a custom plugin you add its backends to your `backend_packages` configuration:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "[GLOBAL]\npythonpath = [\"%(buildroot)s/pants-plugins\"]\nbackend_packages.add = [\n  # This will activate `pants-plugins/plugin1/register.py`.\n  \"plugin1\",\n  # This will activate `pants-plugins/subdir/plugin2/register.py`.\n  \"subdir.plugin2\",\n]",
-      "language": "toml",
-      "name": "pants.toml"
-    },
-    {
-      "code": "from plugin1.lib import CustomTargetType, rule1, rule2\n\n\ndef rules():\n    return [rule1, rule2]\n\n\ndef target_types():\n    return [CustomTargetType]",
-      "language": "python",
-      "name": "pants-plugins/plugin1/register.py"
-    }
-  ]
-}
-[/block]
 
-[block:api-header]
-{
-  "title": "Building in-repo plugins with Pants"
-}
-[/block]
+<Tabs>
+<TabItem value="pants.toml" label="pants.toml">
+
+```toml
+[GLOBAL]
+pythonpath = ["%(buildroot)s/pants-plugins"]
+backend_packages.add = [
+  # This will activate `pants-plugins/plugin1/register.py`.
+  "plugin1",
+  # This will activate `pants-plugins/subdir/plugin2/register.py`.
+  "subdir.plugin2",
+]
+```
+</TabItem>
+<TabItem value="pants-plugins/plugin1/register.py" label="pants-plugins/plugin1/register.py">
+
+```python
+from plugin1.lib import CustomTargetType, rule1, rule2
+
+
+def rules():
+    return [rule1, rule2]
+
+
+def target_types():
+    return [CustomTargetType]
+```
+</TabItem>
+</Tabs>
+
+
+## Building in-repo plugins with Pants
 Because plugin code is written in Python, you can use Pants's [Python backend](doc:python-backend) to build your plugin code. For example, you can use Pants to lint, format, and test your plugin code.
 
 To do so, set up Pants for [Python support](doc:python), and add your `pants-plugins` directory as a source root:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "[source]\nroot_patterns = [\n  ..,\n  \"pants-plugins\",\n]",
-      "language": "toml",
-      "name": "pants.toml"
-    }
-  ]
-}
-[/block]
+```toml title="pants.toml"
+[source]
+root_patterns = [
+  ..,
+  "pants-plugins",
+]
+```
+
 Your plugin code uses the Plugin API, so it depends on Pants's code as a 3rdparty dependency. It's important to depend on the exact Pants version that you're running in the repo. 
 
 One way to express this is to add `pantsbuild.pants==<version>` to your `requirements.txt`, but then you have to be careful to keep the versions in sync.
 
 A better way is to use the `pants_requirement()` macro, which uses the `pants_version` from your `pants.toml`:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "pants_requirement(name=\"pants\", dist=\"pantsbuild.pants\")",
-      "language": "python",
-      "name": "pants-plugins/BUILD"
-    }
-  ]
-}
-[/block]
-Pants's [dependency inference](doc:targets) understands imports of the `pants` module and will automatically add dependencies on the `pants_requirement` where relevant. You can also explicitly add it to the `dependencies` field:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "python_library(\n    # This will be inferred, but can also be explicitly specified.\n    dependencies=[\"pants-plugins:pants\"],\n)",
-      "language": "python",
-      "name": "pants-plugins/bash/BUILD"
-    }
-  ]
-}
-[/block]
+```python title="pants-plugins/BUILD"
+pants_requirement(name="pants", dist="pantsbuild.pants")
+```
 
-[block:callout]
-{
-  "type": "warning",
-  "title": "`pants_requirement` cannot update a constraints file",
-  "body": "If you are using a lockfile—which we strongly recommend for both correctness and performance—then you will need to remember to regenerate your `constraints.txt` file when upgrading Pants versions.\n\nSee https://www.pantsbuild.org/v2.0/docs/python-third-party-dependencies."
-}
-[/block]
+Pants's [dependency inference](doc:targets) understands imports of the `pants` module and will automatically add dependencies on the `pants_requirement` where relevant. You can also explicitly add it to the `dependencies` field:
+```python title="pants-plugins/bash/BUILD"
+python_library(
+    # This will be inferred, but can also be explicitly specified.
+    dependencies=["pants-plugins:pants"],
+)
+```
+
+
+
+:::caution `pants_requirement` cannot update a constraints file
+
+    If you are using a lockfile—which we strongly recommend for both correctness and performance—then you will need to remember to regenerate your `constraints.txt` file when upgrading Pants versions.
+    
+    See https://www.pantsbuild.org/v2.0/docs/python-third-party-dependencies.
+
+:::

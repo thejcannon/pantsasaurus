@@ -11,11 +11,14 @@ We welcome contributions of all types: from fixing typos to bug fixes to new fea
 
 :::tip Help wanted: identifying bad error messages
 
-    We strive—but sometimes fail—to make every error message easy to understand and to give insight into what went wrong and how to fix it.
-    
-    If you ever encounter a confusing or mediocre error message, we would love your help to identify the error message. Please open a [GitHub issue](https://github.com/pantsbuild/pants/issues) with the original Pants command, the error message, and what you found confusing or think could be improved.
-    
-    (If you'd be interested in then changing the code, we'd be happy to point you in the right direction!)
+```
+We strive—but sometimes fail—to make every error message easy to understand and to give insight into what went wrong and how to fix it.
+
+If you ever encounter a confusing or mediocre error message, we would love your help to identify the error message. Please open a [GitHub issue](https://github.com/pantsbuild/pants/issues) with the original Pants command, the error message, and what you found confusing or think could be improved.
+
+(If you'd be interested in then changing the code, we'd be happy to point you in the right direction!)
+
+```
 
 :::
 
@@ -49,9 +52,12 @@ If we do not respond within 24 business hours, please gently ping us by commenti
 
 :::note Tip: Can you split out any "prework"?
 
-    If your change is big, such as adding a new feature, it can help to split it up into multiple pull requests. This makes it easier for us to review and to get passing CI.
-    
-    This is a reason we encourage you to share your plan with us - we can help you to scope out if it would make sense to split into multiple PRs.
+```
+If your change is big, such as adding a new feature, it can help to split it up into multiple pull requests. This makes it easier for us to review and to get passing CI.
+
+This is a reason we encourage you to share your plan with us - we can help you to scope out if it would make sense to split into multiple PRs.
+
+```
 
 :::
 
@@ -79,9 +85,12 @@ See our [Style guide](doc:style-guide) for some Python conventions we follow.
 
 :::note You can share works in progress!
 
-    You do not need to fully finish your change before asking for feedback. We'd be eager to help you while iterating.
-    
-    If doing this, please open your pull request as a "Draft" and prefix your PR title with "WIP". Then, comment on the PR asking for feedback and/or post a link to the PR in [Slack](doc:community).
+```
+You do not need to fully finish your change before asking for feedback. We'd be eager to help you while iterating.
+
+If doing this, please open your pull request as a "Draft" and prefix your PR title with "WIP". Then, comment on the PR asking for feedback and/or post a link to the PR in [Slack](doc:community).
+
+```
 
 :::
 
@@ -103,13 +112,16 @@ Then, include a description. You can use the default template if you'd like, or 
 
 :::note Tip: Review your own PR
 
-    It is often helpful to other reviewers if you proactively review your own code. Specifically, add comments to parts where you want extra attention.
-    
-    For example:
-    
-    * "Do you know of a better way to do this? This felt clunky to write."
-    * "This was really tricky to figure out because there are so many edge cases. I'd appreciate extra attention here, please."
-    * "Note that I did not use a dataclass here because I do not want any of the methods like `__eq__` to be generated."
+```
+It is often helpful to other reviewers if you proactively review your own code. Specifically, add comments to parts where you want extra attention.
+
+For example:
+
+* "Do you know of a better way to do this? This felt clunky to write."
+* "This was really tricky to figure out because there are so many edge cases. I'd appreciate extra attention here, please."
+* "Note that I did not use a dataclass here because I do not want any of the methods like `__eq__` to be generated."
+
+```
 
 :::
 
@@ -117,9 +129,12 @@ Then, include a description. You can use the default template if you'd like, or 
 
 :::note FYI: we squash merge
 
-    This means that the final commit message will come from your PR description, rather than your commit messages. 
-    
-    Good commit messages are still very helpful for people reviewing your code; but, your PR description is what will show up in the changelog.
+```
+This means that the final commit message will come from your PR description, rather than your commit messages. 
+
+Good commit messages are still very helpful for people reviewing your code; but, your PR description is what will show up in the changelog.
+
+```
 
 :::
 
@@ -137,8 +152,11 @@ Once one or more reviewers have approved—and CI goes green—a reviewer will m
 
 :::note When will your change be released?
 
-    Your change will be included in the next weekly dev release, which usually happens every Friday or Monday. If you fixed a bug, your change may also be cherry-picked into a release candidate from the prior release series.
-    
-    See [Release strategy](doc:release-strategy).
+```
+Your change will be included in the next weekly dev release, which usually happens every Friday or Monday. If you fixed a bug, your change may also be cherry-picked into a release candidate from the prior release series.
+
+See [Release strategy](doc:release-strategy).
+
+```
 
 :::

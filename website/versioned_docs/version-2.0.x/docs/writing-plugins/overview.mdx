@@ -30,9 +30,12 @@ Thanks to Pants's execution engine, your plugins will automatically bring you th
 
 :::danger The Plugin API is not yet stable
 
-    While we'll try our best to limit changes, the Plugin API does not yet follow the [Deprecation Policy](doc:deprecation-policy). Components of the API may change between minor versions—e.g. 2.1.0 to 2.2.0—without a deprecation.
-    
-    We will document any changes in the release notes with a guide on how to navigate the change.
+```
+While we'll try our best to limit changes, the Plugin API does not yet follow the [Deprecation Policy](doc:deprecation-policy). Components of the API may change between minor versions—e.g. 2.1.0 to 2.2.0—without a deprecation.
+
+We will document any changes in the release notes with a guide on how to navigate the change.
+
+```
 
 :::
 
@@ -55,7 +58,7 @@ It's often convenient to use in-repo plugins, when the plugin is only relevant t
 ### Published plugins
 
 You consume published plugins by adding them to the `plugins` option:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 plugins = [
   "my.plugin==2.3.4",
@@ -67,7 +70,7 @@ plugins = [
 Conventionally, in-repo plugins live in a folder called `pants-plugins`, although they may be placed anywhere.
 
 You must specify the path to your plugin's top-level folder using the `pythonpath` option:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 pythonpath = ["%(buildroot)s/pants-plugins"]
 ```
@@ -76,12 +79,15 @@ pythonpath = ["%(buildroot)s/pants-plugins"]
 
 :::caution In-repo dependencies
 
-    In-repo plugin code should not depend on other in-repo code outside of the `pants-plugins` folder.  The `pants-plugins` folder helps isolate plugins from regular code, which is necessary due to how Pants's startup sequence works.
+```
+In-repo plugin code should not depend on other in-repo code outside of the `pants-plugins` folder.  The `pants-plugins` folder helps isolate plugins from regular code, which is necessary due to how Pants's startup sequence works.
+
+```
 
 :::
 
 You can depend on third-party dependencies in your in-repo plugin by adding them to the `plugins` option:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 plugins = [
   "ansicolors==1.18.0",
@@ -129,7 +135,7 @@ def target_types():
 Because plugin code is written in Python, you can use Pants's [Python backend](doc:python-backend) to build your plugin code. For example, you can use Pants to lint, format, and test your plugin code.
 
 To do so, set up Pants for [Python support](doc:python), and add your `pants-plugins` directory as a source root:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [source]
 root_patterns = [
   ..,
@@ -142,12 +148,12 @@ Your plugin code uses the Plugin API, so it depends on Pants's code as a 3rdpart
 One way to express this is to add `pantsbuild.pants==<version>` to your `requirements.txt`, but then you have to be careful to keep the versions in sync.
 
 A better way is to use the `pants_requirement()` macro, which uses the `pants_version` from your `pants.toml`:
-```python title="pants-plugins/BUILD"
+```python title="title="pants-plugins/BUILD""
 pants_requirement(name="pants", dist="pantsbuild.pants")
 ```
 
 Pants's [dependency inference](doc:targets) understands imports of the `pants` module and will automatically add dependencies on the `pants_requirement` where relevant. You can also explicitly add it to the `dependencies` field:
-```python title="pants-plugins/bash/BUILD"
+```python title="title="pants-plugins/bash/BUILD""
 python_library(
     # This will be inferred, but can also be explicitly specified.
     dependencies=["pants-plugins:pants"],
@@ -158,8 +164,11 @@ python_library(
 
 :::caution `pants_requirement` cannot update a constraints file
 
-    If you are using a lockfile—which we strongly recommend for both correctness and performance—then you will need to remember to regenerate your `constraints.txt` file when upgrading Pants versions.
-    
-    See https://www.pantsbuild.org/v2.0/docs/python-third-party-dependencies.
+```
+If you are using a lockfile—which we strongly recommend for both correctness and performance—then you will need to remember to regenerate your `constraints.txt` file when upgrading Pants versions.
+
+See https://www.pantsbuild.org/v2.0/docs/python-third-party-dependencies.
+
+```
 
 :::

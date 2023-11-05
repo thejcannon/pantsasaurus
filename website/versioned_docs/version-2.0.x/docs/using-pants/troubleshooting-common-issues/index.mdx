@@ -13,9 +13,12 @@ Common issues you may encounter.
 
 :::tip Asking for help
 
-    See [Getting Help](doc:community). We would love to help!
-    
-    If you are confused by something, likely someone else will run into the same issue. It is helpful for us to know what is going wrong so that we can improve Pants and improve this documentation.
+```
+See [Getting Help](doc:community). We would love to help!
+
+If you are confused by something, likely someone else will run into the same issue. It is helpful for us to know what is going wrong so that we can improve Pants and improve this documentation.
+
+```
 
 :::
 
@@ -35,7 +38,7 @@ It may be necessary to explicitly set the directory Pants uses as a temporary di
 
 Use the global option `local_execution_root_dir` to change the tmpdir used by Pants.
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 local_execution_root_dir = "/mnt/large-partition/tmpdir"
 ```
@@ -43,7 +46,7 @@ local_execution_root_dir = "/mnt/large-partition/tmpdir"
 
 ## \"No space left on device\" error while watching files
 On Linux, Pants uses `inotify` to watch all files and directories related to any particular build. Some systems have limits configured for the maximum number of files watched. To adjust the limit on file watches, you can run:
-```shell title="shell"
+```shell title="title="shell""
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 ```
 
@@ -66,7 +69,7 @@ You can also change the cache used by the `./pants` script described in [Install
 This is an error from `pip`, and it means that the same 3rd-party Python requirement—with different version constraints—appears in your dependencies.
 
 You can use Pants to help identify why the same requirement is being used more than once:
-```shell title="Shell"
+```shell title="title="Shell""
 # List all requirement strings used in your project. Once you
 # find the problematic requirement strings, try grepping
 # for them to see where the targets are defined.
@@ -83,7 +86,7 @@ Pants may complain that it cannot find a file or directory, even though the file
 Almost always, this error happens because of the option `pants_ignore` in the `[GLOBAL]` scope. By default, Pants will read your top-level `.gitignore` file to populate `pants_ignore`, along with ignoring `dist/` and any top-level files/directories starting with `.`.
 
 To override something included in your `.gitignore`, add a new value to `pants_ignore` and prefix it with `!`, like the below. `pants_ignore` uses the [same syntax as gitignore](https://git-scm.com/docs/gitignore).
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 pants_ignore.add = ["!folder/"]
 ```
@@ -114,13 +117,16 @@ This can be fixed by setting `ulimit -n 10000`. (10,000 should work in all cases
 
 :::note Tip: permanently configuring `ulimit -n`
 
-    We recommend permanently setting this by either:
-    
-    1. Adding `ulimit -n 10000` to your `./pants` script.
-    2. Using a tool like [Direnv](https://direnv.net) to run `ulimit -n 10000` everytime the project is loaded.
-    3. Adding `ulimit -n 10000` to your global `.bashrc` or equivalent.
-    
-    The first two approaches have the benefit that they will be checked into version control, so every developer at your organization can use the same setting.
+```
+We recommend permanently setting this by either:
+
+1. Adding `ulimit -n 10000` to your `./pants` script.
+2. Using a tool like [Direnv](https://direnv.net) to run `ulimit -n 10000` everytime the project is loaded.
+3. Adding `ulimit -n 10000` to your global `.bashrc` or equivalent.
+
+The first two approaches have the benefit that they will be checked into version control, so every developer at your organization can use the same setting.
+
+```
 
 :::
 
@@ -128,6 +134,9 @@ This can be fixed by setting `ulimit -n 10000`. (10,000 should work in all cases
 
 :::caution macOS users: avoid `ulimit unlimited`
 
-    Contrary to the name, this will not fix the issue. You must use `ulimit -n` instead.
+```
+Contrary to the name, this will not fix the issue. You must use `ulimit -n` instead.
+
+```
 
 :::

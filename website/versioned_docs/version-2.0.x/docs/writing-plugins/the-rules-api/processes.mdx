@@ -42,24 +42,27 @@ To use a timeout, set the `timeout_fields: int` field. Otherwise, the process wi
 
 :::note `UncacheableProcess`
 
-    Normally, a `Process` will be cached to `~/.cache/pants/lmdb_store` if the `exit_code` is `0`. 
-    
-    If it not safe to cache your `Process`—such as when running `git`—you can instead wrap your `Process` in an `UncacheableProcess`.
-    
-    ```python
-    from pants.engine.process import Process, ProcessResult, UncacheableProcess
-    
-    @rule
-    async def demo(...) -> Foo:
-        process = Process(
-            argv=["/bin/echo", "hello world"],
-            description="Never cached.",
-            env=env,
-        )
-        result = await Get(ProcessResult, UncacheableProcess(process))
-    ```
-    
-    Warning: This API might change, such as using a keyword argument on `Process` to indicate it should not be cached.
+```
+Normally, a `Process` will be cached to `~/.cache/pants/lmdb_store` if the `exit_code` is `0`. 
+
+If it not safe to cache your `Process`—such as when running `git`—you can instead wrap your `Process` in an `UncacheableProcess`.
+
+```python
+from pants.engine.process import Process, ProcessResult, UncacheableProcess
+
+@rule
+async def demo(...) -> Foo:
+    process = Process(
+        argv=["/bin/echo", "hello world"],
+        description="Never cached.",
+        env=env,
+    )
+    result = await Get(ProcessResult, UncacheableProcess(process))
+```
+
+Warning: This API might change, such as using a keyword argument on `Process` to indicate it should not be cached.
+
+```
 
 :::
 

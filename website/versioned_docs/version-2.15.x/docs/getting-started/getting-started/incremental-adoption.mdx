@@ -14,9 +14,13 @@ If you have an existing repository, we recommend incrementally adopting to reduc
 
 Incremental adoption also allows you to immediately start benefitting from Pants, then deepen adoption at your own pace, instead of postponing benefit until you are ready to make dramatic change all at once.
 
-> 📘 Joining Slack
-> 
-> We would love to help you with adopting Pants. Please reach out through [Slack](doc:getting-help).
+
+:::note Joining Slack
+
+    
+    We would love to help you with adopting Pants. Please reach out through [Slack](doc:getting-help).
+
+:::
 
 ### 1. A basic `pants.toml`
 
@@ -45,7 +49,7 @@ Try running `pants test ::` to see if any tests fail. Sometimes, your tests will
 
 You can port your tests incrementally with the `skip_tests` field:
 
-```python project/BUILD
+```python title="project/BUILD"
 python_tests(
     name="tests",
     # Skip all tests in this folder.
@@ -95,7 +99,7 @@ First, by default Pants recognizes `BUILD.extension` for any `extension` as a va
 
 Second, you can [configure](doc:reference-global#section-build-patterns) Pants to use a different set of file names entirely:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 build_patterns = ["PANTSBUILD", "PANTSBUILD.*"]
 
@@ -105,7 +109,7 @@ build_file_name = "PANTSBUILD"
 
 And finally you can configure Pants to not look for BUILD files in certain locations. This can be helpful, for example, if you use Pants for some languages and another tool for other languages:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 build_ignore = ["src/cpp"]
 ```

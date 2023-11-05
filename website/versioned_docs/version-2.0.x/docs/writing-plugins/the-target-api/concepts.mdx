@@ -16,19 +16,22 @@ The Target API can also be used to add new target types—such as adding support
 
 :::note v1 plugin author upgrading to the Target API?
 
-    These docs are written from the perspective of writing a brand new plugin using the Target API and v2 engine, rather than the perspective of already having a v1 plugin and writing bindings for your plugin. However, these docs are still relevant.
-    
-    We recommend reading the docs in this order:
-    
-    1. Skim this "Concepts" page. The main difference from V1 targets is that fields are the most important part of the Target API. Rather than defining your fields in the `__init__()` of your target, you create a new class for each field.
-    2. Read "Creating new fields". The majority of your bindings will be creating fields for each custom target you have.
-    3. Read "Creating new targets". This shows how to hook up the fields you created in the previous step and how to register your target in `register.py`. 
-    
-    While writing your binding, run `./pants help my_custom_target` to check that everything looks right.
-    
-    See [here](https://gist.github.com/Eric-Arellano/f83dcb8cfb891afe6af50f4b15707894) for an example of writing a binding.
-    
-    Please message us on [Slack](doc:community) if you have any questions or you would like help writing bindings! We are eager to help.
+```
+These docs are written from the perspective of writing a brand new plugin using the Target API and v2 engine, rather than the perspective of already having a v1 plugin and writing bindings for your plugin. However, these docs are still relevant.
+
+We recommend reading the docs in this order:
+
+1. Skim this "Concepts" page. The main difference from V1 targets is that fields are the most important part of the Target API. Rather than defining your fields in the `__init__()` of your target, you create a new class for each field.
+2. Read "Creating new fields". The majority of your bindings will be creating fields for each custom target you have.
+3. Read "Creating new targets". This shows how to hook up the fields you created in the previous step and how to register your target in `register.py`. 
+
+While writing your binding, run `./pants help my_custom_target` to check that everything looks right.
+
+See [here](https://gist.github.com/Eric-Arellano/f83dcb8cfb891afe6af50f4b15707894) for an example of writing a binding.
+
+Please message us on [Slack](doc:community) if you have any questions or you would like help writing bindings! We are eager to help.
+
+```
 
 :::
 
@@ -39,7 +42,7 @@ The Target API can also be used to add new target types—such as adding support
 As described in [Targets and BUILD files](doc:targets), a _target_ is a set of metadata describing some of your code.
 
 For example, this BUILD file defines a `python_tests` target.
-```python title="BUILD"
+```python title="title="BUILD""
 python_tests(
     sources=['app_test.py'],
     compatibility='==3.7.*'
@@ -54,7 +57,7 @@ A _field_ is a single value of metadata belonging to a target.
 In the above example, `sources`, `compatibility`, and `timeout` are all fields.
 
 Each field has a Python class that defines its BUILD file alias, data type, and optional settings like default values. For example:
-```python title="example_fields.py"
+```python title="title="example_fields.py""
 from pants.engine.target import IntField, StringField
 
 class PythonInterpreterCompatibility(StringField):
@@ -73,7 +76,7 @@ Precisely, a target is a combination of fields, along with a BUILD file alias.
 These fields should make sense together. For example, it does not make sense for a `python_library` target to have a `haskell_version` field.
 
 In fact, it only takes 3 lines of code to [create a new target](doc:target-api-new-targets):
-```python title="plugin_target_type.py"
+```python title="title="plugin_target_type.py""
 from pants.engine.target import Dependencies, Sources, Target, Tags
 
 class CustomTarget(Target):
@@ -88,7 +91,7 @@ Any unrecognized fields will cause an exception when used in a BUILD file.
 Because fields are stand-alone Python classes, the same field definition may be reused across multiple different target types.
 
 For example, most target types have the `sources` field.
-```python title="BUILD"
+```python title="title="BUILD""
 resources(
     name="files_tgt",
     sources=["demo.txt"],

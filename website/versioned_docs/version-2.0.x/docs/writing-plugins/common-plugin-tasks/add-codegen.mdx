@@ -16,7 +16,10 @@ Pants will not actually write the generated files to disk. Instead, any targets 
 
 :::note Example: Protobuf -> Python
 
-    This guide walks through each step of adding Protobuf to generate Python sources. See [here](https://github.com/pantsbuild/pants/tree/master/src/python/pants/backend/codegen/protobuf) for the final result.
+```
+This guide walks through each step of adding Protobuf to generate Python sources. See [here](https://github.com/pantsbuild/pants/tree/master/src/python/pants/backend/codegen/protobuf) for the final result.
+
+```
 
 :::
 
@@ -178,11 +181,14 @@ For many code generators, you will need to get the input target's direct or tran
 
 :::danger Use `DependenciesRequestLite` and `TransitiveTargetsRequestLite`
 
-    For codegen, you will get a rule graph error if you use `DependenciesRequest` and `TransitiveTargetsRequest` like normal. Instead, use `DependenciesRequestLite` and `TransitiveTargetsRequestLite`, both from `pants.engine.target`.
-    
-    These behave almost identically and take the same arguments in their constructors. However, these "lite" versions do not include dependency inference in the result. Unless you are generating code with `PythonSources` as the input, this should be fine.
-    
-    https://github.com/pantsbuild/pants/issues/10917 tracks this bug.
+```
+For codegen, you will get a rule graph error if you use `DependenciesRequest` and `TransitiveTargetsRequest` like normal. Instead, use `DependenciesRequestLite` and `TransitiveTargetsRequestLite`, both from `pants.engine.target`.
+
+These behave almost identically and take the same arguments in their constructors. However, these "lite" versions do not include dependency inference in the result. Unless you are generating code with `PythonSources` as the input, this should be fine.
+
+https://github.com/pantsbuild/pants/issues/10917 tracks this bug.
+
+```
 
 :::
 
@@ -267,7 +273,7 @@ async def generate_python_from_protobuf(
 ```
 
 Finally, update your plugin's `register.py` to activate this file's rules.
-```python title="pants-plugins/protobuf/register.py"
+```python title="title="pants-plugins/protobuf/register.py""
 from protobuf import python_support
 
 def rules():
@@ -278,47 +284,50 @@ def rules():
 
 :::note Tip: testing out if your implementation is working
 
-    Because codegen is only triggered when call sites specifically request it, there is no quick way to verify that your new rule works correctly.
-    
-    It may help to add a temporary [`@goal_rule`](doc:rules-api-goal-rules) when iterating, like this:
-    
-    ```python
-    from pants.backend.python.target_types import PythonSources
-    from pants.core.util_rules.source_files import SourceFiles, SourceFilesRequest
-    from pants.engine.fs import Workspace
-    from pants.engine.goal import Goal, GoalSubsystem
-    from pants.engine.rules import Get, collect_rules, goal_rule
-    from pants.engine.target import Sources, Targets
-    
-    
-    class TestCodegenSubsystem(GoalSubsystem):
-        name = "codegen"
-    
-    
-    class TestCodegen(Goal):
-        subsystem_cls = TestCodegenSubsystem
-    
-    
-    @goal_rule
-    async def test_codegen(targets: Targets, workspace: Workspace) -> TestCodegen:
-        generated_sources = await Get(
-            SourceFiles,
-            SourceFilesRequest(
-                [tgt.get(Sources) for tgt in targets],
-                enable_codegen=True,
-                for_sources_types=(PythonSources,),
-            ),
-        )
-        workspace.write_digest(generated_sources.snapshot.digest, path_prefix="codegen")
-        return TestCodegen(exit_code=0)
-    
-    
-    def rules():
-        return collect_rules()
-    ```
-    Replace `for_sources_types` with the `Sources` type your implementation generates.
-    
-    Then, update your plugin's `register.py` to register this new rule, and run `./pants codegen path/to/protocol_file.ext`.
+```
+Because codegen is only triggered when call sites specifically request it, there is no quick way to verify that your new rule works correctly.
+
+It may help to add a temporary [`@goal_rule`](doc:rules-api-goal-rules) when iterating, like this:
+
+```python
+from pants.backend.python.target_types import PythonSources
+from pants.core.util_rules.source_files import SourceFiles, SourceFilesRequest
+from pants.engine.fs import Workspace
+from pants.engine.goal import Goal, GoalSubsystem
+from pants.engine.rules import Get, collect_rules, goal_rule
+from pants.engine.target import Sources, Targets
+
+
+class TestCodegenSubsystem(GoalSubsystem):
+    name = "codegen"
+
+
+class TestCodegen(Goal):
+    subsystem_cls = TestCodegenSubsystem
+
+
+@goal_rule
+async def test_codegen(targets: Targets, workspace: Workspace) -> TestCodegen:
+    generated_sources = await Get(
+        SourceFiles,
+        SourceFilesRequest(
+            [tgt.get(Sources) for tgt in targets],
+            enable_codegen=True,
+            for_sources_types=(PythonSources,),
+        ),
+    )
+    workspace.write_digest(generated_sources.snapshot.digest, path_prefix="codegen")
+    return TestCodegen(exit_code=0)
+
+
+def rules():
+    return collect_rules()
+```
+Replace `for_sources_types` with the `Sources` type your implementation generates.
+
+Then, update your plugin's `register.py` to register this new rule, and run `./pants codegen path/to/protocol_file.ext`.
+
+```
 
 :::
 

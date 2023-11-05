@@ -12,7 +12,7 @@ Configuring registries
 
 A `docker_image` target takes an optional `registries` field, whose value is a list of registry endpoints and aliases:
 
-```python src/example/BUILD
+```python title="src/example/BUILD"
 docker_image(
     name="demo",
     registries=[
@@ -52,7 +52,7 @@ Options for `registries` in `pants.toml`:
 
 Example:
 
-```toml pants.toml
+```toml title="pants.toml"
 [docker.registries.company-registry1]
 address = "reg1.company.internal"
 default = true
@@ -67,7 +67,7 @@ address = "reg3.company.internal"
 repository = "{parent_directory}/{name}"
 use_local_alias = true
 ```
-```python src/example/BUILD
+```python title="src/example/BUILD"
 docker_image(name="demo")
 
 # This is equivalent to the previous target, 
@@ -94,7 +94,7 @@ In Docker parlance, an image is identified by a _repository_ and one or more _ta
 
 You set a repository name using the `repository` field on `docker_image`:
 
-```python src/example/BUILD
+```python title="src/example/BUILD"
 docker_image(
     name="demo",
     repository="example/demo",
@@ -109,7 +109,7 @@ To use a repository only for a specific registry, provide a `repository` value i
 configuration, and this can contain placeholders in curly braces that will be interpolated for each
 image name.
 
-```toml pants.toml
+```toml title="pants.toml"
 [docker.registries.demo]
 address = "reg.company.internal"
 repository = "example/{name}"
@@ -118,11 +118,11 @@ repository = "example/{name}"
 You can also specify a default repository name in config, and this name can contain placeholders in
 curly braces that will be interpolated for each `docker_image`:
 
-```toml pants.toml
+```toml title="pants.toml"
 [docker]
 default_repository = "{directory}/{name}"
 ```
-```python src/example/BUILD
+```python title="src/example/BUILD"
 docker_image(
     name="demo",
 )
@@ -155,7 +155,7 @@ configuration (see [Configuring registries](doc:tagging-docker-images#configurin
 (Note that the field is named `image_tags` and not just `tags`, because Pants has [its own tags
 concept](doc:reference-target#codetagscode), which is unrelated.)
 
-```python src/example/BUILD
+```python title="src/example/BUILD"
 docker_image(
     name="demo",
     repository="example/demo",
@@ -172,7 +172,7 @@ It's often useful to keep versions of derived images and their base images in sy
 out with this by interpolating tags referenced in `FROM` commands in your Dockerfile into the
 `image_tags` in the corresponding `docker_image`:
 
-```python src/example/BUILD
+```python title="src/example/BUILD"
 # These three are equivalent
 docker_image(name="demo1", image_tags=["{tags.upstream}"])
 docker_image(name="demo1", image_tags=["{tags.stage0}"])
@@ -182,7 +182,7 @@ docker_image(name="demo1", image_tags=["{tags.baseimage}"])
 # Any stage my be used, and being a format string, you may add extra text as well.
 docker_image(name="demo1", image_tags=["{tags.stage1}-custom-suffix"])
 ```
-```dockerfile src/example/Dockerfile
+```dockerfile title="src/example/Dockerfile"
 FROM upstream:1.2 as upstream
 # ...
 FROM scratch
@@ -196,7 +196,7 @@ You may also use any Docker build arguments (when configured as described in [Do
 arguments](doc:docker#build-arguments)) for interpolation into the `image_tags` in the corresponding
 `docker_image`:
 
-```python src/example/BUILD
+```python title="src/example/BUILD"
 docker_image(image_tags=["{build_args.ARG_NAME}"])
 ```
 
@@ -228,11 +228,15 @@ $ GIT_COMMIT=$(git rev-parse HEAD) pants package src/example:demo
 
 the value from the environment will be used. 
 
-> 📘 Generating dynamic tags in a plugin
-> 
-> If you don't want to use the environment variable method described above, you'll need to write some custom plugin code. Don't hesitate to [reach out](doc:getting-help) for help with this.
-> 
-> We are looking into making some common dynamic data, such as the git sha, automatically available in the core Docker plugin in the future.
+
+:::note Generating dynamic tags in a plugin
+
+    
+    If you don't want to use the environment variable method described above, you'll need to write some custom plugin code. Don't hesitate to [reach out](doc:getting-help) for help with this.
+    
+    We are looking into making some common dynamic data, such as the git sha, automatically available in the core Docker plugin in the future.
+
+:::
 
 
 Providing additional image tags with a plugin
@@ -243,7 +247,7 @@ not enough, the next option is to write a plugin to provide additional tags when
 
 Demonstrated with an example:
 
-```python example/plugin.py
+```python title="example/plugin.py"
 from pants.backend.docker.target_types import DockerImageTagsRequest, DockerImageTags
 from pants.engine.unions import UnionRule
 from pants.engine.rules import rule, collect_rules
@@ -279,7 +283,7 @@ All together: Registries, Repositories and Tags
 
 To illustrate how all the above work together, this target:
 
-```python src/example/BUILD
+```python title="src/example/BUILD"
 docker_image(
     name="demo",
     repository="example/demo",
@@ -310,9 +314,13 @@ The interpolation context (the available placeholder values) depends on which fi
 
 See [Setting a repository name](doc:tagging-docker-images#setting-a-repository-name) for placeholders specific to the `repository` field.
 
-> 📘 The `{pants.hash}` stability guarantee
-> 
-> The calculated hash value _may_ change between stable versions of Pants for the otherwise same input sources.
+
+:::note The `{pants.hash}` stability guarantee
+
+    
+    The calculated hash value _may_ change between stable versions of Pants for the otherwise same input sources.
+
+:::
 
 Retrieving the tags of an packaged image
 ----------------------------------------

@@ -7,8 +7,12 @@
 
 ---
 
-> 🚧 This page describes an old, deprecated method for installing Pants. 
-> We highly recommend using the `pants` [launcher binary](doc:installation) instead.
+
+:::caution This page describes an old, deprecated method for installing Pants. 
+
+    We highly recommend using the `pants` [launcher binary](doc:installation) instead.
+
+:::
 
 Manual installation
 -------------------
@@ -37,13 +41,21 @@ Now, run this to bootstrap Pants and to verify the version it installs:
 ./pants --version
 ```
 
-> 📘 Add `./pants` to version control
-> 
-> You should check the `./pants` script into your repo so that all users can easily run Pants.
 
-> 👍 Upgrading Pants
-> 
-> The `./pants` script will automatically install and use the Pants version specified in `pants.toml`, so upgrading Pants is as simple as editing `pants_version` in that file.
+:::note Add `./pants` to version control
+
+    
+    You should check the `./pants` script into your repo so that all users can easily run Pants.
+
+:::
+
+
+:::tip Upgrading Pants
+
+    
+    The `./pants` script will automatically install and use the Pants version specified in `pants.toml`, so upgrading Pants is as simple as editing `pants_version` in that file.
+
+:::
 
 Building Pants from sources
 ---------------------------

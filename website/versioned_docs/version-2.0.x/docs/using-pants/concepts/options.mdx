@@ -187,24 +187,27 @@ will set the value to `[3, 4]`.
 
 :::note Add/remove syntax in .toml files
 
-    The +/- syntax works in .toml files, but the entire value must be quoted:
-    
-    ```toml
-    [scope]
-    listopt = "+[1,2],-[3,4]"
-    ```
-    
-    This means that TOML treats the value as a string, instead of a TOML list. 
-    
-    Alternatively, you can use this syntactic sugar, which allows the values to be regular TOML lists: 
-    
-    ```toml
-    [scope]
-    listopt.add = [1, 2]
-    listopt.remove = [3, 4]
-    ```
-    
-    But note that this only works in Pants's .toml config files, not in environment variables or command-line flags.
+```
+The +/- syntax works in .toml files, but the entire value must be quoted:
+
+```toml
+[scope]
+listopt = "+[1,2],-[3,4]"
+```
+
+This means that TOML treats the value as a string, instead of a TOML list. 
+
+Alternatively, you can use this syntactic sugar, which allows the values to be regular TOML lists: 
+
+```toml
+[scope]
+listopt.add = [1, 2]
+listopt.remove = [3, 4]
+```
+
+But note that this only works in Pants's .toml config files, not in environment variables or command-line flags.
+
+```
 
 :::
 

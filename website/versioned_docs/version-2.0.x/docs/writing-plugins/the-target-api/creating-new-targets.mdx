@@ -24,7 +24,7 @@ To define a new target:
 3. Define the class property `core_fields`.
 
 For `core_fields`, we recommend including `COMMON_TARGET_FIELDS`  to add the useful `tags` and `description` fields. You also likely want to include `Dependencies` and `Sources`.
-```python title="plugins/target_types.py"
+```python title="title="plugins/target_types.py""
 from pants.engine.target import (
     COMMON_TARGET_FIELDS,
     Dependencies,
@@ -52,9 +52,12 @@ class CustomTarget(Target):
 
 :::note Tip: subclass the `Sources` field
 
-    You will usually want to subclass the `Sources` field to give custom functionality, such as setting a default value. 
-    
-    You can also set the class property `expected_file_extensions` to enforce that only certain files are used, such as `expected_file_extensions = (".json", ".txt")`.
+```
+You will usually want to subclass the `Sources` field to give custom functionality, such as setting a default value. 
+
+You can also set the class property `expected_file_extensions` to enforce that only certain files are used, such as `expected_file_extensions = (".json", ".txt")`.
+
+```
 
 :::
 
@@ -62,37 +65,40 @@ class CustomTarget(Target):
 
 :::note Using the fields of a pre-existing target type
 
-    Sometimes, you may want to create a new target type that behaves similarly to one that already exists, except for some small changes. 
-    
-    For example, you might like how `python_binary()` behaves in general, but you have a Django application and keep writing `sources=["manage.py"]`. Normally, you should write a [macro](doc:macros) to set this default value; but, here, you also want to add new Django-specific fields, so you decide to create a new target type.
-    
-    Rather than subclassing the original target type, use this pattern:
-    
-    ```python
-    from pants.backend.python.target_types import PythonBinary, PythonBinarySources
-    from pants.engine.target import Target
-    from pants.util.ordered_set import FrozenOrderedSet
-    
-    class DjangoManagePySources(PythonBinarySources):
-       default = ("manage.py",)
-    
-    
-    class DjangoManagePy(Target):
-       alias = "django_manage_py"
-       core_fields = (
-           *(FrozenOrderedSet(PythonBinary.core_fields) - {PythonBinarySources}),
-           DjangoManagePySources,
-       )
-    ```
-    
-    In this example, we register all of the fields of `PythonBinary`, except for the field `PythonBinarySources`. We instead register our custom field `DjangoManagePySources`.
+```
+Sometimes, you may want to create a new target type that behaves similarly to one that already exists, except for some small changes. 
+
+For example, you might like how `python_binary()` behaves in general, but you have a Django application and keep writing `sources=["manage.py"]`. Normally, you should write a [macro](doc:macros) to set this default value; but, here, you also want to add new Django-specific fields, so you decide to create a new target type.
+
+Rather than subclassing the original target type, use this pattern:
+
+```python
+from pants.backend.python.target_types import PythonBinary, PythonBinarySources
+from pants.engine.target import Target
+from pants.util.ordered_set import FrozenOrderedSet
+
+class DjangoManagePySources(PythonBinarySources):
+   default = ("manage.py",)
+
+
+class DjangoManagePy(Target):
+   alias = "django_manage_py"
+   core_fields = (
+       *(FrozenOrderedSet(PythonBinary.core_fields) - {PythonBinarySources}),
+       DjangoManagePySources,
+   )
+```
+
+In this example, we register all of the fields of `PythonBinary`, except for the field `PythonBinarySources`. We instead register our custom field `DjangoManagePySources`.
+
+```
 
 :::
 
 
 ## Step 2: Register the target type in `register.py`
 Now, in your [`register.py`](doc:plugins-overview), add the target type to the `def target_types()` entry point.
-```python title="plugins/register.py"
+```python title="title="plugins/register.py""
 from plugins.target_types import CustomTarget
 
 def target_types():

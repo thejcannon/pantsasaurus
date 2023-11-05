@@ -4,11 +4,15 @@ title: Deployments
 
 ---
 
-> 🚧 Helm deployment support is in alpha stage
->
-> Pants has experimental support for managing deployments via the `experimental-deploy` goal. Helm deployments provides with a basic implementation of this goal.
->
-> Please share feedback for what you need to use Pants with your Helm deployments by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](doc:getting-help)!
+
+:::caution Helm deployment support is in alpha stage
+
+    
+    Pants has experimental support for managing deployments via the `experimental-deploy` goal. Helm deployments provides with a basic implementation of this goal.
+    
+    Please share feedback for what you need to use Pants with your Helm deployments by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](doc:getting-help)!
+
+:::
 
 ## Motivation
 
@@ -22,18 +26,18 @@ Pants solves this problem by providing with the ability to manage the configurat
 
 Helm deployments are defined using the `helm_deployment` target which has a series of fields that can be used to guarantee the reproducibility of the given deployment. `helm_deployment` targets need to be added by hand as there is no deterministic way of instrospecting your repository to find sources that are specific to Helm:
 
-```python src/chart/BUILD
+```python title="src/chart/BUILD"
 helm_chart()
 ```
 
-```yaml src/chart/Chart.yaml
+```yaml title="src/chart/Chart.yaml"
 apiVersion: v2
 description: Example Helm chart
 name: example
 version: 0.1.0
 ```
 
-```python src/deployment/BUILD
+```python title="src/deployment/BUILD"
 helm_deployment(name="dev", sources=["common-values.yaml", "dev-override.yaml"], dependencies=["//src/chart"])
 
 helm_deployment(name="stage", sources=["common-values.yaml", "stage-override.yaml"], dependencies=["//src/chart"])
@@ -41,25 +45,25 @@ helm_deployment(name="stage", sources=["common-values.yaml", "stage-override.yam
 helm_deployment(name="prod", sources=["common-values.yaml", "prod-override.yaml"], dependencies=["//src/chart"])
 ```
 
-```yaml src/deployment/common-values.yaml
+```yaml title="src/deployment/common-values.yaml"
 # Default values common to all deployments
 env:
   SERVICE_NAME: my-service
 ```
 
-```yaml src/deployment/dev-override.yaml
+```yaml title="src/deployment/dev-override.yaml"
 # Specific values to the DEV environment
 env:
   ENV_ID: dev
 ```
 
-```yaml src/deployment/stage-override.yaml
+```yaml title="src/deployment/stage-override.yaml"
 # Specific values to the STAGE environment
 env:
   ENV_ID: stage
 ```
 
-```yaml src/deployment/prod-override.yaml
+```yaml title="src/deployment/prod-override.yaml"
 # Specific values to the PRODUCTION environment
 env:
   ENV_ID: prod
@@ -80,31 +84,31 @@ A Helm deployment will in most cases deploy one or more Docker images into Kuber
 
 To illustrate this, let's imagine the following scenario: Let's say we have a first-party Docker image that we want to deploy into Kubernetes as a `Pod` resource kind. For achieving this we define the following workspace:
 
-```python src/docker/BUILD
+```python title="src/docker/BUILD"
 docker_image()
 ```
 
-```text src/docker/Dockerfile
+```text title="src/docker/Dockerfile"
 FROM busybox:1.28
 ```
 
-```python src/chart/BUILD
+```python title="src/chart/BUILD"
 helm_chart()
 ```
 
-```yaml src/chart/Chart.yaml
+```yaml title="src/chart/Chart.yaml"
 apiVersion: v2
 description: Example Helm chart
 name: example
 version: 0.1.0
 ```
 
-```yaml src/chart/values.yaml
+```yaml title="src/chart/values.yaml"
 # Default image in case this chart is used by other tools after being published
 image: example.com/registry/my-app:latest
 ```
 
-```yaml src/chart/templates/pod.yaml
+```yaml title="src/chart/templates/pod.yaml"
 ---
 apiVersion: v1
 kind: Pod
@@ -119,15 +123,19 @@ spec:
       image: {{ .Values.image }}
 ```
 
-```python src/deployment/BUILD
+```python title="src/deployment/BUILD"
 # Overrides the `image` value for the chart using the target address for the first-party docker image.
 helm_deployment(dependencies=["src/chart"], values={"image": "src/docker"})
 ```
 
-> 📘 Docker image references VS Pants' target addresses
->
-> You should use typical Docker registry addresses in your Helm charts. Because Helm charts are distributable artifacts and may be used with tools other than Pants, you should create your charts such that when that chart is being used, all Docker image addresses are valid references to images in accessible Docker registries. As shown in the example, we recommend that you make the image address value configurable, especially for charts that deploy first-party Docker images.
-> Your chart resources can still use off-the-shelf images published with other means, and in those cases you will also be referencing the Docker image address. Usage of Pants' target addresses is intended for your own first-party images because the image reference of those is not known at the time we create the sources (they are computed later).
+
+:::note Docker image references VS Pants' target addresses
+
+    
+    You should use typical Docker registry addresses in your Helm charts. Because Helm charts are distributable artifacts and may be used with tools other than Pants, you should create your charts such that when that chart is being used, all Docker image addresses are valid references to images in accessible Docker registries. As shown in the example, we recommend that you make the image address value configurable, especially for charts that deploy first-party Docker images.
+    Your chart resources can still use off-the-shelf images published with other means, and in those cases you will also be referencing the Docker image address. Usage of Pants' target addresses is intended for your own first-party images because the image reference of those is not known at the time we create the sources (they are computed later).
+
+:::
 
 With this setup we should be able to run `./pants dependencies src/deployment` and Pants should give the following output:
 
@@ -138,16 +146,20 @@ src/docker
 
 This should work with any kind of Kubernetes resource that leads to Docker image being deployed into Kubernetes, such as `Deployment`, `StatefulSet`, `ReplicaSet`, `CronJob`, etc. Please get in touch with us in case you find Pants was not capable to infer dependencies in any of your `helm_deployment` targets by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](doc:getting-help).
 
-> 📘 How the Docker image reference is calculated during deployment?
->
-> Pants' will rely on the behaviour of the `docker_image` target when it comes down to generate the final image reference. Since a given image may have more than one valid image reference, **Pants will try to use the first one that is not tagged as `latest`**, falling back to `latest` if none could be found.
-> It's good practice to publish your Docker images using tags other than `latest` and Pants preferred behaviour is to choose those as this guarantees that the _version_ of the Docker image being deployed is the expected one.
+
+:::note How the Docker image reference is calculated during deployment?
+
+    
+    Pants' will rely on the behaviour of the `docker_image` target when it comes down to generate the final image reference. Since a given image may have more than one valid image reference, **Pants will try to use the first one that is not tagged as `latest`**, falling back to `latest` if none could be found.
+    It's good practice to publish your Docker images using tags other than `latest` and Pants preferred behaviour is to choose those as this guarantees that the _version_ of the Docker image being deployed is the expected one.
+
+:::
 
 ## Value files
 
 It's very common that Helm deployments use a series of files providing with values that customise the given chart. When using deployments that may have more than one YAML file as the source of configuration values, the Helm backend needs to sort the file names in a way that is consistent across different machines, as the order in which those files are passed to the Helm command is relevant. The final order depends on the same order in which those files are specified in the `sources` field of the `helm_deployment` target. For example, given the following `BUILD` file:
 
-```python src/deployment/BUILD
+```python title="src/deployment/BUILD"
 helm_deployment(name="dev", dependencies=["//src/chart"], sources=["first.yaml", "second.yaml", "last.yaml"])
 ```
 
@@ -166,7 +178,7 @@ src/deployment/last.yaml
 
 And also the following `helm_deployment` target definition:
 
-```python src/deployment/BUILD
+```python title="src/deployment/BUILD"
 helm_deployment(name="dev", dependencies=["//src/chart"], sources=["first.yaml", "*.yaml", "dev/*-override.yaml", "dev/*.yaml", "last.yaml"])
 ```
 
@@ -189,7 +201,7 @@ In addition to value files, you can also use inline values in your `helm_deploym
 
 Inline values are defined as a key-value dictionary, like in the following example:
 
-```python src/deployment/BUILD
+```python title="src/deployment/BUILD"
 helm_deployment(
   name="dev",
   dependencies=["//src/chart"],
@@ -204,7 +216,7 @@ helm_deployment(
 
 Inline values also support interpolation of environment variables. Since Pants runs all processes in a hermetic sandbox, to be able to use environment variables you must first tell Pants what variables to make available to the Helm process using the `[helm].extra_env_vars` option. Consider the following example:
 
-```python src/deployment/BUILD
+```python title="src/deployment/BUILD"
 helm_deployment(
   name="dev",
   dependencies=["//src/chart"],
@@ -214,7 +226,7 @@ helm_deployment(
 )
 ```
 
-```toml pants.toml
+```toml title="pants.toml"
 [helm]
 extra_env_vars = ["DEPLOY_TIME"]
 ```
@@ -225,10 +237,14 @@ Now you can launch a deployment using the following command:
 DEPLOY_TIME=$(date) ./pants experimental-deploy src/deployment:dev
 ```
 
-> 🚧 Ensuring repeatable deployments
->
-> You should always favor using static values (or value files) VS dynamic values in your deployments. Using interpolated environment variables in your deployments can render your deployments non-repetable anymore if those values can affect the behaviour of the system deployed, or what gets deployed (i.e. Docker image addresses).
-> Dynamic values are supported to give the option of passing some info or metadata to the software being deployed (i.e. deploy time, commit hash, etc) or some less harmful settings of a deployment (i.e. replica count. etc). Be careful when chossing the values that are going to be calculated dynamically.
+
+:::caution Ensuring repeatable deployments
+
+    
+    You should always favor using static values (or value files) VS dynamic values in your deployments. Using interpolated environment variables in your deployments can render your deployments non-repetable anymore if those values can affect the behaviour of the system deployed, or what gets deployed (i.e. Docker image addresses).
+    Dynamic values are supported to give the option of passing some info or metadata to the software being deployed (i.e. deploy time, commit hash, etc) or some less harmful settings of a deployment (i.e. replica count. etc). Be careful when chossing the values that are going to be calculated dynamically.
+
+:::
 
 ## Third party chart artifacts
 
@@ -236,7 +252,7 @@ Previous examples on the usage of the `helm_deployment` target are all based on 
 
 However, `helm_deployment`s are not limited to only first party charts, as it is also possible to declare a deployment having a dependency on a 3rd party Helm artifact instead. As an example, consider the following workspace layout:
 
-```python 3rdparty/helm/jetstack/BUILD
+```python title="3rdparty/helm/jetstack/BUILD"
 helm_artifact(
   name="cert-manager",
   artifact="cert-manager",
@@ -245,7 +261,7 @@ helm_artifact(
 )
 ```
 
-```python src/deploy/BUILD
+```python title="src/deploy/BUILD"
 helm_deployment(
   name="main",
   dependencies=["//3rdparty/helm/jetstack:cert-manager"],
@@ -276,7 +292,11 @@ For example, to make an atomic deployment into a non-default Kubernetes context 
 ./pants experimental-deploy src/deployments:prod -- --kube-context my-custom-kube-context --atomic
 ```
 
-> 📘 How does Pants authenticate with the Kubernetes cluster?
->
-> Short answer is: it doesn't.
-> Pants will invoke Helm under the hood with the appropriate arguments to only perform the deployment. Any authentication steps that may be needed to perform the given deployment have to be done before invoking the `experimental-deploy` goal. If you are planning to run the deployment procedure from your CI/CD pipelines, ensure that all necessary preliminary steps (including authentication with the cluster) are done before the one that triggers the deployment.
+
+:::note How does Pants authenticate with the Kubernetes cluster?
+
+    
+    Short answer is: it doesn't.
+    Pants will invoke Helm under the hood with the appropriate arguments to only perform the deployment. Any authentication steps that may be needed to perform the given deployment have to be done before invoking the `experimental-deploy` goal. If you are planning to run the deployment procedure from your CI/CD pipelines, ensure that all necessary preliminary steps (including authentication with the cluster) are done before the one that triggers the deployment.
+
+:::

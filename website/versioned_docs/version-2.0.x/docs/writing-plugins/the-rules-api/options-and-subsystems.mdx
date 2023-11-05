@@ -67,9 +67,12 @@ The subsystem should now show up when you run `./pants help shellcheck`.
 
 :::note `GoalSubsystem`
 
-    As explained in [Goal rules](doc:rules-api-goal-rules), goals use a subclass of  `Subsystem`: `GoalSubsystem` from `pants.engine.goal`.
-    
-    `GoalSubsystem` behaves the same way as a normal subsystem, except that you set the class property `name` rather than `options_scope`. The `name` will auto-populate the `options_scope`.
+```
+As explained in [Goal rules](doc:rules-api-goal-rules), goals use a subclass of  `Subsystem`: `GoalSubsystem` from `pants.engine.goal`.
+
+`GoalSubsystem` behaves the same way as a normal subsystem, except that you set the class property `name` rather than `options_scope`. The `name` will auto-populate the `options_scope`.
+
+```
 
 :::
 
@@ -156,33 +159,36 @@ async def demo(shellcheck: Shellcheck) -> LintResults:
 
 :::note Tip: teach MyPy about your subsystem
 
-    MyPy does not understand the property `.options`. 
+```
+MyPy does not understand the property `.options`. 
+
+Instead, you can create a `@property` for each option and use `typing.cast()` to teach MyPy what each value is.
+
+```python
+from typing import cast
+
+class Shellcheck(Subsystem):
+    """The Shellcheck linter."""
+ 
+    options_scope = "shellcheck"
     
-    Instead, you can create a `@property` for each option and use `typing.cast()` to teach MyPy what each value is.
+    @classmethod
+    def register_options(cls, register):
+        super().register_options(register)
+        register(
+            "--skip",
+            type=bool,
+            default=False,
+            help="Don't use Shellcheck when running `./pants lint`.
+        )
     
-    ```python
-    from typing import cast
-    
-    class Shellcheck(Subsystem):
-        """The Shellcheck linter."""
-     
-        options_scope = "shellcheck"
-        
-        @classmethod
-        def register_options(cls, register):
-            super().register_options(register)
-            register(
-                "--skip",
-                type=bool,
-                default=False,
-                help="Don't use Shellcheck when running `./pants lint`.
-            )
-        
-        @property
-        def skip(self) -> bool:
-            return cast(bool, self.options.skip)
-    ```
-    
-    This is optional. It can make your call sites simpler and safer thanks to MyPy, but it requires some  boilerplate.
+    @property
+    def skip(self) -> bool:
+        return cast(bool, self.options.skip)
+```
+
+This is optional. It can make your call sites simpler and safer thanks to MyPy, but it requires some  boilerplate.
+
+```
 
 :::

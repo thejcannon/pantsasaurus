@@ -239,7 +239,7 @@ Use `Get(Digest, MergeDigests)` to combine the different inputs together, such a
 
 Finally, update your plugin's `register.py` to activate this file's rules. Note that we must register the rules added in Step 2, as well.
 
-```python pants-plugins/shell/register.py
+```python title="pants-plugins/shell/register.py"
 from shell import shfmt
 
 

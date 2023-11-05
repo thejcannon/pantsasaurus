@@ -176,30 +176,33 @@ You may alternatively request `Addresses` from `pants.engine.addresses` if you d
 
 :::caution Common mistake: requesting the type of target you want in the `@goal_rule` signature
 
-    For example, if you are writing a `publish` goal, and you expect to operate on `python_distribution` targets, you might think to request `PythonDistribution` in your `@goal_rule` signature:
-    
-    ```python
-    @goal_rule
-    def publish(distribution: PythonDistribution, console: Console) -> Publish:
-       ...
-    ```
-    
-    This will not work because the engine has no path in the rule graph to resolve a `PythonDistribution` type given the initial input types to the rule graph (the "roots").
-    
-    Instead, request `Targets`, which will give you all of the targets that the user specified on the command line. The engine knows how to resolve this type because it can go from `AddressSpecs` and `FilesystemSpecs` -> `Specs` -> `Addresses` -> `Targets`.
-    
-    From here, filter out the relevant targets you want using the Target API (see [Rules and the Target API](doc:rules-api-and-target-api).
-    
-    ```python
-    from pants.engine.target import Targets
-    
-    @goal_rule
-    def publish(targets: Targets, console: Console) -> Publish:
-       relevant_targets = [
-           tgt for tgt in targets
-           if tgt.has_fields([PythonSources, PythonPublishDestination])
-        ]
-    ```
+```
+For example, if you are writing a `publish` goal, and you expect to operate on `python_distribution` targets, you might think to request `PythonDistribution` in your `@goal_rule` signature:
+
+```python
+@goal_rule
+def publish(distribution: PythonDistribution, console: Console) -> Publish:
+   ...
+```
+
+This will not work because the engine has no path in the rule graph to resolve a `PythonDistribution` type given the initial input types to the rule graph (the "roots").
+
+Instead, request `Targets`, which will give you all of the targets that the user specified on the command line. The engine knows how to resolve this type because it can go from `AddressSpecs` and `FilesystemSpecs` -> `Specs` -> `Addresses` -> `Targets`.
+
+From here, filter out the relevant targets you want using the Target API (see [Rules and the Target API](doc:rules-api-and-target-api).
+
+```python
+from pants.engine.target import Targets
+
+@goal_rule
+def publish(targets: Targets, console: Console) -> Publish:
+   relevant_targets = [
+       tgt for tgt in targets
+       if tgt.has_fields([PythonSources, PythonPublishDestination])
+    ]
+```
+
+```
 
 :::
 

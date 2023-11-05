@@ -9,16 +9,20 @@ Create a Lambda with Python code.
 
 Pants can create a Lambda-compatible zip file from your Python code, allowing you to develop your Lambda functions and layers in your repository instead of using the online Cloud9 editor.
 
-> 📘 FYI: how Pants does this
->
-> Under-the-hood, Pants uses the [PEX](https://github.com/pantsbuild/pex) project, to select the appropriate third-party requirements and first-party sources and lay them out in a zip file, in the format recommended by AWS.
+
+:::note FYI: how Pants does this
+
+    
+    Under-the-hood, Pants uses the [PEX](https://github.com/pantsbuild/pex) project, to select the appropriate third-party requirements and first-party sources and lay them out in a zip file, in the format recommended by AWS.
+
+:::
 
 Step 1: Activate the Python AWS Lambda backend
 ----------------------------------------------
 
 Add this to your `pants.toml`:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 backend_packages.add = [
   "pants.backend.awslambda.python",
@@ -35,11 +39,11 @@ First, add your lambda function in a Python file like you would [normally do wit
 
 Then, in your BUILD file, make sure that you have a `python_source` or `python_sources` target with the handler file included in the `sources` field. You can use [`pants tailor ::`](doc:initial-configuration#5-generate-build-files) to automate this.
 
-Add a `python_aws_lambda_function` target and define the `runtime` and `handler` fields. The `runtime` should be one of the values from <https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html>. The `handler` has the form `handler_file.py:handler_func`, which Pants will convert into a well-formed entry point. Alternatively, you can set `handler` to the format `path.to.module:handler_func`.
+Add a `python_aws_lambda_function` target and define the `runtime` and `handler` fields. The `runtime` should be one of the values from [https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html](https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html). The `handler` has the form `handler_file.py:handler_func`, which Pants will convert into a well-formed entry point. Alternatively, you can set `handler` to the format `path.to.module:handler_func`.
 
 For example:
 
-```python project/BUILD
+```python title="project/BUILD"
 # The default `sources` field will include our handler file.
 python_sources(name="lib")
 
@@ -50,7 +54,7 @@ python_aws_lambda_function(
     handler="lambda_example.py:example_handler",
 )
 ```
-```python project/lambda_example.py
+```python title="project/lambda_example.py"
 def example_handler(event, context):
     print("Hello AWS!")
 ```
@@ -59,9 +63,13 @@ Pants will use [dependency inference](doc:targets) based on the `handler` field,
 
 You can optionally set the `output_path` field to change the generated zip file's path.
 
-> 🚧 Use `resource` instead of `file`
->
-> `file` / `files` targets will not be included in the built AWS Lambda artifacts because filesystem APIs like `open()` would not load them as expected. Instead, use the `resource` and `resources` target. See [Assets and archives](doc:assets) for further explanation.
+
+:::caution Use `resource` instead of `file`
+
+    
+    `file` / `files` targets will not be included in the built AWS Lambda artifacts because filesystem APIs like `open()` would not load them as expected. Instead, use the `resource` and `resources` target. See [Assets and archives](doc:assets) for further explanation.
+
+:::
 
 Step 3: Run `package`
 ---------------------
@@ -76,11 +84,15 @@ Wrote dist/project/lambda.zip
   Handler: lambda_function.handler
 ```
 
-> 🚧 Running from macOS and failing to build?
->
-> AWS Lambda functions must run on Linux, so Pants tells PEX and Pip to build for Linux when resolving your third party dependencies. This means that you can only use pre-built [wheels](https://packaging.python.org/glossary/#term-wheel) (bdists). If your project requires any source distributions ([sdists](https://packaging.python.org/glossary/#term-source-distribution-or-sdist)) that must be built locally, PEX and pip will fail to run.
->
-> If this happens, you must either change your dependencies to only use dependencies with pre-built [wheels](https://pythonwheels.com) or find a Linux environment to run `pants package`.
+
+:::caution Running from macOS and failing to build?
+
+    
+    AWS Lambda functions must run on Linux, so Pants tells PEX and Pip to build for Linux when resolving your third party dependencies. This means that you can only use pre-built [wheels](https://packaging.python.org/glossary/#term-wheel) (bdists). If your project requires any source distributions ([sdists](https://packaging.python.org/glossary/#term-source-distribution-or-sdist)) that must be built locally, PEX and pip will fail to run.
+    
+    If this happens, you must either change your dependencies to only use dependencies with pre-built [wheels](https://pythonwheels.com) or find a Linux environment to run `pants package`.
+
+:::
 
 Step 4: Upload to AWS
 ---------------------
@@ -96,7 +108,7 @@ To [deploy a Python lambda function with container images](https://docs.aws.amaz
 
 For example:
 
-```dockerfile project/Dockerfile
+```dockerfile title="project/Dockerfile"
 FROM public.ecr.aws/lambda/python:3.8
 
 RUN yum install unzip -y
@@ -104,7 +116,7 @@ COPY project/lambda.zip .
 RUN unzip lambda.zip -d "${LAMBDA_TASK_ROOT}"
 CMD ["lambda_function.handler"]
 ```
-```python project/BUILD
+```python title="project/BUILD"
 python_sources()
 
 python_aws_lambda_function(
@@ -135,7 +147,7 @@ For example, one use of layers is splitting the deployment package for a Lambda 
 
 This split means making a change to first-party sources only requires rebuilding and re-deploying the function artifact. Since this artifact doesn't need to include all of the third-party requirements, rebuilding is likely to much faster and the resulting package will be smaller. The layer will only need to be rebuilt and redeployed if the third-party dependencies change, like a version upgrade or an additional `import`.
 
-```python project/BUILD
+```python title="project/BUILD"
 python_sources(name="lib")
 
 python_aws_lambda_function(
@@ -155,13 +167,13 @@ python_aws_lambda_layer(
     include_sources=False,
 )
 ```
-```python project/lambda_example.py
+```python title="project/lambda_example.py"
 from . import library_code
 
 def example_handler(event, context):
     library_code.say_hi()
 ```
-```python project/library_code.py
+```python title="project/library_code.py"
 # an example dependency
 import boto3
 
@@ -183,7 +195,7 @@ The handler of a `pex_binary` is not re-exported at the fixed `lambda_function.h
 
 For example:
 
-```python project/BUILD
+```python title="project/BUILD"
 python_sources()
 
 pex_binary(
@@ -193,7 +205,7 @@ pex_binary(
     platforms=["linux_x86_64-cp39-cp39"],
 )
 ```
-```python project/lambda_example.py
+```python title="project/lambda_example.py"
 def example_handler(event, context):
     print("Hello AWS!")
 ```

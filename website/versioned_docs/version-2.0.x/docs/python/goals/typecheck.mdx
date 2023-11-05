@@ -12,7 +12,7 @@ How to use MyPy.
 
 ## Activating MyPy
 To opt-in, add `pants.backend.python.typecheck.mypy` to `backend_packages` in your config file. 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 backend_packages.add = [
   "pants.backend.python",
@@ -29,18 +29,21 @@ $ ./pants typecheck ::
 
 :::tip Benefit of Pants: typecheck Python 2-only and Python 3-only code at the same time
 
-    MyPy determines which Python version to use based on its `python_version` option. If that's undefined, MyPy uses the interpreter the tool is run with. Because you can only use one config file at a time with MyPy, you cannot normally say to use `2.7` for part of your codebase but `3.6` for the rest; you must choose a single version.
-    
-    Instead, Pants will group your targets based on their [interpreter constraints](doc:python-interpreter-compatibility), and run all the Python 2 targets together and all the Python 3 targets together. It will automatically set `python_version` to the minimum compatible interpreter, such as a constraint like `["==2.7.*", ">3.6"]` using `2.7`.
-    
-    To turn this off, you can still set `python_version` in `mypy.ini` or `--python-version`/`--py2` in `--mypy-args`; Pants will respect the value you set.
+```
+MyPy determines which Python version to use based on its `python_version` option. If that's undefined, MyPy uses the interpreter the tool is run with. Because you can only use one config file at a time with MyPy, you cannot normally say to use `2.7` for part of your codebase but `3.6` for the rest; you must choose a single version.
+
+Instead, Pants will group your targets based on their [interpreter constraints](doc:python-interpreter-compatibility), and run all the Python 2 targets together and all the Python 3 targets together. It will automatically set `python_version` to the minimum compatible interpreter, such as a constraint like `["==2.7.*", ">3.6"]` using `2.7`.
+
+To turn this off, you can still set `python_version` in `mypy.ini` or `--python-version`/`--py2` in `--mypy-args`; Pants will respect the value you set.
+
+```
 
 :::
 
 ### Hook up a MyPy config file
 
 Set the `config` option in the `[mypy]` scope:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [mypy]
 config = "build-support/mypy.ini"
 ```
@@ -48,7 +51,7 @@ config = "build-support/mypy.ini"
 ### Change the MyPy version
 
 Use the `version` option in the `[mypy]` scope:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [mypy]
 version = "mypy==0.782"
 ```
@@ -179,7 +182,10 @@ mypy_source_plugin(
 
 :::note MyPy Protobuf support
 
-    Add `mypy_plugin = true` to the `[python-protobuf]` scope. See [Protobuf](doc:protobuf) for more information.
+```
+Add `mypy_plugin = true` to the `[python-protobuf]` scope. See [Protobuf](doc:protobuf) for more information.
+
+```
 
 :::
 

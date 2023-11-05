@@ -15,7 +15,7 @@ There are four main approaches to testing your plugin, ranging in terms of scope
 All approaches use [Pytest](https://docs.pytest.org/en/latest/)-style tests, rather than [`unittest`](https://docs.python.org/3/library/unittest.html)-style tests.
 
 You must also install the distribution `pantsbuild.pants.testutil`. We recommend using the `pants_requirement()` macro to do this, similar to how you may have [installed Pants as a library](doc:plugins-overview) when writing your plugin. This will read your `pants_version` from `pants.toml` to ensure that you're using the correct distribution.
-```python title="pants-plugins/BUILD"
+```python title="title="pants-plugins/BUILD""
 pants_requirement(name="pants.testutil", dist="pantsbuild.pants.testutil")
 ```
 
@@ -51,36 +51,39 @@ def test_timeout_validation() -> None:
 
 :::note How to create a `Target` in-memory
 
-    For Approaches #1 and #2, you will often want to pass a `Target` instance to your test, such as a `PythonLibrary` instance.
-    
-    To create a `Target` instance, choose which subclass you want, then pass a dictionary of the values you want to use, followed by an `Address` object. The dictionary corresponds to what you'd put in the BUILD file; any values that you leave off will use their default values. 
-    
-    The `Address` constructor's first argument is the path to the BUILD file; you can optionally define `target_name: str` if it is not the default `name`.
-    
-    For example, given this target definition for `project/app:tgt`:
-    
-    ```python
-    python_library(
-        name="tgt",
-        sources=["f.py"],
-        compatibility="==3.7.*",
-    )
-    ```
-    
-    We would write:
-    
-    ```python
-    tgt = PythonLibrary(
-        {"sources": ["f.py"], "compatibility": "==3.7.*"},
-        address=Address("project/app", target_name="tgt"),
-    )
-    ```
-    
-    Note that we did not put `"name": "tgt"` in the dictionary. `name` is a special field that does not use the Target API. Instead, pass the `name` to the `target_name` argument in the `Address` constructor.
-    
-    For Approach #3, you should instead use `rule_runner.add_to_build_file()`, followed by `rule_runner.get_target()`, as this will actually write to a BUILD file and ensure that your rules properly can resolve the target.
-    
-    For Approach #4, you should use `setup_tmpdir()` to set up BUILD files.
+```
+For Approaches #1 and #2, you will often want to pass a `Target` instance to your test, such as a `PythonLibrary` instance.
+
+To create a `Target` instance, choose which subclass you want, then pass a dictionary of the values you want to use, followed by an `Address` object. The dictionary corresponds to what you'd put in the BUILD file; any values that you leave off will use their default values. 
+
+The `Address` constructor's first argument is the path to the BUILD file; you can optionally define `target_name: str` if it is not the default `name`.
+
+For example, given this target definition for `project/app:tgt`:
+
+```python
+python_library(
+    name="tgt",
+    sources=["f.py"],
+    compatibility="==3.7.*",
+)
+```
+
+We would write:
+
+```python
+tgt = PythonLibrary(
+    {"sources": ["f.py"], "compatibility": "==3.7.*"},
+    address=Address("project/app", target_name="tgt"),
+)
+```
+
+Note that we did not put `"name": "tgt"` in the dictionary. `name` is a special field that does not use the Target API. Instead, pass the `name` to the `target_name` argument in the `Address` constructor.
+
+For Approach #3, you should instead use `rule_runner.add_to_build_file()`, followed by `rule_runner.get_target()`, as this will actually write to a BUILD file and ensure that your rules properly can resolve the target.
+
+For Approach #4, you should use `setup_tmpdir()` to set up BUILD files.
+
+```
 
 :::
 
@@ -204,9 +207,12 @@ This means that you must register the rules you directly wrote, and also any rul
 
 :::caution Confusing rule graph error?
 
-    It can be confusing figuring out what's wrong when setting up a `RuleRunner`. We know the error messages are not ideal and are working on improving them.
-    
-    Please feel free to reach out on [Slack](doc:community) for help with figuring out how to get things working.
+```
+It can be confusing figuring out what's wrong when setting up a `RuleRunner`. We know the error messages are not ideal and are working on improving them.
+
+Please feel free to reach out on [Slack](doc:community) for help with figuring out how to get things working.
+
+```
 
 :::
 

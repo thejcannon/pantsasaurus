@@ -16,9 +16,12 @@ Often, the asset is executable, but it need not be.
 
 :::note Example repository
 
-    This guide walks through adding a simple `package` implementation for Bash that simply puts all the relevant source files into a `.zip` file.
-    
-    This duplicates the `archive` target type, and is solely implemented for instructional purposes. See [here](https://github.com/pantsbuild/example-plugin/blob/main/pants-plugins/examples/bash/package_binary.py) for the final implementation.
+```
+This guide walks through adding a simple `package` implementation for Bash that simply puts all the relevant source files into a `.zip` file.
+
+This duplicates the `archive` target type, and is solely implemented for instructional purposes. See [here](https://github.com/pantsbuild/example-plugin/blob/main/pants-plugins/examples/bash/package_binary.py) for the final implementation.
+
+```
 
 :::
 
@@ -157,7 +160,7 @@ async def package_bash_binary(field_set: BashBinaryFieldSet) -> BuiltPckage:
 Note that we use `field_set.output_path.value_or_default` to determine the output filename, which will use the `output_path` field if defined, and will default to an unambiguous value otherwise.
 
 Finally, update your plugin's `register.py` to activate this file's rules.
-```python title="pants-plugins/bash/register.py"
+```python title="title="pants-plugins/bash/register.py""
 from bash import package_binary
 
 

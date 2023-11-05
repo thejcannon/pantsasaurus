@@ -11,9 +11,13 @@ A standard packaging format for Python code is the _distribution_: an archive th
 
 This page explains how to use Pants to build distributions from your code.
 
-> 👍 Benefit of Pants: multiple distributions from a single repository
-> 
-> Typically, repositories without sophisticated tooling end up building a single distribution which includes the entire repo. But Pants makes it easy to create multiple distributions from the same repository.
+
+:::tip Benefit of Pants: multiple distributions from a single repository
+
+    
+    Typically, repositories without sophisticated tooling end up building a single distribution which includes the entire repo. But Pants makes it easy to create multiple distributions from the same repository.
+
+:::
 
 Background: setuptools and PEP 517
 ----------------------------------
@@ -37,7 +41,7 @@ You configure a distribution using a [`python_distribution`](doc:reference-pytho
 
 If using a PEP 517 `pyproject.toml` file, you might have a target layout similar to this:
 
-```python example/dists/BUILD
+```python title="example/dists/BUILD"
 resource(name="pyproject", source="pyproject.toml")
 
 python_distribution(
@@ -69,7 +73,7 @@ If you want to build just a wheel or just an sdist, you can set `sdist=False` or
 
 If relying on legacy Setuptools behavior, you don't have a `pyproject.toml` resource, so your target is simply:
 
-```python example/dists/BUILD
+```python title="example/dists/BUILD"
 python_distribution(
     name="mydist",
     dependencies=[
@@ -85,9 +89,13 @@ python_distribution(
 
 Running `pants package example/dists:mydist` will cause Pants to run Setuptools, which will in turn run the `setup.py` script in the `python_distribution` target's directory. If no such script exists, Pants can generate one for you (see below).
 
-> 📘 See `package` for other package formats
-> 
-> This page focuses on building sdists and wheels with the `pants package` goal. See [package](doc:python-package-goal) for information on other formats that can be built with `pants package`, such as PEX binaries and zip/tar archives.
+
+:::note See `package` for other package formats
+
+    
+    This page focuses on building sdists and wheels with the `pants package` goal. See [package](doc:python-package-goal) for information on other formats that can be built with `pants package`, such as PEX binaries and zip/tar archives.
+
+:::
 
 setup.py
 --------
@@ -100,13 +108,17 @@ By default, Pants will generate a `setup.py` for every `python_distribution` tar
 
 So if you expect to use handwritten `setup.py` scripts for most distributions in your repo, you probably want to set `generate-setup-default = false` and override it as needed. If you expect to mostly use generated `setup.py` scripts, you can set `generate-setup-default = true` (or just not set it, since that is the default).
 
-> 📘 3rdparty requirements in `setup.py`
->
-> If you use a handwritten `setup.py`, the generated distribution will have requirements on the packages you list in the `install_requires` key, as expected. But Pants will not automatically use those as dependencies of the underlying sources, e.g., when running tests. They are strictly used when generating a distribution.
->
-> Instead, the "universe" of possible requirements of your source files must be specified as described [here](doc:python-third-party-dependencies), and Pants will use dependency inference to select an appropriate subset as needed.
->
-> If Pants generates a `setup.py` for you then the `install_requires` value will be generated from the actual requirements of your source files.
+
+:::note 3rdparty requirements in `setup.py`
+
+    
+    If you use a handwritten `setup.py`, the generated distribution will have requirements on the packages you list in the `install_requires` key, as expected. But Pants will not automatically use those as dependencies of the underlying sources, e.g., when running tests. They are strictly used when generating a distribution.
+    
+    Instead, the "universe" of possible requirements of your source files must be specified as described [here](doc:python-third-party-dependencies), and Pants will use dependency inference to select an appropriate subset as needed.
+    
+    If Pants generates a `setup.py` for you then the `install_requires` value will be generated from the actual requirements of your source files.
+
+:::
 
 Using a generated `setup.py`
 ----------------------------
@@ -115,7 +127,7 @@ Much of the data you would normally put in a `setup.py` file is already known to
 
 In this case, you may want to add some information to the `provides= ` field in the `python_distribution` target, for Pants to place in the generated `setup.py`:
 
-```python example/dists/BUILD
+```python title="example/dists/BUILD"
 python_distribution(
     name="mydist",
     dependencies=[
@@ -140,36 +152,44 @@ You can use almost any [keyword argument](https://packaging.python.org/guides/di
 
 However, you cannot use `data_files`, `install_requires`, `namespace_packages`, `package_dir`, `package_data`, or `packages` because Pants will generate these for you, based on the data derived from your code and dependencies.
 
-> 📘 Use the `entry_points` field to register entry points like `console_scripts`
-> 
-> The [`entry_points` field](doc:reference-python_distribution#codeentry_pointscode) allows you to configure [setuptools-style entry points](https://packaging.python.org/specifications/entry-points/#entry-points-specification):
-> 
-> ```python
-> python_distribution(
->    name="my-dist",
->    entry_points={
->        "console_scripts": {"some-command": "project.app:main"},
->        "flake8_entry_point": {
->            "PB1": "my_flake8_plugin:Plugin",
->            "PB2": "my_flake8_plugin:AnotherPlugin",
->        },
->    provides=python_artifact(...),
-> )
-> ```
-> 
-> Pants will infer dependencies on each entry point, which you can confirm by running `pants dependencies path/to:python_dist`.
-> 
-> In addition to using the format `path.to.module:func`, you can use an [address](doc:targets) to a `pex_binary` target, like `src/py/project:pex_binary` or `:sibling_pex_binary`. Pants will use the `entry_point` already specified by the `pex_binary`, and it will infer a dependency on the `pex_binary` target. This allows you to better DRY your project's entry points.
 
-> 📘 Consider writing a plugin to dynamically generate the `setup()` keyword arguments
-> 
-> You may want to write a plugin to do any of these things:
-> 
-> - Reduce boilerplate by hardcoding common arguments and commands.
-> - Read from the file system to dynamically determine kwargs, such as the `long_description` or `version`.
-> - Run processes like Git to dynamically determine the `version` kwarg.
-> 
-> Start by reading about the [Plugin API](doc:plugins-overview), then refer to the [Custom `python_artifact()` kwargs](doc:plugins-setup-py) instructions.
+:::note Use the `entry_points` field to register entry points like `console_scripts`
+
+    
+    The [`entry_points` field](doc:reference-python_distribution#codeentry_pointscode) allows you to configure [setuptools-style entry points](https://packaging.python.org/specifications/entry-points/#entry-points-specification):
+    
+    ```python
+    python_distribution(
+       name="my-dist",
+       entry_points={
+           "console_scripts": {"some-command": "project.app:main"},
+           "flake8_entry_point": {
+               "PB1": "my_flake8_plugin:Plugin",
+               "PB2": "my_flake8_plugin:AnotherPlugin",
+           },
+       provides=python_artifact(...),
+    )
+    ```
+    
+    Pants will infer dependencies on each entry point, which you can confirm by running `pants dependencies path/to:python_dist`.
+    
+    In addition to using the format `path.to.module:func`, you can use an [address](doc:targets) to a `pex_binary` target, like `src/py/project:pex_binary` or `:sibling_pex_binary`. Pants will use the `entry_point` already specified by the `pex_binary`, and it will infer a dependency on the `pex_binary` target. This allows you to better DRY your project's entry points.
+
+:::
+
+
+:::note Consider writing a plugin to dynamically generate the `setup()` keyword arguments
+
+    
+    You may want to write a plugin to do any of these things:
+    
+    - Reduce boilerplate by hardcoding common arguments and commands.
+    - Read from the file system to dynamically determine kwargs, such as the `long_description` or `version`.
+    - Run processes like Git to dynamically determine the `version` kwarg.
+    
+    Start by reading about the [Plugin API](doc:plugins-overview), then refer to the [Custom `python_artifact()` kwargs](doc:plugins-setup-py) instructions.
+
+:::
 
 Mapping source files to distributions
 -------------------------------------
@@ -197,21 +217,29 @@ This algorithm implies that all source files published by a distribution must be
 
 The generated `setup.py` will have its `install_requires` set to include the 3rdparty dependencies of the code bundled in the distribution, plus any other distributions from your own repo. For example, if distribution D1 contains code that has a dependency on some source file S, and that source file is published in distribution D2, then D1's requirements will include a dependency on D2.  In other words, Pants does the right thing.
 
-> 📘 Changing the versioning scheme for first-party dependencies
-> 
-> When a `python_distribution` depends on another `python_distribution`, Pants will add it to the `install_requires` value in the generated `setup.py`. 
-> 
-> By default, Pants will use exact requirements for first-party dependencies, like `other_dist==1.0.1`. You can set `first_party_dependency_version_scheme` in the `[setup-py-generation]` scope to `'compatible'` to use `~=` instead of `==`, and `any` to leave off the version.
-> 
-> For example:
-> 
-> ```toml
-> [setup-py-generation]
-> first_party_dependency_version_scheme = "compatible"
-> ```
-> 
-> See <https://www.python.org/dev/peps/pep-0440/#version-specifiers> for more information on the `~=` specifier.
 
-> 📘 How to publish your distributions to a package index
-> 
+:::note Changing the versioning scheme for first-party dependencies
+
+    
+    When a `python_distribution` depends on another `python_distribution`, Pants will add it to the `install_requires` value in the generated `setup.py`. 
+    
+    By default, Pants will use exact requirements for first-party dependencies, like `other_dist==1.0.1`. You can set `first_party_dependency_version_scheme` in the `[setup-py-generation]` scope to `'compatible'` to use `~=` instead of `==`, and `any` to leave off the version.
+    
+    For example:
+    
+    ```toml
+    [setup-py-generation]
+    first_party_dependency_version_scheme = "compatible"
+    ```
+    
+    See [https://www.python.org/dev/peps/pep-0440/#version-specifiers](https://www.python.org/dev/peps/pep-0440/#version-specifiers) for more information on the `~=` specifier.
+
+:::
+
+
+:::note How to publish your distributions to a package index
+
+    
+
+:::
 > See [publish](doc:python-publish-goal) for how to use Pants to publish distributions using Twine.

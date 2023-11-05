@@ -18,7 +18,10 @@ Typically, the REPL is loaded with the transitive closure of the files and targe
 
 :::note Example repository
 
-    This guide walks through adding a simple `repl` implementation for Bash that runs `/bin/bash` and ensures all relevant files are included in the temporary directory. See [here](https://github.com/pantsbuild/example-plugin/blob/main/pants-plugins/examples/bash/repl.py) for the final implementation.
+```
+This guide walks through adding a simple `repl` implementation for Bash that runs `/bin/bash` and ensures all relevant files are included in the temporary directory. See [here](https://github.com/pantsbuild/example-plugin/blob/main/pants-plugins/examples/bash/repl.py) for the final implementation.
+
+```
 
 :::
 
@@ -104,7 +107,7 @@ async def create_bash_repl_request(repl: BashRepl) -> ReplRequest:
 If you use any relative paths in `args` or `extra_env`, you should call `repl.in_chroot("./example_relative_path")` on the values. This ensures that you run on the correct file in the temporary directory created by Pants.
 
 Finally, update your plugin's `register.py` to activate this file's rules.
-```python title="pants-plugins/bash/register.py"
+```python title="title="pants-plugins/bash/register.py""
 from bash import repl
 
 

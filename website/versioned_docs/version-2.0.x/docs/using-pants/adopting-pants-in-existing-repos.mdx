@@ -15,7 +15,10 @@ We recommend using an incremental migration to adopt Pants, as it will help to e
 
 :::note Joining Slack
 
-    We would love to help you with adopting Pants. Please reach out through [Slack](doc:community).
+```
+We would love to help you with adopting Pants. Please reach out through [Slack](doc:community).
+
+```
 
 :::
 
@@ -90,13 +93,13 @@ Some example plugins that users have written:
 * Jupyter support
 ## Migrating from other BUILD tools? Set custom BUILD file names
 If you're migrating from another build tool that already uses the name `BUILD`, such as Bazel or Please, you can tell Pants to use a different file name than `BUILD` to avoid conflicts:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 build_patterns = ["BUILD.pants"]
 ```
 
 Alternatively, you can tell Pants to not look for BUILD files in certain locations. This can be helpful, for example, if you use a tool like Bazel for Java, but use Pants for Python:
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 build_ignore = ["src/java"]
 ```

@@ -22,7 +22,10 @@ See [here](https://packaging.python.org/tutorials/packaging-projects/) for more 
 
 :::note See `package` for other package formats
 
-    This page focuses on building sdists and wheels with the `./pants package` goal. See [package](doc:python-package-goal) for information on other formats that work with `./pants package`, such as PEX binaries and zip/tar archives.
+```
+This page focuses on building sdists and wheels with the `./pants package` goal. See [package](doc:python-package-goal) for information on other formats that work with `./pants package`, such as PEX binaries and zip/tar archives.
+
+```
 
 :::
 
@@ -30,16 +33,19 @@ See [here](https://packaging.python.org/tutorials/packaging-projects/) for more 
 
 :::tip Benefit of Pants: multiple distributions in the same repository
 
-    Typically, repositories without sophisticated tooling end up with a single `setup.py`, which includes the entire repo in the distribution.
-    
-    Pants makes it ergonomic to create multiple distributions from the same repository. Because Pants understands your code's true dependencies, each distribution will only be built with the exact code and metadata that it needs to work.
+```
+Typically, repositories without sophisticated tooling end up with a single `setup.py`, which includes the entire repo in the distribution.
+
+Pants makes it ergonomic to create multiple distributions from the same repository. Because Pants understands your code's true dependencies, each distribution will only be built with the exact code and metadata that it needs to work.
+
+```
 
 :::
 
 
 ## Configuring distributions
 A distribution is set up using a `python_distribution` target, like this:
-```python title="BUILD"
+```python title="title="BUILD""
 python_distribution(
     name="mydist",
     dependencies=[
@@ -66,21 +72,24 @@ However, you cannot use `data_files`, `install_requires`, `namespace_packages`, 
 
 :::note Use `.with_binaries()` to register `console_scripts` entry points
 
-    You can use `pex_binary` targets to set the `console_scripts` value on your distribution.
-    
-    The `pex_binary` target must explicitly set the field `entry_point` in the form `path.to.module:my_func`, e.g. `project.app:main`. See https://python-packaging.readthedocs.io/en/latest/command-line-scripts.html#the-console-scripts-entry-point.
-    
-    To add a new entry point to your package, call the method `.with_binaries()`, like this:
-    
-    ```python
-    provides=setup_py(
-        ...
-    ).with_binaries(my_command=":binary_target")
-    ``` 
-    
-    This will register a new `console_script` named `my_command`, which has the `entry_point` from the `pex_binary` target.
-    
-    You may register multiple binary targets by using a dictionary, such as `.with_binaries({"my_command": ":binary_target"})`.
+```
+You can use `pex_binary` targets to set the `console_scripts` value on your distribution.
+
+The `pex_binary` target must explicitly set the field `entry_point` in the form `path.to.module:my_func`, e.g. `project.app:main`. See https://python-packaging.readthedocs.io/en/latest/command-line-scripts.html#the-console-scripts-entry-point.
+
+To add a new entry point to your package, call the method `.with_binaries()`, like this:
+
+```python
+provides=setup_py(
+    ...
+).with_binaries(my_command=":binary_target")
+``` 
+
+This will register a new `console_script` named `my_command`, which has the `entry_point` from the `pex_binary` target.
+
+You may register multiple binary targets by using a dictionary, such as `.with_binaries({"my_command": ":binary_target"})`.
+
+```
 
 :::
 
@@ -88,13 +97,16 @@ However, you cannot use `data_files`, `install_requires`, `namespace_packages`, 
 
 :::note Consider writing a plugin to dynamically generate the `setup()` keyword arguments
 
-    You may want to write a plugin to do any of these things:
-    
-    * Reduce boilerplate by hardcoding common arguments and commands.
-    * Read from the file system to dynamically determine kwargs, such as the `long_description` or `version`.
-    * Run processes like Git to dynamically determine the `version` kwarg.
-    
-    Start by reading about the [Plugin API](doc:plugins-overview), then refer to the [Custom `setup_py()` kwargs](doc:plugins-setup-py) instructions.
+```
+You may want to write a plugin to do any of these things:
+
+* Reduce boilerplate by hardcoding common arguments and commands.
+* Read from the file system to dynamically determine kwargs, such as the `long_description` or `version`.
+* Run processes like Git to dynamically determine the `version` kwarg.
+
+Start by reading about the [Plugin API](doc:plugins-overview), then refer to the [Custom `setup_py()` kwargs](doc:plugins-setup-py) instructions.
+
+```
 
 :::
 
@@ -123,18 +135,21 @@ This algorithm implies that all libraries published by a distribution must be be
 
 :::note Changing the versioning scheme for first-party dependencies
 
-    When a `python_distribution` depends on another `python_distribution`, Pants will add it to the `install_requires` value in the generated `setup.py`. 
-    
-    By default, Pants will use exact requirements for first-party dependencies, like `other_dist==1.0.1`. You can set `first_party_depenency_version_scheme` in the `[setup-py-generation]` scope to `'compatible'` to use `~=` instead of `==`, and `any` to leave off the version.
-    
-    For example:
-    
-    ```toml
-    [setup-py-generation]
-    first_party_depenency_version_scheme = "compatible"
-    ```
-    
-    See https://www.python.org/dev/peps/pep-0440/#version-specifiers for more information on the `~=` specifier.
+```
+When a `python_distribution` depends on another `python_distribution`, Pants will add it to the `install_requires` value in the generated `setup.py`. 
+
+By default, Pants will use exact requirements for first-party dependencies, like `other_dist==1.0.1`. You can set `first_party_depenency_version_scheme` in the `[setup-py-generation]` scope to `'compatible'` to use `~=` instead of `==`, and `any` to leave off the version.
+
+For example:
+
+```toml
+[setup-py-generation]
+first_party_depenency_version_scheme = "compatible"
+```
+
+See https://www.python.org/dev/peps/pep-0440/#version-specifiers for more information on the `~=` specifier.
+
+```
 
 :::
 
@@ -151,8 +166,11 @@ For example, if `setup_py_commands=["bdist_wheel", "sdist"]`, then `./pants pack
 
 :::note How to upload your distributions to a package index
 
-    Pants does not have a mechanism to upload your distributions. Instead, run `package` as described above to create the asset, such as the wheel, then use a tool like Twine to upload your package.
-    
-    Please let us know on [Slack](doc:community) or [GitHub issues](https://github.com/pantsbuild/pants/issues/new) if you would like this feature.
+```
+Pants does not have a mechanism to upload your distributions. Instead, run `package` as described above to create the asset, such as the wheel, then use a tool like Twine to upload your package.
+
+Please let us know on [Slack](doc:community) or [GitHub issues](https://github.com/pantsbuild/pants/issues/new) if you would like this feature.
+
+```
 
 :::
