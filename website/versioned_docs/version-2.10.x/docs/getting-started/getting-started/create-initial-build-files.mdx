@@ -1,0 +1,77 @@
+---
+    title: Create initial BUILD files
+    position: 4
+---
+
+
+
+---
+
+Many Pants operations require extra metadata in the form of [_targets_](doc:targets), which are defined in `BUILD` files.
+
+You can generate these BUILD files by running `./pants tailor`:
+
+```
+❯ ./pants tailor
+Created scripts/BUILD:
+  - Add shell_sources target scripts
+Created src/py/project/BUILD:
+  - Add python_sources target project
+  - Add python_tests target tests
+Created src/go/BUILD:
+  - Add go_mod target mod
+```
+
+Often, this will be all you need for Pants to work, thanks to sensible defaults and inference, like [inferring your dependencies](doc:targets). Sometimes, though, you may need to or want to change certain fields, like setting a longer timeout on a test. 
+
+You may also need to add some targets that Pants cannot generate, like [`resources` and `files`](doc:assets) targets.
+
+We recommend running `./pants tailor --check` in your [continuous integration](doc:doc:using-pants-in-ci) so that you don't forget to add any targets and BUILD files.
+
+```
+❯ ./pants tailor --check
+Would create scripts/BUILD:
+  - Add shell_sources target scripts
+
+To fix `tailor` failures, run `./pants tailor`.
+```
+
+To ignore false positives, set `[tailor].ignore_paths` and `[tailor].ignore_adding_targets`. See [tailor](doc:reference-tailor) for more detail.
+[block:code]
+{
+  "codes": [
+    {
+      "code": "[tailor]\nignore_paths = [\"src/py/ignore_me/**\"]\nignore_adding_targets = [\"src/py/project:tgt\"]",
+      "language": "toml",
+      "name": "pants.toml"
+    }
+  ]
+}
+[/block]
+
+[block:api-header]
+{
+  "title": "Formatting BUILD files with Black or Yapf"
+}
+[/block]
+`./pants run update-build-files` will format your BUILD files, using the [Black Python formatter](https://black.readthedocs.io/en/stable/) by default. The goal will also fix any safe Pants deprecations like renaming target types.
+
+```
+❯ ./pants update-build-files
+Updated scripts/BUILD:
+  - Format with Black
+  - Rename `python_library` to `python_sources`
+```
+
+Like `tailor`, we recommend running `./pants update-build-files --check` in your [continuous integration](doc:doc:using-pants-in-ci).
+
+```
+❯ ./pants update-build-files --check
+Would update scripts/BUILD:
+  - Format with Black
+  - Rename `python_library` to `python_sources`
+
+To fix `update-build-files` failures, run `./pants update-build-files`.
+```
+
+You can instead use [Yapf](https://pypi.org/project/yapf/) by setting `[update-build-files].formatter = "yapf"` in `pants.toml`.

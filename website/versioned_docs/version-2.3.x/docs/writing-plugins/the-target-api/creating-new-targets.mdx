@@ -1,0 +1,78 @@
+---
+    title: Creating new targets
+    position: 2
+---
+
+How to add a custom target type.
+
+---
+
+[block:api-header]
+{
+  "title": "When to create a new target type?"
+}
+[/block]
+Adding new target types is most helpful when you are adding support for a new language.
+
+If you instead want to reduce boilerplate in BUILD files, such as changing default values, use [macros](doc:macros) .
+
+If you are already using a target type, but need to store additional metadata for your plugin, [add a new field to the target type](doc:target-api-extending-targets).
+[block:api-header]
+{
+  "title": "Step 1: Define the target type"
+}
+[/block]
+To define a new target:
+
+1. Subclass `pants.engine.target.Target`.
+2. Define the class property `alias`. This is the symbol that people use in BUILD files.
+3. Define the class property `core_fields`.
+4. Define the class property `help`. This is used by `./pants help`.
+
+For `core_fields`, we recommend including `COMMON_TARGET_FIELDS`  to add the useful `tags` and `description` fields. You will also often want to add `Dependencies` and/or `Sources`.
+[block:code]
+{
+  "codes": [
+    {
+      "code": "from pants.engine.target import (\n    COMMON_TARGET_FIELDS,\n    Dependencies,\n    Sources,\n    StringField,\n    Target,\n)\n\n\nclass CustomField(StringField):\n    alias = \"custom_field\"\n    help = \"A custom field.\"\n\n\nclass CustomTarget(Target):\n    alias = \"custom_target\"\n    core_fields = (*COMMON_TARGET_FIELDS, Dependencies, Sources, CustomField)\n    help = (\n      \"A custom target to demo the Target API.\\n\\n\"\n      \"This docstring will be used in the output of \"\n      \"`./pants help $target_type`.\"\n    )",
+      "language": "python",
+      "name": "plugins/target_types.py"
+    }
+  ]
+}
+[/block]
+
+[block:callout]
+{
+  "type": "info",
+  "title": "Tip: subclass the `Sources` field",
+  "body": "You will usually want to subclass the `Sources` field to give custom functionality, such as setting a default value. \n\nYou can also set the class property `expected_file_extensions` to enforce that only certain files are used, such as `expected_file_extensions = (\".json\", \".txt\")`."
+}
+[/block]
+
+[block:callout]
+{
+  "type": "info",
+  "title": "Using the fields of a pre-existing target type",
+  "body": "Sometimes, you may want to create a new target type that behaves similarly to one that already exists, except for some small changes. \n\nFor example, you might like how `python_binary()` behaves in general, but you have a Django application and keep writing `sources=[\"manage.py\"]`. Normally, you should write a [macro](doc:macros) to set this default value; but, here, you also want to add new Django-specific fields, so you decide to create a new target type.\n\nRather than subclassing the original target type, use this pattern:\n\n```python\nfrom pants.backend.python.target_types import PythonBinary, PythonBinarySources\nfrom pants.engine.target import Target\nfrom pants.util.ordered_set import FrozenOrderedSet\n\nclass DjangoManagePySources(PythonBinarySources):\n   default = (\"manage.py\",)\n\n\nclass DjangoManagePy(Target):\n   alias = \"django_manage_py\"\n   core_fields = (\n       *(FrozenOrderedSet(PythonBinary.core_fields) - {PythonBinarySources}),\n       DjangoManagePySources,\n   )\n```\n\nIn this example, we register all of the fields of `PythonBinary`, except for the field `PythonBinarySources`. We instead register our custom field `DjangoManagePySources`."
+}
+[/block]
+
+[block:api-header]
+{
+  "title": "Step 2: Register the target type in `register.py`"
+}
+[/block]
+Now, in your [`register.py`](doc:plugins-overview), add the target type to the `def target_types()` entry point.
+[block:code]
+{
+  "codes": [
+    {
+      "code": "from plugins.target_types import CustomTarget\n\ndef target_types():\n    return [CustomTarget]",
+      "language": "python",
+      "name": "plugins/register.py"
+    }
+  ]
+}
+[/block]
+You can confirm this works by running `./pants help custom_target`.

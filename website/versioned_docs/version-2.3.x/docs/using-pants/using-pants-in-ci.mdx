@@ -1,0 +1,123 @@
+---
+    title: Using Pants in CI
+    position: 6
+---
+
+Suggestions for how to use Pants to speed up your CI (continuous integration).
+
+---
+
+[block:callout]
+{
+  "type": "info",
+  "title": "Example `.travis.yml`",
+  "body": "See https://github.com/pantsbuild/example-python/blob/main/.travis.yml for an example of how to configure Pants with Travis CI."
+}
+[/block]
+
+[block:api-header]
+{
+  "title": "`pants.ci.toml` (optional)"
+}
+[/block]
+If you have config that you want to only use in CI, it can be helpful to create a dedicated `pants.ci.toml` [config file](doc:options). For example:
+[block:code]
+{
+  "codes": [
+    {
+      "code": "[GLOBAL]\ndynamic_ui = false\n# Ensure colors are used (if your CI provider supports it). \ncolors = true\n\n# Limit the maximum number of concurrent processes. Change this\n# to a number that makes sense for your CI setup, based on \n# the number of cores/threads.\nprocess_execution_local_parallelism = 4  \n\n[python-setup]\n# Limit the maximum number of concurrent jobs used to resolve third\n# party dependencies. The max level of parallelism will be\n# `process_execution_local_parallelism x resolver_jobs`, but \n# often you will have one resolve process at a time.\nresolver_jobs = 2\n\n[pytest]\nargs = [\"-vv\"]",
+      "language": "toml",
+      "name": "pants.ci.toml"
+    }
+  ]
+}
+[/block]
+Then, in your CI script or config, set the environment variable `PANTS_CONFIG_FILES` to use this new config file. Because `--pants-config-files` is a [list option](doc:options), the below will append to the list of config files used, which will include `pants.toml` by default:
+[block:code]
+{
+  "codes": [
+    {
+      "code": "export PANTS_CONFIG_FILES=pants.ci.toml\n\n# Then, your normal CI setup\n./pants test ::\n...",
+      "language": "shell",
+      "name": "ci.sh"
+    }
+  ]
+}
+[/block]
+
+[block:api-header]
+{
+  "title": "Directories to cache"
+}
+[/block]
+In your CI's config file, we recommend caching these directories:
+
+* `$HOME/.cache/pants/setup`: the initial bootstrapping of Pants.
+* `$HOME/.cache/pants/named_caches`: caches of tools like pip and PEX.
+* `$HOME/.cache/pants/lmdb_store`: cached content for prior Pants runs.
+
+See [Troubleshooting](doc:troubleshooting#how-to-change-your-cache-directory) for how to change these cache locations.
+[block:callout]
+{
+  "type": "info",
+  "title": "Nuking the cache when too big",
+  "body": "In CI, the cache must be uploaded and downloaded every run. This takes time, so there is a tradeoff where too large of a cache will slow down your CI.\n\nYou can use this script to nuke the cache when it gets too big:\n\n```bash\nfunction nuke_if_too_big() {\n  path=$1\n  limit_mb=$2\n  size_mb=$(du -m -d0 ${path} | cut -f 1)\n  if (( ${size_mb} > ${limit_mb} )); then\n    echo \"${path} is too large (${size_mb}mb), nuking it.\"\n    rm -rf ${path}\n  fi\n}\n\nnuke_if_too_big ~/.cache/pants/lmdb_store 2048\nnuke_if_too_big ~/.cache/pants/setup 256\nnuke_if_too_big ~/.cache/pants/named_caches 1024\n```"
+}
+[/block]
+
+[block:api-header]
+{
+  "title": "Recommended commands"
+}
+[/block]
+### Approach #1: only run over changes files
+
+Because Pants understands the dependencies of your code, you can use Pants to speed up your CI by only running tests and linters over files that actually made changes.
+
+We recommend running these commands in CI:
+[block:code]
+{
+  "codes": [
+    {
+      "code": "$ ./pants --version  # This will bootstrap Pants\n$ ./pants --changed-since=origin/main lint\n$ ./pants \\\n  --changed-since=origin/main \\\n  --changed-dependees=transitive \\\n  typecheck test",
+      "language": "shell",
+      "name": "ci.sh"
+    }
+  ]
+}
+[/block]
+Because most linters do not care about a target's dependencies, we lint all changed targets, but not any dependees of those changed targets.
+
+Meanwhile, tests should be rerun when any changes are made to the tests _or_ to dependencies of those tests, so we use the option `--changed-dependees=transitive`. `typecheck` should also run on any transitive changes.
+
+See [Advanced target selection](doc:advanced-target-selection) for more information on `--changed-since` and alternative techniques to select targets to run in CI.
+[block:callout]
+{
+  "type": "warning",
+  "title": "This will not handle all cases, like hooking up a new linter",
+  "body": "For example, if you add a new plugin to Flake8, Pants will still only run over changed files, meaning you may miss some new lint issues.\n\nFor absolute correctness, you may want to use Approach #2. Alternatively, add conditional logic to your CI, e.g. that any changes to `pants.toml` trigger using Approach #2."
+}
+[/block]
+
+[block:callout]
+{
+  "type": "info",
+  "title": "GitHub Actions: use `Checkout`",
+  "body": "To use `--changed-since`, you may want to use the [Checkout action](https://github.com/actions/checkout).\n\nBy default, Checkout will only fetch the latest commit, so you should set `fetch-depth: 0`."
+}
+[/block]
+### Approach #2: run over everything
+
+Alternatively, you can simply run over all your code. Pants's caching means that you will not need to rerun on changed files.
+[block:code]
+{
+  "codes": [
+    {
+      "code": "$ ./pants --version  # This will bootstrap Pants\n$ ./pants lint typecheck test ::",
+      "language": "shell",
+      "name": "ci.sh"
+    }
+  ]
+}
+[/block]
+However, when the cache gets too big, it should be nuked (see "Directories to cache"), so your CI may end up doing more work than Approach #1.

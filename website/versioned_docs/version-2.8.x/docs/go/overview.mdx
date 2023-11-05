@@ -1,0 +1,224 @@
+---
+    title: Overview
+    position: 0
+---
+
+Pants's support for Golang.
+
+---
+
+[block:callout]
+{
+  "type": "danger",
+  "title": "Go support is alpha stage",
+  "body": "We are done implementing the initial core functionality for Pants's initial Go support ([tracked here](https://github.com/pantsbuild/pants/projects/21)). However, there may be some edge cases we aren't yet handling. There are also some features that are not yet supported like Cgo files and vendoring, which we'd love your input on how to prioritize!\n\nPlease share feedback for what you need to use Pants with your Go project by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](doc:community)!"
+}
+[/block]
+
+[block:callout]
+{
+  "type": "success",
+  "title": "Why use Pants with Go?",
+  "body": "Go's builtin tooling is already excellent! Many projects may be fine only using Go's tooling, although Pants offers some unique benefits:\n\n* A consistent interface for all languages/tools in your repository, such as being able to run `./pants fmt lint check test package`.\n* Integration with Git, such as running `./pants --changed-since=HEAD test`.\n* Caching, such as caching test results on a per-package basis.\n* [Remote execution and remote caching](doc:remote-caching-execution).\n* [Advanced project introspection](doc:project-introspection), such as finding all code that transitively depends on a certain package."
+}
+[/block]
+
+[block:callout]
+{
+  "type": "info",
+  "title": "Example Go repository",
+  "body": "Check out [github.com/pantsbuild/example-golang](https://github.com/pantsbuild/example-golang) to try out Pants's Go support."
+}
+[/block]
+
+[block:callout]
+{
+  "type": "warning",
+  "title": "Assumes you're using a single Go module",
+  "body": "We do not yet support multiple first-party Go modules. If you are using multiple modules, please feel free to share your use case on https://github.com/pantsbuild/pants/issues/13114. (For example, if you are using a `replace` directive.)"
+}
+[/block]
+
+[block:api-header]
+{
+  "title": "Initial setup"
+}
+[/block]
+First, activate the Go backend and set the expected Go version in `pants.toml`:
+[block:code]
+{
+  "codes": [
+    {
+      "code": "[GLOBAL]\nbackend_packages = [\"pants.backend.experimental.go\"]\n\n[golang]\nexpected_version = \"1.17\"",
+      "language": "toml",
+      "name": "pants.toml"
+    }
+  ]
+}
+[/block]
+You can also set `[golang].go_search_paths` to influence where Pants looks for Go, e.g. `["/usr/bin"]`. It defaults to your `PATH`.
+
+Then run [`./pants tailor`](doc:create-initial-build-files) to generate BUILD files. This will add a `go_mod` target where you have your `go.mod` file, along with a `go_binary` target in every directory where you have `package main`.
+
+```
+❯ ./pants tailor
+Created BUILD:
+  - Add go_mod target root
+Created cmd/deploy/BUILD:
+  - Add go_binary target bin
+Created cmd/runner/BUILD:
+  - Add go_binary target bin
+```
+
+The `go_mod` target generates a `go_first_party_package` target for each directory in your project with `.go` files, and a `go_third_party_package` target for each package belonging to the modules declared in your `go.mod`. These package targets are the building blocks for Pants, although you rarely will need to interact with them directly.
+
+You can run `./pants list ::` to see all targets in your project, including generated `go_first_party_package` and `go_third_party_package` targets:
+
+```
+❯ ./pants list
+//:root#./cmd/deploy
+//:root#./cmd/runner
+//:root#./pkg/deploy
+//:root#./pkg/runner
+...
+//:root#golang.org/x/net/ipv4
+//:root#golang.org/x/net/ipv6
+...
+cmd/deploy:bin
+cmd/runner:bin
+```
+[block:callout]
+{
+  "type": "warning",
+  "title": "`go.mod` and `go.sum` need to be up-to-date",
+  "body": "Pants does not yet update your `go.mod` and `go.sum` for you; it only reads these files when downloading modules. \n\nYou will need to run `go mod download all` and/or `go mod tidy` to update these files when you add a new third-party module or change its version."
+}
+[/block]
+
+[block:api-header]
+{
+  "title": "Package and run binaries"
+}
+[/block]
+To run a binary, use `./pants run path/to/main_pkg:` (note the colon). You can pass through arguments with `--`, like this:
+
+```
+❯ ./pants run cmd/deploy: -- --help
+Usage of /Users/pantsbuild/example/.pants.d/tmpzfh33ggu/cmd.deploy/bin:
+      --allow-insecure-auth        allow credentials to be passed unencrypted (i.e., no TLS)
+  -A, --auth-token-env string      name of environment variable with auth bearer token
+...
+pflag: help requested
+```
+
+You can also package your binaries (aka `go build`) by using `./pants package`. `package ::` will build all your project's binaries, whereas `package path/to/main_pkg:` will build only the binary in that directory.
+
+```
+❯ ./pants package ::
+[INFO] Wrote dist/cmd.deploy/bin
+[INFO] Wrote dist/cmd.runner/bin
+```
+
+By default, Pants names the binary with the scheme `path.to.directory/target_name`, e.g. `cmd.deploy/bin`. You can set the field `output_path` to use a different name:
+[block:code]
+{
+  "codes": [
+    {
+      "code": "go_binary(name=\"bin\", output_path=\"deploy\")",
+      "language": "go",
+      "name": "cmd/deploy/BUILD"
+    }
+  ]
+}
+[/block]
+
+[block:callout]
+{
+  "type": "warning",
+  "title": "`embed` support coming in Pants 2.9",
+  "body": "We're making progress on adding support for `resources` / the `embed` directive. See https://github.com/pantsbuild/pants/issues/13193."
+}
+[/block]
+
+[block:api-header]
+{
+  "title": "Compile code"
+}
+[/block]
+To manually check that a package compiles, use `./pants check`:
+
+```
+# Check this package
+❯ ./pants check pkg/deploy:
+
+# Check this directory and all subdirectories
+❯ ./pants check pkg::
+
+# Check the whole project
+❯ ./pants check ::
+```
+
+(Instead, you can simply run `package`, `run`, and `test`. Pants will compile all the relevant packages.)
+[block:api-header]
+{
+  "title": "Run tests"
+}
+[/block]
+To run tests, use `./pants test`:
+
+```
+# Test this package
+❯ ./pants test pkg/deploy:
+
+# Test this directory and all subdirectories
+❯ ./pants check pkg::
+
+# Test the whole project
+❯ ./pants test ::
+```
+
+You can pass through arguments with `--`, e.g. `./pants test pkg/deploy: -- -v -run TestFoo`.
+[block:callout]
+{
+  "type": "warning",
+  "title": "`testdata` folder not yet supported",
+  "body": "Please comment on https://github.com/pantsbuild/pants/issues/13200 if you need this feature for your project so that we can bump its priority."
+}
+[/block]
+
+[block:api-header]
+{
+  "title": "Gofmt"
+}
+[/block]
+Gofmt is activated by default when you activate the Go backend. Simply run `./pants fmt` and `./pants lint`:
+
+```
+# Format a single directory
+❯ ./pants fmt cmd/deploy:
+
+# Format this directory and all subdirectories
+❯ ./pants fmt cmd::
+
+# Lint the whole project
+❯ ./pants lint ::
+
+# Format all changed files
+❯ ./pants --changed-since=HEAD fmt
+```
+
+If you'd like to disable Gofmt, you can set this:
+[block:code]
+{
+  "codes": [
+    {
+      "code": "[gofmt]\nskip = true",
+      "language": "go",
+      "name": "pants.toml"
+    }
+  ]
+}
+[/block]
+Support for [`[gofmt].args` is upcoming](https://github.com/pantsbuild/pants/issues/12822), which will allow you to use [Gofmt's `-r` feature](https://pkg.go.dev/cmd/gofmt).
+
+Support for `go vet` is also upcoming.
