@@ -11,8 +11,7 @@ Start by reading the [Concepts](doc:target-api-concepts) of the Target API.
 
 Note that the engine does not have special knowledge about `Target`s and `Field`s. To the engine, these are like any other types you'd use, and the `@rule`s to work with targets are like any other `@rule`.
 
-How to read values from a `Target`
-----------------------------------
+## How to read values from a `Target`
 
 As explained in [Concepts](doc:target-api-concepts), a `Target` is an addressable combination of fields, where each field gives some metadata about your code.
 
@@ -25,7 +24,7 @@ timeout_field = target[PythonTestsTimeoutField]
 print(timeout_field.value)
 ```
 
-This will return an instance of the `Field`  subclass you looked up, which has two properties: `alias: str` and `value`. The type of `value` depends on the particular field. For example, `PythonTestsTimeout` subclasses `IntField`, so `value` has an `int` type.
+This will return an instance of the `Field` subclass you looked up, which has two properties: `alias: str` and `value`. The type of `value` depends on the particular field. For example, `PythonTestsTimeout` subclasses `IntField`, so `value` has an `int` type.
 
 Looking up a field with `tgt[MyField]` will fail if the field is not registered on the target type.
 
@@ -86,10 +85,9 @@ You can also create an `Address` object directly, which is often useful in tests
 
 You can use `str(address)` or `address.spec` to get the normalized string representation. `address.spec_path` will give the path to the parent directory of the target's original BUILD file.
 
-How to resolve targets
-----------------------
+## How to resolve targets
 
-How do you get `Target`s in the first place in your plugin? 
+How do you get `Target`s in the first place in your plugin?
 
 As explained in [Goal rules](doc:rules-api-goal-rules), to get all of the targets specified on the command line by a user, you can request the type `Targets` as a parameter to your `@rule` or `@goal_rule`. From there, you can optionally filter out the targets you want, such as by using `target.has_field()`.
 
@@ -181,8 +179,7 @@ async def example(...) -> Foo:
     target = targets[0]
 ```
 
-The `Dependencies` field
-------------------------
+## The `Dependencies` field
 
 The `Dependencies` field is an `AsyncField`, which means that you must use the engine to hydrate its values, rather than using `Dependencies.value` like normal.
 
@@ -259,8 +256,7 @@ async def demo(...) -> Foo:
 
 Pants will include your special-cased dependencies with `./pants dependencies`, `./pants dependees`, and `./pants --changed-since`, but the dependencies will not show up when using `await Get(Addresses, DependenciesRequest)`.
 
-`SourcesField`
---------------
+## `SourcesField`
 
 `SourceField` is an `AsyncField`, which means that you must use the engine to hydrate its values, rather than using `Sources.value` like normal.
 
@@ -365,8 +361,7 @@ async demo(...) -> Foo:
 
 You can also use `Get(StrippedSourceFiles, SourceFilesRequest)`, and the engine will automatically go from `SourceFilesRequest -> SourceFiles -> StrippedSourceFiles)`.
 
-`FieldSet`s
------------
+## `FieldSet`s
 
 A `FieldSet` is a way to specify which Fields your rule needs to use in a typed way that is understood by the engine.
 
@@ -388,8 +383,8 @@ class ShellcheckFieldSet(FieldSet):
     required_fields = (ShellSourceField,)
 
     source: ShellSourceField
-    # Because this is not in `required_fields`, this `FieldSet` will still match target types 
-    # that don't have a `Dependencies` field registered. If it's not registered, then a 
+    # Because this is not in `required_fields`, this `FieldSet` will still match target types
+    # that don't have a `Dependencies` field registered. If it's not registered, then a
     # default value for `Dependencies` will be used as if the user left off the field from
     # their BUILD file.
     dependencies: Dependencies

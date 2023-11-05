@@ -3,8 +3,8 @@
     position: 0
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 How to generate Python from Protocol Buffers.
 
@@ -21,9 +21,10 @@ See [the Python example repository](https://github.com/pantsbuild/example-python
 
 :::
 
-
 ## Step 1: Activate the Protobuf Python backend
+
 Add this to your `pants.toml`:
+
 ```toml title="title="pants.toml""
 [GLOBAL]
 backend_packages.add = [
@@ -36,7 +37,7 @@ This adds the new `protobuf_library` target, which you can confirm by running `.
 
 :::note Enable the MyPy Protobuf plugin
 
-```
+````
 The [MyPy Protobuf plugin](https://github.com/dropbox/mypy-protobuf) generates [`.pyi` type stubs](https://mypy.readthedocs.io/en/stable/stubs.html). If you use MyPy through Pants's [typecheck goal](doc:python-typecheck-goal), this will ensure MyPy understands your generated code.
 
 To activate, set `mypy_plugin = true` in the `[python-protobuf]` scope:
@@ -44,7 +45,7 @@ To activate, set `mypy_plugin = true` in the `[python-protobuf]` scope:
 ```toml
 [python-protobuf]
 mypy_plugin = true
-```
+````
 
 MyPy will use the generated `.pyi` type stub file, rather than looking at the `.py` implementation file.
 
@@ -57,9 +58,10 @@ MyPy will use the generated `.pyi` type stub file, rather than looking at the `.
 :::caution Want to use other protocols, like Thrift?
 
 ```
+
 Please message us on [Slack](doc:community) if you would like support for more protocols. We would be happy to either add support to the core Pants distribution or to help you to write a plugin.
 
-```
+````
 
 :::
 
@@ -71,9 +73,10 @@ First, add `protobuf`—and `grpcio`, if relevant— to your `requirements.txt` 
 ```text title="title="requirements.txt""
 grpcio==1.32.0
 protobuf>=3.12.1
-```
+````
 
 Then, add the targets' addresses to the option `runtime_dependencies` in the `[python-protobuf]` scope. Pants will use this to automatically add the target(s) to the `dependencies` field for every `protobuf_library()` target you write.
+
 ```toml title="title="pants.toml""
 [python-protobuf]
 # Use the path to your 3rd-party requirements,
@@ -81,8 +84,8 @@ Then, add the targets' addresses to the option `runtime_dependencies` in the `[p
 runtime_dependencies = ["//:grpcio", "//:protobuf"]
 ```
 
-
 ## Step 3: Define a `protobuf_library` target
+
 Wherever you create your `.proto` files, add a `protobuf_library`.
 
 <Tabs>
@@ -92,6 +95,7 @@ Wherever you create your `.proto` files, add a `protobuf_library`.
 # `sources` defaults to `['*.proto']`.
 protobuf_library()
 ```
+
 </TabItem>
 <TabItem value="src/proto/example/f.proto" label="src/proto/example/f.proto">
 
@@ -104,21 +108,23 @@ message Example {
   ...
 }
 ```
+
 </TabItem>
 </Tabs>
 
-Your `protobuf_library` can optionally depend on other `protobuf_library` targets through the `dependencies` field, if its `.proto` files need to import definitions from  other`.proto` files.
+Your `protobuf_library` can optionally depend on other `protobuf_library` targets through the `dependencies` field, if its `.proto` files need to import definitions from other`.proto` files.
 
 If you want gRPC code generated, set `grpc=True`.
+
 ```python title="title="src/proto/example/BUILD""
 protobuf_library(grpc=True)
 ```
 
-
 ## Step 4: Use the `protobuf_library` in your Python code
+
 Now, you can add the `protobuf_library` to the `dependencies` field of your Python targets. Pants will generate the Python code automatically for you.
 
-In your Python file, import the module with the name `_pb2` at the end, e.g. `protos/example.proto` becomes `proto.example_pb2`. 
+In your Python file, import the module with the name `_pb2` at the end, e.g. `protos/example.proto` becomes `proto.example_pb2`.
 
 If gRPC is activated, you can also import the module with `_pb2_grpc` at the end, e.g. `proto.example_pb2_grpc`.
 
@@ -132,6 +138,7 @@ python_library(
     ],
 )
 ```
+
 </TabItem>
 <TabItem value="src/python/example/app.py" label="src/python/example/app.py">
 
@@ -141,6 +148,7 @@ from example.f_pb2 import Message
 # See https://developers.google.com/protocol-buffers/docs/pythontutorial
 # for how to use the generated code in your project.
 ```
+
 </TabItem>
 </Tabs>
 
@@ -157,8 +165,6 @@ See the below section "Protobuf and source roots" for how to generate into a dif
 
 :::
 
-
-
 :::tip Upcoming feature: `export-codegen` goal
 
 ```
@@ -169,8 +175,6 @@ If you are not yet able to upgrade to 2.1, for now, you can add the `protobuf_li
 ```
 
 :::
-
-
 
 :::tip Upcoming feature: dependency inference for Protobuf
 
@@ -184,13 +188,14 @@ Pants 2.2 adds support for dependency inference of:
 
 :::
 
-
 ## Protobuf and source roots
-By default, generated code goes into the same [source root](doc:source-roots) as the `.proto` file from which it was generated. For example, a file `src/proto/example/f.proto` will generate `src/proto/example/f_pb2.py`. 
+
+By default, generated code goes into the same [source root](doc:source-roots) as the `.proto` file from which it was generated. For example, a file `src/proto/example/f.proto` will generate `src/proto/example/f_pb2.py`.
 
 However this may not always be what you want. In particular, you may not want to have to add `__init__py` files under `src/proto` just so you can import Python code generated to that source root.
 
 You can configure a different source root for generated code by setting the `python_source_root` field:
+
 ```python title="title="src/proto/example/BUILD""
 protobuf_library(
   python_source_root='src/python'
@@ -202,7 +207,7 @@ Now `src/proto/example/f.proto` will generate `src/python/example/f_pb2.py`, i.e
 :::note Set packages relative to the source root
 
 ```
-Remember that the `package` directive in your `.proto` file should be relative to the source root. 
+Remember that the `package` directive in your `.proto` file should be relative to the source root.
 
 For example, if you have a file at `src/proto/example/subdir/f.proto`, you'd set its `package` to `example.subdir`; and in your Python code, `from example.subdir import f_pb2`.
 

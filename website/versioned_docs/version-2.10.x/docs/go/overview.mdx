@@ -3,28 +3,25 @@
     position: 0
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 Pants's support for Golang.
 
 ---
 
-
 :::danger Go support is alpha stage
 
     We are done implementing the initial core functionality for Pants's initial Go support ([tracked here](https://github.com/pantsbuild/pants/projects/21)). However, there may be some edge cases we aren't yet handling. There are also some features that are not yet supported like Cgo files and vendoring, which we'd love your input on how to prioritize!
-    
+
     Please share feedback for what you need to use Pants with your Go project by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](doc:community)!
 
 :::
 
-
-
 :::tip Why use Pants with Go?
 
     Go's builtin tooling is already excellent! Many projects may be fine only using Go's tooling, although Pants offers some unique benefits:
-    
+
     * A consistent interface for all languages/tools in your repository, such as being able to run `./pants fmt lint check test package`.
     * Integration with Git, such as running `./pants --changed-since=HEAD test`.
     * Caching, such as caching test results on a per-package basis.
@@ -33,15 +30,11 @@ Pants's support for Golang.
 
 :::
 
-
-
 :::note Example Go repository
 
     Check out [github.com/pantsbuild/example-golang](https://github.com/pantsbuild/example-golang) to try out Pants's Go support.
 
 :::
-
-
 
 :::caution Assumes you're using a single Go module
 
@@ -49,9 +42,10 @@ Pants's support for Golang.
 
 :::
 
-
 ## Initial setup
+
 First, activate the Go backend and set the expected Go version in `pants.toml`:
+
 ```toml title="pants.toml"
 [GLOBAL]
 backend_packages = ["pants.backend.experimental.go"]
@@ -123,6 +117,7 @@ go_package(dependencies=[":embeds"])
 
 resources(name="embeds", sources=["hello.txt"])
 ```
+
 </TabItem>
 <TabItem value="pkg/runner/lib.go" label="pkg/runner/lib.go">
 
@@ -135,17 +130,19 @@ import _ "embed"
 var s string
 print(s)
 ```
+
 </TabItem>
 <TabItem value="pkg/runner/hello.txt" label="pkg/runner/hello.txt">
 
 ```text
 Hello world!
 ```
+
 </TabItem>
 </Tabs>
 
-
 ## Package and run binaries
+
 To run a binary, use `./pants run path/to/main_pkg:` (note the colon). You can pass through arguments with `--`, like this:
 
 ```
@@ -166,12 +163,13 @@ You can also package your binaries (aka `go build`) by using `./pants package`. 
 ```
 
 By default, Pants names the binary with the scheme `path.to.directory/target_name`, e.g. `cmd.deploy/bin`. You can set the field `output_path` to use a different name:
+
 ```go title="cmd/deploy/BUILD"
 go_binary(name="bin", output_path="deploy")
 ```
 
-
 ## Compile code
+
 To manually check that a package compiles, use `./pants check`:
 
 ```
@@ -186,7 +184,9 @@ To manually check that a package compiles, use `./pants check`:
 ```
 
 (Instead, you can simply run `package`, `run`, and `test`. Pants will compile all the relevant packages.)
+
 ## Run tests
+
 To run tests, use `./pants test`:
 
 ```
@@ -214,6 +214,7 @@ go_package(dependencies=[":testdata"])
 
 files(name="testdata", sources=["testdata/*"])
 ```
+
 </TabItem>
 <TabItem value="pkg/runner/foo_test.go" label="pkg/runner/foo_test.go">
 
@@ -232,12 +233,14 @@ func TestFilesAvailable(t *testing.T) {
 	}
 }
 ```
+
 </TabItem>
 <TabItem value="pkg/runner/testdata/f.txt" label="pkg/runner/testdata/f.txt">
 
 ```text
 "Hello world!"
 ```
+
 </TabItem>
 </Tabs>
 
@@ -248,12 +251,13 @@ Traditionally in Go, these files are located in the `testdata` directory. Howeve
 Pants can cancel tests that take too long, which is useful to prevent tests from hanging indefinitely.
 
 To add a timeout, set the `test_timeout` field to an integer value of seconds, like this:
+
 ```python title="BUILD"
 go_package(test_timeout=120)
 ```
 
-
 ## Gofmt
+
 Gofmt is activated by default when you activate the Go backend. Simply run `./pants fmt` and `./pants lint`:
 
 ```
@@ -271,6 +275,7 @@ Gofmt is activated by default when you activate the Go backend. Simply run `./pa
 ```
 
 If you'd like to disable Gofmt, set this:
+
 ```go title="pants.toml"
 [gofmt]
 skip = true

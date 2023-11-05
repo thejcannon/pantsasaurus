@@ -3,8 +3,8 @@
     position: 7
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 Polymorphism for the engine.
 
@@ -42,6 +42,7 @@ async def lint(..., targets: Targets, union_membership: UnionMembership) -> Lint
         for concrete_request in concrete_requests
     )
 ```
+
 </TabItem>
 <TabItem value="pants-plugins/bash/shellcheck.py" label="pants-plugins/bash/shellcheck.py">
 
@@ -52,15 +53,18 @@ class ShellcheckRequest(LintRequest):
     ...
 
 ...
-  
+
 def rules():
     return [UnionRule(LintRequest, ShellcheckRequest)
 ```
+
 </TabItem>
 </Tabs>
 
 This example will find all registered linter implementations by looking up `union_membership[LintRequest]`, which returns a tuple of all `LintRequest` types that were registered with a `UnionRule`, such as `ShellcheckRequest` and `Flake8Request`.
+
 ## How to create a new Union
+
 To set up a new union, create a class for the union "base". Typically, this should be an [abstract class](https://docs.python.org/3/library/abc.html) that is subclassed by the union members, but it does not need to be. Mark the class with `@union`.
 
 ```python
@@ -74,7 +78,7 @@ class Vehicle(ABC):
    def num_wheels(self) -> int:
         pass
 ```
- 
+
 Then, register every implementation of your union with `UnionRule`:
 
 ```python

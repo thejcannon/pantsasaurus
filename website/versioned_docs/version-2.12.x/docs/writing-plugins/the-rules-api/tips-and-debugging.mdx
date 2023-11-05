@@ -3,22 +3,17 @@
     position: 10
 ---
 
-
-
 ---
-
 
 :::note Reminder: ask for help
 
-    
     We would love to help you with your plugin. Please reach out through [Slack](doc:community).
-    
+
     We also appreciate any feedback on the Rules API. If you find certain things confusing or are looking for additional mechanisms, please let us know.
 
 :::
 
-Tip: Use `MultiGet` for increased concurrency
----------------------------------------------
+## Tip: Use `MultiGet` for increased concurrency
 
 Every time your rule has `await`, Python will yield execution to the engine and not resume until the engine returns the result. So, you can improve concurrency by instead bundling multiple `Get` requests into a single `MultiGet`, which will allow each request to be resolved through a separate thread.
 
@@ -50,13 +45,11 @@ async def demo(...) -> Foo:
     )
 ```
 
-Tip: Add logging
-----------------
+## Tip: Add logging
 
 As explained in [Logging and dynamic output](doc:rules-api-logging), you can add logging to any `@rule` by using Python's `logging` module like you normally would.
 
-FYI: Caching semantics
-----------------------
+## FYI: Caching semantics
 
 There are two layers to Pants caching: in-memory memoization and caching written to disk via the [LMDB store](https://en.wikipedia.org/wiki/Lightning_Memory-Mapped_Database).
 
@@ -64,8 +57,7 @@ Pants will write to the LMDB store—usually at `~/.cache/pants/lmdb_store`—fo
 
 Pants will also memoize in-memory the evaluation of all `@rule`s. This means that once a rule runs, if the inputs are identical to a prior run, the cache will be used instead of re-evaluating the rule. If the user uses Pantsd (the Pants daemon), this memoization will persist across distinct Pants runs, until the daemon is shut down or restarted. This memoization happens automatically.
 
-Debugging: Look inside the chroot
----------------------------------
+## Debugging: Look inside the chroot
 
 When Pants runs most processes, it runs in a `chroot` (temporary directory). Usually, this gets cleaned up after the `Process` finishes. You can instead run `./pants --no-process-cleanup`, which will keep around the folder.
 
@@ -80,17 +72,15 @@ Pants will log the path to the chroot, e.g.:
 
 Inside the preserved sandbox there will be a `__run.sh` script which can be used to inspect or re-run the `Process` precisely as Pants did when creating the sandbox.
 
-Debugging: Visualize the rule graph
------------------------------------
+## Debugging: Visualize the rule graph
 
 You can create a visual representation of the rule graph through the option `--engine-visualize-to=$dir_path $goal`. This will create the files `rule_graph.dot`, `rule_graph.$goal.dot`, and `graph.000.dot`, which are [`.dot` files](https://en.wikipedia.org/wiki/DOT_%28graph_description_language%29). `rule_graph.$goal.dot` contains only the rules used during your run, `rule_graph.dot` contains all rules, and `graph.000.dot` contains the actual runtime results of all rules (it can be quite large!).
 
 To open up the `.dot` file, you can install the [`graphviz`](https://graphviz.org) program, then run `dot -Tpdf -O $destination`. We recommend opening up the PDF in Google Chrome or OSX Preview, which do a good job of zooming in large PDF files.
 
-Debugging rule graph issues
----------------------------
+## Debugging rule graph issues
 
-Rule graph issues can be particularly hard to figure out - the error messages are noisy and do not make clear how to fix the issue. We plan to improve this. 
+Rule graph issues can be particularly hard to figure out - the error messages are noisy and do not make clear how to fix the issue. We plan to improve this.
 
 We encourage you to reach out in #plugins on [Slack](doc:getting-help) for help.
 
@@ -108,7 +98,7 @@ import subprocess
 BACKENDS = {
     # Replace this with the backend_packages from your pants.toml.
     #
-    # Warning: it's easy to get a combinatorial explosion if you 
+    # Warning: it's easy to get a combinatorial explosion if you
     # use lots of backends. In that case, try using a subset of your
     # backends and see if you can still get a rule graph failure.
     "pants.backend.python",

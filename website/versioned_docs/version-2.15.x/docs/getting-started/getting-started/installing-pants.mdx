@@ -3,8 +3,6 @@
     position: 1
 ---
 
-
-
 ---
 
 You can download an installer script that will install the Pants binary with this command:
@@ -31,12 +29,10 @@ brew install pantsbuild/tap/pants
 
 If you have difficulty installing Pants, see our [getting help](doc:getting-help) for community resources to help you resolve your issue.
 
-
 :::tip Upgrading Pants
 
-    
     The `pants` launcher binary will automatically install and use the Pants version specified in `pants.toml`, so upgrading Pants in a repo is as simple as editing `pants_version` in that file.
-    
+
     To upgrade the `pants` launcher binary itself, run
     ```
     SCIE_BOOT=update pants
@@ -44,8 +40,7 @@ If you have difficulty installing Pants, see our [getting help](doc:getting-help
 
 :::
 
-Running Pants from unreleased builds
-------------------------------------
+## Running Pants from unreleased builds
 
 To use an unreleased build of Pants from the [pantsbuild/pants](https://github.com/pantsbuild/pants) main branch, locate the main branch SHA, set `PANTS_SHA=<SHA>` in the environment, and run `pants` as usual:
 
@@ -53,28 +48,23 @@ To use an unreleased build of Pants from the [pantsbuild/pants](https://github.c
 PANTS_SHA=8553e8cbc5a1d9da3f84dcfc5e7bf3139847fb5f pants --version
 ```
 
-Running Pants from sources
---------------------------
+## Running Pants from sources
 
 See [here](doc:running-pants-from-sources) for instructions on how to run Pants directly from its [sources](https://github.com/pantsbuild/pants).
 
 This is useful when making changes directly to Pants, to see how those changes impact your repo.
 
-
-
 :::caution The old `./pants` script
 
-    
-    Before the creation of the `pants` launcher binary, the recommended way of installing Pants was to check a `./pants` launcher script into each repo. This script required an external Python interpreter, and was prone to errors and issues related to discovery and use of this interpreter. 
-    
+    Before the creation of the `pants` launcher binary, the recommended way of installing Pants was to check a `./pants` launcher script into each repo. This script required an external Python interpreter, and was prone to errors and issues related to discovery and use of this interpreter.
+
     The `pants` launcher binary uses an embedded interpreter and does not rely on one being present on the system (although if your repo contains Python code then it naturally requires a Python interpreter).
-    
+
     We strongly recommend removing the `./pants` script from your repo and using the `pants` binary instead. You can keep a simple `./pants` script that delegates to `pants` to ease the transition. However, if you do need to continue to use the old installation method for some reason, it is described [here](doc:manual-installation). But please [let us know](doc:getting-help) so we can accommodate your use case in the launcher binary.
 
 :::
 
-The `pants` binary's implementation
------------------------------------
+## The `pants` binary's implementation
 
 You don't need to know this to use `pants`, but it may be of interest:
 

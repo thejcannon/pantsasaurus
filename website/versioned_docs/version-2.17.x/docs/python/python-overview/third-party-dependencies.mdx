@@ -22,8 +22,7 @@ Instead, Pants understands exactly which dependencies every file in your project
 
 Among other benefits, this precise and automatic understanding of your dependencies gives you fine-grained caching. This means, for example, that if none of the dependencies for a particular test file have changed, the cached result can be safely used.
 
-Teaching Pants your "universe"(s) of dependencies
--------------------------------------------------
+## Teaching Pants your "universe"(s) of dependencies
 
 For Pants to know which dependencies each file uses, it must first know which specific dependencies are in your "universe", that is, all the third-party dependencies your project directly uses.
 
@@ -56,6 +55,7 @@ flask>=1.1.2,<1.3
 requests[security]==2.23.0
 dataclasses ; python_version<'3.7'
 ```
+
 ```python title="BUILD"
 # This will generate three targets:
 #
@@ -85,14 +85,12 @@ If the file uses a different name than `requirements.txt`, set `source` like thi
 python_requirements(source="reqs.txt")
 ```
 
-
 :::note Where should I put the `requirements.txt`?
 
-    
     You can name the file whatever you want, and put it wherever makes the most sense for your project.
-    
+
     In smaller repositories that only use Python, it's often convenient to put the file at the "build root" (top-level), as used on this page.
-    
+
     For larger repositories or multilingual repositories, it's often useful to have a `3rdparty` or `3rdparty/python` directory. Rather than the target's address being `//:reqs#my_requirement`, its address would be `3rdparty/python:reqs#my_requirement`, for example; or `3rdparty/python#my_requirement` if you leave off the `name` field for `python_requirements`. See [Target Generation](doc:targets#target-generation).
 
 :::
@@ -117,6 +115,7 @@ dependencies = [
 [project.optional-dependencies]
 dataclass = ["dataclasses ; python_version<'3.7'"]
 ```
+
 ```python title="BUILD"
 # This will generate three targets:
 #
@@ -153,6 +152,7 @@ flask = "~1.12"
 [tool.poetry.dev-dependencies]
 isort = "~5.5"
 ```
+
 ```python title="BUILD"
 # This will generate three targets:
 #
@@ -178,8 +178,7 @@ python_requirement(
 
 Note that Pants does not consume your `poetry.lock` file. Instead, see the [page on lockfiles](doc:python-lockfiles).
 
-How dependencies are chosen
----------------------------
+## How dependencies are chosen
 
 Once Pants knows about your "universe"(s) of dependencies, it determines which subset should be used through [dependency inference](https://blog.pantsbuild.org/dependency-inference/). Pants will read your import statements, like `import django`, and map it back to the relevant `python_requirement` target. Run [`pants dependencies path/to/file.py`](doc:project-introspection) or `pants dependencies path/to:target` to confirm this works.
 
@@ -233,13 +232,11 @@ When you have multiple targets for the same dependency and they belong to the sa
 
 This ambiguity is often a problem when you have 2+ `requirements.txt` or `pyproject.toml` files in your project, such as `project1/requirements.txt` and `project2/requirements.txt` both specifying `django`. You may want to set up each `poetry_requirements`/`python_requirements` target generator to use a distinct resolve so that there is no overlap. Alternatively, if the versions are the same, you may want to consolidate the requirements into a common file.
 
-Lockfiles
----------
+## Lockfiles
 
 We strongly recommend using [lockfiles](doc:python-lockfiles) to ensure secure, repeatable dependency resolution. See [here](doc:python-lockfiles) for details on how to do so.
 
-Advanced usage
---------------
+## Advanced usage
 
 ### Requirements with undeclared dependencies
 
@@ -277,6 +274,7 @@ python_requirements(
     },
 )
 ```
+
 ```text title="requirements.txt"
 setuptools
 mongomock
@@ -295,18 +293,16 @@ You can install requirements from version control using two styles:
   - `Django@ git+https://github.com/django/django.git@stable/2.1.x`
   - `Django@ git+https://github.com/django/django.git@fd209f62f1d83233cc634443cfac5ee4328d98b8`
 
-
 :::note Version control via SSH
 
-    
     When using version controlled direct references hosted on private repositories with SSH access:
-    
+
     ```
     target@ git+ssh://git@github.com:/myorg/myrepo.git@myhash
     ```
-    
+
     ...you may see errors like:
-    
+
     ```
      Complete output (5 lines):
       git@github.com: Permission denied (publickey).
@@ -315,9 +311,9 @@ You can install requirements from version control using two styles:
       and the repository exists.
       ----------------------------------------
     ```
-    
+
     To fix this, Pants needs to be configured to pass relevant SSH specific environment variables to processes by adding the following to `pants.toml`:
-    
+
     ```
     [subprocess-environment]
     env_vars.add = [
@@ -346,8 +342,8 @@ To exclusively use your custom index, i.e. to not use the default of PyPI, use `
 
 Use the option `[python-repos].find_links` for flat lists of packages. Same as pip's [`--find-links`](https://pip.pypa.io/en/stable/cli/pip_wheel/?highlight=find%20links#cmdoption-f) option, you can either use:
 
-* a URL to an HTML file with links to wheel and/or sdist files, or
-* a `file://` absolute path to an HTML file with links, or to a local directory with wheel and/or
+- a URL to an HTML file with links to wheel and/or sdist files, or
+- a `file://` absolute path to an HTML file with links, or to a local directory with wheel and/or
   sdist files. See the section on local requirements below.
 
 ```toml
@@ -380,7 +376,7 @@ indexes.add = ["http://$USERNAME:$PASSWORD@my.custom.repo/index"]
 
 There are two ways to specify local requirements from the filesystem:
 
-* [PEP 440 direct references](https://www.python.org/dev/peps/pep-0440/#direct-references)
+- [PEP 440 direct references](https://www.python.org/dev/peps/pep-0440/#direct-references)
 
 ```python title="3rdparty/python"
 python_requirement(
@@ -393,18 +389,20 @@ python_requirement(
 # `python_requirements` target generator.
 ```
 
-* The option `[python-repos].find_links`
+- The option `[python-repos].find_links`
 
 ```toml title="pants.toml"
 [python-repos]
 # Use an absolute path to a directory containing `.whl` and/or sdist files.
 find_links = ["file:///Users/pantsbuild/prebuilt_wheels"]
 ```
+
 ```shell
 ❯ ls /Users/pantsbuild/prebuilt_wheels
 ansicolors-1.1.8-py2.py3-none-any.whl
 django-3.1.1-py3-none-any.whl
 ```
+
 ```python title="3rdparty/BUILD"
 # Use normal requirement strings, i.e. without file paths.
 python_requirement(name="ansicolors", requirements=["ansicolors==1.1.8"])
@@ -414,7 +412,7 @@ python_requirement(name="django", requirements=["django>=3.1,<3.2"])
 # `python_requirements` target generator
 ```
 
-Unlike PEP 440 direct references, `[python-repos].find_links` allows you to use multiple artifacts for the same project name. For example, you can include multiple `.whl` and sdist files for the same  project in the directory; if `[python-repos].indexes` is still set, then Pex/pip may use artifacts both from indexes like PyPI and from your local `--find-links`.
+Unlike PEP 440 direct references, `[python-repos].find_links` allows you to use multiple artifacts for the same project name. For example, you can include multiple `.whl` and sdist files for the same project in the directory; if `[python-repos].indexes` is still set, then Pex/pip may use artifacts both from indexes like PyPI and from your local `--find-links`.
 
 Both approaches require using absolute paths, and the files must exist on your machine. This is usually fine when locally iterating and debugging. This approach also works well if your entire team can use the same fixed location. Otherwise, see the below section.
 
@@ -461,6 +459,7 @@ Constraints files are configured per-resolve, meaning that the resolves for your
 data-science = "3rdparty/python/data_science_constraints.txt"
 pytest = "3rdparty/python/pytest_constraints.txt"
 ```
+
 ```text title="3rdparty/python/data_science_constraints.txt"
 requests==22.1.0
 urrllib3==4.2
@@ -487,7 +486,6 @@ mypy = ["django-stubs"]
 
 You can also set the key `__default__` to apply the same value to every resolve by default.
 
-Tip: use `pants export` to create a virtual environment for IDEs
-------------------------------------------------------------------
+## Tip: use `pants export` to create a virtual environment for IDEs
 
 See [Setting up an IDE](doc:setting-up-an-ide) for more information on `pants export`. This will create a virtual environment for your user code for compatibility with the rest of the Python ecosystem, e.g. IDEs like Pycharm.

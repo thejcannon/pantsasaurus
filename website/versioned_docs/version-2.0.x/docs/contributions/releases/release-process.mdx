@@ -8,6 +8,7 @@ How to release a new version of `pantsbuild.pants` and its plugins.
 ---
 
 ## Prerequisites
+
 ### 1. Create a PGP signing key
 
 If you already have one, you can reuse it.
@@ -43,7 +44,9 @@ username: <fill me in>
 password: <fill me in>
 EOF
 ```
+
 ## Step 1: Prepare the release
+
 The release is automated, outside of these steps:
 
 1. Removing any completed deprecations
@@ -57,7 +60,8 @@ For dev and `rc0` releases, the release branch is `master`. For all other releas
 
 ### 0a. `dev0` - set up the release series
 
-1. Create a new file in ` src/python/pants/notes`, e.g. create  `src/python/pants/notes/1.28.x.rst`.
+1. Create a new file in ` src/python/pants/notes`, e.g. create `src/python/pants/notes/1.28.x.rst`.
+
 ```
  1. Copy the title and template over from the prior release, e.g. `1.27.x.rst`.
 ```
@@ -90,7 +94,6 @@ To cherry-pick, for example, from 1.28.x:
 4. `git cherry-pick <sha>`, using the SHA from the previous step.
 5. Open a pull request to merge into the release branch, e.g. `1.28.x`.
 
-
 Do not push directly to the release branch. All changes should be added through a pull request.
 
 After a commit has been cherry-picked, remove the `needs-cherrypick` label and remove it from the release milestone.
@@ -113,8 +116,6 @@ Even if you are preparing notes for a release candidate, always prepare the note
 ```
 
 :::
-
-
 
 :::note See any weird PR titles?
 
@@ -170,7 +171,9 @@ $ git push upstream 1.28.x
 1. Checkout from `master` into the release branch, e.g. `1.28.x`.
 2. Cherry-pick the release prep using `git cherry-pick <sha>`.
 3. Bump the `VERSION` in `src/python/pants/VERSION`, e.g. to `1.28.0rc1`. Push this as a new commit directly to the release branch - you do not need to open a pull request.
+
 ## Step 2: Update this docs site
+
 ### `dev0` - set up the new page
 
 Create a new version of the docs. Go to [dash.readme.io/project/pants](https://dash.readme.io/project/pants). In the top left dropdown, where it says the current version, click "Manage versions". Click "Add new version" and use a "v" with the minor release number, e.g. "v1.28". Fork from the prior release.
@@ -189,9 +192,10 @@ In a list of bullet points, briefly describe any important changes from your rel
 
 This is a bit subjective, but some things you may want to highlight:
 
-* New features.
-* Major bug fixes.
-* Substantial API changes.
+- New features.
+- Major bug fixes.
+- Substantial API changes.
+
 ```
 * You do not need to highlight small changes like "Upgrade from ansiolors 2.10 to ansicolors 2.12". This is what the changelog is for.
 
@@ -214,8 +218,8 @@ Ping someone in the #committers Slack channel to be added. Alternatively, you ca
 
 :::
 
-
 ## Step 3: Wait for CI to build the wheels
+
 Once you have merged the `VERSION` bump—which will be on `master` for `dev` and `rc0` releases and the release branch for release candidates—CI will start building the wheels you need to finish the release.
 
 Head to https://travis-ci.com/github/pantsbuild/pants/builds and find your relevant build. You need the "Build Linux wheels" and "Build macOS wheels" jobs to go green to move on.
@@ -235,8 +239,8 @@ Be polite when doing this! Remember that many people are often waiting on CI to 
 
 :::
 
-
 ## Step 4: Run `release.sh`
+
 First, ensure that you are on your release branch at your version bump commit.
 
 :::note Tip: if new commits have landed after your release commit
@@ -255,7 +259,9 @@ $ ./build-support/bin/release.sh
 ```
 
 This will first perform a dry run, then will download the pre-built wheels built in CI and will publish them to PyPI. About three minutes in, the script will prompt you for your PGP password.
+
 ## Step 5: Test the release
+
 Run this script as a basic smoke test:
 
 ```bash
@@ -263,7 +269,9 @@ $ ./build-support/bin/release.sh -t
 ```
 
 You should also [check PyPI](https://pypi.org/pypi/pantsbuild.pants) to ensure everything looks good. Click "Release history" to find the version you released, then click it and confirm the changelog is correct on the "Project description" page and that the `macOS` and `manylinux` wheels show up in the "Download files" page.
+
 ## Step 6: Announce the change
+
 Announce the release to [pants-devel](https://groups.google.com/forum/#!forum/pants-devel).
 
 You can get a contributor list by running the following, where `<tag>` is the tag for the prior release (eg: `release_1.28.0.dev0`):

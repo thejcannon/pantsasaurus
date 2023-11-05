@@ -3,13 +3,12 @@
     position: 6
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 Suggestions for how to use Pants to speed up your CI (continuous integration).
 
 ---
-
 
 :::note Example `.travis.yml`
 
@@ -20,9 +19,10 @@ See https://github.com/pantsbuild/example-python/blob/master/.travis.yml for an 
 
 :::
 
-
 ## `pants.ci.toml`
+
 We recommend creating a `pants.ci.toml` config file with options specific to your CI setup.
+
 ```toml title="title="pants.ci.toml""
 [GLOBAL]
 # The Pants daemon is not very useful in CI, given that it
@@ -30,23 +30,24 @@ We recommend creating a `pants.ci.toml` config file with options specific to you
 pantsd = false
 
 dynamic_ui = false
-# Ensure colors are used (if your CI provider supports it). 
+# Ensure colors are used (if your CI provider supports it).
 colors = true
 
 # Limit the maximum number of concurrent processes. Change this
-# to a number that makes sense for your CI setup, based on 
+# to a number that makes sense for your CI setup, based on
 # the number of cores/threads.
-process_execution_local_parallelism = 4  
+process_execution_local_parallelism = 4
 
 [python-setup]
 # Limit the maximum number of concurrent jobs used to resolve third
 # party dependencies. The max level of parallelism will be
-# `process_execution_local_parallelism x resolver_jobs`, but 
+# `process_execution_local_parallelism x resolver_jobs`, but
 # often you will have one resolve process at a time.
 resolver_jobs = 2
 ```
 
 Then, in your CI script or config, set the environment variable `PANTS_CONFIG_FILES` to use this new config file, in addition to the default `pants.toml`. For example:
+
 ```shell title="title="ci.sh""
 export PANTS_CONFIG_FILES=pants.ci.toml
 
@@ -55,19 +56,19 @@ export PANTS_CONFIG_FILES=pants.ci.toml
 ...
 ```
 
-
 ## Directories to cache
+
 In your CI's config file, we recommend caching these directories:
 
-* `$HOME/.cache/pants/setup`: the initial bootstrapping of Pants.
-* `$HOME/.cache/pants/named_caches`: caches of tools like pip and PEX.
-* `$HOME/.cache/pants/lmdb_store`: cached content for prior Pants runs.
+- `$HOME/.cache/pants/setup`: the initial bootstrapping of Pants.
+- `$HOME/.cache/pants/named_caches`: caches of tools like pip and PEX.
+- `$HOME/.cache/pants/lmdb_store`: cached content for prior Pants runs.
 
 See [Troubleshooting](doc:troubleshooting#how-to-change-your-cache-directory) for how to change these cache locations.
 
 :::note Nuking the cache when too big
 
-```
+````
 In CI, the cache must be uploaded and downloaded every run. This takes time, so there is a tradeoff where too large of a cache will slow down your CI.
 
 You can use this script to nuke the cache when it gets too big:
@@ -86,9 +87,9 @@ function nuke_if_too_big() {
 nuke_if_too_big ~/.cache/pants/lmdb_store 2048
 nuke_if_too_big ~/.cache/pants/setup 768
 nuke_if_too_big ~/.cache/pants/named_caches 1024
-```
+````
 
-```
+````
 
 :::
 
@@ -106,7 +107,7 @@ $ ./pants \
   --changed-since=origin/main \
   --changed-dependees=transitive \
   typecheck test
-```
+````
 
 Because most linters do not care about a target's dependencies, we lint all changed targets, but not any dependees of those changed targets.
 
@@ -125,8 +126,6 @@ For absolute correctness, you may want to use Approach #2. Alternatively, add co
 
 :::
 
-
-
 :::note GitHub Actions: use `Checkout`
 
 ```
@@ -141,6 +140,7 @@ By default, Checkout will only fetch the latest commit, so you should set `fetch
 ### Approach #2: run over everything
 
 Alternatively, you can simply run over all your code. Pants's caching means that you will not need to rerun on changed files.
+
 ```shell title="title="ci.sh""
 $ ./pants --version  # This will bootstrap Pants
 $ ./pants lint typecheck test ::

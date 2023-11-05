@@ -9,12 +9,11 @@ How to create a Field, including the available templates.
 
 Before creating a new target type, the first step is to create all of the target type's fields.
 
-Defining a Field
-----------------
+## Defining a Field
 
 To define a new field:
 
-1. Subclass one of the below field templates, like `IntField` or `BoolField`; or, subclass an existing field, like `SingleSourceField`. 
+1. Subclass one of the below field templates, like `IntField` or `BoolField`; or, subclass an existing field, like `SingleSourceField`.
 2. Set the class property `alias`. This is the symbol that people use in BUILD files.
 3. Set the class property `help`. This is used by `./pants help`.
 
@@ -54,18 +53,15 @@ class TimeoutField(IntField):
 
 If you set `required = True`, the `default` will be ignored.
 
-
 :::note Reminder: subclass existing fields to modify their behavior
 
-    
     If you want to change how an existing field behaves, you should subclass the original field. For example, if you want to change a default value, subclass the original field. When doing this, you only need to override the properties you want to change.
-    
+
     See [Concepts](doc:target-api-concepts) for how subclassing plays a key role in the Target API.
 
 :::
 
-Adding custom validation
-------------------------
+## Adding custom validation
 
 The field templates will validate that users are using the correct _types_, like ints or strings. But you may want to add additional validation, such as banning certain values.
 
@@ -94,18 +90,15 @@ class UploadTimeout(IntField):
 
 Be careful to use the same type hint for the parameter `raw_value` as used in the template. This is used to generate the documentation in `./pants help my_target`.
 
-
 :::caution Cannot use new type hint syntax with `compute_value()` and `default`
 
-    
     You cannot use the [new type hint syntax](https://mypy-lang.blogspot.com/2021/01/) with the Target API, i.e. `list[str] | None` instead of `Optional[List[str]]`. The new syntax breaks `./pants help`.
-    
+
     Otherwise, it's safe to use the new syntax when writing plugins.
 
 :::
 
-Available templates
--------------------
+## Available templates
 
 All templates are defined in `pants.engine.target`.
 
@@ -129,28 +122,26 @@ Use this when you expect a float. This will reject integers.
 
 Use this when you expect a single string.
 
-
 :::note `StringField` can be like an enum
 
-    
-    You can set the class property `valid_choices` to limit what strings are acceptable. This class property can either be a tuple of strings or an `enum.Enum`. 
-    
+    You can set the class property `valid_choices` to limit what strings are acceptable. This class property can either be a tuple of strings or an `enum.Enum`.
+
     For example:
-    
+
     ```python
     class LeafyGreensField(StringField):
         alias = "leafy_greens"
         valid_choices = ("kale", "spinach", "chard")
     ```
-    
+
     or:
-    
+
     ```python
     class LeafyGreens(Enum):
         KALE = "kale"
         SPINACH = "spinach"
         CHARD = "chard"
-    
+
     class LeafyGreensField(StringField):
         alias = "leafy_greens"
         valid_choices = LeafyGreens
@@ -160,17 +151,17 @@ Use this when you expect a single string.
 
 ### `StringSequenceField`
 
-Use this when you expect 0-n strings. 
+Use this when you expect 0-n strings.
 
 The user may use a tuple, set, or list in their BUILD file; Pants will convert the value to an immutable tuple.
 
 ### `SequenceField`
 
-Use this when you expect a homogenous sequence of values other than strings, such as a sequence of integers. 
+Use this when you expect a homogenous sequence of values other than strings, such as a sequence of integers.
 
 The user may use a tuple, set, or list in their BUILD file; Pants will convert the value to an immutable tuple.
 
-You must set the class properties `expected_element_type` and `expected_type_description`.  You should also change the type signature of the classmethod `compute_value` so that Pants can show the correct types when running `./pants help $target_type`.
+You must set the class properties `expected_element_type` and `expected_type_description`. You should also change the type signature of the classmethod `compute_value` so that Pants can show the correct types when running `./pants help $target_type`.
 
 ```python
 class ExampleIntSequence(SequenceField):
@@ -201,7 +192,7 @@ The user may use a normal Python dictionary in their BUILD file, and they may us
 
 If none of these templates work for you, you can subclass `Field`, which is the superclass of all of these templates.
 
-You must give a type hint for `value`,  define the classmethod `compute_value`, and either set `required = True` or define the class property `default`.
+You must give a type hint for `value`, define the classmethod `compute_value`, and either set `required = True` or define the class property `default`.
 
 For example, we could define a `StringField` explicitly like this:
 
@@ -232,16 +223,13 @@ class VersionField(Field):
        return value_or_default
 ```
 
-
 :::tip Asking for help
 
-    
     Have a tricky field you're trying to write? We would love to help! See [Getting Help](doc:community).
 
 :::
 
-Examples
---------
+## Examples
 
 ```python title="plugins/target_types.py"
 from typing import Optional
@@ -261,7 +249,7 @@ class FortranVersion(StringField):
     valid_choices = ("f95", "f98")
     help = "Which version of Fortran should this use?"
 
- 
+
 class CompressToggle(BoolField):
     alias = "compress"
     default = False
@@ -275,7 +263,7 @@ class UploadTimeout(IntField):
       "How long to upload (in seconds) before timing out.\n\n"
       "This must be between 10 and 300 seconds."
     )
-    
+
     @classmethod
     def compute_value(
         cls, raw_value: Optional[int], *, address: Address
@@ -289,8 +277,8 @@ class UploadTimeout(IntField):
       return value_or_default
 
 
-# Example of subclassing an existing field. 
-# We don't need to define `alias = sources` because the 
+# Example of subclassing an existing field.
+# We don't need to define `alias = sources` because the
 # parent class does this already.
 class FortranSources(MultipleSourcesField):
     default = ("*.f95",)

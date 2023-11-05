@@ -3,14 +3,15 @@
     position: 4
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 How to activate and use the six Python linters and formatters bundled with Pants.
 
 ---
 
 ## Activating linters and formatters
+
 Linter/formatter support is implemented in separate backends so that they are easy to opt in to individually:
 
 - `pants.backend.python.lint.bandit`: Supports the the [Bandit](https://bandit.readthedocs.io/en/latest/) security issue detector.
@@ -21,6 +22,7 @@ Linter/formatter support is implemented in separate backends so that they are ea
 - `pants.backend.python.lint.pylint`: Supports the [pylint](https://www.pylint.org/) style and error checker.
 
 To enable linters/formatters, add the appropriate ones in `pants.toml`:
+
 ```toml title="title="pants.toml""
 [GLOBAL]
 ...
@@ -32,6 +34,7 @@ backend_packages = [
 ```
 
 You'll now see `lint` and `fmt` goals in the output of `./pants goals`.
+
 ```text title="title="Shell""
 $ ./pants goals
 
@@ -50,8 +53,6 @@ lint          Run all linters and/or formatters in check mode.
 ...
 ```
 
-
-
 :::note How to activate MyPy
 
 ```
@@ -61,16 +62,17 @@ MyPy is run with the [typecheck goal](doc:python-typecheck-goal), rather than `l
 
 :::
 
-
 ## Configuring the tools and adding plugins
+
 Each formatter and linter allows you to configure
 
-* `--version`: the version to use.
-* `--config`: the config file location (relative to the build root).
-* `--args`: any command-line arguments you want to pass to the tool.
-* `--extra-requirements`: any additional libraries to install, such as any plugins.
+- `--version`: the version to use.
+- `--config`: the config file location (relative to the build root).
+- `--args`: any command-line arguments you want to pass to the tool.
+- `--extra-requirements`: any additional libraries to install, such as any plugins.
 
 For example:
+
 ```toml title="title="pants.toml""
 [black]
 config = "pyproject.toml"
@@ -98,8 +100,6 @@ Many tools will automatically discover their config files if it's at a standard 
 
 :::
 
-
-
 :::note How to use first-party Pylint plugins
 
 ```
@@ -111,14 +111,16 @@ If you want to write first-party plugins for other linters like Flake8, let us k
 
 :::
 
-
 ## Temporarily skipping a formatter or linter
+
 Use the `--skip` option. For example, run:
 
 ```bash
 $ ./pants --black-skip --flake8-skip fmt ::
 ```
+
 ## Tip: only run over changed files
+
 With formatters and linters, there is usually no need to rerun on files that have not changed.
 
 Use the option `--changed-since` to get much better performance, like this:

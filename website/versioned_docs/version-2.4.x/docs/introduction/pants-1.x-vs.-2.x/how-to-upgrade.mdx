@@ -3,13 +3,12 @@
     position: 0
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 How to upgrade from Pants 1.x to 2.0.
 
 ---
-
 
 :::note Why upgrade?
 
@@ -17,11 +16,12 @@ How to upgrade from Pants 1.x to 2.0.
 
 :::
 
-
 ## Step 1: Upgrade to Pants 1.30
+
 We recommend upgrading to 1.30.1, which is the last minor release in the 1.x series. See [Upgrade tips](doc:upgrade-tips) for some tips with upgrading.
 
 ### Upgrade your `./pants` script
+
 We've made changes recently to the script to facilitate the upgrade to Pants 2.0. Run this:
 
 ```bash
@@ -29,7 +29,9 @@ curl -L -o ./pants https://pantsbuild.github.io/setup/pants
 ```
 
 Check in any changes to your version control.
+
 ## Step 2: Setup JVM, Node, and Go support (if relevant)
+
 Pants 2.0 initially only supports Python, with support for other languages coming soon.
 
 If you are using Pants's JVM, Node, or Go support and would like to continue using it, you will want two different Pants scripts: one to run Python with Pants 2.x, and one to run the other languages with Pants 1.x.
@@ -39,6 +41,7 @@ If you are using Pants's JVM, Node, or Go support and would like to continue usi
 Copy over your original `pants.toml` into a new TOML config file. You can call it whatever you'd like, such as `pants.v1.toml` or `pants.jvm.toml`.
 
 We recommend deactivating the Python backend package and any Python plugins like `pantsbuild.pants.contrib.mypy` so that you do not accidentally use your v1 script to run Python code.
+
 ```toml title="pants.v1.toml"
 [GLOBAL]
 pants_version = "1.30.1"
@@ -52,6 +55,7 @@ plugins = [
 ```
 
 Finally, tell Pants to ignore the BUILD files for your Python code. This is important because Pants 1.x may not understand BUILD files from Pants 2.x, such as if Pants 2.x adds a new target type.
+
 ```toml title="pants.v1.toml"
 [GLOBAL]
 # Replace this with the paths to your Python code.
@@ -61,6 +65,7 @@ build_ignore = ["src/python", "tests/python"]
 ### Step 2b: Create `./v1`
 
 Rather than using the script `./pants`, you will use this script to run Pants for other languages. You can name this script whatever you'd like, such as `./v1`, `./pants_jvm`, or `./jvm`.
+
 ```shell title="./v1"
 export PANTS_TOML=pants.v1.toml
 export PANTS_CONFIG_FILES="[\"$PANTS_TOML}\"]"
@@ -75,6 +80,7 @@ Then, run `chmod +x ./v1`.
 Now update your main `pants.toml` to remove from `backend_packages` and `plugins` to deactivate non-Python implementations.
 
 Set `build_ignore` to tell Pants to ignore the BUILD files with any non-Python target types.
+
 ```toml title="pants.toml"
 [GLOBAL]
 pants_version = "1.30.1"
@@ -89,13 +95,15 @@ plugins = [
 build_ignore = ["src/java", "src/go"]
 ```
 
-
 ## Step 3: Rewrite your plugins (if relevant)
+
 Refer to [Plugins overview](doc:plugins-overview) to learn more about the new Rules and Target APIs.
 
 We know that rewriting a plugin can be time-consuming, and we want to help. Please message us on [Slack](doc:community) in the `#plugins` channel. We can actively help you rewrite your code, including pair programming if needed. We don't want having to port your plugins to block you from upgrading to 2.0.
+
 ## Step 4: Upgrade to 2.0
-Now that the v1 engine is removed, some of the option names changed. 
+
+Now that the v1 engine is removed, some of the option names changed.
 
 - `--v1` and `--v2` are both deprecated and will no-op.
 - `backend_packages2` and `plugins2` are deprecated in favor of `backend_packages` and `plugins`. Also, there are no more published Plugins, so the `plugins` key can be removed.
@@ -103,6 +111,7 @@ Now that the v1 engine is removed, some of the option names changed.
 - `--quiet` was removed because Pants output is now much less verbose thanks to the dynamic UI. Instead, to disable all Pants output, use `--no-dynamic-ui` and `--level=error`.
 
 Before:
+
 ```toml title="pants.toml"
 [GLOBAL]
 pants_version = "1.30.1"
@@ -120,6 +129,7 @@ enable_pantsd = true
 ```
 
 After:
+
 ```toml title="pants.toml"
 [GLOBAL]
 pants_version = "2.0.1rc0"
@@ -138,7 +148,7 @@ Once `./pants` works, run `./pants list ::` to make sure that Pants can parse al
 :::note Reminder: use `ignore_pants_warnings` to ignore deprecations
 
     For example:
-    
+
     ```toml
     [GLOBAL]
     ignore_pants_warnings = [
@@ -148,19 +158,21 @@ Once `./pants` works, run `./pants list ::` to make sure that Pants can parse al
 
 :::
 
-
 ## Step 5: Tweak your CI's caching (recommended)
+
 With the v1 engine, most caching was saved to the folder `<build root>/.pants.d`. With the v2 engine, caching is saved to `~/.cache/pants/lmdb_store` and `~/.cache/pants/named_caches`.
 
 Refer to [Using Pants in CI](doc:using-pants-in-ci) for more information, including a script to nuke your cache when it has gotten too large.
+
 ## Step 6: Set up a constraints file (strongly recommended)
-A constraints file (aka lockfile) is important for reproducible builds. 
+
+A constraints file (aka lockfile) is important for reproducible builds.
 
 Setting up a constraints file also allows Pants to optimize to avoid resolving requirements more than one time for your project. This greatly speeds up the performance of goals like `test`, `run`, and `repl`.
 
 See [Third-party dependencies](doc:python-third-party-dependencies) for a guide to set this up.
-## Key differences to be aware of
 
+## Key differences to be aware of
 
 :::tip Missing features? Let us know!
 
@@ -178,10 +190,10 @@ Now, files are the "atomic unit". You can now depend on a specific file, which w
 
 This should have little impact on your day-to-day usage, other than:
 
-* Tests run per-file, rather than per-target.
-* The project introspection goals like `list`, `filter`, `dependencies`, and `dependees` will have different output.
-* `--changed-since` is more precise. It used to return all sibling files to files that were changed, even if those siblings were untouched. Now, it only returns files that were actually changed.
-* If you use dependency inference, Pants will infer dependencies on specific files, rather than the entire target. For one Pants user with ~70k lines of Python code, this finer-grained precision reduced the size of dependencies by 30%!
+- Tests run per-file, rather than per-target.
+- The project introspection goals like `list`, `filter`, `dependencies`, and `dependees` will have different output.
+- `--changed-since` is more precise. It used to return all sibling files to files that were changed, even if those siblings were untouched. Now, it only returns files that were actually changed.
+- If you use dependency inference, Pants will infer dependencies on specific files, rather than the entire target. For one Pants user with ~70k lines of Python code, this finer-grained precision reduced the size of dependencies by 30%!
 
 `run`, `package` (formerly `binary`, `setup-py`, and `awslambda`), `fmt`, and `lint` will all behave the same as before. You can still use both files and address specs like `::` on the command line. You can keep your `dependencies` fields the same as before.
 
@@ -201,7 +213,7 @@ Now, with dependency inference enabled, you can start deleting `dependencies` fr
 
 ### Less magical handling of `__init__.py` files (1.30 vs. 2.0)
 
-Previously, with both the v1 and v2 engines, Pants would detect any missing `__init__.py` files and automatically inject them by generating empty files. This is surprising and also breaks [PEP 420](https://www.python.org/dev/peps/pep-0420/)  style namespace packages.
+Previously, with both the v1 and v2 engines, Pants would detect any missing `__init__.py` files and automatically inject them by generating empty files. This is surprising and also breaks [PEP 420](https://www.python.org/dev/peps/pep-0420/) style namespace packages.
 
 Instead, now Pants will use any `__init__.py` files it discovers for a file or its ancestor directories. `__init__.py` files will be used even if they are left off of the `sources` field in a target. Pants will no longer auto-generate any missing `__init__.py` files.
 
@@ -211,7 +223,7 @@ If you encounter issues with imports, you may need to manually add any missing `
 
 ### Dependency inference for `conftest.py` (1.30 vs. 2.0)
 
-Pytest uses any `conftest.py` files found in the current directory and any ancestor directories. 
+Pytest uses any `conftest.py` files found in the current directory and any ancestor directories.
 
 Previously, with both the v1 and v2 engine, you would have to be careful to make sure that each `conftest.py` file had an owning target, and then to add an explicit dependency on each `conftest.py` file that you wanted to use.
 
@@ -223,11 +235,11 @@ We consolidated all three of those goals into the new `package` goal. (The old g
 
 `package` behaves identically for `binary` and `awslambda`. For `setup-py`, rather than using command line arguments like `./pants setup-py path/to:tgt -- bdist_wheel`, set the field `setup_py_commands = ['bdist_wheel']`, for example.
 
-### Use  `python_distribution` target type for `provides=setup_py()` (1.30 vs. 2.0)
+### Use `python_distribution` target type for `provides=setup_py()` (1.30 vs. 2.0)
 
 Previously, the `provides` field was used on `python_library` targets for the [`setup-py` goal](doc:python-setup-py-goal). Now, use a dedicated `python_distribution` target.
 
-Typically, you can keep the original `python_library` you had the same as before, e.g. keep the same `dependencies` field the same. Then, create a new `python_distribution` target and move the `provides` field from the `python_library` to the `python_distribution`. 
+Typically, you can keep the original `python_library` you had the same as before, e.g. keep the same `dependencies` field the same. Then, create a new `python_distribution` target and move the `provides` field from the `python_library` to the `python_distribution`.
 
 Finally, add to the `python_distribution`'s `dependencies` field the address to the original `python_library`; this will cause the `python_distribution` to include everything that was originally included. You can verify everything shows up correctly by running `./pants dependencies --transitive path/to:my-dist`.
 
@@ -253,8 +265,8 @@ The target type behaves identically. It was renamed for clarity and to accommoda
 
 Use this command to automatically update your BUILD files:
 
-* macOS: `for f in $(find . -name BUILD); do sed -i '' -Ee 's#^python_binary\\(#pex_binary(#g' $f ; done`
-* Linux: `for f in $(find . -name BUILD); do sed -i -Ee 's#^python_binary\\(#pex_binary(#g' $f ; done`
+- macOS: `for f in $(find . -name BUILD); do sed -i '' -Ee 's#^python_binary\\(#pex_binary(#g' $f ; done`
+- Linux: `for f in $(find . -name BUILD); do sed -i -Ee 's#^python_binary\\(#pex_binary(#g' $f ; done`
 
 ### Tests run in the background by default (v1 vs. v2 engine)
 
@@ -289,12 +301,14 @@ Because linters and formatters now run in a chroot (temporary directory), you mu
 ### MyPy is activated differently (1.30 vs. 2.0)
 
 Before:
+
 ```toml title="pants.toml"
 [GLOBAL]
 plugins = ["pantsbuild.pants.contrib.mypy"]
 ```
 
 After:
+
 ```toml title="pants.toml"
 [GLOBAL]
 backend_packages = [
@@ -310,12 +324,14 @@ See [typecheck](doc:python-typecheck-goal) for more information.
 ### IPython is activated differently (v1 engine vs. v2 engine)
 
 Before:
+
 ```toml title="pants.toml"
 [repl.py]
 ipython = true
 ```
 
 After:
+
 ```toml title="pants.toml"
 [repl]
 shell = "ipython"
@@ -331,7 +347,7 @@ The v2 engine handles caching very differently than the v1 engine. Rather than h
 
 Instead, you can use `--no-process-execution-use-local-cache`. This will avoid reading from the global cache in `~/.cache/pants/lmbd_store`. Warning: this means that you will re-resolve Python requirements, which is slow.
 
-If you're trying to rerun a test, you can instead run `./pants test --force` to force the test to rerun, but still use the cache for everything else  (See [test](doc:python-test-goal)).
+If you're trying to rerun a test, you can instead run `./pants test --force` to force the test to rerun, but still use the cache for everything else (See [test](doc:python-test-goal)).
 
 ### `targets` is replaced by `help` (1.30 vs. 2.0)
 
@@ -339,7 +355,7 @@ Run `./pants help targets` for a list of target types, and `./pants help $target
 
 ### `option` is removed in favor of a better `help` (1.30 vs. 2.0)
 
-`./pants help` will now show you what the current value is and how the value was derived. 
+`./pants help` will now show you what the current value is and how the value was derived.
 
 You can use `./pants help-all` to get information on every option in JSON format.
 

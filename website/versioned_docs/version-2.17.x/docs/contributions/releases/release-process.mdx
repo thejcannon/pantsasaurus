@@ -9,8 +9,7 @@ How to release a new version of Pants and its plugins.
 
 This page covers the nitty-gritty of executing a release, and is probably only interesting for maintainers. If you're interested in when and why Pants is released, please see the [Release strategy](doc:release-strategy) page.
 
-Prerequisites
--------------
+## Prerequisites
 
 ### 1. Create a PGP signing key
 
@@ -40,8 +39,7 @@ machine api.github.com
     password <token>
 ```
 
-Step 1: Prepare the release
----------------------------
+## Step 1: Prepare the release
 
 The release is automated, outside of these steps:
 
@@ -50,13 +48,13 @@ The release is automated, outside of these steps:
 3. CONTRIBUTOR.md updates
 4. Version bumping
 
-These steps always happen in the release branch. 
+These steps always happen in the release branch.
 
 For `dev` and `a0` releases, the release branch is `main`. For all other release candidates and stable releases, the release branch is that respective version's branch, e.g. `2.8.x` or `2.9.x`.
 
 ### 0a. `dev0` - set up the release series
 
-1. Create a new file in ` src/python/pants/notes`, e.g. create  `src/python/pants/notes/2.9.x.md`.
+1. Create a new file in ` src/python/pants/notes`, e.g. create `src/python/pants/notes/2.9.x.md`.
    1. Copy the title and template over from the prior release, e.g. `2.8.x.md`.
 2. Add the new file to `pants.toml` in the `release_notes` section.
 
@@ -74,7 +72,7 @@ If there are things that must be removed, you can either:
 
 ### 0c. Release candidates - cherry-pick relevant changes
 
-Cherry-pick all changes labeled `needs-cherrypick` with the relevant milestone for the stable branch, e.g. the milestone `2.9.x`. 
+Cherry-pick all changes labeled `needs-cherrypick` with the relevant milestone for the stable branch, e.g. the milestone `2.9.x`.
 
 These pull requests must have been merged into main first, so they will already be closed.
 
@@ -96,18 +94,16 @@ Update the release page in `src/python/pants/notes` for this release series, e.g
 
 Run `git fetch --all --tags` to be sure you have the latest release tags available locally.
 
-From the release branch, run `pants run build-support/bin/changelog.py -- --prior 2.9.0.dev0 --new 2.9.0.dev1` with the relevant versions. 
+From the release branch, run `pants run build-support/bin/changelog.py -- --prior 2.9.0.dev0 --new 2.9.0.dev1` with the relevant versions.
 
 This will generate the sections to copy into the release notes. Delete any empty sections. Do not paste the `Internal` section into the notes file. Instead, paste into a comment on the prep PR.
 
 You are encouraged to fix typos and tweak change descriptions for clarity to users. Ensure that there is exactly one blank line between descriptions, headers etc.
 
-
 :::note See any weird PR titles?
 
-    
-    Sometimes, committers accidentally use the wrong title when squashing and merging because GitHub pulls the title from the commit title when there is only one commit. 
-    
+    Sometimes, committers accidentally use the wrong title when squashing and merging because GitHub pulls the title from the commit title when there is only one commit.
+
     If you see a vague or strange title like "fix bug", open the original PR to see if the PR title is more descriptive. If it is, please use the more descriptive title instead.
 
 :::
@@ -130,7 +126,7 @@ Change `src/python/pants/VERSION` to the new release, e.g. `2.12.0.dev0`. If you
 
 ### 4. Post the prep to GitHub
 
-Open a pull request on GitHub to merge into the release branch. Post the PR to the `#development` in Slack.  
+Open a pull request on GitHub to merge into the release branch. Post the PR to the `#development` in Slack.
 
 Merge once approved and green.
 
@@ -143,8 +139,7 @@ $ git checkout -b 2.9.x
 $ git push upstream 2.9.x
 ```
 
-Step 2: Update this docs site
------------------------------
+## Step 2: Update this docs site
 
 Note that this step can currently only be performed by a subset of maintainers due to a paid maximum number of seats. If you do not have a readme.com account, contact someone in the `#maintainers-confidential` channel in Slack to help out.
 
@@ -168,25 +163,20 @@ The first stable release of a branch should update the "default" version of the 
 
 Also, update the [Changelog](doc:changelog)'s "highlights" column with a link to the blog summarizing the release. See the section "Announce the release" below for more info on the blog.
 
-
 :::caution Don't have edit access?
 
-    
     Ping someone in the `#maintainers-confidential` channel in Slack to be added. Alternatively, you can "Suggest edits" in the top right corner.
 
 :::
 
-Step 3: Tag the release to build wheels
----------------------------------------
+## Step 3: Tag the release to build wheels
 
 Once you have merged the `VERSION` bump — which will be on `main` for `dev` and `a0` releases and the release branch for release candidates — you should tag the release commit to trigger wheel building and PyPI publishing.
 
 First, ensure that you are on your release branch at your version bump commit.
 
-
 :::note Tip: if new commits have landed after your release commit
 
-    
     You can reset to your release commit by running `git reset --hard <sha>`.
 
 :::
@@ -199,8 +189,7 @@ Then, run:
 
 This will tag the release with your PGP key, and push the tag to origin, which will kick off a [`Release` job](https://github.com/pantsbuild/pants/actions/workflows/release.yaml) to build the wheels and publish them to PyPI.
 
-Step 4: Release a Pants PEX
----------------------------
+## Step 4: Release a Pants PEX
 
 After the [`Release` job](https://github.com/pantsbuild/pants/actions/workflows/release.yaml) for your tag has completed, you should additionally build and publish the "universal" PEX to Github.
 
@@ -210,8 +199,7 @@ PANTS_PEX_RELEASE=STABLE ./build-support/bin/release.sh build-universal-pex
 
 Then go to [https://github.com/pantsbuild/pants/tags](https://github.com/pantsbuild/pants/tags), find your release's tag, click `Edit tag`, and upload the PEX located at `dist/pex.pants.<version>.pex`.
 
-Step 5: Test the release
-------------------------
+## Step 5: Test the release
 
 Run this script as a basic smoke test:
 
@@ -219,12 +207,11 @@ Run this script as a basic smoke test:
 ./build-support/bin/release.sh test-release
 ```
 
-You should also [check PyPI](https://pypi.org/pypi/pantsbuild.pants) to ensure everything looks good. Click "Release history" to find the version you released, then click it and confirm the changelog is correct on the "Project description" page and that the `macOS` and `manylinux` wheels show up in the "Download files" page. 
+You should also [check PyPI](https://pypi.org/pypi/pantsbuild.pants) to ensure everything looks good. Click "Release history" to find the version you released, then click it and confirm the changelog is correct on the "Project description" page and that the `macOS` and `manylinux` wheels show up in the "Download files" page.
 
 You should also check [GitHub Releases](https://github.com/pantsbuild/pants/releases) to ensure everything looks good. Find the version you released, then click it and confirm that the "Assets" list includes PEXes for macOS and Linux.
 
-Step 6: Announce the change
----------------------------
+## Step 6: Announce the change
 
 Announce the release to:
 
@@ -239,10 +226,8 @@ You can get a contributor list by running the following, where `<tag>` is the ta
 pants run ./build-support/bin/contributors.py -- -s <tag>
 ```
 
-
 :::danger Update the links in these templates!
 
-    
     When copy pasting these templates, please always check that all versions match the relevant release. When adding a link, use "Test this link" to ensure that it loads properly.
 
 :::
@@ -257,10 +242,10 @@ If the release series' `.dev0` has already been released, reply to that email th
 >
 > Thank you to this week's contributors:
 >
->  Eustolia Palledino
->  Ahmad Wensel
->  Rae Efird
->  Niki Fitch
+> Eustolia Palledino
+> Ahmad Wensel
+> Rae Efird
+> Niki Fitch
 >
 > And a special shout-out to first-time contributor Niki Fitch, with the PR [`Upgrade Rust to 1.63 (#9441)`](https://github.com/pantsbuild/pants/pull/9441). Thank you for your contribution!
 >
@@ -278,8 +263,8 @@ Reply to the email thread for the series' `dev` releases.
 >
 > Thank you to everyone who contributed patches in this cycle!
 >
->  Niki Fitch
->  Mario Rozell
+> Niki Fitch
+> Mario Rozell
 >
 > _(For more information on how Pants is released, please see the [release strategy](https://www.pantsbuild.org/docs/release-strategy) page.)_
 
@@ -293,8 +278,8 @@ Create a new email thread for `rc0`. For other `rc`s, reply to the email thread 
 >
 > Thank you to everyone who tested the previous release, and thank you to the folks who contributed patches!
 >
->  Niki Fitch
->  Mario Rozell
+> Niki Fitch
+> Mario Rozell
 >
 > _(For more information on how Pants is released, please see the [release strategy](https://www.pantsbuild.org/v2.11/docs/release-strategy) page.)_
 
@@ -318,8 +303,7 @@ For the first stable release in the series, first, write a blog post to summariz
 >
 > _(For more information on how Pants is released, please see the [release strategy](https://www.pantsbuild.org/docs/release-strategy) page.)_
 
-When Things Go Wrong
---------------------
+## When Things Go Wrong
 
 From time to time, a release will fail. It's a complex process. The first thing to do after you've
 exhausted your knowledge and debugging skills or patience is to contact others. You might reach out
@@ -343,10 +327,12 @@ pushing a file mapping the release tag to the commit it tags out to
 `https://binaries.pantsbuild.com/tags/pantsbuild.pants/<tag>`. If the tag is missing, it should be
 fixed by running the following in an environment where you have both `AWS_ACCESS_KEY_ID` and
 `AWS_SECRET_ACCESS_KEY` of an account that has permissions to push to the Pantsbuild S3 bucket:
+
 ```
 pants run build-support/bin/backfill_s3_release_tag_mappings.py -- \
    --aws-cli-symlink-path $HOME/bin
 ```
+
 If this sounds mysterious or new to you, you probably don't have such an account and should ask for
 help from other maintainers. You may want to adjust the `--aws-cli-symlink-path` to your liking as
 well, consult `--help` for more information.

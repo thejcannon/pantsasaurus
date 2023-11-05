@@ -22,28 +22,33 @@ If you ever encounter a confusing or mediocre error message, we would love your 
 
 :::
 
-
 ## Documentation Fixes
+
 Pants uses [readme.com](https://readme.com/) for the documentation at [pantsbuild.org](https://pantsbuild.org). On any of these docs pages, you can click "Suggest Edits" at the top right corner in order to be dropped into the editor interface. You will be asked to log in or sign up to readme.com, which only asks for your email address and a name to call you.
 
 When done with your edits to a page, you can click "Submit Suggested Edits" at the top right corner in order to send them to us for review.
+
 ## Pants's tech stack
+
 Most of Pants is written in Python 3. The majority of contributions touch this Python codebase.
 
 We rely on several Python features that you will want to acquaint yourself with:
 
-* [Type hints and MyPy](https://mypy.readthedocs.io/en/stable/)
-* [Dataclasses](https://realpython.com/python-data-classes/)
-* [`async`/`await` coroutines](https://www.python.org/dev/peps/pep-0492)
+- [Type hints and MyPy](https://mypy.readthedocs.io/en/stable/)
+- [Dataclasses](https://realpython.com/python-data-classes/)
+- [`async`/`await` coroutines](https://www.python.org/dev/peps/pep-0492)
+
 ```
 * We do _not_ use `asyncio`. The scheduler is implemented in Rust. We only use `async` coroutines.
 ```
 
-* [Decorators](https://realpython.com/primer-on-python-decorators/)
-* [Comprehensions](https://www.geeksforgeeks.org/comprehensions-in-python/)
+- [Decorators](https://realpython.com/primer-on-python-decorators/)
+- [Comprehensions](https://www.geeksforgeeks.org/comprehensions-in-python/)
 
 Pants's engine is written in Rust. See [Developing Rust](doc:contributions-rust) for a guide on making changes to the internals of Pants's engine.
+
 ## First, share your plan
+
 Before investing your time into a code change, it helps to share your interest. This will allow us to give you initial feedback that will save you time, such as pointing you to related code.
 
 To share your plan, please either open a [GitHub issue](https://github.com/pantsbuild/pants/issues) or message us on [Slack](doc:community#slack) (you can start with the #general channel). Briefly describe the change you'd like to make, including a motivation for the change.
@@ -61,8 +66,8 @@ This is a reason we encourage you to share your plan with us - we can help you t
 
 :::
 
-
 ## Developing your change
+
 To begin, [set up Pants on your local machine](doc:contributor-setup).
 
 To run a test, run:
@@ -94,19 +99,21 @@ If doing this, please open your pull request as a "Draft" and prefix your PR tit
 
 :::
 
-
 ## Opening a pull request
-When opening a pull request, start by providing a concise and descriptive title. It's okay if you aren't sure what to put - we can help you to reword it. 
+
+When opening a pull request, start by providing a concise and descriptive title. It's okay if you aren't sure what to put - we can help you to reword it.
 
 Good titles:
-* Fix typo in `strutil.py`
-* Add Thrift code generator for Python
-* Fix crash when running `test` with Python 3.9
+
+- Fix typo in `strutil.py`
+- Add Thrift code generator for Python
+- Fix crash when running `test` with Python 3.9
 
 Bad titles:
-* Fix bug
-* Fix #8313
-* Add support for Thrift code generation by first adding the file `codegen.py`, then hooking it up, and finally adding tests
+
+- Fix bug
+- Fix #8313
+- Add support for Thrift code generation by first adding the file `codegen.py`, then hooking it up, and finally adding tests
 
 Then, include a description. You can use the default template if you'd like, or use a normal description instead. Link to any corresponding GitHub issues.
 
@@ -125,12 +132,10 @@ For example:
 
 :::
 
-
-
 :::note FYI: we squash merge
 
 ```
-This means that the final commit message will come from your PR description, rather than your commit messages. 
+This means that the final commit message will come from your PR description, rather than your commit messages.
 
 Good commit messages are still very helpful for people reviewing your code; but, your PR description is what will show up in the changelog.
 

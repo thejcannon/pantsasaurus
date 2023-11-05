@@ -95,7 +95,7 @@ class ShfmtRequest(FmtTargetsRequest):
 
 ## 3. Create `fmt` rules
 
-You will need a rule for `fmt` which takes the `FmtTargetsRequest.Batch` from step 3  (e.g. `ShfmtRequest`) as a parameter and returns a `FmtResult`.
+You will need a rule for `fmt` which takes the `FmtTargetsRequest.Batch` from step 3 (e.g. `ShfmtRequest`) as a parameter and returns a `FmtResult`.
 
 ```python
 @rule(desc="Format with shfmt", level=LogLevel.DEBUG)

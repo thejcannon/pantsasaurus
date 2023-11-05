@@ -3,10 +3,8 @@
     position: 4
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 ---
 
@@ -25,7 +23,7 @@ Created src/go/BUILD:
   - Add go_mod target mod
 ```
 
-Often, this will be all you need for Pants to work, thanks to sensible defaults and inference, like [inferring your dependencies](doc:targets). Sometimes, though, you may need to or want to change certain fields, like setting a longer timeout on a test. 
+Often, this will be all you need for Pants to work, thanks to sensible defaults and inference, like [inferring your dependencies](doc:targets). Sometimes, though, you may need to or want to change certain fields, like setting a longer timeout on a test.
 
 You may also need to add some targets that Pants cannot generate, like [`resources` and `files`](doc:assets) targets.
 
@@ -40,14 +38,15 @@ To fix `tailor` failures, run `./pants tailor`.
 ```
 
 To ignore false positives, set `[tailor].ignore_paths` and `[tailor].ignore_adding_targets`. See [tailor](doc:reference-tailor) for more detail.
+
 ```toml title="pants.toml"
 [tailor]
 ignore_paths = ["src/py/ignore_me/**"]
 ignore_adding_targets = ["src/py/project:tgt"]
 ```
 
-
 ## Formatting BUILD files with Black or Yapf
+
 `./pants run update-build-files` will format your BUILD files, using the [Black Python formatter](https://black.readthedocs.io/en/stable/) by default. The goal will also fix any safe Pants deprecations like renaming target types.
 
 ```

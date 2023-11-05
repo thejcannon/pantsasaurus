@@ -7,12 +7,13 @@ How to add a new linter to the `lint` goal.
 
 ---
 
-This guide assumes that you are running a linter that already exists outside of Pants as a stand-alone binary, such as running Shellcheck, Pylint, Checkstyle, or ESLint. 
+This guide assumes that you are running a linter that already exists outside of Pants as a stand-alone binary, such as running Shellcheck, Pylint, Checkstyle, or ESLint.
 
 If you are instead writing your own linting logic inline, you can skip Step 1. In Step 3, you will not need to use `Process`. You may find Pants's [`regex-lint` implementation](https://github.com/pantsbuild/pants/blob/main/src/python/pants/backend/project_info/regex_lint.py) helpful for how to integrate custom linting logic into Pants.
 
 1. Install your linter
-----------------------
+
+---
 
 There are several ways for Pants to install your linter. See [Installing tools](doc:rules-api-installing-tools). This example will use `ExternalTool` because there is already a pre-compiled binary for Shellcheck.
 
@@ -68,7 +69,8 @@ def rules():
 ```
 
 2. Set up a `FieldSet` and `LintRequest`
-----------------------------------------
+
+---
 
 As described in [Rules and the Target API](doc:rules-api-and-target-api), a `FieldSet` is a way to tell Pants which `Field`s you care about targets having for your plugin to work.
 
@@ -118,7 +120,8 @@ def rules():
 ```
 
 3. Create a rule for your linter logic
---------------------------------------
+
+---
 
 Your rule should take as a parameter the `LintRequest` from step 2 and the `Subsystem` (or `ExternalTool`) from step 1. It should return `LintResults`:
 
@@ -135,7 +138,7 @@ async def run_shellcheck(
     return LintResults(linter_name=request.name)
 ```
 
-The `LintTargetsRequest ` has a property called `.field_sets`, which stores a collection of the `FieldSet`s defined in step 2. Each `FieldSet` corresponds to a single target. Pants will have already validated that there is at least one valid `FieldSet`, so you can expect `LintRequest.field_sets` to have 1-n `FieldSet` instances. 
+The `LintTargetsRequest ` has a property called `.field_sets`, which stores a collection of the `FieldSet`s defined in step 2. Each `FieldSet` corresponds to a single target. Pants will have already validated that there is at least one valid `FieldSet`, so you can expect `LintRequest.field_sets` to have 1-n `FieldSet` instances.
 
 The rule should return `LintResults`, which is a collection of multiple `LintResult` objects. Normally, you will only have one single `LintResult`. Sometimes, however, you may want to group your targets in a certain way and return a `LintResult` for each group, such as grouping Python targets by their interpreter compatibility.
 
@@ -252,6 +255,7 @@ def rules():
 Now, when you run `./pants lint ::`, your new linter should run.
 
 4. Add tests (optional)
------------------------
+
+---
 
 Refer to [Testing rules](doc:rules-api-testing).

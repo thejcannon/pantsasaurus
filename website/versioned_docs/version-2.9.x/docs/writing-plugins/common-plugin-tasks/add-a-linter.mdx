@@ -3,17 +3,19 @@
     position: 0
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 How to add a new linter to the `lint` goal.
 
 ---
 
-This guide assumes that you are running a linter that already exists outside of Pants as a stand-alone binary, such as running Shellcheck, Pylint, Checkstyle, or ESLint. 
+This guide assumes that you are running a linter that already exists outside of Pants as a stand-alone binary, such as running Shellcheck, Pylint, Checkstyle, or ESLint.
 
 If you are instead writing your own linting logic inline, you can skip Step 1. In Step 3, you will not need to use `Process`. You may find Pants's [`validate` goal implementation](https://github.com/pantsbuild/pants/blob/2.9.x/src/python/pants/backend/project_info/source_file_validator.py) helpful for how to integrate custom linting logic into Pants.
+
 ## 1. Install your linter
+
 There are several ways for Pants to install your linter. See [Installing tools](doc:rules-api-installing-tools). This example will use `ExternalTool` because there is already a pre-compiled binary for Shellcheck.
 
 You will also likely want to register some options, like `--config`, `--skip`, and `--args`. Options are registered through a [`Subsystem`](doc:rules-api-subsystems). If you are using `ExternalTool`, this is already a subclass of `Subsystem`. Otherwise, create a subclass of `Subsystem`. Then, set the class property `options_scope` to the name of the tool, e.g. `"shellcheck"` or `"eslint"`. Finally, add options via the class method `register_options()`.
@@ -81,7 +83,9 @@ from pants.engine.rules import collect_rules
 def rules():
     return collect_rules()
 ```
+
 ## 2. Set up a `FieldSet` and `LintRequest`
+
 As described in [Rules and the Target API](doc:rules-api-and-target-api), a `FieldSet` is a way to tell Pants which `Field`s you care about targets having for your plugin to work.
 
 Usually, you should add a subclass of the `Sources` field to the class property `required_fields`, such as `BashSources` or `PythonSources`. This means that your linter will run on any target with that sources field or a subclass of it.
@@ -127,7 +131,9 @@ def rules():
         UnionRule(LintRequest, ShellcheckRequest),
     ]
 ```
+
 ## 3. Create a rule for your linter logic
+
 Your rule should take as a parameter the `LintRequest` from step 2 and the `Subsystem` (or `ExternalTool`) from step 1. It should return `LintResults`:
 
 ```python
@@ -143,7 +149,7 @@ async def run_shellcheck(
     return LintResults()
 ```
 
-The `LintRequest` has a property called `.field_sets`, which stores a collection of the `FieldSet`s defined in step 2. Each `FieldSet` corresponds to a single target. Pants will have already validated that there is at least one valid `FieldSet`, so you can expect `LintRequest.field_sets` to have 1-n `FieldSet` instances. 
+The `LintRequest` has a property called `.field_sets`, which stores a collection of the `FieldSet`s defined in step 2. Each `FieldSet` corresponds to a single target. Pants will have already validated that there is at least one valid `FieldSet`, so you can expect `LintRequest.field_sets` to have 1-n `FieldSet` instances.
 
 The rule should return `LintResults`, which is a collection of multiple `LintResult` objects. Normally, you will only have one single `LintResult`. Sometimes, however, you may want to group your targets in a certain way and return a `LintResult` for each group, such as grouping Python targets by their interpreter compatibility.
 
@@ -251,6 +257,7 @@ async def run_shellcheck(
 ```
 
 Finally, update your plugin's `register.py` to activate this file's rules.
+
 ```python title="pants-plugins/bash/register.py"
 from bash import shellcheck
 
@@ -260,5 +267,7 @@ def rules():
 ```
 
 Now, when you run `./pants lint ::`, your new linter should run.
+
 ## 4. Add tests (optional)
+
 Refer to [Testing rules](doc:rules-api-testing). TODO

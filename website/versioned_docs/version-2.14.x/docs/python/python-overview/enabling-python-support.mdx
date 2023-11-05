@@ -7,12 +7,10 @@ How to enable Pants's bundled Python backend package.
 
 ---
 
-
 :::note Example Python repository
 
-    
     See [here](https://github.com/pantsbuild/example-python) for examples of Pants's Python functionality.
-    
+
     See [here](https://github.com/pantsbuild/example-django) for Django-specific examples.
 
 :::
@@ -58,16 +56,14 @@ Created project/BUILD:
   - Add python_tests target tests
 ```
 
-
 :::caution macOS users: you may need to change interpreter search paths
 
-    
     By default, Pants will look at both your `$PATH` and—if you use Pyenv—your `$(pyenv root)/versions` folder when discovering Python interpreters. Your `$PATH` likely includes the system Pythons at `/usr/bin/python` and `/usr/bin/python3`, which are known to have many issues like failing to install some dependencies.
-    
+
     Pants will prefer new Python versions, like 3.6.10 over 3.6.3. Because macOS system Pythons are usually very old, they will usually be ignored.
-    
+
     However, if you run into issues, you can set the `search_paths` option in the `[python-bootstrap]` scope:
-    
+
     ```toml
     [python-bootstrap]
     search_path = [
@@ -77,7 +73,7 @@ Created project/BUILD:
         "/usr/local/bin",
     ]
     ```
-    
 
 :::
+
 > See [here](doc:python-interpreter-compatibility#changing-the-interpreter-search-path) for more information.

@@ -3,8 +3,8 @@
     position: 0
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 Create a Lambda with Python code.
 
@@ -18,17 +18,16 @@ Pants can create a Lambda-compatible zip file from your Python code, allowing yo
 
 :::
 
-
-
 :::note FYI: how Pants does this
 
     Under-the-hood, Pants uses the [Lambdex](https://github.com/wickman/lambdex) project. First, Pants will convert your code into a [Pex file](doc:pex-files). Then, Pants will use Lambdex to convert the Pex into a zip file understood by AWS.
 
 :::
 
-
 ## Step 1: Activate the Python AWS Lambda backend
+
 Add this to your `pants.toml`:
+
 ```toml title="pants.toml"
 [GLOBAL]
 backend_packages.add = [
@@ -38,7 +37,9 @@ backend_packages.add = [
 ```
 
 This adds the new `python_awslambda` target, which you can confirm by running `./pants help python_awslambda`
+
 ## Step 2: Define a `python_awslambda` target
+
 First, add your lambda function in a Python file like you would [normally do with AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html). Specifically, create a function `def handler_name(event, context)`.
 
 Then, in your BUILD file, create a `python_library` target with the handler file included in the `sources` field, if you don't already have it.
@@ -61,6 +62,7 @@ python_awslambda(
     handler="lambda_example.py:example_handler",
 )
 ```
+
 </TabItem>
 <TabItem value="project/lambda_example.py" label="project/lambda_example.py">
 
@@ -68,6 +70,7 @@ python_awslambda(
 def example_handler(event, context):
     print("Hello AWS!")
 ```
+
 </TabItem>
 </Tabs>
 
@@ -81,9 +84,9 @@ You can optionally set the `output_path` field to change the generated zip file'
 
 :::
 
-
 ## Step 3: Run `package`
-Now run `./pants package` on your `python_awslambda` target to create a zipped file. 
+
+Now run `./pants package` on your `python_awslambda` target to create a zipped file.
 
 For example:
 
@@ -97,13 +100,13 @@ Wrote code bundle to dist/project.zip
 :::caution Running from macOS and failing to build?
 
     AWS Lambdas must run on Linux, so Pants tells PEX and Pip to build for Linux when resolving your third party dependencies. This means that you can only use pre-built [wheels](https://packaging.python.org/glossary/#term-wheel) (bdists). If your project requires any source distributions ([sdists](https://packaging.python.org/glossary/#term-source-distribution-or-sdist)) that must be built locally, PEX and pip will fail to run.
-    
+
     If this happens, you must either change your dependencies to only use dependencies with pre-built [wheels](https://pythonwheels.com) or find a Linux environment to run `./pants package`.
 
 :::
 
-
 ## Step 4: Upload to AWS
+
 You can use any of the various AWS methods to upload your zip file, such as the AWS console or the AWS CLI via `aws lambda create-function` and `aws lambda update-function-code`.
 
 You must specify the AWS lambda handler as `lambdex_handler.handler`.

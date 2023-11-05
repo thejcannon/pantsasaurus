@@ -3,8 +3,8 @@
     position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 Metadata for your code.
 
@@ -16,19 +16,20 @@ _Targets_ are an _addressable_ set of metadata describing your code.
 
 For example:
 
-* `shell_source` and `python_test` describe first-party code
-* `python_requirement` describes third-party requirements
-* `pex_binary` and `archive` describe artifacts you'd like Pants to build
+- `shell_source` and `python_test` describe first-party code
+- `python_requirement` describes third-party requirements
+- `pex_binary` and `archive` describe artifacts you'd like Pants to build
 
 To reduce boilerplate, some targets also generate other targets:
 
-* `python_tests` -> `python_test`
-* `shell_sources` -> `shell_source`
-* `go_mod` -> `go_third_party_package`
+- `python_tests` -> `python_test`
+- `shell_sources` -> `shell_source`
+- `go_mod` -> `go_third_party_package`
 
 ## BUILD files
 
 Targets are defined in files with the name `BUILD`. For example:
+
 ```python title="helloworld/greet/BUILD"
 python_tests(
     name="tests",
@@ -58,17 +59,15 @@ Addresses are used in the `dependencies` field to depend on other targets. Addre
 :::note Default for the `name` field
 
     The `name` field defaults to the directory name. So, this target has the address `helloworld/greet:greet`.
-    
+
     ```python
     # helloworld/greet/BUILD
     python_sources()
     ```
-    
+
     You can refer to this target with either `helloworld/greet:greet` or the abbreviated form `helloworld/greet`.
 
 :::
-
-
 
 :::note Use `//:tgt` for the root of your repository
 
@@ -83,6 +82,7 @@ Targets like `python_test` and `resource` have a `source: str` field, while targ
 Values are relative to the BUILD file's directory. Sources must be in or below this directory, i.e. `../` is not allowed.
 
 The `sources` field also supports `*` and `**` as globs. To exclude a file or glob, prefix with `!`. For example, `["*.py", "!exclude_*.py"]` will include `f.py` but not `exclude_me.py`.
+
 ```python title="BUILD"
 resource(name="logo", source="logo.png")
 
@@ -92,31 +92,29 @@ python_tests(
 )
 ```
 
-
-
 :::caution Overlapping `source` fields can cause confusion
 
     It's valid to include the same file in the `source` / `sources` field for multiple targets. When would you do this? Sometimes you may have conflicting metadata for the same source file, such as toggling between a GPU vs. CPU version of a dependency:
-    
+
     ```python
     python_source(
         name="lib_cpu",
         source="lib.py",
         dependencies=["3rdparty:tensorflow"],
     )
-    
+
     python_source(
         name="lib_gpu",
         source="lib.py",
         dependencies=["3rdparty:tensorflow-gpu"],
-    )  
-    ``` 
-    
-    However, including the same file in the `source` / `sources` field for multiple targets can result in two confusing behaviors: 
-    
+    )
+    ```
+
+    However, including the same file in the `source` / `sources` field for multiple targets can result in two confusing behaviors:
+
     * Pants will no longer be able to infer dependencies on this file because it cannot disambiguate which of the targets you want to use. You must use explicit dependencies instead.
     * File arguments will run over all owning targets, e.g. `./pants test path/to/test.ext` would run both test targets as two separate subprocesses, even though you might only expect a single subprocess.
-    
+
     You can run `./pants list path/to/file.ext` to see all "owning" targets to check if >1 target has the file in its `source` field.
 
 :::
@@ -127,9 +125,10 @@ A target's dependencies determines which other first-party code and third-party 
 
 Usually, you leave off the `dependencies` field thanks to _dependency inference_. Pants will read your import statements and map those imports back to your first-party code and your third-party requirements. You can run `./pants dependencies path/to:target` to see what dependencies Pants infers.
 
-However, dependency inference cannot infer everything, such as dependencies on `resource` and `file` targets. 
+However, dependency inference cannot infer everything, such as dependencies on `resource` and `file` targets.
 
 To add an explicit dependency, add the target's address to the `dependencies` field. This augments any dependencies that were inferred.
+
 ```python title="helloworld/greet/BUILD"
 python_sources(
     name="lib",
@@ -144,27 +143,25 @@ You only need to declare direct dependencies. Pants will pull in _transitive dep
 
 :::note Relative addresses, `:tgt`
 
-    When depending on a target defined in the same BUILD file, you can simply use `:tgt_name`, rather than `helloworld/greet:tgt_name`, for example. 
-    
+    When depending on a target defined in the same BUILD file, you can simply use `:tgt_name`, rather than `helloworld/greet:tgt_name`, for example.
+
     Addresses for generated targets also support relative addresses in the `dependencies` field, as explained in the "Target Generation" section below.
 
 :::
 
-
-
 :::note Ignore dependencies with `!` and `!!`
 
     If you don't like that Pants inferred a certain dependency—as reported by [`./pants dependencies path/to:tgt`](doc:project-introspection)—tell Pants to ignore it with `!`:
-    
+
     ```python
     python_sources(
         name="lib",
         dependencies=["!3rdparty/python:numpy"],
     )
     ```
-    
-    You can use the prefix `!!` to transitively exclude a dependency, meaning that even if a target's dependencies include the bad dependency, the final result will not include the value. 
-    
+
+    You can use the prefix `!!` to transitively exclude a dependency, meaning that even if a target's dependencies include the bad dependency, the final result will not include the value.
+
     Transitive excludes can only be used in target types that conventionally are not dependend upon by other targets, such as `pex_binary` and `python_test` / `python_tests`. This is meant to limit confusion, as using `!!` in something like a `python_source` / `python_sources` target could result in surprising behavior for everything that depends on it. (Pants will print a helpful error when using `!!` when it's not legal.)
 
 :::
@@ -173,9 +170,9 @@ You only need to declare direct dependencies. Pants will pull in _transitive dep
 
 To reduce boilerplate, Pants provides target types that generate other targets. For example:
 
-* `files` -> `file`
-* `python_tests` -> `python_test`
-* `go_mod` -> `go_third_party_package`
+- `files` -> `file`
+- `python_tests` -> `python_test`
+- `go_mod` -> `go_third_party_package`
 
 Usually, prefer these target generators. [`./pants tailor`](doc:create-initial-build-files) will automatically add them for you.
 
@@ -192,6 +189,7 @@ python_sources(
 (Usually, you can leave off the `sources` field. When possible, it defaults to all relevant files in the current directory.)
 
 Typically, fields declared in the target generator will be inherited by each generated target. For example, if you set `timeout=120` in a `python_tests` target, each generated `python_test` target will have `timeout=120`. You can instead use the `overrides` field for more granular metadata:
+
 ```python title="helloworld/BUILD"
 python_tests(
     name="tests",
@@ -218,11 +216,11 @@ You can use the address for the target generator as an alias for all of its gene
 :::note Tip: one BUILD file per directory
 
     Target generation means that it is technically possible to put everything in a single BUILD file.
-    
-    However, we've found that it usually scales much better to use a single BUILD file per directory. Even if you start with using the defaults for everything, projects usually need to change some metadata over time, like adding a `timeout` to a test file or adding `dependencies` on resources. 
-    
+
+    However, we've found that it usually scales much better to use a single BUILD file per directory. Even if you start with using the defaults for everything, projects usually need to change some metadata over time, like adding a `timeout` to a test file or adding `dependencies` on resources.
+
     It's useful for metadata to be as fine-grained as feasible, such as by using the `overrides` field to only change the files you need to. Fine-grained metadata is key to having smaller cache keys (resulting in more cache hits), and allows you to more accurately reflect the status of your project. We have found that using one BUILD file per directory encourages fine-grained metadata by defining the metadata adjacent to where the code lives.
-    
+
     [`./pants tailor`](doc:create-initial-build-files) will automatically create targets that only apply metadata for the directory.
 
 :::

@@ -3,14 +3,11 @@
     position: 7
 ---
 
-
-
 ---
 
 If you use a code-aware editor or IDE, such as PyCharm or VSCode, you may want to set it up to understand your code layout and dependencies. This will allow it to perform code navigation, auto-completion and other features that rely on code comprehension.
 
-First-party sources
--------------------
+## First-party sources
 
 To get your editor to understand the repo's first-party sources, you will probably need to tell it about the repo's [source roots](doc:source-roots). You can list those with:
 
@@ -18,7 +15,7 @@ To get your editor to understand the repo's first-party sources, you will probab
 $ pants roots
 ```
 
-and then apply the corresponding IDE concept. 
+and then apply the corresponding IDE concept.
 
 For example, in PyCharm you would mark each source root as a "Sources" folder. See [Configuring Project Structure](https://www.jetbrains.com/help/pycharm/configuring-project-structure.html) to learn more.
 
@@ -33,8 +30,7 @@ $ python3 -c "print('PYTHONPATH=\"./' + ':./'.join('''${ROOTS}'''.split('\n')) +
 
 See [Use of the PYTHONPATH variable](https://code.visualstudio.com/docs/python/environments#_use-of-the-pythonpath-variable) to learn more about using the `PYTHONPATH` variable in VSCode.
 
-Python third-party dependencies and tools
------------------------------------------
+## Python third-party dependencies and tools
 
 To get your editor to understand the repo's third-party Python dependencies, you will probably want to point it at a virtualenv containing those dependencies.
 
@@ -55,11 +51,9 @@ The `--py-resolve-format=symlinked_immutable_virtualenv` option symlinks to an i
 
 `pants export` can also create a virtualenv for each of the Python tools you use via Pants, such as `black`, `isort`, `pytest`, `mypy`, `flake8` and so on (you can run `/pants help tools` to get a list of the tools Pants uses). Use the tool name as the resolve name argument to the `--resolve` flag. This allows you to configure your editor to use the same version of the tool as Pants does for workflows like formatting on save.
 
+## Generated code
 
-Generated code
---------------
-
-If you're using [Protobuf and gRPC](doc:protobuf-python), you may want your editor to be able to index and navigate the generated source code. 
+If you're using [Protobuf and gRPC](doc:protobuf-python), you may want your editor to be able to index and navigate the generated source code.
 
 Normally Pants treats generated code as an internal byproduct, and doesn't expose it. But you can run the `export-codegen` goal to generate code to a well-known output location for consumption:
 
@@ -67,18 +61,16 @@ Normally Pants treats generated code as an internal byproduct, and doesn't expos
 $ pants export-codegen ::
 ```
 
-The generated code will be written to `dist/codegen`, and you can now add them as sources in the IDE. For example, in PyCharm you would mark `dist/codegen` as a "Sources" folder. 
+The generated code will be written to `dist/codegen`, and you can now add them as sources in the IDE. For example, in PyCharm you would mark `dist/codegen` as a "Sources" folder.
 
 Warning: you will have to manually rerun this goal when changes are made.
 
-Remote debugging
-----------------
+## Remote debugging
 
-You can use PyCharm to debug code running under Pants. 
+You can use PyCharm to debug code running under Pants.
 
 See the following links for instructions on how to do so under the [test goal](doc:python-test-goal) and under the [run goal](doc:python-run-goal).
 
-IDE integrations
-----------------
+## IDE integrations
 
 We have not yet developed tight IDE integrations, such as a PyCharm plugin or a VSCode extension, that would allow the IDE to run Pants on your behalf. If you're interested in developing this functionality for your favorite IDE, [let us know](doc:the-pants-community)!

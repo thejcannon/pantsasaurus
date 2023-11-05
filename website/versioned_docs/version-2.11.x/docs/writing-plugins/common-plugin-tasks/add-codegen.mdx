@@ -11,10 +11,8 @@ Pants supports code generators that convert a protocol language like Protobuf in
 
 Pants will not actually write the generated files to disk, except when running `./pants export-codegen`. Instead, any targets that depend on the protocol targets will cause their code to be generated, and those generated files will be copied over into the "chroot" (temporary directory) where Pants executes.
 
-
 :::note Example: Protobuf -> Python
 
-    
     This guide walks through each step of adding Protobuf to generate Python sources. See [here](https://github.com/pantsbuild/pants/tree/master/src/python/pants/backend/codegen/protobuf) for the final result.
 
 :::
@@ -24,7 +22,8 @@ This guide assumes that you are running a code generator that already exists out
 If you are instead writing your own code generation logic inline, you can skip Step 2. In Step 4, rather than running a `Process`, use [`CreateDigest`](doc:rules-api-file-system).
 
 1. Create a target type for the protocol
-----------------------------------------
+
+---
 
 You will need to define a new target type to allow users to provide metadata for their protocol files, e.g. their `.proto` files. See [Creating new targets](doc:target-api-new-targets) for a guide on how to do this.
 
@@ -60,7 +59,7 @@ To inject dependencies:
 
 1. Subclass the `Dependencies` field. Register this subclass on your protocol target type.
 2. Define a subclass of `InjectDependenciesRequest` and set the class property `inject_for` to the `Dependencies` subclass defined in the previous step. Register this new class with a [`UnionRule`](doc:rules-api-unions) for `InjectDependenciesRequest`.
-3. Create a new rule that takes your new  `InjectDependenciesRequest` subclass as a parameter and returns `InjectedDependencies`.
+3. Create a new rule that takes your new `InjectDependenciesRequest` subclass as a parameter and returns `InjectedDependencies`.
 
 ```python
 from pants.engine.addresses import Address
@@ -95,7 +94,8 @@ def rules():
 This example hardcodes the injected address. You can instead add logic to your rule to make this dynamic. For example, in Pants's Protobuf implementation, Pants looks for a `python_requirement` target with `protobuf`. See [protobuf/python/python_protobuf_subsystem.py](https://github.com/pantsbuild/pants/blob/main/src/python/pants/backend/codegen/protobuf/python/python_protobuf_subsystem.py).
 
 2. Install your code generator
-------------------------------
+
+---
 
 There are several ways for Pants to install your tool. See [Installing tools](doc:rules-api-installing-tools). This example will use `ExternalTool` because there is already a pre-compiled binary for Protoc.
 
@@ -133,7 +133,8 @@ class Protoc(ExternalTool):
 ```
 
 3. Create a `GenerateSourcesRequest`
-------------------------------------
+
+---
 
 `GenerateSourcesRequest` tells Pants the `input` and the `output` of your code generator, such as going from `ProtobufSourceField -> PythonSourceField`. Pants will use this to determine when to use your code generation implementation.
 
@@ -167,7 +168,8 @@ def rules():
 ```
 
 4. Create a rule for your codegen logic
----------------------------------------
+
+---
 
 Your rule should take as a parameter the `GenerateSourcesRequest` from Step 3 and the `Subsystem` (or `ExternalTool`) from Step 2. It should return `GeneratedSources`.
 
@@ -282,16 +284,15 @@ def rules():
     return [*python_support.rules()]
 ```
 
-
 :::note Tip: use `export-codegen` to test it works
 
-    
     Run `./pants export-codegen path/to/file.ext` to ensure Pants is correctly generating the file. This will write the generated file(s) under the `dist/` directory, using the same path that will be used during Pants runs.
 
 :::
 
 5. Audit call sites to ensure they've enabled codegen
------------------------------------------------------
+
+---
 
 Call sites must opt into using codegen, and they must also specify what types of sources they're expecting. See [Rules and the Target API](doc:rules-api-and-target-api) about `SourcesField`.
 
@@ -300,6 +301,7 @@ For example, if you added a code generator that goes from `ProtobufSourceField -
 You should check that everywhere you're expecting is using your new codegen implementation by manually testing it out. Create a new protocol target, add it to the `dependencies` field of a target, and then run goals like `./pants package` and `./pants test` to make sure that the generated file works correctly.
 
 6. Add tests (optional)
------------------------
+
+---
 
 Refer to [Testing rules](doc:rules-api-testing).

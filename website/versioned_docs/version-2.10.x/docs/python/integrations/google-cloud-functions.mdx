@@ -3,8 +3,8 @@
     position: 3
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 Create a Cloud Function with Python.
 
@@ -18,9 +18,10 @@ Pants can create a Google Cloud Function-compatible zip file from your Python co
 
 :::
 
-
 ## Step 1: Activate the Python Google Cloud Function backend
+
 Add this to your `pants.toml`:
+
 ```toml title="pants.toml"
 [GLOBAL]
 backend_packages.add = [
@@ -30,7 +31,9 @@ backend_packages.add = [
 ```
 
 This adds the new `python_google_cloud_function` target, which you can confirm by running `./pants help python_google_cloud_function `
+
 ## Step 2: Define a `python_google_cloud_function ` target
+
 First, add your Cloud function in a Python file like you would [normally do with Google Cloud Functions](https://cloud.google.com/functions/docs/first-python), such as creating a function `def my_handler_name(event, context)` for event-based functions.
 
 Then, in your BUILD file, make sure that you have a `python_source` or `python_sources` target with the handler file included in the `sources` field. You can use [`./pants tailor`](doc:create-initial-build-files) to automate this.
@@ -54,6 +57,7 @@ python_google_cloud_function(
     type="event",
 )
 ```
+
 </TabItem>
 <TabItem value="project/google_cloud_function_example.py" label="project/google_cloud_function_example.py">
 
@@ -61,6 +65,7 @@ python_google_cloud_function(
 def example_handler(event, context):
     print("Hello Google Cloud Function!")
 ```
+
 </TabItem>
 </Tabs>
 
@@ -74,9 +79,9 @@ You can optionally set the `output_path` field to change the generated zip file'
 
 :::
 
-
 ## Step 3: Run `package`
-Now run `./pants package` on your `python_google_cloud_function` target to create a zipped file. 
+
+Now run `./pants package` on your `python_google_cloud_function` target to create a zipped file.
 
 For example:
 
@@ -90,13 +95,13 @@ Wrote code bundle to dist/project.zip
 :::caution Running from macOS and failing to build?
 
     Cloud Functions must run on Linux, so Pants tells PEX and Pip to build for Linux when resolving your third party dependencies. This means that you can only use pre-built [wheels](https://packaging.python.org/glossary/#term-wheel) (bdists). If your project requires any source distributions ([sdists](https://packaging.python.org/glossary/#term-source-distribution-or-sdist)) that must be built locally, PEX and pip will fail to run.
-    
+
     If this happens, you must either change your dependencies to only use dependencies with pre-built [wheels](https://pythonwheels.com) or find a Linux environment to run `./pants package`.
 
 :::
 
-
 ## Step 4: Upload to Google Cloud
+
 You can use any of the various Google Cloud methods to upload your zip file, such as the Google Cloud console or the [Google Cloud CLI](https://cloud.google.com/functions/docs/deploying/filesystem#deploy_using_the_gcloud_tool).
 
 You must specify the handler as `main.handler`.

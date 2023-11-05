@@ -3,8 +3,8 @@
     position: 0
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 The commands Pants runs.
 
@@ -16,7 +16,7 @@ To satisfy a goal, Pants will use cached data whenever possible, and perform wor
 
 ## Which goals are available?
 
-Pants is an extensible system, so the exact goals that are available depend upon which [backends](doc:enabling-backends)  are enabled.
+Pants is an extensible system, so the exact goals that are available depend upon which [backends](doc:enabling-backends) are enabled.
 
 To see the current list of goals, run:
 
@@ -25,6 +25,7 @@ To see the current list of goals, run:
 ```
 
 For example, if you don't yet have any backends installed, you should see:
+
 ```text title="title="Shell""
 ./pants help goals
 
@@ -55,6 +56,7 @@ Use `./pants help $goal` to get help for a specific goal.
 ## Running goals
 
 Let's try running a goal:
+
 ```text title="title="Shell""
 $ ./pants roots
 3rdparty/python
@@ -62,12 +64,12 @@ src/assets
 src/python
 ```
 
-
 ## Goal arguments
 
-Some simple goals—such as the `roots` goal—do not require arguments. But most goals require some arguments to work on. 
+Some simple goals—such as the `roots` goal—do not require arguments. But most goals require some arguments to work on.
 
 For example, to run the `count-loc` goal, which counts lines of code in your repository, you need to provide a set of files and/or targets to run on:
+
 ```text title="title="Shell""
 $ ./pants count-loc '**'
 ───────────────────────────────────────────────────────────────────────────────
@@ -80,8 +82,6 @@ Plain Text                   2        43        1         0       42          0
 TOML                         2        65       14        18       33          0
 ...
 ```
-
-
 
 :::note Quoting file patterns
 
@@ -96,13 +96,13 @@ Note the single-quotes around the file pattern `'**'`. This is so that your shel
 
 Goal arguments can be of one of two types:
 
-- *File arguments*: file paths and/or globs.
-- *Target arguments*: addresses and/or address globs of [targets](doc:targets).
+- _File arguments_: file paths and/or globs.
+- _Target arguments_: addresses and/or address globs of [targets](doc:targets).
 
-Any goal can take either type of argument: 
+Any goal can take either type of argument:
 
 - If a target argument is given, the goal acts on all the files in the matching targets.
-- If a file argument is given, Pants will map the file back to its containing target to read any necessary metadata. 
+- If a file argument is given, Pants will map the file back to its containing target to read any necessary metadata.
 
 So, for the most part, you can just use file arguments and not worry about targets!
 
@@ -122,8 +122,6 @@ For example, `./pants list ::` will find every target in your project.
 
 :::
 
-
-
 :::note Tip: advanced target selection, such as running over changed files
 
 ```
@@ -135,7 +133,7 @@ See [Advanced target selection](doc:advanced-target-selection) for alternative t
 
 ## Goal options
 
-Many goals also have [options](doc:options) to change how they behave. 
+Many goals also have [options](doc:options) to change how they behave.
 
 To see if a goal has any options, run `./pants help $goal` or `./pants help-advanced $goal`. See [Command Line Help](doc:getting-help) for more information.
 

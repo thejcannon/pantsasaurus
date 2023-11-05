@@ -11,8 +11,7 @@ The Target API defines how you interact with targets in your plugin. For example
 
 The Target API can also be used to add new target types—such as adding support for a new language. Additionally, the Target API can be used to extend existing target types.
 
-Targets and Fields - the core building blocks
----------------------------------------------
+## Targets and Fields - the core building blocks
 
 ### Definition of _target_
 
@@ -36,7 +35,7 @@ Each field has a Python class that defines its BUILD file alias, data type, and 
 
 ```python title="example_fields.py"
 from pants.engine.target import IntField
-    
+
 class PythonTestTimeoutField(IntField):
     alias = "timeout"
     default = 60
@@ -78,12 +77,11 @@ dockerfile(
 
 This gives you reuse of code ([DRY](https://en.wikipedia.org/wiki/Don't_repeat_yourself)) and is important for your plugin to work with multiple different target types, as explained below.
 
-A Field-Driven API
-------------------
+## A Field-Driven API
 
 Idiomatic Pants plugins do not care about specific target types; they only care that the target type has the right combination of field types that the plugin needs to operate.
 
-For example, the Python formatter Black does not actually care whether you have a `python_source`, `python_test`, or `custom_target` target; all that it cares about is that your target type has the field `PythonSourceField`. 
+For example, the Python formatter Black does not actually care whether you have a `python_source`, `python_test`, or `custom_target` target; all that it cares about is that your target type has the field `PythonSourceField`.
 
 Targets are only [used by the Rules API](doc:rules-api-and-target-api) to get access to the underlying fields through the methods `.has_field()` and `.get()`:
 
@@ -97,8 +95,7 @@ print(timeout_field.value)
 
 This means that when creating new target types, the fields you choose for your target will determine the functionality it has.
 
-Customizing fields through subclassing
---------------------------------------
+## Customizing fields through subclassing
 
 Often, you may like how a field behaves, but want to make some tweaks. For example, you may want to give a default value to the `SingleSourceField` field.
 

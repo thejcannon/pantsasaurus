@@ -3,8 +3,8 @@
     position: 4
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 How to add a new implementation to the `run` goal.
 
@@ -18,13 +18,13 @@ The `run` goal runs a single interactive process in the foreground, such as runn
 
 :::
 
-
 ## 1. Set up a binary target type
+
 Usually, you will want to add a "binary" target type for your language, such as `bash_binary` or `python_binary`. Typically, both the `run` and `package` goals operate on binary target types.
 
 When creating a binary target, you should usually subclass the `Sources` field and set the class property `expected_num_files = 1`.
 
-See [Creating new targets](doc:target-api-new-targets) for a guide on how to define new target types. 
+See [Creating new targets](doc:target-api-new-targets) for a guide on how to define new target types.
 
 ```python
 from pants.engine.target import COMMON_TARGET_FIELDS, Dependencies, Sources, Target
@@ -44,7 +44,9 @@ class BashBinarySources(BashSources):
      alias = "bash_binary"
      core_fields = (*COMMON_TARGET_FIELDS, Dependencies, BashBinarySources)
 ```
+
 ## 2. Set up a subclass of `RunFieldSet`
+
 As described in [Rules and the Target API](doc:rules-api-and-target-api), a `FieldSet` is a way to tell Pants which `Field`s you care about targets having for your plugin to work.
 
 Usually, you will require the binary target's `Sources` subclass from Step 1, such as `BashBinarySources` or `PythonBinarySources`. Add this `Sources` subclass to the class property `required_fields` of your new `FieldSet`. This means that your binary implementation will run on any target with that sources field or a subclass of it.
@@ -77,8 +79,10 @@ def rules():
         UnionRule(RunFieldSet, BashRunFieldSet),
     ]
 ```
+
 ## 3. Create a rule for your logic
-Your rule should take as a parameter the `BashRunFieldSet` from Step 2. It should return `RunRequest`, which has the fields `digest: Digest`, `args: Iterable[str]`, and `extra_env: Optional[Mapping[str, str]]`. 
+
+Your rule should take as a parameter the `BashRunFieldSet` from Step 2. It should return `RunRequest`, which has the fields `digest: Digest`, `args: Iterable[str]`, and `extra_env: Optional[Mapping[str, str]]`.
 
 The `RunRequest` will get converted into an `InteractiveProcess` that will run in the foreground.
 
@@ -144,6 +148,7 @@ In this example, we run the equivalent of `/bin/bash ./my_script.sh`. Typically,
 When using relative paths in `args` or `extra_env`, you should join the values with the template string `"{chroot}"`, e.g. `os.path.join("{chroot}", binary_sources.files[0])`. This ensures that you run on the correct file in the temporary directory created by Pants.
 
 Finally, update your plugin's `register.py` to activate this file's rules.
+
 ```python title="pants-plugins/bash/register.py"
 from bash import run_binary
 
@@ -153,5 +158,7 @@ def rules():
 ```
 
 Now, when you run `./pants run path/to/binary.sh`, Pants should run the program.
+
 ## 4. Add tests (optional)
+
 Refer to [Testing rules](doc:rules-api-testing). TODO

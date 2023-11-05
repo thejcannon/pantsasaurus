@@ -3,15 +3,17 @@
     position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 How to set registry, repository and tag names on your images
 
 ---
 
 ## Configuring registries
+
 A `docker_image` target takes an optional `registries` field, whose value is a list of registry endpoints:
+
 ```python title="src/example/BUILD"
 docker_image(
     name="demo",
@@ -38,13 +40,14 @@ default = true
 [docker.registries.company-registry2]
 address = "reg2.company.internal"
 ```
+
 </TabItem>
 <TabItem value="src/example/BUILD" label="src/example/BUILD">
 
 ```python
 docker_image(name="demo")
 
-# This is equivalent to the previous target, 
+# This is equivalent to the previous target,
 # since company-registry1 is the default registry:
 docker_image(
     name="demo",
@@ -60,14 +63,16 @@ docker_image(
     ]
 )
 ```
+
 </TabItem>
 </Tabs>
 
-
 ## Setting a repository name
-In Docker parlance, an image is identified by a *repository* and one or more *tags* within that repository. 
+
+In Docker parlance, an image is identified by a _repository_ and one or more _tags_ within that repository.
 
 You set a repository name using the `repository` field on `docker_image`:
+
 ```python title="src/example/BUILD"
 docker_image(
     name="demo",
@@ -89,6 +94,7 @@ You can also specify a default repository name in config, and this name can cont
 [docker]
 default_repository = "{directory}/{name}"
 ```
+
 </TabItem>
 <TabItem value="src/example/BUILD" label="src/example/BUILD">
 
@@ -97,19 +103,24 @@ docker_image(
     name="demo",
 )
 ```
+
 </TabItem>
 </Tabs>
 
 The supported placeholders are:
+
 - `{directory}`: The directory the docker_image's BUILD file is in.
 - `{parent_directory}`: The parent directory of `{directory}`.
 - `{name}`: The name of the docker_image target.
 
 Since repository names often conform to patterns like these, this can save you on some boilerplate by allowing you to omit the `repository` field on each `docker_image`. But you can always override this field on specific `docker_image` targets, of course. In fact, you can use these placeholders in the `repository` field as well, if you find that helpful.
+
 ## Tagging images
-When Docker builds images, it can tag them with a set of tags. Pants will apply the tags listed in the `image_tags` field of `docker_image`. 
+
+When Docker builds images, it can tag them with a set of tags. Pants will apply the tags listed in the `image_tags` field of `docker_image`.
 
 (Note that the field is named `image_tags` and not just `tags`, because Pants has [its own tags concept](doc:reference-target#codetagscode), which is unrelated.)
+
 ```python title="src/example/BUILD"
 docker_image(
     name="demo",
@@ -119,6 +130,7 @@ docker_image(
 ```
 
 When pants builds the `src/example:demo` target, a single image will be built, with two tags applied:
+
 - `example/demo:1.2`
 - `example/demo:example`
 
@@ -137,6 +149,7 @@ docker_image(name="demo1", image_tags=["{baseimage.tag}"])
 # Any stage my be used, and being a format string, you may add extra text as well.
 docker_image(name="demo1", image_tags=["{stage1.tag}-custom-suffix"])
 ```
+
 </TabItem>
 <TabItem value="src/example/Dockerfile" label="src/example/Dockerfile">
 
@@ -146,22 +159,24 @@ FROM upstream:1.2 as upstream
 FROM scratch
 # ...
 ```
+
 </TabItem>
 </Tabs>
 
-This way you can specify a version just once, on the base image, and the derived images will automatically acquire the same version. 
+This way you can specify a version just once, on the base image, and the derived images will automatically acquire the same version.
 
 :::note Dynamically generated tags
 
     Generating custom tags at runtime based on Git state or image inputs currently requires you to write some custom plugin code. Don't hesitate to [reach out](doc:getting-help) for help with this.
-    
+
     We are looking into adding this functionality into the core Docker plugin in the future.
 
 :::
 
-
 ## All together: Registries, Repositories and Tags
+
 To illustrate how all the above work together, this target:
+
 ```python title="src/example/BUILD"
 docker_image(
     name="demo",

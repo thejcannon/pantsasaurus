@@ -3,13 +3,12 @@
     position: 999
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 How to configure Pants to work with proxies.
 
 ---
-
 
 :::note Asking for help
 
@@ -22,23 +21,27 @@ Please reach out on [Slack](doc:community) or open a [GitHub issue](https://gith
 
 :::
 
-
 ## Installing Pants
-The `./pants` script from [Installing Pants](doc:installation) uses PyPI to download and install the wheel `pantsbuild.pants` and all of Pants's dependencies. 
 
-If you cannot access PyPI, you may instead download Pants as a PEX binary from https://github.com/pantsbuild/pants/releases. After downloading the PEX artifact, you can rename the file to `./pants`, run `chmod +x ./pants`, then run `./pants --version` like you normally would. 
+The `./pants` script from [Installing Pants](doc:installation) uses PyPI to download and install the wheel `pantsbuild.pants` and all of Pants's dependencies.
+
+If you cannot access PyPI, you may instead download Pants as a PEX binary from https://github.com/pantsbuild/pants/releases. After downloading the PEX artifact, you can rename the file to `./pants`, run `chmod +x ./pants`, then run `./pants --version` like you normally would.
 
 You may want to check the binary into version control so that everyone in your organization can use it. To upgrade to a new Pants release, update the `pants_version` option in `pants.toml` and download the newest release from https://github.com/pantsbuild/pants/releases.
+
 ## Setting up a Certificate Authority
-You may need to configure Pants to use a custom Certificate Authority (CA) bundle: 
+
+You may need to configure Pants to use a custom Certificate Authority (CA) bundle:
+
 ```toml title="title="pants.toml""
 [GLOBAL]
 ca_certs_path = "/path/to/certs/file"
 ```
 
-
 ## Setting `HTTP_PROXY` and `HTTPS_PROXY`
+
 You may need to set standard proxy-related environment variables, such as `http_proxy`, `https_proxy` and `all_proxy`, in executed subprocesses:
+
 ```toml title="title="pants.toml""
 [subprocess-environment]
 env_vars.add = ["http_proxy=http://myproxy", "https_proxy"]
@@ -47,17 +50,21 @@ env_vars.add = ["http_proxy=http://myproxy", "https_proxy"]
 You can use lowercase or all-caps env var names.
 
 Note that if you leave of the env var's value, as for `https_proxy` above, Pants will use the value of the same variable in the environment in which it is invoked.
+
 ## Using a custom \"cheeseshop\"/PyPI
-See [Third-party dependencies](doc:python-third-party-dependencies#using-custom-repositories) for instructions. 
+
+See [Third-party dependencies](doc:python-third-party-dependencies#using-custom-repositories) for instructions.
+
 ## Hosting binaries
+
 Pants downloads some binaries in order to run certain functionality, including:
 
-* PEX, from https://github.com/pantsbuild/pex/releases
-* Protoc, from https://github.com/protocolbuffers/protobuf/releases
-* gRPC Python, from https://binaries.pantsbuild.org/bin/grpc_python_plugin (i.e., the Pantsbuild organization builds the binary and hosts it)
-* SCC (Succint Code-Counter), from https://github.com/boyter/scc/releases
+- PEX, from https://github.com/pantsbuild/pex/releases
+- Protoc, from https://github.com/protocolbuffers/protobuf/releases
+- gRPC Python, from https://binaries.pantsbuild.org/bin/grpc_python_plugin (i.e., the Pantsbuild organization builds the binary and hosts it)
+- SCC (Succint Code-Counter), from https://github.com/boyter/scc/releases
 
-Some proxies restrict access to these URLs. If you are not able to allowlist them, you can host the binaries yourself and instruct Pants to use your custom URL. 
+Some proxies restrict access to these URLs. If you are not able to allowlist them, you can host the binaries yourself and instruct Pants to use your custom URL.
 
 We recommend hosting the same binary Pants normally uses, as Pants uses a checksum to ensure the download is valid. You can run `./pants help-advanced $options_scope` to determine the full URL with the `url_template` option.
 | Tool | Options scope |
@@ -72,6 +79,7 @@ Note that this URL is only a template. Anywhere you see `{version}`, Pants will 
 For example, `./pants help-advanced protoc` gives us the template `https://github.com/protocolbuffers/protobuf/releases/download/v{version}/protoc-{version}-{platform}-x86_64.zip`. We see the `version` option is set to `3.11.4`. We are running on macOS, so look up `darwin` in the `url_platform_mapping` option and find the string `osx`. Thus, the final URL is `https://github.com/protocolbuffers/protobuf/releases/download/v3.11.4/protoc-3.11.4-osx-x86_64.zip`.
 
 Once you determine the full URL, you can download the original binary and host it yourself. Then, you can update the `url_template` option to point to your host:
+
 ```python title="title="pants.toml""
 [protoc]
 url_template = "https://binaries.pantsbuild.org/bin/protoc/{version}/{platform}/protoc.zip"

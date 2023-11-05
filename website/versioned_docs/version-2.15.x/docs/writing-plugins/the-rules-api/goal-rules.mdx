@@ -13,8 +13,7 @@ As explained in [Concepts](doc:rules-api-concepts), `@goal_rule`s are the entry-
 
 Often, you can keep all of your logic inline in the `@goal_rule`. As your `@goal_rule` gets more complex, you may end up factoring out helper `@rule`s, but you do not need to start with writing helper `@rule`s.
 
-How to register a new goal
---------------------------
+## How to register a new goal
 
 There are four steps to creating a new [goal](doc:goals) with Pants:
 
@@ -26,7 +25,7 @@ There are four steps to creating a new [goal](doc:goals) with Pants:
    1. Set the class property `subsystem_cls` to the `GoalSubsystem` from the previous step.
    2. A `Goal` takes a single argument in its constructor, `exit_code: int`. Pants will use this to determine what its own exit code should be.
 3. Define an `@goal_rule`, which must return the `Goal` from the previous step and set its `exit_code`.
-   1. For most goals, simply return `MyGoal(exit_code=0)`. Some goals like `lint` and `test` will instead propagate the error code from the tools they run. 
+   1. For most goals, simply return `MyGoal(exit_code=0)`. Some goals like `lint` and `test` will instead propagate the error code from the tools they run.
 4. Register the `@goal_rule` in a `register.py` file.
 
 ```python title="pants-plugins/example/hello_world.py"
@@ -46,11 +45,12 @@ class HelloWorld(Goal):
 @goal_rule
 async def hello_world() -> HelloWorld:
     return HelloWorld(exit_code=1)
- 
+
 
 def rules():
     return collect_rules()
 ```
+
 ```python title="pants-plugins/example/register.py"
 from example import hello_world
 
@@ -60,8 +60,7 @@ def rules():
 
 You may now run `pants hello-world`, which should cause Pants to return with an error code of 1 (run `echo $?` to verify). Precisely, this causes the engine to request the type `HelloWorld`, which results in running the `@goal_rule` `hello_world`.
 
-`Console`: output to stdout/stderr
-----------------------------------
+## `Console`: output to stdout/stderr
 
 To output to the user, request the type `Console` as a parameter in your `@goal_rule`. This is a special type that may only be requested in `@goal_rules` and allows you to output to stdout and stderr.
 
@@ -131,8 +130,7 @@ async def hello_world(
     return HelloWorld(exit_code=0)
 ```
 
-How to operate on Targets
--------------------------
+## How to operate on Targets
 
 Most goals will want to operate on targets. To do this, specify `Targets` as a parameter of your goal rule.
 
@@ -155,29 +153,27 @@ helloworld/util
 helloworld/util:tests
 ```
 
-See [Rules and the Target API](doc:rules-api-and-target-api)  for detailed information on how to use these targets in your rules, including accessing the metadata specified in BUILD files.
-
+See [Rules and the Target API](doc:rules-api-and-target-api) for detailed information on how to use these targets in your rules, including accessing the metadata specified in BUILD files.
 
 :::caution Common mistake: requesting the type of target you want in the `@goal_rule` signature
 
-    
     For example, if you are writing a `publish` goal, and you expect to operate on `python_distribution` targets, you might think to request `PythonDistribution` in your `@goal_rule` signature:
-    
+
     ```python
     @goal_rule
     def publish(distribution: PythonDistributionTarget, console: Console) -> Publish:
        ...
     ```
-    
+
     This will not work because the engine has no path in the rule graph to resolve a `PythonDistribution` type given the initial input types to the rule graph (the "roots").
-    
+
     Instead, request `Targets`, which will give you all the targets that the user specified on the command line. The engine knows how to resolve this type because it can go from `Specs` -> `Addresses` -> `Targets`.
-    
+
     From here, filter out the relevant targets you want using the Target API (see [Rules and the Target API](doc:rules-api-and-target-api)).
-    
+
     ```python
     from pants.engine.target import Targets
-    
+
     @goal_rule
     def publish(targets: Targets, console: Console) -> Publish:
        relevant_targets = [
@@ -207,10 +203,8 @@ async def hello_world(console: Console, specs_paths: SpecsPaths) -> HelloWorld:
 
 To convert `SpecsPaths` into a [`Digest`](doc:rules-api-file-system), use `await Get(Digest, PathGlobs(globs=specs_paths.files))`.
 
-
 :::note Name clashing
 
-    
-
 :::
+
 > It is very unlikely, but is still possible that adding a custom goal with an unfortunate name may cause issues when certain existing Pants options are passed in the command line. For instance, executing a goal named `local` with a particular option (in this case, the global `local_cache` option), e.g. `pants --no-local-cache local ...` would fail since there's no `--no-cache` flag defined for the `local` goal.

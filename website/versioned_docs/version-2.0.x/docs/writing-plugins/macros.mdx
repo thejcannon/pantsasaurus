@@ -3,25 +3,29 @@
     position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 Reducing boilerplate in BUILD files.
 
 ---
 
 ## When to use a macro
+
 Macros are useful to reduce boilerplate in BUILD files. For example, if you keep using the same value for a field, you can use a macro.
 
 If you instead want to add support for a new language, or do something more complex than a macro allows, create a new [target type](doc:target-api-new-targets).
 
 If you are already using a target type, but need to store additional metadata for your plugin, [add a new field to the target type](doc:target-api-extending-targets).
+
 ## How to add a macro
-Macros are defined in Python files that act like a normal BUILD file. They have access to all the symbols you normally have registered in a BUILD file, such as all of your target types. 
+
+Macros are defined in Python files that act like a normal BUILD file. They have access to all the symbols you normally have registered in a BUILD file, such as all of your target types.
 
 Macros cannot import other modules, just like BUILD files cannot have import statements.
 
 To define a new macro, add a function with `def` and the name of the new symbol. Usually, the last line of the macro will create a new target, like this:
+
 ```python title="title="pants-plugins/macros.py""
 def python2_library(**kwargs):
     kwargs["compatibility"] = "==2.7.*"
@@ -33,6 +37,7 @@ def python3_library(**kwargs):
 ```
 
 Then, add this file to the option `build_file_prelude_globs` in the `[GLOBAL]` scope:
+
 ```toml title="title="pants.toml""
 [GLOBAL]
 build_file_prelude_globs = [
@@ -41,6 +46,7 @@ build_file_prelude_globs = [
 ```
 
 Now, in BUILD files, you can use the new macros:
+
 ```python title="title="project/BUILD""
 python2_library(
     name="app_py2",
@@ -54,6 +60,7 @@ python3_library(
 ```
 
 A macro can create multiple targets:
+
 ```python title="title="pants-plugins/macros.py""
 def python23_tests(name, **kwargs):
     kwargs.pop("compatibility", None)
@@ -63,7 +70,7 @@ def python23_tests(name, **kwargs):
         compatibility="==2.7.*",
         **kwargs,
     )
- 
+
     python_tests(
         name=f"{name}_py3",
         compatibility=">=3.5",
@@ -73,6 +80,7 @@ def python23_tests(name, **kwargs):
 ```
 
 A macro can perform validation:
+
 ```python title="title="pants-plugins/macros.py""
 def custom_python_library(**kwargs):
     if "2.7" in kwargs.get("compatibility", ""):
@@ -91,6 +99,7 @@ def custom_python_library(has_type_hints: bool = True, **kwargs):
         kwargs["tags"] = kwargs.get("tags", []) + ["type_checked"]
     python_library(**kwargs)
 ```
+
 </TabItem>
 <TabItem value="project/BUILD" label="project/BUILD">
 
@@ -99,5 +108,6 @@ custom_python_library(
     has_type_hints=False,
 )
 ```
+
 </TabItem>
 </Tabs>

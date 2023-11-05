@@ -25,18 +25,15 @@ Thanks to Pants's execution engine, your plugins will automatically bring you th
 - Concurrent execution.
 - Remote execution.
 
-
 :::danger The Plugin API is not yet stable
 
-    
     While we'll try our best to limit changes, the Plugin API does not yet follow the [Deprecation Policy](doc:deprecation-policy). Components of the API may change between minor versions—e.g. 2.7 to 2.8—without a deprecation.
-    
+
     We will document changes at [Plugin upgrade guide](doc:plugin-upgrade-guide).
 
 :::
 
-Core concepts
--------------
+## Core concepts
 
 The plugin API is split into two main interfaces:
 
@@ -45,13 +42,12 @@ The plugin API is split into two main interfaces:
 
 Plugins are written in typed Python 3 code. You write your logic in Python, and then Pants will run your plugin in the Rust engine.
 
-Locating Plugin code
---------------------
+## Locating Plugin code
 
 Plugins can be consumed in either of two ways:
 
 - From a published package in a repository such as [PyPI](https://pypi.org/).
-- Directly from in-repo sources. 
+- Directly from in-repo sources.
 
 It's often convenient to use in-repo plugins, particularly when the plugin is only relevant to a single repo and you want to iterate on it rapidly. In other cases, you may want to publish the plugin, so it can be reused across multiple repos.
 
@@ -75,10 +71,8 @@ You must specify the path to your plugin's top-level folder using the `pythonpat
 pythonpath = ["%(buildroot)s/pants-plugins"]
 ```
 
-
 :::caution In-repo dependencies
 
-    
     In-repo plugin code should not depend on other in-repo code outside of the `pants-plugins` folder.  The `pants-plugins` folder helps isolate plugins from regular code, which is necessary due to how Pants's startup sequence works.
 
 :::
@@ -92,12 +86,11 @@ plugins = ["ansicolors==1.18.0"]
 
 However, be careful adding third-party dependencies that perform side-effects like reading from the filesystem or making network requests, as they will not work properly with the engine's caching model.
 
-Enabling Plugins with `register.py`
------------------------------------
+## Enabling Plugins with `register.py`
 
-A Pants [_backend_](doc:enabling-backends) is a Python package that implements some required functionality and uses hooks to register itself with Pants.  
+A Pants [_backend_](doc:enabling-backends) is a Python package that implements some required functionality and uses hooks to register itself with Pants.
 
-A plugin will contain one or more backends, with the hooks for each one defined in a file called `register.py`.  To enable a custom plugin you add its backends to your `backend_packages` configuration:
+A plugin will contain one or more backends, with the hooks for each one defined in a file called `register.py`. To enable a custom plugin you add its backends to your `backend_packages` configuration:
 
 ```toml title="pants.toml"
 [GLOBAL]
@@ -109,6 +102,7 @@ backend_packages.add = [
   "subdir.plugin2",
 ]
 ```
+
 ```python title="pants-plugins/plugin1/register.py"
 from plugin1.lib import CustomTargetType, rule1, rule2
 
@@ -121,8 +115,7 @@ def target_types():
     return [CustomTargetType]
 ```
 
-Building in-repo plugins with Pants
------------------------------------
+## Building in-repo plugins with Pants
 
 Because plugin code is written in Python, you can optionally use Pants's [Python backend](doc:python-backend) to build your plugin code. For example, you can use Pants to lint, format, and test your plugin code. This is not required, but it's usually a good idea to improve the quality of your plugin.
 
@@ -165,20 +158,19 @@ pants-plugins = "pants-plugins/lock.txt"
 python-default = "3rdparty/python/default_lock.txt"
 
 [python.resolves_to_interpreter_constraints]
-# Pants can run with 3.7-3.9, so this lets us 
-# use different interpreter constraints when 
-# generating the lockfile than the rest of our project. 
+# Pants can run with 3.7-3.9, so this lets us
+# use different interpreter constraints when
+# generating the lockfile than the rest of our project.
 #
-# Warning: it's still necessary to set the `interpreter_constraints` 
-# field on each `python_sources` and `python_tests` target in 
+# Warning: it's still necessary to set the `interpreter_constraints`
+# field on each `python_sources` and `python_tests` target in
 # our plugin! This only impacts how the lockfile is generated.
 pants-plugins = [">=3.7,<3.10"]
 ```
 
 Then, update your `pants_requirements` target generator with `resolve="pants-plugins"`, and run `./pants generate-lockfiles`. You will also need to update the relevant `python_source` / `python_sources` and `python_test` / `python_tests` targets to set `resolve="pants-plugins"` (along with possibly the `interpreter_constraints` field).
 
-Publishing a plugin
--------------------
+## Publishing a plugin
 
 Pants plugins can be published to PyPI and consumed by other Pants users.
 

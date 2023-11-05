@@ -8,6 +8,7 @@ Some conventions we encourage.
 ---
 
 ## Reminder: running the autoformatters and linters
+
 Most of Pants' style is enforced via Black, isort, Docformatter, Flake8, and MyPy. Run these commands frequently when developing:
 
 ```bash
@@ -18,7 +19,7 @@ $ build-support/githooks/pre-commit
 :::note Tip: improving Black's formatting by wrapping in `()`
 
     Sometimes, Black will split code over multiple lines awkwardly. For example:
-    
+
     ```python
     register(
         "--pants-bin-name",
@@ -28,9 +29,9 @@ $ build-support/githooks/pre-commit
         "Useful when printing help messages.",
     )
     ```
-    
+
     Often, you can improve Black's formatting by wrapping the expression in parentheses, then rerunning `fmt`:
-    
+
     ```python
     register(
         "--pants-bin-name",
@@ -42,13 +43,13 @@ $ build-support/githooks/pre-commit
         ),
     )
     ```
-    
+
     This is not mandatory, only encouraged.
 
 :::
 
-
 ## Comments
+
 ### Style
 
 Comments must have a space after the starting `#`. All comments should be complete sentences and should end with a period.
@@ -71,9 +72,10 @@ Comment lines should not exceed 100 characters. Black will not auto-format this 
 
 We strive for self-documenting code. Often, a comment can be better expressed by giving a variable a more descriptive name, adding type information, or writing a helper function.
 
-Further, there is no need to document how typical Python constructs behave, including how type hints work. 
+Further, there is no need to document how typical Python constructs behave, including how type hints work.
 
 Bad:
+
 ```
 # Loop 10 times.
 for _ in range(10):
@@ -89,7 +91,7 @@ Good:
 
 ```
 def __hash__(self):
-    # By overriding __hash__ here, rather than using the default implementation, 
+    # By overriding __hash__ here, rather than using the default implementation,
     # we get a 10% speedup to `./pants list ::` (1000 targets) thanks to more
     # cache hits. This is safe to do because ...
     ...
@@ -98,6 +100,7 @@ def __hash__(self):
 class OrderedSet:
     ...
 ```
+
 ### TODOs
 
 When creating a TODO, first [create an issue](https://github.com/pantsbuild/pants/issues/new) in GitHub. Then, link to the issue # in parantheses and add a brief description.
@@ -107,8 +110,11 @@ For example:
 ```python
 # TODO(#5427): Remove this block once we can get rid of the `globs` feature.
 ```
+
 ## Strings
+
 ### Use `f-strings`
+
 Use f-strings instead of `.format()` and `%`.
 
 ```python
@@ -119,7 +125,9 @@ f"Hello {name}!"
 "Hello {}".format(name)
 "Hello %s" % name
 ```
+
 ## Conditionals
+
 ### Prefer conditional expressions (ternary expressions)
 
 Similar to most languages' ternary expressions using `?`, Python has [conditional expressions](https://stackoverflow.com/a/394814). Prefer these to explicit `if else` statements because we generally prefer expressions to statements and they often better express the intent of assigning one of two values based on some predicate.
@@ -143,13 +151,13 @@ Often, functions will have branching based on a condition. When you `return` fro
 
 ```python
 # Good
-def safe_divide(dividend: int, divisor: int) -> Optional[int]: 
+def safe_divide(dividend: int, divisor: int) -> Optional[int]:
     if divisor == 0:
         return None
     return dividend / divisor
 
 # Discouraged
-def safe_divide(dividend: int, divisor: int) -> Optional[int]: 
+def safe_divide(dividend: int, divisor: int) -> Optional[int]:
     if divisor == 0:
         return None
     else:
@@ -157,7 +165,9 @@ def safe_divide(dividend: int, divisor: int) -> Optional[int]:
 ```
 
 Why prefer this? It reduces nesting and reduces the cognitive load of readers. See [here](https://medium.com/@scadge/if-statements-design-guard-clauses-might-be-all-you-need-67219a1a981a) for more explanation.
+
 ## Collections
+
 ### Use collection literals
 
 Collection literals are easier to read and have better performance.
@@ -226,7 +236,9 @@ There are some exceptions, including, but not limited to:
 - If mutations are involved, use a `for` loop.
 - If constructing multiple collections by iterating over the same original collection, use a `for` loop for performance.
 - If the comprehension gets too complex, a `for` loop may be appropriate. Although, first consider refactoring with a helper function.
+
 ## Classes
+
 ### Prefer dataclasses
 
 We prefer [dataclasses](https://realpython.com/python-data-classes/) because they are declarative, integrate nicely with MyPy, and generate sensible defaults, such as a sensible `repr` method.
@@ -280,12 +292,14 @@ class Example:
     def __init__(self, values: Iterable[str]) -> None:
         self.values = tuple(values)
 ```
+
 ## Type hints
+
 Refer to [MyPy documentation](https://mypy.readthedocs.io/en/stable/introduction.html) for an explanation of type hints, including some advanced features you may encounter in our codebase like `Protocol` and `@overload`.
 
 ### Annotate all new code
 
-All new code should have type hints. Even simple functions like unit tests should have annotations. Why? MyPy will only check the body of functions if they have annotations. 
+All new code should have type hints. Even simple functions like unit tests should have annotations. Why? MyPy will only check the body of functions if they have annotations.
 
 ```python
 # Good
@@ -302,14 +316,14 @@ Precisely, all function definitions should have annotations for their parameters
 :::note Interacting with legacy code? Consider adding type hints.
 
     Pants did not widely use type hints until the end of 2019. So, a substantial portion of the codebase is still untyped.
-    
+
     If you are working with legacy code, it is often valuable to start by adding type hints. This will both help you to understand that code and to improve the quality of the codebase. Land those type hints as a precursor to your main PR.
 
 :::
 
 ### Prefer `cast()` to override annotations
 
-MyPy will complain when it cannot infer the types of certain lines. You must then either fix the underlying API that MyPy does not understand or explicitly provide an annotation at the call site. 
+MyPy will complain when it cannot infer the types of certain lines. You must then either fix the underlying API that MyPy does not understand or explicitly provide an annotation at the call site.
 
 Prefer fixing the underlying API if easy to do, but otherwise, prefer using `cast()` instead of a variable annotation.
 
@@ -380,7 +394,9 @@ merge_constraints([constraint for constraint in all_constraints if constraint.st
 ```
 
 The return type, however, should usually be as precise as possible so that call sites have better type inference.
+
 ## Tests
+
 ### Use Pytest-style instead of `unittest`
 
 ```python

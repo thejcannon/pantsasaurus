@@ -3,8 +3,8 @@
     position: 0
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 Pants's support for Shellcheck, shfmt, and shUnit2.
 
@@ -12,15 +12,18 @@ Pants's support for Shellcheck, shfmt, and shUnit2.
 
 Pants integrates with these tools to empower you to follow best practices with your Shell scripts:
 
-- [Shellcheck](https://www.shellcheck.net): lint for common Shell mistakes. 
+- [Shellcheck](https://www.shellcheck.net): lint for common Shell mistakes.
 - [shfmt](https://github.com/mvdan/sh): autoformat Shell code so that you can instead focus on the logic.
 - [shUnit2](https://github.com/kward/shunit2/): write light-weight unit tests for your Shell code.
 
 Pants installs these tools deterministically and integrates them into the workflows you already use: `./pants fmt`, `./pants lint`, and `./pants test`.
+
 ## Initial setup: add `shell_library` targets
+
 Pants uses `shell_library` [targets](doc:targets) to know which Shell files you want Pants to know about and to add additional metadata. It also uses `shunit2_tests` targets for test support.
 
 First, activate the Shell backend in your `pants.toml`:
+
 ```toml title="pants.toml"
 backend_packages = [
   "pants.backend.shell",
@@ -46,28 +49,29 @@ shell_library(name="scripts", sources=["script_without_an_extension", "*.sh"])
 :::note Shell dependency inference
 
     Pants will [infer dependencies](doc:dependencies-and-dependency-inference) by looking for imports like `source script.sh` and `. script.sh`. You can check that the correct dependencies are inferred by running `./pants dependencies path/to/script.sh` and `./pants dependencies --transitive path/to/script.sh`.
-    
+
     Normally, Pants will not understand dynamic sources, e.g. using variable expansion. However, Pants uses Shellcheck for parsing, so you can use Shellcheck's syntax to give a hint to Pants:
-    
+
     ```shell
     another_script="dir/some_script.sh"
-    
+
     # Normally Pants couldn't infer this, but we can give a hint like this:
     # shellcheck source=dir/some_script.sh
     source "${another_script}"
     ```
-    
+
     Alternatively, you can explicitly add `dependencies` in the relevant BUILD file.
-    
+
     ```python
     shell_library(dependencies=["path/to:shell_library"])
     ```
 
 :::
 
-
 ## shfmt autoformatter
+
 To activate, add this to your `pants.toml`:
+
 ```toml title="pants.toml"
 [GLOBAL]
 backend_packages = [
@@ -112,14 +116,15 @@ Temporarily disable shfmt with `--shfmt-skip`:
 :::tip Benefit of Pants: shfmt runs in parallel with Python formatters
 
     Normally, Pants runs formatters sequentially so that it can pipe the results of one formatter into the next. However, Pants will run shfmt in parallel to formatters for other languages, [like Python](doc:python-linters-and-formatters), because shfmt does not operate on those languages.
-    
+
     You can see this concurrency through Pants's dynamic UI.
 
 :::
 
-
 ## Shellcheck linter
+
 To activate, add this to your `pants.toml`:
+
 ```toml title="pants.toml"
 [GLOBAL]
 backend_packages = [
@@ -166,23 +171,26 @@ Temporarily disable Shellcheck with `--shellcheck-skip`:
 
 :::
 
-
 ## shUnit2 test runner
+
 [shUnit2](https://github.com/kward/shunit2/) allows you to write lightweight unit tests for your Shell code.
 
 To use shunit2 with Pants:
 
 1. Create a test file like `tests.sh`, `test_foo.sh`, or `foo_test.sh`.
+
 ```
   - Refer to https://github.com/kward/shunit2/ for how to write shUnit2 tests.
 ```
 
 2. Create a `shunit2_tests` target in the directory's BUILD file.
+
 ```
 - You can run [`./pants tailor`](doc:create-initial-build-files) to automate this step.
 ```
 
 3. Specify which shell to run your tests with, either by setting a shebang directly in the test file or by setting the field `shell` on the `shunit2_tests` target.
+
 ```
  - See [here](doc:https://www.pantsbuild.org/docs/reference-shunit2_tests#codeshellcode) for all supported shells.
 
@@ -198,12 +206,14 @@ testEquality() {
   assertEquals 1 1
 }
 ```
+
 </TabItem>
 <TabItem value="scripts/BUILD" label="scripts/BUILD">
 
 ```python
 shunit2_tests()
 ```
+
 </TabItem>
 </Tabs>
 
@@ -236,6 +246,7 @@ testAdd() {
     assertEquals $(add_one 4) 5
 }
 ```
+
 </TabItem>
 <TabItem value="scripts/lib.sh" label="scripts/lib.sh">
 
@@ -244,6 +255,7 @@ add_one() {
     echo $(($1 + 1))
 }
 ```
+
 </TabItem>
 <TabItem value="scripts/BUILD" label="scripts/BUILD">
 
@@ -251,28 +263,27 @@ add_one() {
 shell_library()
 shell_tests(name="tests")
 ```
+
 </TabItem>
 </Tabs>
 
-
-
 :::note Running your tests with multiple shells
 
-    Pants allows you to run the same tests against multiple shells, e.g. Bash and Zsh, to ensure your code works with each shell. 
-    
+    Pants allows you to run the same tests against multiple shells, e.g. Bash and Zsh, to ensure your code works with each shell.
+
     To test multiple shells, create a distinct `shunit2_tests` target for each shell, like this:
-    
+
     ```python
     shunit2_tests(name="tests_bash", shell="bash")
     shunit2_tests(name="tests_zsh", shell="zsh")
     ```
-    
+
     Then, use `./pants test`:
-    
+
     ```bash
     # Run tests with both shells.
     ./pants test scripts/tests.sh
-    
+
     # Run tests with only Zsh.
     ./pants test scripts/tests.sh:tests_zsh
     ```
@@ -284,6 +295,7 @@ shell_tests(name="tests")
 By default, Pants only shows output for failed tests. You can change this by setting `--test-output` to one of `all`, `failed`, or `never`, e.g. `./pants test --output=all ::`.
 
 You can permanently set the output format in your `pants.toml` like this:
+
 ```toml title="pants.toml"
 [test]
 output = "all"
@@ -298,12 +310,14 @@ To force your tests to run again, rather than reading from the cache, run `./pan
 Test runs are _hermetic_, meaning that they are stripped of the parent `./pants` process's environment variables. This is important for reproducibility, and it also increases cache hits.
 
 To add any arbitrary environment variable back to the process, use the option `extra_env_vars` in the `[test]` options scope. You can hardcode a value for the option, or leave off a value to "allowlist" it and read from the parent `./pants` process's environment.
+
 ```toml title="pants.toml"
 [test]
 extra_env_vars = ["VAR1", "VAR2=hardcoded_value"]
 ```
 
 Use `[bash-setup].executable_search_paths` to change the `$PATH` env var used during test runs. You can use the special string `"<PATH>"` to read the value from the parent `./pants` process's environment.
+
 ```toml title="pants.toml"
 [bash-setup]
 executable_search_paths = ["/usr/bin", "<PATH>"]
@@ -314,11 +328,13 @@ executable_search_paths = ["/usr/bin", "<PATH>"]
 Pants can cancel tests that take too long, which is useful to prevent tests from hanging indefinitely.
 
 To add a timeout, set the `timeout` field to an integer value of seconds, like this:
+
 ```python title="BUILD"
 shunit2_tests(name="tests", timeout=120)
 ```
 
 This timeout will apply to each file belonging to the `shunit2_tests` target, meaning that `test_f1.sh` will have a timeout of 120 seconds and `test_f2.sh` will have a timeout of 120 seconds. If you want finer-grained timeouts, create a dedicated `shunit2_tests` target for each file:
+
 ```shell title="BUILD"
 shunit2_tests(
     name="test_f1",
@@ -357,12 +373,14 @@ shunit2_tests(
     runtime_package_dependencies=[":bin"],
 )
 ```
+
 </TabItem>
 <TabItem value="helloworld/say_hello.py" label="helloworld/say_hello.py">
 
 ```python
 print("Hello, test!")
 ```
+
 </TabItem>
 <TabItem value="helloworld/tests.sh" label="helloworld/tests.sh">
 
@@ -373,5 +391,6 @@ testArchiveCreated() {
   assertTrue "[[ -f helloworld/say_hello.pex ]]"
 }
 ```
+
 </TabItem>
 </Tabs>

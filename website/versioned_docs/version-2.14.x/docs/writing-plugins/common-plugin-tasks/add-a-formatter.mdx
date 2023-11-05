@@ -7,14 +7,15 @@ How to add a new formatter to the `fmt` and `lint` goals.
 
 ---
 
-In Pants, every formatter is (typically) also a linter, meaning that if you can run a tool with `./pants fmt`, you can run the same tool in check-only mode with `./pants lint`. Start by skimming [Add a linter](doc:plugins-lint-goal) to familiarize yourself with how linters work. 
+In Pants, every formatter is (typically) also a linter, meaning that if you can run a tool with `./pants fmt`, you can run the same tool in check-only mode with `./pants lint`. Start by skimming [Add a linter](doc:plugins-lint-goal) to familiarize yourself with how linters work.
 
 This guide assumes that you are running a formatter that already exists outside of Pants as a stand-alone binary, such as running Black or Prettier.
 
 If you are instead writing your own formatting logic inline, you can skip Step 1. In Step 4, you will not need to use `Process`.
 
 1. Install your formatter
--------------------------
+
+---
 
 There are several ways for Pants to install your formatter. See [Installing tools](doc:rules-api-installing-tools). This example will use `ExternalTool` because there is already a pre-compiled binary for shfmt.
 
@@ -63,7 +64,8 @@ class Shfmt(ExternalTool):
 ```
 
 2. Set up a `FieldSet` and `FmtRequest`
----------------------------------------
+
+---
 
 As described in [Rules and the Target API](doc:rules-api-and-target-api), a `FieldSet` is a way to tell Pants which `Field`s you care about targets having for your plugin to work.
 
@@ -110,9 +112,10 @@ def rules():
 ```
 
 3. Create `fmt` rules
----------------------
 
-You will need a rule for `fmt` which takes the `FmtRequest` from step 3  (e.g. `ShfmtRequest`) as a parameter and returns a `FmtResult`.
+---
+
+You will need a rule for `fmt` which takes the `FmtRequest` from step 3 (e.g. `ShfmtRequest`) as a parameter and returns a `FmtResult`.
 
 ```python
 @rule(desc="Format with shfmt", level=LogLevel.DEBUG)
@@ -185,9 +188,10 @@ def rules():
     return [*shfmt.rules()]
 ```
 
-Now, when you run `./pants fmt ::` or `./pants lint ::`, your new formatter should run. 
+Now, when you run `./pants fmt ::` or `./pants lint ::`, your new formatter should run.
 
 5. Add tests (optional)
------------------------
+
+---
 
 Refer to [Testing rules](doc:rules-api-testing).

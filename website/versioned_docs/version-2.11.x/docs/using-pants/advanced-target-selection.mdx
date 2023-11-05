@@ -7,12 +7,11 @@ Alternative techniques to tell Pants which files/targets to run on.
 
 ---
 
-See [File arguments vs. target arguments](doc:goals#file-arguments-vs-target-arguments) for the normal techniques for telling Pants what to run on. 
+See [File arguments vs. target arguments](doc:goals#file-arguments-vs-target-arguments) for the normal techniques for telling Pants what to run on.
 
 See [Project introspection](doc:project-introspection) for queries that you can run and then pipe into another Pants run, such as running over certain target types.
 
-Running over changed files with `--changed-since`
--------------------------------------------------
+## Running over changed files with `--changed-since`
 
 Because Pants understands Git, it can find which files have changed since a certain commit through the `--changed-since` option.
 
@@ -43,9 +42,7 @@ $ ./pants \
 
 :::
 
-
-Tags: annotating targets
-------------------------
+## Tags: annotating targets
 
 Every target type has a field called `tags`, which allows you to add a sequence of strings. The strings can be whatever you'd like, such as `"integration_test"`.
 
@@ -75,8 +72,7 @@ You can even combine multiple includes and excludes:
 ./pants --tag='+type_checked,skip_lint' --tag='-integration_test' list ::
 ```
 
-`--spec-files`
---------------
+## `--spec-files`
 
 The global option `--spec-files` allows you to pass a file containing target addresses and/or file names/globs to Pants.
 
@@ -87,22 +83,20 @@ For example:
 ```text title="Shell"
 $ ./pants --spec-files=targets.txt list
 ```
+
 ```text title="targets.txt"
 helloworld/lang/*.py
 helloworld/util
 helloworld/util:tests
 ```
 
-
 :::note Tip: centralized allow/block lists
 
-    
     Whereas `tags` are useful for _decentralized_ allow/block lists, `--spec-files` is useful when you want to define one single list of targets or files.
 
 :::
 
-Piping to other Pants runs
---------------------------
+## Piping to other Pants runs
 
 To pipe a Pants run, use your shell's `|` pipe operator and `xargs`:
 
@@ -118,21 +112,19 @@ $ ./pants dependees helloworld/util | \
    xargs ./pants lint
 ```
 
-
 :::note Alternative: use `--spec-files`
 
-    
     Sometimes, you may want to reuse the output of a Pants run for multiple subsequent Pants runs. Rather than repeating `xargs` multiple times, you can generate a file through stdout redirection and `--spec-files`.
-    
+
     For example:
-    
+
     ```bash
     $ ./pants dependencies helloworld/util > util_dependencies.txt
     $ ./pants --spec-files=util_dependencies.txt lint
     ```
-    
+
     If you don't want to save the output to an actual file—such as to not pollute version control—you can use a variable and a named pipe:
-    
+
     ```bash
     $ TARGETS=$(./pants dependencies helloworld/util)
     $ ./pants --spec-files=<(echo $TARGETS) lint
@@ -140,10 +132,9 @@ $ ./pants dependees helloworld/util | \
 
 :::
 
-Sharding the input targets
---------------------------
+## Sharding the input targets
 
-You can leverage shell piping to partition the input targets into multiple shards. 
+You can leverage shell piping to partition the input targets into multiple shards.
 
 For example, to split your Python tests into 10 shards, and select shard 0:
 

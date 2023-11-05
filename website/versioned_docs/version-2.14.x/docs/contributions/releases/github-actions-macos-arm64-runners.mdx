@@ -3,30 +3,26 @@
     position: 2
 ---
 
-
-
 ---
 
 Apple is phasing out their X86_64 hardware, and all new macOS systems are based on the M1 ARM64 processor. Pants must run on these systems, which means we need an M1 CI machine on which to test and package Pants.
 
-Unfortunately, GitHub Actions does not yet have hosted runners for MacOS ARM64. So we must run our own self-hosted runner. This document describes how to set one up. It is intended primarily for Pants maintainers who have to maintain our CI infrastructure, but since there is not much information online about how to set up self-hosted runners on M1, it may be useful as a reference to other projects as well.  One useful resource we did find is [this blog post](https://betterprogramming.pub/run-github-actions-self-hosted-macos-runners-on-apple-m1-mac-b559acd6d783) by Soumya Mahunt, so our thanks to them.
+Unfortunately, GitHub Actions does not yet have hosted runners for MacOS ARM64. So we must run our own self-hosted runner. This document describes how to set one up. It is intended primarily for Pants maintainers who have to maintain our CI infrastructure, but since there is not much information online about how to set up self-hosted runners on M1, it may be useful as a reference to other projects as well. One useful resource we did find is [this blog post](https://betterprogramming.pub/run-github-actions-self-hosted-macos-runners-on-apple-m1-mac-b559acd6d783) by Soumya Mahunt, so our thanks to them.
 
-If you find any errors or omissions in this page, please let us know on [Slack](doc:getting-help#slack) or provide corrections via the "Suggest Edits" link above. 
+If you find any errors or omissions in this page, please let us know on [Slack](doc:getting-help#slack) or provide corrections via the "Suggest Edits" link above.
 
-The machine
------------
+## The machine
 
 As yet there aren't many options for a hosted M1 system:
 
 - AWS has a [preview program](https://aws.amazon.com/about-aws/whats-new/2021/12/amazon-ec2-m1-mac-instances-macos/), which you can sign up for and hope to get into. Once these instances are generally available we can evaluate them as a solution.
 - You can buy an M1 machine and stick it in a closet. You take on the risk of compromising your  
-  network if the machine is compromised by a rogue CI job. 
+  network if the machine is compromised by a rogue CI job.
 - You can rent a cloud-hosted M1 machine by the month from [MacStadium](https://www.macstadium.com/).
 
 We've gone with the MacStadium approach for now.
 
-Connecting to the machine
--------------------------
+## Connecting to the machine
 
 Since this is machine is [a pet, not cattle](https://iamondemand.com/blog/devops-concepts-pets-vs-cattle/), we allow ourselves a somewhat manual, bespoke setup process (we can script this up if it becomes necessary). There are two ways to connect to the machine:
 
@@ -49,16 +45,15 @@ Enter `vnc://XXX.XXX.XXX.XXX` on the local machine's Safari address bar, substit
 
 Screen Sharing will give you a login prompt. Once logged in, you can control the remote machine's desktop in the Screen Sharing window, and even share the clipboard across the two machines.
 
-In this mode you can use the remote machine's desktop UI to make changes, or you can open a terminal and issue the same commands you would via SSH. 
+In this mode you can use the remote machine's desktop UI to make changes, or you can open a terminal and issue the same commands you would via SSH.
 
 A few of the steps below will have both SSH and VNC options, others only SSH (or terminal window in a remote desktop), or only VNC.
 
-Setting up the machine
-----------------------
+## Setting up the machine
 
 ### Change the initial password
 
-The first step is to change the initial `administrator` password to something secure, since the initial password appears as cleartext in the MacStadium ticket 
+The first step is to change the initial `administrator` password to something secure, since the initial password appears as cleartext in the MacStadium ticket
 
 #### SSH
 
@@ -101,7 +96,7 @@ Perform the following setup steps as `administrator`, some steps may request you
 
 # Install Homebrew
 % /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-% echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/administrator/.zshenv   
+% echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/administrator/.zshenv
 % eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Install pyenv
@@ -109,7 +104,7 @@ Perform the following setup steps as `administrator`, some steps may request you
 
 # Set up pyenv
 % echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshenv
-% echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshenv    
+% echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshenv
 % echo 'eval "$(pyenv init -)"' >> ~/.zshenv
 % source ~/.zshenv
 
@@ -136,11 +131,11 @@ We don't want to run actions as the administrator user, so we create a role acco
 
 #### VNC
 
-Go to  > System Preferences > Users & Groups and create a Standard account with the full name `GitHub Actions Runner`, the account name `gha` and a strong password. 
+Go to  > System Preferences > Users & Groups and create a Standard account with the full name `GitHub Actions Runner`, the account name `gha` and a strong password.
 
 ### Set up auto-login
 
-This must be done from the remote desktop, via VNC, as `administrator`. 
+This must be done from the remote desktop, via VNC, as `administrator`.
 
 Go to  > System Preferences > Users & Groups, and click the lock to make changes.
 
@@ -152,11 +147,11 @@ Perform the following setup steps after SSHing in as the `gha` role user:
 
 ```
 # Set up Homebrew
-% echo 'export PATH=$PATH:/opt/homebrew/bin/' >> ~/.zshenv   
+% echo 'export PATH=$PATH:/opt/homebrew/bin/' >> ~/.zshenv
 ...
 # Set up pyenv
 % echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshenv
-% echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshenv    
+% echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshenv
 % echo 'eval "$(pyenv init -)"' >> ~/.zshenv
 % source ~/.zshenv
 ...
@@ -168,16 +163,15 @@ Perform the following setup steps after SSHing in as the `gha` role user:
 % curl https://sh.rustup.rs -sSf | sh -s -- -y
 ```
 
-Note that we use `.zshenv` because the runner will not execute in an interactive shell. 
+Note that we use `.zshenv` because the runner will not execute in an interactive shell.
 
-Setting up the self-hosted runner
----------------------------------
+## Setting up the self-hosted runner
 
 ### Installing the runner
 
 On the GitHub repo's page, go to [Settings > Actions > Runners](https://github.com/pantsbuild/pants/settings/actions/runners).
 
-Click "New self-hosted runner", select macOS and run all the Download and Configure commands it displays, as `gha`, on the remote machine. Set the labels to [`self-hosted`, `macOS`, `ARM64`, `macOS11`]. 
+Click "New self-hosted runner", select macOS and run all the Download and Configure commands it displays, as `gha`, on the remote machine. Set the labels to [`self-hosted`, `macOS`, `ARM64`, `macOS11`].
 
 Accept the default values for other settings.
 
@@ -193,13 +187,12 @@ As `gha`, run:
 # Ensure that the runner starts when the machine starts.
 % ./svc.sh install
 
-# Set up some env vars the runner requires. 
+# Set up some env vars the runner requires.
 % echo 'ImageOS=macos11' >> .env
 % echo "XCODE_11_DEVELOPER_DIR=$(xcode-select -p)" >> .env
 ```
 
-Testing it all out
-------------------
+## Testing it all out
 
 Now use the MacStadium web UI to restart the machine. Once it comes back up it  
 should be able to pick up any job with this setting:

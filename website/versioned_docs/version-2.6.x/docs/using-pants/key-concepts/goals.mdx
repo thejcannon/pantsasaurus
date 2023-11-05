@@ -3,8 +3,8 @@
     position: 0
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 The commands Pants runs.
 
@@ -16,7 +16,7 @@ To satisfy a goal, Pants will use cached data whenever possible, and perform wor
 
 ## Which goals are available?
 
-Pants is an extensible system, so the exact goals that are available depend upon which [backends](doc:enabling-backends)  are enabled.
+Pants is an extensible system, so the exact goals that are available depend upon which [backends](doc:enabling-backends) are enabled.
 
 To see the current list of goals, run:
 
@@ -25,6 +25,7 @@ To see the current list of goals, run:
 ```
 
 For example, if you don't yet have any backends installed, you should see:
+
 ```text title="Shell"
 $ ./pants help goals
 
@@ -55,6 +56,7 @@ Use `./pants help $goal` to get help for a specific goal.
 ## Running goals
 
 Let's try running a goal:
+
 ```text title="Shell"
 $ ./pants test src/python/pants/util/dirutil_test.py
 15:40:37.89 [INFO] Completed: test - src/python/pants/util/dirutil_test.py:tests succeeded.
@@ -63,6 +65,7 @@ $ ./pants test src/python/pants/util/dirutil_test.py
 ```
 
 You can also run multiple goals in a single run of Pants, in which case they will run sequentially:
+
 ```text title="text"
 # Format all code, and then lint it:
 $ ./pants fmt lint ::
@@ -71,6 +74,7 @@ $ ./pants fmt lint ::
 ```
 
 Finally, Pants supports running goals in a `--loop`: in this mode, all goals specified will run sequentially, and then Pants will wait until a relevant file has changed to try running them again.
+
 ```text title="text"
 # Re-run typechecking and testing continuously as files or their dependencies change:
 $ ./pants --loop typecheck test src/python/pants/util/dirutil_test.py
@@ -82,9 +86,10 @@ Use `Ctrl+C` to exit the `--loop`.
 
 ## Goal arguments
 
-Some simple goals—such as the `roots` goal—do not require arguments. But most goals require some arguments to work on. 
+Some simple goals—such as the `roots` goal—do not require arguments. But most goals require some arguments to work on.
 
 For example, to run the `count-loc` goal, which counts lines of code in your repository, you need to provide a set of files and/or targets to run on:
+
 ```text title="Shell"
 $ ./pants count-loc '**'
 ───────────────────────────────────────────────────────────────────────────────
@@ -98,8 +103,6 @@ TOML                         2        65       14        18       33          0
 ...
 ```
 
-
-
 :::note Quoting file patterns
 
     Note the single-quotes around the file pattern `'**'`. This is so that your shell doesn't attempt to expand the pattern, but instead passes it unaltered to Pants.
@@ -112,30 +115,28 @@ TOML                         2        65       14        18       33          0
 
 Goal arguments can be of one of two types:
 
-- *File arguments*: file paths and/or globs.
-- *Target arguments*: addresses and/or address globs of [targets](doc:targets).
+- _File arguments_: file paths and/or globs.
+- _Target arguments_: addresses and/or address globs of [targets](doc:targets).
 
-Any goal can take either type of argument: 
+Any goal can take either type of argument:
 
 - If a target argument is given, the goal acts on all the files in the matching targets.
-- If a file argument is given, Pants will map the file back to its containing target to read any necessary metadata. 
+- If a file argument is given, Pants will map the file back to its containing target to read any necessary metadata.
 
 So again, for the most part, you can just use file arguments and not worry about targets!
 
 :::note File/target globs
 
     For file arguments, use `'*'` and `'**'`, with the same semantics as the shell. Reminder: quote the argument if you want Pants to evaluate the glob, rather than your shell.
-    
+
     For target arguments, you can use:
-    
+
     - `dir::`, where `::` means every target in the current directory and recursively in subdirectories.
     - `dir:`, where `:` means every target in that directory, but not subdirectories.
-    
+
     For example, `./pants list ::` will find every target in your project.
 
 :::
-
-
 
 :::note Tip: advanced target selection, such as running over changed files
 
@@ -145,7 +146,7 @@ So again, for the most part, you can just use file arguments and not worry about
 
 ### Goal options
 
-Many goals also have [options](doc:options) to change how they behave. 
+Many goals also have [options](doc:options) to change how they behave.
 
 To see if a goal has any options, run `./pants help $goal` or `./pants help-advanced $goal`. See [Command Line Help](doc:getting-help) for more information.
 

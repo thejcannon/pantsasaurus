@@ -3,15 +3,13 @@
     position: 0
 ---
 
-
-
 ---
 
 ## Prerequisites
 
 To run Pants, you need:
 
-- Linux (x86_64) or macOS (either Intel or Apple Silicon, 10.15 Catalina or newer). 
+- Linux (x86_64) or macOS (either Intel or Apple Silicon, 10.15 Catalina or newer).
 - Python 3.7, 3.8, or 3.9 discoverable on your `PATH`.
 - Internet access (so that Pants can fully bootstrap itself).
 
@@ -22,49 +20,39 @@ To run Pants, you need:
 
 :::
 
-
-
 :::note Apple Silicon (M1) support
 
     We publish a macOS `arm64` wheel for Python 3.9. Make sure you have Python 3.9 discoverable on your `$PATH`, e.g. via Homebrew or Pyenv, and an updated version of the `./pants` runner script.
-    
+
     Given the lack of CI infrastructure for Apple Silicon, this support is best-effort and there may a delay in publishing this wheel compared to our normal releases.
-    
+
     If you have Python code, you may need to [set your interpreter constraints](doc:python-interpreter-compatibility) to Python 3.9+, as many tools like Black will not install correctly when using earlier Python versions.
-    
+
     Some users have also had success with earlier versions using Rosetta by running `arch -x86_64 pants`. Note that Pants's cache currently does not work properly when switching between architectures; you will need to run `rm -rf ~/.cache/pants` when switching.
 
 :::
 
-
-
 :::caution Alpine Linux is not yet supported
 
-    Pants for Linux is currently distributed as a manylinux wheel. Alpine Linux is not covered by manylinux (it uses MUSL libc while manylinux requires glibc), so at present Pants will not run on Alpine Linux. 
-    
+    Pants for Linux is currently distributed as a manylinux wheel. Alpine Linux is not covered by manylinux (it uses MUSL libc while manylinux requires glibc), so at present Pants will not run on Alpine Linux.
+
     If you need to run Pants on Alpine, [let us know](doc:community), so we can prioritize this work. Meanwhile, you can try [building Pants yourself](#building-pants-from-sources) on Alpine.
 
 :::
 
-
-
 :::caution Linux on ARM is not yet supported
 
     Pants for Linux is currently only distributed as an x86_64 wheel.
-    
+
     If you need to run Pants on ARM, please [comment on this issue](https://github.com/pantsbuild/pants/issues/12183) so we can prioritize this work. Meanwhile, you can try [building Pants yourself](#building-pants-from-sources) on ARM.
 
 :::
-
-
 
 :::note Python 2 compatibility
 
     Pants requires Python 3.7+ to run itself, but it can build Python 2 code (and earlier Python versions like 3.6).
 
 :::
-
-
 
 :::note Using a proxy?
 
@@ -101,8 +89,8 @@ Now, run this to bootstrap Pants and to verify the version it installs:
 
 :::
 
-
 ### Building Pants from sources
+
 We currently distribute Pants for Linux (x86_64) and macOS.
 
 If you need to run Pants on some other platform, such as Linux on ARM or Alpine Linux, you can try building it yourself by checking out the [Pants repo](https://github.com/pantsbuild/pants), and running `./pants package src/python/pants:pants-packaged` to build a wheel.

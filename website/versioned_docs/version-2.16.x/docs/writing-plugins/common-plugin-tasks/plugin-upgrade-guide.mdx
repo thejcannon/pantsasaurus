@@ -7,8 +7,7 @@ How to adjust for changes made to the Plugin API.
 
 ---
 
-2.16
-----
+## 2.16
 
 ### `RunFieldSet` and `TestRequest` now have a `.rules()` method
 
@@ -31,13 +30,12 @@ With the new `experimental_run_in_sandbox` target type, targets that implement `
 
 Many rules that create `RunRequest`s can be used verbatim, but others may make assumptions that they will not be run hermetically. You will need set `run_in_sandbox_behavior` to one of the following values to generate a rule that allows your targets to be run in the sandbox:
 
-* `RunInSandboxBehavior.RUN_REQUEST_HERMETIC`: Use the existing `RunRequest`-generating rule, and enable cacheing. Use this if you are confident the behaviour of the rule relies only on state that is captured by pants (e.g. binary paths are found using `EnvironmentVarsRequest`), and that the rule only refers to files in the sandbox.
-* `RunInSandboxBehavior.RUN_REQUEST_NOT_HERMETIC`: Use the existing `RunRequest`-generating rule, and do not enable cacheing. Use this if your existing rule is mostly suitable for use in the sandbox, but you cannot guarantee reproducible behavior.
-* `RunInSandboxBehavior.CUSTOM`: Opt to write your own rule that returns `RunInSandboxRequest`.
-* `RunInSandboxBehavior.NOT_SUPPORTED`: Opt out of being usable in `experimental_run_in_sandbox`. Attempting to use such a target will result in a runtime exception.
+- `RunInSandboxBehavior.RUN_REQUEST_HERMETIC`: Use the existing `RunRequest`-generating rule, and enable cacheing. Use this if you are confident the behaviour of the rule relies only on state that is captured by pants (e.g. binary paths are found using `EnvironmentVarsRequest`), and that the rule only refers to files in the sandbox.
+- `RunInSandboxBehavior.RUN_REQUEST_NOT_HERMETIC`: Use the existing `RunRequest`-generating rule, and do not enable cacheing. Use this if your existing rule is mostly suitable for use in the sandbox, but you cannot guarantee reproducible behavior.
+- `RunInSandboxBehavior.CUSTOM`: Opt to write your own rule that returns `RunInSandboxRequest`.
+- `RunInSandboxBehavior.NOT_SUPPORTED`: Opt out of being usable in `experimental_run_in_sandbox`. Attempting to use such a target will result in a runtime exception.
 
 We expect to deprecate `RUN_REQUEST_NOT_HERMETIC` and `NOT_SUPPORTED` in a few versions time: these options are provided to give you some time to make your existing rules match the semantics of `RUN_REQUEST_HERMETIC`, or to add a `CUSTOM` rule.
-
 
 ### `BinaryShimsRequest` no longer accepts `output_directory`
 
@@ -58,9 +56,7 @@ You can replicate the previous behavior using `AddDigest`:
 new_digest = await Get(Digest, AddDigest(binary_shims.digest, output_directory))
 ```
 
-
-2.15
-----
+## 2.15
 
 ### `lint` and `fmt` schema changes
 
@@ -87,7 +83,7 @@ In order to support targetless formatters, `fmt` needs to know which _files_ you
 
 This way `fmt` can serialize tool runs that operate on the same file(s) while parallelizing tool runs that don't overlap.
 
-(Why are targetless formatters something we want to support? This allows us to have `BUILD` file formatters, formatters like `Prettier` running on your codebase *without* boilerplate targets, as well as Pants doing interesting deprecation fixers on its own files)
+(Why are targetless formatters something we want to support? This allows us to have `BUILD` file formatters, formatters like `Prettier` running on your codebase _without_ boilerplate targets, as well as Pants doing interesting deprecation fixers on its own files)
 
 The partitioner rule gives you all the matching files (or `FieldSet`s depending on which class you subclassed) and you'll return a mapping from `<key>` to files (called a Partition). The `<key>` can be anything passable at the rule boundary and is given back to you in your runner rule. The partitioner rule gives you an opportunity to perform expensive `Get`s once for the entire run, to partition the inputs based on metadata to simplify your runner, and to have a place for easily skipping your tool if requested.
 
@@ -95,7 +91,7 @@ The runner rule will mostly remain unchanged, aside from the request type (`<Req
 
 If you don't require any `Get`s or metadata for your tool in your partitioner rule, Pants has a way to provide a "default" implementation. In your `FmtRequest` subclass, set the `partitioner_type` class variable to `PartitionerType.DEFAULT_SINGLE_PARTITION` and only provide a runner rule.
 
------
+---
 
 Lint:
 
@@ -104,7 +100,7 @@ Lint plugins are almost identical to format plugins, except in 2 ways:
 1. Your partitioner rule still returns a `Partitions` object, but the element type can be anything.
 2. `<RequestType>.Batch` has a `.elements` field instead of `.files`.
 
------
+---
 
 As always, taking a look at Pants' own plugins can also be very enlightening.
 
@@ -177,24 +173,25 @@ This will prevent registration of the default "partitioner" rule, allowing you t
 
 ### `EnvironmentName` is now required to run processes, get environment variables, etc
 
-Pants 2.15 introduces the concept of ["Target Environments"](doc:environments), which allow Pants to execute processes in remote or local containerized environments (using Docker), and to specify configuration values for those environments. 
+Pants 2.15 introduces the concept of ["Target Environments"](doc:environments), which allow Pants to execute processes in remote or local containerized environments (using Docker), and to specify configuration values for those environments.
 
 In order to support the new environments feature, an `EnvironmentName` parameter is now required in order to:
-* Run a `Process`
-* Get environment variables
-* Inspect the current `Platform`
+
+- Run a `Process`
+- Get environment variables
+- Inspect the current `Platform`
 
 This parameter is often provided automatically from a transitive value provided earlier in the call graph. The choice of whether to use a local or alternative environment must be made at a `@goal_rule` level.
 
 In many cases, the local execution environment is sufficient. If so, your rules will not require significant work to migrate, and execution will behave similarly to pre-2.15 versions of Pants.
 
-In cases where the environment needs to be factored into to rule execution, you'll need to do some work. 
+In cases where the environment needs to be factored into to rule execution, you'll need to do some work.
 
 2.15 adds a deprecation warning for all goals that have not considered whether they need to use the execution environment.
 
 #### `Goal.environment_behavior`
 
-2.15 adds the `environment_behavior` property to the `Goal` class, which controls whether an `EnvironmentName` is automatically injected when a `@goal_rule` runs. 
+2.15 adds the `environment_behavior` property to the `Goal` class, which controls whether an `EnvironmentName` is automatically injected when a `@goal_rule` runs.
 
 When `environment_behavior=Goal.EnvironmentBehavior.UNMIGRATED` (the default), the `QueryRule` that is installed for a `@goal_rule` will include an `EnvironmentName` and will raise a deprecation warning.
 
@@ -204,7 +201,8 @@ If your Goal only ever needs to use the local target environment, use `environme
 
 If your goal needs to select the target's specified environment when running underlying rules, set `environment_behavior=Goal.EnvironmentBehavior.USES_ENVIRONMENTS`, which will silence the deprecation. Unlike for the `LOCAL_ONLY` behavior, any rules that require an `EnvironmentName` will need to specify that name directly.
 
- In general, `Goal`s should use `EnvironmentNameRequest` to get `EnvironmentName`s for the targets that they will be operating on.
+In general, `Goal`s should use `EnvironmentNameRequest` to get `EnvironmentName`s for the targets that they will be operating on.
+
 ```python
 Get(
     EnvironmentName,
@@ -214,11 +212,12 @@ Get(
 ```
 
 Then, the `EnvironmentName` should be used at `Get` callsites which require an environment:
+
 ```python
 Get(TestResult, {field_set: TestFieldSet, environment_name: EnvironmentName})
 ```
-The multi-parameter `Get` syntax provides the value transitively, and so will need to be used in many `Get` callsites in `@goal_rule`s which transitively run processes, consume the platform, etc. One exception is that (most of) the APIs provided by `pants.engine.target` are pinned to running in the `__local__` environment, and so do not require an `EnvironmentName` to use.
 
+The multi-parameter `Get` syntax provides the value transitively, and so will need to be used in many `Get` callsites in `@goal_rule`s which transitively run processes, consume the platform, etc. One exception is that (most of) the APIs provided by `pants.engine.target` are pinned to running in the `__local__` environment, and so do not require an `EnvironmentName` to use.
 
 #### `RuleRunner.inherent_environment`
 
@@ -277,8 +276,7 @@ The `Platform` to use will soon become dependent on a `@rule`'s position in the 
 
 The `convert_dir_literal_to_address_literal` keyword argument for `RawSpecs.create()` and `SpecsParser.parse_specs()` no longer does anything. It should be deleted.
 
-2.14
-----
+## 2.14
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.14.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.14.x.md) for the changelog.
 
@@ -334,8 +332,7 @@ Instead, use `FilespecMatcher(includes=[], excludes=[]).matches(paths: Sequence[
 
 The functionality is the same, but can have better performance because we don't need to parse the same globs each time `.matches()` is called. When possible, reuse the same `FilespecMatcher` object to get these performance benefits.
 
-2.13
-----
+## 2.13
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.13.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.13.x.md) for the changelog.
 
@@ -370,17 +367,17 @@ await Get(WrappedTarget, WrappedTargetRequest(my_address, description_of_origin=
 
 Specs, aka command line arguments, were redesigned in Pants 2.13:
 
-* The globs `::` and `:` now match all files, even if there are no owning targets.
-* Directory args like `my_dir/` can be set to match everything in the current directory, rather than the default target `my_dir:my_dir`.
-* Ignore globs were added with a `-` prefix, like `:: -ignore_me::`
+- The globs `::` and `:` now match all files, even if there are no owning targets.
+- Directory args like `my_dir/` can be set to match everything in the current directory, rather than the default target `my_dir:my_dir`.
+- Ignore globs were added with a `-` prefix, like `:: -ignore_me::`
 
 To support these changes, we redesigned the class `Specs` and its sibling classes like `AddressSpecs`.
 
 Renames for `Spec` subclass:
 
-* `SiblingAddresses` -> `DirGlobSpec` (vs. `DirLiteralSpec`)
-* `DescendantAddresses` -> `RecursiveGlobSpec`
-* `AscendantAddresses` -> `AncestorGlobSpec`
+- `SiblingAddresses` -> `DirGlobSpec` (vs. `DirLiteralSpec`)
+- `DescendantAddresses` -> `RecursiveGlobSpec`
+- `AscendantAddresses` -> `AncestorGlobSpec`
 
 Those classes now have a keyword arg `error_if_no_target_matches`, rather than having a distinct class like `MaybeDescendantAddresses`.
 
@@ -418,8 +415,7 @@ You must now use a long option name when [defining options](doc:rules-api-subsys
 
 (These changes allowed us to introduce ignore specs, like `pants list :: -ignore_me::`.)
 
-2.12
-----
+## 2.12
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.12.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.12.x.md) for the changelog.
 
@@ -429,8 +425,7 @@ Formatters no longer need to be installed in both the `FmtRequest` and `LintTarg
 
 See [Add a formatter](doc:plugins-fmt-goal) for more information.
 
-2.11
-----
+## 2.11
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.11.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.11.x.md) for the changelog.
 
@@ -488,8 +483,7 @@ See [https://github.com/pantsbuild/pants/pull/14962](https://github.com/pantsbui
 
 See [https://github.com/pantsbuild/pants/pull/14313](https://github.com/pantsbuild/pants/pull/14313) for an explanation and some examples of how to fix.
 
-2.10
-----
+## 2.10
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.10.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.10.x.md) for the changelog.
 
@@ -553,8 +547,7 @@ See [https://github.com/pantsbuild/pants/pull/14231](https://github.com/pantsbui
 
 This type was used to determine the owners of a Python module. The new name makes that more clear. See [https://github.com/pantsbuild/pants/pull/14276](https://github.com/pantsbuild/pants/pull/14276).
 
-2.9
----
+## 2.9
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.9.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.9.x.md) for the changelog.
 
@@ -562,8 +555,7 @@ See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.9.x.
 
 Instead, for your `RuleRunner` tests, use `.write_files()`. See [https://github.com/pantsbuild/pants/pull/13817](https://github.com/pantsbuild/pants/pull/13817) for some examples.
 
-2.8
----
+## 2.8
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.8.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.8.x.md) for the changelog.
 
@@ -593,8 +585,7 @@ You should update all references to these classes in your `@rule`s.
 
 The method `OutputPathField.value_or_default()` no longer takes `Address` as an argument.
 
-2.7
----
+## 2.7
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.7.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.7.x.md) for the changelog.
 
@@ -606,8 +597,7 @@ Pants was not using PEP 561 properly, which means that MyPy would not enforce ty
 
 For example, use `my-subsystem` instead of `my_subsystem`. This is to avoid ambiguity with target types.
 
-2.6
----
+## 2.6
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.6.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.6.x.md) for the changelog.
 
@@ -621,8 +611,7 @@ See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.6.x.
 
 Now called `InterpreterConstraints` and defined in `pants.backend.python.util_rules.interpreter_constraints`.
 
-2.5
----
+## 2.5
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.5.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.5.x.md) for the changelog.
 
@@ -636,8 +625,7 @@ Use `TriBoolField` if you still want to be able to represent a trinary state: `F
 
 This is a more declarative way to set up files than the older API of `RuleRunner.create_file()`, `.create_files()`, and `.add_to_build_files()`. See [Testing plugins](doc:rules-api-testing).
 
-2.4
----
+## 2.4
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.4.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.4.x.md) for the changelog.
 
@@ -653,13 +641,11 @@ Instead, use `await Get(Environment, EnvironmentRequest(["MY_ENV_VAR"])`.
 
 For `RuleRunner` tests, you must now either set `env` or the new `env_inherit` arguments for environment variables to be set. Tests are now hermetic.
 
-2.3
----
+## 2.3
 
 There were no substantial changes to the Plugin API in 2.3. See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.3.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.3.x.md) for the changelog.
 
-2.2
----
+## 2.2
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.2.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.2.x.md) for the changelog.
 
@@ -691,8 +677,7 @@ class MyField(StringField):
 
 Pants will now properly wrap strings and preserve newlines. You may want to run `pants help ${target/subsystem}` to verify things render properly.
 
-2.1
----
+## 2.1
 
 See [https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.1.x.rst](https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.1.x.rst) for the changelog.
 
@@ -700,8 +685,7 @@ See [https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.1.
 
 The type was renamed for clarity. Still import it from `pants.engine.fs`.
 
-2.0
----
+## 2.0
 
 See [https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.0.x.rst](https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.0.x.rst) for the changelog.
 

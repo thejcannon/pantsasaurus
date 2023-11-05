@@ -3,16 +3,18 @@
     position: 5
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 How to include resources such as images and config files in your project.
 
 ---
 
 There are two ways to include resource files in your project: `resources` targets and `files` targets.
+
 ## `resources`
-A `resources` target is for files that are members of code packages, and are loaded via language-specific mechanisms, such as Python's `pkgutil.get_data()` or Java's `getResource()`.  
+
+A `resources` target is for files that are members of code packages, and are loaded via language-specific mechanisms, such as Python's `pkgutil.get_data()` or Java's `getResource()`.
 
 Pants will make resources available on the appropriate runtime path, such as Python's `PYTHONPATH` or the JVM classpath. Resources can be loaded directly from a binary in which they are embedded, such as a Pex file, without first unpacking it.
 
@@ -28,6 +30,7 @@ if __name__ == "__main__":
     config = pkgutil.get_data("project", "config.json").decode("utf-8")
     print(f"Config: {config}")
 ```
+
 </TabItem>
 <TabItem value="src/python/project/BUILD" label="src/python/project/BUILD">
 
@@ -42,17 +45,21 @@ resources(
   sources=["config.json"],
 )
 ```
+
 </TabItem>
 <TabItem value="src/python/project/config.json" label="src/python/project/config.json">
 
 ```json
-{"k1": "v", "k2": "v"} 
+{ "k1": "v", "k2": "v" }
 ```
+
 </TabItem>
 </Tabs>
 
- [Source root](doc:source-roots) stripping applies to resources, just as it does for code. In the example above, Python loads the resource named `project/config`, rather than `src/python/project/config.json`. 
+[Source root](doc:source-roots) stripping applies to resources, just as it does for code. In the example above, Python loads the resource named `project/config`, rather than `src/python/project/config.json`.
+
 ## `files`
+
 A `files` target is for loose files that are copied into the chroot where Pants runs your code. You can then load these files through direct mechanisms like Python's `open()` or Java's `FileInputStream`. The files are not associated with a code package, and must be extracted out of a deployed archive file before they can be loaded.
 
 For example, to load loose files in Python:
@@ -66,6 +73,7 @@ def test_open_file():
         content = f.read().decode()
     assert content == '{"k1": "v", "k2": "v"}'
 ```
+
 </TabItem>
 <TabItem value="src/python/project/BUILD" label="src/python/project/BUILD">
 
@@ -80,12 +88,14 @@ files(
   sources=["config.json"],
 )
 ```
+
 </TabItem>
 <TabItem value="src/python/project/config.json" label="src/python/project/config.json">
 
 ```json
-{"k1": "v", "k2": "v"} 
+{ "k1": "v", "k2": "v" }
 ```
+
 </TabItem>
 </Tabs>
 
@@ -104,26 +114,27 @@ Instead, use `resources` targets or an `archive` target.
 
 ### When to use `resources`
 
-Use `resources`  for files that are associated with (and typically live alongside) the code that loads them. That code's target (e.g. the `python_library`) should depend on the `resources` target, ensuring that code and data together are embedded directly in a binary package, such as a wheel, Pex file or AWS Lambda.
+Use `resources` for files that are associated with (and typically live alongside) the code that loads them. That code's target (e.g. the `python_library`) should depend on the `resources` target, ensuring that code and data together are embedded directly in a binary package, such as a wheel, Pex file or AWS Lambda.
 
 ### When to use `files`
 
 Use `files` for files that aren't tightly coupled to any specific code, but need to be deployed alongside a binary, such as images served by a web server.
 
 When writing tests, it is also often more convenient to open a file than to load a resource.
-|  | `resources` | `files` |
+| | `resources` | `files` |
 | :--- | :--- | :--- |
 | **Runtime path** | Relative to source root | Relative to repo root |
 | **Loading mechanism** | Language's package loader, relative to package | Language's file loading idioms, relative to repo root |
 | **Use with** | Targets that produce binaries, such as `pex_binary`, `python_distribution`, `python_awslambda`. | `archive` targets, tests |
 
-
 ## `relocated_files`
+
 When you use a `files` target, Pants will preserve the path to the files, relative to your build root. For example, the file `src/assets/logo.png` in your repo would be under this same path in the runtime chroot.
 
 However, you may want to change the path to something else. For example, when creating an `archive` target and setting the `files` field, you might want those files to be placed at a different path in the archive; rather than `src/assets/logo.png`, for example, you might want the file to be at `imgs/logo.png`.
 
 You can use the `relocated_files` target to change the path used at runtime for the files. Your other targets can then add this target to their `dependencies` field, rather than using the original `files` target:
+
 ```python title="title="src/assets/BUILD""
 # Original files target.
 files(
@@ -145,10 +156,13 @@ As you'd expect, you can use an empty string in the `src` to add to an existing 
 If you want multiple different re-mappings for the same original files, you can define multiple `relocated_files` targets.
 
 The `relocated_files` target only accepts `files` targets in its `files_targets` field. To relocate where other targets like `resources` and `python_library` show up at runtime, you need to change where that code is located in your repository.
+
 ## `archive`: create a `zip` or `tar` file
+
 Running `./pants package` on an `archive` target will create a zip or tar file with built packages and/or loose files included. This is often useful when you want to create a binary and bundle it with some loose config files.
 
 For example:
+
 ```python title="title="project/BUILD""
 archive(
     name="app_with_config",

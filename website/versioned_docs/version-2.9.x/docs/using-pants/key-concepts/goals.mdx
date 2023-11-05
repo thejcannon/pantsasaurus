@@ -3,8 +3,8 @@
     position: 0
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 The commands Pants runs.
 
@@ -49,9 +49,10 @@ Use `Ctrl+C` to exit the `--loop`.
 
 ## Goal arguments
 
-Some simple goals—such as the `roots` goal—do not require arguments. But most goals require some arguments to work on. 
+Some simple goals—such as the `roots` goal—do not require arguments. But most goals require some arguments to work on.
 
 For example, to run the `count-loc` goal, which counts lines of code in your repository, you need to provide a set of files and/or targets to run on:
+
 ```text title="Shell"
 $ ./pants count-loc '**'
 ───────────────────────────────────────────────────────────────────────────────
@@ -65,8 +66,6 @@ TOML                         2        65       14        18       33          0
 ...
 ```
 
-
-
 :::note Quoting file patterns
 
     Note the single-quotes around the file pattern `'**'`. This is so that your shell doesn't attempt to expand the pattern, but instead passes it unaltered to Pants.
@@ -77,30 +76,28 @@ TOML                         2        65       14        18       33          0
 
 Goal arguments can be of one of two types:
 
-- *File arguments*: file paths and/or globs.
-- *Target arguments*: addresses and/or address globs of [targets](doc:targets).
+- _File arguments_: file paths and/or globs.
+- _Target arguments_: addresses and/or address globs of [targets](doc:targets).
 
 Typically you can just use file arguments, and not worry about targets.
 
-Any goal can take either type of argument: 
+Any goal can take either type of argument:
 
 - If a target argument is given, the goal acts on all the files in the matching targets.
-- If a file argument is given, Pants will map the file back to its containing target to read any necessary metadata. 
+- If a file argument is given, Pants will map the file back to its containing target to read any necessary metadata.
 
 :::note File/target globs
 
     For file arguments, use `'*'` and `'**'`, with the same semantics as the shell. Reminder: quote the argument if you want Pants to evaluate the glob, rather than your shell.
-    
+
     For target arguments, you can use:
-    
+
     - `dir::`, where `::` means every target in the current directory and recursively in subdirectories.
     - `dir:`, where `:` means every target in that directory, but not subdirectories.
-    
+
     For example, `./pants list ::` will find every target in your project.
 
 :::
-
-
 
 :::note Tip: advanced target selection, such as running over changed files
 
@@ -110,7 +107,7 @@ Any goal can take either type of argument:
 
 ### Goal options
 
-Many goals also have [options](doc:options) to change how they behave. 
+Many goals also have [options](doc:options) to change how they behave.
 
 To see if a goal has any options, run `./pants help $goal` or `./pants help-advanced $goal`. See [Command Line Help](doc:getting-help) for more information.
 

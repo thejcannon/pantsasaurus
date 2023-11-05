@@ -3,8 +3,8 @@
     position: 3
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 How to add a new code generator to Pants.
 
@@ -26,7 +26,9 @@ This guide walks through each step of adding Protobuf to generate Python sources
 This guide assumes that you are running a code generator that already exists outside of Pants as a stand-alone binary, such as running Protoc or Thrift.
 
 If you are instead writing your own code generation logic inline, you can skip Step 2. In Step 4, rather than running a `Process`, use [`CreateDigest`](doc:rules-api-file-system).
+
 ## 1. Create a target type for the protocol
+
 You will need a define a new target type to allow users to provide metadata for their protocol files, e.g. their `.proto` files. See [Creating new targets](doc:target-api-new-targets) for a guide on how to do this.
 
 ```python
@@ -41,7 +43,7 @@ class ProtobufLibrary(Target):
 
     alias = "protobuf_library"
     core_fields = (*COMMON_TARGET_FIELDS, Dependencies, ProtobufSources)
-``` 
+```
 
 You should define a subclass of `Sources`, like `ProtobufSources` or `ThriftSources`. This is important for Step 3.
 
@@ -55,7 +57,7 @@ Instead, you can optionally add any additional fields that you would like throug
 
 ### Add dependency injection (Optional)
 
-Often, generated files will depend on a runtime library to work. For example, Python files generated from Protobuf depend on the `protobuf` library. 
+Often, generated files will depend on a runtime library to work. For example, Python files generated from Protobuf depend on the `protobuf` library.
 
 Instead of users having to explicitly add this dependency every time, you can dynamically inject this dependency for them.
 
@@ -63,7 +65,7 @@ To inject dependencies:
 
 1. Subclass the `Dependencies` field. Register this subclass on your protocol target type.
 2. Define a subclass of `InjectDependenciesRequest` and set the class property `inject_for` to the `Dependencies` subclass defined in the previous step. Register this new class with a [`UnionRule`](doc:rules-api-unions) for `InjectDependenciesRequest`.
-3. Create a new rule that takes your new  `InjectDependenciesRequest` subclass as a parameter and returns `InjectedDependencies`.
+3. Create a new rule that takes your new `InjectDependenciesRequest` subclass as a parameter and returns `InjectedDependencies`.
 
 ```python
 from pants.engine.addresses import Address
@@ -95,8 +97,10 @@ def rules():
     ]
 ```
 
-This example hardcodes the injected address. You can instead add logic to your rule to make this dynamic. For example, in Pants's Protobuf implementation, the `python-protobuf` [subsystem](doc:rules-api-subsystems)  has a `--runtime-dependencies` option. The rule takes that subsystem as a parameter, and then converts the option's string value to an address with `Get(Addresses, UnparsedAddressInputs)`. See [protobuf/python/python_protobuf_subsystem.py](https://github.com/pantsbuild/pants/blob/master/src/python/pants/backend/codegen/protobuf/python/python_protobuf_subsystem.py).
+This example hardcodes the injected address. You can instead add logic to your rule to make this dynamic. For example, in Pants's Protobuf implementation, the `python-protobuf` [subsystem](doc:rules-api-subsystems) has a `--runtime-dependencies` option. The rule takes that subsystem as a parameter, and then converts the option's string value to an address with `Get(Addresses, UnparsedAddressInputs)`. See [protobuf/python/python_protobuf_subsystem.py](https://github.com/pantsbuild/pants/blob/master/src/python/pants/backend/codegen/protobuf/python/python_protobuf_subsystem.py).
+
 ## 2. Install your code generator
+
 There are several ways for Pants to install your tool. See [Installing tools](doc:rules-api-installing-tools). This example will use `ExternalTool` because there is already a pre-compiled binary for Protoc.
 
 ```python
@@ -123,7 +127,9 @@ class Protoc(ExternalTool):
     def generate_exe(self, _: Platform) -> str:
         return "./bin/protoc"
 ```
+
 ## 3. Create a `GenerateSourcesRequest`
+
 `GenerateSourcesRequest` tells Pants the `input` and the `output` of your code generator, such as going from `ProtobufSources -> PythonSources`. Pants will use this to determine when to use your code generation implementation.
 
 Subclass `GenerateSourcesRequest`:
@@ -154,7 +160,9 @@ def rules():
         UnionRule(GenerateSourcesRequest, GeneratePythonFromProtobufRequest),
     ]
 ```
+
 ## 4. Create a rule for your codegen logic
+
 Your rule should take as a parameter the `GenerateSourcesRequest` from Step 3 and the `Subsystem` (or `ExternalTool`) from Step 2. It should return `GeneratedSources`.
 
 ```python
@@ -273,6 +281,7 @@ async def generate_python_from_protobuf(
 ```
 
 Finally, update your plugin's `register.py` to activate this file's rules.
+
 ```python title="title="pants-plugins/protobuf/register.py""
 from protobuf import python_support
 
@@ -280,11 +289,9 @@ def rules():
     return [*python_support.rules()]
 ```
 
-
-
 :::note Tip: testing out if your implementation is working
 
-```
+````
 Because codegen is only triggered when call sites specifically request it, there is no quick way to verify that your new rule works correctly.
 
 It may help to add a temporary [`@goal_rule`](doc:rules-api-goal-rules) when iterating, like this:
@@ -322,7 +329,8 @@ async def test_codegen(targets: Targets, workspace: Workspace) -> TestCodegen:
 
 def rules():
     return collect_rules()
-```
+````
+
 Replace `for_sources_types` with the `Sources` type your implementation generates.
 
 Then, update your plugin's `register.py` to register this new rule, and run `./pants codegen path/to/protocol_file.ext`.
@@ -342,3 +350,4 @@ You should check that everywhere you're expecting is using your new codegen impl
 It may also be helpful to inspect the code for the rest of your plugin and/or Pants's own rules that you're using. Check that `HydrateSourcesRequest` and `SourceFilesRequest` have set `enable_codegen=True` and that they put the correct value for the argument `for_sources_type`.
 ## 6. Add tests (optional)
 Refer to [Testing rules](doc:rules-api-testing).
+```

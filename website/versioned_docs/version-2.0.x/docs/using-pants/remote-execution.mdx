@@ -3,10 +3,7 @@
     position: 999
 ---
 
-
-
 ---
-
 
 :::caution Remote execution support is still experimental
 
@@ -33,9 +30,9 @@ The REAPI model contains the notion of an "instance." An "instance" is a distinc
 
 In order to use remote execution, you will need access to a server that complies with REAPI. Pants is known to work with:
 
-* [BuildBarn](https://github.com/buildbarn/bb-remote-execution)
-* [Buildfarm](https://github.com/bazelbuild/bazel-buildfarm/) 
-* [BuildGrid](https://buildgrid.build/)
+- [BuildBarn](https://github.com/buildbarn/bb-remote-execution)
+- [Buildfarm](https://github.com/bazelbuild/bazel-buildfarm/)
+- [BuildGrid](https://buildgrid.build/)
 
 **Note**: Setup of a remote execution server is beyond the scope of this documentation. All three server projects have support channels on the BuildTeamWorld Slack. [Go here to obtain an invite to that Slack.](https://bit.ly/2SG1amT)
 
@@ -96,8 +93,8 @@ If the REAPI server requires TLS for the connection, then you will need to set t
 
 Note: If `remote_ca_certs_path` is set, TLS will be enabled. To disable TLS, this option must be unset (whether by commenting it out or deleting it).
 
-* On macOS, use `/etc/ssl/cert.pem`.
-* On Linux (Ubuntu), ensure the `ca-certificates` package is installed and use `/etc/ssl/certs/ca-certificates.crt`.
+- On macOS, use `/etc/ssl/cert.pem`.
+- On Linux (Ubuntu), ensure the `ca-certificates` package is installed and use `/etc/ssl/certs/ca-certificates.crt`.
 
 Assume that the REAPI server is running on port 443 (https/TLS) at build.example.com and that Pants is running on Linux. Then the relevant parts of `pants.toml` would contain:
 
@@ -110,7 +107,6 @@ remote_instance_name = "main"
 remote_ca_certs_path = "/etc/ssl/certs/ca-certificates.crt" # assumes Linux / Ubuntu
 ```
 
-
 ## Reference
 
 The options related to remote execution are:
@@ -120,7 +116,7 @@ The options related to remote execution are:
 | `--remote-execution-server` | string | HOST:PORT of a REAPI-compliant execution service |
 | `--remote-store-server` | string | HOST:PORT of a REAPI-compliant content-addressable storage service ("CAS") |
 | `--remote_instance_name` | string | The name of the REAPI "instance" to pass to the REAPI server. An REAPI "instance" is a distinct deployment of the CAS and execution service given a unique name. This can be the empty string if the server supports such usage. |
-| `--remote_oauth_bearer_token_path` | string | Path to a file containing an authorization token to pass in remote execution requests.  Necessary only if the server requires authentication. The token will be placed in the `authorization` header in gRPC requests as `Bearer TOKEN`. |
+| `--remote_oauth_bearer_token_path` | string | Path to a file containing an authorization token to pass in remote execution requests. Necessary only if the server requires authentication. The token will be placed in the `authorization` header in gRPC requests as `Bearer TOKEN`. |
 | `--remote_execution_extra_platform_properties` | list of strings | Key/value pairs for the platform properties to set on remote execution requests. Each list element should be in the form `KEY=VALUE`. |
 | `--remote_ca_certs_path` | string | Path to a file containing the TLS root certificate store. The path varies by operating system. |
 | `--process_execution_remote_parallelism` | integer | Maximum number of concurrent remote execution requests to submit to the REAPI server at any one time. |
