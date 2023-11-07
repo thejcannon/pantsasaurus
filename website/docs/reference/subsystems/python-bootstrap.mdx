@@ -1,0 +1,99 @@
+---
+title: python-bootstrap
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options used to locate Python interpreters.
+
+This subsystem controls where and how Pants will locate Python, but beyond that it does not control which Python interpreter versions are actually used for your code: see the `python` subsystem for that.
+
+Backend: <span style={{ color: "var(--ifm-color-primary)" }}>`pants.core`</span>
+
+Config section: <span style={{ color: "var(--ifm-color-primary)" }}>`[python-bootstrap]`</span>
+
+## Basic options
+
+<span className={styles.options}>
+
+None
+
+## Advanced options
+
+### `internal_python_build_standalone_info`
+
+<Option
+  cli_repr={`--python-bootstrap-internal-python-build-standalone-info="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_PYTHON_BOOTSTRAP_INTERNAL_PYTHON_BUILD_STANDALONE_INFO'
+>
+  
+
+A map from platform to the information needed to download Python Build Standalone.
+
+Python Build Standalone is used to run Python-implemented Pants tools/scripts in docker environments (so that Python doesn't need to be installed).
+
+The version of Python provided should match the default value's version, which is the highest Python Major/Minor version compatible with the Pants package's interpreter constraints. Additionally, the downloaded file should be extractable by `tar` using `-xvf` (most likely a `.tar.gz` file).
+
+The schema is `\<string platform key>\: (\<string url>, \<string fingerprint>, \<int bytelen>)` for each possible platform.
+
+</Option>
+
+
+### `search_path`
+
+<Option
+  cli_repr={`--python-bootstrap-search-path="[<binary-paths>, <binary-paths>, ...]"`}
+  env_repr='PANTS_PYTHON_BOOTSTRAP_SEARCH_PATH'
+>
+  
+
+A list of paths to search for Python interpreters.
+
+Which interpreters are actually used from these paths is context-specific\: the Python backend selects interpreters using options on the `python` subsystem, in particular, the `[python].interpreter_constraints` option.
+
+You can specify absolute paths to interpreter binaries and/or to directories containing interpreter binaries. The order of entries does not matter.
+
+The following special strings are supported\:
+
+For all runtime environment types\:
+
+- `\<PATH>`, the contents of the PATH env var
+
+When the environment is a `local_environment` target\:
+
+- `\<ASDF>`, all Python versions currently configured by ASDF `(asdf shell, $\{HOME}/.tool-versions)`, with a fallback to all installed versions
+- `\<ASDF_LOCAL>`, the ASDF interpreter with the version in `BUILD_ROOT/.tool-versions`
+- `\<PYENV>`, all Python versions under `$(pyenv root)/versions`
+- `\<PYENV_LOCAL>`, the Pyenv interpreter with the version in `BUILD_ROOT/.python-version`
+- `\<PEXRC>`, paths in the `PEX_PYTHON_PATH` variable in `/etc/pexrc` or `~/.pexrc`
+
+Can be overriden by field `python_bootstrap_search_path` on `local_environment`, `docker_environment`, or `remote_environment` targets.
+
+</Option>
+
+
+### `names`
+
+<Option
+  cli_repr={`--python-bootstrap-names="[<python-binary-names>, <python-binary-names>, ...]"`}
+  env_repr='PANTS_PYTHON_BOOTSTRAP_NAMES'
+>
+  
+
+The names of Python binaries to search for. See the `--search-path` option to influence where interpreters are searched for.
+
+This does not impact which Python interpreter is used to run your code, only what is used to run internal tools.
+
+Can be overriden by field `python_bootstrap_names` on `local_environment`, `docker_environment`, or `remote_environment` targets.
+
+</Option>
+
+
+## Deprecated options
+
+None
+
+</span>

@@ -1,0 +1,42 @@
+---
+title: shell-test
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options for Pants' Shell test support.
+
+Backend: <span style={{ color: "var(--ifm-color-primary)" }}>`pants.backend.shell`</span>
+
+Config section: <span style={{ color: "var(--ifm-color-primary)" }}>`[shell-test]`</span>
+
+## Basic options
+
+<span className={styles.options}>
+
+### `skip`
+
+<Option
+  cli_repr='--[no-]shell-test-skip'
+  env_repr='PANTS_SHELL_TEST_SKIP'
+  default_repr='False'
+>
+  
+
+If true, don't use Test with shell scripts when running `pants test`.
+
+</Option>
+
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

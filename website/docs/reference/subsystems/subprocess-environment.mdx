@@ -1,0 +1,47 @@
+---
+title: subprocess-environment
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Environment settings for forked subprocesses.
+
+Backend: <span style={{ color: "var(--ifm-color-primary)" }}>`pants.core`</span>
+
+Config section: <span style={{ color: "var(--ifm-color-primary)" }}>`[subprocess-environment]`</span>
+
+## Basic options
+
+<span className={styles.options}>
+
+None
+
+## Advanced options
+
+### `env_vars`
+
+<Option
+  cli_repr={`--subprocess-environment-env-vars="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_SUBPROCESS_ENVIRONMENT_ENV_VARS'
+>
+  
+
+Environment variables to set for process invocations.
+
+Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants's own environment.
+
+See [Options](doc\:options#addremove-semantics) for how to add and remove Pants's default for this option.
+
+Can be overriden by field `subprocess_environment_env_vars` on `local_environment`, `docker_environment`, or `remote_environment` targets.
+
+</Option>
+
+
+## Deprecated options
+
+None
+
+</span>

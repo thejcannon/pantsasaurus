@@ -1,0 +1,58 @@
+---
+title: gofmt
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Gofmt-specific options.
+
+Backend: <span style={{ color: "var(--ifm-color-primary)" }}>`pants.backend.experimental.go`</span>
+
+Config section: <span style={{ color: "var(--ifm-color-primary)" }}>`[gofmt]`</span>
+
+## Basic options
+
+<span className={styles.options}>
+
+### `skip`
+
+<Option
+  cli_repr='--[no-]gofmt-skip'
+  env_repr='PANTS_GOFMT_SKIP'
+  default_repr='False'
+>
+  
+
+If true, don't use gofmt when running `pants fmt` and `pants lint`.
+
+</Option>
+
+
+### `args`
+
+<Option
+  cli_repr={`--gofmt-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_GOFMT_ARGS'
+  default_repr='[]'
+>
+  
+
+Arguments to pass directly to gofmt, e.g. `--gofmt-args='-s -e'`.
+
+Only the following style related options are supported\: `-e`, `-r`, `-s`.
+
+</Option>
+
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

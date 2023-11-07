@@ -1,0 +1,47 @@
+---
+title: build-deprecations-fixer
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A tool/plugin for fixing BUILD file deprecations (where possible).
+
+This includes deprecations for:
+
+- Renamed targets
+- Renamed fields
+
+Backend: <span style={{ color: "var(--ifm-color-primary)" }}>`pants.backend.build_files.fix.deprecations`</span>
+
+Config section: <span style={{ color: "var(--ifm-color-primary)" }}>`[build-deprecations-fixer]`</span>
+
+## Basic options
+
+<span className={styles.options}>
+
+### `skip`
+
+<Option
+  cli_repr='--[no-]build-deprecations-fixer-skip'
+  env_repr='PANTS_BUILD_DEPRECATIONS_FIXER_SKIP'
+  default_repr='False'
+>
+  
+
+If true, don't use BUILD Deprecations Fixer when running `pants fix`.
+
+</Option>
+
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

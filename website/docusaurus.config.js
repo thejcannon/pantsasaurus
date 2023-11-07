@@ -27,9 +27,10 @@ const config = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           routeBasePath: "/",
+          disableVersioning: process.env.DOCUSAURUS_ENABLE_VERSIONING !== "1",
           versions: {
             current: {
-              label: "(local build)",
+              label: "main",
             },
           },
           editUrl:
