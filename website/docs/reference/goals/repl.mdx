@@ -13,41 +13,33 @@ pants repl [args]
 
 Open a REPL with the specified code loadable.
 
-Backend: <span style={{ color: "var(--ifm-color-primary)" }}>`pants.core`</span>
+Backend: <span className="color--primary">`pants.core`</span>
 
-Config section: <span style={{ color: "var(--ifm-color-primary)" }}>`[repl]`</span>
-
-## Basic options
+Config section: <span className="color--primary">`[repl]`</span>
 
 <span className={styles.options}>
+
+## Basic options
 
 ### `shell`
 
 <Option
-  cli_repr='--repl-shell=<str>'
+  cli_repr={`--repl-shell=<str>`}
   env_repr='PANTS_REPL_SHELL'
-  default_repr='None'
+  default_repr={`None`}
 >
-  
-
 Override the automatically-detected REPL program for the target(s) specified.
-
 </Option>
-
 
 ### `restartable`
 
 <Option
-  cli_repr='--[no-]repl-restartable'
+  cli_repr={`--[no-]repl-restartable`}
   env_repr='PANTS_REPL_RESTARTABLE'
-  default_repr='False'
+  default_repr={`False`}
 >
-  
-
 True if the REPL should be restarted if its inputs have changed.
-
 </Option>
-
 
 ## Advanced options
 
@@ -59,6 +51,7 @@ None
 
 ## Related subsystems
 
-[environments-preview](reference-environments-preview), [filter](reference-filter)
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
 
 </span>

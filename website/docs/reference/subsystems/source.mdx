@@ -9,14 +9,13 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 Configuration for roots of source trees.
 
-Backend: <span style={{ color: "var(--ifm-color-primary)" }}>`pants.core`</span>
+Backend: <span className="color--primary">`pants.core`</span>
 
-Config section: <span style={{ color: "var(--ifm-color-primary)" }}>`[source]`</span>
-
-## Basic options
+Config section: <span className="color--primary">`[source]`</span>
 
 <span className={styles.options}>
 
+## Basic options
 None
 
 ## Advanced options
@@ -26,37 +25,40 @@ None
 <Option
   cli_repr={`--source-root-patterns="[["pattern1", "pattern2", ...], ["pattern1", "pattern2", ...], ...]"`}
   env_repr='PANTS_SOURCE_ROOT_PATTERNS'
+  default_repr={`[
+  "/",
+  "src",
+  "src/python",
+  "src/py",
+  "src/thrift",
+  "src/protobuf",
+  "src/protos",
+  "src/scala",
+  "src/java"
+]`}
 >
-  
-
 A list of source root suffixes.
 
-A directory with this suffix will be considered a potential source root. E.g., `src/python` will match `\<buildroot>/src/python`, `\<buildroot>/project1/src/python` etc.
+A directory with this suffix will be considered a potential source root. E.g., `src/python` will match `<buildroot>/src/python`, `<buildroot>/project1/src/python` etc.
 
-Prepend a `/` to anchor the match at the buildroot. E.g., `/src/python` will match `\<buildroot>/src/python` but not `\<buildroot>/project1/src/python`.
+Prepend a `/` to anchor the match at the buildroot. E.g., `/src/python` will match `<buildroot>/src/python` but not `<buildroot>/project1/src/python`.
 
-A `*` wildcard will match a single path segment, E.g., `src/*` will match `\<buildroot>/src/python` and `\<buildroot>/src/rust`.
+A `*` wildcard will match a single path segment, E.g., `src/*` will match `<buildroot>/src/python` and `<buildroot>/src/rust`.
 
 Use `/` to signify that the buildroot itself is a source root.
 
-See [Source roots](doc\:source-roots).
-
+See https://www.pantsbuild.org/v2.18/docs/source-roots.
 </Option>
-
 
 ### `marker_filenames`
 
 <Option
   cli_repr={`--source-marker-filenames="[filename, filename, ...]"`}
   env_repr='PANTS_SOURCE_MARKER_FILENAMES'
-  default_repr='[]'
+  default_repr={`[]`}
 >
-  
-
-The presence of a file of this name in a directory indicates that the directory is a source root. The content of the file doesn't matter, and may be empty. Useful when you can't or don't wish to centrally enumerate source roots via `root_patterns`.
-
+The presence of a file of this name in a directory indicates that the directory is a source root. The content of the file doesn&#x27;t matter, and may be empty. Useful when you can&#x27;t or don&#x27;t wish to centrally enumerate source roots via `root_patterns`.
 </Option>
-
 
 ## Deprecated options
 

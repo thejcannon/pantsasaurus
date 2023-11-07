@@ -13,41 +13,33 @@ pants experimental-explorer [args]
 
 Run the Pants Explorer Web UI server.
 
-Backend: <span style={{ color: "var(--ifm-color-primary)" }}>`pants.goal`</span>
+Backend: <span className="color--primary">`pants.goal`</span>
 
-Config section: <span style={{ color: "var(--ifm-color-primary)" }}>`[experimental-explorer]`</span>
-
-## Basic options
+Config section: <span className="color--primary">`[experimental-explorer]`</span>
 
 <span className={styles.options}>
+
+## Basic options
 
 ### `address`
 
 <Option
-  cli_repr='--experimental-explorer-address=<str>'
+  cli_repr={`--experimental-explorer-address=<str>`}
   env_repr='PANTS_EXPERIMENTAL_EXPLORER_ADDRESS'
-  default_repr='localhost'
+  default_repr={`localhost`}
 >
-  
-
 Server address to bind to.
-
 </Option>
-
 
 ### `port`
 
 <Option
-  cli_repr='--experimental-explorer-port=<int>'
+  cli_repr={`--experimental-explorer-port=<int>`}
   env_repr='PANTS_EXPERIMENTAL_EXPLORER_PORT'
-  default_repr='8000'
+  default_repr={`8000`}
 >
-  
-
 Server port to bind to.
-
 </Option>
-
 
 ## Advanced options
 

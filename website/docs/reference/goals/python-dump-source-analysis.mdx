@@ -13,33 +13,29 @@ pants python-dump-source-analysis [args]
 
 Dump source analysis for python_source targets.
 
-Backend: <span style={{ color: "var(--ifm-color-primary)" }}>`pants.backend.experimental.python`</span>
+Backend: <span className="color--primary">`pants.backend.experimental.python`</span>
 
-Config section: <span style={{ color: "var(--ifm-color-primary)" }}>`[python-dump-source-analysis]`</span>
-
-## Basic options
+Config section: <span className="color--primary">`[python-dump-source-analysis]`</span>
 
 <span className={styles.options}>
+
+## Basic options
 
 ### `analysis_flavor`
 
 <Option
-  cli_repr='--python-dump-source-analysis-analysis-flavor=<AnalysisFlavor>'
+  cli_repr={`--python-dump-source-analysis-analysis-flavor=<AnalysisFlavor>`}
   env_repr='PANTS_PYTHON_DUMP_SOURCE_ANALYSIS_ANALYSIS_FLAVOR'
   one_of='raw_dependency_inference, dependency_inference'
-  default_repr='dependency_inference'
+  default_repr={`dependency_inference`}
 >
-  
-
 The type of information that should be returned.
 
-- `dependency_inference`\: The results of dependency inference, for every detected import in every file.
+* `dependency_inference`: The results of dependency inference, for every detected import in every file.
 
-- `raw_dependency_inference`\: The raw intermediate results of the dependency inference process,
-at every stage they're available. Potentially useful for debugging the dependency inference process.
-
+* `raw_dependency_inference`: The raw intermediate results of the dependency inference process,
+at every stage they&#x27;re available. Potentially useful for debugging the dependency inference process.
 </Option>
-
 
 ## Advanced options
 
@@ -51,6 +47,15 @@ None
 
 ## Related subsystems
 
-[environments-preview](reference-environments-preview), [filter](reference-filter), [pex](reference-pex), [pex-cli](reference-pex-cli), [python](reference-python), [python-bootstrap](reference-python-bootstrap), [python-infer](reference-python-infer), [python-native-code](reference-python-native-code), [source](reference-source), [subprocess-environment](reference-subprocess-environment)
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
+- [pex](../subsystems/pex.mdx)
+- [pex-cli](../subsystems/pex-cli.mdx)
+- [python](../subsystems/python.mdx)
+- [python-bootstrap](../subsystems/python-bootstrap.mdx)
+- [python-infer](../subsystems/python-infer.mdx)
+- [python-native-code](../subsystems/python-native-code.mdx)
+- [source](../subsystems/source.mdx)
+- [subprocess-environment](../subsystems/subprocess-environment.mdx)
 
 </span>

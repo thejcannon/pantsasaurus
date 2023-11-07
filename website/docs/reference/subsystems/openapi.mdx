@@ -9,14 +9,13 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 The OpenAPI Specification (https://swagger.io/specification/).
 
-Backend: <span style={{ color: "var(--ifm-color-primary)" }}>`pants.backend.experimental.openapi`</span>
+Backend: <span className="color--primary">`pants.backend.experimental.openapi`</span>
 
-Config section: <span style={{ color: "var(--ifm-color-primary)" }}>`[openapi]`</span>
-
-## Basic options
+Config section: <span className="color--primary">`[openapi]`</span>
 
 <span className={styles.options}>
 
+## Basic options
 None
 
 ## Advanced options
@@ -24,16 +23,12 @@ None
 ### `tailor_targets`
 
 <Option
-  cli_repr='--[no-]openapi-tailor-targets'
+  cli_repr={`--[no-]openapi-tailor-targets`}
   env_repr='PANTS_OPENAPI_TAILOR_TARGETS'
-  default_repr='True'
+  default_repr={`True`}
 >
-  
-
 If true, add `openapi_documents` and `openapi_sources` targets with the `tailor` goal.
-
 </Option>
-
 
 ## Deprecated options
 

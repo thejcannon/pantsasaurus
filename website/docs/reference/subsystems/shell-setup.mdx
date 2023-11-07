@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-Options for Pants's Shell support.
+Options for Pants&#x27;s Shell support.
 
-Backend: <span style={{ color: "var(--ifm-color-primary)" }}>`pants.backend.shell`</span>
+Backend: <span className="color--primary">`pants.backend.shell`</span>
 
-Config section: <span style={{ color: "var(--ifm-color-primary)" }}>`[shell-setup]`</span>
-
-## Basic options
+Config section: <span className="color--primary">`[shell-setup]`</span>
 
 <span className={styles.options}>
 
+## Basic options
 None
 
 ## Advanced options
@@ -24,45 +23,35 @@ None
 ### `dependency_inference`
 
 <Option
-  cli_repr='--[no-]shell-setup-dependency-inference'
+  cli_repr={`--[no-]shell-setup-dependency-inference`}
   env_repr='PANTS_SHELL_SETUP_DEPENDENCY_INFERENCE'
-  default_repr='True'
+  default_repr={`True`}
 >
-  
-
 Infer Shell dependencies on other Shell files by analyzing `source` statements.
-
 </Option>
-
 
 ### `tailor`
 
 <Option
-  cli_repr='--[no-]shell-setup-tailor'
+  cli_repr={`--[no-]shell-setup-tailor`}
   env_repr='PANTS_SHELL_SETUP_TAILOR'
-  default_repr='True'
+  default_repr={`True`}
 >
-  
-
 If true, add `shell_sources` and `shunit2_tests` targets with the `tailor` goal.
-
 </Option>
-
 
 ### `executable_search_paths`
 
 <Option
   cli_repr={`--shell-setup-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_SHELL_SETUP_EXECUTABLE_SEARCH_PATHS'
+  default_repr={`[
+  "<PATH>"
+]`}
+  target_field_name='shell_setup_executable_search_paths'
 >
-  
-
-The PATH value that will be used to find shells and to run certain processes like the shunit2 test runner. The special string `"\<PATH>"` will expand to the contents of the PATH env var.
-
-Can be overriden by field `shell_setup_executable_search_paths` on `local_environment`, `docker_environment`, or `remote_environment` targets.
-
+The PATH value that will be used to find shells and to run certain processes like the shunit2 test runner. The special string `"<PATH>"` will expand to the contents of the PATH env var.
 </Option>
-
 
 ## Deprecated options
 

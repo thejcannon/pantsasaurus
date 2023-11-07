@@ -9,41 +9,33 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 Options controlling which dependencies will be inferred for Kotlin targets.
 
-Backend: <span style={{ color: "var(--ifm-color-primary)" }}>`pants.backend.experimental.kotlin`</span>
+Backend: <span className="color--primary">`pants.backend.experimental.kotlin`</span>
 
-Config section: <span style={{ color: "var(--ifm-color-primary)" }}>`[kotlin-infer]`</span>
-
-## Basic options
+Config section: <span className="color--primary">`[kotlin-infer]`</span>
 
 <span className={styles.options}>
+
+## Basic options
 
 ### `imports`
 
 <Option
-  cli_repr='--[no-]kotlin-infer-imports'
+  cli_repr={`--[no-]kotlin-infer-imports`}
   env_repr='PANTS_KOTLIN_INFER_IMPORTS'
-  default_repr='True'
+  default_repr={`True`}
 >
-  
-
-Infer a target's dependencies by parsing import statements from sources.
-
+Infer a target&#x27;s dependencies by parsing import statements from sources.
 </Option>
-
 
 ### `consumed_types`
 
 <Option
-  cli_repr='--[no-]kotlin-infer-consumed-types'
+  cli_repr={`--[no-]kotlin-infer-consumed-types`}
   env_repr='PANTS_KOTLIN_INFER_CONSUMED_TYPES'
-  default_repr='True'
+  default_repr={`True`}
 >
-  
-
-Infer a target's dependencies by parsing consumed types from sources.
-
+Infer a target&#x27;s dependencies by parsing consumed types from sources.
 </Option>
-
 
 ## Advanced options
 

@@ -11,41 +11,33 @@ Options used to configure and launch a Debug Adapter server.
 
 See https://microsoft.github.io/debug-adapter-protocol/ for more information.
 
-Backend: <span style={{ color: "var(--ifm-color-primary)" }}>`pants.core`</span>
+Backend: <span className="color--primary">`pants.core`</span>
 
-Config section: <span style={{ color: "var(--ifm-color-primary)" }}>`[debug-adapter]`</span>
-
-## Basic options
+Config section: <span className="color--primary">`[debug-adapter]`</span>
 
 <span className={styles.options}>
+
+## Basic options
 
 ### `host`
 
 <Option
-  cli_repr='--debug-adapter-host=<str>'
+  cli_repr={`--debug-adapter-host=<str>`}
   env_repr='PANTS_DEBUG_ADAPTER_HOST'
-  default_repr='127.0.0.1'
+  default_repr={`127.0.0.1`}
 >
-  
-
 The hostname to use when launching the server.
-
 </Option>
-
 
 ### `port`
 
 <Option
-  cli_repr='--debug-adapter-port=<int>'
+  cli_repr={`--debug-adapter-port=<int>`}
   env_repr='PANTS_DEBUG_ADAPTER_PORT'
-  default_repr='5678'
+  default_repr={`5678`}
 >
-  
-
 The port to use when launching the server.
-
 </Option>
-
 
 ## Advanced options
 
