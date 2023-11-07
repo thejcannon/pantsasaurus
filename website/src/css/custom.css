@@ -28,3 +28,7 @@ figcaption {
   text-align: center;
   padding-bottom: 1rem;
 }
+
+.color--primary {
+  color: var(--ifm-color-primary);
+}

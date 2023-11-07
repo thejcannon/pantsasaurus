@@ -14,15 +14,15 @@ export default function Option({
       <code style={{ color: "var(--pants-reference-option-repr)" }}>{env_repr}</code>
       <br />
       <div style={{ paddingLeft: "2em" }}>
-        <span style={{ color: "var(--ifm-color-success)" }}>
+        <span>
           {
             one_of &&
               <span >
-                one of: <code>{one_of}</code>
+                one of: <code style={{ color: "var(--ifm-color-success)" }}>{one_of}</code>
                 <br />
               </span>
           }
-          default: <code>{default_repr}</code>
+          default: <code style={{ color: "var(--ifm-color-success)" }}>{default_repr}</code>
         </span>
         <br />
         {deprecated_version &&

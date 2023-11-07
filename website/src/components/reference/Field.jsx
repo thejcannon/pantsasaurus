@@ -1,38 +1,30 @@
 export default function Field({
   children,
-  cli_repr,
-  env_repr,
-  one_of,
+  type_repr,
   default_repr,
-  deprecated_version,
-  deprecated_hint,
+  backend
 }) {
   return (
     <div className="margin-bottom--lg">
-      <code style={{ color: "var(--pants-reference-option-repr)"}}>{cli_repr}</code>
+      <code style={{ color: "var(--pants-reference-option-repr)"}}>{type_repr}</code>
       <br/>
-      <code style={{ color: "var(--pants-reference-option-repr)" }}>{env_repr}</code>
-      <br />
       <div style={{ paddingLeft: "2em" }}>
-        <span style={{ color: "var(--ifm-color-success)" }}>
-          {
-            one_of &&
-              <span >
-                one of: <code>{one_of}</code>
-                <br />
-              </span>
-          }
-          default: <code>{default_repr}</code>
-        </span>
-        <br />
-        {deprecated_version &&
-          <span style={{ color: "var(--ifm-color-danger-darkest)" }}>
-            Deprecated, will be removed in version: {deprecated_version}.
-            <br />
-            {deprecated_hint}
-            <br />
+        {default_repr &&
+          <span>
+            default: <code style={{ color: "var(--ifm-color-success)" }}>{default_repr}</code>
           </span>
         }
+        {
+          !default_repr &&
+          <span style={{ color: "var(--ifm-color-success)" }}>required</span>
+        }
+        {
+          backend &&
+          <span>
+            backend: <code style={{ color: "var(--ifm-color-success)" }}>{backend}</code>
+          </span>
+        }
+
         {children}
       </div>
     </div>

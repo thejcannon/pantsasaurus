@@ -1,4 +1,7 @@
-.options > h3 {
+.options > h3 > code {
   color: var(--pants-reference-option-repr);
-  margin-bottom: 0;
+}
+
+.options > h2 > code {
+  color: var(--pants-reference-option-repr);
 }
