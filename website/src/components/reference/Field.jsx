@@ -20,9 +20,9 @@ export default function Field({
         }
         {
           backend &&
-          <span>
+          <div>
             backend: <code style={{ color: "var(--ifm-color-success)" }}>{backend}</code>
-          </span>
+          </div>
         }
 
         {children}
