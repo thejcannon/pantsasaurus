@@ -71,7 +71,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="('*.yaml', '*.yml')"
+    default_repr={`('*.yaml', '*.yml')`}
 >
 Helm configuration files for a given deployment.
 </Field>
@@ -88,7 +88,7 @@ Kubernetes namespace for the given deployment.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
 >
 If true, then does not deploy the Custom Resource Definitions that are defined in the chart.
 </Field>
@@ -126,7 +126,7 @@ Check the Helm backend documentation on what are the options available and its c
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
 >
 If true, none of the lifecycle hooks of the given chart will be included in the deployment.
 </Field>
@@ -155,7 +155,7 @@ When more than one post-renderer is given, they will be combined into a single o
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
 >
 Enables DNS lookups when using the `getHostByName` template function.
 </Field>

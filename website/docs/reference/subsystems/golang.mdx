@@ -50,9 +50,7 @@ See https://go.dev/blog/cgo and https://pkg.go.dev/cmd/cgo for additional inform
 <Option
   cli_repr={`--golang-go-search-paths="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_GO_SEARCH_PATHS'
-  default_repr={`[
-  "<PATH>"
-]`}
+  default_repr={`["<PATH>"]`}
   target_field_name='golang_go_search_paths'
 >
 A list of paths to search for Go.
@@ -71,9 +69,7 @@ The following special strings are supported:
 <Option
   cli_repr={`--golang-cgo-tool-search-paths="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_CGO_TOOL_SEARCH_PATHS'
-  default_repr={`[
-  "<PATH>"
-]`}
+  default_repr={`["<PATH>"]`}
   target_field_name='golang_cgo_tool_search_paths'
 >
 A list of paths to search for tools needed by CGo (e.g., gcc, g++).
@@ -142,12 +138,7 @@ The path relative to an ASDF install directory to use to find the `bin` director
 <Option
   cli_repr={`--golang-subprocess-env-vars="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_SUBPROCESS_ENV_VARS'
-  default_repr={`[
-  "LANG",
-  "LC_CTYPE",
-  "LC_ALL",
-  "PATH"
-]`}
+  default_repr={`[\n  "LANG",\n  "LC_CTYPE",\n  "LC_ALL",\n  "PATH"\n]`}
   target_field_name='golang_subprocess_env_vars'
 >
 Environment variables to set when invoking the `go` tool. Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27;s own environment.
@@ -202,10 +193,7 @@ Name of the tool to use as the &quot;external linker&quot; when invoking `go too
 <Option
   cli_repr={`--golang-cgo-c-flags="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_CGO_C_FLAGS'
-  default_repr={`[
-  "-g",
-  "-O2"
-]`}
+  default_repr={`[\n  "-g",\n  "-O2"\n]`}
   target_field_name='golang_cgo_c_flags'
 >
 Compiler options used when compiling C code when Cgo is enabled. Equivalent to setting the CGO_CFLAGS environment variable when invoking `go`.
@@ -216,10 +204,7 @@ Compiler options used when compiling C code when Cgo is enabled. Equivalent to s
 <Option
   cli_repr={`--golang-cgo-cxx-flags="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_CGO_CXX_FLAGS'
-  default_repr={`[
-  "-g",
-  "-O2"
-]`}
+  default_repr={`[\n  "-g",\n  "-O2"\n]`}
   target_field_name='golang_cgo_cxx_flags'
 >
 Compiler options used when compiling C++ code when Cgo is enabled. Equivalent to setting the CGO_CXXFLAGS environment variable when invoking `go`.
@@ -230,10 +215,7 @@ Compiler options used when compiling C++ code when Cgo is enabled. Equivalent to
 <Option
   cli_repr={`--golang-cgo-fortran-flags="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_CGO_FORTRAN_FLAGS'
-  default_repr={`[
-  "-g",
-  "-O2"
-]`}
+  default_repr={`[\n  "-g",\n  "-O2"\n]`}
   target_field_name='golang_cgo_fortran_flags'
 >
 Compiler options used when compiling Fortran code when Cgo is enabled. Equivalent to setting the CGO_FFLAGS environment variable when invoking `go`.
@@ -244,10 +226,7 @@ Compiler options used when compiling Fortran code when Cgo is enabled. Equivalen
 <Option
   cli_repr={`--golang-cgo-linker-flags="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_CGO_LINKER_FLAGS'
-  default_repr={`[
-  "-g",
-  "-O2"
-]`}
+  default_repr={`[\n  "-g",\n  "-O2"\n]`}
   target_field_name='golang_cgo_linker_flags'
 >
 Compiler options used when linking native code when Cgo is enabled. Equivalent to setting the CGO_LDFLAGS environment variable when invoking `go`.

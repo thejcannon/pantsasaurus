@@ -41,7 +41,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
 >
 If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
 </Field>
@@ -106,7 +106,7 @@ If not defined, will default to `[jvm].default_resolve`.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="(duplicate_rule(pattern='^META-INF/services/', action='concat_text'), duplicate_rule(pattern='^META-INF/LICENSE', action='skip'))"
+    default_repr={`(duplicate_rule(pattern='^META-INF/services/', action='concat_text'), duplicate_rule(pattern='^META-INF/LICENSE', action='skip'))`}
 >
 A list of the rules to apply when duplicate file entries are found in the final assembled JAR file.
 

@@ -22,7 +22,13 @@ export default function Option({
                 <br />
               </span>
           }
-          default: <code style={{ color: "var(--ifm-color-success)" }}>{default_repr}</code>
+          default: <span style={{ color: "var(--ifm-color-success)" }}>
+            {
+              (default_repr || "").includes("\n")
+                ? <pre className="padding--sm">{default_repr}</pre>
+                : <code>{default_repr}</code>
+            }
+          </span>
         </span>
         <br />
         {deprecated_version &&

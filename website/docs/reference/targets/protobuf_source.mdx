@@ -71,7 +71,7 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
 >
 Whether to generate gRPC code or not.
 </Field>
@@ -80,7 +80,7 @@ Whether to generate gRPC code or not.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.codegen.protobuf.lint.buf"
 >
 If true, don&#x27;t run `buf lint` on this target&#x27;s code.
@@ -110,7 +110,7 @@ The major version of the JDK that this target should be built with. If not defin
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.codegen.protobuf.lint.buf"
 >
 If true, don&#x27;t run `buf format` on this target&#x27;s code.

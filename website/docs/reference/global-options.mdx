@@ -291,7 +291,7 @@ The name of the script or binary used to invoke Pants. Useful when printing help
 <Option
   cli_repr={`--pants-workdir=<dir>`}
   env_repr='PANTS_WORKDIR'
-  default_repr={`/tmp/tmp.MpwSc5OGVo/.pants.d`}
+  default_repr={`<buildroot>/.pants.d`}
 >
 Write intermediate logs and output files to this dir.
 </Option>
@@ -311,7 +311,7 @@ When set, a base directory in which to store `--pants-workdir` contents. If this
 <Option
   cli_repr={`--pants-distdir=<dir>`}
   env_repr='PANTS_DISTDIR'
-  default_repr={`/tmp/tmp.MpwSc5OGVo/dist`}
+  default_repr={`<buildroot>/dist`}
 >
 Write end products, such as the results of `pants package`, to this dir.
 </Option>
@@ -321,7 +321,7 @@ Write end products, such as the results of `pants package`, to this dir.
 <Option
   cli_repr={`--pants-subprocessdir=<str>`}
   env_repr='PANTS_SUBPROCESSDIR'
-  default_repr={`/tmp/tmp.MpwSc5OGVo/.pids`}
+  default_repr={`<buildroot>/.pids`}
 >
 The directory to use for tracking subprocess metadata. This should live outside of the dir used by `pants_workdir` to allow for tracking subprocesses that outlive the workdir data.
 </Option>
@@ -331,9 +331,7 @@ The directory to use for tracking subprocess metadata. This should live outside 
 <Option
   cli_repr={`--pants-config-files="['<str>', '<str>', ...]"`}
   env_repr='PANTS_CONFIG_FILES'
-  default_repr={`[
-  "/tmp/tmp.MpwSc5OGVo/pants.toml"
-]`}
+  default_repr={`["/tmp/tmp.MpwSc5OGVo/pants.toml"]`}
 >
 Paths to Pants config files. This may only be set through the environment variable `PANTS_CONFIG_FILES` and the command line argument `--pants-config-files`; it will be ignored if in a config file like `pants.toml`.
 </Option>
@@ -353,11 +351,7 @@ Use pantsrc files located at the paths specified in the global option `pantsrc_f
 <Option
   cli_repr={`--pantsrc-files="[<path>, <path>, ...]"`}
   env_repr='PANTS_PANTSRC_FILES'
-  default_repr={`[
-  "/etc/pantsrc",
-  "~/.pants.rc",
-  ".pants.rc"
-]`}
+  default_repr={`[\n  "/etc/pantsrc",\n  "~/.pants.rc",\n  ".pants.rc"\n]`}
 >
 Override config with values from these files, using syntax matching that of `--pants-config-files`.
 </Option>
@@ -387,9 +381,7 @@ Verify that all config file values correspond to known options.
 <Option
   cli_repr={`--stats-record-option-scopes="['<str>', '<str>', ...]"`}
   env_repr='PANTS_STATS_RECORD_OPTION_SCOPES'
-  default_repr={`[
-  "*"
-]`}
+  default_repr={`["*"]`}
 >
 Option scopes to record in stats on run completion. Options may be selected by joining the scope and the option with a ^ character, i.e. to get option `pantsd` in the GLOBAL scope, you&#x27;d pass `GLOBAL^pantsd`. Add a &#x27;*&#x27; to the list to capture all known scopes.
 </Option>
@@ -399,11 +391,7 @@ Option scopes to record in stats on run completion. Options may be selected by j
 <Option
   cli_repr={`--pants-ignore="['<str>', '<str>', ...]"`}
   env_repr='PANTS_IGNORE'
-  default_repr={`[
-  ".*/",
-  "/dist/",
-  "__pycache__"
-]`}
+  default_repr={`[\n  ".*/",\n  "/dist/",\n  "__pycache__"\n]`}
 >
 Paths to ignore for all filesystem operations performed by pants (e.g. BUILD file scanning, glob matching, etc).
 
@@ -531,7 +519,7 @@ The maximum number of threads to use to execute `@rule` logic. Defaults to a sma
 <Option
   cli_repr={`--local-store-dir=<str>`}
   env_repr='PANTS_LOCAL_STORE_DIR'
-  default_repr={`/home/josh/.cache/pants/lmdb_store`}
+  default_repr={`$XDG_CACHE_HOME/pants/lmdb_store`}
 >
 Directory to use for the local file store, which stores the results of subprocesses run by Pants.
 
@@ -591,7 +579,7 @@ The maximum size in bytes of the local store containing directories. Stored belo
 <Option
   cli_repr={`--named-caches-dir=<str>`}
   env_repr='PANTS_NAMED_CACHES_DIR'
-  default_repr={`/home/josh/.cache/pants/named_caches`}
+  default_repr={`$XDG_CACHE_HOME/pants/named_caches`}
 >
 Directory to use for named global caches for tools and processes with trusted, concurrency-safe caches.
 
@@ -993,10 +981,7 @@ This usually happens when the files do not exist on your machine. It can also ha
 <Option
   cli_repr={`--build-patterns="['<str>', '<str>', ...]"`}
   env_repr='PANTS_BUILD_PATTERNS'
-  default_repr={`[
-  "BUILD",
-  "BUILD.*"
-]`}
+  default_repr={`[\n  "BUILD",\n  "BUILD.*"\n]`}
 >
 The naming scheme for BUILD files, i.e. where you define targets.
 

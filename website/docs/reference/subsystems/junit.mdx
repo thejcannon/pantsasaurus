@@ -54,11 +54,7 @@ Version string for the tool. This is available for substitution in the `[junit].
 <Option
   cli_repr={`--junit-artifacts="['<str>', '<str>', ...]"`}
   env_repr='PANTS_JUNIT_ARTIFACTS'
-  default_repr={`[
-  "org.junit.platform:junit-platform-console:1.7.2",
-  "org.junit.jupiter:junit-jupiter-engine:{version}",
-  "org.junit.vintage:junit-vintage-engine:{version}"
-]`}
+  default_repr={`[\n  "org.junit.platform:junit-platform-console:1.7.2",\n  "org.junit.jupiter:junit-jupiter-engine:{version}",\n  "org.junit.vintage:junit-vintage-engine:{version}"\n]`}
 >
 Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., `group:name:version`). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[junit].version` option.
 </Option>

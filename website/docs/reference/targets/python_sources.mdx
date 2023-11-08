@@ -41,7 +41,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="('*.py', '*.pyi', '!test_*.py', '!*_test.py', '!tests.py', '!conftest.py', '!test_*.pyi', '!*_test.pyi', '!tests.pyi')"
+    default_repr={`('*.py', '*.pyi', '!test_*.py', '!*_test.py', '!tests.py', '!conftest.py', '!test_*.pyi', '!*_test.pyi', '!tests.pyi')`}
 >
 A list of files and globs that belong to this target.
 
@@ -79,7 +79,7 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.python.lint.pylint"
 >
 If true, don&#x27;t run Pylint on this target&#x27;s code.
@@ -89,7 +89,7 @@ If true, don&#x27;t run Pylint on this target&#x27;s code.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.experimental.python.typecheck.pytype"
 >
 If true, don&#x27;t run pytype on this target&#x27;s code.
@@ -99,7 +99,7 @@ If true, don&#x27;t run pytype on this target&#x27;s code.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.python.lint.autoflake"
 >
 If true, don&#x27;t run Autoflake on this target&#x27;s code.
@@ -109,7 +109,7 @@ If true, don&#x27;t run Autoflake on this target&#x27;s code.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.python.lint.docformatter"
 >
 If true, don&#x27;t run Docformatter on this target&#x27;s code.
@@ -119,7 +119,7 @@ If true, don&#x27;t run Docformatter on this target&#x27;s code.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.python.typecheck.mypy"
 >
 If true, don&#x27;t run MyPy on this target&#x27;s code.
@@ -129,7 +129,7 @@ If true, don&#x27;t run MyPy on this target&#x27;s code.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.python.lint.isort"
 >
 If true, don&#x27;t run isort on this target&#x27;s code.
@@ -139,7 +139,7 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.python.lint.pydocstyle"
 >
 If true, don&#x27;t run pydocstyle on this target&#x27;s code.
@@ -149,7 +149,7 @@ If true, don&#x27;t run pydocstyle on this target&#x27;s code.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.python.lint.bandit"
 >
 If true, don&#x27;t run Bandit on this target&#x27;s code.
@@ -159,7 +159,7 @@ If true, don&#x27;t run Bandit on this target&#x27;s code.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.experimental.python.lint.ruff"
 >
 If true, don&#x27;t run ruff on this target&#x27;s code.
@@ -169,7 +169,7 @@ If true, don&#x27;t run ruff on this target&#x27;s code.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.python.lint.flake8"
 >
 If true, don&#x27;t run Flake8 on this target&#x27;s code.
@@ -179,7 +179,7 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.experimental.python.lint.add_trailing_comma"
 >
 If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
@@ -189,7 +189,7 @@ If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.python.lint.yapf"
 >
 If true, don&#x27;t run yapf on this target&#x27;s code.
@@ -199,7 +199,7 @@ If true, don&#x27;t run yapf on this target&#x27;s code.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.python.lint.pyupgrade"
 >
 If true, don&#x27;t run pyupgrade on this target&#x27;s code.
@@ -209,7 +209,7 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.python.lint.black"
 >
 If true, don&#x27;t run Black on this target&#x27;s code.
@@ -281,7 +281,7 @@ See https://www.pantsbuild.org/v2.18/docs/python-interpreter-compatibility for h
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
 >
 If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
 </Field>

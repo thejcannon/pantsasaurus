@@ -36,9 +36,7 @@ Specifying conflicting package manager versions within a multi-package workspace
 <Option
   cli_repr={`--nodejs-package-managers="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_NODEJS_PACKAGE_MANAGERS'
-  default_repr={`{
-  "npm": "8.5.5"
-}`}
+  default_repr={`{"npm": "8.5.5"}`}
 >
 A mapping of package manager versions to semver releases.
 
@@ -64,12 +62,7 @@ Use this version of nodejs.
 <Option
   cli_repr={`--nodejs-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_NODEJS_KNOWN_VERSIONS'
-  default_repr={`[
-  "v16.15.0|macos_arm64|ad8d8fc5330ef47788f509c2af398c8060bb59acbe914070d0df684cd2d8d39b|29126014",
-  "v16.15.0|macos_x86_64|a6bb12bbf979d32137598e49d56d61bcddf8a8596c3442b44a9b3ace58dd4de8|30561503",
-  "v16.15.0|linux_arm64|b4080b86562c5397f32da7a0723b95b1df523cab4c757688a184e3f733a7df56|21403276",
-  "v16.15.0|linux_x86_64|ebdf4dc9d992d19631f0931cca2fc33c6d0d382543639bc6560d31d5060a8372|22031988"
-]`}
+  default_repr={`[\n  "v16.15.0|macos_arm64|ad8d8fc5330ef47788f509c2af398c8060bb59acbe914070d0df684cd2d8d39b|29126014",\n  "v16.15.0|macos_x86_64|a6bb12bbf979d32137598e49d56d61bcddf8a8596c3442b44a9b3ace58dd4de8|30561503",\n  "v16.15.0|linux_arm64|b4080b86562c5397f32da7a0723b95b1df523cab4c757688a184e3f733a7df56|21403276",\n  "v16.15.0|linux_x86_64|ebdf4dc9d992d19631f0931cca2fc33c6d0d382543639bc6560d31d5060a8372|22031988"\n]`}
 >
 
 Known versions to verify downloads against.
@@ -117,12 +110,7 @@ Use `{version}` to have the value from `--version` substituted, and `{platform}`
 <Option
   cli_repr={`--nodejs-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_NODEJS_URL_PLATFORM_MAPPING'
-  default_repr={`{
-  "linux_arm64": "linux-arm64",
-  "linux_x86_64": "linux-x64",
-  "macos_arm64": "darwin-arm64",
-  "macos_x86_64": "darwin-x64"
-}`}
+  default_repr={`{\n  "linux_arm64": "linux-arm64",\n  "linux_x86_64": "linux-x64",\n  "macos_arm64": "darwin-arm64",\n  "macos_x86_64": "darwin-x64"\n}`}
 >
 A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
 
@@ -152,9 +140,7 @@ Run `scie-pants-linux-x86_64 generate-lockfiles` to generate the lockfile(s).
 <Option
   cli_repr={`--nodejs-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_NODEJS_EXECUTABLE_SEARCH_PATHS'
-  default_repr={`[
-  "<PATH>"
-]`}
+  default_repr={`["<PATH>"]`}
   target_field_name='nodejs_executable_search_paths'
 >
 The PATH value that will be used to find any tools required to run nodejs processes. The special string `"<PATH>"` will expand to the contents of the PATH env var.
@@ -165,9 +151,7 @@ The PATH value that will be used to find any tools required to run nodejs proces
 <Option
   cli_repr={`--nodejs-search-path="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_NODEJS_SEARCH_PATH'
-  default_repr={`[
-  "<PATH>"
-]`}
+  default_repr={`["<PATH>"]`}
   target_field_name='nodejs_search_path'
 >
 A list of paths to search for Node.js distributions.

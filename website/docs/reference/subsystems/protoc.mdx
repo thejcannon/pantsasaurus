@@ -44,12 +44,7 @@ Use this version of protoc.
 <Option
   cli_repr={`--protoc-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PROTOC_KNOWN_VERSIONS'
-  default_repr={`[
-  "3.20.1|linux_arm64 |8a5a51876259f934cd2acc2bc59dba0e9a51bd631a5c37a4b9081d6e4dbc7591|1804837",
-  "3.20.1|linux_x86_64|3a0e900f9556fbcac4c3a913a00d07680f0fdf6b990a341462d822247b265562|1714731",
-  "3.20.1|macos_arm64 |b362acae78542872bb6aac8dba73aaf0dc6e94991b8b0a065d6c3e703fec2a8b|2708249",
-  "3.20.1|macos_x86_64|b4f36b18202d54d343a66eebc9f8ae60809a2a96cc2d1b378137550bbe4cf33c|2708249"
-]`}
+  default_repr={`[\n  "3.20.1|linux_arm64 |8a5a51876259f934cd2acc2bc59dba0e9a51bd631a5c37a4b9081d6e4dbc7591|1804837",\n  "3.20.1|linux_x86_64|3a0e900f9556fbcac4c3a913a00d07680f0fdf6b990a341462d822247b265562|1714731",\n  "3.20.1|macos_arm64 |b362acae78542872bb6aac8dba73aaf0dc6e94991b8b0a065d6c3e703fec2a8b|2708249",\n  "3.20.1|macos_x86_64|b4f36b18202d54d343a66eebc9f8ae60809a2a96cc2d1b378137550bbe4cf33c|2708249"\n]`}
 >
 
 Known versions to verify downloads against.
@@ -97,12 +92,7 @@ Use `{version}` to have the value from `--version` substituted, and `{platform}`
 <Option
   cli_repr={`--protoc-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PROTOC_URL_PLATFORM_MAPPING'
-  default_repr={`{
-  "linux_arm64": "linux-aarch_64",
-  "linux_x86_64": "linux-x86_64",
-  "macos_arm64": "osx-aarch_64",
-  "macos_x86_64": "osx-x86_64"
-}`}
+  default_repr={`{\n  "linux_arm64": "linux-aarch_64",\n  "linux_x86_64": "linux-x86_64",\n  "macos_arm64": "osx-aarch_64",\n  "macos_x86_64": "osx-x86_64"\n}`}
 >
 A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
 

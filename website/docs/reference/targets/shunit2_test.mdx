@@ -79,7 +79,7 @@ If unset, will default to `[test].timeout_default`; if that option is also unset
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
 >
 If true, don&#x27;t run this target&#x27;s tests.
 </Field>
@@ -108,7 +108,7 @@ You can include anything that can be built by `scie-pants-linux-x86_64 package`,
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.shell.lint.shellcheck"
 >
 If true, don&#x27;t run Shellcheck on this target&#x27;s code.
@@ -118,7 +118,7 @@ If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.shell.lint.shfmt"
 >
 If true, don&#x27;t run shfmt on this target&#x27;s code.

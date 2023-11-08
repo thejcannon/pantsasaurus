@@ -80,7 +80,7 @@ You can specify the same `entry_point` in multiple keys, so long as you don&#x27
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="'__local__'"
+    default_repr={`'__local__'`}
 >
 Specify which environment target to consume environment-sensitive options from.
 
@@ -192,7 +192,7 @@ Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` afte
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="True"
+    default_repr={`True`}
 >
 Whether or not to strip the PEX runtime environment of `PEX*` environment variables.
 
@@ -203,7 +203,7 @@ Most applications have no need for the `PEX*` environment variables that are use
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
 >
 Should PEX ignore errors when it cannot resolve dependencies?
 </Field>
@@ -232,7 +232,7 @@ The default is determined by the option `emit_warnings` in the `[pex-binary-defa
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="'zipapp'"
+    default_repr={`'zipapp'`}
 >
 The layout used for the PEX binary.
 
@@ -249,7 +249,7 @@ Both zipapp and packed layouts install themselves in the `$PEX_ROOT` as loose ap
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="'zipapp'"
+    default_repr={`'zipapp'`}
 >
 The mode the generated PEX file will run in.
 
@@ -262,7 +262,7 @@ The fastest execution mode in the steady state is &#x27;venv&#x27;, which genera
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="True"
+    default_repr={`True`}
 >
 Whether to include the third party requirements the binary depends on in the packaged PEX file.
 </Field>
@@ -271,7 +271,7 @@ Whether to include the third party requirements the binary depends on in the pac
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="True"
+    default_repr={`True`}
 >
 Whether to include your first party sources the binary uses in the packaged PEX file.
 </Field>
@@ -280,7 +280,7 @@ Whether to include your first party sources the binary uses in the packaged PEX 
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
 >
 Whether to include Pex tools in the PEX bootstrap code.
 
@@ -291,7 +291,7 @@ With tools included, the generated PEX file can be executed with `PEX_TOOLS=1 <p
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
 >
 If execution_mode is venv, populate the venv site packages using hard links or copies of resolved PEX dependencies instead of symlinks.
 
@@ -302,7 +302,7 @@ This can be used to work around problems with tools or libraries that are confus
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="True"
+    default_repr={`True`}
 >
 If execution_mode is &quot;venv&quot;, emit a hermetic venv `pex` script and hermetic console scripts.
 
@@ -313,7 +313,7 @@ The venv `pex` script and the venv console scripts are constructed to be hermeti
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
 >
 If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
 </Field>

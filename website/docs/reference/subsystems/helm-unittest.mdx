@@ -65,16 +65,7 @@ Use this version of helmunittestsubsystem.
 <Option
   cli_repr={`--helm-unittest-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_HELM_UNITTEST_KNOWN_VERSIONS'
-  default_repr={`[
-  "0.3.3|linux_x86_64|8ebe20f77012a5d4e7139760cabe36dd1ea38e40b26f57de3f4165d96bd486ff|21685365",
-  "0.3.3|linux_arm64 |7f5e4426428cb9678f971576103df410e6fa38dd19b87fce4729f5217bd5c683|19944514",
-  "0.3.3|macos_x86_64|b2298a513b3cb6482ba2e42079c93ad18be8a31a230bd4dffdeb01ec2881d0f5|21497144",
-  "0.3.3|macos_arm64 |2365f5b3a99e6fc83218457046378b14039a3992e9ae96a4192bc2e43a33c742|20479438",
-  "0.2.8|linux_x86_64|d7c452559ad4406a1197435394fbcffe51198060de1aa9b4cb6feaf876776ba0|18299096",
-  "0.2.8|linux_arm64 |c793e241b063f0540ad9b4acc0a02e5a101bd9daea5bdf4d8562e9b2337fedb2|16943867",
-  "0.2.8|macos_x86_64|1dc95699320894bdebf055c4f4cc084c2cfa0133d3cb7fd6a4c0adca94df5c96|18161928",
-  "0.2.8|macos_arm64 |436e3167c26f71258b96e32c2877b4f97c051064db941de097cf3db2fc861342|17621648"
-]`}
+  default_repr={`[\n  "0.3.3|linux_x86_64|8ebe20f77012a5d4e7139760cabe36dd1ea38e40b26f57de3f4165d96bd486ff|21685365",\n  "0.3.3|linux_arm64 |7f5e4426428cb9678f971576103df410e6fa38dd19b87fce4729f5217bd5c683|19944514",\n  "0.3.3|macos_x86_64|b2298a513b3cb6482ba2e42079c93ad18be8a31a230bd4dffdeb01ec2881d0f5|21497144",\n  "0.3.3|macos_arm64 |2365f5b3a99e6fc83218457046378b14039a3992e9ae96a4192bc2e43a33c742|20479438",\n  "0.2.8|linux_x86_64|d7c452559ad4406a1197435394fbcffe51198060de1aa9b4cb6feaf876776ba0|18299096",\n  "0.2.8|linux_arm64 |c793e241b063f0540ad9b4acc0a02e5a101bd9daea5bdf4d8562e9b2337fedb2|16943867",\n  "0.2.8|macos_x86_64|1dc95699320894bdebf055c4f4cc084c2cfa0133d3cb7fd6a4c0adca94df5c96|18161928",\n  "0.2.8|macos_arm64 |436e3167c26f71258b96e32c2877b4f97c051064db941de097cf3db2fc861342|17621648"\n]`}
 >
 
 Known versions to verify downloads against.
@@ -122,12 +113,7 @@ Use `{version}` to have the value from `--version` substituted, and `{platform}`
 <Option
   cli_repr={`--helm-unittest-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_HELM_UNITTEST_URL_PLATFORM_MAPPING'
-  default_repr={`{
-  "linux_arm64": "linux-arm64",
-  "linux_x86_64": "linux-amd64",
-  "macos_arm64": "macos-arm64",
-  "macos_x86_64": "macos-amd64"
-}`}
+  default_repr={`{\n  "linux_arm64": "linux-arm64",\n  "linux_x86_64": "linux-amd64",\n  "macos_arm64": "macos-arm64",\n  "macos_x86_64": "macos-amd64"\n}`}
 >
 A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
 

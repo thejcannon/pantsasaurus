@@ -57,7 +57,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="('*.go',)"
+    default_repr={`('*.go',)`}
 >
 A list of files and globs that belong to this target.
 
@@ -160,7 +160,7 @@ Run `go doc cmd/compile` to see the flags supported by `go tool compile`.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
 >
 If true, don&#x27;t run this package&#x27;s tests.
 </Field>
@@ -169,7 +169,7 @@ If true, don&#x27;t run this package&#x27;s tests.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.experimental.go"
 >
 If true, don&#x27;t run gofmt on this package.

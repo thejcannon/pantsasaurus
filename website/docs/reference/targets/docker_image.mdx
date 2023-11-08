@@ -53,7 +53,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="()"
+    default_repr={`()`}
 >
 Build arguments (`--build-arg`) to use when building this image. Entries are either strings in the form `ARG_NAME=value` to set an explicit value; or just `ARG_NAME` to copy the value from Pants&#x27;s own environment.
 
@@ -80,7 +80,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="'Dockerfile'"
+    default_repr={`'Dockerfile'`}
 >
 The Dockerfile to use when building the Docker image.
 
@@ -124,7 +124,7 @@ If `context_root` is not specified, it defaults to `[docker].default_context_roo
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="('latest',)"
+    default_repr={`('latest',)`}
 >
 
 Any tags to apply to the Docker image name (the version is usually applied as a tag).
@@ -138,7 +138,7 @@ See https://www.pantsbuild.org/v2.18/docs/tagging-docker-images.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="('<all default registries>',)"
+    default_repr={`('<all default registries>',)`}
 >
 List of addresses or configured aliases to any Docker registries to use for the built image.
 
@@ -231,7 +231,7 @@ docker_image(
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="()"
+    default_repr={`()`}
 >
 SSH agent socket or keys to expose to the build (only if BuildKit enabled) (format: `default|<id>[=<socket>|<key>[,<key>]]`)
 
@@ -247,7 +247,7 @@ See [Docker documentation](https://docs.docker.com/develop/develop-images/build_
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
 >
 If true, do not push this image to registries when running `scie-pants-linux-x86_64 publish`.
 </Field>
@@ -268,7 +268,7 @@ Read more about [multi-stage Docker builds](https://docs.docker.com/develop/deve
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
 >
 If true, then docker will always attempt to pull a newer version of the image.
 
@@ -279,7 +279,7 @@ NOTE: This option cannot be used on images that build off of &quot;transitive&qu
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
 >
 If true, then docker will squash newly built layers into a single new layer.
 
@@ -320,7 +320,7 @@ Warning: setting this value risks naming collisions with other package targets y
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
 >
 If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
 </Field>
@@ -329,7 +329,7 @@ If true, runs of this target with the `run` goal may be interrupted and restarte
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.docker.lint.hadolint"
 >
 If true, don&#x27;t run hadolint on this target&#x27;s Dockerfile.

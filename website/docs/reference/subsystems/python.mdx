@@ -58,17 +58,7 @@ Specify with requirement syntax, e.g. `'CPython>=2.7,<3'` (A CPython interpreter
 <Option
   cli_repr={`--python-interpreter-versions-universe="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_INTERPRETER_VERSIONS_UNIVERSE'
-  default_repr={`[
-  "2.7",
-  "3.5",
-  "3.6",
-  "3.7",
-  "3.8",
-  "3.9",
-  "3.10",
-  "3.11",
-  "3.12"
-]`}
+  default_repr={`[\n  "2.7",\n  "3.5",\n  "3.6",\n  "3.7",\n  "3.8",\n  "3.9",\n  "3.10",\n  "3.11",\n  "3.12"\n]`}
 >
 All known Python major/minor interpreter versions that may be used by either your code or tools used by your code.
 
@@ -100,9 +90,7 @@ This option is mutually exclusive with `[python].requirement_constraints`. We st
 <Option
   cli_repr={`--python-resolves="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PYTHON_RESOLVES'
-  default_repr={`{
-  "python-default": "3rdparty/python/default.lock"
-}`}
+  default_repr={`{"python-default": "3rdparty/python/default.lock"}`}
 >
 A mapping of logical names to lockfile paths used in your project.
 

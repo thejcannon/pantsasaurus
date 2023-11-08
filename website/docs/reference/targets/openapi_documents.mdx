@@ -39,7 +39,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="('openapi.json', 'openapi.yaml', 'openapi.yml')"
+    default_repr={`('openapi.json', 'openapi.yaml', 'openapi.yml')`}
 >
 A list of files and globs that belong to this target.
 
@@ -52,7 +52,7 @@ Example: `sources=['openapi.json']`
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="False"
+    default_repr={`False`}
     backend="pants.backend.experimental.openapi.lint.spectral"
 >
 If true, don&#x27;t run `spectral lint` on this target&#x27;s code.

@@ -55,7 +55,7 @@ Warning: setting this value risks naming collisions with other package targets y
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="True"
+    default_repr={`True`}
 >
 Whether to resolve requirements and include them in the AWS Lambda artifact. This is most useful with Lambda Layers to make code uploads smaller when third-party requirements are in layers. https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
 </Field>
@@ -102,7 +102,7 @@ All dependencies must share the same value for their `resolve` field.
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="'__local__'"
+    default_repr={`'__local__'`}
 >
 Specify which environment target to consume environment-sensitive options from.
 
@@ -115,7 +115,7 @@ You can specify multiple valid environments by using `parametrize`. If `__local_
 
 <Field
     type_repr={`field.type_hint`}
-    default_repr="True"
+    default_repr={`True`}
 >
 Whether to resolve first party sources and include them in the AWS Lambda artifact. This is most useful to allow creating a Lambda Layer with only third-party requirements. https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
 </Field>
