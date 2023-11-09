@@ -58,11 +58,11 @@ Expects a dictionary of relative file paths and globs to a dictionary for the ov
 
 For example:
 ```
-overrides=&#123;
-  &quot;foo.json&quot;: &#123;&quot;description&quot;: &quot;our customer model&quot;]&#125;,
-  &quot;bar.json&quot;: &#123;&quot;description&quot;: &quot;our product model&quot;]&#125;,
-  (&quot;foo.json&quot;, &quot;bar.json&quot;): &#123;&quot;tags&quot;: [&quot;overridden&quot;]&#125;,
-&#125;
+overrides={
+  "foo.json": {"description": "our customer model"]},
+  "bar.json": {"description": "our product model"]},
+  ("foo.json", "bar.json"): {"tags": ["overridden"]},
+}
 ```
 
 File paths and globs are relative to the BUILD file&#x27;s directory. Every overridden file is validated to belong to this target&#x27;s `sources` field.

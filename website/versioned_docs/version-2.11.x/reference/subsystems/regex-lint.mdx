@@ -30,39 +30,30 @@ Config section: <span className="color--primary">`[regex-lint]`</span>
 >
 Config schema is as follows:
 ```
-&#123;
-&#x27;required_matches&#x27;: &#123;
-```
-'path_pattern1': [content_pattern1, content_pattern2],
-'path_pattern2': [content_pattern1, content_pattern3],
-...
-```
-
-},
-&#x27;path_patterns&#x27;: [
-```
 {
-'name': path_pattern1',
-'pattern': <path regex pattern>,
-'inverted': True|False (defaults to False),
-'content_encoding': <encoding> (defaults to utf8)
+'required_matches': {
+    'path_pattern1': [content_pattern1, content_pattern2],
+    'path_pattern2': [content_pattern1, content_pattern3],
+    ...
 },
-...
-```
-
+'path_patterns': [
+    {
+    'name': path_pattern1',
+    'pattern': <path regex pattern>,
+    'inverted': True|False (defaults to False),
+    'content_encoding': <encoding> (defaults to utf8)
+    },
+    ...
 ],
-&#x27;content_patterns&#x27;: [
-```
-{
-'name': 'content_pattern1',
-'pattern': <content regex pattern>,
-'inverted': True|False (defaults to False)
-}
-...
-```
-
+'content_patterns': [
+    {
+    'name': 'content_pattern1',
+    'pattern': <content regex pattern>,
+    'inverted': True|False (defaults to False)
+    }
+    ...
 ]
-&#125;
+}
 ```
 
 

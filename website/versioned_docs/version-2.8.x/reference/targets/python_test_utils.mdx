@@ -89,11 +89,11 @@ Expects a dictionary of relative file paths and globs to a dictionary for the ov
 
 For example:
 ```
-overrides=&#123;
-  &quot;foo.py&quot;: &#123;&quot;skip_pylint&quot;: True]&#125;,
-  &quot;bar.py&quot;: &#123;&quot;skip_flake8&quot;: True]&#125;,
-  (&quot;foo.py&quot;, &quot;bar.py&quot;): &#123;&quot;tags&quot;: [&quot;linter_disabled&quot;]&#125;,
-&#125;
+overrides={
+  "foo.py": {"skip_pylint": True]},
+  "bar.py": {"skip_flake8": True]},
+  ("foo.py", "bar.py"): {"tags": ["linter_disabled"]},
+}
 ```
 
 File paths and globs are relative to the BUILD file&#x27;s directory. Every overridden file is validated to belong to this target&#x27;s `sources` field.

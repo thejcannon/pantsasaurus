@@ -62,11 +62,11 @@ Expects a dictionary mapping values from the `entry_points` field to a dictionar
 
 For example:
 ```
-overrides=&#123;
-  &quot;foo.py&quot;: &#123;&quot;execution_mode&quot;: &quot;venv&quot;]&#125;,
-  &quot;bar.py:main&quot;: &#123;&quot;restartable&quot;: True]&#125;,
-  (&quot;foo.py&quot;, &quot;bar.py:main&quot;): &#123;&quot;tags&quot;: [&quot;legacy&quot;]&#125;,
-&#125;
+overrides={
+  "foo.py": {"execution_mode": "venv"]},
+  "bar.py:main": {"restartable": True]},
+  ("foo.py", "bar.py:main"): {"tags": ["legacy"]},
+}
 ```
 
 Every key is validated to belong to this target&#x27;s `entry_points` field.

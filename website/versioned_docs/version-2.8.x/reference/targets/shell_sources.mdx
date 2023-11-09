@@ -71,11 +71,11 @@ Expects a dictionary of relative file paths and globs to a dictionary for the ov
 
 For example:
 ```
-overrides=&#123;
-  &quot;foo.sh&quot;: &#123;&quot;skip_shellcheck&quot;: True]&#125;,
-  &quot;bar.sh&quot;: &#123;&quot;skip_shfmt&quot;: True]&#125;,
-  (&quot;foo.sh&quot;, &quot;bar.sh&quot;): &#123;&quot;tags&quot;: [&quot;linter_disabled&quot;]&#125;,
-&#125;
+overrides={
+  "foo.sh": {"skip_shellcheck": True]},
+  "bar.sh": {"skip_shfmt": True]},
+  ("foo.sh", "bar.sh"): {"tags": ["linter_disabled"]},
+}
 ```
 
 File paths and globs are relative to the BUILD file&#x27;s directory. Every overridden file is validated to belong to this target&#x27;s `sources` field.
