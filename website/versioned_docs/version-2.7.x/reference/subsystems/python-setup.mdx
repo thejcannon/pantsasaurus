@@ -120,7 +120,7 @@ We recommend keeping the default of `error` for CI builds.
 A list of paths to search for Python interpreters that match your project&#x27;s interpreter constraints. You can specify absolute paths to interpreter binaries and/or to directories containing interpreter binaries. The order of entries does not matter. The following special strings are supported:
 
 * &quot;&lt;PATH&gt;&quot;, the contents of the PATH env var
-* &quot;&lt;ASDF&gt;&quot;, all Python versions currently configured by ASDF (asdf shell, ${HOME}/.tool-versions), with a fallback to all installed versions
+* &quot;&lt;ASDF&gt;&quot;, all Python versions currently configured by ASDF (asdf shell, $&#123;HOME&#125;/.tool-versions), with a fallback to all installed versions
 * &quot;&lt;ASDF_LOCAL&gt;&quot;, the ASDF interpreter with the version in BUILD_ROOT/.tool-versions
 * &quot;&lt;PYENV&gt;&quot;, all Python versions under $(pyenv root)/versions
 * &quot;&lt;PYENV_LOCAL&gt;&quot;, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
