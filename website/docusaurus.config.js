@@ -1,6 +1,35 @@
 // @ts-check
-const lightCodeTheme = require("prism-react-renderer/themes/github");
-const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+import versions from "./versions.json";
+
+import { themes as prismThemes } from "prism-react-renderer";
+
+function getCurrentVersion() {
+  const lastReleasedVersion = versions[0];
+  const version = parseInt(
+    lastReleasedVersion.replace("2.", "").replace(".x", ""),
+    10
+  );
+  return `2.${version + 1}.x`;
+}
+
+// Controls for how much to build:
+//  - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version"), and no blog.
+//  - DOCUSAURUS_INCLUDE_VERSION=<version> -> Use current version and version specified
+//  - DOCUSAURUS_INCLUDE_BLOG=1 -> Include the blog.
+// Note that `NODE_ENV === 'production' builds _everything_.
+const isDev = process.env.NODE_ENV === "development";
+const disableVersioning =
+  isDev && process.env.DOCUSAURUS_INCLUDE_VERSION === undefined;
+const latestVersion = disableVersioning
+  ? undefined
+  : process.env.DOCUSAURUS_INCLUDE_VERSION
+  ? process.env.DOCUSAURUS_INCLUDE_VERSION
+  : versions[0];
+const onlyIncludeVersions = isDev
+  ? ["current"].concat(latestVersion ? [latestVersion] : [])
+  : undefined;
+const currentVersion = getCurrentVersion();
+const includeBlog = process.env.DOCUSAURUS_INCLUDE_BLOG === "1" || !isDev;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -27,16 +56,27 @@ const config = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           routeBasePath: "/",
-          disableVersioning: process.env.DOCUSAURUS_ENABLE_VERSIONING !== "1",
+          disableVersioning,
+          onlyIncludeVersions,
+          lastVersion: latestVersion,
           versions: {
             current: {
-              label: "main",
+              label: `${currentVersion} 🚧`,
+              path: currentVersion,
             },
+            ...(latestVersion
+              ? {
+                  [latestVersion]: {
+                    label: latestVersion,
+                    path: latestVersion,
+                  },
+                }
+              : {}),
           },
           editUrl:
             "https://github.com/thejcannon/pantsasaurus/edit/main/website/",
         },
-        blog: {
+        blog: includeBlog && {
           showReadingTime: true,
           editUrl:
             "https://github.com/thejcannon/pantsasaurus/edit/main/website/",
@@ -201,7 +241,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Pants project contributors.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Pants project contributors. Built with Docusaurus.`,
       },
       prism: {
         additionalLanguages: [
@@ -213,8 +253,8 @@ const config = {
           "go",
           "java",
         ],
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: prismThemes.github,
+        darkTheme: prismThemes.dracula,
       },
     }),
 };
