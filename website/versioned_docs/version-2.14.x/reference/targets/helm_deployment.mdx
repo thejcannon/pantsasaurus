@@ -93,25 +93,23 @@ If true, then does not deploy the Custom Resource Definitions that are defined i
 Individual values to use when rendering a given deployment.
 
 Value names should be defined using dot-syntax as in the following example:
-``` helm_deployment(
 ```
-values={
-    "nameOverride": "my_custom_name",
-    "image.pullPolicy": "Always",
-},
+helm_deployment(
+    values={
+        "nameOverride": "my_custom_name",
+        "image.pullPolicy": "Always",
+    },
+)
 ```
-
-) ```
 
 Values can be dynamically calculated using interpolation as shown in the following example:
-``` helm_deployment(
 ```
-values={
-    "configmap.deployedAt": "{env.DEPLOY_TIME}",
-},
+helm_deployment(
+    values={
+        "configmap.deployedAt": "{env.DEPLOY_TIME}",
+    },
+)
 ```
-
-) ```
 
 Check the Helm backend documentation on what are the options available and its caveats when making usage of dynamic values in your deployments.
 </Field>
