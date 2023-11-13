@@ -33,7 +33,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
 
       - name: Get yarn cache
         id: yarn-cache
@@ -48,7 +48,9 @@ jobs:
             ${{ runner.os }}-website-
 
       - run: yarn install --frozen-lockfile
-      - run: yarn build
+      - run: npm run build
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
