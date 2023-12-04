@@ -5,7 +5,12 @@
 
 # Choosing a Python interpreter for a Pants project
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Javier Allegue Barros](https://unsplash.com/@soymeraki?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Javier Allegue
+  Barros](https://unsplash.com/@soymeraki?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 Choosing a compatible Python interpreter carefully is important not only for developers, but for the Pants repository administrators as well. Developers using Pants build system in their project may see various errors and have different behaviors depending on the Python interpreter...
 
@@ -29,7 +34,7 @@ When deciding how to declare your Python interpreter requirements, you will need
 
 If users of a Pants repository can install arbitrary software on their computers, it is possible that a given user could have multiple versions of the Python interpreter available in their system. If the runtime environment of the code is known in advance and is tied to a particular Python version, you may be conservative and configure your default Python interpreter compatibility constraints in `pants.toml` to be tied to a major Python version like this:
 
-```
+```toml
 [python]
 interpreter_constraints = ["CPython==3.8.*"]
 ```
@@ -40,7 +45,7 @@ This will ensure that a particular version of Python is always used, to prevent 
 
 Pants will by default inspect the `$PATH` environment variable to discover available Python interpreters. If there are many compatible versions of the interpreter found, this may result in subtle, hard to troubleshoot bugs when the order in which the interpreters will be discovered is not deterministic. To be more rigorous, one can change this by setting the option `search_path` in the `[python-bootstrap]` scope, for example:
 
-```
+```toml
 [python-bootstrap]
 search_path = ["<PYENV_LOCAL>", "/usr/bin"]
 ```
@@ -55,13 +60,13 @@ It is possible, however, that the expectations of the software engineers will be
 
 On Debian-based Linux, Python can be installed with the system `python3` package:
 
-```
+```shell-session
 $ sudo apt-get install python3
 ```
 
 By default, the `python3` package will install a predefined version of the interpreter, depending on the operating system version. Installing a Python interpreter of a particular version is trivial:
 
-```
+```shell-session
 $ sudo apt-get install python3.8
 ```
 
@@ -69,7 +74,7 @@ Be careful, however, when relying on system Python on Linux, particularly with D
 
 If you do decide to use a Python interpreter from a system package, it is possible to install multiple versions of Python interpreters side by side. One can choose to update what version of Python will be used when a particular symlink is accessed. For instance, the [update-alternatives](https://linux.die.net/man/8/update-alternatives) command would update the `/usr/bin/python3` symlink to point to the `python3.8` system package interpreter. This would be required, for example, if you want to use by default Python 3.8 on an Ubuntu 18.04 system that ships with Python 3.6:
 
-```
+```shell-session
 $ update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1
 ```
 
@@ -99,13 +104,13 @@ Relying on a single Xcode's Python interpreter on MacOS, however, will free you 
 
 Be advised, however, that if Xcode is installed from the App Store, it can be accidentally updated by a user to a later version (that may come with another Python version) as part of updates offered in the App Store. To avoid this, it is possible that an organization may give their developers computers that already have everything they need for their work pre-installed. This may be the case for a large organization that needs to enforce the same system environment to ensure a universal developer experience.
 
-Alternatively, providing instructions on how to start using a Python interpreter that ships as part of Xcode would be helpful since its installation can be scripted (with [xip](https://en.wikipedia.org/wiki/.XIP) command) and can be run in quiet mode when updating the software remotely. Having Xcode installed as part of a scripted developer environment setup (done by a developer or a system administrator) would ensure that it’s not being updated as part of the standard updates of other system applications via App Store.
+Alternatively, providing instructions on how to start using a Python interpreter that ships as part of Xcode would be helpful since its installation can be scripted (with [xip](https://en.wikipedia.org/wiki/.XIP) command) and can be run in quiet mode when updating the software remotely. Having Xcode installed as part of a scripted developer environment setup (done by a developer or a system administrator) would ensure that it's not being updated as part of the standard updates of other system applications via App Store.
 
 ### pyenv
 
 `pyenv` approach makes it possible to have multiple versions of Python installed and users can decide what version to use at a given point of time. `pyenv` is very popular among Python developers, supports both Linux and MacOS, and provides a very clean and stable way to deal with multiple versions of Python interpreters. To be sure that engineers writing Python programs would target a certain Python version, one can install a specific version of Python that is of interest:
 
-```
+```shell-session
 $ pyenv install 3.8.10
 $ pyenv local 3.8.10
 $ cat .python-version
@@ -116,7 +121,7 @@ Python 3.8.10
 
 You can choose to rely solely on the local repository settings (with the assumption that `pyenv` is going to be set up for the repository) or be more permissive and search for other interpreters, for example:
 
-```
+```toml
 [python-bootstrap]
 search_path = ["<PYENV_LOCAL>", "/usr/bin"]
 ```

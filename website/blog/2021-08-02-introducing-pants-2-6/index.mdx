@@ -5,7 +5,12 @@
 
 # Introducing Pants 2.6: Poetry support, third-party type stubs, and linter reports
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Elisa Calvet B.](https://unsplash.com/@elisa_cb?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Elisa Calvet
+  B.](https://unsplash.com/@elisa_cb?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 {/* truncate */}
 
@@ -27,8 +32,8 @@ See our recent blog post ["Poetry support for Pants 2.6"](../2021-07-29-poetry-s
 
 Pants now understands how to [infer dependencies](../2020-10-29-dependency-inference/index.mdx) for third-party type stubs. For example, if you have `import requests` in your code, Pants will infer a dependency on both the implementation and the type stub.
 
-```bash
-> ./pants dependencies project/app.py
+```shell-session
+$ ./pants dependencies project/app.py
 3rdparty/python:requests
 3rdparty/python:types-requests
 ```

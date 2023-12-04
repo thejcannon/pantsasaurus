@@ -5,11 +5,15 @@
 
 # Optimizing Python + Docker deploys using Pants
 
-<CaptionedImg src={require("./splash.png").default}>The Python and Docker logos, with a plus sign between them</CaptionedImg>
+<CaptionedImg src={require("./splash.png").default}>
+  The Python and Docker logos, with a plus sign between them
+</CaptionedImg>
 
 Pants can build a PEX file, an executable zip file containing your Python code and all transitive dependencies. Deploying your application is as simple as copying the file. This post elaborates on how to get best performance out of the powerful combination of Pants+PEX+Docker.
 
 {/* truncate */}
+
+---
 
 The [Pantsbuild system](https://www.pantsbuild.org) ships with support for building an all-in-one distributable Python file called a [PEX](https://www.pantsbuild.org/docs/pex-files). A PEX file is an executable zip file containing your Python code and all its transitive dependencies. Deploying your Python application is as simple as copying a PEX file to a system or image with a suitable Python interpreter.
 
@@ -19,13 +23,13 @@ This post builds off of our [previous post](../2021-10-13-pants-pex-and-docker/i
 
 ## A very simple example
 
-```
+```python title="BUILD"
 python_sources()
 
 pex_binary(
     name = "binary",
     entry_point = "app.py",
-    \# Optimal settings for Docker builds
+    # Optimal settings for Docker builds
     layout = "packed",
     execution_mode = "venv",
 )
@@ -47,7 +51,7 @@ In production environments, however, simplicity at build-time comes with trade-o
 
 - It must extract itself before it can run, increasing application startup times
 - After extraction, your running container has the PEX and the extracted contents on disk, increasing space required to run
-- Changing a first-party source file requires a full rebuild of the PEX and the container, which doesn’t leverage Pants or Docker’s caches
+- Changing a first-party source file requires a full rebuild of the PEX and the container, which doesn't leverage Pants or Docker's caches
 
 ### Metrics
 
@@ -67,7 +71,7 @@ Touching a 1stparty source results in similar metrics. I.e., we get no increment
 
 ## Simple Multi-Stage Build
 
-We can leverage Docker multi-stage builds and interesting PEX features to solve some of these challenges. Using [this recipe](https://pex.readthedocs.io/en/latest/recipes.html#pex-app-in-a-container) in PEX’s documentation, we can:
+We can leverage Docker multi-stage builds and interesting PEX features to solve some of these challenges. Using [this recipe](https://pex.readthedocs.io/en/latest/recipes.html#pex-app-in-a-container) in PEX's documentation, we can:
 
 1.  Create a Python virtual environment containing only our third-party dependencies in one stage
 2.  Create an identical virtual environment containing only our first-party sources in another stage
@@ -75,7 +79,7 @@ We can leverage Docker multi-stage builds and interesting PEX features to solve 
 
 Our BUILD file becomes:
 
-```
+```python title="BUILD"
 python_sources()
 
 pex_binary(
@@ -109,12 +113,12 @@ docker_image(
 This approach has several benefits:
 
 - It moves the extraction of the PEX to “build time” and also compiles each Python file, so that the application has the lowest-possible startup latency
-- Running the final image doesn’t require any additional space
+- Running the final image doesn't require any additional space
 - The `COPY  --from=deps` instruction in the final image can be cached between runs when only touching first-party code
 
 It also has some drawbacks:
 
-- Even though the final layer of the deps stage is re-used if deps don’t change, the input PEX has changed, and so docker must still re-RUN the extraction
+- Even though the final layer of the deps stage is re-used if deps don't change, the input PEX has changed, and so docker must still re-RUN the extraction
 - Having docker pre-extracting the PEX incurs extra build time
 
 ### Metrics:
@@ -131,7 +135,7 @@ It also has some drawbacks:
 | Docker: Startup time          | \<1s (-17s)        |
 | Docker: Image size            | 5.01GB (+1.38GB)   |
 
-If we touch a first-party source (leveraging Docker’s layer caches) here’s what changes:
+If we touch a first-party source (leveraging Docker's layer caches) here's what changes:
 
 |                               |                |
 | ----------------------------- | -------------- |
@@ -142,7 +146,7 @@ If we touch a first-party source (leveraging Docker’s layer caches) here’s w
 
 In order to fully leverage Pants and Docker caches, we can split our all-in-one PEX into two: one for transitive third-party dependencies and one for first-party code.
 
-```
+```python title="BUILD"
 python_sources()
 
 pex_binary(
@@ -200,7 +204,7 @@ repository = "app",
 | Docker: Startup time          | \<1s                      |
 | Docker: Image size            | 5.01GB (unchanged)        |
 
-If we touch a first-party source (leveraging Pants and Docker’s layer caches) here’s what changes:
+If we touch a first-party source (leveraging Pants and Docker's layer caches) here's what changes:
 
 |                               |               |
 | ----------------------------- | ------------- |
@@ -214,12 +218,12 @@ If we touch a first-party source (leveraging Pants and Docker’s layer caches) 
 
 This approach leads to significant speedup in both the cold and warm build times, but it can be improved even further:
 
-- The important layers that allow for a faster incremental build aren’t in an image, so they will get cleaned when docker is pruned
+- The important layers that allow for a faster incremental build aren't in an image, so they will get cleaned when docker is pruned
 - If we tell Pants to tag our image, docker will tag the intermediate images before tagging the final one, leading to two `<none>`\-tagged images in addition to the final, tagged, image
 
 We can fix this by using several `docker_image` targets in tandem:
 
-```
+```python title="BUILD"
 ...
 
 docker_image(
@@ -273,6 +277,6 @@ Additionally, the above targets can all be wrapped into a handy [Pants macro](ht
 
 ## In Conclusion
 
-Pants’ support for Python and Docker is well-equipped to easily cater to varying business needs and interesting use-cases. And although support for everything listed here is primed and ready as of the upcoming Pants 2.13 release, the Pants community hopes to make even the most complex use-case (such as the final example) as simple to declare as the straightforward use-case (such as the first example) in future versions.
+Pants' support for Python and Docker is well-equipped to easily cater to varying business needs and interesting use-cases. And although support for everything listed here is primed and ready as of the upcoming Pants 2.13 release, the Pants community hopes to make even the most complex use-case (such as the final example) as simple to declare as the straightforward use-case (such as the first example) in future versions.
 
 If you want to learn more about Pants, PEX and how they can help you deploy Python applications efficiently, [come and say hi](https://www.pantsbuild.org/docs/getting-help) on Slack!

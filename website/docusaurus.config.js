@@ -1,5 +1,6 @@
 // @ts-check
 import versions from "./versions.json";
+import captionedCode from "./src/remark/captioned-code";
 
 import { themes as prismThemes } from "prism-react-renderer";
 
@@ -73,6 +74,7 @@ const config = {
                 }
               : {}),
           },
+          //remarkPlugins: [captionedCode],
           editUrl:
             "https://github.com/thejcannon/pantsasaurus/edit/main/website/",
         },
@@ -80,6 +82,7 @@ const config = {
           showReadingTime: true,
           editUrl:
             "https://github.com/thejcannon/pantsasaurus/edit/main/website/",
+          //remarkPlugins: [captionedCode],
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -245,16 +248,21 @@ const config = {
       },
       prism: {
         additionalLanguages: [
-          "toml",
-          "protobuf",
-          "shell-session",
           "bash",
           "docker",
           "go",
           "java",
+          "json",
+          "log",
+          "protobuf",
+          "python",
+          "shell-session",
+          "toml",
+          // TODO: Add thrift once supported: https://github.com/PrismJS/prism/issues/3641
         ],
-        theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
+        // NB: Not all themes support shell-session well. Check before you change this.
+        theme: prismThemes.palenight,
+        darkTheme: prismThemes.nightOwl,
       },
     }),
 };

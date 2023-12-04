@@ -5,11 +5,16 @@
 
 # Pants 2.15: Easier multi-platform workflows, Docker build support, automatic code cleanup, and more!
 
-<CaptionedImg src={require("./splash.jpg").default}>"[Blue Bill Duck](https://www.flickr.com/photos/43603415@N08/4738192538)" by Richard Ashurst licensed under CC BY 2.0</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  "[Blue Bill Duck](https://www.flickr.com/photos/43603415@N08/4738192538)" by
+  Richard Ashurst licensed under CC BY 2.0
+</CaptionedImg>
 
 The 2.15 series represents the biggest change to Pants since version 2.0, and we're excited to share how it can let you complete more workflows, more easily, in more places. Including cross-platform builds, containerized builds with Docker, and easier configuration for local builds…
 
 {/* truncate */}
+
+---
 
 We're excited to announce Pants 2.15.0. Under the hood, the 2.15 series represents the biggest change to Pants since version 2.0, and we're excited to share how it can let you complete more workflows, more easily, in more places.
 
@@ -29,62 +34,40 @@ Pants' fine-grained concurrency and caching works across Target Environments, wh
 
 As an example, if you need to build a Mac OS package and a Linux package, it's possible to do it from the same workflow with Target environments:
 
-```
-
+```python title="BUILD"
 local_environment(
-
-  name="macos",
-
-  compatible_platforms=["macOS_x86_64"],
-
-  ..
-
+    name="macos",
+    compatible_platforms=["macOS_x86_64"],
+    ...
 )
 
 docker_environment(
-
-  name="local_busybox",
-
-  platform="linux_x86_64",
-
-  ..
+    name="local_busybox",
+    platform="linux_x86_64",
+    ...
 
 )
 
 pex_binary(
-
-  name="bin",
-
-  environment=parametrize("linux", "macos"),
-
+    name="bin",
+    environment=parametrize("linux", "macos"),
 )
-
 ```
 
 Additionally, Target Environments streamlines configuration in codebases whose developers do their local development on a variety of platforms. Where users previously had to individually set environment variables or command line flags to locate specific tools or runtime dependencies, it's now possible to set different `local_environment` targets with configuration for each platform. When Pants is run on a machine that matches those specifications, the configuration values from that environment are used.
 
-```
-
+```python title="BUILD"
 local_environment(
-
-  name="macos",
-
-  compatible_platforms=["macOS_x86_64"],
-
-  ..
-
+    name="macos",
+    compatible_platforms=["macOS_x86_64"],
+    ...
 )
 
 local_environment(
-
-  name="macos_arm",
-
-  compatible_platforms=["macos_arm64"],
-
-  ..
-
+    name="macos_arm",
+    compatible_platforms=["macos_arm64"],
+    ...
 )
-
 ```
 
 Target Environments represent one of the biggest internal changes to Pants since version 2.0, unlocking a huge variety of new use cases, while keeping the user API for existing workflows entirely the same. This means you can adopt Target Environments as you need them, but remain blissfully unaware of them until you do.

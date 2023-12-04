@@ -11,6 +11,8 @@ Unlike earlier build systems, Pants v2 automatically infers your code's internal
 
 {/* truncate */}
 
+---
+
 Scalable build systems need to know about the structure and dependencies of your codebase in order to correctly invalidate work, compute cache keys, and apply concurrency. But how do they get this data?
 
 An important distinguishing feature of Pants v2 is its ability to automatically [infer your code's internal and external dependencies](../2020-10-29-dependency-inference/index.mdx). This is in contrast to earlier systems, such as Bazel, Buck, and Pants v1, which rely on handwritten metadata provided in BUILD files and checked into the repo alongside the code they describe.
@@ -39,7 +41,7 @@ Now, assuming you've chosen an appropriate level of granularity, every time you 
 
 The burden of BUILD file maintenance is widely acknowedged as a barrier to adoption of these sorts of build systems. For example, a [recent Bazel community talk](https://www.youtube.com/watch?v=E1-U7EAfhXw&t=371s) reiterated that:
 
-"Developers don't want to maintain BUILD files every single time that they edit a change or add a new dependency. These are all overhead that's stopping people from adopting Bazel today. It's just a lot more work that they have to do on top of their normal development workflow, and this extra work slows them down. So adopting Bazel slows down your developer productivity."
+> Developers don't want to maintain BUILD files every single time that they edit a change or add a new dependency. These are all overhead that's stopping people from adopting Bazel today. It's just a lot more work that they have to do on top of their normal development workflow, and this extra work slows them down. So adopting Bazel slows down your developer productivity.
 
 And although we were just as guilty of this in Pants v1, it always struck us as a little absurd, because all the dependency information that bloats those BUILD files is already available in the source files themselves, in the form of `import` statements! It quickly became clear to us that Pants v2 should grab these dependencies via static analysis of your code, instead of you having to manually provide them in BUILD files.
 
@@ -49,7 +51,7 @@ The first approach we considered was to use dependency inference to generate and
 
 However this approach still has some major drawbacks, as acknowledged by this [this upcoming BazelCon talk](https://opensourcelive.withgoogle.com/events/bazelcon2022?talk=day1-talk5):
 
-"Developers often have to laboriously enumerate dependencies in their BUILD files, which is toilsome and a major source of friction."
+> Developers often have to laboriously enumerate dependencies in their BUILD files, which is toilsome and a major source of friction.
 
 For one thing, many BUILD files cannot be completely generated. They still need to be manually edited, both to tweak the generated dependencies and to add any other, non-inferrable metadata. Having an automatic process modify human-edited files, and vice versa, gets messy quickly. How do you customize and correct the generator's output? How do you ensure that human edits aren't erased or overwritten?
 
@@ -57,7 +59,11 @@ Generated BUILD files may be even more verbose than handwritten ones, which bloa
 
 What we want, in practice, is very fine-grained dependency metadata, but coarse-grained metadata of other kinds. So we ended up rejecting BUILD file generation as the simplifying mechanism for dependency management.
 
-> Note: Pants does do a bit of simple BUILD file generation, using the built-in `tailor` goal, to streamline onboarding. But these BUILD files are perfunctory and tiny, and notably don't contain dependencies!
+:::note
+
+Pants does do a bit of simple BUILD file generation, using the built-in `tailor` goal, to streamline onboarding. But these BUILD files are perfunctory and tiny, and notably don't contain dependencies!
+
+:::
 
 ### Dependency inference
 
@@ -96,7 +102,7 @@ Sometimes, despite all our best efforts, and your customizations, there is no es
 
 In such cases you can simply add dependencies in your BUILD files, the old-school way. But you only need to add the ones that can't be inferred, to augment dep inference, so this still keeps your BUILD files nice and small. And these handful of manual dependencies can still be at the file level, to preserve the fine granularity:
 
-```
+```python title="BUILD"
 resources(name="my_data", sources=["my_data.txt"])
 
 python_sources(
@@ -108,7 +114,7 @@ In the rare case that you want to _prevent_ pants from inferring a dependency, s
 
 You can negate the dependency in the BUILD file, by preceding it with a `!`:
 
-```
+```python title="BUILD"
 python_sources(
   dependencies=["!provided/dep.py"],
 )
@@ -116,7 +122,7 @@ python_sources(
 
 You can add a `# pants: no-infer-dep` pragma on the import line:
 
-```
+```python
 import provided.dep  # pants: no-infer-dep
 ```
 

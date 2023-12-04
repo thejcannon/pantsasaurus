@@ -11,6 +11,8 @@ We ended up setting up a self-hosted GitHub Actions runner, on a hosted Mac M1. 
 
 {/* truncate */}
 
+---
+
 The [Pants](https://pantsbuild.org/) build system is written in a combination of Python and Rust. We release Pants as a Python distribution on [PyPI](https://pypi.org/project/pantsbuild.pants/), but since it contains native code compiled from Rust, we must publish [wheels](https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/#wheels) for all the platforms we support.
 
 Our [GitHub Actions](https://github.com/features/actions) workflows create the published wheels automatically, which means we need GitHub Actions runners on every platform we support.

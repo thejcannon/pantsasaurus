@@ -5,7 +5,12 @@
 
 # Tailoring Pants to your codebase
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Yasamine June](https://unsplash.com/@yasamine?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Yasamine
+  June](https://unsplash.com/@yasamine?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 {/* truncate */}
 
@@ -23,7 +28,7 @@ One way we cut down on BUILD boilerplate is by giving fields in target definitio
 
 So, for example, consider this target:
 
-```python
+```python caption="src/python/rentacar/models/BUILD - very verbose"
 python_library(
   name = "models",
   sources = ["car.py", "driver.py", "agreement.py", "insurance.py"],
@@ -34,11 +39,9 @@ python_library(
 )
 ```
 
-src/python/rentacar/models/BUILD - very verbose
-
 It can actually be written more succinctly as:
 
-```python
+```python caption="src/python/rentacar/models/BUILD - more succinct"
 python_library(
   dependencies = [
     "src/python/rentacar/base",
@@ -47,17 +50,13 @@ python_library(
 )
 ```
 
-src/python/rentacar/models/BUILD - more succinct
-
 because the `name` field defaults to the directory name, and the `sources` field for a `python_library` defaults to `*.py` (minus test files such as `*_test.py`)_._ These defaults have been available all the way back to early versions of Pants 1.x.
 
 But in Pants 2.x that same target can be written _even more_ succinctly as:
 
-```python
+```python caption="src/python/rentacar/models/BUILD - very succinct"
 python_library()
 ```
-
-src/python/rentacar/models/BUILD - very succinct
 
 thanks to [dependency inference](https://www.pantsbuild.org/docs/targets#dependencies-and-dependency-inference), which infers the dependencies at runtime based on `import` statements in the source files. Sometimes you do have to manually add dependencies that can't be inferred, but those are usually the exception.
 
@@ -81,7 +80,7 @@ When you run the `tailor` goal, Pants will scan your repo for file types it reco
 
 For example, if Pants sees the following files in a directory with no BUILD file:
 
-```text
+```text caption="src/python/rentacar/models"
 agreement.py
 agreement_test.py
 car.py
@@ -92,19 +91,16 @@ models.proto
 base.proto
 ```
 
-src/python/rentacar/models
-
 then it'll generate the following BUILD file:
 
-```python
+```python caption="src/python/rentacar/models/BUILD - generated"
 python_library()
 
 python_tests(name="tests")
 
 protobuf_library()
-```
 
-src/python/rentacar/models/BUILD - generated
+```
 
 If there was an existing BUILD file in the directory, and some of the files were already owned by targets in that BUILD file, then `tailor` will append targets that cover just the unowned files.
 

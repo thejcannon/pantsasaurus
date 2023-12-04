@@ -5,7 +5,12 @@
 
 # Introducing Pants v2
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Jess Bailey](https://unsplash.com/es/@jessbaileydesigns?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Jess
+  Bailey](https://unsplash.com/es/@jessbaileydesigns?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 There are so many tools in the Python development ecosystem. Installing, configuring and orchestrating them—all while not re-executing work unnecessarily—is a hard problem, especially as your codebase grows.
 
@@ -31,9 +36,9 @@ Fortunately, there is now a tailor-made (pun intended) solution: **Pants v2**!
 - Unified interface for multiple tools and languages
 - Extensibility and customizability via a plugin API
 
-![](/img/pants-concurrency.gif)
-
-Pants running multiple linters in parallel
+<CaptionedImg src={require("./pants-concurrency.gif").default}>
+  Pants running multiple linters in parallel
+</CaptionedImg>
 
 Read on to learn more about Pants v2, and what it means for your Python codebase.
 
@@ -89,9 +94,10 @@ Writing build logic that can be cached and executed concurrently and remotely is
 
 In Pants v2, build logic is composed of [pure](https://en.wikipedia.org/wiki/Pure_function) Python 3 [async coroutines](https://docs.python.org/3/library/asyncio-task.html). So a build rule can depend not only on its inputs, but can also await on new data at runtime - all of which is precisely tracked for invalidation and caching. This gives us the best of both worlds: logic that is properly isolated from side-effects, and is therefore amenable to caching, concurrent execution and remoting, while still allowing the use of natural control flow.
 
-![](/img/pants-caching.gif)
-
-We run both tests, then add a syntax error to one test and rerun; the unmodified test uses the cache and is isolated from the syntax error.
+<CaptionedImg src={require("./pants-caching.gif").default}>
+  We run both tests, then add a syntax error to one test and rerun; the
+  unmodified test uses the cache and is isolated from the syntax error.
+</CaptionedImg>
 
 ### Lesson #4: Almost everyone needs to customize their builds
 

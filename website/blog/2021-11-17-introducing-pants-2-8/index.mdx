@@ -5,11 +5,18 @@
 
 # Pants 2.8 adds Autoflake & Pyupgrade, Docker publishing, Golang, and Google Cloud Functions
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [James Orr](https://unsplash.com/@orrbarone?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [James
+  Orr](https://unsplash.com/@orrbarone?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 Pants 2.8 adds Autoflake & Pyupgrade, Docker publishing, Golang, PEP 517 publishing, and Google Cloud Functions
 
 {/* truncate */}
+
+---
 
 We're pleased to announce [Pants 2.8.0](https://www.pantsbuild.org/docs), the latest release of Pants, the scalable and ergonomic build system.
 
@@ -23,8 +30,7 @@ Autoflake removes unused imports automatically, and Pyupgrade modernizes your Py
 
 Before:
 
-```python
-# app.py
+```python title="app.py"
 import os
 name = "pantsbuild"
 print("Hello %s!" %  name)
@@ -43,8 +49,8 @@ Pants 2.7 added experimental Docker support, which gives you a single command to
 
 Pants 2.8 expands its Docker support to include [publishing images](https://www.pantsbuild.org/v2.8/docs/docker#publishing-images). Now, `./pants publish` will first build the Docker image—including copying in any relevant PEX binaries, Python wheels, and files. Pants will then publish the image to the registries you specify.
 
-```
-❯ ./pants publish src/docker::
+```shell-session
+$ ./pants publish src/docker::
 14:41:51.98 [INFO] Built docker image: docker.registry.net:8181/test-example:1.2.5
 The push refers to repository [docker.registry.net:8181/test-example]
 7c521f914a2d: Layer already exists
@@ -61,8 +67,8 @@ Pants 2.8 now also can run your Docker images with `./pants run`, making sure th
 
 Pants can now [create a .zip file understood by Google Cloud Function](https://www.pantsbuild.org/v2.8/docs/google-cloud-function-python), allowing you to develop your functions alongside the rest of your projects.
 
-```
-❯ ./pants package project/google_cloud_function_example.py
+```shell-session
+$ ./pants package project/google_cloud_function_example.py
 Wrote code bundle to dist/project.zip
   Runtime: python3.8
   Handler: main.handler

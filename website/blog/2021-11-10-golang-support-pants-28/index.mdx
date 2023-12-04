@@ -11,6 +11,8 @@ Why Pants for Golang? A consistent interface for all languages & tools, integrat
 
 {/* truncate */}
 
+---
+
 The open source [Pants build system](https://www.pantsbuild.org/) adds experimental Golang support to Pants 2.8, in addition to already supporting Python, Shell, and Docker!
 
 ## What is Pants?
@@ -36,8 +38,8 @@ Go's built-in tooling is already excellent! Many projects may be fine using only
 - `./pants check ::` runs all compilation and type checkers like MyPy in parallel.
 - `./pants package ::` builds all binaries, e.g. Go binaries and Python wheels. (Also see [Streamline your Docker builds with Pants](../2021-10-13-pants-pex-and-docker/index.mdx))
 
-```text
-❯ ./pants lint ::
+```shell-session
+$ ./pants lint ::
 16:28:34.37 [ERROR] Completed: Lint with gofmt - gofmt failed (exit code 1).
 The following Go files require formatting:
 testprojects/src/go/pants_test/bar/bar.go
@@ -50,21 +52,21 @@ All done! ✨ 🍰 ✨
 ✓ Black succeeded.
 ✓ Flake8 succeeded.
 ✓ Shellcheck succeeded.
-𐄂 gofmt failed.
+✕ gofmt failed.
 ```
 
 ### Integration with Git + advanced project introspection
 
 Pants integrates with Git to allow you to, for example, only format and lint changed files:
 
-```text
+```shell-session
 ./pants --changed-since=HEAD fmt
 ./pants --changed-since=upstream/main lint
 ```
 
 Pants can combine this integration with Git with its [advanced project introspection](https://www.pantsbuild.org/v2.8/docs/project-introspection). For example, to only run tests that could have possibly been changed:
 
-```text
+```shell-session
 ./pants --changed-since=HEAD --changed-dependees=transitive test
 ```
 
@@ -72,8 +74,8 @@ That is, Pants will only run tests when their package or any transitive dependen
 
 You can also use Pants's project introspection to better understand your dependency graph, such as identifying which code will be impacted by updating a third-party dependency:
 
-```text
-❯ ./pants dependees --transitive //:mod#github.com/google/uuid
+```shell-session
+$ ./pants dependees --transitive //:mod#github.com/google/uuid
 cmd/greeter_en
 cmd/greeter_es
 pkg/greeter
@@ -104,8 +106,8 @@ expected_version = "1.17"
 
 Then run `./pants tailor` to generate a couple of one-line `BUILD` files:
 
-```text
-❯ ./pants tailor
+```shell-session
+$ ./pants tailor
 Created BUILD:
 - Added go_mod target root
 Created cmd/deploy/BUILD:

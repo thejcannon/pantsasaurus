@@ -5,11 +5,18 @@
 
 # Monorepository linting via Pants's project introspection
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Sigmund](https://unsplash.com/@sigmund?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by
+  [Sigmund](https://unsplash.com/@sigmund?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 Pantsbuild provides a common interface to run all code quality tools in parallel. This post explores how Pants augments excellent linters such as bandit, flake8, shellcheck, etc. by offering its own linting mechanisms, too, including regex matches, dependency analysis, and metadata checks.
 
 {/* truncate */}
+
+---
 
 Some excellent linters now exist to discover bugs and issues in your code through static analysis. Some of our favorites:
 
@@ -32,7 +39,7 @@ For exampleб you may enforce that application tests should only use resources a
 
 In the example below, by inspecting the `dependencies_raw` field, we can see that tests in the `projectA` depend on local test data (`:testdata`), test data from a known shared location (`commons`), and data from another project (`projectB`).
 
-```
+```shell-session
 $ ./pants peek projectA/projectA/tests::
 [
   {
@@ -42,16 +49,20 @@ $ ./pants peek projectA/projectA/tests::
       ":testdata",
       "commons/commons/base/tests:test_data"
       "projectB/projectB/tests:local_tests_data"
-],
-...
+    ],
+    ...
+  },
+  ...
+]
 ```
 
 Likewise, if you would like to prevent your applications from depending on each other, you could take a look at the `dependencies` field to see if there are any imports that would imply applications being dependent on each other's code. Since the information is accessible via the project introspection tools, you could either chain a sequence of Pants commands or write a plugin to make this functionality readily available with Pants.
 
 In the example below, by inspecting the `dependencies` field, we can see that source modules in the `projectA` depend on local modules and a module from another project (`projectB`).
 
-```
+```shell-session
 $ ./pants peek projectA/projectA/src::
+[
   {
     "address": "projectA/projectA/src/module.py:../projectA",
     "target_type": "python_source",
@@ -61,7 +72,10 @@ $ ./pants peek projectA/projectA/src::
       "projectA/projectA/src/module2.py:../projectA",
       "projectB/projectB/src/module.py",
     ],
-   ...
+    ...
+  },
+  ...
+]
 ```
 
 The Pants team has also said they hope to soon add built-in "visibility" support to make this workflow easier.
@@ -74,32 +88,32 @@ For example, you could use `regex-lint` to confirm that all your `constraints.tx
 
 Given this configuration:
 
-```
+```json
 {
-"required_matches": {
+  "required_matches": {
     "constraints-files": ["constraints-generated-date-pattern"]
-},
-"path_patterns": [
+  },
+  "path_patterns": [
     {
-    "name": "constraints-files",
-    "pattern": "constraints.txt",
-    "inverted": false,
-    "content_encoding": "utf8"
+      "name": "constraints-files",
+      "pattern": "constraints.txt",
+      "inverted": false,
+      "content_encoding": "utf8"
     }
-],
-"content_patterns": [
+  ],
+  "content_patterns": [
     {
-    "name": "constraints-generated-date-pattern",
-    "pattern": "^#(\\s)Generated(\\s)on*",
-    "inverted": false
+      "name": "constraints-generated-date-pattern",
+      "pattern": "^#(\\s)Generated(\\s)on*",
+      "inverted": false
     }
-]
+  ]
 }
 ```
 
 Starting with Pants 2.13+, this command would report any violations of this config:
 
-```
+```shell-session
 $ ./pants lint ::
 ```
 
@@ -107,7 +121,7 @@ $ ./pants lint ::
 
 You set Pants metadata for your project in lightweight `BUILD` files. Usually, there are only a few auto-generated lines, thanks to sensible defaults and [dependency inference](../2020-10-29-dependency-inference/index.mdx). For example:
 
-```python
+```python title="BUILD"
 python_tests(
     name="tests",
     timeout=120,
@@ -120,19 +134,19 @@ You can also use Pants's `peek` goal to query the metadata of your project. Espe
 
 For example, you can ensure that none of your Python `pex_binary` targets try to support banned OS and Python versions (here we search for targets that would support MacOS on Apple silicon with Python 3.8):
 
-```shell
+```shell-session
 ./pants peek :: | jq '.[] | select(.target_type=="pex_binary" and (.platforms | index( "macosx_11_0_arm64-cp-38-cp38") ))'
 ```
 
 You can also ensure that your Python `pex_binary` targets do not get packaged for multiple platforms (here we search for any targets that have more than one platform defined):
 
-```shell
+```shell-session
 $ ./pants peek:: | jq '.[] | select(.target_type=="pex_binary" and .platforms != null and (.platforms | length) > 1)'
 ```
 
 Or, check which source files are opting out of Black formatting:
 
-```shell
+```shell-session
 $ ./pants peek :: | jq '.[] | select(.target_type=="python_source" and .skip_black == true)'
 ```
 
@@ -140,7 +154,7 @@ $ ./pants peek :: | jq '.[] | select(.target_type=="python_source" and .skip_bla
 
 When you declare the files you would like to become a part of a target, for example, by specifying `sources` of a `python_sources` target, you tell Pants that all files that will be found using this globbing expression are going to be owned by this target.
 
-```
+```python title="BUILD"
 python_sources(
     sources=[
         "src/*.py",
@@ -154,15 +168,15 @@ If, after expanding the globbing expression, there are no files found, this is m
 
 Pants defaults to only warning when globs do not match, but you can configure it to error by setting this in `pants.toml`:
 
-```toml
+```toml title="pants.toml"
 [GLOBAL]
 unmatched_build_file_globs = "error"
 ```
 
 Then, for example:
 
-```
-$ ./pants  lint ::
+```shell-session
+$ ./pants lint ::
 19:56:20.39 [ERROR] 1 Exception encountered:
 
   Exception: Unmatched glob from foo/bar:baz's `sources` field: "foo/bar/missing-directory/*.py"

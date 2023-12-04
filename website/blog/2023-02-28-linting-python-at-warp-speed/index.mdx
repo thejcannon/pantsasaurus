@@ -5,7 +5,12 @@
 
 # Linting Python at warp speed with Pants+Ruff
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Mathew Schwartz](https://unsplash.com/@cadop?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Mathew
+  Schwartz](https://unsplash.com/@cadop?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 Now that Pants 2.15 is out, let's whet your appetite for 2.16: lint your Python monorepo faster than ever with Pants and Ruff, two projects that share a passion for combining the raw power of Rust with the elegance of Python.
 
@@ -17,54 +22,20 @@ Tools like [Pylint](https://github.com/PyCQA/pylint) and [Flake8](https://github
 
 Just to give a sense of the _cold-run_ speed of these tools, I cloned the Pants project from Github and ran Pylint with the default configurations using WSL2 on a 6-core 12-thread Intel i7-5820K Windows PC with 32 GB of RAM.
 
-Metrics
-
-Results
-
-SLOC
-
-161,410
-
-Version
-
-pylint 2.16.1
-astroid 2.14.1
-Python 3.11.1 (main, Jan 28 2023, 18:50:01) \[GCC 9.4.0\]
-
-Time (with `--jobs=0`)
-
-475.83s user
-4.07s system
-99% cpu
-8:00.03 total
+| Metrics                | Results                                                                                        |
+| ---------------------- | ---------------------------------------------------------------------------------------------- |
+| SLOC                   | 161,410                                                                                        |
+| Version                | pylint 2.16.1<br/>astroid 2.14.1<br/>Python 3.11.1 (main, Jan 28 2023, 18:50:01) \[GCC 9.4.0\] |
+| Time (with `--jobs=0`) | 475.83s user<br/>4.07s system<br/>99% cpu<br/>8:00.03 total                                    |
 
 That's _a lot_ of time spent just on a single linting tool. Let's look at another usual suspect, Flake8; which will be my main reference point in this blog post.
 
-Metrics
-
-Results
-
-SLOC
-
-161,410
-
-Version
-
-6.0.0 (flake8-2020: 1.7.0, flake8-annotations: 3.0.0, flake8-bandit: 4.1.1, flake8-blind-except: 0.2.1, flake8-boolean-trap: 0.1.0, flake8-bugbear: 23.1.20, flake8-builtins: 2.1.0, flake8-commas: 2.1.0, flake8-comprehensions: 3.10.1, flake8-datetimez: 20.10.0, flake8-debugger: 4.1.2, flake8-executable: 2.1.3, flake8-import-conventions: 0.1.0, flake8-logging-format: 0.9.0, flake8-no-pep420: 2.3.0, flake8-pie: 0.16.0, flake8-print: 5.0.0, flake8-pyi: 23.1.2, flake8-pytest-style: 1.7.0, flake8-quotes: 3.3.2, flake8-return: 1.2.0, flake8-simplify: 0.19.3, flake8-tidy-imports: 4.8.0, flake8-type-checking: 2.3.0, flake8-unused-arguments: 0.0.13, flake8-use-pathlib: 0.3.0, flake8_errmsg: 0.4.0, flake8_implicit_str_concat: 0.4.0, mccabe: 0.7.0, pycodestyle: 2.10.0, pyflakes: 3.0.1) CPython 3.11.1 on Linux
-
-Time (with `--jobs=auto`)
-
-159.24s user
-1.71s system
-1101% cpu
-14.617 total
-
-Time (without any Flake8 plugins, with `--jobs=auto`)
-
-42.24s user
-0.58s system
-1089% cpu
-3.930 total
+| Metrics                                               | Results                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SLOC                                                  | 161,410                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Version                                               | 6.0.0 (flake8-2020: 1.7.0, flake8-annotations: 3.0.0, flake8-bandit: 4.1.1, flake8-blind-except: 0.2.1, flake8-boolean-trap: 0.1.0, flake8-bugbear: 23.1.20, flake8-builtins: 2.1.0, flake8-commas: 2.1.0, flake8-comprehensions: 3.10.1, flake8-datetimez: 20.10.0, flake8-debugger: 4.1.2, flake8-executable: 2.1.3, flake8-import-conventions: 0.1.0, flake8-logging-format: 0.9.0, flake8-no-pep420: 2.3.0, flake8-pie: 0.16.0, flake8-print: 5.0.0, flake8-pyi: 23.1.2, flake8-pytest-style: 1.7.0, flake8-quotes: 3.3.2, flake8-return: 1.2.0, flake8-simplify: 0.19.3, flake8-tidy-imports: 4.8.0, flake8-type-checking: 2.3.0, flake8-unused-arguments: 0.0.13, flake8-use-pathlib: 0.3.0, flake8_errmsg: 0.4.0, flake8_implicit_str_concat: 0.4.0, mccabe: 0.7.0, pycodestyle: 2.10.0, pyflakes: 3.0.1) CPython 3.11.1 on Linux |
+| Time (with `--jobs=auto`)                             | 159.24s user<br/>1.71s system<br/>1101% cpu<br/>14.617 total                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Time (without any Flake8 plugins, with `--jobs=auto`) | 42.24s user<br/>0.58s system<br/>1089% cpu<br/>3.930 total                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 
 Installing the plugins decreased the speed by ~272%! It would be nice to have a linting tool with a similar feature set and much better performance.
 
@@ -88,24 +59,11 @@ Ruff is actively developed (as of writing this blog post, the last commit was 1 
 
 Let's repeat the previous tests, but with ruff this time:
 
-Metrics
-
-Results
-
-SLOC
-
-161,410
-
-Version
-
-ruff 0.0.245
-
-Time
-
-1.19s user
-0.21s system
-645% cpu
-0.217 total
+| Metrics                | Results                                                       |
+| ---------------------- | ------------------------------------------------------------- |
+| SLOC                   | 161,410                                                       |
+| Version                | ruff 0.0.245                                                  |
+| Time (with `--jobs=0`) | 1.19s user<br/>0.21s system<br/>645% cpu<br/>0.217 total<br/> |
 
 It ran under a fraction of a second. That's _very_ impressive.
 
@@ -123,7 +81,7 @@ Here are the steps to get started:
 
 1.  Create your monorepo. Notice that we are injecting an unused import statement, ruff will take care of this.
 
-    ```bash
+    ```shell-session
     $ mkdir ~/projects/monorepo
     $ cd ~/projects/monorepo
     $ mkdir -p src/python/demo
@@ -143,7 +101,7 @@ Here are the steps to get started:
 
 2.  Install `pants` into your project's root directory.
 
-    ```bash
+    ```shell-session
     $ curl -L -O https://static.pantsbuild.org/setup/pants
     $ chmod +x ./pants
     $ echo """
@@ -180,7 +138,7 @@ Here are the steps to get started:
 
 3.  Start using the fix [goal](https://www.pantsbuild.org/docs/python-goals). As you can see, ruff fixed the file with the unused import.
 
-    ```bash
+    ```shell-session
     $ ./pants fix ::
     12:20:59.81 [INFO] Completed: Building ruff.pex from ruff_default.lock
     12:20:59.86 [WARN] Completed: Format with ruff - ruff made changes.

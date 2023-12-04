@@ -5,9 +5,14 @@
 
 # Pants 2.17.0 is released!
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Ankush Minda](https://unsplash.com/@an_ku_sh?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Ankush
+  Minda](https://unsplash.com/@an_ku_sh?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
-<!-- truncate -->
+{/* truncate */}
 
 We're pleased to announce Pants 2.17.0, the latest release of Pants Build, the scalable and ergonomic build system. To update, set `pants_version = "2.17.0"` in your `pants.toml`. See upgrade tips for more information.
 
@@ -20,7 +25,7 @@ Version 2.17.0 comes quickly after 2.16.0, which was one of our biggest releases
 - The default version of Pip that is used for resolving requirements and generating lockfiles has been bumped to `v23.1.2` which performs faster in backtracking scenarios when there are package version conflicts.
 - Support for [Taplo](https://github.com/tamasfe/taplo), a TOML toolkit written in Rust, has been added and can now be used to format TOML files. To use, add `"pants.backend.tools.taplo"` to the list of `[GLOBAL].backend_packages` in `pants.toml`. See an example usage below:
 
-```
+```shell-session
 $ pants fmt pants*.toml
 10:24:29.91 [WARN] Completed: Format with taplo - taplo made changes.
   pants.ci.toml
@@ -32,7 +37,7 @@ $ pants fmt pants*.toml
 - The serverless `python_awslambda` or `python_google_cloud_function` targets now support a new `'zip'` layout, as recommended by the cloud vendors. This layout gives smaller packages and faster cold starts than the existing Lambdex layout, and will become the default in 2.18. See the docs [for `python_awslambda`](https://www.pantsbuild.org/v2.17/docs/awslambda-python#migrating-from-pants-216-and-earlier) and [for `python_google_cloud_function`](https://www.pantsbuild.org/v2.17/docs/google-cloud-function-python#migrating-from-pants-216-and-earlier).
 - You can now use the `pants` binary launcher  from anywhere in your repository, not just the project root. This also means that Pants will respect the address specs passed on the command line relative to the current working directory rather than the build root. See this in action in our [example-python](https://github.com/pantsbuild/example-python) repository:
 
-```
+```shell-session
 $ pwd
 /home/user.name/example-python/helloworld/translator
 
@@ -68,4 +73,4 @@ Try out one of our example repositories:
 
 And let us know what you think in [Slack!](https://www.pantsbuild.org/docs/getting-help)
 
-Pants wouldn't be possible without everyone who contributed to 2.17.0 , including everyone who shared feedback on changes and who tested release candidates! Thank you very much!
+Pants wouldn't be possible without everyone who contributed to 2.17.0, including everyone who shared feedback on changes and who tested release candidates! Thank you very much!

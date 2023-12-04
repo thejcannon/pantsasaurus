@@ -5,25 +5,25 @@
 
 # Pants 2.9: Alpha support for Java and Scala, improvements for Docker and Go, and more
 
-<CaptionedImg src={require("./splash.svg").default}></CaptionedImg>
+<CaptionedImg src={require("./splash.png").default}></CaptionedImg>
 
 We're pleased to announce [Pants 2.9.0](https://www.pantsbuild.org/v2.9/docs), the latest release of Pants: the scalable and ergonomic build system!
 
 {/* truncate */}
 
-We're pleased to announce [Pants 2.9.0](https://www.pantsbuild.org/v2.9/docs), the latest release of Pants: the scalable and ergonomic build system!
+---
 
 To update, set `pants_version = "2.9.0"` in your `pants.toml`. See [upgrade tips](https://www.pantsbuild.org/docs/upgrade-tips) for more information.
 
 ## Alpha Support for Java and Scala
 
-We’re very happy to announce that support for Java and Scala has reached alpha quality in the `2.9.0` release!
+We're very happy to announce that support for Java and Scala has reached alpha quality in the `2.9.0` release!
 
 Pants 1.x had a long history of support for Java and Scala, going back to when it was first created at Twitter. In fact: they were the first supported languages! Consequently, (re-)adding support for these popular JVM languages has been high on our list ever since [the 2.x release](../2020-10-27-introducing-pants-v2/index.mdx) in late 2020.
 
 ### Improvements over Pants 1.x
 
-In the last few years, we’ve learned a lot about how best to deal with more-slowly-compiling, high level languages like Scala.
+In the last few years, we've learned a lot about how best to deal with more-slowly-compiling, high level languages like Scala.
 
 #### Dependency inference and per-file compilation
 
@@ -41,7 +41,7 @@ Build tools for the JVM tend to either resolve dependencies globally (for an ent
 
 Rather than forcing global or per-project resolves, Pants `2.9` supports a unique hybrid approach: third party resolves are named and first-class, and can be used on a target by target basis. This allows a monorepo to operate with the minimum number of resolves required to support their conflicting library versions, without necessarily going to the costly extreme of per-project resolves.
 
-Having the minimum number of resolves improves performance, but it doesn’t come with a correctness cost! To ensure reproducible builds, Pants generates a lockfile per resolve, which is then efficiently consumed to fetch the precise, fingerprinted dependencies of any particular file.
+Having the minimum number of resolves improves performance, but it doesn't come with a correctness cost! To ensure reproducible builds, Pants generates a lockfile per resolve, which is then efficiently consumed to fetch the precise, fingerprinted dependencies of any particular file.
 
 ### Trying out Java or Scala
 
@@ -58,15 +58,15 @@ Although this is an alpha release, the features that are implemented so far are 
 - Bootstrapping a consistent JVM using [coursier](https://get-coursier.io/)
 - Multiple first class thirdparty resolves ([coursier](https://get-coursier.io/) again!) with independent lockfiles
 
-We’d love to help you try out Pants with your JVM codebase: you can start by checking out the [initial documentation](https://www.pantsbuild.org/v2.9/docs/jvm-overview) and [example JVM repository](https://github.com/pantsbuild/example-jvm). If you see anything missing that prevents you from evaluating Pants for Java and Scala, please let us know by [opening a Github issue](https://github.com/pantsbuild/pants/issues/new/choose), or [visiting Slack](https://www.pantsbuild.org/v2.9/docs/community)!
+We'd love to help you try out Pants with your JVM codebase: you can start by checking out the [initial documentation](https://www.pantsbuild.org/v2.9/docs/jvm-overview) and [example JVM repository](https://github.com/pantsbuild/example-jvm). If you see anything missing that prevents you from evaluating Pants for Java and Scala, please let us know by [opening a Github issue](https://github.com/pantsbuild/pants/issues/new/choose), or [visiting Slack](https://www.pantsbuild.org/v2.9/docs/community)!
 
 ## Better visibility into runtime and caching for tests
 
 Thanks to a great change from a new contributor, Pants `2.9` now renders test runtime and cache status (whether a process ran, hit a cache, or was memoized in memory by `pantsd`) in the test summary for all supported languages!
 
-```shell
-❯ ./pants test src/python/pants/util:
-…
+```shell-session
+$ ./pants test src/python/pants/util:
+...
 ✓ src/python/pants/util/dirutil_test.py:tests succeeded in 1.21s (cached locally).
 ✓ src/python/pants/util/osutil_test.py:tests succeeded in 0.72s (memoized).
 ✓ src/python/pants/util/strutil_test.py:tests succeeded in 0.98s (cached remotely).

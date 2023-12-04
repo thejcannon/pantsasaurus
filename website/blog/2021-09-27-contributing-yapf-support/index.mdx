@@ -5,7 +5,12 @@
 
 # My experience contributing YAPF formatter support to Pants 2.7
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Brent Ninaber](https://unsplash.com/@brentninaber?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Brent
+  Ninaber](https://unsplash.com/@brentninaber?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 {/* truncate */}
 
@@ -13,24 +18,22 @@ With the latest [2.7 release](../2021-09-27-introducing-pants-2-7/index.mdx), Pa
 
 For example, if we start with this code:
 
-```python
-# project/app.py
+```python title="project/app.py"
 x  =     3 +  3
 print( x )
 ```
 
 You can run `./pants fmt`:
 
-```
-> ./pants fmt project/app.py
+```shell-session
+$ ./pants fmt project/app.py
 11:27:34.27 [WARN] Completed: fmt - yapf made changes.
-𐄂 yapf made changes.
+✓ yapf made changes.
 ```
 
 And YAPF will reformat the file to:
 
-```python
-# project/app.py
+```python title="project/app.py"
 x = 3 + 3
 print(x)
 ```
@@ -41,8 +44,7 @@ You can run your formatters in check-only mode with `./pants lint`, which will a
 
 Pants even facilitates incrementally adding YAPF to your codebase. You can tell Pants to skip running on certain files/directories by setting skip_yapf=True in light-weight metadata files called BUILD files. `./pants fmt` and `./pants lint` will know when to run which tools on which files. This allows you to easily introduce YAPF incrementally, first to a small part of your project and growing from there:
 
-```python
-# project/BUILD
+```python title="project/BUILD"
 python_library(skip_yapf=True, skip_flake8=True)
 ```
 

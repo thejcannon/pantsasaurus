@@ -5,15 +5,22 @@
 
 # Two hermetic Pythons
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Hamish Duncan](https://unsplash.com/@hambourine?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Hamish
+  Duncan](https://unsplash.com/@hambourine?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 Make builds more reliable and save time doing so. The upcoming Pants 2.16 introduces a couple of exciting changes to make Pants safer, faster, and more user-friendly. Here we preview a pair of changes which increase hermeticity.
 
 {/* truncate */}
 
-Recently, [Pants got a new launcher binary](../2023-02-23-the-pants-launcher-binary-a-much-simpler-way-to-install-and-run-pants/index.mdx) that has a Python interpreter embedded. This was an important step forward for decoupling running Pants from what’s installed on the system. However, there was still work to do; internally Pants still scoured the running machine looking for Python binaries for 2 use-cases:
+---
 
-1.  For Pants’ own ability to run Python scripts as part of the build. Python is an intuitive and cross-platform scripting language. As such it is very convenient to use it for complex scripts (like file locking, parsing complicated text, or ironically, determining a compatible Python interpreter given interpreter constraints).
+Recently, [Pants got a new launcher binary](../2023-02-23-the-pants-launcher-binary-a-much-simpler-way-to-install-and-run-pants/index.mdx) that has a Python interpreter embedded. This was an important step forward for decoupling running Pants from what's installed on the system. However, there was still work to do; internally Pants still scoured the running machine looking for Python binaries for 2 use-cases:
+
+1.  For Pants' own ability to run Python scripts as part of the build. Python is an intuitive and cross-platform scripting language. As such it is very convenient to use it for complex scripts (like file locking, parsing complicated text, or ironically, determining a compatible Python interpreter given interpreter constraints).
 2.  For running user Python code. If you enable `pants.backend.python` one or more Python interpreters need to be found/used to run your code, tools, and tests.
 
 ## Case 1: A Pants-internal Python
@@ -22,7 +29,7 @@ For case 1 where Pants just need _some_ Python interpreter to run scripts, we ta
 
 For [Docker builds](../2023-02-24-pants-2-15/index.mdx) we download and sandbox a [Python Build Standalone](https://gregoryszorc.com/docs/python-build-standalone/main/?ref=blog.pantsbuild.org) (the same kind of Python interpreter the new Pants binary launcher uses). Pants no longer dictates that a supported (or any) version of Python is present in the docker image running your build. Additionally, Pants is able to choose which version, meaning we could upgrade to faster [CPython versions](https://github.com/markshannon/faster-cpython/blob/master/plan.mdx) as they are released.
 
-For local builds, we just use `sys.executable` (the Python interpreter that’s running Pants itself). Eventually, the Pants binary launcher will be the only way to run Pants, meaning a hermetic, version-pinned interpreter will be the one-and-only way Pants is run.
+For local builds, we just use `sys.executable` (the Python interpreter that's running Pants itself). Eventually, the Pants binary launcher will be the only way to run Pants, meaning a hermetic, version-pinned interpreter will be the one-and-only way Pants is run.
 
 Combining these, the result is Pants completely decoupled from the system to run internal scripts, better hermeticity, and faster runs (by not consulting the system and by using the latest Python version available).
 

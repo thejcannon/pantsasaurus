@@ -3,15 +3,26 @@
     tags: [concepts]
 ---
 
+import Admonition from "@theme/Admonition";
+
 # Visualize your dependencies with Graph My Repo
 
-<CaptionedImg src={require("./splash.png").default}>[GraphMyRepo.com](https://graphmyrepo.com) in action, graphing the dependencies and code structure of [pantsbuild/pants](https://github.com/pantsbuild/pants/). Source: [Toolchain.com](https://toolchain.com)</CaptionedImg>
+<CaptionedImg src={require("./splash.png").default}>
+  [GraphMyRepo.com](https://graphmyrepo.com) in action, graphing the
+  dependencies and code structure of
+  [pantsbuild/pants](https://github.com/pantsbuild/pants/). Source:
+  [Toolchain.com](https://toolchain.com)
+</CaptionedImg>
 
 To make it easier to understand the value and power of dependency inference, Toolchain (the lead sponsor of Pants) has built a new site: Graph My Repo. As its name suggests, Graph My Repo shows you an interactive graph of a public GitHub repo of your choice…
 
 {/* truncate */}
 
-Pants automatically analyzes your code’s structure and dependencies and uses this data to speed up your builds. [Toolchain](https://toolchain.com) has built a site that lets you harness this power by creating an interactive visual code graph of a public repository.
+:::info
+
+Pants automatically analyzes your code's structure and dependencies and uses this data to speed up your builds. [Toolchain](https://toolchain.com) has built a site that lets you harness this power by creating an interactive visual code graph of a public repository.
+
+:::
 
 One of the most exciting features of Pants v2 is [dependency inference](../2020-10-29-dependency-inference/index.mdx): Pants uses static analysis and smart heuristics to automatically model and analyze the structure of your codebase, without you having to write thousands of lines of metadata.
 
@@ -50,8 +61,11 @@ Toolchain would love to get your [feedback](https://form.typeform.com/to/oNeT6ql
 
 And, of course, please join us at the friendly [Pants community Slack](https://www.pantsbuild.org/docs/getting-help), where you can learn more about Pants from users and contributors, and find out how Pants can give you fast, stable builds with easy setup and maintenance.
 
-### About the Author
+---
 
-✏️
-
-Benjy Weinberger is the co-creator of Pants, and a longtime maintainer of the open source project. He and Pants co-creator John Sirois founded Toolchain, the lead sponsor of Pants, to provide commercial products and services that extend Pants.
+<Admonition type="info" icon="✏️" title="About the Author">
+  Benjy Weinberger is the co-creator of Pants, and a longtime maintainer of the
+  open source project. He and Pants co-creator John Sirois founded Toolchain,
+  the lead sponsor of Pants, to provide commercial products and services that
+  extend Pants.
+</Admonition>

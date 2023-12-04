@@ -5,11 +5,18 @@
 
 # Pants 2.10 adds Apache Thrift support for Python
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Alexander Sinn](https://unsplash.com/@swimstaralex?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Alexander
+  Sinn](https://unsplash.com/@swimstaralex?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 Pants's codegen support solves one of the biggest problems with code generation: how to make sure that local developers, CI, and production are using the same generated code?
 
 {/* truncate */}
+
+---
 
 The [Pants build system](https://www.pantsbuild.org/v2.11) now supports generating Python code from [Apache Thrift](https://thrift.apache.org/), in addition to already supporting Protobuf and gRPC.
 
@@ -38,8 +45,8 @@ Pants will understand that this Python import requires generating that Thrift fi
 from codegen.models.user.ttypes import User
 ```
 
-```shell
-❯ ./pants dependencies project/app.py
+```shell-session
+$ ./pants dependencies project/app.py
 thrift/models/name.thrift
 ```
 

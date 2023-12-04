@@ -5,11 +5,18 @@
 
 # Visibility features coming in Pants 2.16
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Ben Hershey](https://unsplash.com/@benhershey?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Ben
+  Hershey](https://unsplash.com/@benhershey?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 Pants 2.16 introduces visibility features. These can be vital for keeping a monorepo's repository structure under control as the codebase grows. You'll benefit from having cleaner architecture and a dependency graph that is easier to reason about.
 
 {/* truncate */}
+
+---
 
 Continuing our series previewing Pants 2.16's coming attractions, one of the larger features introduced in 2.16 is [visibility rules](https://github.com/pantsbuild/pants/blob/main/docs/markdown/Using%20Pants/validating-dependencies.md). These rules provide a mechanism to help you control the accessibility of individual targets (such as source files) in your codebase.
 
@@ -40,9 +47,7 @@ If your components are released and deployed independently, a component shouldn'
 
 The visibility rules are declared in BUILD metadata files just like any other Pants metadata. This is an example of a ruleset declaration for a project that is not to be imported by anything else than itself and can only depend on its own code:
 
-```
-# src/projectA/BUILD
-
+```python title="src/projectA/BUILD"
 # Declare rules for targets that depend on projectA
 __dependents_rules__(
       (
@@ -71,7 +76,7 @@ The way an organization would use the visibility rules may vary greatly. For a s
 
 For a more complex codebase, you may want to take a more structured approach to the declaration of the rules. It may be worthwhile to spend some time thinking about the dependency graph of your codebase and the relationships between its components. In a codebase with multiple independent applications, you would likely have identical (or almost identical) rules applied to them. For instance, you may want your application to depend only on certain shared libraries and prevent any code in the repository from depending on the application's code. To prevent code duplication, you may want to declare the rules using a [macro](https://www.pantsbuild.org/docs/macros). Coming back to our previous example of an isolated component, it could be wrapped into a macro that would let us declare exceptions for each component:
 
-```
+```python
 def visibility_private_component(**kwargs):
     """Private package not expected to be imported by anything else than itself."""
     name = kwargs["name"]
@@ -101,7 +106,7 @@ def visibility_private_component(**kwargs):
 
 Having this macro, you can keep your BUILD files concise:
 
-```
+```python title="src/libraryA/BUILD"
 python_sources()
 python_tests()
 visibility_private_component(
@@ -109,8 +114,9 @@ visibility_private_component(
       allowed_dependencies=["src/common/helpers"],
       allowed_dependents=["//reporting/tools"],
 )
+```
 
-# src/libraryB/BUILD
+```python title="src/libraryB/BUILD"
 python_sources()
 python_tests()
 visibility_private_component(
@@ -122,7 +128,7 @@ visibility_private_component(
 
 There's [ongoing work](https://github.com/pantsbuild/pants/pull/17671) to extend the `lint` goal so that you could validate all project dependencies:
 
-```
+```shell-session
 $ ./pants lint --only=visibility --no-visibility-enforce ::
 ```
 

@@ -5,7 +5,12 @@
 
 # Docker support in Pants 2.7
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Ian Taylor](https://unsplash.com/@carrier_lost?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Ian
+  Taylor](https://unsplash.com/@carrier_lost?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 {/* truncate */}
 
@@ -49,8 +54,7 @@ To give a feel for how it works, here is a basic example, from the documentation
 
 Consider these files:
 
-```python
-# src/docker/helloworld/BUILD
+```python title="src/docker/helloworld/BUILD"
 files(
     name="msg",
     sources=["msg.txt"]
@@ -62,21 +66,18 @@ docker_image(
 )
 ```
 
-```dockerfile
-# src/docker/helloworld/Dockerfile
+```dockerfile title="src/docker/helloworld/Dockerfile"
 FROM python:3.8
 ENTRYPOINT ["/bin/helloworld"]
 COPY src/docker/helloworld/msg.txt /var/msg
 COPY src.python.helloworld/bin.pex /bin/helloworld
 ```
 
-```
-# src/docker/helloworld/msg.txt
+```text title="src/docker/helloworld/msg.txt"
 Hello, Docker!
 ```
 
-```
-# src/python/helloworld/BUILD
+```python title="src/python/helloworld/BUILD"
 python_library(interpreter_constraints=["=3.8"])
 
 pex_binary(
@@ -85,8 +86,7 @@ pex_binary(
 )
 ```
 
-```
-# src/python/helloworld/main.py
+```python title="src/python/helloworld/main.py"
 import os
 
 if os.path.exists("/var/msg"):
@@ -99,7 +99,7 @@ print(msg)
 
 When you run `package` on the Dockerfile:
 
-```bash
+```shell-session
 $ ./pants package src/docker/helloworld/Dockerfile
 [...]
 18:07:29.66 [INFO] Completed: Building src.python.helloworld/bin.pex
@@ -115,7 +115,7 @@ Pants sees that the `docker_image` target depends on a `pex_binary` target, so i
 
 You can check that the packaged image works as expected:
 
-```bash
+```shell-session
 $ docker run -it --rm helloworld:latest
 Hello, Docker!
 ```

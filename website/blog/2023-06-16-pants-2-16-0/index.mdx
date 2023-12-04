@@ -5,7 +5,11 @@
 
 # Pants 2.16.0 is here!
 
-<CaptionedImg src={require("./splash.jpg").default}>This bird is called a ... Ruff! Just so you know. Photo by [peterichman](https://www.flickr.com/photos/145489125@N03/) used under [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  This bird is called a ... Ruff! Just so you know. Photo by
+  [peterichman](https://www.flickr.com/photos/145489125@N03/) used under [CC BY
+  2.0](https://creativecommons.org/licenses/by/2.0/)
+</CaptionedImg>
 
 {/* truncate */}
 
@@ -33,7 +37,7 @@ To help you get started, there's a [GitHub repository](https://github.com/pantsb
 
 The [`ruff`](https://github.com/astral-sh/ruff) linter is the new hotness in the Python world. Written in Rust, it performs thousands of times faster than equivalent tools written in pure Python. The Pants core is also written in Rust, and so we're big fans of the language and the powerful combo of Rust and Python. Therefore we're extra-happy to announce that Pants now supports ruff for linting and formatting Python code.
 
-If you haven’t seen this tool yet, take a close look! It may speed up your build workflow a lot, particularly if you rely heavily on static code checks. Enable the
+If you haven't seen this tool yet, take a close look! It may speed up your build workflow a lot, particularly if you rely heavily on static code checks. Enable the
 `pants.backend.experimental.python.lint.ruff` backend to make ruff available in your repository.
 Ruff support was added by a [first time contributor](https://github.com/pantsbuild/pants/pull/17945)! We're very grateful and excited to have new people coming on board and making such substantial changes. And this could be you! If you have a feature you'd like to add or a bug you need to fix, come talk to us [on Slack](https://www.pantsbuild.org/v2.16/docs/getting-help#community-chat). We'd love to help guide you through the contribution process.
 
@@ -43,7 +47,7 @@ You can find more information about the linter addition process in a separate bl
 
 Pants now supports the [yamllint](https://yamllint.readthedocs.io) linter for inspecting YAML files. Enable the `pants.backend.experimental.tools.yamllint` backend to make it available in your repository.
 
-In fact, `yamllint` support, too, was added by a [first time contributor](https://github.com/pantsbuild/pants/pull/17821)! It’s great to see the community growing with so many substantial contributions from newcomers.
+In fact, `yamllint` support, too, was added by a [first time contributor](https://github.com/pantsbuild/pants/pull/17821)! It's great to see the community growing with so many substantial contributions from newcomers.
 
 ## pydocstyle linter support
 

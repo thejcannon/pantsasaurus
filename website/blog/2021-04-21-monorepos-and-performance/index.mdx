@@ -5,7 +5,12 @@
 
 # Monorepos and performance: Pants Build maintainer Benjy Weinberger's conversation with SemaphoreCI
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Will Francis](https://unsplash.com/@willfrancis?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Will
+  Francis](https://unsplash.com/@willfrancis?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 {/* truncate */}
 
@@ -15,11 +20,11 @@ In this new [April 2021 conversation with SemaphoreCI](https://semaphoreci.com/b
 
 ### Ergonomic design priorities
 
-> We’ve put a lot of energy into making it much, much, much easier to adopt this kind of system than it’s ever been, and that continues to be an active area of work for us because we will not rest until it is really, really easy.
+> We've put a lot of energy into making it much, much, much easier to adopt this kind of system than it's ever been, and that continues to be an active area of work for us because we will not rest until it is really, really easy.
 
 ### Dependency inference
 
-> The first and probably most important one is [dependency inference](../2020-10-29-dependency-inference/index.mdx). So unlike other tools, we do not require you to explicitly enumerate your dependencies in those build metadata files if we can infer them from your import statements. Occasionally, there’s a dependency you can’t infer. Sometimes you load code by name at runtime or you depend on assets that are not imported. There are cases like that, and in those cases you have to potentially manually add those dependencies. But 99% of the time you don’t.
+> The first and probably most important one is [dependency inference](../2020-10-29-dependency-inference/index.mdx). So unlike other tools, we do not require you to explicitly enumerate your dependencies in those build metadata files if we can infer them from your import statements. Occasionally, there's a dependency you can't infer. Sometimes you load code by name at runtime or you depend on assets that are not imported. There are cases like that, and in those cases you have to potentially manually add those dependencies. But 99% of the time you don't.
 >
 > And also, that logic is itself [pluggable](https://www.pantsbuild.org/docs/plugins-overview), the dependency inference logic.
 
@@ -29,7 +34,7 @@ In this new [April 2021 conversation with SemaphoreCI](https://semaphoreci.com/b
 
 ### Eliminate BUILD file clutter with `tailor`
 
-> [Tailor](../2021-03-19-tailoring-pants-to-your-codebase/index.mdx) helps you make your ‘pants’. Tailor basically generates build files by looking at what files you have. And it’s idempotent, so you can just keep running it as you go and it will add new build metadata as it goes.
+> [Tailor](../2021-03-19-tailoring-pants-to-your-codebase/index.mdx) helps you make your 'pants'. Tailor basically generates build files by looking at what files you have. And it's idempotent, so you can just keep running it as you go and it will add new build metadata as it goes.
 
 You can listen to, or read, the whole episode at [https://semaphoreci.com/blog/monorepo-building-at-scale](https://semaphoreci.com/blog/monorepo-building-at-scale).
 

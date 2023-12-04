@@ -5,13 +5,21 @@
 
 # Pants 2.2 adds dependency inference for Protobuf
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Simon Wilkes](https://unsplash.com/@simonfromengland?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Simon
+  Wilkes](https://unsplash.com/@simonfromengland?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 As of Pants 2.2, Pants now knows how to use dependency inference with Protobuf! This includes:
 
-1. Protobuf imports of other Protobuf files, and 2) Python imports of generated Protobuf code, including gRPC.
+1. Protobuf imports of other Protobuf files
+2. Python imports of generated Protobuf code, including gRPC.
 
 {/* truncate */}
+
+---
 
 As discussed [in our post on dependency inference](../2020-10-29-dependency-inference/index.mdx), Pants understands which files depend on which to offer fine-grained caching. If none of the inputs have changed, Pants can safely cache your builds like running tests and generating code.
 
@@ -30,7 +38,7 @@ While Pants currently only generates code with Protobuf, we are eager to work wi
 
 Pants is a scalable build tool, meaning that it orchestrates the tools you use in a modern Python repository, like Black, Pytest, Protoc (Protobufs), and setuptools. Pants will run these and many other tools concurrently, and brings fine-grained caching with minimal boilerplate, including as your codebase scales up in size.
 
-See [blog.pantsbuild.org/introducing-pants-v2/](../2020-10-27-introducing-pants-v2/index.mdx).
+See [our blog post introducting Pants v2/](../2020-10-27-introducing-pants-v2/index.mdx).
 
 ---
 
@@ -54,8 +62,8 @@ import "google/protobuf/duration.proto";
 
 Pants infers dependencies on the correct Protobuf files:
 
-```
-❯ ./pants dependencies protos/build/remote/execution/remote_execution.proto
+```shell-session
+$ ./pants dependencies protos/build/remote/execution/remote_execution.proto
 protos/build/semver/semver.proto
 protos/google/api/annotations.proto
 protos/google/rpc/status.proto
@@ -70,8 +78,8 @@ import build.semver.semver_pb2
 import google.api.annotations_pb2_grpc
 ```
 
-```
-❯ ./pants dependencies src/py/project/app.py
+```shell-session
+$ ./pants dependencies src/py/project/app.py
 protos/build/semver/semver.proto
 protos/google/api/annotations.proto
 ```

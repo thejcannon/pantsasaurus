@@ -5,7 +5,12 @@
 
 # Unlocking incremental Python 3 migrations with Pants
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Volodymyr Hryshchenko](https://unsplash.com/@lunarts?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Volodymyr
+  Hryshchenko](https://unsplash.com/@lunarts?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 How the Pants build tool empowers incremental migrations by:
 
@@ -13,6 +18,8 @@ How the Pants build tool empowers incremental migrations by:
 2. running all your tests and linters, in parallel, with the correct interpreter for each part of your code.
 
 {/* truncate */}
+
+---
 
 From [Dropbox](https://dropbox.tech/application/how-we-rolled-out-one-of-the-largest-python-3-migrations-ever) to [Facebook](https://lwn.net/Articles/758159/) to [Pants's own migration](https://enterprise.foursquare.com/intersections/article/how-our-intern-led-pants-migration-to-python-3/), organizations that have completed Python 3 migrations repeat one theme: incremental migrations are essential to reduce risk.
 
@@ -27,7 +34,7 @@ This blog dives into how the [Pants build tool](../2020-10-27-introducing-pants-
 
 Pants is a build tool, meaning that it orchestrates the workflows and tools you use in a modern Python repository, like Black, Pytest, Protoc (Protobufs), and setuptools. Pants will run these and many other tools concurrently, and brings fine-grained caching with minimal boilerplate, including as your codebase scales up in size.
 
-See [blog.pantsbuild.org/introducing-pants-v2/](../2020-10-27-introducing-pants-v2/index.mdx).
+See [our blog post introducting Pants v2/](../2020-10-27-introducing-pants-v2/index.mdx).
 
 ---
 
@@ -45,12 +52,20 @@ This is challenging to achieve through distinct `setup.py` projects, where each 
 
 Instead, Pants tracks your project's interpreter constraints with file-level precision and uses this to determine which interpreter(s) to use for tests, linters, MyPy, and packaging code. You can set a global default in `pants.toml`, and override the constraints for specific files through BUILD files.
 
+<div>
+
 ```toml
 [python-setup]
 interpreter_constraints = ["==2.7.*", ">=3.5"]
 ```
 
-We set the repo's default to 2.7 or 3.5+ in `pants.toml`.
+<figcaption>
+  We set the repo's default to 2.7 or 3.5+ in `pants.toml`.
+</figcaption>
+
+</div>
+
+<div>
 
 ```python
 python_library(
@@ -59,11 +74,16 @@ python_library(
 )
 ```
 
-Example BUILD file. We set the whole folder's constraints to 3.5+, but we could use a looser or coarser `sources` field.
+<figcaption>
+  Example BUILD file. We set the whole folder's constraints to 3.5+, but we
+  could use a looser or coarser `sources` field.
+</figcaption>
+
+</div>
 
 The `interpreter_constraints` field only tracks what those specific files are compatible with; Pants will then merge all of the code's transitive dependencies into a final interpreter constraint. For example, if the folder `util/` is compatible with Python 2.7 or 3.5+, and we're building a binary which depends on `util/` but whose own code is Python 3-only, Pants will use 3.5+ for the final result.
 
-```text
+```shell-session
 $ ./pants py-constraints helloworld/main.py
 Final merged constraints: CPython==2.7.*,>=3.5 OR CPython>=3.5
 
@@ -82,18 +102,14 @@ Thanks to [dependency inference](../2020-10-29-dependency-inference/index.mdx)â€
 
 Even though setting interpreter constraints is decentralized (a good thing), Pants can still generate a centralized view of your migration's status. Pants will even show how many dependencies each file has (how easy it is to port) and how many dependees a file has (how impactful it is to port).
 
-![](https://lh6.googleusercontent.com/PNsBKcvVRt1Lu0uI6-BhuKbqWRU6xbPCfia6wulyWAQgHzO8im63KU4ciRjwmXHZ5X01wVaTiHVsZbz7pfcgy_oKJK_0Xea91_2AOz1k6KAeovm0RyZqOzlxm2XBN-okfZKdJR0F)
-
-Result of `./pants py-constraints --summary`, then importing the CSV into Google Sheets.
-
 ## Running Python 2 and Python 3 in parallel
 
 Conventionally, you must be careful to run tools like Flake8, MyPy, and Pytest with the correct interpreter for that code. If part of your codebase is Python 2-only and part Python 3-only, then you must manually partition your files and invoke the tools multiple times with the appropriate partitions.
 
 Instead, Pants will automate this partitioning for you. Pants will look at your code's `interpreter_constraints` and partition based on the tool's behavior; for example, Flake8 only cares about the file's constraints, whereas MyPy and Pytest need to consider the constraints of transitive dependencies.
 
-```text
-â–¶ ./pants typecheck ::
+```shell-session
+$ ./pants typecheck ::
 10:22:54.20 [INFO] Completed: Typecheck using MyPy - succeeded.
 Partition #1 - ['CPython==2.7.*']:
 Success: no issues found in 4 source files

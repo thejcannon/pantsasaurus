@@ -63,8 +63,8 @@ For instructions, see our [docs](https://www.pantsbuild.org/v2.11/docs/protobuf-
 
 Pants now integrates with the [Buf](https://docs.buf.build/lint/overviewhttps://docs.buf.build/lint/overview) Protobuf formatter and linter. This means that you can easily lint your Protobuf files in parallel to the rest of your languages, e.g.:
 
-```
-❯ ./pants lint ::
+```shell-session
+$ ./pants lint ::
 ✓ black succeeded.
 ✓ buf-format succeeded.
 ✓ buf-lint succeeded.
@@ -98,7 +98,7 @@ Stay tuned for a blog explaining why we made the decision to add first-class loc
 
 In Pants, a _target_ is an addressable set of metadata describing some of your code.
 
-```python
+```python title="BUILD"
 python_tests(
     name="tests",
     timeout=120,
@@ -109,7 +109,7 @@ Sometimes, you may want conflicting metadata to describe the same entity. For ex
 
 Pants 2.11 add the `parametrize` mechanism to make it more ergonomic to set conflicting metadata for the same entity:
 
-```python
+```python title="BUILD"
 shunit2_tests(
     name="tests",
     shell=parametrize("bash", "zsh", "ksh"),
@@ -120,7 +120,7 @@ Each parameter creates a uniquely identifiable target, so that you can, for exam
 
 This feature pairs particularly well with the [multiple resolves](../2022-05-25-multiple-lockfiles-python/index.mdx) (lockfiles) feature added in Pants 2.10. You can now more easily declare that some code should work with multiple lockfiles.
 
-```python
+```python title="BUILD"
 python_sources(
     resolve=parametrize("web-app", "data-science"),
 )
@@ -132,15 +132,14 @@ For more information, see our [updated docs](https://www.pantsbuild.org/v2.11/do
 
 Pants can now detect in some cases when your Python code depends on a resource file. For example:
 
-```python
-# Current file: project/app.py
+```python title="project/app.py"
 # Uses: project/data/logo.svg
 
 pkgutil.get_data(__name__, "data/logo.svg")
 ```
 
-```
-❯ ./pants dependencies project/app.py
+```shell-session
+$ ./pants dependencies project/app.py
 project/data/logo.svg
 ```
 

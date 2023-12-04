@@ -34,20 +34,20 @@ When using the Bazel build tools, keep in mind that they reformat the `BUILD` fi
 
 To modify the Pants `BUILD` files in your project, you can use [buildozer](https://github.com/bazelbuild/buildtools/blob/master/buildozer/README.md). This is how you would add additional arguments to all existing targets across your monorepository:
 
-```
+```shell-session
 $ buildozer 'set skip_yapf True' 'set skip_mypy True' ///...:%python_tests
 $ buildozer 'set skip_yapf True' 'set skip_mypy True' ///...:%python_sources
 ```
 
 The input target declaration
 
-```
+```python
 python_sources()
 ```
 
 would be turned into
 
-```
+```python
 python_sources(
     skip_flake8 = True,
     skip_mypy = True,
@@ -57,7 +57,7 @@ python_sources(
 
 If you run a Python formatter on the `BUILD` files afterwards, it would be formatted to something like below:
 
-```
+```python
 python_sources(
     skip_flake8=True,
     skip_mypy=True,
@@ -68,7 +68,7 @@ python_sources(
 There are ways to have a more fine-grained control over what targets you'd like to run the editing command on, but you may need to consult the Bazel docs as the semantics of addressing a particular target or targets within a directory may differ
 from the ones used in Pants. This command, for example, would update only `python_sources` targets within a single project directory:
 
-```
+```shell-session
 $ buildozer 'set skip_yapf False' projectdir/subdir:%python_sources
 ```
 
@@ -78,13 +78,13 @@ The `./pants peek` command would be of help if you would need to query your `BUI
 
 For instance, with a little help from [jq](https://stedolan.github.io/jq/) to parse JSON, this command would report all `pex_binary` targets that have something else than `/usr/bin/python3` as its `shebang`:
 
-```
+```shell-session
 $ ./pants peek project-name:: | jq '.[] | select(.target_type == "pex_binary" and .shebang != "/usr/bin/python3")'
 ```
 
 If you already have experience using `buildozer`, you may want to prefer using its querying functionality to learn more about `BUILD` files targets before running the editing commands. This command would print the `name` and the `dependencies` arguments for all `pex_binary` targets for a particular project:
 
-```
+```shell-session
 $ buildozer 'print name dependencies' project-name:%pex_binary
 ```
 
@@ -92,4 +92,4 @@ Buildozer documentation has lots of code snippets that will help you learn how t
 
 _Happy coding!_
 
-Want to explore more of Pants open source project or its first-class support for Python? Check out `[example-python](https://github.com/pantsbuild/example-python)` and come say hi on the [Pants community Slack](https://pantsbuild.slack.com)! It's a friendly and supportive community that is happy to respond to your questions and feedback.
+Want to explore more of Pants open source project or its first-class support for Python? Check out [`example-python`](https://github.com/pantsbuild/example-python) and come say hi on the [Pants community Slack](https://pantsbuild.slack.com)! It's a friendly and supportive community that is happy to respond to your questions and feedback.

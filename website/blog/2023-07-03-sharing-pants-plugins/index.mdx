@@ -5,17 +5,24 @@
 
 # Sharing Pants plugins
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Elaine Casap](https://unsplash.com/@ecasap?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Elaine
+  Casap](https://unsplash.com/@ecasap?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 If you need to make some functionality available to all engineers in your company, you can author and release a Pants plugin (either internally or via a public PyPI index) independently of the rest of the codebase...
 
 {/* truncate */}
 
+---
+
 Pants v2 has been designed with extensibility in mind: the functionality of Pants that is available out of the box uses the very same building blocks that developers would use when writing their custom plugins using the standard Plugin API. For instance, you could add support for a new linter, a new target type, or even a new goal. You can submit your contributions to the Pants repository itself so that it becomes part of the core product if you think the functionality is generic enough so that other Pants users would be able to benefit from it. If the functionality is very specific to a particular organization, it may make little sense to distribute it as a core part of Pants so you will likely want to keep it internal to your company. In this blog post, we'll explore writing and publishing Pants plugins.
 
 When writing internal plugins, you will most likely store them in your main codebase with the rest of your company's code. We refer to such plugins as "in-repo plugins": the plugin functionality becomes available internally to the repository developers and conventionally lives in a directory called `pants-plugins`. Making your custom plugin functionality available in the repository is trivial; you only need to specify the path to your plugin's top-level folder using the `[GLOBAL].pythonpath` option in the `pants.toml` file:
 
-```
+```toml title="pants.toml"
 [GLOBAL]
 pythonpath = ["%(buildroot)s/pants-plugins"]
 ```
@@ -26,14 +33,14 @@ This means that if you need to make some functionality available to all engineer
 
 Consuming published plugins is easy: you only need to list them in the  `[GLOBAL].plugins` option in the `pants.toml` file. To demonstrate using a published Pants plugin, let's enable a sample [community plugin](https://github.com/AlexTereshenkov/pants-dep-graph) that was published on the [PyPI](https://pypi.org/project/pants-plugin-dep-graph/). We'll enable this plugin in the [example-python](https://github.com/pantsbuild/example-python) GitHub repository checkout:
 
-```
+```toml title="pants.toml"
 [GLOBAL]
 plugins = ["pants-plugin-dep-graph==1.0.2"]
 ```
 
 This plugin provides a new goal that lets you query the dependency graph of your repository. This command, for instance, would export the dependencies of all Python source modules:
 
-```
+```shell-session
 $ pants dep-graph --filter-target-type=python_source --sources-only --deps ::
 {
     "helloworld/__init__.py": [],

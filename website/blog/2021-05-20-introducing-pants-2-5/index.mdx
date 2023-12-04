@@ -5,7 +5,12 @@
 
 # Introducing Pants 2.5: Shell support, config autodiscovery, and incremental tool adoption
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Giulia May](https://unsplash.com/@giuliamay?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Giulia
+  May](https://unsplash.com/@giuliamay?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 {/* truncate */}
 
@@ -41,9 +46,7 @@ If your config file is in a non-standard location, you can still set options lik
 
 You can now tell Pants to skip running a particular tool on specific files by updating the corresponding `BUILD` file.
 
-```python
-# helloworld/BUILD
-
+```python title="helloworld/BUILD"
 # Skip Black and Flake8 for all the non-test files in this folder.
 python_library(skip_black=True, skip_flake8=True)
 
@@ -55,17 +58,30 @@ Pants will still run that tool on everything else, and will still run all your o
 
 This feature gives you a consistent mechanism to adopt tools like MyPy and Flake8 incrementally, regardless of how large your repository becomes.
 
+<iframe
+  width="100%"
+  height="500"
+  src="https://www.youtube.com/embed/BOhcdRsmv0s?si=Dl2IDI8QqJnGvQ9H"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen
+></iframe>
+
 ## Fine-grained resolves without a performance hit
 
 Unlike most Python workflows (e.g. Poetry, Pipenv, `virtualenv`) that use a single virtual environment for the entire project, Pants understands your file's transitive dependencies and only uses what is actually needed for that file to run.
 
-```
-❯ ./pants dependencies --transitive --type=3rdparty project/tests.py
+```shell-session
+$ ./pants dependencies --transitive --type=3rdparty project/tests.py
 ansicolors==1.1.8
 typing-extensions==3.7.4.3
 ```
 
-The `./pants dependencies` goal shows what exactly each file depends on. See https://www.pantsbuild.org/docs/project-introspection.
+<figcaption>
+  The `./pants dependencies` goal shows what exactly each file depends on. See
+  https://www.pantsbuild.org/docs/project-introspection.
+</figcaption>
 
 Fine-grained resolves give you fine-grained caching, meaning that when you change your `requirements.txt`, for example, you only need to rerun tests whose requirements have changed, rather than needing to rerun your whole test suite. Fine-grained resolves also mean that Pants can [build artifacts like PEX files and wheels](https://www.pantsbuild.org/docs/python-package-goal) and use only that code's true dependencies, rather than the whole virtual environment.
 

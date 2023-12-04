@@ -5,13 +5,20 @@
 
 # Multiple lockfiles in Python repos
 
-<CaptionedImg src={require("./splash.jpg").default}>Photo by [Georgia de Lotz](https://unsplash.com/@georgiadelotz?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit) / [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)</CaptionedImg>
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Georgia de
+  Lotz](https://unsplash.com/@georgiadelotz?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
 
 Rather than forcing global or per-project lockfiles, Pants uses a hybrid approach...This allows a repo to operate with the minimum number of lockfiles required to support their conflicting library versions, without necessarily going to the costly extreme of per-project lockfiles.
 
 {/* truncate */}
 
-The [Pantsbuild](https://www.pantsbuild.org) community's top-voted priority from January’s 2022 Community Roadmap Survey is our redesign of Python lockfiles. So we were excited to ship in Pants 2.11 support for multiple lockfiles, with a novel hybrid approach.
+---
+
+The [Pantsbuild](https://www.pantsbuild.org) community's top-voted priority from January's 2022 Community Roadmap Survey is our redesign of Python lockfiles. So we were excited to ship in Pants 2.11 support for multiple lockfiles, with a novel hybrid approach.
 
 ## What's a lockfile?
 
@@ -68,13 +75,13 @@ But what happens when you add a second project, e.g. a second Django project? Yo
 
 Several Python tools like Poetry allow you to have one lockfile per project, e.g.:
 
-```
+```text
 ├── data_science
-│   ├── poetry.lock
-│   └── pyproject.toml
+│   ├── poetry.lock
+│   └── pyproject.toml
 ├── web_app1
-│   ├── poetry.lock
-│   └── pyproject.toml
+│   ├── poetry.lock
+│   └── pyproject.toml
 └── web_app2
     ├── poetry.lock
     └── pyproject.toml
@@ -92,9 +99,9 @@ While this approach seems simple at first, teams often run into problems when pr
 
 One lockfile per project looks simple, but often hides real dependencies between projects: aka "dependency hell."
 
-![](./dependency-hell.png)
-
-Dependency hell.
+<CaptionedImg src={require("./dependency-hell.png").default}>
+  Dependency hell.
+</CaptionedImg>
 
 Other downsides of one lockfile per project include:
 
@@ -132,7 +139,7 @@ Then, you declare which lockfiles (aka "resolves") particular requirements shoul
 
 Finally, you declare which lockfile particular code, tests, binaries etc. should use, if they don't use your default.
 
-```python
+```python title="BUILD"
 pex_binary(
     name="app",
     entry_point="gunicorn.py",
@@ -144,9 +151,7 @@ Pants will only [infer dependencies](../2020-10-29-dependency-inference/index.md
 
 It's possible for requirements and source code to work with multiple lockfiles. For example, you can have a file like `utils.py` that works with all your lockfiles.
 
-```python
-# src/py/utils/BUILD
-
+```python title="src/py/utils/BUILD"
 python_sources(
     # The files in this folder can be used with both resolves.
     resolve=parametrize("data-science", "web-app"),

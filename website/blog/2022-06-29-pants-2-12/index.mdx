@@ -19,14 +19,14 @@ Pants 2.12 includes [initial support](https://www.pantsbuild.org/v2.12/docs/jvm-
 
 This initial integration includes support for code indexing (including go-to-definition and find-references). Full support for building and running tests is also implemented, but will first be available in the 2.13 release.
 
-Although VSCode is not supported yet for Java and Scala, this is an important step toward that support: the Scala [Metals LSP server](https://scalameta.org/metals/docs/editors/vscode/) also uses BSP to communicate with the build tool. We’d love to help a contributor [add support for Metals](https://github.com/pantsbuild/pants/issues/15965)!
+Although VSCode is not supported yet for Java and Scala, this is an important step toward that support: the Scala [Metals LSP server](https://scalameta.org/metals/docs/editors/vscode/) also uses BSP to communicate with the build tool. We'd love to help a contributor [add support for Metals](https://github.com/pantsbuild/pants/issues/15965)!
 
 ## Improved performance when running both \`fmt\` and \`lint\`
 
-If you use auto-formatters with Pants, it’s likely that you frequently run the combination of the `fmt` and `lint` goals in order to “auto-format and then validate linters”:
+If you use auto-formatters with Pants, it's likely that you frequently run the combination of the `fmt` and `lint` goals in order to “auto-format and then validate linters”:
 
-```
-./pants fmt lint …
+```bash
+./pants fmt lint ...
 ```
 
 Pants 2.12 makes this very common combo faster, by sharing any redundant work between `fmt` and `lint` such that an auto-formatter which finds nothing to do runs exactly once per input.
@@ -37,7 +37,7 @@ Before 2.12, Pants allowed Python sources to declare that the set of interpreter
 
 In practice though, this feature cost more than it was worth: it meant that determining the interpreter to use for any particular task might require a transitive graph walk below a particular file, rather than being able to directly use and trust the [interpreter_constraints](https://www.pantsbuild.org/v2.12/docs/reference-python_sources#codeinterpreter_constraintscode) field.
 
-In Pants 2.12, the [interpreter_constraints](https://www.pantsbuild.org/v2.12/docs/reference-python_sources#codeinterpreter_constraintscode) of a target are validated up front to be a subset of that target’s dependencies. This new behavior is easier to reason about, improves reuse of work across runs, and improves the performance of goals like `lint`, `fmt`, `test`, and `check` for Python.
+In Pants 2.12, the [interpreter_constraints](https://www.pantsbuild.org/v2.12/docs/reference-python_sources#codeinterpreter_constraintscode) of a target are validated up front to be a subset of that target's dependencies. This new behavior is easier to reason about, improves reuse of work across runs, and improves the performance of goals like `lint`, `fmt`, `test`, and `check` for Python.
 
 ## Other notable changes
 
@@ -47,7 +47,7 @@ There are a [long list of additional changes in 2.12](https://github.com/pantsbu
 - After lots of stabilization work, the [default lockfile generator](https://www.pantsbuild.org/v2.12/docs/reference-python#section-lockfile-generator) is now [Pex](https://pex.readthedocs.io/en/latest/). Pex lockfiles bring improved performance when consuming many different subsets of a large resolve, and improved compatibility with `pip` features.
 - Consuming environment variables in `pants.toml` [is now supported](https://www.pantsbuild.org/v2.12/docs/options#config-file-interpolation) via the `env` template variable namespace: e.g. `%(env.AWS_ACCESS_KEY_ID)s`.
 - JVMs spawned via the [nailgun protocol](https://github.com/facebook/nailgun) for low latency access now have [default memory limits](https://www.pantsbuild.org/v2.12/docs/reference-global#section-process-per-child-memory-usage) applied, and the [total amount of memory](https://www.pantsbuild.org/v2.12/docs/reference-global#section-process-total-child-memory-usage) used for JVMs can be capped.
-- Python users taking advantage of Pants’ [support for multiple resolves](../2022-05-25-multiple-lockfiles-python/index.mdx) now get extra helpful error messages when dependencies [only exist in another resolve](https://github.com/pantsbuild/pants/pull/15439), or when the set of interpreters they’ve requested [are not compatible with their resolve](https://github.com/pantsbuild/pants/pull/15364).
+- Python users taking advantage of Pants' [support for multiple resolves](../2022-05-25-multiple-lockfiles-python/index.mdx) now get extra helpful error messages when dependencies [only exist in another resolve](https://github.com/pantsbuild/pants/pull/15439), or when the set of interpreters they've requested [are not compatible with their resolve](https://github.com/pantsbuild/pants/pull/15364).
 - Plugin authors can now write `@rule_helper`s in situations where only code reuse or isolation (and not memoization or dependency injection) are necessary for portions of their `@rule` code.
 
 ## Thanks!
