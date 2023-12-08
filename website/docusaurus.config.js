@@ -15,22 +15,22 @@ function getCurrentVersion() {
 
 // Controls for how much to build:
 //  - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version"), and no blog.
-//  - DOCUSAURUS_INCLUDE_VERSION=<version> -> Use current version and version specified
-//  - DOCUSAURUS_INCLUDE_BLOG=1 -> Include the blog.
+//  - PANTSASAURUS_INCLUDE_VERSION=<version> -> Use current version and version specified
+//  - PANTSASAURUS_INCLUDE_BLOG=1 -> Include the blog.
 // Note that `NODE_ENV === 'production' builds _everything_.
 const isDev = process.env.NODE_ENV === "development";
 const disableVersioning =
-  isDev && process.env.DOCUSAURUS_INCLUDE_VERSION === undefined;
+  isDev && process.env.PANTSASAURUS_INCLUDE_VERSION === undefined;
 const latestVersion = disableVersioning
   ? undefined
-  : process.env.DOCUSAURUS_INCLUDE_VERSION
-  ? process.env.DOCUSAURUS_INCLUDE_VERSION
+  : process.env.PANTSASAURUS_INCLUDE_VERSION
+  ? process.env.PANTSASAURUS_INCLUDE_VERSION
   : versions[0];
 const onlyIncludeVersions = isDev
   ? ["current"].concat(latestVersion ? [latestVersion] : [])
   : undefined;
 const currentVersion = getCurrentVersion();
-const includeBlog = process.env.DOCUSAURUS_INCLUDE_BLOG === "1" || !isDev;
+const includeBlog = process.env.PANTSASAURUS_INCLUDE_BLOG === "1" || !isDev;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
