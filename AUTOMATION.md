@@ -21,3 +21,11 @@ This is as easy as `npm run docusaurus docs:version <version>`, however we could
 this so that a cut of a branch on the Pants repo triggers this.
 
 It's OK if this is a manual step for now though.
+
+## 🛠️ PR CI
+
+We should have some validation that does all the normal PR CI validation. E.g.:
+
+- Does this build
+- Does it look like `prettier` ran on it
+- etc...
