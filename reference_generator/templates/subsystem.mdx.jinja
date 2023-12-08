@@ -1,0 +1,58 @@
+---
+title: {{ subsystem.scope | default("Global options", true) }}
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+{% if subsystem.is_goal %}
+```
+pants {{ subsystem.scope }} [args]
+```
+{% endif %}
+{{ subsystem.description | format_description }}
+
+Backend: <span className="color--primary">`{{ subsystem.provider or "pants.core" }}`</span>
+
+Config section: <span className="color--primary">`[{{ subsystem.scope | default("GLOBAL", true)}}]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+{%- for option in subsystem.basic %}
+{%- include 'option.mdx.jinja' %}
+{%- else %}
+None
+{%- endfor %}
+
+## Advanced options
+{%- for option in subsystem.advanced %}
+{%- include 'option.mdx.jinja' %}
+{%- else %}
+
+None
+{%- endfor %}
+
+## Deprecated options
+{%- for option in subsystem.deprecated %}
+{%- include 'option.mdx.jinja' %}
+{%- else %}
+
+None
+{%- endfor %}
+
+{%- set related_subsystems = goal_info.consumed_scopes | filter_out("", subsystem.scope) | sort %}
+{%- if related_subsystems %}
+
+## Related subsystems
+{% for subsystem in related_subsystems %}
+{%- if subsystem is goal_subsystem %}
+- [{{ subsystem }}](../goals/{{ subsystem }}.mdx)
+{%- else %}
+- [{{ subsystem }}](../subsystems/{{ subsystem }}.mdx)
+{%- endif %}
+{%- endfor %}
+{%- endif %}
+
+</span>

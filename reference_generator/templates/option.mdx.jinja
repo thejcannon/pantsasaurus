@@ -1,0 +1,21 @@
+{# Ideally, the component would handle the header, but https://github.com/facebook/docusaurus/issues/6201 #}
+{# We also color this using CSS, as the title for the heading gets mucked if we use HTML #}
+### `{{ option.config_key }}`
+
+<Option
+  cli_repr={`{{ option.comma_separated_display_args }}`}
+  env_repr='{{ option.env_var }}'
+{%- if option.comma_separated_choices %}
+  one_of='{{ option.comma_separated_choices }}'
+{%- endif %}
+  default_repr={`{{ option.default | help_str  }}`}
+{%- if option.removal_version %}
+  removal_version='{{ option.removal_version }}'
+  removal_hint={'{{ option.removal_hint | replace("\n", "<br />") | replace("'", "\\'") }}'}
+{%- endif %}
+{%- if option.target_field_name %}
+  target_field_name='{{ option.target_field_name }}'
+{%- endif %}
+>
+{{ option.help | format_description }}
+</Option>
