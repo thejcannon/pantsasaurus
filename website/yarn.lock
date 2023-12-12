@@ -3625,6 +3625,14 @@ dns-packet@^5.2.2:
   dependencies:
     "@leichtgewicht/ip-codec" "^2.0.1"
 
+docusaurus-remark-plugin-tab-blocks@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/docusaurus-remark-plugin-tab-blocks/-/docusaurus-remark-plugin-tab-blocks-3.0.0.tgz#39d5a1d61e15409a8118a1950409c1fd073c90e2"
+  integrity sha512-+iyhKtqXoArsEDso0V4zCzyGMUAFvW8pTs0CaxxalE904pZVG8QPDKdLe7du/QrQdkUYXMMJmJ0G/EaV4QgDpw==
+  dependencies:
+    unist-util-is "^6.0.0"
+    unist-util-visit "^5.0.0"
+
 dom-converter@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/dom-converter/-/dom-converter-0.2.0.tgz#6721a9daee2e293682955b6afe416771627bb768"
