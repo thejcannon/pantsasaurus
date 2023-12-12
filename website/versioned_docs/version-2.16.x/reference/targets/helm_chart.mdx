@@ -23,6 +23,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -33,15 +34,13 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `chart`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`'Chart.yaml'`}
->
-The chart definition file.
+<Field type_repr={`field.type_hint`} default_repr={`'Chart.yaml'`}>
+  The chart definition file.
 </Field>
 
 ## `sources`
@@ -55,6 +54,7 @@ A list of files and globs that belong to this target.
 Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
 
 Example: `sources=['values.yaml', 'templates/*.yaml', '!values_ignore.yaml']`
+
 </Field>
 
 ## `dependencies`
@@ -71,6 +71,7 @@ See https://www.pantsbuild.org/v2.16/docs/targets for more about how addresses a
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
 </Field>
 
 ## `output_path`
@@ -87,14 +88,13 @@ Regardless of whether you use the default or set this field, the path will end w
 When running `scie-pants-linux-x86_64 package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
 
 Warning: setting this value risks naming collisions with other package targets you may have.
+
 </Field>
 
 ## `lint_strict`
 
-<Field
-    type_repr={`field.type_hint`}
->
-If set to true, enables strict linting of this Helm chart.
+<Field type_repr={`field.type_hint`}>
+  If set to true, enables strict linting of this Helm chart.
 </Field>
 
 ## `repository`
@@ -105,6 +105,7 @@ If set to true, enables strict linting of this Helm chart.
 Repository to use in the Helm registry where this chart is going to be published.
 
 If no value is given and `[helm].default-registry-repository` is undefined too, then the chart will be pushed to the root of the OCI registry.
+
 </Field>
 
 ## `registries`
@@ -120,6 +121,7 @@ The address is an `oci://` prefixed domain name with optional port for your regi
 By default, all configured registries with `default = true` are used.
 
 Example:
+
 ```
 # pants.toml
 [helm.registries.my-registry-alias]
@@ -136,26 +138,21 @@ helm_chart(
 ```
 
 The above example shows two valid `registry` options: using an alias to a configured registry and the address to a registry verbatim in the BUILD file.
+
 </Field>
 
 ## `skip_push`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-If set to true, do not push this Helm chart to registries when running `scie-pants-linux-x86_64 publish`.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  If set to true, do not push this Helm chart to registries when running
+  `scie-pants-linux-x86_64 publish`.
 </Field>
 
 ## `skip_lint`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-If set to true, do not run any linting in this Helm chart when running `scie-pants-linux-x86_64 lint`.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  If set to true, do not run any linting in this Helm chart when running
+  `scie-pants-linux-x86_64 lint`.
 </Field>
-
-
 
 </span>

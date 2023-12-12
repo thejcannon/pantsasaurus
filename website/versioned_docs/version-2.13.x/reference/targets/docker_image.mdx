@@ -16,6 +16,7 @@ By default, will use a Dockerfile from the same directory as the BUILD file this
 Dependencies on upstream/base images defined by another `docker_image` are inferred if referenced by a build argument with a default value of the target address.
 
 Example:
+
 ```
 # src/docker/downstream/Dockerfile
 ARG BASE=src/docker/upstream:image
@@ -37,6 +38,7 @@ Backend: <span className="color--primary">`pants.backend.docker`</span>
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -47,6 +49,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 A human-readable description of the target.
 
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `extra_build_args`
@@ -58,6 +61,7 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 Build arguments (`--build-arg`) to use when building this image. Entries are either strings in the form `ARG_NAME=value` to set an explicit value; or just `ARG_NAME` to copy the value from Pants&#x27;s own environment.
 
 Use `[docker].build_args` to set default build args for all images.
+
 </Field>
 
 ## `dependencies`
@@ -74,6 +78,7 @@ See https://www.pantsbuild.org/v2.13/docs/targets#target-addresses and https://w
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
 </Field>
 
 ## `source`
@@ -85,6 +90,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 The Dockerfile to use when building the Docker image.
 
 Use the `instructions` field instead if you prefer not having the Dockerfile in your source tree.
+
 </Field>
 
 ## `instructions`
@@ -97,6 +103,7 @@ The `Dockerfile` content, typically one instruction per list item.
 Use the `source` field instead if you prefer having the Dockerfile in your source tree.
 
 Example:
+
 ```
 # example/BUILD
 docker_image(
@@ -106,6 +113,7 @@ docker_image(
   ],
 )
 ```
+
 </Field>
 
 ## `context_root`
@@ -118,6 +126,7 @@ Specify which directory to use as the Docker build context root. This affects th
 Specify the `context_root` path as `files` for relative to build root, or as `./files` for relative to the BUILD file.
 
 If `context_root` is not specified, it defaults to `[docker].default_context_root`.
+
 </Field>
 
 ## `image_tags`
@@ -132,6 +141,7 @@ Any tags to apply to the Docker image name (the version is usually applied as a 
 tag may use placeholders in curly braces to be interpolated. The placeholders are derived from various sources, such as the Dockerfile instructions and build args.
 
 See https://www.pantsbuild.org/v2.13/docs/tagging-docker-images.
+
 </Field>
 
 ## `registries`
@@ -147,6 +157,7 @@ The address is a domain name with optional port for your registry, and any regis
 By default, all configured registries with `default = true` are used.
 
 Example:
+
 ```
 # pants.toml
 [docker.registries.my-registry-alias]
@@ -163,6 +174,7 @@ docker_image(
 ```
 
 The above example shows two valid `registry` options: using an alias to a configured registry and the address to a registry verbatim in the BUILD file.
+
 </Field>
 
 ## `repository`
@@ -181,6 +193,7 @@ Additional placeholders for the repository field are: `name`, `directory`, `pare
 Registries may also configure the repository value for specific registries.
 
 See the documentation for `[docker].default_repository` for more information.
+
 </Field>
 
 ## `image_labels`
@@ -193,6 +206,7 @@ Provide image metadata.
 label value may use placeholders in curly braces to be interpolated. The placeholders are derived from various sources, such as the Dockerfile instructions and build args.
 
 See [Docker labels](https://docs.docker.com/config/labels-custom-metadata/#manage-labels-on-objects) for more information.
+
 </Field>
 
 ## `secrets`
@@ -205,6 +219,7 @@ Secret files to expose to the build (only if BuildKit enabled).
 Secrets may use absolute paths, or paths relative to your build root, or the BUILD file if prefixed with `./`. The id should be valid as used by the Docker build `--secret` option. See [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) for more information.
 
 Example:
+
 ```
 docker_image(
     secrets={
@@ -214,6 +229,7 @@ docker_image(
     }
 )
 ```
+
 </Field>
 
 ## `ssh`
@@ -225,20 +241,20 @@ docker_image(
 SSH agent socket or keys to expose to the build (only if BuildKit enabled) (format: default|&lt;id&gt;[=&lt;socket&gt;|&lt;key&gt;[,&lt;key&gt;]])
 
 The exposed agent and/or keys can then be used in your `Dockerfile` by mounting them in your `RUN` instructions:
+
 ```
 RUN --mount=type=ssh ...
 ```
 
 See [Docker documentation](https://docs.docker.com/develop/develop-images/build_enhancements/#using-ssh-to-access-private-data-in-builds) for more information.
+
 </Field>
 
 ## `skip_push`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-If set to true, do not push this image to registries when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 publish`.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  If set to true, do not push this image to registries when running
+  `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 publish`.
 </Field>
 
 ## `target_stage`
@@ -251,27 +267,24 @@ Specify target build stage, rather than building the entire `Dockerfile`.
 When using multi-stage build, you may name your stages, and can target them when building to only selectively build a certain stage. See also the `--docker-build-target-stage` option.
 
 Read more about [multi-stage Docker builds](https://docs.docker.com/develop/develop-images/multistage-build/#stop-at-a-specific-build-stage)
+
 </Field>
 
 ## `restartable`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  If true, runs of this target with the `run` goal may be interrupted and
+  restarted when its input files change.
 </Field>
 
 ## `skip_hadolint`
 
 <Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
-    backend="pants.backend.docker.lint.hadolint"
+  type_repr={`field.type_hint`}
+  default_repr={`False`}
+  backend="pants.backend.docker.lint.hadolint"
 >
-If true, don&#x27;t run hadolint on this target&#x27;s Dockerfile.
+  If true, don&#x27;t run hadolint on this target&#x27;s Dockerfile.
 </Field>
-
-
 
 </span>

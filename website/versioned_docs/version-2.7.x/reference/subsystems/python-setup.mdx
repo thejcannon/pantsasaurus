@@ -16,6 +16,7 @@ Config section: <span className="color--primary">`[python-setup]`</span>
 <span className={styles.options}>
 
 ## Basic options
+
 None
 
 ## Advanced options
@@ -32,6 +33,7 @@ The Python interpreters your codebase is compatible with.
 Specify with requirement syntax, e.g. &#x27;CPython&gt;=2.7,&lt;3&#x27; (A CPython interpreter with version &gt;=2.7 AND version &lt;3) or &#x27;PyPy&#x27; (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
 
 These constraints are used as the default value for the `interpreter_constraints` field of Python targets.
+
 </Option>
 
 ### `interpreter_versions_universe`
@@ -65,6 +67,7 @@ This only applies when resolving user requirements, rather than tools you run li
 See https://pip.pypa.io/en/stable/user_guide/#constraints-files for more information on the format of constraint files and how constraints are applied in Pex and pip.
 
 Mutually exclusive with `[python-setup].experimental_lockfile`.
+
 </Option>
 
 ### `resolve_all_constraints`
@@ -79,6 +82,7 @@ If enabled, when resolving requirements, Pants will first resolve your entire co
 Usually this option should be enabled because it can result in far fewer resolves.
 
 Requires [python-setup].requirement_constraints to be set.
+
 </Option>
 
 ### `experimental_lockfile`
@@ -95,6 +99,7 @@ This is highly experimental and will change, including adding support for multip
 To generate a lockfile, activate the backend `pants.backend.experimental.python`and run `./pants generate-user-lockfile ::`.
 
 Mutually exclusive with `[python-setup].requirement_constraints`.
+
 </Option>
 
 ### `invalid_lockfile_behavior`
@@ -108,6 +113,7 @@ Mutually exclusive with `[python-setup].requirement_constraints`.
 The behavior when a lockfile has requirements or interpreter constraints that are not compatible with what the current build is using.
 
 We recommend keeping the default of `error` for CI builds.
+
 </Option>
 
 ### `interpreter_search_paths`
@@ -119,22 +125,25 @@ We recommend keeping the default of `error` for CI builds.
 >
 A list of paths to search for Python interpreters that match your project&#x27;s interpreter constraints. You can specify absolute paths to interpreter binaries and/or to directories containing interpreter binaries. The order of entries does not matter. The following special strings are supported:
 
-* &quot;&lt;PATH&gt;&quot;, the contents of the PATH env var
-* &quot;&lt;ASDF&gt;&quot;, all Python versions currently configured by ASDF (asdf shell, $&#123;HOME&#125;/.tool-versions), with a fallback to all installed versions
-* &quot;&lt;ASDF_LOCAL&gt;&quot;, the ASDF interpreter with the version in BUILD_ROOT/.tool-versions
-* &quot;&lt;PYENV&gt;&quot;, all Python versions under $(pyenv root)/versions
-* &quot;&lt;PYENV_LOCAL&gt;&quot;, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
-* &quot;&lt;PEXRC&gt;&quot;, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
-</Option>
+- &quot;&lt;PATH&gt;&quot;, the contents of the PATH env var
+- &quot;&lt;ASDF&gt;&quot;, all Python versions currently configured by ASDF (asdf shell, $&#123;HOME&#125;/.tool-versions), with a fallback to all installed versions
+- &quot;&lt;ASDF_LOCAL&gt;&quot;, the ASDF interpreter with the version in BUILD_ROOT/.tool-versions
+- &quot;&lt;PYENV&gt;&quot;, all Python versions under $(pyenv root)/versions
+- &quot;&lt;PYENV_LOCAL&gt;&quot;, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
+- &quot;&lt;PEXRC&gt;&quot;, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
+  </Option>
 
 ### `resolver_manylinux`
 
 <Option
   cli_repr={`--python-setup-resolver-manylinux=<str>`}
-  env_repr='PANTS_PYTHON_SETUP_RESOLVER_MANYLINUX'
+  env_repr="PANTS_PYTHON_SETUP_RESOLVER_MANYLINUX"
   default_repr={`manylinux2014`}
 >
-Whether to allow resolution of manylinux wheels when resolving requirements for foreign linux platforms. The value should be a manylinux platform upper bound, e.g.: &#x27;manylinux2010&#x27;, or else the string &#x27;no&#x27; to disallow.
+  Whether to allow resolution of manylinux wheels when resolving requirements
+  for foreign linux platforms. The value should be a manylinux platform upper
+  bound, e.g.: &#x27;manylinux2010&#x27;, or else the string &#x27;no&#x27; to
+  disallow.
 </Option>
 
 ### `resolver_jobs`
@@ -146,9 +155,10 @@ Whether to allow resolution of manylinux wheels when resolving requirements for 
 >
 The maximum number of concurrent jobs to build wheels with.
 
-Because Pants can run multiple subprocesses in parallel, the maximum total parallelism will be `--process-execution-{local,remote}-parallelism x --python-setup-resolver-jobs`. 
+Because Pants can run multiple subprocesses in parallel, the maximum total parallelism will be `--process-execution-{local,remote}-parallelism x --python-setup-resolver-jobs`.
 
 Setting this option higher may result in better parallelism, but, if set too high, may result in starvation and Out of Memory errors.
+
 </Option>
 
 ### `tailor_ignore_solitary_init_files`
@@ -160,17 +170,18 @@ Setting this option higher may result in better parallelism, but, if set too hig
 >
 Don&#x27;t tailor python_library targets for solitary __init__.py files, as those usually exist as import scaffolding rather than true library code.
 
-Set to False if you commonly have packages containing real code in __init__.py and there are no other .py files in the package.
+Set to False if you commonly have packages containing real code in **init**.py and there are no other .py files in the package.
+
 </Option>
 
 ### `tailor_pex_binary_targets`
 
 <Option
   cli_repr={`--[no-]python-setup-tailor-pex-binary-targets`}
-  env_repr='PANTS_PYTHON_SETUP_TAILOR_PEX_BINARY_TARGETS'
+  env_repr="PANTS_PYTHON_SETUP_TAILOR_PEX_BINARY_TARGETS"
   default_repr={`True`}
 >
-Tailor pex_binary() targets for Python entry point files.
+  Tailor pex_binary() targets for Python entry point files.
 </Option>
 
 ## Deprecated options

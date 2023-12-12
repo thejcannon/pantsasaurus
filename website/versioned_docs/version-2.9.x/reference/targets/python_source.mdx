@@ -23,6 +23,7 @@ Backend: <span className="color--primary">``</span>
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -33,6 +34,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 A human-readable description of the target.
 
 Use `./pants list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `interpreter_constraints`
@@ -49,6 +51,7 @@ Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPyt
 If the field is not set, it will default to the option `[python].interpreter_constraints`.
 
 See https://www.pantsbuild.org/v2.9/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
+
 </Field>
 
 ## `dependencies`
@@ -65,6 +68,7 @@ See https://www.pantsbuild.org/v2.9/docs/targets#target-addresses and https://ww
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
 </Field>
 
 ## `source`
@@ -75,98 +79,67 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 A single file that belongs to this target.
 
 Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
+
 </Field>
 
 ## `skip_autoflake`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-If true, don&#x27;t run Autoflake on this target&#x27;s code.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  If true, don&#x27;t run Autoflake on this target&#x27;s code.
 </Field>
 
 ## `skip_pyupgrade`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-If true, don&#x27;t run pyupgrade on this target&#x27;s code.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 </Field>
 
 ## `skip_bandit`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-If true, don&#x27;t run Bandit on this target&#x27;s code.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  If true, don&#x27;t run Bandit on this target&#x27;s code.
 </Field>
 
 ## `skip_black`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-If true, don&#x27;t run Black on this target&#x27;s code.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  If true, don&#x27;t run Black on this target&#x27;s code.
 </Field>
 
 ## `skip_docformatter`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-If true, don&#x27;t run Docformatter on this target&#x27;s code.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  If true, don&#x27;t run Docformatter on this target&#x27;s code.
 </Field>
 
 ## `skip_flake8`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-If true, don&#x27;t run Flake8 on this target&#x27;s code.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  If true, don&#x27;t run Flake8 on this target&#x27;s code.
 </Field>
 
 ## `skip_isort`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-If true, don&#x27;t run isort on this target&#x27;s code.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  If true, don&#x27;t run isort on this target&#x27;s code.
 </Field>
 
 ## `skip_pylint`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-If true, don&#x27;t run Pylint on this target&#x27;s code.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  If true, don&#x27;t run Pylint on this target&#x27;s code.
 </Field>
 
 ## `skip_yapf`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-If true, don&#x27;t run yapf on this target&#x27;s code.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  If true, don&#x27;t run yapf on this target&#x27;s code.
 </Field>
 
 ## `skip_mypy`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-If true, don&#x27;t run MyPy on this target&#x27;s code.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  If true, don&#x27;t run MyPy on this target&#x27;s code.
 </Field>
-
-
 
 </span>

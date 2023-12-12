@@ -27,6 +27,7 @@ Config section: <span className="color--primary">`[scala]`</span>
 A dictionary mapping the name of a resolve to the Scala version to use for all Scala targets consuming that resolve.
 
 All Scala-compiled jars on a resolve&#x27;s classpath must be &quot;compatible&quot; with one another and with all Scala-compiled first-party sources from `scala_sources` (and other Scala target types) using that resolve. The option sets the Scala version that will be used to compile all first-party sources using the resolve. This ensures that the compatibility property is maintained for a resolve. To support multiple Scala versions, use multiple resolves.
+
 </Option>
 
 ## Advanced options
@@ -35,10 +36,11 @@ All Scala-compiled jars on a resolve&#x27;s classpath must be &quot;compatible&q
 
 <Option
   cli_repr={`--[no-]scala-tailor-source-targets`}
-  env_repr='PANTS_SCALA_TAILOR_SOURCE_TARGETS'
+  env_repr="PANTS_SCALA_TAILOR_SOURCE_TARGETS"
   default_repr={`True`}
 >
-If true, add `scala_sources`, `scala_junit_tests`, and `scalatest_tests` targets with the `tailor` goal.
+  If true, add `scala_sources`, `scala_junit_tests`, and `scalatest_tests`
+  targets with the `tailor` goal.
 </Option>
 
 ## Deprecated options

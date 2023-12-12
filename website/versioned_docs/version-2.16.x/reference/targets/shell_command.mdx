@@ -10,6 +10,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 Execute any external tool for its side effects.
 
 Example BUILD file:
+
 ```
 shell_command(
     command="./my-script.sh --flag",
@@ -40,6 +41,7 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -50,6 +52,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `output_dependencies`
@@ -62,6 +65,7 @@ Any dependencies that the output artifacts require in order to be effectively co
 To enable legacy use cases, if `execution_dependencies` is `None`, these dependencies will be materialized in the execution sandbox. This behavior is deprecated, and will be removed in version 2.17.0.dev0.
 
 See also `execution_dependencies` and `runnable_dependencies`.
+
 </Field>
 
 ## `execution_dependencies`
@@ -76,6 +80,7 @@ Dependencies specified here are those required to make the command complete succ
 If this field is specified, dependencies from `output_dependencies` will not be added to the execution sandbox.
 
 See also `output_dependencies` and `runnable_dependencies`.
+
 </Field>
 
 ## `runnable_dependencies`
@@ -88,6 +93,7 @@ The runnable dependencies for this command.
 Dependencies specified here are those required to exist on the `PATH` to make the command complete successfully (interpreters specified in a `#!` command, etc). Note that these dependencies will be made available on the `PATH` with the name of the target.
 
 See also `output_dependencies` and `execution_dependencies.
+
 </Field>
 
 ## `command`
@@ -98,15 +104,13 @@ See also `output_dependencies` and `execution_dependencies.
 Shell command to execute.
 
 The command is executed as &#x27;bash -c &lt;command&gt;&#x27; by default. If you want to invoke a binary use `exec -a $0 <binary> <args>` as the command so that the binary gets the correct `argv[0]` set.
+
 </Field>
 
 ## `log_output`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-Set to true if you want the output logged to the console.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  Set to true if you want the output logged to the console.
 </Field>
 
 ## `output_files`
@@ -120,6 +124,7 @@ Specify the output files to capture, relative to the value of `workdir`.
 For directories, use `output_directories`. At least one of `output_files` and`output_directories` must be specified.
 
 Relative paths (including `..`) may be used, as long as the path does not ascend further than the build root.
+
 </Field>
 
 ## `output_directories`
@@ -133,15 +138,13 @@ Specify full directories (including recursive descendants) of output to capture,
 For individual files, use `output_files`. At least one of `output_files` and`output_directories` must be specified.
 
 Relative paths (including `..`) may be used, as long as the path does not ascend further than the build root.
+
 </Field>
 
 ## `timeout`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`30`}
->
-Command execution timeout (in seconds).
+<Field type_repr={`field.type_hint`} default_repr={`30`}>
+  Command execution timeout (in seconds).
 </Field>
 
 ## `tools`
@@ -153,6 +156,7 @@ Command execution timeout (in seconds).
 Specify required executable tools that might be used.
 
 Only the tools explicitly provided will be available on the search PATH, and these tools must be found on the paths provided by [shell-setup].executable_search_paths (which defaults to the system PATH).
+
 </Field>
 
 ## `extra_env_vars`
@@ -163,6 +167,7 @@ Only the tools explicitly provided will be available on the search PATH, and the
 Additional environment variables to provide to the process.
 
 Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
+
 </Field>
 
 ## `workdir`
@@ -175,11 +180,11 @@ Sets the working directory for the process.
 
 Values are relative to the build root, except in the following cases:
 
-* `.` specifies the location of the `BUILD` file.
-* Values beginning with `./` are relative to the location of the `BUILD` file.
-* `/` or the empty string specifies the build root.
-* Values beginning with `/` are also relative to the build root.
-</Field>
+- `.` specifies the location of the `BUILD` file.
+- Values beginning with `./` are relative to the location of the `BUILD` file.
+- `/` or the empty string specifies the build root.
+- Values beginning with `/` are also relative to the build root.
+  </Field>
 
 ## `root_output_directory`
 
@@ -195,6 +200,7 @@ Adjusts the location of files output by this target, when consumed as a dependen
     * Values beginning with `./` are relative to the location of the `BUILD` file.
     * `/` or the empty string specifies the build root.
     * Values beginning with `/` are also relative to the build root.
+
 ```
 </Field>
 
@@ -214,3 +220,4 @@ You can specify multiple valid environments by using `parametrize`. If `__local_
 
 
 </span>
+```

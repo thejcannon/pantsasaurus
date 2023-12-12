@@ -33,6 +33,7 @@ A list of config files that define groups of Pants targets to expose to IDEs via
 Pants generally uses fine-grained targets to define the components of a build (in many cases on a file-by-file basis). Many IDEs, however, favor coarse-grained targets that contain large numbers of source files. To accommodate this distinction, the Pants BSP server will compute a set of BSP build targets to use from the groups specified in the config files set for this option. Each group will become one or more BSP build targets.
 
 Each config file is a TOML file with a `groups` dictionary with the following format for an entry:
+
 ```
 # The dictionary key is used to identify the group. It must be unique.
 [groups.ID1]:
@@ -50,6 +51,7 @@ base_directory = "path/from/build/root" # (Optional) Hint to the IDE for where t
 ```
 
 Pants will merge the contents of the config files together. If the same ID is used for a group definition, in multiple config files, the definition in the latter config file will take effect.
+
 </Option>
 
 ## Advanced options
@@ -58,10 +60,11 @@ Pants will merge the contents of the config files together. If the same ID is us
 
 <Option
   cli_repr={`--[no-]experimental-bsp-server`}
-  env_repr='PANTS_EXPERIMENTAL_BSP_SERVER'
+  env_repr="PANTS_EXPERIMENTAL_BSP_SERVER"
   default_repr={`False`}
 >
-Run the Build Server Protocol server. Pants will receive BSP RPC requests via the console. This should only ever be invoked via the IDE.
+  Run the Build Server Protocol server. Pants will receive BSP RPC requests via
+  the console. This should only ever be invoked via the IDE.
 </Option>
 
 ### `runner_env_vars`
@@ -76,6 +79,7 @@ Environment variables to set in the BSP runner script when setting up BSP in a r
 This option only takes effect when the BSP runner script is written. If the option changes, you must run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 experimental-bsp` again to write a new copy of the BSP runner script.
 
 Note: The environment variables passed to the Pants BSP server will be those set for your IDE and not your shell. For example, on macOS, the IDE is generally launched by `launchd` after clicking on a Dock icon, and not from the shell. Thus, any environment variables set for your shell will likely not be seen by the Pants BSP server. At the very least, on macOS consider writing an explicit PATH into the BSP runner script via this option.
+
 </Option>
 
 ## Deprecated options

@@ -23,6 +23,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.scala`</sp
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -33,6 +34,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 A human-readable description of the target.
 
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `dependencies`
@@ -49,6 +51,7 @@ See https://www.pantsbuild.org/v2.15/docs/targets for more about how addresses a
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
 </Field>
 
 ## `source`
@@ -59,6 +62,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 A single file that belongs to this target.
 
 Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
+
 </Field>
 
 ## `scalac_plugins`
@@ -71,6 +75,7 @@ The names of Scala plugins that this source file requires.
 The plugin must be defined by a corresponding `scalac_plugin` AND `jvm_artifact` target, and must be present in this target&#x27;s resolve&#x27;s lockfile.
 
 If not specified, this will default to the plugins specified in `[scalac].plugins_for_resolve` for this target&#x27;s resolve.
+
 </Field>
 
 ## `resolve`
@@ -81,6 +86,7 @@ If not specified, this will default to the plugins specified in `[scalac].plugin
 The resolve from `[jvm].resolves` to use when compiling this target.
 
 If not defined, will default to `[jvm].default_resolve`.
+
 </Field>
 
 ## `experimental_provides_types`
@@ -93,26 +99,24 @@ Signals that the specified types should be fulfilled by these source files durin
 This allows for specific types within packages that are otherwise inferred as belonging to `jvm_artifact` targets to be unambiguously inferred as belonging to this first-party source.
 
 If a given type is defined, at least one source file captured by this target must actually provide that symbol.
+
 </Field>
 
 ## `jdk`
 
-<Field
-    type_repr={`field.type_hint`}
->
-The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+<Field type_repr={`field.type_hint`}>
+  The major version of the JDK that this target should be built with. If not
+  defined, will default to `[jvm].default_source_jdk`.
 </Field>
 
 ## `skip_scalafmt`
 
 <Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.scala.lint.scalafmt"
+  type_repr={`field.type_hint`}
+  default_repr={`False`}
+  backend="pants.backend.experimental.scala.lint.scalafmt"
 >
-If true, don&#x27;t run `scalafmt` on this target&#x27;s code.
+  If true, don&#x27;t run `scalafmt` on this target&#x27;s code.
 </Field>
-
-
 
 </span>

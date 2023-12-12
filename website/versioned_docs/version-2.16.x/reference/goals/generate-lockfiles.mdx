@@ -37,26 +37,28 @@ For example, you can run `scie-pants-linux-x86_64 generate-lockfiles --resolve=b
 If you specify an invalid resolve name, like &#x27;fake&#x27;, Pants will output all possible values.
 
 If not specified, Pants will generate lockfiles for all resolves.
+
 </Option>
 
 ### `diff`
 
 <Option
   cli_repr={`--[no-]generate-lockfiles-diff`}
-  env_repr='PANTS_GENERATE_LOCKFILES_DIFF'
+  env_repr="PANTS_GENERATE_LOCKFILES_DIFF"
   default_repr={`False`}
 >
-Print a summary of changed distributions after generating the lockfile.
+  Print a summary of changed distributions after generating the lockfile.
 </Option>
 
 ### `diff_include_unchanged`
 
 <Option
   cli_repr={`--[no-]generate-lockfiles-diff-include-unchanged`}
-  env_repr='PANTS_GENERATE_LOCKFILES_DIFF_INCLUDE_UNCHANGED'
+  env_repr="PANTS_GENERATE_LOCKFILES_DIFF_INCLUDE_UNCHANGED"
   default_repr={`False`}
 >
-Include unchanged distributions in the diff summary output. Implies `diff=true`.
+  Include unchanged distributions in the diff summary output. Implies
+  `diff=true`.
 </Option>
 
 ## Advanced options

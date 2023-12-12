@@ -33,6 +33,7 @@ Only run these fixers and skip all others.
 The fixer names are outputted at the final summary of running this goal, e.g. `autoflake` and `pyupgrade`. You can also run `fix --only=fake` to get a list of all activated fixers.
 
 You can repeat this option, e.g. `fix --only=autoflake --only=pyupgrade` or `fix --only=['autoflake', 'pyupgrade']`.
+
 </Option>
 
 ### `skip_formatters`
@@ -45,6 +46,7 @@ You can repeat this option, e.g. `fix --only=autoflake --only=pyupgrade` or `fix
 If true, skip running all formatters.
 
 FYI: when running `scie-pants-linux-x86_64 fix fmt ::`, there should be diminishing performance benefit to using this flag. Pants attempts to reuse the results from `fmt` when running `fix` where possible.
+
 </Option>
 
 ## Advanced options
@@ -59,6 +61,7 @@ FYI: when running `scie-pants-linux-x86_64 fix fmt ::`, there should be diminish
 The target number of files to be included in each fixer batch.
 
 Fixer processes are batched for a few reasons:
+
 ```
 1. to avoid OS argument length limits (in processes which don't support argument files)
 2. to support more stable cache keys than would be possible if all files were operated on in a single batch.
@@ -66,6 +69,7 @@ Fixer processes are batched for a few reasons:
 ```
 
 In order to improve cache hit rates (see 2.), batches are created at stable boundaries, and so this value is only a "target" batch size (rather than an exact value).
+
 </Option>
 
 ## Deprecated options

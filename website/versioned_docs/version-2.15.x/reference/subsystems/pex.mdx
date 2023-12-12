@@ -16,6 +16,7 @@ Config section: <span className="color--primary">`[pex]`</span>
 <span className={styles.options}>
 
 ## Basic options
+
 None
 
 ## Advanced options
@@ -24,10 +25,11 @@ None
 
 <Option
   cli_repr={`--pex-verbosity=<int>`}
-  env_repr='PANTS_PEX_VERBOSITY'
+  env_repr="PANTS_PEX_VERBOSITY"
   default_repr={`0`}
 >
-Set the verbosity level of PEX logging, from 0 (no logging) up to 9 (max logging).
+  Set the verbosity level of PEX logging, from 0 (no logging) up to 9 (max
+  logging).
 </Option>
 
 ### `venv_use_symlinks`
@@ -40,6 +42,7 @@ Set the verbosity level of PEX logging, from 0 (no logging) up to 9 (max logging
 When possible, use venvs whose site-packages directories are populated with symlinks.
 
 Enabling this can save space in the `--named-caches-dir` directory and lead to slightly faster execution times for Pants Python goals. Some distributions do not work with symlinked venvs though, so you may not be able to enable this optimization as a result.
+
 </Option>
 
 ### `executable_search_paths`
@@ -53,6 +56,7 @@ Enabling this can save space in the `--named-caches-dir` directory and lead to s
 The PATH value that will be used by the PEX subprocess and any subprocesses it spawns.
 
 The special string `"<PATH>"` will expand to the contents of the PATH env var.
+
 </Option>
 
 ## Deprecated options

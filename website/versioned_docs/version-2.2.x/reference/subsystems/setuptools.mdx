@@ -16,6 +16,7 @@ Config section: <span className="color--primary">`[setuptools]`</span>
 <span className={styles.options}>
 
 ## Basic options
+
 None
 
 ## Advanced options
@@ -24,40 +25,43 @@ None
 
 <Option
   cli_repr={`--setuptools-version=<str>`}
-  env_repr='PANTS_SETUPTOOLS_VERSION'
+  env_repr="PANTS_SETUPTOOLS_VERSION"
   default_repr={`setuptools>=50.3.0,<50.4`}
 >
-Requirement string for the tool.
+  Requirement string for the tool.
 </Option>
 
 ### `extra_requirements`
 
 <Option
   cli_repr={`--setuptools-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_SETUPTOOLS_EXTRA_REQUIREMENTS'
+  env_repr="PANTS_SETUPTOOLS_EXTRA_REQUIREMENTS"
   default_repr={`["wheel==0.35.1"]`}
 >
-Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+  Any additional requirement strings to use with the tool. This is useful if the
+  tool allows you to install plugins or if you need to constrain a dependency to
+  a certain version.
 </Option>
 
 ### `entry_point`
 
 <Option
   cli_repr={`--setuptools-entry-point=<str>`}
-  env_repr='PANTS_SETUPTOOLS_ENTRY_POINT'
+  env_repr="PANTS_SETUPTOOLS_ENTRY_POINT"
   default_repr={`None`}
 >
-The main module for the tool. Usually, you will not want to change this from the default.
+  The main module for the tool. Usually, you will not want to change this from
+  the default.
 </Option>
 
 ### `interpreter_constraints`
 
 <Option
   cli_repr={`--setuptools-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_SETUPTOOLS_INTERPRETER_CONSTRAINTS'
+  env_repr="PANTS_SETUPTOOLS_INTERPRETER_CONSTRAINTS"
   default_repr={`["CPython>=3.5"]`}
 >
-Python interpreter constraints for this tool.
+  Python interpreter constraints for this tool.
 </Option>
 
 ## Deprecated options

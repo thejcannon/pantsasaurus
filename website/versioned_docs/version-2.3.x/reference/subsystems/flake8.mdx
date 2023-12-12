@@ -21,20 +21,22 @@ Config section: <span className="color--primary">`[flake8]`</span>
 
 <Option
   cli_repr={`--[no-]flake8-skip`}
-  env_repr='PANTS_FLAKE8_SKIP'
+  env_repr="PANTS_FLAKE8_SKIP"
   default_repr={`False`}
 >
-Don&#x27;t use Flake8 when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`
+  Don&#x27;t use Flake8 when running
+  `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`
 </Option>
 
 ### `args`
 
 <Option
   cli_repr={`--flake8-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr='PANTS_FLAKE8_ARGS'
+  env_repr="PANTS_FLAKE8_ARGS"
   default_repr={`[]`}
 >
-Arguments to pass directly to Flake8, e.g. `--flake8-args="--ignore E123,W456 --enable-extensions H111"`
+  Arguments to pass directly to Flake8, e.g. `--flake8-args="--ignore E123,W456
+  --enable-extensions H111"`
 </Option>
 
 ## Advanced options
@@ -43,40 +45,43 @@ Arguments to pass directly to Flake8, e.g. `--flake8-args="--ignore E123,W456 --
 
 <Option
   cli_repr={`--flake8-version=<str>`}
-  env_repr='PANTS_FLAKE8_VERSION'
+  env_repr="PANTS_FLAKE8_VERSION"
   default_repr={`flake8>=3.7.9,<3.9`}
 >
-Requirement string for the tool.
+  Requirement string for the tool.
 </Option>
 
 ### `extra_requirements`
 
 <Option
   cli_repr={`--flake8-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_FLAKE8_EXTRA_REQUIREMENTS'
+  env_repr="PANTS_FLAKE8_EXTRA_REQUIREMENTS"
   default_repr={`[\n  "setuptools<45; python_full_version == '2.7.*'",\n  "setuptools; python_version > '2.7'"\n]`}
 >
-Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+  Any additional requirement strings to use with the tool. This is useful if the
+  tool allows you to install plugins or if you need to constrain a dependency to
+  a certain version.
 </Option>
 
 ### `entry_point`
 
 <Option
   cli_repr={`--flake8-entry-point=<str>`}
-  env_repr='PANTS_FLAKE8_ENTRY_POINT'
+  env_repr="PANTS_FLAKE8_ENTRY_POINT"
   default_repr={`flake8`}
 >
-The main module for the tool. Usually, you will not want to change this from the default.
+  The main module for the tool. Usually, you will not want to change this from
+  the default.
 </Option>
 
 ### `config`
 
 <Option
   cli_repr={`--flake8-config=<file_option>`}
-  env_repr='PANTS_FLAKE8_CONFIG'
+  env_repr="PANTS_FLAKE8_CONFIG"
   default_repr={`None`}
 >
-Path to `.flake8` or alternative Flake8 config file
+  Path to `.flake8` or alternative Flake8 config file
 </Option>
 
 ## Deprecated options

@@ -21,10 +21,10 @@ Config section: <span className="color--primary">`[jvm]`</span>
 
 <Option
   cli_repr={`--jvm-resolves="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr='PANTS_JVM_RESOLVES'
+  env_repr="PANTS_JVM_RESOLVES"
   default_repr={`{"jvm-default": "3rdparty/jvm/default.lock"}`}
 >
-A dictionary mapping resolve names to the path of their lockfile.
+  A dictionary mapping resolve names to the path of their lockfile.
 </Option>
 
 ### `default_resolve`
@@ -37,6 +37,7 @@ A dictionary mapping resolve names to the path of their lockfile.
 The default value used for the `resolve` and `compatible_resolves` fields.
 
 The name must be defined as a resolve in `[jvm].resolves`.
+
 </Option>
 
 ### `debug_args`
@@ -49,6 +50,7 @@ The name must be defined as a resolve in `[jvm].resolves`.
 Extra JVM arguments to use when running tests in debug mode.
 
 For example, if you want to attach a remote debugger, use something like [&#x27;-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005&#x27;]
+
 </Option>
 
 ## Advanced options
@@ -62,9 +64,10 @@ For example, if you want to attach a remote debugger, use something like [&#x27;
 >
 The JDK to use.
 
- This string will be passed directly to Coursier&#x27;s `--jvm` parameter. Run `cs java --available` to see a list of available JVM versions on your platform.
+This string will be passed directly to Coursier&#x27;s `--jvm` parameter. Run `cs java --available` to see a list of available JVM versions on your platform.
 
- If the string &#x27;system&#x27; is passed, Coursier&#x27;s `--system-jvm` option will be used instead, but note that this can lead to inconsistent behavior since the JVM version will be whatever happens to be found first on the system&#x27;s PATH.
+If the string &#x27;system&#x27; is passed, Coursier&#x27;s `--system-jvm` option will be used instead, but note that this can lead to inconsistent behavior since the JVM version will be whatever happens to be found first on the system&#x27;s PATH.
+
 </Option>
 
 ## Deprecated options

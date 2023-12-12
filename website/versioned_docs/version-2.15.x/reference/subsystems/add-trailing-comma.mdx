@@ -21,20 +21,23 @@ Config section: <span className="color--primary">`[add-trailing-comma]`</span>
 
 <Option
   cli_repr={`--[no-]add-trailing-comma-skip`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_SKIP'
+  env_repr="PANTS_ADD_TRAILING_COMMA_SKIP"
   default_repr={`False`}
 >
-If true, don&#x27;t use add-trailing-comma when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
+  If true, don&#x27;t use add-trailing-comma when running
+  `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and
+  `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
 </Option>
 
 ### `args`
 
 <Option
   cli_repr={`--add-trailing-comma-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_ARGS'
+  env_repr="PANTS_ADD_TRAILING_COMMA_ARGS"
   default_repr={`[]`}
 >
-Arguments to pass directly to add-trailing-comma, e.g. `--add-trailing-comma-args='--py36-plus'`.
+  Arguments to pass directly to add-trailing-comma, e.g.
+  `--add-trailing-comma-args='--py36-plus'`.
 </Option>
 
 ## Advanced options
@@ -43,30 +46,32 @@ Arguments to pass directly to add-trailing-comma, e.g. `--add-trailing-comma-arg
 
 <Option
   cli_repr={`--add-trailing-comma-version=<str>`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_VERSION'
+  env_repr="PANTS_ADD_TRAILING_COMMA_VERSION"
   default_repr={`add-trailing-comma==2.2.3`}
 >
-Requirement string for the tool.
+  Requirement string for the tool.
 </Option>
 
 ### `extra_requirements`
 
 <Option
   cli_repr={`--add-trailing-comma-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_EXTRA_REQUIREMENTS'
+  env_repr="PANTS_ADD_TRAILING_COMMA_EXTRA_REQUIREMENTS"
   default_repr={`[]`}
 >
-Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+  Any additional requirement strings to use with the tool. This is useful if the
+  tool allows you to install plugins or if you need to constrain a dependency to
+  a certain version.
 </Option>
 
 ### `interpreter_constraints`
 
 <Option
   cli_repr={`--add-trailing-comma-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_INTERPRETER_CONSTRAINTS'
+  env_repr="PANTS_ADD_TRAILING_COMMA_INTERPRETER_CONSTRAINTS"
   default_repr={`["CPython>=3.7,<4"]`}
 >
-Python interpreter constraints for this tool.
+  Python interpreter constraints for this tool.
 </Option>
 
 ### `lockfile`
@@ -85,26 +90,32 @@ Set to the string `<none>` to opt out of using a lockfile. We do not recommend t
 To use a custom lockfile, set this option to a file path relative to the build root, then run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 generate-lockfiles --resolve=add-trailing-comma`.
 
 Alternatively, you can set this option to the path to a custom lockfile using pip&#x27;s requirements.txt-style, ideally with `--hash`. Set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
+
 </Option>
 
 ### `console_script`
 
 <Option
   cli_repr={`--add-trailing-comma-console-script=<str>`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_CONSOLE_SCRIPT'
+  env_repr="PANTS_ADD_TRAILING_COMMA_CONSOLE_SCRIPT"
   default_repr={`add-trailing-comma`}
 >
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+  The console script for the tool. Using this option is generally preferable to
+  (and mutually exclusive with) specifying an --entry-point since console script
+  names have a higher expectation of staying stable across releases of the tool.
+  Usually, you will not want to change this from the default.
 </Option>
 
 ### `entry_point`
 
 <Option
   cli_repr={`--add-trailing-comma-entry-point=<str>`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_ENTRY_POINT'
+  env_repr="PANTS_ADD_TRAILING_COMMA_ENTRY_POINT"
   default_repr={`None`}
 >
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+  The entry point for the tool. Generally you only want to use this option if
+  the tool does not offer a --console-script (which this option is mutually
+  exclusive with). Usually, you will not want to change this from the default.
 </Option>
 
 ## Deprecated options
@@ -121,6 +132,7 @@ The entry point for the tool. Generally you only want to use this option if the 
 If true, export a virtual environment with add-trailing-comma when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 export`.
 
 This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
+
 </Option>
 
 </span>

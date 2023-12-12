@@ -29,10 +29,11 @@ Config section: <span className="color--primary">`[run]`</span>
 
 <Option
   cli_repr={`--run-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
-  env_repr='PANTS_RUN_ARGS'
+  env_repr="PANTS_RUN_ARGS"
   default_repr={`[]`}
 >
-Arguments to pass directly to the executed target, e.g. `--run-args='val1 val2 --debug'`.
+  Arguments to pass directly to the executed target, e.g. `--run-args='val1 val2
+  --debug'`.
 </Option>
 
 ### `cleanup`
@@ -47,6 +48,7 @@ Arguments to pass directly to the executed target, e.g. `--run-args='val1 val2 -
 Whether to clean up the temporary directory in which the binary is chrooted. Set this to false to retain the directory, e.g., for debugging.
 
 Note that setting the global --keep-sandboxes option may also conserve this directory, along with those of all other processes that Pants executes. This option is more selective and controls just the target binary&#x27;s directory.
+
 </Option>
 
 ### `debug_adapter`
@@ -59,6 +61,7 @@ Note that setting the global --keep-sandboxes option may also conserve this dire
 Run the interactive process using a Debug Adapter (https://microsoft.github.io/debug-adapter-protocol/) for the language if supported.
 
 The interactive process used will be immediately blocked waiting for a client before continuing.
+
 </Option>
 
 ## Advanced options

@@ -23,6 +23,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -33,6 +34,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 A human-readable description of the target.
 
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `source`
@@ -43,6 +45,7 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 A single file that belongs to this target.
 
 Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
+
 </Field>
 
 ## `dependencies`
@@ -59,14 +62,13 @@ See https://www.pantsbuild.org/v2.14/docs/targets for more about how addresses a
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
 </Field>
 
 ## `strict`
 
-<Field
-    type_repr={`field.type_hint`}
->
-If set to true, parses the UnitTest suite files strictly.
+<Field type_repr={`field.type_hint`}>
+  If set to true, parses the UnitTest suite files strictly.
 </Field>
 
 ## `timeout`
@@ -77,8 +79,7 @@ If set to true, parses the UnitTest suite files strictly.
 A timeout (in seconds) used by each test file belonging to this target.
 
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
+
 </Field>
-
-
 
 </span>

@@ -21,10 +21,11 @@ Config section: <span className="color--primary">`[protoc]`</span>
 
 <Option
   cli_repr={`--[no-]protoc-dependency-inference`}
-  env_repr='PANTS_PROTOC_DEPENDENCY_INFERENCE'
+  env_repr="PANTS_PROTOC_DEPENDENCY_INFERENCE"
   default_repr={`True`}
 >
-Infer Protobuf dependencies on other Protobuf files by analyzing import statements.
+  Infer Protobuf dependencies on other Protobuf files by analyzing import
+  statements.
 </Option>
 
 ## Advanced options
@@ -33,10 +34,10 @@ Infer Protobuf dependencies on other Protobuf files by analyzing import statemen
 
 <Option
   cli_repr={`--protoc-version=<str>`}
-  env_repr='PANTS_PROTOC_VERSION'
+  env_repr="PANTS_PROTOC_VERSION"
   default_repr={`3.20.1`}
 >
-Use this version of protoc.
+  Use this version of protoc.
 </Option>
 
 ### `known_versions`
@@ -50,6 +51,7 @@ Use this version of protoc.
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
+
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -62,6 +64,7 @@ digest of the download file, as emitted by `shasum -a 256`
 E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
+
 </Option>
 
 ### `use_unsupported_version`
@@ -76,6 +79,7 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 What action to take in case the requested version of protoc is not supported.
 
 Supported protoc versions: unspecified
+
 </Option>
 
 ### `url_template`
@@ -88,6 +92,7 @@ Supported protoc versions: unspecified
 URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.13/docs/options#config-file-entries)).
 
 Use `{version}` to have the value from --version substituted, and `{platform}` to have a value from --url-platform-mapping substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
 </Option>
 
 ### `url_platform_mapping`
@@ -102,16 +107,17 @@ A dictionary mapping platforms to strings to be used when generating the URL to 
 In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
 
 For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}`, and run Pants on Linux with an intel architecture, then `{platform}` will be substituted in the --url-template option with unknown-linux.
+
 </Option>
 
 ### `tailor`
 
 <Option
   cli_repr={`--[no-]protoc-tailor`}
-  env_repr='PANTS_PROTOC_TAILOR'
+  env_repr="PANTS_PROTOC_TAILOR"
   default_repr={`True`}
 >
-If true, add `protobuf_sources` targets with the `tailor` goal.
+  If true, add `protobuf_sources` targets with the `tailor` goal.
 </Option>
 
 ## Deprecated options

@@ -52,6 +52,7 @@ Any image tags that should only be added for specific registries may be provided
 When a registry provides a `repository` value, it will be used instead of the `docker_image.repository` or the default repository. Using the placeholders `{target_repository}` or `{default_repository}` those overridden values may be incorporated into the registry specific repository value.
 
 If `use_local_alias` is true, a built image is additionally tagged locally using the registry alias as the value for repository (i.e. the additional image tag is not pushed) and will be used for any `pants run` requests.
+
 </Option>
 
 ### `default_repository`
@@ -65,10 +66,10 @@ Configure the default repository name used in the Docker image tag.
 
 The value is formatted and may reference these variables (in addition to the normal placeheolders derived from the Dockerfile and build args etc):
 
-  * name
-  * directory
-  * parent_directory
-  * target_repository
+- name
+- directory
+- parent_directory
+- target_repository
 
 Example: `--default-repository="{directory}/{name}"`.
 
@@ -79,6 +80,7 @@ Use the `repository` field to set this value directly on a `docker_image` target
 Registries may override the repository value for a specific registry.
 
 Any registries or tags are added to the image name as required, and should not be part of the repository name.
+
 </Option>
 
 ### `default_context_root`
@@ -93,10 +95,12 @@ Provide a default Docker build context root path for `docker_image` targets that
 The context root is relative to the build root by default, but may be prefixed with `./` to be relative to the directory of the BUILD file of the `docker_image`.
 
 Examples:
+
 ```
 --default-context-root=src/docker
 --default-context-root=./relative_to_the_build_file
 ```
+
 </Option>
 
 ### `build_args`
@@ -111,12 +115,14 @@ Global build arguments (for Docker `--build-arg` options) to use for all `docker
 Entries are either strings in the form `ARG_NAME=value` to set an explicit value; or just `ARG_NAME` to copy the value from Pants&#x27;s own environment.
 
 Example:
+
 ```
 [docker]
 build_args = ["VAR1=value", "VAR2"]
 ```
 
 Use the `extra_build_args` field on a `docker_image` target for additional image specific build arguments.
+
 </Option>
 
 ### `build_target_stage`
@@ -129,16 +135,18 @@ Use the `extra_build_args` field on a `docker_image` target for additional image
 Global default value for `target_stage` on `docker_image` targets, overriding the field value on the targets, if there is a matching stage in the `Dockerfile`.
 
 This is useful to provide from the command line, to specify the target stage to build for at execution time.
+
 </Option>
 
 ### `build_verbose`
 
 <Option
   cli_repr={`--[no-]docker-build-verbose`}
-  env_repr='PANTS_DOCKER_BUILD_VERBOSE'
+  env_repr="PANTS_DOCKER_BUILD_VERBOSE"
   default_repr={`False`}
 >
-Whether to log the Docker output to the console. If false, only the image ID is logged.
+  Whether to log the Docker output to the console. If false, only the image ID
+  is logged.
 </Option>
 
 ### `run_args`
@@ -151,6 +159,7 @@ Whether to log the Docker output to the console. If false, only the image ID is 
 Additional arguments to use for `docker run` invocations.
 
 Example:
+
 ```
 $ scie-pants-linux-x86_64 run --docker-run-args="-p 127.0.0.1:80:8080/tcp --name demo" src/example:image -- [image entrypoint args]
 ```
@@ -160,6 +169,7 @@ To provide the top-level options to the `docker` client, use `[docker].env_vars`
 The arguments for the image entrypoint may be passed on the command line after a double dash (`--`), or using the `--run-args` option.
 
 Defaults to `--interactive --tty` when stdout is connected to a terminal.
+
 </Option>
 
 ## Advanced options
@@ -168,20 +178,22 @@ Defaults to `--interactive --tty` when stdout is connected to a terminal.
 
 <Option
   cli_repr={`--docker-tools="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_DOCKER_TOOLS'
+  env_repr="PANTS_DOCKER_TOOLS"
   default_repr={`[]`}
 >
-List any additional executable tools required for Docker to work. The paths to these tools will be included in the PATH used in the execution sandbox, so that they may be used by the Docker client.
+  List any additional executable tools required for Docker to work. The paths to
+  these tools will be included in the PATH used in the execution sandbox, so
+  that they may be used by the Docker client.
 </Option>
 
 ### `tailor`
 
 <Option
   cli_repr={`--[no-]docker-tailor`}
-  env_repr='PANTS_DOCKER_TAILOR'
+  env_repr="PANTS_DOCKER_TAILOR"
   default_repr={`True`}
 >
-If true, add `docker_image` targets with the `tailor` goal.
+  If true, add `docker_image` targets with the `tailor` goal.
 </Option>
 
 ### `executable_search_paths`
@@ -206,6 +218,7 @@ The PATH value that will be used to find the Docker client and any tools require
 Environment variables to set for `docker` invocations.
 
 Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27;s own environment.
+
 </Option>
 
 ## Deprecated options

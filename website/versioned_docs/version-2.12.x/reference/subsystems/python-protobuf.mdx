@@ -23,10 +23,11 @@ Config section: <span className="color--primary">`[python-protobuf]`</span>
 
 <Option
   cli_repr={`--[no-]python-protobuf-mypy-plugin`}
-  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN'
+  env_repr="PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN"
   default_repr={`False`}
 >
-Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to also generate .pyi type stubs.
+  Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to
+  also generate .pyi type stubs.
 </Option>
 
 ## Advanced options
@@ -43,6 +44,7 @@ If True, will add a dependency on a `python_requirement` target exposing the `pr
 If `[python].enable_resolves` is set, Pants will only infer dependencies on `python_requirement` targets that use the same resolve as the particular `protobuf_source` / `protobuf_sources` target uses, which is set via its `python_resolve` field.
 
 Unless this option is disabled, Pants will error if no relevant target is found or if more than one is found which causes ambiguity.
+
 </Option>
 
 ## Deprecated options

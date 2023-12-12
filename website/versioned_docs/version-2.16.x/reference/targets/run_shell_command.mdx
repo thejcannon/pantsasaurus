@@ -10,6 +10,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 Run a script in the workspace, with all dependencies packaged/copied into a chroot.
 
 Example BUILD file:
+
 ```
 run_shell_command(
     command="./scripts/my-script.sh --data-files-dir={chroot}",
@@ -35,6 +36,7 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -45,6 +47,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `execution_dependencies`
@@ -57,6 +60,7 @@ The execution dependencies for this command.
 Dependencies specified here are those required to make the command complete successfully (e.g. file inputs, packages compiled from other targets, etc), but NOT required to make the outputs of the command useful.
 
 See also `runnable_dependencies`.
+
 </Field>
 
 ## `runnable_dependencies`
@@ -69,6 +73,7 @@ The runnable dependencies for this command.
 Dependencies specified here are those required to exist on the `PATH` to make the command complete successfully (interpreters specified in a `#!` command, etc). Note that these dependencies will be made available on the `PATH` with the name of the target.
 
 See also `execution_dependencies`.
+
 </Field>
 
 ## `command`
@@ -79,6 +84,7 @@ See also `execution_dependencies`.
 Shell command to execute.
 
 The command is executed as &#x27;bash -c &lt;command&gt;&#x27; by default. If you want to invoke a binary use `exec -a $0 <binary> <args>` as the command so that the binary gets the correct `argv[0]` set.
+
 </Field>
 
 ## `workdir`
@@ -91,12 +97,10 @@ Sets the working directory for the process.
 
 Values are relative to the build root, except in the following cases:
 
-* `.` specifies the location of the `BUILD` file.
-* Values beginning with `./` are relative to the location of the `BUILD` file.
-* `/` or the empty string specifies the build root.
-* Values beginning with `/` are also relative to the build root.
-</Field>
-
-
+- `.` specifies the location of the `BUILD` file.
+- Values beginning with `./` are relative to the location of the `BUILD` file.
+- `/` or the empty string specifies the build root.
+- Values beginning with `/` are also relative to the build root.
+  </Field>
 
 </span>

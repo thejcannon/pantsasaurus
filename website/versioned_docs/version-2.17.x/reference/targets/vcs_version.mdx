@@ -29,6 +29,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.python`</s
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -39,6 +40,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `tag_regex`
@@ -54,6 +56,7 @@ The regex needs to contain either a single match group, or a group named version
 Note that this is unrelated to the tags field and Pants&#x27;s own tags concept.
 
 See https://github.com/pypa/setuptools_scm for implementation details.
+
 </Field>
 
 ## `generate_to`
@@ -64,6 +67,7 @@ See https://github.com/pypa/setuptools_scm for implementation details.
 Generate the version data to this relative path, using the template field.
 
 Note that the generated output will not be written to disk in the source tree, but will be available as a generated dependency to code that depends on this target.
+
 </Field>
 
 ## `template`
@@ -74,6 +78,7 @@ Note that the generated output will not be written to disk in the source tree, b
 Generate the version data using this format string, which takes a version format kwarg.
 
 E.g., `'version = "{version}"'`
+
 </Field>
 
 ## `python_resolve`
@@ -87,8 +92,7 @@ The resolve from `[python].resolves` to use.
 If not defined, will default to `[python].default_resolve`.
 
 All dependencies must share the same value for their `resolve` field.
+
 </Field>
-
-
 
 </span>

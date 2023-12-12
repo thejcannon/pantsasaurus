@@ -29,6 +29,7 @@ Default Node.js package manager to use.
 You can either rely on this default together with the [nodejs].package_managers option, or specify the `package.json#packageManager` tool and version in the package.json of your project.
 
 Specifying conflicting package manager versions within a multi-package workspace is an error.
+
 </Option>
 
 ### `package_managers`
@@ -43,6 +44,7 @@ A mapping of package manager versions to semver releases.
 Many organizations only need a single version of a package manager, which is a good default and often the simplest thing to do.
 
 The version download is managed by Corepack. This mapping corresponds to the https://github.com/nodejs/corepack#known-good-releases setting, using the `--activate` flag.
+
 </Option>
 
 ## Advanced options
@@ -51,10 +53,10 @@ The version download is managed by Corepack. This mapping corresponds to the htt
 
 <Option
   cli_repr={`--nodejs-version=<str>`}
-  env_repr='PANTS_NODEJS_VERSION'
+  env_repr="PANTS_NODEJS_VERSION"
   default_repr={`v16.15.0`}
 >
-Use this version of nodejs.
+  Use this version of nodejs.
 </Option>
 
 ### `known_versions`
@@ -68,6 +70,7 @@ Use this version of nodejs.
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
+
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -80,6 +83,7 @@ digest of the download file, as emitted by `shasum -a 256`
 E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
+
 </Option>
 
 ### `url_template`
@@ -92,6 +96,7 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.17/docs/options#config-file-entries)).
 
 Use `{version}` to have the value from --version substituted, and `{platform}` to have a value from --url-platform-mapping substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
 </Option>
 
 ### `url_platform_mapping`
@@ -106,6 +111,7 @@ A dictionary mapping platforms to strings to be used when generating the URL to 
 In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
 
 For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}`, and run Pants on Linux with an intel architecture, then `{platform}` will be substituted in the --url-template option with unknown-linux.
+
 </Option>
 
 ### `resolves`
@@ -122,6 +128,7 @@ Specifying a resolve name is optional. If unspecified, the default resolve name 
 Example: An npm lockfile located at `src/js/package/package-lock.json' will result in a resolve named `js.package`, assuming src/ is a source root.
 
 Run `scie-pants-linux-x86_64 generate-lockfiles` to generate the lockfile(s).
+
 </Option>
 
 ### `executable_search_paths`
@@ -153,16 +160,16 @@ The following special strings are supported:
 
 For all runtime environment types:
 
-* `<PATH>`, the contents of the PATH env var
+- `<PATH>`, the contents of the PATH env var
 
 When the environment is a `local_environment` target:
 
-* `<ASDF>`, all Node.js versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
-* `<ASDF_LOCAL>`, the ASDF binaries with the version in BUILD_ROOT/.tool-versions
-* `<NVM>`, all NodeJS versions under $NVM_DIR/versions/node
-* `<NVM_LOCAL>`, the nvm installation with the version in BUILD_ROOT/.nvmrc
-Note that the version in the .nvmrc file has to be on the form &quot;vX.Y.Z&quot;.
-</Option>
+- `<ASDF>`, all Node.js versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
+- `<ASDF_LOCAL>`, the ASDF binaries with the version in BUILD_ROOT/.tool-versions
+- `<NVM>`, all NodeJS versions under $NVM_DIR/versions/node
+- `<NVM_LOCAL>`, the nvm installation with the version in BUILD_ROOT/.nvmrc
+  Note that the version in the .nvmrc file has to be on the form &quot;vX.Y.Z&quot;.
+  </Option>
 
 ### `corepack_env_vars`
 
@@ -177,6 +184,7 @@ Environment variables to set for `corepack` invocations.
 Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27;s own environment.
 
 Review https://github.com/nodejs/corepack#environment-variables for available variables.
+
 </Option>
 
 ## Deprecated options

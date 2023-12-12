@@ -21,20 +21,21 @@ Config section: <span className="color--primary">`[shfmt]`</span>
 
 <Option
   cli_repr={`--[no-]shfmt-skip`}
-  env_repr='PANTS_SHFMT_SKIP'
+  env_repr="PANTS_SHFMT_SKIP"
   default_repr={`False`}
 >
-If true, don&#x27;t use shfmt when running `scie-pants-linux-x86_64 fmt` and `scie-pants-linux-x86_64 lint`.
+  If true, don&#x27;t use shfmt when running `scie-pants-linux-x86_64 fmt` and
+  `scie-pants-linux-x86_64 lint`.
 </Option>
 
 ### `args`
 
 <Option
   cli_repr={`--shfmt-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr='PANTS_SHFMT_ARGS'
+  env_repr="PANTS_SHFMT_ARGS"
   default_repr={`[]`}
 >
-Arguments to pass directly to shfmt, e.g. `--shfmt-args='-i 2'`.
+  Arguments to pass directly to shfmt, e.g. `--shfmt-args='-i 2'`.
 </Option>
 
 ## Advanced options
@@ -43,10 +44,10 @@ Arguments to pass directly to shfmt, e.g. `--shfmt-args='-i 2'`.
 
 <Option
   cli_repr={`--shfmt-version=<str>`}
-  env_repr='PANTS_SHFMT_VERSION'
+  env_repr="PANTS_SHFMT_VERSION"
   default_repr={`v3.6.0`}
 >
-Use this version of shfmt.
+  Use this version of shfmt.
 </Option>
 
 ### `known_versions`
@@ -60,6 +61,7 @@ Use this version of shfmt.
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
+
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -72,6 +74,7 @@ digest of the download file, as emitted by `shasum -a 256`
 E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
+
 </Option>
 
 ### `use_unsupported_version`
@@ -86,6 +89,7 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 What action to take in case the requested version of shfmt is not supported.
 
 Supported shfmt versions: unspecified
+
 </Option>
 
 ### `url_template`
@@ -98,6 +102,7 @@ Supported shfmt versions: unspecified
 URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.16/docs/options#config-file-entries)).
 
 Use `{version}` to have the value from --version substituted, and `{platform}` to have a value from --url-platform-mapping substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
 </Option>
 
 ### `url_platform_mapping`
@@ -112,16 +117,18 @@ A dictionary mapping platforms to strings to be used when generating the URL to 
 In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
 
 For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}`, and run Pants on Linux with an intel architecture, then `{platform}` will be substituted in the --url-template option with unknown-linux.
+
 </Option>
 
 ### `config_discovery`
 
 <Option
   cli_repr={`--[no-]shfmt-config-discovery`}
-  env_repr='PANTS_SHFMT_CONFIG_DISCOVERY'
+  env_repr="PANTS_SHFMT_CONFIG_DISCOVERY"
   default_repr={`True`}
 >
-If true, Pants will include all relevant `.editorconfig` files during runs. See https://editorconfig.org.
+  If true, Pants will include all relevant `.editorconfig` files during runs.
+  See https://editorconfig.org.
 </Option>
 
 ## Deprecated options

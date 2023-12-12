@@ -33,6 +33,7 @@ Only run these formatters and skip all others.
 The formatter names are outputted at the final summary of running this goal, e.g. `isort` and `shfmt`. You can also run `fmt --only=fake` to get a list of all activated formatters.
 
 You can repeat this option, e.g. `fmt --only=isort --only=shfmt` or `fmt --only=['isort', 'shfmt']`.
+
 </Option>
 
 ## Advanced options
@@ -47,6 +48,7 @@ You can repeat this option, e.g. `fmt --only=isort --only=shfmt` or `fmt --only=
 The target number of files to be included in each formatter batch.
 
 Formatter processes are batched for a few reasons:
+
 ```
 1. to avoid OS argument length limits (in processes which don't support argument files)
 2. to support more stable cache keys than would be possible if all files were operated on in a single batch.
@@ -54,6 +56,7 @@ Formatter processes are batched for a few reasons:
 ```
 
 In order to improve cache hit rates (see 2.), batches are created at stable boundaries, and so this value is only a "target" batch size (rather than an exact value).
+
 </Option>
 
 ## Deprecated options

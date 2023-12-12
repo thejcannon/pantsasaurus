@@ -25,50 +25,53 @@ Config section: <span className="color--primary">`[filedeps]`</span>
 
 <Option
   cli_repr={`--filedeps-output-file=<path>`}
-  env_repr='PANTS_FILEDEPS_OUTPUT_FILE'
+  env_repr="PANTS_FILEDEPS_OUTPUT_FILE"
   default_repr={`None`}
 >
-Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+  Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
 </Option>
 
 ### `sep`
 
 <Option
   cli_repr={`--filedeps-sep=<separator>`}
-  env_repr='PANTS_FILEDEPS_SEP'
+  env_repr="PANTS_FILEDEPS_SEP"
   default_repr={`\\n`}
 >
-String to use to separate lines in line-oriented output.
+  String to use to separate lines in line-oriented output.
 </Option>
 
 ### `absolute`
 
 <Option
   cli_repr={`--[no-]filedeps-absolute`}
-  env_repr='PANTS_FILEDEPS_ABSOLUTE'
+  env_repr="PANTS_FILEDEPS_ABSOLUTE"
   default_repr={`False`}
 >
-If True, output with absolute path. If unspecified, output with path relative to the build root.
+  If True, output with absolute path. If unspecified, output with path relative
+  to the build root.
 </Option>
 
 ### `globs`
 
 <Option
   cli_repr={`--[no-]filedeps-globs`}
-  env_repr='PANTS_FILEDEPS_GLOBS'
+  env_repr="PANTS_FILEDEPS_GLOBS"
   default_repr={`False`}
 >
-Instead of outputting filenames, output the original globs used in the BUILD file. This will not include exclude globs (i.e. globs that start with `!`).
+  Instead of outputting filenames, output the original globs used in the BUILD
+  file. This will not include exclude globs (i.e. globs that start with `!`).
 </Option>
 
 ### `transitive`
 
 <Option
   cli_repr={`--[no-]filedeps-transitive`}
-  env_repr='PANTS_FILEDEPS_TRANSITIVE'
+  env_repr="PANTS_FILEDEPS_TRANSITIVE"
   default_repr={`False`}
 >
-If True, list files from all dependencies, including transitive dependencies. If unspecified, only list files from the target.
+  If True, list files from all dependencies, including transitive dependencies.
+  If unspecified, only list files from the target.
 </Option>
 
 ## Advanced options

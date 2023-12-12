@@ -27,6 +27,7 @@ Config section: <span className="color--primary">`[go-test]`</span>
 Arguments to pass directly to Go test binary, e.g. `--go-test-args='-run TestFoo -v'`.
 
 Known Go test options will be transformed into the form expected by the test binary, e.g. `-v` becomes `-test.v`. Run `go help testflag` from the Go SDK to learn more about the options supported by Go test binaries.
+
 </Option>
 
 ### `cover_mode`
@@ -39,31 +40,33 @@ Known Go test options will be transformed into the form expected by the test bin
 >
 Coverage mode to use when running Go tests with coverage analysis enabled via --test-use-coverage. Valid values are `set`, `count`, and `atomic`:
 
-* `set`: bool: does this statement run?
+- `set`: bool: does this statement run?
 
-* `count`: int: how many times does this statement run?
+- `count`: int: how many times does this statement run?
 
-* `atomic`: int: count, but correct in multithreaded tests; significantly more expensive.
-</Option>
+- `atomic`: int: count, but correct in multithreaded tests; significantly more expensive.
+  </Option>
 
 ### `coverage_html`
 
 <Option
   cli_repr={`--[no-]go-test-coverage-html`}
-  env_repr='PANTS_GO_TEST_COVERAGE_HTML'
+  env_repr="PANTS_GO_TEST_COVERAGE_HTML"
   default_repr={`True`}
 >
-If true, then convert coverage reports to HTML format and write a `coverage.html` file next to the raw coverage data.
+  If true, then convert coverage reports to HTML format and write a
+  `coverage.html` file next to the raw coverage data.
 </Option>
 
 ### `skip`
 
 <Option
   cli_repr={`--[no-]go-test-skip`}
-  env_repr='PANTS_GO_TEST_SKIP'
+  env_repr="PANTS_GO_TEST_SKIP"
   default_repr={`False`}
 >
-If true, don&#x27;t use Go test binary when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 test`.
+  If true, don&#x27;t use Go test binary when running
+  `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 test`.
 </Option>
 
 ## Advanced options
@@ -72,10 +75,13 @@ If true, don&#x27;t use Go test binary when running `/home/josh/work/scie-pants/
 
 <Option
   cli_repr={`--go-test-coverage-output-dir=<str>`}
-  env_repr='PANTS_GO_TEST_COVERAGE_OUTPUT_DIR'
+  env_repr="PANTS_GO_TEST_COVERAGE_OUTPUT_DIR"
   default_repr={`{distdir}/coverage/go/{import_path_escaped}`}
 >
-Path to write the Go coverage reports to. Must be relative to the build root. `{distdir}` is replaced with the Pants `distdir`, and `{import_path_escaped}` is replaced with the applicable package&#x27;s import path but with slashes converted to underscores.
+  Path to write the Go coverage reports to. Must be relative to the build root.
+  `{distdir}` is replaced with the Pants `distdir`, and `{import_path_escaped}`
+  is replaced with the applicable package&#x27;s import path but with slashes
+  converted to underscores.
 </Option>
 
 ## Deprecated options

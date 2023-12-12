@@ -29,6 +29,7 @@ Backend: <span className="color--primary">``</span>
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -39,17 +40,13 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 A human-readable description of the target.
 
 Use `./pants list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `testutil`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`True`}
->
-If true, include `pantsbuild.pants.testutil` to write tests for your plugin.
+<Field type_repr={`field.type_hint`} default_repr={`True`}>
+  If true, include `pantsbuild.pants.testutil` to write tests for your plugin.
 </Field>
-
-
 
 </span>

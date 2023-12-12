@@ -16,6 +16,7 @@ Config section: <span className="color--primary">`[setuptools-scm]`</span>
 <span className={styles.options}>
 
 ## Basic options
+
 None
 
 ## Advanced options
@@ -24,30 +25,32 @@ None
 
 <Option
   cli_repr={`--setuptools-scm-version=<str>`}
-  env_repr='PANTS_SETUPTOOLS_SCM_VERSION'
+  env_repr="PANTS_SETUPTOOLS_SCM_VERSION"
   default_repr={`setuptools-scm==6.4.2`}
 >
-Requirement string for the tool.
+  Requirement string for the tool.
 </Option>
 
 ### `extra_requirements`
 
 <Option
   cli_repr={`--setuptools-scm-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_SETUPTOOLS_SCM_EXTRA_REQUIREMENTS'
+  env_repr="PANTS_SETUPTOOLS_SCM_EXTRA_REQUIREMENTS"
   default_repr={`[]`}
 >
-Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+  Any additional requirement strings to use with the tool. This is useful if the
+  tool allows you to install plugins or if you need to constrain a dependency to
+  a certain version.
 </Option>
 
 ### `interpreter_constraints`
 
 <Option
   cli_repr={`--setuptools-scm-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_SETUPTOOLS_SCM_INTERPRETER_CONSTRAINTS'
+  env_repr="PANTS_SETUPTOOLS_SCM_INTERPRETER_CONSTRAINTS"
   default_repr={`["CPython>=3.7,<4"]`}
 >
-Python interpreter constraints for this tool.
+  Python interpreter constraints for this tool.
 </Option>
 
 ### `lockfile`
@@ -66,26 +69,32 @@ Set to the string `<none>` to opt out of using a lockfile. We do not recommend t
 To use a custom lockfile, set this option to a file path relative to the build root, then run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 generate-lockfiles --resolve=setuptools-scm`.
 
 Alternatively, you can set this option to the path to a custom lockfile using pip&#x27;s requirements.txt-style, ideally with `--hash`. Set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
+
 </Option>
 
 ### `console_script`
 
 <Option
   cli_repr={`--setuptools-scm-console-script=<str>`}
-  env_repr='PANTS_SETUPTOOLS_SCM_CONSOLE_SCRIPT'
+  env_repr="PANTS_SETUPTOOLS_SCM_CONSOLE_SCRIPT"
   default_repr={`None`}
 >
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+  The console script for the tool. Using this option is generally preferable to
+  (and mutually exclusive with) specifying an --entry-point since console script
+  names have a higher expectation of staying stable across releases of the tool.
+  Usually, you will not want to change this from the default.
 </Option>
 
 ### `entry_point`
 
 <Option
   cli_repr={`--setuptools-scm-entry-point=<str>`}
-  env_repr='PANTS_SETUPTOOLS_SCM_ENTRY_POINT'
+  env_repr="PANTS_SETUPTOOLS_SCM_ENTRY_POINT"
   default_repr={`setuptools_scm`}
 >
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+  The entry point for the tool. Generally you only want to use this option if
+  the tool does not offer a --console-script (which this option is mutually
+  exclusive with). Usually, you will not want to change this from the default.
 </Option>
 
 ## Deprecated options

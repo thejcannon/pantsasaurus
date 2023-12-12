@@ -56,21 +56,21 @@ Config schema is as follows:
 }
 ```
 
-
 Meaning: if a file matches some path pattern, its content must match all the corresponding content patterns.
 
 It&#x27;s often helpful to load this config from a JSON or YAML file. To do that, set `[regex-lint].config = '@path/to/config.yaml'`, for example.
+
 </Option>
 
 ### `detail_level`
 
 <Option
   cli_repr={`--regex-lint-detail-level=<DetailLevel>`}
-  env_repr='PANTS_REGEX_LINT_DETAIL_LEVEL'
-  one_of='none, summary, nonmatching, names, all'
+  env_repr="PANTS_REGEX_LINT_DETAIL_LEVEL"
+  one_of="none, summary, nonmatching, names, all"
   default_repr={`nonmatching`}
 >
-How much detail to include in the result.
+  How much detail to include in the result.
 </Option>
 
 ## Advanced options

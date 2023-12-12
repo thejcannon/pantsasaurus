@@ -18,6 +18,7 @@ Config section: <span className="color--primary">`[python-bootstrap]`</span>
 <span className={styles.options}>
 
 ## Basic options
+
 None
 
 ## Advanced options
@@ -37,13 +38,13 @@ You can specify absolute paths to interpreter binaries and/or to directories con
 
 The following special strings are supported:
 
-  * `<PATH>`, the contents of the PATH env var
-  * `<ASDF>`, all Python versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
-  * `<ASDF_LOCAL>`, the ASDF interpreter with the version in BUILD_ROOT/.tool-versions
-  * `<PYENV>`, all Python versions under $(pyenv root)/versions
-  * `<PYENV_LOCAL>`, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
-  * `<PEXRC>`, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
-</Option>
+- `<PATH>`, the contents of the PATH env var
+- `<ASDF>`, all Python versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
+- `<ASDF_LOCAL>`, the ASDF interpreter with the version in BUILD_ROOT/.tool-versions
+- `<PYENV>`, all Python versions under $(pyenv root)/versions
+- `<PYENV_LOCAL>`, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
+- `<PEXRC>`, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
+  </Option>
 
 ### `names`
 
@@ -55,6 +56,7 @@ The following special strings are supported:
 The names of Python binaries to search for. See the `--search-path` option to influence where interpreters are searched for.
 
 This does not impact which Python interpreter is used to run your code, only what is used to run internal tools.
+
 </Option>
 
 ## Deprecated options

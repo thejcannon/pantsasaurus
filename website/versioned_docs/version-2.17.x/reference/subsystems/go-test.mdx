@@ -27,6 +27,7 @@ Config section: <span className="color--primary">`[go-test]`</span>
 Arguments to pass directly to Go test binary, e.g. `--go-test-args='-run TestFoo -v'`.
 
 Known Go test options will be transformed into the form expected by the test binary, e.g. `-v` becomes `-test.v`. Run `go help testflag` from the Go SDK to learn more about the options supported by Go test binaries.
+
 </Option>
 
 ### `cover_mode`
@@ -39,21 +40,22 @@ Known Go test options will be transformed into the form expected by the test bin
 >
 Coverage mode to use when running Go tests with coverage analysis enabled via --test-use-coverage. Valid values are `set`, `count`, and `atomic`:
 
-* `set`: bool: does this statement run?
+- `set`: bool: does this statement run?
 
-* `count`: int: how many times does this statement run?
+- `count`: int: how many times does this statement run?
 
-* `atomic`: int: count, but correct in multithreaded tests; significantly more expensive.
-</Option>
+- `atomic`: int: count, but correct in multithreaded tests; significantly more expensive.
+  </Option>
 
 ### `coverage_html`
 
 <Option
   cli_repr={`--[no-]go-test-coverage-html`}
-  env_repr='PANTS_GO_TEST_COVERAGE_HTML'
+  env_repr="PANTS_GO_TEST_COVERAGE_HTML"
   default_repr={`True`}
 >
-If true, then convert coverage reports to HTML format and write a `coverage.html` file next to the raw coverage data.
+  If true, then convert coverage reports to HTML format and write a
+  `coverage.html` file next to the raw coverage data.
 </Option>
 
 ### `coverage_packages`
@@ -72,16 +74,18 @@ An import path is a pattern if it includes one or more &quot;...&quot; wildcards
 To make common patterns more convenient, there are two special cases. First, /... at the end of the pattern can match an empty string, so that net/... matches both net and packages in its subdirectories, like net/http. Second, any slash-separated pattern element containing a wildcard never participates in a match of the &quot;vendor&quot; element in the path of a vendored package, so that ./... does not match packages in subdirectories of ./vendor or ./mycode/vendor, but ./vendor/... and ./mycode/vendor/... do. Note, however, that a directory named vendor that itself contains code is not a vendored package: cmd/vendor would be a command named vendor, and the pattern cmd/... matches it. See golang.org/s/go15vendor for more about vendoring.
 
 This option is similar to the `go test -coverpkg` option, but without support currently for reserved import path patterns like `std` and `all`.
+
 </Option>
 
 ### `skip`
 
 <Option
   cli_repr={`--[no-]go-test-skip`}
-  env_repr='PANTS_GO_TEST_SKIP'
+  env_repr="PANTS_GO_TEST_SKIP"
   default_repr={`False`}
 >
-If true, don&#x27;t use Go test binary when running `scie-pants-linux-x86_64 test`.
+  If true, don&#x27;t use Go test binary when running `scie-pants-linux-x86_64
+  test`.
 </Option>
 
 ### `force_race`
@@ -94,6 +98,7 @@ If true, don&#x27;t use Go test binary when running `scie-pants-linux-x86_64 tes
 If true, then always enable the Go data race detector when running tests regardless of the test-by-test `test_race` field on the relevant `go_package` target.
 
 See https://go.dev/doc/articles/race_detector for additional information about the Go data race detector.
+
 </Option>
 
 ### `force_msan`
@@ -106,6 +111,7 @@ See https://go.dev/doc/articles/race_detector for additional information about t
 If true, then always enable interoperation between Go and the C/C++ &quot;memory sanitizer&quot; when running tests regardless of the test-by-test `msan` field on the relevant `go_package` target.
 
 See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
+
 </Option>
 
 ### `force_asan`
@@ -118,56 +124,69 @@ See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional inf
 If true, then always enable interoperation between Go and the C/C++ &quot;address sanitizer&quot; when running tests regardless of the test-by-test `asan` field on the relevant `go_package` target.
 
 See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional information about the C/C++ address sanitizer.
+
 </Option>
 
 ### `block_profile`
 
 <Option
   cli_repr={`--[no-]go-test-block-profile`}
-  env_repr='PANTS_GO_TEST_BLOCK_PROFILE'
+  env_repr="PANTS_GO_TEST_BLOCK_PROFILE"
   default_repr={`False`}
 >
-Capture a goroutine blocking profile from the execution of the test runner. The profile will be written to the file `block.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
+  Capture a goroutine blocking profile from the execution of the test runner.
+  The profile will be written to the file `block.out` in the test extra output
+  directory. The test binary will also be written to the test extra output
+  directory.
 </Option>
 
 ### `cpu_profile`
 
 <Option
   cli_repr={`--[no-]go-test-cpu-profile`}
-  env_repr='PANTS_GO_TEST_CPU_PROFILE'
+  env_repr="PANTS_GO_TEST_CPU_PROFILE"
   default_repr={`False`}
 >
-Capture a CPU profile from the execution of the test runner. The profile will be written to the file `cpu.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
+  Capture a CPU profile from the execution of the test runner. The profile will
+  be written to the file `cpu.out` in the test extra output directory. The test
+  binary will also be written to the test extra output directory.
 </Option>
 
 ### `mem_profile`
 
 <Option
   cli_repr={`--[no-]go-test-mem-profile`}
-  env_repr='PANTS_GO_TEST_MEM_PROFILE'
+  env_repr="PANTS_GO_TEST_MEM_PROFILE"
   default_repr={`False`}
 >
-Capture an allocation profile from the execution of the test runner after tests have passed. The profile will be written to the file `mem.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
+  Capture an allocation profile from the execution of the test runner after
+  tests have passed. The profile will be written to the file `mem.out` in the
+  test extra output directory. The test binary will also be written to the test
+  extra output directory.
 </Option>
 
 ### `mutex_profile`
 
 <Option
   cli_repr={`--[no-]go-test-mutex-profile`}
-  env_repr='PANTS_GO_TEST_MUTEX_PROFILE'
+  env_repr="PANTS_GO_TEST_MUTEX_PROFILE"
   default_repr={`False`}
 >
-Capture a mutex contention profile from the execution of the test runner when all tests are complete. The profile will be written to the file `mutex.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
+  Capture a mutex contention profile from the execution of the test runner when
+  all tests are complete. The profile will be written to the file `mutex.out` in
+  the test extra output directory. The test binary will also be written to the
+  test extra output directory.
 </Option>
 
 ### `trace`
 
 <Option
   cli_repr={`--[no-]go-test-trace`}
-  env_repr='PANTS_GO_TEST_TRACE'
+  env_repr="PANTS_GO_TEST_TRACE"
   default_repr={`False`}
 >
-Capture an execution trace from the execution of the test runner. The trace will be written to the file `trace.out` in the test extra output directory.
+  Capture an execution trace from the execution of the test runner. The trace
+  will be written to the file `trace.out` in the test extra output directory.
 </Option>
 
 ## Advanced options
@@ -190,7 +209,7 @@ Replacements:
 - `{import_path}` is replaced with the applicable package&#x27;s import path. Subdirectories will be made for any path components separated by `/` characters.
 
 - `{import_path_escaped}` is replaced with the applicable package&#x27;s import path but with slashes converted to underscores. This is deprecated and only exists to support behavior from earlier versions.
-</Option>
+  </Option>
 
 ### `output_test_binary`
 
@@ -202,6 +221,7 @@ Replacements:
 Write the test binary to the test extra output directory.
 
 This is similar to the `go test -c` option, but will still run the underlying test.
+
 </Option>
 
 ## Deprecated options

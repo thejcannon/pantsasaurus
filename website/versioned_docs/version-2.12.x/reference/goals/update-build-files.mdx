@@ -29,10 +29,11 @@ Config section: <span className="color--primary">`[update-build-files]`</span>
 
 <Option
   cli_repr={`--[no-]update-build-files-check`}
-  env_repr='PANTS_UPDATE_BUILD_FILES_CHECK'
+  env_repr="PANTS_UPDATE_BUILD_FILES_CHECK"
   default_repr={`False`}
 >
-Do not write changes to disk, only write back what would change. Return code 0 means there would be no changes, and 1 means that there would be.
+  Do not write changes to disk, only write back what would change. Return code 0
+  means there would be no changes, and 1 means that there would be.
 </Option>
 
 ### `fmt`
@@ -45,27 +46,29 @@ Do not write changes to disk, only write back what would change. Return code 0 m
 Format BUILD files using Black or Yapf.
 
 Set `[black].args` / `[yapf].args`, `[black].config` / `[yapf].config` , and `[black].config_discovery` / `[yapf].config_discovery` to change Black&#x27;s or Yapf&#x27;s behavior. Set `[black].interpreter_constraints` / `[yapf].interpreter_constraints` and `[python].interpreter_search_path` to change which interpreter is used to run the formatter.
+
 </Option>
 
 ### `formatter`
 
 <Option
   cli_repr={`--update-build-files-formatter=<Formatter>`}
-  env_repr='PANTS_UPDATE_BUILD_FILES_FORMATTER'
-  one_of='yapf, black'
+  env_repr="PANTS_UPDATE_BUILD_FILES_FORMATTER"
+  one_of="yapf, black"
   default_repr={`black`}
 >
-Which formatter Pants should use to format BUILD files.
+  Which formatter Pants should use to format BUILD files.
 </Option>
 
 ### `fix_safe_deprecations`
 
 <Option
   cli_repr={`--[no-]update-build-files-fix-safe-deprecations`}
-  env_repr='PANTS_UPDATE_BUILD_FILES_FIX_SAFE_DEPRECATIONS'
+  env_repr="PANTS_UPDATE_BUILD_FILES_FIX_SAFE_DEPRECATIONS"
   default_repr={`True`}
 >
-Automatically fix deprecations, such as target type renames, that are safe because they do not change semantics.
+  Automatically fix deprecations, such as target type renames, that are safe
+  because they do not change semantics.
 </Option>
 
 ## Advanced options
@@ -78,12 +81,14 @@ None
 
 <Option
   cli_repr={`--[no-]update-build-files-fix-python-macros`}
-  env_repr='PANTS_UPDATE_BUILD_FILES_FIX_PYTHON_MACROS'
+  env_repr="PANTS_UPDATE_BUILD_FILES_FIX_PYTHON_MACROS"
   default_repr={`False`}
-  removal_version='2.13.0.dev0'
-  removal_hint={'No longer does anything as the old macros have been removed in favor of target generators.'}
+  removal_version="2.13.0.dev0"
+  removal_hint={
+    "No longer does anything as the old macros have been removed in favor of target generators."
+  }
 >
-Deprecated.
+  Deprecated.
 </Option>
 
 </span>

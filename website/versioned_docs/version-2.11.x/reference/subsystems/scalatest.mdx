@@ -27,6 +27,7 @@ Config section: <span className="color--primary">`[scalatest]`</span>
 Arguments to pass directly to Scalatest, e.g. `--scalatest-args='-t $testname'`.
 
 See https://www.scalatest.org/user_guide/using_the_runner for supported arguments.
+
 </Option>
 
 ## Advanced options
@@ -35,20 +36,25 @@ See https://www.scalatest.org/user_guide/using_the_runner for supported argument
 
 <Option
   cli_repr={`--scalatest-version=<str>`}
-  env_repr='PANTS_SCALATEST_VERSION'
+  env_repr="PANTS_SCALATEST_VERSION"
   default_repr={`3.2.10`}
 >
-Version string for the tool. This is available for substitution in the `[scalatest].artifacts` option by including the string `{version}`.
+  Version string for the tool. This is available for substitution in the
+  `[scalatest].artifacts` option by including the string `{version}`.
 </Option>
 
 ### `artifacts`
 
 <Option
   cli_repr={`--scalatest-artifacts="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_SCALATEST_ARTIFACTS'
+  env_repr="PANTS_SCALATEST_ARTIFACTS"
   default_repr={`["org.scalatest:scalatest_2.13:{version}"]`}
 >
-Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., group:name:version). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[scalatest].version` option.
+  Artifact requirements for this tool using specified as either the address of a
+  `jvm_artifact` target or, alternatively, as a colon-separated Maven
+  coordinates (e.g., group:name:version). For Maven coordinates, the string `
+  {version}` version will be substituted with the value of the
+  `[scalatest].version` option.
 </Option>
 
 ### `lockfile`

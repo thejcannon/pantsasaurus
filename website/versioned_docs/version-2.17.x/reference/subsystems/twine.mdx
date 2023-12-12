@@ -21,20 +21,20 @@ Config section: <span className="color--primary">`[twine]`</span>
 
 <Option
   cli_repr={`--[no-]twine-skip`}
-  env_repr='PANTS_TWINE_SKIP'
+  env_repr="PANTS_TWINE_SKIP"
   default_repr={`False`}
 >
-If true, don&#x27;t use Twine when running `scie-pants-linux-x86_64 publish`.
+  If true, don&#x27;t use Twine when running `scie-pants-linux-x86_64 publish`.
 </Option>
 
 ### `args`
 
 <Option
   cli_repr={`--twine-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr='PANTS_TWINE_ARGS'
+  env_repr="PANTS_TWINE_ARGS"
   default_repr={`[]`}
 >
-Arguments to pass directly to Twine, e.g. `--twine-args='--skip-existing'`.
+  Arguments to pass directly to Twine, e.g. `--twine-args='--skip-existing'`.
 </Option>
 
 ## Advanced options
@@ -55,6 +55,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
 If unspecified, and the `lockfile` option is set, the tool will use the custom `twine` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+
 </Option>
 
 ### `requirements`
@@ -71,36 +72,42 @@ Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.
 The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
 
 If unspecified, install the entire lockfile.
+
 </Option>
 
 ### `interpreter_constraints`
 
 <Option
   cli_repr={`--twine-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_TWINE_INTERPRETER_CONSTRAINTS'
+  env_repr="PANTS_TWINE_INTERPRETER_CONSTRAINTS"
   default_repr={`["CPython>=3.7,<4"]`}
 >
-Python interpreter constraints for this tool.
+  Python interpreter constraints for this tool.
 </Option>
 
 ### `console_script`
 
 <Option
   cli_repr={`--twine-console-script=<str>`}
-  env_repr='PANTS_TWINE_CONSOLE_SCRIPT'
+  env_repr="PANTS_TWINE_CONSOLE_SCRIPT"
   default_repr={`twine`}
 >
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+  The console script for the tool. Using this option is generally preferable to
+  (and mutually exclusive with) specifying an --entry-point since console script
+  names have a higher expectation of staying stable across releases of the tool.
+  Usually, you will not want to change this from the default.
 </Option>
 
 ### `entry_point`
 
 <Option
   cli_repr={`--twine-entry-point=<str>`}
-  env_repr='PANTS_TWINE_ENTRY_POINT'
+  env_repr="PANTS_TWINE_ENTRY_POINT"
   default_repr={`None`}
 >
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+  The entry point for the tool. Generally you only want to use this option if
+  the tool does not offer a --console-script (which this option is mutually
+  exclusive with). Usually, you will not want to change this from the default.
 </Option>
 
 ### `config`
@@ -113,6 +120,7 @@ The entry point for the tool. Generally you only want to use this option if the 
 Path to a .pypirc config file to use. (https://packaging.python.org/specifications/pypirc/)
 
 Setting this option will disable `[twine].config_discovery`. Use this option if the config is located in a non-standard location.
+
 </Option>
 
 ### `config_discovery`
@@ -125,6 +133,7 @@ Setting this option will disable `[twine].config_discovery`. Use this option if 
 If true, Pants will include all relevant config files during runs (`.pypirc`).
 
 Use `[twine].config` instead if your config is in a non-standard location.
+
 </Option>
 
 ### `ca_certs_path`
@@ -141,6 +150,7 @@ Uses the value from `[GLOBAL].ca_certs_path` by default. Set to `"<none>"` to no
 Even when using the `docker_environment` and `remote_environment` targets, this path will be read from the local host, and those certs will be used in the environment.
 
 This option cannot be overridden via environment targets, so if you need a different value than what the rest of your organization is using, override the value via an environment variable, CLI argument, or `.pants.rc` file. See https://www.pantsbuild.org/v2.17/docs/options.
+
 </Option>
 
 ## Deprecated options
@@ -149,24 +159,30 @@ This option cannot be overridden via environment targets, so if you need a diffe
 
 <Option
   cli_repr={`--twine-version=<str>`}
-  env_repr='PANTS_TWINE_VERSION'
+  env_repr="PANTS_TWINE_VERSION"
   default_repr={`twine>=4,<5`}
-  removal_version='2.18.0.dev1'
-  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
+  removal_version="2.18.0.dev1"
+  removal_hint={
+    "Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles."
+  }
 >
-Requirement string for the tool.
+  Requirement string for the tool.
 </Option>
 
 ### `extra_requirements`
 
 <Option
   cli_repr={`--twine-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_TWINE_EXTRA_REQUIREMENTS'
+  env_repr="PANTS_TWINE_EXTRA_REQUIREMENTS"
   default_repr={`["colorama>=0.4.3"]`}
-  removal_version='2.18.0.dev1'
-  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
+  removal_version="2.18.0.dev1"
+  removal_hint={
+    "Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles."
+  }
 >
-Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+  Any additional requirement strings to use with the tool. This is useful if the
+  tool allows you to install plugins or if you need to constrain a dependency to
+  a certain version.
 </Option>
 
 ### `lockfile`
@@ -185,6 +201,7 @@ Set to the string `<default>` to use a lockfile provided by Pants, so long as yo
 To use a custom lockfile, set this option to a file path relative to the build root, then run `scie-pants-linux-x86_64 generate-lockfiles --resolve=twine`.
 
 Alternatively, you can set this option to the path to a custom lockfile using pip&#x27;s requirements.txt-style, ideally with `--hash`. Set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
+
 </Option>
 
 </span>

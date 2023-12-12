@@ -23,20 +23,24 @@ Config section: <span className="color--primary">`[python-protobuf]`</span>
 
 <Option
   cli_repr={`--python-protobuf-runtime-dependencies="[<target_option>, <target_option>, ...]"`}
-  env_repr='PANTS_PYTHON_PROTOBUF_RUNTIME_DEPENDENCIES'
+  env_repr="PANTS_PYTHON_PROTOBUF_RUNTIME_DEPENDENCIES"
   default_repr={`[]`}
 >
-A list of addresses to `python_requirement_library` targets for the runtime dependencies needed for generated Python code to work. For example, `['3rdparty/python:protobuf', '3rdparty/python:grpcio']`. These dependencies will be automatically added to every `protobuf_library` target
+  A list of addresses to `python_requirement_library` targets for the runtime
+  dependencies needed for generated Python code to work. For example,
+  `['3rdparty/python:protobuf', '3rdparty/python:grpcio']`. These dependencies
+  will be automatically added to every `protobuf_library` target
 </Option>
 
 ### `mypy_plugin`
 
 <Option
   cli_repr={`--[no-]python-protobuf-mypy-plugin`}
-  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN'
+  env_repr="PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN"
   default_repr={`False`}
 >
-Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to also generate .pyi type stubs.
+  Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to
+  also generate .pyi type stubs.
 </Option>
 
 ## Advanced options
@@ -45,10 +49,11 @@ Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to als
 
 <Option
   cli_repr={`--python-protobuf-mypy-plugin-version=<str>`}
-  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_VERSION'
+  env_repr="PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_VERSION"
   default_repr={`None`}
 >
-The pip-style requirement string for `mypy-protobuf`. You must still set `--mypy-plugin` for this option to be used.
+  The pip-style requirement string for `mypy-protobuf`. You must still set
+  `--mypy-plugin` for this option to be used.
 </Option>
 
 ## Deprecated options

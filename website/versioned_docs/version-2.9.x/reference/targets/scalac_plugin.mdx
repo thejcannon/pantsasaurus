@@ -27,6 +27,7 @@ Backend: <span className="color--primary">``</span>
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -37,14 +38,13 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 A human-readable description of the target.
 
 Use `./pants list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `artifact`
 
-<Field
-    type_repr={`field.type_hint`}
->
-The address of a `jvm_artifact` that defines a plugin for `scalac`.
+<Field type_repr={`field.type_hint`}>
+  The address of a `jvm_artifact` that defines a plugin for `scalac`.
 </Field>
 
 ## `plugin_name`
@@ -55,8 +55,7 @@ The address of a `jvm_artifact` that defines a plugin for `scalac`.
 The name that `scalac` should use to load the plugin.
 
 If not set, the plugin name defaults to the target name.
+
 </Field>
-
-
 
 </span>

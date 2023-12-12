@@ -21,20 +21,24 @@ Config section: <span className="color--primary">`[autoflake]`</span>
 
 <Option
   cli_repr={`--[no-]autoflake-skip`}
-  env_repr='PANTS_AUTOFLAKE_SKIP'
+  env_repr="PANTS_AUTOFLAKE_SKIP"
   default_repr={`False`}
 >
-Don&#x27;t use Autoflake when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
+  Don&#x27;t use Autoflake when running
+  `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and
+  `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
 </Option>
 
 ### `args`
 
 <Option
   cli_repr={`--autoflake-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr='PANTS_AUTOFLAKE_ARGS'
+  env_repr="PANTS_AUTOFLAKE_ARGS"
   default_repr={`["--remove-all-unused-imports"]`}
 >
-Arguments to pass directly to Autoflake, e.g. `--autoflake-args='--remove-all-unused-imports --target-version=py37 --quiet'`.
+  Arguments to pass directly to Autoflake, e.g.
+  `--autoflake-args='--remove-all-unused-imports --target-version=py37
+  --quiet'`.
 </Option>
 
 ### `export`
@@ -47,6 +51,7 @@ Arguments to pass directly to Autoflake, e.g. `--autoflake-args='--remove-all-un
 If true, export a virtual environment with Autoflake when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 export`.
 
 This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
+
 </Option>
 
 ## Advanced options
@@ -55,30 +60,32 @@ This can be useful, for example, with IDE integrations to point your editor to t
 
 <Option
   cli_repr={`--autoflake-version=<str>`}
-  env_repr='PANTS_AUTOFLAKE_VERSION'
+  env_repr="PANTS_AUTOFLAKE_VERSION"
   default_repr={`autoflake==1.4`}
 >
-Requirement string for the tool.
+  Requirement string for the tool.
 </Option>
 
 ### `extra_requirements`
 
 <Option
   cli_repr={`--autoflake-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_AUTOFLAKE_EXTRA_REQUIREMENTS'
+  env_repr="PANTS_AUTOFLAKE_EXTRA_REQUIREMENTS"
   default_repr={`[]`}
 >
-Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+  Any additional requirement strings to use with the tool. This is useful if the
+  tool allows you to install plugins or if you need to constrain a dependency to
+  a certain version.
 </Option>
 
 ### `interpreter_constraints`
 
 <Option
   cli_repr={`--autoflake-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_AUTOFLAKE_INTERPRETER_CONSTRAINTS'
+  env_repr="PANTS_AUTOFLAKE_INTERPRETER_CONSTRAINTS"
   default_repr={`["CPython>=3.7,<4"]`}
 >
-Python interpreter constraints for this tool.
+  Python interpreter constraints for this tool.
 </Option>
 
 ### `lockfile`
@@ -97,26 +104,32 @@ Set to the string `<none>` to opt out of using a lockfile. We do not recommend t
 To use a custom lockfile, set this option to a file path relative to the build root, then run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 generate-lockfiles --resolve=autoflake`.
 
 As explained at https://www.pantsbuild.org/v2.13/docs/python-third-party-dependencies, lockfile generation via `generate-lockfiles` does not always work and you may want to manually generate the lockfile. You will want to set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
+
 </Option>
 
 ### `console_script`
 
 <Option
   cli_repr={`--autoflake-console-script=<str>`}
-  env_repr='PANTS_AUTOFLAKE_CONSOLE_SCRIPT'
+  env_repr="PANTS_AUTOFLAKE_CONSOLE_SCRIPT"
   default_repr={`autoflake`}
 >
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+  The console script for the tool. Using this option is generally preferable to
+  (and mutually exclusive with) specifying an --entry-point since console script
+  names have a higher expectation of staying stable across releases of the tool.
+  Usually, you will not want to change this from the default.
 </Option>
 
 ### `entry_point`
 
 <Option
   cli_repr={`--autoflake-entry-point=<str>`}
-  env_repr='PANTS_AUTOFLAKE_ENTRY_POINT'
+  env_repr="PANTS_AUTOFLAKE_ENTRY_POINT"
   default_repr={`None`}
 >
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+  The entry point for the tool. Generally you only want to use this option if
+  the tool does not offer a --console-script (which this option is mutually
+  exclusive with). Usually, you will not want to change this from the default.
 </Option>
 
 ## Deprecated options

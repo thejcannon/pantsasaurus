@@ -25,6 +25,7 @@ Backend: <span className="color--primary">``</span>
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -35,6 +36,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 A human-readable description of the target.
 
 Use `./pants list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `dependencies`
@@ -47,6 +49,7 @@ Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/s
 Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;].
 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
 </Field>
 
 ## `entry_points`
@@ -59,6 +62,7 @@ Any entry points, such as `console_scripts` and `gui_scripts`.
 Specify as a nested dictionary, with a dictionary for each type of entry point, e.g. `console_scripts` vs. `gui_scripts`. Each dictionary maps the entry point name to either a setuptools entry point (&quot;path.to.module:func&quot;) or a Pants target address to a pex_binary target.
 
 Example:
+
 ```
 entry_points={
   "console_scripts": {
@@ -71,9 +75,11 @@ entry_points={
 Note that Pants will assume that any value that either starts with `:` or has `/` in it, is a target address to a pex_binary target. Otherwise, it will assume it's a setuptools entry point as defined by https://packaging.python.org/specifications/entry-points/#entry-points-specification. Use `//` as a prefix for target addresses if you need to disambiguate.
 
 Pants will attempt to infer dependencies, which you can confirm by running:
+
 ```
 ./pants dependencies <python_distribution target address>
 ```
+
 </Field>
 
 ## `provides`
@@ -86,67 +92,52 @@ The setup.py kwargs for the external artifact built from this target.
 You must define `name`. You can also set almost any keyword argument accepted by setup.py in the `setup()` function: (https://packaging.python.org/guides/distributing-packages-using-setuptools/#setup-args).
 
 See https://www.pantsbuild.org/v2.8/docs/plugins-setup-py for how to write a plugin to dynamically generate kwargs.
+
 </Field>
 
 ## `generate_setup`
 
-<Field
-    type_repr={`field.type_hint`}
->
-Whether to generate setup information for this distribution, based on analyzing sources and dependencies. Set to False to use existing setup information, such as existing setup.py, setup.cfg, pyproject.toml files or similar.
+<Field type_repr={`field.type_hint`}>
+  Whether to generate setup information for this distribution, based on
+  analyzing sources and dependencies. Set to False to use existing setup
+  information, such as existing setup.py, setup.cfg, pyproject.toml files or
+  similar.
 </Field>
 
 ## `wheel`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`True`}
->
-Whether to build a wheel for the distribution.
+<Field type_repr={`field.type_hint`} default_repr={`True`}>
+  Whether to build a wheel for the distribution.
 </Field>
 
 ## `sdist`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`True`}
->
-Whether to build an sdist for the distribution.
+<Field type_repr={`field.type_hint`} default_repr={`True`}>
+  Whether to build an sdist for the distribution.
 </Field>
 
 ## `wheel_config_settings`
 
-<Field
-    type_repr={`field.type_hint`}
->
-PEP-517 config settings to pass to the build backend when building a wheel.
+<Field type_repr={`field.type_hint`}>
+  PEP-517 config settings to pass to the build backend when building a wheel.
 </Field>
 
 ## `sdist_config_settings`
 
-<Field
-    type_repr={`field.type_hint`}
->
-PEP-517 config settings to pass to the build backend when building an sdist.
+<Field type_repr={`field.type_hint`}>
+  PEP-517 config settings to pass to the build backend when building an sdist.
 </Field>
 
 ## `pypi_repositories`
 
-<Field
-    type_repr={`field.type_hint`}
->
-List of PyPi repositories to publish the target package to.
+<Field type_repr={`field.type_hint`}>
+  List of PyPi repositories to publish the target package to.
 </Field>
 
 ## `skip_twine`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-If true, don&#x27;t publish this target&#x27;s packages using Twine.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  If true, don&#x27;t publish this target&#x27;s packages using Twine.
 </Field>
-
-
 
 </span>

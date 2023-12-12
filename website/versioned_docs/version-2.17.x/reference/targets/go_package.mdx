@@ -25,6 +25,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -35,6 +36,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `dependencies`
@@ -51,6 +53,7 @@ See https://www.pantsbuild.org/v2.17/docs/targets for more about how addresses a
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
 </Field>
 
 ## `sources`
@@ -64,6 +67,7 @@ A list of files and globs that belong to this target.
 Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
 
 Example: `sources=['example.go', '*_test.go', '!test_ignore.go']`
+
 </Field>
 
 ## `test_extra_env_vars`
@@ -76,6 +80,7 @@ Additional environment variables to include in test processes.
 Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
 
 This will be merged with and override values from `[test].extra_env_vars`.
+
 </Field>
 
 ## `test_timeout`
@@ -86,6 +91,7 @@ This will be merged with and override values from `[test].extra_env_vars`.
 A timeout (in seconds) used by each test file belonging to this target.
 
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
+
 </Field>
 
 ## `test_race`
@@ -96,6 +102,7 @@ If unset, will default to `[test].timeout_default`; if that option is also unset
 Enable compiling this package&#x27;s test binary with the Go data race detector.
 
 See https://go.dev/doc/articles/race_detector for additional information about the Go data race detector.
+
 </Field>
 
 ## `test_msan`
@@ -106,6 +113,7 @@ See https://go.dev/doc/articles/race_detector for additional information about t
 Enable interoperation between Go code and the C/C++ &quot;memory sanitizer&quot; when building this package&#x27;s test binary.
 
 See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
+
 </Field>
 
 ## `test_asan`
@@ -116,6 +124,7 @@ See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional inf
 Enable interoperation between Go code and the C/C++ &quot;address sanitizer&quot; when building this package&#x27;s test binary.
 
 See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional information about the C/C++ address sanitizer.
+
 </Field>
 
 ## `assembler_flags`
@@ -136,6 +145,7 @@ This field can be specified on several different target types:
 - On `go_package` targets, the assembler flags are used only for building that specific package and not for any other package. These assembler flags will be added after any assembler flags added by any `assembler_flags` field set on the applicable `go_mod` target or applicable `go_binary` target.
 
 Run `go doc cmd/asm` to see the flags supported by `go tool asm`.
+
 </Field>
 
 ## `compiler_flags`
@@ -154,27 +164,23 @@ This field can be specified on several different target types:
 - On `go_package` targets, the compiler flags are used only for compiling that specific package and not for any other package. These compiler flags will be added after any compiler flags added by any `compiler_flags` field set on the applicable `go_mod` target or applicable `go_binary` target.
 
 Run `go doc cmd/compile` to see the flags supported by `go tool compile`.
+
 </Field>
 
 ## `skip_tests`
 
-<Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
->
-If true, don&#x27;t run this package&#x27;s tests.
+<Field type_repr={`field.type_hint`} default_repr={`False`}>
+  If true, don&#x27;t run this package&#x27;s tests.
 </Field>
 
 ## `skip_gofmt`
 
 <Field
-    type_repr={`field.type_hint`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.go"
+  type_repr={`field.type_hint`}
+  default_repr={`False`}
+  backend="pants.backend.experimental.go"
 >
-If true, don&#x27;t run gofmt on this package.
+  If true, don&#x27;t run gofmt on this package.
 </Field>
-
-
 
 </span>

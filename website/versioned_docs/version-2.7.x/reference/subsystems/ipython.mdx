@@ -16,6 +16,7 @@ Config section: <span className="color--primary">`[ipython]`</span>
 <span className={styles.options}>
 
 ## Basic options
+
 None
 
 ## Advanced options
@@ -24,20 +25,22 @@ None
 
 <Option
   cli_repr={`--ipython-version=<str>`}
-  env_repr='PANTS_IPYTHON_VERSION'
+  env_repr="PANTS_IPYTHON_VERSION"
   default_repr={`ipython==7.16.1`}
 >
-Requirement string for the tool.
+  Requirement string for the tool.
 </Option>
 
 ### `extra_requirements`
 
 <Option
   cli_repr={`--ipython-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_IPYTHON_EXTRA_REQUIREMENTS'
+  env_repr="PANTS_IPYTHON_EXTRA_REQUIREMENTS"
   default_repr={`[]`}
 >
-Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+  Any additional requirement strings to use with the tool. This is useful if the
+  tool allows you to install plugins or if you need to constrain a dependency to
+  a certain version.
 </Option>
 
 ### `lockfile`
@@ -56,26 +59,32 @@ Set to the string `<none>` to opt out of using a lockfile. We do not recommend t
 To use a custom lockfile, set this option to a file path relative to the build root, then run `./pants generate-lockfiles --resolve=ipython`.
 
 Lockfile generation currently does not wire up the `[python-repos]` options. If lockfile generation fails, you can manually generate a lockfile, such as by using pip-compile or `pip freeze`. Set this option to the path to your manually generated lockfile. When manually maintaining lockfiles, set `[python-setup].invalid_lockfile_behavior = 'ignore'`.
+
 </Option>
 
 ### `console_script`
 
 <Option
   cli_repr={`--ipython-console-script=<str>`}
-  env_repr='PANTS_IPYTHON_CONSOLE_SCRIPT'
+  env_repr="PANTS_IPYTHON_CONSOLE_SCRIPT"
   default_repr={`ipython`}
 >
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+  The console script for the tool. Using this option is generally preferable to
+  (and mutually exclusive with) specifying an --entry-point since console script
+  names have a higher expectation of staying stable across releases of the tool.
+  Usually, you will not want to change this from the default.
 </Option>
 
 ### `entry_point`
 
 <Option
   cli_repr={`--ipython-entry-point=<str>`}
-  env_repr='PANTS_IPYTHON_ENTRY_POINT'
+  env_repr="PANTS_IPYTHON_ENTRY_POINT"
   default_repr={`None`}
 >
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+  The entry point for the tool. Generally you only want to use this option if
+  the tool does not offer a --console-script (which this option is mutually
+  exclusive with). Usually, you will not want to change this from the default.
 </Option>
 
 ### `ignore_cwd`
@@ -90,6 +99,7 @@ Whether to tell IPython not to put the CWD on the import path.
 Normally you want this to be True, so that imports come from the hermetic environment Pants creates.
 
 However IPython&lt;7.13.0 doesn&#x27;t support this option, so if you&#x27;re using an earlier version (e.g., because you have Python 2.7 code) then you will need to set this to False, and you may have issues with imports from your CWD shading the hermetic environment.
+
 </Option>
 
 ## Deprecated options

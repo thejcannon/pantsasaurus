@@ -21,20 +21,21 @@ Config section: <span className="color--primary">`[spectral]`</span>
 
 <Option
   cli_repr={`--[no-]spectral-skip`}
-  env_repr='PANTS_SPECTRAL_SKIP'
+  env_repr="PANTS_SPECTRAL_SKIP"
   default_repr={`False`}
 >
-If true, don&#x27;t use Spectral when running `scie-pants-linux-x86_64 lint`.
+  If true, don&#x27;t use Spectral when running `scie-pants-linux-x86_64 lint`.
 </Option>
 
 ### `args`
 
 <Option
   cli_repr={`--spectral-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr='PANTS_SPECTRAL_ARGS'
+  env_repr="PANTS_SPECTRAL_ARGS"
   default_repr={`[]`}
 >
-Arguments to pass directly to Spectral, e.g. `--spectral-args='--fail-severity=warn'`.
+  Arguments to pass directly to Spectral, e.g.
+  `--spectral-args='--fail-severity=warn'`.
 </Option>
 
 ## Advanced options
@@ -43,10 +44,10 @@ Arguments to pass directly to Spectral, e.g. `--spectral-args='--fail-severity=w
 
 <Option
   cli_repr={`--spectral-version=<str>`}
-  env_repr='PANTS_SPECTRAL_VERSION'
+  env_repr="PANTS_SPECTRAL_VERSION"
   default_repr={`@stoplight/spectral-cli@6.5.1`}
 >
-Version string for the tool in the form package@version (e.g. prettier@2.6.2)
+  Version string for the tool in the form package@version (e.g. prettier@2.6.2)
 </Option>
 
 ## Deprecated options
