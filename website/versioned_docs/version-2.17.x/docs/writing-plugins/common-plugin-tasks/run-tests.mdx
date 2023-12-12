@@ -15,7 +15,7 @@ Usually, you will want to add a "test" target type for your language, such as `s
 
 When creating a test target, you should usually subclass `SingleSourceField`. You may also want to create `TimeoutField` (which should subclass `IntField`) and a `SkipField` (which should subclass `BoolField`).
 
-See [Creating new targets](doc:target-api-new-targets) for a guide on how to define new target types.
+See [Creating new targets](../the-target-api/creating-new-targets.mdx) for a guide on how to define new target types.
 
 ```python
 from pants.engine.target import (
@@ -95,7 +95,7 @@ class ExampleTestSubsystem(Subsystem):
     skip = SkipOption("test")
 ```
 
-See [Options and subsystems](doc:rules-api-subsystems) for more information about defining new subsystems.
+See [Options and subsystems](../the-rules-api/options-and-subsystems.mdx) for more information about defining new subsystems.
 
 4. Set up a subclass of `TestRequest`
 
@@ -253,3 +253,4 @@ async def setup_example_debug_adapter_test(
 ) -> TestDebugAdapterRequest:
     ...
 ```
+

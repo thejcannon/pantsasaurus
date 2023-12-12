@@ -9,7 +9,7 @@
 
     Pants has good support for the most common operations for managing Helm charts sources. However there may be use cases not covered yet.
 
-    Please share feedback for what you need to use Pants with your Helm charts by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](doc:getting-help)!
+    Please share feedback for what you need to use Pants with your Helm charts by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](../getting-help/getting-help.mdx)!
 
 :::
 
@@ -68,7 +68,7 @@ version: 0.1.0
 
 :::
 
-Then run [`./pants tailor ::`](doc:initial-configuration#5-generate-build-files) to generate `BUILD` files. This will scan your source repository in search of `Chart.yaml` or `Chart.yml` files and create a `helm_chart` target for each of them.
+Then run [`./pants tailor ::`](../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files) to generate `BUILD` files. This will scan your source repository in search of `Chart.yaml` or `Chart.yml` files and create a `helm_chart` target for each of them.
 
 ```
 ❯ ./pants tailor ::
@@ -358,3 +358,4 @@ helm_artifact(
   repository="charts",
 )
 ```
+

@@ -43,7 +43,7 @@ Each target type has different _fields_, or individual metadata values. Run `./p
 
 All target types have a `name` field, which is used to identify the target. Target names must be unique within a directory.
 
-Use [`./pants tailor`](doc:initial-configuration#5-generate-build-files) to automate generating BUILD files, and [`./pants update-build-files`](doc:reference-update-build-files) to reformat them (using `black`, [by default](doc:reference-update-build-files#section-formatter)).
+Use [`./pants tailor`](../../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files) to automate generating BUILD files, and [`./pants update-build-files`](reference:reference-update-build-files) to reformat them (using `black`, [by default](reference:reference-update-build-files#section-formatter)).
 
 # Target addresses
 
@@ -146,7 +146,7 @@ You only need to declare direct dependencies. Pants will pull in _transitive dep
 
 :::note Ignore dependencies with `!` and `!!`
 
-    If you don't like that Pants inferred a certain dependency—as reported by [`./pants dependencies path/to:tgt`](doc:project-introspection)—tell Pants to ignore it with `!`:
+    If you don't like that Pants inferred a certain dependency—as reported by [`./pants dependencies path/to:tgt`](../project-introspection.mdx)—tell Pants to ignore it with `!`:
 
     ```python
     python_sources(
@@ -169,7 +169,7 @@ To reduce boilerplate, Pants provides target types that generate other targets. 
 - `python_tests` -> `python_test`
 - `go_mod` -> `go_third_party_package`
 
-Usually, prefer these target generators. [`./pants tailor`](doc:initial-configuration#5-generate-build-files) will automatically add them for you.
+Usually, prefer these target generators. [`./pants tailor`](../../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files) will automatically add them for you.
 
 Run `./pants help targets` to see how the target determines what to generate. Targets for first-party code, like `resources` and `python_tests`, will generate one target for each file in their `sources` field.
 
@@ -205,7 +205,7 @@ The address for generated targets depends if the generated target is for first-p
 | First-party, e.g. `python_source` and `file`     | `path/to/file.ext:tgt_generator` <br/> <br/>Example: `src/py/app.py:lib` <br/> <br/>The address always starts with the path to the file. <br/> <br/>If the file lives in the same directory as the target generator and the target generator left off the `name` field, you can use just the file path. For example, `src/py/app.py` (without the `:lib` suffix). <br/> <br/>If the file lives in a subdirectory of the target generator, the suffix will look like `../tgt_generator`. For example, `src/py/subdir/f.py:../lib`, where the target generator is `src/py:lib`. <br/> <br/>With the `dependencies` field, you can use relative addresses by prefixing the path with `./`, so long as the path is in the same directory or below the current BUILD file. For example, `./app.py:lib` rather than `src/py/app.py:lib`. |
 | All other targets, e.g. `go_third_party_package` | `path/to:tgt_generator#generated_name` <br/> <br/>Example: `3rdparty/py:reqs#django` <br/> <br/>Run `./pants help $target_type` on the target generator to see how it sets the generated name. For example, `go_mod` uses the Go package's name. <br/> <br/>If the target generator left off the `name` field, you can leave it off for the generated address too, e.g. `3rdparty/py#django` (without the `:reqs` portion). <br/> <br/>With the `dependencies` field, you can use relative addresses to reference generated targets in the same BUILD file, e.g. `:generator#generated_name` instead of `src/py:generated#generated_name`. If the target generator uses the default `name`, you can simply use `#generated_name`.                                                                                                  |
 
-Run [`./pants list dir:`](doc:project-introspection) in the directory of the target generator to see all generated target addresses, and [`./pants peek dir:`](doc:project-introspection) to see all their metadata.
+Run [`./pants list dir:`](../project-introspection.mdx) in the directory of the target generator to see all generated target addresses, and [`./pants peek dir:`](../project-introspection.mdx) to see all their metadata.
 
 You can use the address for the target generator as an alias for all of its generated targets. For example, if you have the `files` target `assets:logos`, adding `dependencies=["assets:logos"]`to another target will add a dependency on each generated `file` target. Likewise, if you have a `python_tests` target `project:tests`, then `./pants test project:tests` will run on each generated `python_test` target.
 
@@ -217,7 +217,7 @@ You can use the address for the target generator as an alias for all of its gene
 
     It's useful for metadata to be as fine-grained as feasible, such as by using the `overrides` field to only change the files you need to. Fine-grained metadata is key to having smaller cache keys (resulting in more cache hits), and allows you to more accurately reflect the status of your project. We have found that using one BUILD file per directory encourages fine-grained metadata by defining the metadata adjacent to where the code lives.
 
-    [`./pants tailor`](doc:initial-configuration#5-generate-build-files) will automatically create targets that only apply metadata for the directory.
+    [`./pants tailor`](../../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files) will automatically create targets that only apply metadata for the directory.
 
 :::
 
@@ -263,7 +263,7 @@ python_test(
 )
 ```
 
-The targets' addresses will have `@key=value` at the end, as shown above. Run [`./pants list dir:`](doc:project-introspection) in the directory of the parametrized target to see all parametrized target addresses, and [`./pants peek dir:`](doc:project-introspection) to see all their metadata.
+The targets' addresses will have `@key=value` at the end, as shown above. Run [`./pants list dir:`](../project-introspection.mdx) in the directory of the parametrized target to see all parametrized target addresses, and [`./pants peek dir:`](../project-introspection.mdx) to see all their metadata.
 
 Generally, you can use the address without the `@` suffix as an alias to all the parametrized targets. For example, `./pants test example:tests` will run all the targets in parallel. Use the more precise address if you only want to use one parameter value, e.g. `./pants test example:tests@shell=bash`.
 
@@ -316,3 +316,4 @@ shunit2_tests(
     },
 )
 ```
+

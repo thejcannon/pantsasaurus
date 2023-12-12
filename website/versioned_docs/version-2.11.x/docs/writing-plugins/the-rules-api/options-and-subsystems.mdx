@@ -9,7 +9,7 @@ How to add options to your plugin.
 
 ## Defining options
 
-As explained in [Options](doc:options), options are partitioned into named scopes, like `[test]` and `[isort]`. Each of these scopes corresponds to a _subsystem_.
+As explained in [Options](../../using-pants/key-concepts/options.mdx), options are partitioned into named scopes, like `[test]` and `[isort]`. Each of these scopes corresponds to a _subsystem_.
 
 To add new options:
 
@@ -58,7 +58,7 @@ The subsystem should now show up when you run `./pants help shellcheck`.
 
 :::note `GoalSubsystem`
 
-    As explained in [Goal rules](doc:rules-api-goal-rules), goals use a subclass of  `Subsystem`: `GoalSubsystem` from `pants.engine.goal`.
+    As explained in [Goal rules](./goal-rules.mdx), goals use a subclass of  `Subsystem`: `GoalSubsystem` from `pants.engine.goal`.
 
     `GoalSubsystem` behaves the same way as a normal subsystem, except that you set the class property `name` rather than `options_scope`. The `name` will auto-populate the `options_scope`.
 
@@ -66,7 +66,7 @@ The subsystem should now show up when you run `./pants help shellcheck`.
 
 ### Option types
 
-These classes correspond to the option types at [Options](doc:options).
+These classes correspond to the option types at [Options](../../using-pants/key-concepts/options.mdx).
 
 Every option type requires that you set the flag name (e.g. `-l` or `--level`) and the keyword argument `help`. Most types require that you set `default`. You can optionally set `advanced=True` with every option for it to only show up with `help-advanced`.
 
@@ -96,3 +96,6 @@ async def demo(shellcheck: Shellcheck) -> LintResults:
     config_discovery = shellcheck.config_discovery
     ...
 ```
+
+
+

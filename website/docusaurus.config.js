@@ -251,6 +251,7 @@ const config = {
           "bash",
           "docker",
           "go",
+          "ini",
           "java",
           "json",
           "log",

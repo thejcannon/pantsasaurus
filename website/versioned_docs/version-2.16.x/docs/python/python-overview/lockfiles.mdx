@@ -42,7 +42,7 @@ First, you'll need to turn on the resolves functionality for the repo:
 enable_resolves = true
 ```
 
-Initially, Pants will assume a single resolve named `python-default` which uses the repo's [default interpreter constraints](doc:reference-python#interpreter_constraints) and references a lockfile at `3rdparty/python/default.lock`. You can change the name of the default resolve, and/or the location of its lockfile, via:
+Initially, Pants will assume a single resolve named `python-default` which uses the repo's [default interpreter constraints](reference:reference-python#interpreter_constraints) and references a lockfile at `3rdparty/python/default.lock`. You can change the name of the default resolve, and/or the location of its lockfile, via:
 
 ```toml title="pants.toml"
 [python]
@@ -61,7 +61,7 @@ $ pants generate-lockfiles
 19:00:39.29 [INFO] Wrote lockfile for the resolve `python-default` to 3rdparty/python/default.lock
 ```
 
-The inputs used to generate a lockfile are third-party dependencies in your repo, expressed via [`python_requirement` targets](doc:python-third-party-dependencies) , or the `python_requirements` / `poetry_requirements` generator targets. In this case, since you haven't yet explicitly mapped your requirement targets to a resolve, they will all map to `python-default`, and so all serve as inputs to the default lockfile.
+The inputs used to generate a lockfile are third-party dependencies in your repo, expressed via [`python_requirement` targets](./third-party-dependencies.mdx) , or the `python_requirements` / `poetry_requirements` generator targets. In this case, since you haven't yet explicitly mapped your requirement targets to a resolve, they will all map to `python-default`, and so all serve as inputs to the default lockfile.
 
 ### Multiple lockfiles
 
@@ -80,7 +80,7 @@ webapps_django3 = "3rdparty/python/webapps_django3.lock"
 webapps_django4 = "3rdparty/python/webapps_django4.lock"
 ```
 
-Then, you partition your requirements targets across these resolves using the `resolve` field, and possibly the [parametrize](doc:targets#parametrizing-targets) mechanism:
+Then, you partition your requirements targets across these resolves using the `resolve` field, and possibly the [parametrize](../../using-pants/key-concepts/targets-and-build-files.mdx#parametrizing-targets) mechanism:
 
 ```python title="3rdparty/python/BUILD"
 python_requirement(
@@ -133,7 +133,7 @@ python_tests(
 )
 ```
 
-If a first-party target is compatible with multiple resolves, e.g., shared utility code, you can use the [parametrize](doc:targets#parametrizing-targets) mechanism with the `resolve=` field.
+If a first-party target is compatible with multiple resolves, e.g., shared utility code, you can use the [parametrize](../../using-pants/key-concepts/targets-and-build-files.mdx#parametrizing-targets) mechanism with the `resolve=` field.
 
 :::note Transitive dependencies must use the same resolve
 
@@ -147,15 +147,15 @@ To reiterate an important distinction: The `resolve=` field on a third-party req
 
 ### Interpreter constraints
 
-A lockfile will contain dependencies for all requested Python versions. By default, these are the global constraints specified by the [\[python\].interpreter_constraints](doc:reference-python#interpreter_constraints) option. You can override this per-lockfile using the [\[python\].resolves_to_interpreter_constraints](doc:reference-python#resolves_to_interpreter_constraints) option.
+A lockfile will contain dependencies for all requested Python versions. By default, these are the global constraints specified by the [\[python\].interpreter_constraints](reference:reference-python#interpreter_constraints) option. You can override this per-lockfile using the [\[python\].resolves_to_interpreter_constraints](reference:reference-python#resolves_to_interpreter_constraints) option.
 
 ### Modifying lockfile generation behavior
 
 You can use the following options to affect how the lockfile generator resolves dependencies for each resolve:
 
-- [\[python\].resolves_to_constraints_file](doc:reference-python#resolves_to_constraints_file): For each resolve, a path to a [Pip constraints file](https://pip.pypa.io/en/stable/user_guide/#constraints-files) to use when resolving that lockfile.
-- [\[python\].resolve_to_no_binary](doc:reference-python#resolve_to_no_binary): For each resolve, a list of projects that must only resolve to sdists and not wheels. Use the value `[":all:"]` to disable wheels for all packages.
-- [\[python\].resolve_to_only_binary](doc:reference-python#resolve_to_only_binary): For each resolve, a list of projects that must only resolve to wheels and not sdists. Use the value `[":all:"]` to disable sdists for all packages.
+- [\[python\].resolves_to_constraints_file](reference:reference-python#resolves_to_constraints_file): For each resolve, a path to a [Pip constraints file](https://pip.pypa.io/en/stable/user_guide/#constraints-files) to use when resolving that lockfile.
+- [\[python\].resolve_to_no_binary](reference:reference-python#resolve_to_no_binary): For each resolve, a list of projects that must only resolve to sdists and not wheels. Use the value `[":all:"]` to disable wheels for all packages.
+- [\[python\].resolve_to_only_binary](reference:reference-python#resolve_to_only_binary): For each resolve, a list of projects that must only resolve to wheels and not sdists. Use the value `[":all:"]` to disable sdists for all packages.
 
 You can use the key `__default__` to set the value for all resolves at once.
 
@@ -170,7 +170,7 @@ You can have Pants display a useful summary of what changed between the old and 
 diff = true
 ```
 
-In theory, when you generate a lockfile, you should want to audit it for bugs, compliance and security concerns. In practice this is intractable to do manually. We would like to integrate with automated auditing tools and services in the future, so watch this space for updates, or feel free to [reach out on Slack](doc:the-pants-community) if this is important to you and you'd like to work on it.
+In theory, when you generate a lockfile, you should want to audit it for bugs, compliance and security concerns. In practice this is intractable to do manually. We would like to integrate with automated auditing tools and services in the future, so watch this space for updates, or feel free to [reach out on Slack](../../getting-help/the-pants-community/index.mdx) if this is important to you and you'd like to work on it.
 
 ### Lockfile subsetting
 
@@ -178,7 +178,7 @@ When consuming a lockfile, Pants uses only the necessary subset of its transitiv
 
 For example, when running a test, only the requirements actually used (transitively) by that test will be present on the `sys.path`. This means that a test run won't be invalidated if unrelated requirements have changed, which improves cache hit rates. The same holds true when running and packaging code.
 
-You can override this subsetting behavior by setting the [\[python\].run_against_entire_lockfile](doc:reference-python#run_against_entire_lockfile) option.
+You can override this subsetting behavior by setting the [\[python\].run_against_entire_lockfile](reference:reference-python#run_against_entire_lockfile) option.
 
 ### Lockfiles for tools
 
@@ -263,7 +263,7 @@ requirements = [
 ]
 ```
 
-You can have a single resolve for all your tools, or even a single resolve for all your tools and code! This may be useful if you want to [export](doc:reference-export) a virtualenv that includes all your dependencies and all the tools you use.
+You can have a single resolve for all your tools, or even a single resolve for all your tools and code! This may be useful if you want to [export](reference:reference-export) a virtualenv that includes all your dependencies and all the tools you use.
 
 But note that the more frequently you update a lockfile the more likely it is that unrelated updates will come along for the ride, since Pants does not yet support an "only-if-needed" upgrade strategy.
 
@@ -288,4 +288,6 @@ freezegun==1.2.0 \
   --hash=sha256:e19563d0b05...
 ```
 
-To use a manually generated lockfile for a resolve, point the resolve to that lockfile's path in [`[python].resolves`](doc:reference-python#resolves). Then set [`[python].resolves_generate_lockfiles`](doc:reference-python#resolves_generate_lockfiles) to `False`. Warning: it will likely be slower to install manually-generated user lockfiles than Pex ones, because Pants cannot as efficiently extract the subset of requirements used for a particular task; see the option [`[python].run_against_entire_lockfile`](doc:reference-python#run_against_entire_lockfile).
+To use a manually generated lockfile for a resolve, point the resolve to that lockfile's path in [`[python].resolves`](reference:reference-python#resolves). Then set [`[python].resolves_generate_lockfiles`](reference:reference-python#resolves_generate_lockfiles) to `False`. Warning: it will likely be slower to install manually-generated user lockfiles than Pex ones, because Pants cannot as efficiently extract the subset of requirements used for a particular task; see the option [`[python].run_against_entire_lockfile`](reference:reference-python#run_against_entire_lockfile).
+
+

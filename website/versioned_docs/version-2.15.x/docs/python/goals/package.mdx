@@ -25,19 +25,19 @@ You can run `pants package ::` to build all artifacts in your project. Pants wil
 
     This allows you to test your packaging pipeline by simply running `pants test ::`, without needing custom integration test scripts.
 
-    See [test](doc:python-test-goal) for more information.
+    See [test](./test.mdx) for more information.
 
 :::
 
 :::tip Streamling Docker builds
 
-    Check out our blog [Streamling Docker Builds](https://blog.pantsbuild.org/pants-pex-and-docker/) to read about how you can combine these `package` formats with Pants's Docker support. Also see our [Docker docs](doc:docker)
+    Check out our blog [Streamling Docker Builds](https://blog.pantsbuild.org/pants-pex-and-docker/) to read about how you can combine these `package` formats with Pants's Docker support. Also see our [Docker docs](../../docker/docker-overview.mdx)
 
 :::
 
 ## Creating a PEX file from a `pex_binary` target
 
-Running `package` on a `pex_binary` target will create an executable [PEX file](doc:pex-files).
+Running `package` on a `pex_binary` target will create an executable [PEX file](../python-overview/pex-files.mdx).
 
 The PEX file will contain all the code needed to run the binary, namely:
 
@@ -47,7 +47,7 @@ The PEX file will contain all the code needed to run the binary, namely:
 The PEX metadata will include:
 
 - The entry point or console script specified by the `pex_binary` target, if any.
-- The intersection of all interpreter constraints applicable to the code in the Pex. See [Interpreter compatibility](doc:python-interpreter-compatibility).
+- The intersection of all interpreter constraints applicable to the code in the Pex. See [Interpreter compatibility](../python-overview/interpreter-compatibility.mdx).
 
 You can also tweak many options, such as the `execution_mode` option to optimize for faster initial runs vs. subsequent runs. Run `pants help pex_binary`.
 
@@ -161,7 +161,7 @@ This does not work with file arguments; you must use the target address, like `p
 
 :::caution Use `resource` instead of `file`
 
-    `file` and `files` targets will not be included in the built PEX because filesystem APIs like `open()` would not load them as expected. Instead, use the `resource` and `resources` target or wrap your `pex_binary` in an `archive` target. See [Assets and archives](doc:assets) for further explanation.
+    `file` and `files` targets will not be included in the built PEX because filesystem APIs like `open()` would not load them as expected. Instead, use the `resource` and `resources` target or wrap your `pex_binary` in an `archive` target. See [Assets and archives](../../using-pants/assets-and-archives.mdx) for further explanation.
 
 :::
 
@@ -173,7 +173,7 @@ This does not work with file arguments; you must use the target address, like `p
 17:36:42 [INFO] Wrote dist/helloworld/helloworld.pex
 ```
 
-We can also build the same Pex by using the address of the `pex_binary` target, as described [here](doc:targets).
+We can also build the same Pex by using the address of the `pex_binary` target, as described [here](../../using-pants/key-concepts/targets-and-build-files.mdx).
 
 ```
 ❯ pants package helloworld:app
@@ -183,7 +183,7 @@ We can also build the same Pex by using the address of the `pex_binary` target, 
 
 ### `pex_binaries` target generator
 
-If you have several scripts in the same directory, it can be convenient to use the `pex_binaries` [target generator](doc:targets), which will generate one `pex_binary` target per entry in the `entry_points` field:
+If you have several scripts in the same directory, it can be convenient to use the `pex_binaries` [target generator](../../using-pants/key-concepts/targets-and-build-files.mdx), which will generate one `pex_binary` target per entry in the `entry_points` field:
 
 ```python title="scripts/BUILD"
 # The default `sources` will include all our source files.
@@ -206,23 +206,25 @@ Use `pants peek path/to/dir:` to inspect the generated `pex_binary` targets.
 
 ## Create a setuptools distribution
 
-Running `package` on a `python_distribution` target will create a standard setuptools-style Python distribution, such as an sdist or a wheel. See [Building Distributions](doc:python-distributions) for details.
+Running `package` on a `python_distribution` target will create a standard setuptools-style Python distribution, such as an sdist or a wheel. See [Building Distributions](../python-overview/building-distributions.mdx) for details.
 
 ## Create a `zip` or `tar` file
 
-See [Resources and archives](doc:assets) for how to create a zip or tar file with built binaries and/or loose files in it by using the `archive` target.
+See [Resources and archives](../../using-pants/assets-and-archives.mdx) for how to create a zip or tar file with built binaries and/or loose files in it by using the `archive` target.
 
 This is often useful when you want to create a PEX binary using the `pex_binary` target, and bundle it with some loose config files.
 
 ## Create an AWS Lambda
 
-See [AWS Lambda](doc:awslambda-python) for how to build a zip file that works with AWS Lambda.
+See [AWS Lambda](../integrations/aws-lambda.mdx) for how to build a zip file that works with AWS Lambda.
 
 ## Create a Google Cloud Function
 
-See [Google Cloud Functions](doc:google-cloud-function-python) for how to build a zip file that works with Google Cloud Functions.
+See [Google Cloud Functions](../integrations/google-cloud-functions.mdx) for how to build a zip file that works with Google Cloud Functions.
 
 ## Create a PyOxidizer binary
 
-See [PyOxidizer](doc:pyoxidizer) for how to distribute your code as a binary, like PEX, but with
+See [PyOxidizer](../integrations/pyoxidizer.mdx) for how to distribute your code as a binary, like PEX, but with
 the Python interpreter included.
+
+

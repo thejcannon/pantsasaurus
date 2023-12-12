@@ -42,7 +42,7 @@ async def demo(...) -> Foo:
 
 `BinaryPaths` also has a convenience property called `first_path: BinaryPath | None`, which will return the first matching path, if any.
 
-In this example, the `search_path` is hardcoded. Instead, you may want to create a [subsystem](doc:rules-api-subsystems) to allow users to override the search path through a dedicated option. See [pex_environment.py](https://github.com/pantsbuild/pants/blob/57a47457bda0b0dfb0882d851ccd58a7535f15c1/src/python/pants/backend/python/rules/pex_environment.py#L60-L71) for an example that allows the user to use the special string `<PATH>` to read the user's `$PATH` environment variable.
+In this example, the `search_path` is hardcoded. Instead, you may want to create a [subsystem](./options-and-subsystems.mdx) to allow users to override the search path through a dedicated option. See [pex_environment.py](https://github.com/pantsbuild/pants/blob/57a47457bda0b0dfb0882d851ccd58a7535f15c1/src/python/pants/backend/python/rules/pex_environment.py#L60-L71) for an example that allows the user to use the special string `<PATH>` to read the user's `$PATH` environment variable.
 
 :::note Checking for valid binaries (recommended)
 
@@ -113,7 +113,7 @@ You must define the class properties `default_version` and `default_known_versio
 
 You must also define the methods `generate_url`, which is the URL to make a GET request to download the file, and `generate_exe`, which is the relative path to the binary in the downloaded digest. Both methods take `plat: Platform` as a parameter.
 
-Because an `ExternalTool` is a subclass of [`Subsystem`](doc:rules-api-subsystems), you must also define an `options_scope`. You may optionally register additional options from `pants.option.option_types`.
+Because an `ExternalTool` is a subclass of [`Subsystem`](./options-and-subsystems.mdx), you must also define an `options_scope`. You may optionally register additional options from `pants.option.option_types`.
 
 In your rules, include the `ExternalTool` as a parameter of the rule, then use `Get(DownloadedExternalTool, ExternalToolRequest)` to download and extract the tool.
 
@@ -189,7 +189,7 @@ Instead of the normal `Get(ProcessResult, Process)`, you should use `Get(Process
 
 :::note Use `PythonToolBase` when you need a Subsystem
 
-    Often, you will want to create a [`Subsystem`](doc:rules-api-subsystems) for your Python tool
+    Often, you will want to create a [`Subsystem`](./options-and-subsystems.mdx) for your Python tool
     to allow users to set options to configure the tool. You can subclass `PythonToolBase`, which
     subclasses `Subsystem`, to do this:
 
@@ -229,3 +229,5 @@ Instead of the normal `Get(ProcessResult, Process)`, you should use `Get(Process
 > ```
 >
 > ```
+
+

@@ -15,7 +15,7 @@ To see the current list of goals, run:
 ❯ pants help goals
 ```
 
-You'll see more goals activated as you activate more [backends](doc:enabling-backends).
+You'll see more goals activated as you activate more [backends](./backends.mdx).
 
 # Running goals
 
@@ -60,7 +60,7 @@ You can use several argument types:
 | File path                       | Match the file                              | `pants test project/tests.py` |
 | Directory path                  | Match everything in the directory           | `pants test project/utils`    |
 | `::` globs                      | Match everything in the directory and below | `pants test project::`        |
-| [Target addresses](doc:targets) | Match the target                            | `pants package project:tests` |
+| [Target addresses](./targets-and-build-files.mdx) | Match the target                            | `pants package project:tests` |
 
 You can combine argument types, e.g. `pants fmt src/go:: src/py/app.py`.
 
@@ -76,15 +76,15 @@ directory `project/integration_tests`.
 
 :::note Tip: advanced target selection, such as running over changed files
 
-    See [Advanced target selection](doc:advanced-target-selection) for alternative techniques to specify which files/targets to run on.
+    See [Advanced target selection](../advanced-target-selection.mdx) for alternative techniques to specify which files/targets to run on.
 
 :::
 
 ## Goal options
 
-Many goals also have [options](doc:options) to change how they behave. Every option in Pants can be set via an environment variable, config file, and the command line.
+Many goals also have [options](./options.mdx) to change how they behave. Every option in Pants can be set via an environment variable, config file, and the command line.
 
-To see if a goal has any options, run `pants help $goal` or `pants help-advanced $goal`. See [Command Line Help](doc:getting-help) for more information.
+To see if a goal has any options, run `pants help $goal` or `pants help-advanced $goal`. See [Command Line Help](../../getting-help/getting-help.mdx) for more information.
 
 For example:
 
@@ -128,3 +128,4 @@ As a shorthand, if you put the option after the goal and before the file/target 
 ```bash
 pants test --debug project/app_test.py
 ```
+

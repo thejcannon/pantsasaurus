@@ -91,7 +91,7 @@ python_requirements(source="reqs.txt")
 
     In smaller repositories that only use Python, it's often convenient to put the file at the "build root" (top-level), as used on this page.
 
-    For larger repositories or multilingual repositories, it's often useful to have a `3rdparty` or `3rdparty/python` directory. Rather than the target's address being `//:reqs#my_requirement`, its address would be `3rdparty/python:reqs#my_requirement`, for example; or `3rdparty/python#my_requirement` if you leave off the `name` field for `python_requirements`. See [Target Generation](doc:targets#target-generation).
+    For larger repositories or multilingual repositories, it's often useful to have a `3rdparty` or `3rdparty/python` directory. Rather than the target's address being `//:reqs#my_requirement`, its address would be `3rdparty/python:reqs#my_requirement`, for example; or `3rdparty/python#my_requirement` if you leave off the `name` field for `python_requirements`. See [Target Generation](../../using-pants/key-concepts/targets-and-build-files.mdx#target-generation).
 
 :::
 
@@ -176,11 +176,11 @@ python_requirement(
 )
 ```
 
-Note that Pants does not consume your `poetry.lock` file. Instead, see the [page on lockfiles](doc:python-lockfiles).
+Note that Pants does not consume your `poetry.lock` file. Instead, see the [page on lockfiles](./lockfiles.mdx).
 
 ## How dependencies are chosen
 
-Once Pants knows about your "universe"(s) of dependencies, it determines which subset should be used through [dependency inference](https://blog.pantsbuild.org/dependency-inference/). Pants will read your import statements, like `import django`, and map it back to the relevant `python_requirement` target. Run [`pants dependencies path/to/file.py`](doc:project-introspection) or `pants dependencies path/to:target` to confirm this works.
+Once Pants knows about your "universe"(s) of dependencies, it determines which subset should be used through [dependency inference](https://blog.pantsbuild.org/dependency-inference/). Pants will read your import statements, like `import django`, and map it back to the relevant `python_requirement` target. Run [`pants dependencies path/to/file.py`](../../using-pants/project-introspection.mdx) or `pants dependencies path/to:target` to confirm this works.
 
 If dependency inference does not work—such as because it's a runtime dependency you do not import—you can explicitly add the `python_requirement` target to the `dependencies` field, like this:
 
@@ -228,13 +228,13 @@ If the dependency is a type stub, and the default does not work, set `type_stub_
 
 It's invalid in Python to have conflicting versions of the same requirement, e.g. `Django==2` and `Django==3`. Instead, Pants supports "multiple resolves" (i.e. multiple lockfiles), as explained in the below section on lockfiles.
 
-When you have multiple targets for the same dependency and they belong to the same [resolve](doc:python-lockfiles), dependency inference will not work due to ambiguity. If you're using lockfiles—which we strongly recommend—the solution is to set the `resolve` field for problematic `python_requirement` targets so that each resolve has only one requirement and there is no ambiguity.
+When you have multiple targets for the same dependency and they belong to the same [resolve](./lockfiles.mdx), dependency inference will not work due to ambiguity. If you're using lockfiles—which we strongly recommend—the solution is to set the `resolve` field for problematic `python_requirement` targets so that each resolve has only one requirement and there is no ambiguity.
 
 This ambiguity is often a problem when you have 2+ `requirements.txt` or `pyproject.toml` files in your project, such as `project1/requirements.txt` and `project2/requirements.txt` both specifying `django`. You may want to set up each `poetry_requirements`/`python_requirements` target generator to use a distinct resolve so that there is no overlap. Alternatively, if the versions are the same, you may want to consolidate the requirements into a common file.
 
 ## Lockfiles
 
-We strongly recommend using [lockfiles](doc:python-lockfiles) to ensure secure, repeatable dependency resolution. See [here](doc:python-lockfiles) for details on how to do so.
+We strongly recommend using [lockfiles](./lockfiles.mdx) to ensure secure, repeatable dependency resolution. See [here](./lockfiles.mdx) for details on how to do so.
 
 ## Advanced usage
 
@@ -358,14 +358,14 @@ find_links = [
 
 To authenticate to custom repos, you may need to provide credentials (such as a username and password) in the URL.
 
-You can use [config file `%(env.ENV_VAR)s` interpolation](doc:options#config-file-interpolation) to load the values via environment variables. This avoids checking in sensitive information to version control.
+You can use [config file `%(env.ENV_VAR)s` interpolation](../../using-pants/key-concepts/options.mdx#config-file-interpolation) to load the values via environment variables. This avoids checking in sensitive information to version control.
 
 ```toml title="pants.toml"
 [python-repos]
 indexes.add = ["http://%(env.INDEX_USERNAME)s:%(INDEX_PASSWORD)s@my.custom.repo/index"]
 ```
 
-Alternatively, you can hardcode the value in a private (not checked-in) [.pants.rc file](doc:options#pantsrc-file) in each user's Pants repo, that sets this config for the user:
+Alternatively, you can hardcode the value in a private (not checked-in) [.pants.rc file](../../using-pants/key-concepts/options.mdx#pantsrc-file) in each user's Pants repo, that sets this config for the user:
 
 ```toml title=".pants.rc"
 [python-repos]
@@ -427,7 +427,7 @@ This feature only works when using Pex lockfiles via `[python].resolves`.
 
 `[python-repos].path_mappings` expects values in the form `NAME|PATH`, e.g. `WHEELS_DIR|/Users/pantsbuild/prebuilt_wheels`. Also, still use an absolute path for `[python-repos].find_links`.
 
-If possible, we recommend using a common file location for your whole team, and leveraging [Pants's interpolation](doc:options#config-file-interpolation), so that you avoid each user needing to manually configure `[python-repos].path_mappings` and `[python-repos].find_links`. For example, in `pants.toml`, you could set `[python-repos].path_mappings` to `WHEELS_DIR|%(buildroot)s/python_wheels` and `[python-repos].find_links` to `%(buildroot)s/python_wheels`. Then, as long as every user has the folder `python_wheels` in the root of the repository, things will work without additional configuration. Or, you could use a value like `%(env.HOME)s/pants_wheels` for the path `~/pants_wheels`.
+If possible, we recommend using a common file location for your whole team, and leveraging [Pants's interpolation](../../using-pants/key-concepts/options.mdx#config-file-interpolation), so that you avoid each user needing to manually configure `[python-repos].path_mappings` and `[python-repos].find_links`. For example, in `pants.toml`, you could set `[python-repos].path_mappings` to `WHEELS_DIR|%(buildroot)s/python_wheels` and `[python-repos].find_links` to `%(buildroot)s/python_wheels`. Then, as long as every user has the folder `python_wheels` in the root of the repository, things will work without additional configuration. Or, you could use a value like `%(env.HOME)s/pants_wheels` for the path `~/pants_wheels`.
 
 ```toml title="pants.toml"
 [python-repos]
@@ -436,7 +436,7 @@ find_links = ["file://%(buildroot)s/prebuilt_wheels"]
 path_mappings = ["WHEELS_DIR|%(buildroot)s/prebuilt_wheels"]
 ```
 
-If you cannot use a common file location via interpolation, then we recommend setting these options in a [`.pants.rc` file](doc:options#pantsrc-file). Every teammate will need to set this up for their machine.
+If you cannot use a common file location via interpolation, then we recommend setting these options in a [`.pants.rc` file](../../using-pants/key-concepts/options.mdx#pantsrc-file). Every teammate will need to set this up for their machine.
 
 ```toml title=".pants.rc"
 [python-repos]
@@ -488,4 +488,5 @@ You can also set the key `__default__` to apply the same value to every resolve 
 
 ## Tip: use `pants export` to create a virtual environment for IDEs
 
-See [Setting up an IDE](doc:setting-up-an-ide) for more information on `pants export`. This will create a virtual environment for your user code for compatibility with the rest of the Python ecosystem, e.g. IDEs like Pycharm.
+See [Setting up an IDE](../../using-pants/setting-up-an-ide.mdx) for more information on `pants export`. This will create a virtual environment for your user code for compatibility with the rest of the Python ecosystem, e.g. IDEs like Pycharm.
+

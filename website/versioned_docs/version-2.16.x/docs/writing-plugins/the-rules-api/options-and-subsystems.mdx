@@ -9,7 +9,7 @@ How to add options to your plugin.
 
 ## Defining options
 
-As explained in [Options](doc:options), options are partitioned into named scopes, like `[test]` and `[isort]`. Each of these scopes corresponds to a _subsystem_.
+As explained in [Options](../../using-pants/key-concepts/options.mdx), options are partitioned into named scopes, like `[test]` and `[isort]`. Each of these scopes corresponds to a _subsystem_.
 
 To add new options:
 
@@ -57,7 +57,7 @@ The subsystem should now show up when you run `pants help shellcheck`.
 
 :::note `GoalSubsystem`
 
-    As explained in [Goal rules](doc:rules-api-goal-rules), goals use a subclass of  `Subsystem`: `GoalSubsystem` from `pants.engine.goal`.
+    As explained in [Goal rules](./goal-rules.mdx), goals use a subclass of  `Subsystem`: `GoalSubsystem` from `pants.engine.goal`.
 
     `GoalSubsystem` behaves the same way as a normal subsystem, except that you set the class property `name` rather than `options_scope`. The `name` will auto-populate the `options_scope`.
 
@@ -65,7 +65,7 @@ The subsystem should now show up when you run `pants help shellcheck`.
 
 ### Option types
 
-These classes correspond to the option types at [Options](doc:options).
+These classes correspond to the option types at [Options](../../using-pants/key-concepts/options.mdx).
 
 Every option type requires that you set the keyword argument `help`.
 
@@ -107,3 +107,5 @@ async def demo(shellcheck: Shellcheck) -> LintResults:
 :::
 
 > When adding custom options, make sure their name does not start with an existing goal name. For instance, passing a boolean option named `check_foobar` as `--check-foobar` in the command line would fail since Pants would think you are trying to pass the `--foobar` flag in the built-in `check` goal scope.
+
+

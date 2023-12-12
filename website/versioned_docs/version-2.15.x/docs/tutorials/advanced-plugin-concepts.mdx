@@ -9,11 +9,11 @@ Learning advanced concepts for writing plugins.
 
 ## Introduction
 
-In this tutorial, we continue from where we've left in the [previous tutorial](doc:create-a-new-goal). Having now a complete goal with a custom target, we are ready to make certain improvements and learn more advanced concepts that you would likely find useful when working on your own plugins.
+In this tutorial, we continue from where we've left in the [previous tutorial](./create-a-new-goal.mdx). Having now a complete goal with a custom target, we are ready to make certain improvements and learn more advanced concepts that you would likely find useful when working on your own plugins.
 
 ### Adding a custom `source` field
 
-In the first tutorial, to keep things simple, we used the default `SingleSourceField` class for our `source` field where we provided the path to the `VERSION` file. We could have added [a custom field](https://www.pantsbuild.org/docs/target-api-new-fields) to provide a file path, however, when using the `source` field, you get a few features for free such as setting the `default` value and `expected_file_extensions`. Furthermore, with the `source` field, thanks to the [`unmatched_build_file_globs`](https://www.pantsbuild.org/docs/reference-global#unmatched_build_file_globs) option, you won't need to provide custom logic to handle errors when path globs do not expand to any files in your repository.
+In the first tutorial, to keep things simple, we used the default `SingleSourceField` class for our `source` field where we provided the path to the `VERSION` file. We could have added [a custom field](../writing-plugins/the-target-api/creating-new-fields.mdx) to provide a file path, however, when using the `source` field, you get a few features for free such as setting the `default` value and `expected_file_extensions`. Furthermore, with the `source` field, thanks to the [`unmatched_build_file_globs`](reference:reference-global#unmatched_build_file_globs) option, you won't need to provide custom logic to handle errors when path globs do not expand to any files in your repository.
 
 Let's modify our `myapp/BUILD` file:
 
@@ -44,7 +44,7 @@ $ PANTS_UNMATCHED_BUILD_FILE_GLOBS=error pants project-version myapp:
   Exception: Unmatched glob from myapp:main-project-version's `source` field: "myapp/non-existing-file"
 ```
 
-We would likely want to use the same name for the version file (`VERSION`) throughout the repo for consistency, so we should probably set a default value for the target to reduce the amount of boilerplate in the `BUILD` files. To change a default value, we have to subclass the original field. Visit [customizing fields through subclassing](https://www.pantsbuild.org/docs/target-api-concepts#customizing-fields-through-subclassing) to learn more.
+We would likely want to use the same name for the version file (`VERSION`) throughout the repo for consistency, so we should probably set a default value for the target to reduce the amount of boilerplate in the `BUILD` files. To change a default value, we have to subclass the original field. Visit [customizing fields through subclassing](../writing-plugins/the-target-api/concepts.mdx#customizing-fields-through-subclassing) to learn more.
 
 ```python title="pants-plugins/project_version/targets.py"
 from pants.engine.target import COMMON_TARGET_FIELDS, SingleSourceField, Target
@@ -97,7 +97,7 @@ Using own classes via subclassing will also help with refactoring if you decide 
 
 ### Ensuring a version follows a semver convention
 
-With the current implementation, we have simply returned the contents of the file as is. We may want to add some validation, for instance, to check that a version string follows a semver convention. Let's learn how to [bring a 3rd party Python package](https://www.pantsbuild.org/docs/plugins-overview#thirdparty-dependencies), namely, [packaging](https://pypi.org/project/packaging/), into our plugin to do that!
+With the current implementation, we have simply returned the contents of the file as is. We may want to add some validation, for instance, to check that a version string follows a semver convention. Let's learn how to [bring a 3rd party Python package](../writing-plugins/plugins-overview.mdx#thirdparty-dependencies), namely, [packaging](https://pypi.org/project/packaging/), into our plugin to do that!
 
 To start depending on the `packaging` package in our in-repo plugin, we must extend the `pants.toml` file:
 
@@ -143,11 +143,11 @@ $ pants project-version myapp:
 
 ### Exploring caching
 
-When you have run the goal a few times, you may have noticed that sometimes the command takes a few seconds to complete, and sometimes it completes immediately. If that's the case, then you have just seen [Pants caching](https://www.pantsbuild.org/docs/rules-api-tips#fyi-caching-semantics) working! Because we use Pants engine to read the `VERSION` file, it copies it into the cache. Pants knows that when the command is re-run, if there are no changes to the Python source code or the `VERSION` file, there's no need to re-run the code because the result is guaranteed to stay the same.
+When you have run the goal a few times, you may have noticed that sometimes the command takes a few seconds to complete, and sometimes it completes immediately. If that's the case, then you have just seen [Pants caching](../writing-plugins/the-rules-api/tips-and-debugging.mdx#fyi-caching-semantics) working! Because we use Pants engine to read the `VERSION` file, it copies it into the cache. Pants knows that when the command is re-run, if there are no changes to the Python source code or the `VERSION` file, there's no need to re-run the code because the result is guaranteed to stay the same.
 
 If your plugin uses 3rd party Python packages dependencies, it can be worth checking whether the package has any side effects such as reading from the filesystem since this won't let you take full advantage of the Pants engine's caching mechanism. Keep in mind that the commands you run via Pants may be cancelled or retried any number of times, so ideally any side effects should be [idempotent](https://en.wikipedia.org/wiki/Idempotence). That is, it should not matter if it is run once or several times.
 
-You can confirm that cache is being used by adding [log statements](https://www.pantsbuild.org/docs/rules-api-logging). When run for the first time, the logging messages will show up; on subsequent runs, they won't because the code of the rules won't be executed.
+You can confirm that cache is being used by adding [log statements](../writing-plugins/the-rules-api/logging-and-dynamic-output.mdx). When run for the first time, the logging messages will show up; on subsequent runs, they won't because the code of the rules won't be executed.
 
 ### Showing output as JSON
 
@@ -158,7 +158,7 @@ $ pants project-version myapp:
 ProjectVersionFileView(path='myapp/VERSION', version='0.0.1')
 ```
 
-To be able to pipe the output of our command, it may make sense to emit the format in a parseable structure instead of plain text. Pants goals come with lots of options that can adjust their behavior, and this is true for custom goals as well. Let's [add a new option](https://www.pantsbuild.org/docs/rules-api-subsystems) for our goal, so that the version information would be shown as a JSON object.
+To be able to pipe the output of our command, it may make sense to emit the format in a parseable structure instead of plain text. Pants goals come with lots of options that can adjust their behavior, and this is true for custom goals as well. Let's [add a new option](../writing-plugins/the-rules-api/options-and-subsystems.mdx) for our goal, so that the version information would be shown as a JSON object.
 
 Adding a new option is trivial and is done in the subsystem:
 
@@ -201,7 +201,7 @@ $ pants project-version --as-json myapp: | jq
 
 ### Automating generation of `project_version` targets
 
-Pants provides a way to automate generation of standard targets using the [`tailor`](https://www.pantsbuild.org/docs/reference-tailor) goal. If a monorepository has many projects, each containing a `VERSION` file, it might be useful to generate `version_file` targets in every directory where the relevant files are found. This is what Pants does, for instance, when Docker backend is enabled, and you have `Dockerfile` files in the codebase. To make this work for our use case, however, we need to introduce the `tailor` goal to the `VERSION` files.
+Pants provides a way to automate generation of standard targets using the [`tailor`](reference:reference-tailor) goal. If a monorepository has many projects, each containing a `VERSION` file, it might be useful to generate `version_file` targets in every directory where the relevant files are found. This is what Pants does, for instance, when Docker backend is enabled, and you have `Dockerfile` files in the codebase. To make this work for our use case, however, we need to introduce the `tailor` goal to the `VERSION` files.
 
 We've reached the moment when the documentation won't be of help: there are no instructions on how to extend the `tailor` goal. In a situation like this, it may be worth exploring the Pants codebase to see how this was done in other plugins that are part of Pants. Once you find a piece of code that looks like it does what you want, you can copy it and tweak it to better suit your needs. For our use case, the code used in [generation of C++ source targets](https://github.com/pantsbuild/pants/blob/672ca1d662c76f2567e432347deee8949c14d35d/src/python/pants/backend/cc/goals/tailor.py) may get handy. After making a few changes, we have a new rule we can place in a new file:
 
@@ -264,7 +264,7 @@ def rules():
     ]
 ```
 
-In this file, we use an advanced feature of Pants, [union rules](https://www.pantsbuild.org/docs/rules-api-unions):
+In this file, we use an advanced feature of Pants, [union rules](../writing-plugins/the-rules-api/union-rules-(advanced).mdx):
 
 ```python
 def rules():
@@ -304,7 +304,7 @@ To fix `tailor` failures, run `pants tailor`.
 
 ### Running system tools
 
-Pants lets you [run system applications](https://www.pantsbuild.org/docs/rules-api-installing-tools) your plugin may need. For our use case, we can assume that Git is installed and can be run from the `/usr/bin/git`. If there's a `VERSION` file in the root of the repository representing the final artifact version (in case of a monolith), we could use Git to confirm that the version string matches the latest tag the repository was tagged with.
+Pants lets you [run system applications](../writing-plugins/the-rules-api/installing-tools.mdx) your plugin may need. For our use case, we can assume that Git is installed and can be run from the `/usr/bin/git`. If there's a `VERSION` file in the root of the repository representing the final artifact version (in case of a monolith), we could use Git to confirm that the version string matches the latest tag the repository was tagged with.
 
 We can create a new rule:
 
@@ -396,7 +396,7 @@ $ pants project-version --as-json myapp:
   ProjectVersionGitTagMismatch: Project version string '0.0.3' from 'myapp/VERSION' doesn't match latest Git tag '0.0.1'
 ```
 
-This happens because of how the Pants cache works. Modifying our repository tags doesn't qualify for the changes that should invalidate the cache. It is not safe to [cache the `Process` runs](https://www.pantsbuild.org/docs/rules-api-process) since we know that Git will access the repository (that is outside the sandbox), we should change its cacheability using the `ProcessCacheScope` parameter so that our Git call would run once per run of Pants.
+This happens because of how the Pants cache works. Modifying our repository tags doesn't qualify for the changes that should invalidate the cache. It is not safe to [cache the `Process` runs](../writing-plugins/the-rules-api/processes.mdx) since we know that Git will access the repository (that is outside the sandbox), we should change its cacheability using the `ProcessCacheScope` parameter so that our Git call would run once per run of Pants.
 
 ```python
 git_describe = await Get(
@@ -423,7 +423,7 @@ class ProjectVersionSubsystem(GoalSubsystem):
     )
 ```
 
-Keep in mind that once you've declared [custom options in the plugin's subsystem](https://www.pantsbuild.org/docs/options#setting-options), they can be set in the `pants.toml` file just like any standard Pants options.
+Keep in mind that once you've declared [custom options in the plugin's subsystem](../using-pants/key-concepts/options.mdx#setting-options), they can be set in the `pants.toml` file just like any standard Pants options.
 
 If you know that your Git tag may be different from the project version stored in the `VERSION` file and that you would always want the output to be in the JSON format, you can set these options in the `pants.toml` file for visibility (and to avoid setting them via command line flags):
 
@@ -675,3 +675,4 @@ class ProjectVersionTarget(Target):
 ```
 
 There are a few more things left to do, for example, we haven't written any tests yet. This is what we'll do in the next tutorial!
+

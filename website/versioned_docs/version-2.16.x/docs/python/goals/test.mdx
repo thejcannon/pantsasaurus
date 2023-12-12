@@ -53,9 +53,9 @@ pytest-django>=3.9.0,<4
 pytest-rerunfailures==9.0
 ```
 
-Finally, generate the relevant lockfile with `pants generate-lockfiles --resolve=pytest`. For more information, see [Lockfiles for tools](doc:python-lockfiles#lockfiles-for-tools).
+Finally, generate the relevant lockfile with `pants generate-lockfiles --resolve=pytest`. For more information, see [Lockfiles for tools](../python-overview/lockfiles.mdx#lockfiles-for-tools).
 
-Alternatively, if you only want to install the plugin for certain tests, you can add the plugin to the `dependencies` field of your `python_test` / `python_tests` target. See [Third-party dependencies](doc:python-third-party-dependencies) for how to install Python dependencies. For example:
+Alternatively, if you only want to install the plugin for certain tests, you can add the plugin to the `dependencies` field of your `python_test` / `python_tests` target. See [Third-party dependencies](../python-overview/third-party-dependencies.mdx) for how to install Python dependencies. For example:
 
 ```text title="requirements.txt"
 pytest-django==3.10.0
@@ -144,7 +144,7 @@ Pants will automatically include any relevant config files in the process's sand
 
 Pytest uses [`conftest.py` files](https://docs.pytest.org/en/stable/fixture.html#conftest-py-sharing-fixture-functions) to share fixtures and config across multiple distinct test files.
 
-The default `sources` value for the `python_test_utils` target includes `conftest.py`. You can run [`pants tailor ::`](doc:initial-configuration#5-generate-build-files) to automatically add this target:
+The default `sources` value for the `python_test_utils` target includes `conftest.py`. You can run [`pants tailor ::`](../../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files) to automatically add this target:
 
 ```
 pants tailor ::
@@ -238,7 +238,7 @@ Compatible tests that _do_ end up in the same batch will run in a single `pytest
 
 :::
 
-The high-level `pytest` fixtures that motivate batched testing are often defined in a `conftest.py` near the root of your repository, applying to every test in a directory tree. In these cases, you can mark all the tests in the directory tree as compatible using the [`__defaults__` builtin](doc:targets#field-default-values):
+The high-level `pytest` fixtures that motivate batched testing are often defined in a `conftest.py` near the root of your repository, applying to every test in a directory tree. In these cases, you can mark all the tests in the directory tree as compatible using the [`__defaults__` builtin](../../using-pants/key-concepts/targets-and-build-files.mdx#field-default-values):
 
 ```python title="BUILD"
 python_test_utils()
@@ -424,7 +424,7 @@ If a target sets its `timeout` higher than `[test].timeout_maximum`, Pants will 
 
 Use the target type `python_source` for test utilities, rather than `python_test`.
 
-To reduce boilerplate, you can use either the [`python_sources`](doc:reference-python_sources) or [`python_test_utils`](doc:reference-python_test_utils) targets to generate `python_source` targets. These behave the same, except that `python_test_utils` has a different default `sources` to include `conftest.py` and type stubs for tests (like `test_foo.pyi`). Use [`pants tailor ::`](doc:initial-configuration#5-generate-build-files) to generate both these targets automatically.
+To reduce boilerplate, you can use either the [`python_sources`](reference:reference-python_sources) or [`python_test_utils`](reference:reference-python_test_utils) targets to generate `python_source` targets. These behave the same, except that `python_test_utils` has a different default `sources` to include `conftest.py` and type stubs for tests (like `test_foo.pyi`). Use [`pants tailor ::`](../../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files) to generate both these targets automatically.
 
 For example:
 
@@ -458,7 +458,7 @@ def test_app() -> None:
 
 ### Assets
 
-Refer to [assets](doc:assets) for how to include asset files in your tests by adding to the `dependencies` field.
+Refer to [assets](../../using-pants/assets-and-archives.mdx) for how to include asset files in your tests by adding to the `dependencies` field.
 
 It's often most convenient to use `file` / `files` and `relocated_files` targets in your test code, although you can also use `resource` / `resources` targets.
 
@@ -533,7 +533,7 @@ use_coverage = true
 
     `ignore_errors = true` means that those files will simply be left off of the final coverage report.
 
-    (Pants should autodiscover the config file `.coveragerc`. See [coverage-py](https://www.pantsbuild.org/docs/reference-coverage-py#section-config-discovery).)
+    (Pants should autodiscover the config file `.coveragerc`. See [coverage-py](reference:reference-coverage-py#section-config-discovery).)
 
     There's a proposal for Pants to fix this by generating multiple reports when necessary: [https://github.com/pantsbuild/pants/issues/11137](https://github.com/pantsbuild/pants/issues/11137). We'd appreciate your feedback.
 
@@ -622,3 +622,6 @@ Take note that Pants uses some CLI args for its internal mechanism of controllin
 `pytest` follows [certain conventions for test discovery](https://docs.pytest.org/en/7.1.x/explanation/goodpractices.html#conventions-for-python-test-discovery), so if no (or only some) tests are run, it may be worth reviewing the documentation. Pants can help you find test modules that would not be collected by `pytest`. For instance, `pants tailor --check ::` command would suggest creating targets for files that are not covered by glob expressions in your `BUILD` files (e.g. if a test module has a typo and is named `tes_connection.py`). You can also run `pants --filter-target-type=python_test filedeps <test-dir>::` command to list all test files known to Pants and compare the output with the list of files that exist on disk.
 
 If your tests fail to import the source modules, it may be due to the import mode used by `pytest`, especially if you are using [namespace packages](https://packaging.python.org/en/latest/guides/packaging-namespace-packages/). Please review [Choosing an import mode](https://docs.pytest.org/en/7.1.x/explanation/goodpractices.html#choosing-an-import-mode) and [pytest import mechanisms and sys.path/PYTHONPATH](https://docs.pytest.org/en/7.1.x/explanation/pythonpath.html#import-modes) to learn more.
+
+
+

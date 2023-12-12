@@ -7,13 +7,13 @@ How to use the Target API in rules.
 
 ---
 
-Start by reading the [Concepts](doc:target-api-concepts) of the Target API.
+Start by reading the [Concepts](../the-target-api/concepts.mdx) of the Target API.
 
 Note that the engine does not have special knowledge about `Target`s and `Field`s. To the engine, these are like any other types you'd use, and the `@rule`s to work with targets are like any other `@rule`.
 
 ## How to read values from a `Target`
 
-As explained in [Concepts](doc:target-api-concepts), a `Target` is an addressable combination of fields, where each field gives some metadata about your code.
+As explained in [Concepts](../the-target-api/concepts.mdx), a `Target` is an addressable combination of fields, where each field gives some metadata about your code.
 
 To read a particular `Field` for a `Target`, look it up with the `Field`'s class in square brackets, like you would look up a normal Python dictionary:
 
@@ -51,7 +51,7 @@ if target.has_fields([PythonSourceField, PythonTestsTimeoutField]):
 
 ### `Field` subclasses
 
-As explained in [Concepts](doc:target-api-concepts), subclassing `Field`s is key to how the Target API works.
+As explained in [Concepts](../the-target-api/concepts.mdx), subclassing `Field`s is key to how the Target API works.
 
 The `Target` methods `[MyField]`, `.has_field()` and `.get()` understand when a `Field` is subclassesd, as follows:
 
@@ -89,7 +89,7 @@ You can use `str(address)` or `address.spec` to get the normalized string repres
 
 How do you get `Target`s in the first place in your plugin?
 
-As explained in [Goal rules](doc:rules-api-goal-rules), to get all of the targets specified on the command line by a user, you can request the type `Targets` as a parameter to your `@rule` or `@goal_rule`. From there, you can optionally filter out the targets you want, such as by using `target.has_field()`.
+As explained in [Goal rules](./goal-rules.mdx), to get all of the targets specified on the command line by a user, you can request the type `Targets` as a parameter to your `@rule` or `@goal_rule`. From there, you can optionally filter out the targets you want, such as by using `target.has_field()`.
 
 ```python
 from pants.engine.target import Targets
@@ -102,7 +102,7 @@ async def example(targets: Targets) -> Foo:
 
 You can also request `Addresses` (from `pants.engine.addresses`) as a parameter to your `@rule` if you only need the addresses specified on the command line by a user.
 
-For most [Common plugin tasks](doc:common-plugin-tasks), like adding a linter, Pants will have already filtered out the relevant targets for you and will pass you only the targets you care about.
+For most [Common plugin tasks](../common-plugin-tasks/index.mdx), like adding a linter, Pants will have already filtered out the relevant targets for you and will pass you only the targets you care about.
 
 Given targets, you can find their direct and transitive dependencies. See the below section "The Dependencies field".
 
@@ -115,7 +115,7 @@ You can also find targets by writing your own `Spec`s, rather than using what th
 - `await Get(Targets, FilesystemSpecs([FilesystemLiteralSpec("dir/f.ext")])` -> `./pants list dir/f.ext`
 - `await Get(Targets, FilesystemSpecs([FilesystemGlobSpec("dir/_.ext")])` -> `./pants list 'dir/_.ext'`
 
-Finally, you can look up an `Address` given a raw address string. This is often useful to allow a user to refer to targets in [Options](doc:rules-api-subsystems) and in `Field`s in your `Target`. For example, this mechanism is how the `dependencies` field works. This will error if the address does not exist.
+Finally, you can look up an `Address` given a raw address string. This is often useful to allow a user to refer to targets in [Options](./options-and-subsystems.mdx) and in `Field`s in your `Target`. For example, this mechanism is how the `dependencies` field works. This will error if the address does not exist.
 
 ```python
 from pants.engine.addresses import AddressInput, Address
@@ -242,7 +242,7 @@ async def demo(...) -> Foo:
 
 `HydrateSourcesRequest` expects a `SourcesField` object. This can be a subclass, such as `PythonSourceField` or `GoPackageSourcesField`.
 
-`HydratedSources` has a field called `snapshot: Snapshot`, which allows you to see what files were resolved by calling `hydrated_sources.snapshot.files` and to use the resulting [`Digest`](doc:rules-api-file-system) in your plugin with `hydrated_sources.snapshot.digest`.
+`HydratedSources` has a field called `snapshot: Snapshot`, which allows you to see what files were resolved by calling `hydrated_sources.snapshot.files` and to use the resulting [`Digest`](./file-system.mdx) in your plugin with `hydrated_sources.snapshot.digest`.
 
 Typically, you will want to use the higher-level `Get(SourceFiles, SourceFilesRequest)` utility instead of `Get(HydrateSources, HydrateSourcesRequest)`. This allows you to ergonomically hydrate multiple `SourcesField`s objects in the same call, resulting in a single merged snapshot of all the input source fields.
 
@@ -333,9 +333,9 @@ You can also use `Get(StrippedSourceFiles, SourceFilesRequest)`, and the engine 
 
 A `FieldSet` is a way to specify which Fields your rule needs to use in a typed way that is understood by the engine.
 
-Normally, your rule should simply use `tgt.get()` and `tgt.has_field()` instead of a `FieldSet`. However, for several of the [Common plugin tasks](doc:common-plugin-tasks), you will instead need to create a `FieldSet` so that the combination of fields you use can be represented by a type understood by the engine.
+Normally, your rule should simply use `tgt.get()` and `tgt.has_field()` instead of a `FieldSet`. However, for several of the [Common plugin tasks](../common-plugin-tasks/index.mdx), you will instead need to create a `FieldSet` so that the combination of fields you use can be represented by a type understood by the engine.
 
-To create a `FieldSet`, create a new dataclass with `@dataclass(frozen=True)`. You will sometimes directly subclass `FieldSet`, but will often subclass something like `BinaryFieldSet` or `TestFieldSet`. Refer to the instructions in [Common plugin tasks](doc:common-plugin-tasks).
+To create a `FieldSet`, create a new dataclass with `@dataclass(frozen=True)`. You will sometimes directly subclass `FieldSet`, but will often subclass something like `BinaryFieldSet` or `TestFieldSet`. Refer to the instructions in [Common plugin tasks](../common-plugin-tasks/index.mdx).
 
 List every `Field` that your plugin will use as a field of your dataclass. The types hints you specify will be used by Pants to identify what `Field`s to use, e.g. `PythonSourceField` or `Dependencies`.
 
@@ -359,3 +359,5 @@ class ShellcheckFieldSet(FieldSet):
 ```
 
 In your rule, you can access your `FieldSet` like a normal dataclass, e.g. `field_set.source` or `field_set.dependencies`. The object also has a field called `address: Address`.
+
+

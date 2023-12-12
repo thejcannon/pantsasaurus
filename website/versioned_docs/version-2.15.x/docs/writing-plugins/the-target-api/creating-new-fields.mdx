@@ -57,7 +57,7 @@ If you set `required = True`, the `default` will be ignored.
 
     If you want to change how an existing field behaves, you should subclass the original field. For example, if you want to change a default value, subclass the original field. When doing this, you only need to override the properties you want to change.
 
-    See [Concepts](doc:target-api-concepts) for how subclassing plays a key role in the Target API.
+    See [Concepts](./concepts.mdx) for how subclassing plays a key role in the Target API.
 
 :::
 
@@ -225,7 +225,7 @@ class VersionField(Field):
 
 :::tip Asking for help
 
-    Have a tricky field you're trying to write? We would love to help! See [Getting Help](doc:community).
+    Have a tricky field you're trying to write? We would love to help! See [Getting Help](../../../community/members).
 
 :::
 
@@ -283,3 +283,5 @@ class UploadTimeout(IntField):
 class FortranSources(MultipleSourcesField):
     default = ("*.f95",)
 ```
+
+

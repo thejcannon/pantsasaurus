@@ -19,7 +19,7 @@
 
 ## Server
 
-Remote execution requires the availability of a REAPI-compatible execution server. See the [REAPI server compatibility guide](doc:remote-caching-execution#server-compatibility) for more information.
+Remote execution requires the availability of a REAPI-compatible execution server. See the [REAPI server compatibility guide](./index.mdx#server-compatibility) for more information.
 
 ## Pants
 
@@ -92,7 +92,7 @@ remote_ca_certs_path = "/etc/ssl/certs/ca-certificates.crt"
 
 # Reference
 
-Run `./pants help-advanced global` or refer to [Global options](doc:reference-global). Most remote execution and caching options begin with the prefix `--remote`.
+Run `./pants help-advanced global` or refer to [Global options](reference:reference-global). Most remote execution and caching options begin with the prefix `--remote`.
 
 # Limitations
 
@@ -101,3 +101,4 @@ The remote execution support in Pants is still experimental and comes with sever
 1. The main limitation is that Pants assumes that the remote execution platform is the same as the local platform. Thus, if the remote execution service is running on Linux, then Pants must also be running on Linux in order to successfully submit remote execution requests. This limitation will eventually be fixed, but as of version 2.0.x, Pants still has the limitation.
 
 2. The remote execution environment will need to contain appropriate tooling expected by the Pants subsystems used in your repository. At a minimum, this means a Python interpreter must be available if building Python code. If using protobuf support, then you may also need `unzip` available in the remote execution environment in order to unpack the protoc archive. This documentation is incomplete with regards to what tooling needs to be available.
+

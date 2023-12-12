@@ -11,19 +11,22 @@ Pants currently supports the following goals and features for Python:
 
 | goal                  | underlying tools                                                                                                                                                                                                                                                                                                                 |
 | :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| dependency resolution | [`pip`](doc:python-third-party-dependencies)                                                                                                                                                                                                                                                                                     |
-| test running          | [`pytest`](doc:python-test-goal)                                                                                                                                                                                                                                                                                                 |
-| linting/formatting    | [`black`](doc:reference-black), [`yapf`](doc:reference-yapf), [`flake8`](doc:reference-flake8), [`docformatter`](doc:reference-docformatter), [`isort`](doc:reference-isort), [`pylint`](doc:reference-pylint), [`bandit`](doc:reference-bandit), [`autoflake`](doc:reference-autoflake), [`pyupgrade`](doc:reference-pyupgrade) |
-| typechecking          | [MyPy](doc:python-check-goal)                                                                                                                                                                                                                                                                                                    |
-| code generation       | [Protobuf](doc:protobuf-python) (including the `gRPC` and `MyPy` plugins), [Thrift](doc:thrift-python)                                                                                                                                                                                                                           |
-| packaging             | [`setuptools`](doc:python-distributions), [`pex`](doc:python-package-goal), [PyOxidizer](doc:pyoxidizer), [AWS lambda](doc:awslambda-python), [Google Cloud Function](doc:google-cloud-function-python)                                                                                                                          |
-| running a REPL        | `python`, [`iPython`](doc:python-repl-goal)                                                                                                                                                                                                                                                                                      |
+| dependency resolution | [`pip`](./third-party-dependencies.mdx)                                                                                                                                                                                                                                                                                     |
+| test running          | [`pytest`](../goals/test.mdx)                                                                                                                                                                                                                                                                                                 |
+| linting/formatting    | [`black`](reference:reference-black), [`yapf`](reference:reference-yapf), [`flake8`](reference:reference-flake8), [`docformatter`](reference:reference-docformatter), [`isort`](reference:reference-isort), [`pylint`](reference:reference-pylint), [`bandit`](reference:reference-bandit), [`autoflake`](reference:reference-autoflake), [`pyupgrade`](reference:reference-pyupgrade) |
+| typechecking          | [MyPy](../goals/check.mdx)                                                                                                                                                                                                                                                                                                    |
+| code generation       | [Protobuf](../integrations/protobuf-and-grpc.mdx) (including the `gRPC` and `MyPy` plugins), [Thrift](../integrations/thrift.mdx)                                                                                                                                                                                                                           |
+| packaging             | [`setuptools`](./building-distributions.mdx), [`pex`](../goals/package.mdx), [PyOxidizer](../integrations/pyoxidizer.mdx), [AWS lambda](../integrations/aws-lambda.mdx), [Google Cloud Function](../integrations/google-cloud-functions.mdx)                                                                                                                          |
+| running a REPL        | `python`, [`iPython`](../goals/repl.mdx)                                                                                                                                                                                                                                                                                      |
 
-There are also [goals](doc:project-introspection) for querying and understanding your dependency graph, and a robust [help system](doc:command-line-help). We're adding support for additional tools and features all the time, and it's straightforward to [implement your own](doc:plugins-overview).
+There are also [goals](../../using-pants/project-introspection.mdx) for querying and understanding your dependency graph, and a robust [help system](../../using-pants/command-line-help.mdx). We're adding support for additional tools and features all the time, and it's straightforward to [implement your own](../../writing-plugins/plugins-overview.mdx).
 
-- [Enabling Python support](doc:python-backend)
-- [Third-party dependencies](doc:python-third-party-dependencies)
-- [Interpreter compatibility](doc:python-interpreter-compatibility)
-- [Linters and formatters](doc:python-linters-and-formatters)
-- [Pex files](doc:pex-files)
-- [Building distributions](doc:python-distributions)
+- [Enabling Python support](./enabling-python-support.mdx)
+- [Third-party dependencies](./third-party-dependencies.mdx)
+- [Interpreter compatibility](./interpreter-compatibility.mdx)
+- [Linters and formatters](./linters-and-formatters.mdx)
+- [Pex files](./pex-files.mdx)
+- [Building distributions](./building-distributions.mdx)
+
+
+

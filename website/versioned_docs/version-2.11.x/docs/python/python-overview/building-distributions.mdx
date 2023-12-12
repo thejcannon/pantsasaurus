@@ -31,7 +31,7 @@ If there is no `pyproject.toml` with a `[build-system]` table available, Pants f
 
 ## The `python_distribution` target
 
-You configure a distribution using a [`python_distribution`](doc:reference-python_distribution) target. This target provides Pants with the information needed to build the distribution.
+You configure a distribution using a [`python_distribution`](reference:reference-python_distribution) target. This target provides Pants with the information needed to build the distribution.
 
 ### PEP 517
 
@@ -87,7 +87,7 @@ Running `./pants package example/dists:mydist` will cause Pants to run Setuptool
 
 :::note See `package` for other package formats
 
-    This page focuses on building sdists and wheels with the `./pants package` goal. See [package](doc:python-package-goal) for information on other formats that can be built with `./pants package`, such as PEX binaries and zip/tar archives.
+    This page focuses on building sdists and wheels with the `./pants package` goal. See [package](../goals/package.mdx) for information on other formats that can be built with `./pants package`, such as PEX binaries and zip/tar archives.
 
 :::
 
@@ -134,7 +134,7 @@ However, you cannot use `data_files`, `install_requires`, `namespace_packages`, 
 
 :::note Use the `entry_points` field to register entry points like `console_scripts`
 
-    The [`entry_points` field](doc:reference-python_distribution#codeentry_pointscode) allows you to configure [setuptools-style entry points](https://packaging.python.org/specifications/entry-points/#entry-points-specification):
+    The [`entry_points` field](reference:reference-python_distribution#codeentry_pointscode) allows you to configure [setuptools-style entry points](https://packaging.python.org/specifications/entry-points/#entry-points-specification):
 
     ```python
     python_distribution(
@@ -151,7 +151,7 @@ However, you cannot use `data_files`, `install_requires`, `namespace_packages`, 
 
     Pants will infer dependencies on each entry point, which you can confirm by running `./pants dependencies path/to:python_dist`.
 
-    In addition to using the format `path.to.module:func`, you can use an [address](doc:targets) to a `pex_binary` target, like `src/py/project:pex_binary` or `:sibling_pex_binary`. Pants will use the `entry_point` already specified by the `pex_binary`, and it will infer a dependency on the `pex_binary` target. This allows you to better DRY your project's entry points.
+    In addition to using the format `path.to.module:func`, you can use an [address](../../using-pants/key-concepts/targets-and-build-files.mdx) to a `pex_binary` target, like `src/py/project:pex_binary` or `:sibling_pex_binary`. Pants will use the `entry_point` already specified by the `pex_binary`, and it will infer a dependency on the `pex_binary` target. This allows you to better DRY your project's entry points.
 
 :::
 
@@ -163,7 +163,7 @@ However, you cannot use `data_files`, `install_requires`, `namespace_packages`, 
     - Read from the file system to dynamically determine kwargs, such as the `long_description` or `version`.
     - Run processes like Git to dynamically determine the `version` kwarg.
 
-    Start by reading about the [Plugin API](doc:plugins-overview), then refer to the [Custom `python_artifact()` kwargs](doc:plugins-setup-py) instructions.
+    Start by reading about the [Plugin API](../../writing-plugins/plugins-overview.mdx), then refer to the [Custom `python_artifact()` kwargs](../../writing-plugins/common-plugin-tasks/custom-`python-artifact()`-kwargs.mdx) instructions.
 
 :::
 
@@ -213,4 +213,7 @@ The generated `setup.py` will have its `install_requires` set to include the 3rd
 
 :::
 
-> See [publish](doc:python-publish-goal) for example support publishing distributions using Twine.
+> See [publish](../goals/publish.mdx) for example support publishing distributions using Twine.
+
+
+

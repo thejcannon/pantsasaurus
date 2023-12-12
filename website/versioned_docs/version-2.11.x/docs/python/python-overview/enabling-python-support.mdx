@@ -15,7 +15,7 @@ How to enable Pants's bundled Python backend package.
 
 :::
 
-Enable the Python [backend](doc:enabling-backends) like this:
+Enable the Python [backend](../../using-pants/key-concepts/backends.mdx) like this:
 
 ```toml title="pants.toml"
 [GLOBAL]
@@ -25,9 +25,9 @@ backend_packages = [
 ]
 ```
 
-Pants use [`python_source`](doc:reference-python_source) and [`python_test`](doc:reference-python_test) targets to know which Python files to run on and to set any metadata.
+Pants use [`python_source`](reference:reference-python_source) and [`python_test`](reference:reference-python_test) targets to know which Python files to run on and to set any metadata.
 
-To reduce boilerplate, the [`python_sources`](doc:reference-python_sources) target generates a `python_source` target for each file in its `sources` field, and [`python_tests`](doc:reference-python_tests) generates a `python_test` target for each file in its `sources` field.
+To reduce boilerplate, the [`python_sources`](reference:reference-python_sources) target generates a `python_source` target for each file in its `sources` field, and [`python_tests`](reference:reference-python_tests) generates a `python_test` target for each file in its `sources` field.
 
 ```python title="BUILD"
 python_sources(name="lib", sources=["dirutil.py", "strutil.py"])
@@ -43,7 +43,7 @@ python_sources(name="lib")
 python_tests(name="tests")
 ```
 
-You can generate these targets by running [`./pants tailor`](doc:initial-configuration#5-generate-build-files).
+You can generate these targets by running [`./pants tailor`](../../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files).
 
 ```
 ❯ ./pants tailor
@@ -90,4 +90,7 @@ Created project/BUILD:
 
 :::
 
-> See [here](doc:python-interpreter-compatibility#changing-the-interpreter-search-path) for more information.
+> See [here](./interpreter-compatibility.mdx#changing-the-interpreter-search-path) for more information.
+
+
+

@@ -91,7 +91,7 @@ python_requirements(source="reqs.txt")
 
     In smaller repositories that only use Python, it's often convenient to put the file at the "build root" (top-level), as used on this page.
 
-    For larger repositories or multilingual repositories, it's often useful to have a `3rdparty` or `3rdparty/python` directory. Rather than the target's address being `//:reqs#my_requirement`, its address would be `3rdparty/python:reqs#my_requirement`, for example; or `3rdparty/python#my_requirement` if you leave off the `name` field for `python_requirements`. See [Target Generation](doc:targets#target-generation).
+    For larger repositories or multilingual repositories, it's often useful to have a `3rdparty` or `3rdparty/python` directory. Rather than the target's address being `//:reqs#my_requirement`, its address would be `3rdparty/python:reqs#my_requirement`, for example; or `3rdparty/python#my_requirement` if you leave off the `name` field for `python_requirements`. See [Target Generation](../../using-pants/key-concepts/targets-and-build-files.mdx#target-generation).
 
 :::
 
@@ -136,7 +136,7 @@ See the section "Lockfiles" below for how you can also hook up `poetry.lock` to 
 
 ## How dependencies are chosen
 
-Once Pants knows about your "universe"(s) of dependencies, it determines which subset should be used through [dependency inference](https://blog.pantsbuild.org/dependency-inference/). Pants will read your import statements, like `import django`, and map it back to the relevant `python_requirement` target. Run [`./pants dependencies path/to/file.py`](doc:project-introspection) or `./pants dependencies path/to:target` to confirm this works.
+Once Pants knows about your "universe"(s) of dependencies, it determines which subset should be used through [dependency inference](https://blog.pantsbuild.org/dependency-inference/). Pants will read your import statements, like `import django`, and map it back to the relevant `python_requirement` target. Run [`./pants dependencies path/to/file.py`](../../using-pants/project-introspection.mdx) or `./pants dependencies path/to:target` to confirm this works.
 
 If dependency inference does not work—such as because it's a runtime dependency you do not import—you can explicitly add the `python_requirement` target to the `dependencies` field, like this:
 
@@ -273,7 +273,7 @@ poetry_requirements(
 )
 ```
 
-If you want the same requirement to show up in multiple resolves, use the [`parametrize`](doc:targets) mechanism.
+If you want the same requirement to show up in multiple resolves, use the [`parametrize`](../../using-pants/key-concepts/targets-and-build-files.mdx) mechanism.
 
 ```python title="BUILD"
 # The same requirement in multiple resolves:
@@ -319,7 +319,7 @@ pex_binary(
 )
 ```
 
-If a first-party target is compatible with multiple resolves—such as some utility code—you can either use the [`parametrize` mechanism](doc:targets) with the `resolve` field or create distinct targets for the same entity.
+If a first-party target is compatible with multiple resolves—such as some utility code—you can either use the [`parametrize` mechanism](../../using-pants/key-concepts/targets-and-build-files.mdx) with the `resolve` field or create distinct targets for the same entity.
 
 All transitive dependencies of a target must use the same resolve. Pants's dependency inference already handles this for you by only inferring dependencies on targets that share the same resolve. If you incorrectly add a target from a different resolve to the `dependencies` field, Pants will error with a helpful message when building your code with goals like `test`, `package`, and `run`.
 
@@ -569,7 +569,7 @@ Indexes are assumed to have a nested structure (like [http://pypi.org/simple](ht
 
 To authenticate to these custom repos you may need to provide credentials (such as a username and password) in the URL, that you don't want to expose in your checked-in pants.toml file. Instead you can do one of the following:
 
-Create a private (not checked-in) [.pants.rc file](doc:options#pantsrc-file) in each user's Pants repo, that sets this config for the user:
+Create a private (not checked-in) [.pants.rc file](../../using-pants/key-concepts/options.mdx#pantsrc-file) in each user's Pants repo, that sets this config for the user:
 
 ```toml title=".pants.rc"
 [python-repos]
@@ -585,4 +585,9 @@ $ ./pants package ::
 
 ## Tip: use `./pants export` to create a virtual environment for IDEs
 
-See [Setting up an IDE](doc:setting-up-an-ide) for more information on `./pants export`. This will create a virtual environment for your user code for compatibility with the rest of the Python ecosystem, e.g. IDEs like Pycharm.
+See [Setting up an IDE](../../using-pants/setting-up-an-ide.mdx) for more information on `./pants export`. This will create a virtual environment for your user code for compatibility with the rest of the Python ecosystem, e.g. IDEs like Pycharm.
+
+
+
+
+

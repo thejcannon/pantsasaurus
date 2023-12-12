@@ -13,7 +13,7 @@ In such cases, users are typically still able to access internal proxies and ser
 
 ## Installing Pants
 
-The `pants` launcher from [Installing Pants](doc:installation) uses GitHub Releases to download and install a PEX including Pants and all its dependencies.
+The `pants` launcher from [Installing Pants](../getting-started/getting-started/installing-pants.mdx) uses GitHub Releases to download and install a PEX including Pants and all its dependencies.
 
 If you cannot access GitHub directly, you will need to follow the instructions for firewalls/restricted internet access for [the launcher itself](https://github.com/pantsbuild/scie-pants).
 
@@ -59,7 +59,7 @@ Pants downloads the various Python-related tools it uses from [PyPI](https://pyp
 
 If you use Python but cannot access PyPI directly, then you probably have an internal mirror or a custom Python package repository. So all you have to do is configure Pants to access this custom repository, and ensure that the tools it needs are available there.
 
-See [Python third-party dependencies](doc:python-third-party-dependencies#custom-repositories) for instructions on how to set up Pants to access a custom Python package repository.
+See [Python third-party dependencies](../python/python-overview/third-party-dependencies.mdx#custom-repositories) for instructions on how to set up Pants to access a custom Python package repository.
 
 ### JVM tools
 
@@ -67,7 +67,7 @@ Pants downloads the various JVM-related tools it uses from Maven Central, just a
 
 If you use JVM code but cannot access Maven Central directly, then you probably have an internal mirror or a custom JVM package repository. So all you have to do is configure Pants to access this custom repository, and ensure that the tools it needs are available there.
 
-To do so, set the [`repos`](doc:reference-coursier#section-repos) option on the `[coursier]` scope. E.g.,
+To do so, set the [`repos`](reference:reference-coursier#section-repos) option on the `[coursier]` scope. E.g.,
 
 ```text title="pants.toml"
 [coursier]
@@ -84,7 +84,7 @@ The platform name used to replace the `{platform}` placeholder can be modified u
 
 This is best understood by looking at an example:
 
-`pants help-advanced protoc` (or its [online equivalent](doc:reference-protoc#advanced-options)) shows that the default URL template is `https://github.com/protocolbuffers/protobuf/releases/download/v{version}/protoc-{version}-{platform}.zip`.
+`pants help-advanced protoc` (or its [online equivalent](reference:reference-protoc#advanced-options)) shows that the default URL template is `https://github.com/protocolbuffers/protobuf/releases/download/v{version}/protoc-{version}-{platform}.zip`.
 
 - We see the `version` option is set to `3.11.4`.
 - We are running on macOS ARM, so look up `macos_arm64` in the `url_platform_mapping` option and find the string `osx-x86_64`.
@@ -107,6 +107,7 @@ Occasionally, new Pants releases will upgrade to new versions of these binaries,
 
     It's possible that Pants does not yet have all the mechanisms it'll need to work with your organization's specific networking setup, which we'd love to fix.
 
-    Please reach out on [Slack](doc:the-pants-community) or open a [GitHub issue](https://github.com/pantsbuild/pants/issues) for any help.
+    Please reach out on [Slack](../getting-help/the-pants-community/index.mdx) or open a [GitHub issue](https://github.com/pantsbuild/pants/issues) for any help.
 
 :::
+

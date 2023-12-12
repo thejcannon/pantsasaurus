@@ -46,6 +46,7 @@
   "python-fmt-goal": "docs/python/goals/fmt.mdx",
   "python-lint-goal": "docs/python/goals/lint.mdx",
   "python-package-goal": "docs/python/goals/package.mdx",
+  "python-publish-goal": "docs/python/goals/publish.mdx",
   "python-repl-goal": "docs/python/goals/repl.mdx",
   "python-run-goal": "docs/python/goals/run.mdx",
   "python-test-goal": "docs/python/goals/test.mdx",

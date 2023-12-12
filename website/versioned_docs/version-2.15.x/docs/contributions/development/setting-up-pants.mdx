@@ -44,7 +44,7 @@ You can manually run the pre-commit check with:
 $ build-support/githooks/pre-commit
 ```
 
-The [Rust-compilation](doc:contributions-rust) affecting `MODE` flag is passed through to the hooks, so to run the commit hooks in "debug" mode, you can do something like:
+The [Rust-compilation](./developing-rust.mdx) affecting `MODE` flag is passed through to the hooks, so to run the commit hooks in "debug" mode, you can do something like:
 
 ```bash
 $ MODE=debug git commit ...
@@ -114,3 +114,4 @@ Add this to your `settings.json` file inside the build root's `.vscode` folder:
 ```
 
 `python.analysis.extraPaths` lets VSCode know where to find Pants's source root. The other config enables `black` and `flake8`.
+
