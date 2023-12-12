@@ -8,11 +8,7 @@ How to safely run subprocesses in your plugin.
 ---
 
 It is not safe to use `subprocess.run()` like you normally would because this can break caching and will not leverage Pants's parallelism. Instead, Pants has safe alternatives with `Process` and `InteractiveProcess`.
-[block:api-header]
-{
-  "title": "`Process`"
-}
-[/block]
+## `Process`
 `Process` is similar to `subprocess.Popen()`. The process will run in the background, and you can run multiple processes in parallel.
 
 ```python
@@ -37,25 +33,43 @@ This will return a `ProcessResult` object, which has the fields `stdout: bytes`,
 The process will run in a temporary directory and is hermetic, meaning that it cannot read any arbitrary file from your project and that it will be stripped of environment variables. This sandbox is important for reproducibility and to allow running your `Process` anywhere, such as through remote execution.
 
 To populate the temporary directory with files, use the parameter `input_digest: Digest`. It's common to use [`MergeDigests`](docs:rules-api-file-system) to combine multiple `Digest`s into one single `input_digest`.
-[block:callout]
-{
-  "type": "info",
-  "body": "Setting the [`--no-process-execution-cleanup-local-dirs`](docs:rules-api-tips#debugging-look-inside-the-chroot) flag will cause the sandboxes of `Process`es to be preserved and logged to the console for inspection.\n\nIt can be very helpful while editing `Process` definitions!",
-  "title": "Debugging a `Process`"
-}
-[/block]
+
+:::note Debugging a `Process`
+Setting the [`--no-process-execution-cleanup-local-dirs`](docs:rules-api-tips#debugging-look-inside-the-chroot) flag will cause the sandboxes of `Process`es to be preserved and logged to the console for inspection.
+
+It can be very helpful while editing `Process` definitions!
+
+:::
+
 To set environment variables, use the parameter `env: Mapping[str, str]`. You generally should not read from `os.environ` because this reduces reproducibility and breaks caching. Instead, hardcode the value or add a [`Subsystem` option](doc:rules-api-subsystems) for the environment variable in question.
 
 To capture output files from the process, set `output_files: Iterable[str]` and/or `output_directories: Iterable[str]`. Then, you can use the `ProcessResult.output_digest` field to get a [`Digest`](docs:rules-api-file-system) of the result.
 
 To use a timeout, set the `timeout_fields: int` field. Otherwise, the process will never time out, unless the user cancels Pants.
-[block:callout]
-{
-  "type": "info",
-  "title": "`Process` caching",
-  "body": "By default, a `Process` will be cached to `~/.cache/pants/lmdb_store` if the `exit_code` is `0`.\n\nIf it not safe to cache your `Process`—usually the case when you know that a process accesses files outside of its sandbox—you can change the cacheability of your `Process` using the `ProcessCacheScope` parameter:\n\n```python\nfrom pants.engine.process import Process, ProcessCacheScope, ProcessResult\n\n@rule\nasync def demo(...) -> Foo:\n    process = Process(\n        argv=[\"/bin/echo\", \"hello world\"],\n        description=\"Never cached.\",\n        env=env,\n        cache_scope=ProcessCacheScope.NEVER,\n    )\n    ..\n```\n\n`ProcessCacheScope` supports other options as well, including `PER_RESTART`."
-}
-[/block]
+
+:::note `Process` caching
+By default, a `Process` will be cached to `~/.cache/pants/lmdb_store` if the `exit_code` is `0`.
+
+If it not safe to cache your `Process`—usually the case when you know that a process accesses files outside of its sandbox—you can change the cacheability of your `Process` using the `ProcessCacheScope` parameter:
+
+```python
+from pants.engine.process import Process, ProcessCacheScope, ProcessResult
+
+@rule
+async def demo(...) -> Foo:
+    process = Process(
+        argv=["/bin/echo", "hello world"],
+        description="Never cached.",
+        env=env,
+        cache_scope=ProcessCacheScope.NEVER,
+    )
+    ..
+```
+
+`ProcessCacheScope` supports other options as well, including `PER_RESTART`.
+
+:::
+
 ### FallibleProcessResult
 
 Normally, a `ProcessResult` will raise an exception if the return code is not `0`. Instead, a `FallibleProcessResult` allows for any return code.
@@ -63,11 +77,7 @@ Normally, a `ProcessResult` will raise an exception if the return code is not `0
 Use `Get(FallibleProcessResult, Process)` if you expect that the process may fail, such as when running a linter or tests.
 
 Like `ProcessResult`, `FallibleProcessResult` has the attributes `stdout: bytes`, `stderr: bytes`, and `output_digest: Digest`, and it adds `exit_code: int`.
-[block:api-header]
-{
-  "title": "`InteractiveProcess`"
-}
-[/block]
+## `InteractiveProcess`
 `InteractiveProcess` is similar to `subprocess.run()`. The process will run in the foreground and it is blocking. 
 
 Because the process is blocking, you may only run an `InteractiveProcess` in an [`@goal_rule`](doc:rules-api-goal-rules). Your `@goal_rule` must request `InteractiveRunner`, and then use its method `.run()`. Typically, you should only use `InteractiveProcess` for things that may require user input, such as running a REPL.

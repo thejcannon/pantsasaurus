@@ -7,35 +7,43 @@ Pants's support for Golang.
 
 ---
 
-> 🚧 Go support is beta stage
->
-> We are done implementing the initial core functionality for Pants's initial Go support ([tracked here](https://github.com/pantsbuild/pants/projects/21)). However, there may be some edge cases we aren't yet handling. There are also some features that are not yet supported like Cgo files and vendoring, which we'd love your input on how to prioritize!
->
-> Please share feedback for what you need to use Pants with your Go project by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](doc:community)!
 
-> 👍 Why use Pants with Go?
->
-> Go's builtin tooling is already excellent! Many projects may be fine only using Go's tooling, although Pants offers some unique benefits:
->
-> - A consistent interface for all languages/tools in your repository, such as being able to run `./pants fmt lint check test package`.
-> - Integration with Git, such as running `./pants --changed-since=HEAD test`.
-> - Caching, such as caching test results on a per-package basis.
-> - [Remote execution and remote caching](doc:remote-caching-execution).
-> - [Advanced project introspection](doc:project-introspection), such as finding all code that transitively depends on a certain package.
+:::caution Go support is beta stage
 
-> 📘 Example Go repository
->
-> Check out [github.com/pantsbuild/example-golang](https://github.com/pantsbuild/example-golang) to try out Pants's Go support.
+    We are done implementing the initial core functionality for Pants's initial Go support ([tracked here](https://github.com/pantsbuild/pants/projects/21)). However, there may be some edge cases we aren't yet handling. There are also some features that are not yet supported like Cgo files and vendoring, which we'd love your input on how to prioritize!
+    
+    Please share feedback for what you need to use Pants with your Go project by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](doc:community)!
+:::
 
-> 🚧 Assumes you're using a single Go module
->
-> We do not yet support multiple first-party Go modules. If you are using multiple modules, we invite you to share your use case on <https://github.com/pantsbuild/pants/issues/13114>. (For example, if you are using a `replace` directive.)
+
+:::tip Why use Pants with Go?
+
+    Go's builtin tooling is already excellent! Many projects may be fine only using Go's tooling, although Pants offers some unique benefits:
+    
+    - A consistent interface for all languages/tools in your repository, such as being able to run `./pants fmt lint check test package`.
+    - Integration with Git, such as running `./pants --changed-since=HEAD test`.
+    - Caching, such as caching test results on a per-package basis.
+    - [Remote execution and remote caching](doc:remote-caching-execution).
+    - [Advanced project introspection](doc:project-introspection), such as finding all code that transitively depends on a certain package.
+:::
+
+
+:::note Example Go repository
+
+    Check out [github.com/pantsbuild/example-golang](https://github.com/pantsbuild/example-golang) to try out Pants's Go support.
+:::
+
+
+:::caution Assumes you're using a single Go module
+
+    We do not yet support multiple first-party Go modules. If you are using multiple modules, we invite you to share your use case on [https://github.com/pantsbuild/pants/issues/13114](https://github.com/pantsbuild/pants/issues/13114). (For example, if you are using a `replace` directive.)
+:::
 
 ## Initial setup
 
 First, activate the Go backend and set the expected Go version in `pants.toml`:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 backend_packages = ["pants.backend.experimental.go"]
 
@@ -83,9 +91,11 @@ pkg/deploy:deploy
 pkg/runner:runner
 ```
 
-> 🚧 `go.mod` and `go.sum` need to be up-to-date
->
-> Pants does not yet update your `go.mod` and `go.sum` for you; it only reads these files when downloading modules. Run `go mod download all` to make sure these files are correct.
+
+:::caution `go.mod` and `go.sum` need to be up-to-date
+
+    Pants does not yet update your `go.mod` and `go.sum` for you; it only reads these files when downloading modules. Run `go mod download all` to make sure these files are correct.
+:::
 
 ### The `embed` directive and `resource` targets
 
@@ -96,13 +106,13 @@ To use the [`embed` directive](https://pkg.go.dev/embed), you must first teach P
 
 For example:
 
-```python pkg/runner/BUILD
+```python title="pkg/runner/BUILD"
 go_package(dependencies=[":embeds"])
 
 resources(name="embeds", sources=["hello.txt"])
 ```
 
-```go pkg/runner/lib.go
+```go title="pkg/runner/lib.go"
 package runner
 
 import _ "embed"
@@ -112,7 +122,7 @@ var s string
 print(s)
 ```
 
-```text pkg/runner/hello.txt
+```text title="pkg/runner/hello.txt"
 Hello world!
 ```
 
@@ -139,7 +149,7 @@ You can also package your binaries (aka `go build`) by using `./pants package`. 
 
 By default, Pants names the binary with the scheme `path.to.directory/target_name`, e.g. `cmd.deploy/bin`. You can set the field `output_path` to use a different name:
 
-```go cmd/deploy/BUILD
+```go title="cmd/deploy/BUILD"
 go_binary(name="bin", output_path="deploy")
 ```
 
@@ -181,13 +191,13 @@ You can pass through arguments with `--`, e.g. `./pants test pkg/deploy: -- -v -
 
 To open files in your tests, use [`file` / `files` targets](doc:assets) targets and add them as `dependencies` to your `go_package`.
 
-```python pkg/runner/BUILD
+```python title="pkg/runner/BUILD"
 go_package(dependencies=[":testdata"])
 
 files(name="testdata", sources=["testdata/*"])
 ```
 
-```go pkg/runner/foo_test.go
+```go title="pkg/runner/foo_test.go"
 package foo
 
 import (
@@ -203,7 +213,7 @@ func TestFilesAvailable(t *testing.T) {
 }
 ```
 
-```text pkg/runner/testdata/f.txt
+```text title="pkg/runner/testdata/f.txt"
 "Hello world!"
 ```
 
@@ -215,7 +225,7 @@ Pants can cancel tests that take too long, which is useful to prevent tests from
 
 To add a timeout, set the `test_timeout` field to an integer value of seconds, like this:
 
-```python BUILD
+```python title="BUILD"
 go_package(test_timeout=120)
 ```
 
@@ -239,7 +249,7 @@ Gofmt is activated by default when you activate the Go backend. Simply run `./pa
 
 If you'd like to disable Gofmt, set this:
 
-```go pants.toml
+```go title="pants.toml"
 [gofmt]
 skip = true
 ```

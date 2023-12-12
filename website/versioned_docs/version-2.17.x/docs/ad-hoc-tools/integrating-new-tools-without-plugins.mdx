@@ -4,7 +4,7 @@ title: Integrating new tools without plugins
 
 ---
 
-# Integrating new tools without plugins
+## Integrating new tools without plugins
 
 The `adhoc_tool` target allows you to execute "runnable" targets inside the Pants sandbox. Runnable targets include first-party sources that can be run with `pants run`, 3rd-party dependencies like `python_requirement` or `jvm_artifact`, or even executables that exist on your system and managed externally to Pants.
 
@@ -27,21 +27,25 @@ adhoc_tool(
 )
 ```
 
-## `runnable` targets
+### `runnable` targets
 
 "Runnable" targets are targets that Pants knows how to execute within its sandbox. Generally, these correspond to targets that can be executed with the `pants run` goal, and include first-party source files, as well as third-party dependencies.
 
 The tool will be run with values from `args` specified as arguments. By default, the process' working directory will be the directory where the `BUILD` file is defined. This can be adjusted using the `workdir` field.
 
-> 🚧 `runnable` targets must be pure functions
->
-> When run by `adhoc_tool`, Pants assumes that the inputs provided to the process -- that is, the values of the `adhoc_tool`'s fields, and the contents of the runnable and execution dependencies -- fully describe the output. Output values will be [cached](doc:how-does-pants-work#caching) by Pants, and future invocations with identical inputs will be retrieved from the cache instead of being re-executed. If your process has behavior that is not fully defined by its inputs, Pants' behavior may be unexpected or inconsistent.
 
-> 🚧 `runnable` targets must be idempotent
->
-> `adhoc_tool` processes may be cancelled or retried any number of times, so it is important that any side effects are idempotent. That is, it should not matter if it is run several times, or only partially.
+:::caution `runnable` targets must be pure functions
 
-## Specifying dependencies
+    When run by `adhoc_tool`, Pants assumes that the inputs provided to the process -- that is, the values of the `adhoc_tool`'s fields, and the contents of the runnable and execution dependencies -- fully describe the output. Output values will be [cached](doc:how-does-pants-work#caching) by Pants, and future invocations with identical inputs will be retrieved from the cache instead of being re-executed. If your process has behavior that is not fully defined by its inputs, Pants' behavior may be unexpected or inconsistent.
+:::
+
+
+:::caution `runnable` targets must be idempotent
+
+    `adhoc_tool` processes may be cancelled or retried any number of times, so it is important that any side effects are idempotent. That is, it should not matter if it is run several times, or only partially.
+:::
+
+### Specifying dependencies
 
 `adhoc_tool` has more complexity surrounding dependencies compared with Pants' first-class targets. This is because you need to do manual work to set up the execution environment, which is usually taken care of by plugin code.
 
@@ -53,7 +57,7 @@ The tool will be run with values from `args` specified as arguments. By default,
 
 In the `antlr` example, `output_dependencies` is used because the tool produces Python-based bindings that depend on a runtime library. `execution_dependencies` specifies the sources that are consumed by the tool, but do not need to be consumed by subsequent build steps.
 
-## Specifying outputs
+### Specifying outputs
 
 Generally, `adhoc_tool` targets are run to produce outputs that can be supplied to other targets. These can be in the form of files or directories that are output directly by the tools: use the `output_files` field to capture individual files, or `output_directories` to capture entire directories as output.
 
@@ -61,7 +65,7 @@ Files are captured relative to the build root by default: this is useful when pa
 
 Finally, if you want to capture `stdout` or `stderr` from your tool, you can use the `stdout` or `stderr` fields. These specify filenames where those streams will be dumped once the process completes. Note that these files are specified in addition to those from the `output_files` field, and an error will occur if the filename occurs in the outputs arising from `output_files` or `output_directories` and the contents of that file are different.
 
-## Chaining processes together
+### Chaining processes together
 
 _Our [JavaScript demo](https://github.com/pantsbuild/example-adhoc/tree/main/javascript) demonstrates a string of `adhoc_tool` targets that's used to produce a resource file._
 
@@ -69,7 +73,7 @@ To get the best cache efficiency, it can make sense to break your `adhoc_tool` i
 
 Generally, if you are chaining `adhoc_tool` targets together , it will be easier to use the default `workdir` and `root_output_directory` fields for each step that will be consumed by an `adhoc_tool` in the same `BUILD` file. Change the `root_output_directory` only for targets that are intended to be used in other places or ways.
 
-## Wrapping generated sources for use by other targets
+### Wrapping generated sources for use by other targets
 
 _Our [Antlr demo](https://github.com/pantsbuild/example-adhoc/tree/main/antlr) demonstrates wrapping the outputs of `adhoc_tool` targets for use as Python sources._
 
@@ -77,7 +81,7 @@ _Our [Antlr demo](https://github.com/pantsbuild/example-adhoc/tree/main/antlr) d
 
 There are several targets included in Pants with the prefix `experimental_wrap_as_`. These act as a source target that can be used as a dependency in a given language backend, with the caveat that dependency inference is not available.
 
-## Using externally-managed tools
+### Using externally-managed tools
 
 _Our [JavaScript demo](https://github.com/pantsbuild/example-adhoc/tree/main/javascript) demonstrates the use of externally-managed binaries._
 
@@ -87,7 +91,7 @@ Some build processes need to make use of tools that can't be modeled within a Pa
 
 When specified as a `runnable_dependency`, the binary will be available on the `PATH` with the target name of the dependency. This can be important if the `runnable` field invokes a subprocess (for example, `yarn` tries to invoke a binary called `node` as its interpreter).
 
-## Running shell scripts
+### Running shell scripts
 
 Currently, `shell_source` targets are not runnable. In the meantime, it is possible to run a shell script as an `adhoc_tool` through the following approach:
 

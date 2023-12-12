@@ -16,7 +16,7 @@ Step 1: Activate the backend
 
 Add this to your `pants.toml`:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 backend_packages.add = [
   "pants.backend.experimental.python.packaging.pyoxidizer",
@@ -26,11 +26,13 @@ backend_packages.add = [
 
 This adds the new `pyoxidizer_binary` target, which you can confirm by running `pants help pyoxidizer_binary`.
 
-> 🚧 This backend is experimental
-> 
-> We are still discovering the best ways to provide PyOxidizer support, such as how to make our [default template more useful](https://github.com/pantsbuild/pants/pull/14183/files#r788253973). This backend does not follow the normal [deprecation policy](doc:deprecation-policy), although we will do our best to minimize breaking changes.
-> 
-> We would [love your feedback](doc:getting-help) on this backend!
+
+:::caution This backend is experimental
+
+    We are still discovering the best ways to provide PyOxidizer support, such as how to make our [default template more useful](https://github.com/pantsbuild/pants/pull/14183/files#r788253973). This backend does not follow the normal [deprecation policy](doc:deprecation-policy), although we will do our best to minimize breaking changes.
+    
+    We would [love your feedback](doc:getting-help) on this backend!
+:::
 
 Step 2: Define a `python_distribution` target
 ---------------------------------------------
@@ -39,7 +41,7 @@ The `pyoxidizer_binary` target works by pointing to a `python_distribution` targ
 
 So, to get started, create a `python_distribution` target per [Building distributions](doc:python-distributions). 
 
-```python project/BUILD
+```python title="project/BUILD"
 python_sources(name="lib")
 
 python_distribution(
@@ -56,7 +58,7 @@ Step 3: Define a `pyoxidizer_binary` target
 
 Now, create a `pyoxidizer_binary` target and set the `dependencies` field to the [address](doc:targets) of the `python_distribution` you created previously.
 
-```python project/BUILD
+```python title="project/BUILD"
 pyoxidizer_binary(
     name="bin",
     dependencies=[":dist"],
@@ -115,29 +117,35 @@ Hello, world!
 
 By default, with the `package` goal, Pants will write the package using this scheme: `dist/{path.to.tgt_dir}/{tgt_name}/{platform}/{debug,release}/install/{tgt_name}`. You can change the first part of this path by setting the `output_path` field, although you risk name collisions with other `pyoxidizer_binary` targets in your project. See [pyoxidizer_binary](doc:reference-pyoxidizer_binary) for more info.
 
-> 🚧 `debug` vs `release` builds
-> 
-> By default, PyOxidizer will build with Rust's "debug" mode, which results in much faster compile times but means that your binary will be slower to run. Instead, you can instruct PyOxidizer to build in [release mode](https://nnethercote.github.io/perf-book/build-configuration.html#release-builds) by adding this to `pants.toml`:
-> 
-> ```toml
-> [pyoxidizer]
-> args = ["--release"]
-> ```
-> 
-> Or by using the command line flag `pants --pyoxidizer-args='--release' package path/to:tgt`.
+
+:::caution `debug` vs `release` builds
+
+    By default, PyOxidizer will build with Rust's "debug" mode, which results in much faster compile times but means that your binary will be slower to run. Instead, you can instruct PyOxidizer to build in [release mode](https://nnethercote.github.io/perf-book/build-configuration.html#release-builds) by adding this to `pants.toml`:
+    
+    ```toml
+    [pyoxidizer]
+    args = ["--release"]
+    ```
+    
+    Or by using the command line flag `pants --pyoxidizer-args='--release' package path/to:tgt`.
+:::
 
 Advanced use cases
 ------------------
 
-> 👍 Missing functionality? Let us know!
-> 
-> We would like to keep improving Pants's PyOxidizer support. We encourage you to let us know what features are missing through [Slack or GitHub](doc:getting-help)!
 
-> 🚧 `[python-repos]` not yet supported for custom indexes
-> 
-> Currently, PyOxidizer can only resolve dependencies from PyPI and your first-party code. If you need support for custom indexes, please let us know by commenting on <https://github.com/pantsbuild/pants/issues/14619>. 
-> 
-> (We'd be happy to help mentor someone through this change, although please still comment either way!)
+:::tip Missing functionality? Let us know!
+
+    We would like to keep improving Pants's PyOxidizer support. We encourage you to let us know what features are missing through [Slack or GitHub](doc:getting-help)!
+:::
+
+
+:::caution `[python-repos]` not yet supported for custom indexes
+
+    Currently, PyOxidizer can only resolve dependencies from PyPI and your first-party code. If you need support for custom indexes, please let us know by commenting on [https://github.com/pantsbuild/pants/issues/14619](https://github.com/pantsbuild/pants/issues/14619). 
+    
+    (We'd be happy to help mentor someone through this change, although please still comment either way!)
+:::
 
 ### `python_distribution`s that implicitly depend on each other
 
@@ -145,7 +153,7 @@ As explained at [Building distributions](doc:python-distributions#mapping-source
 
 When this happens, PyOxidizer would naively try installing that first-party dependency from PyPI, which will likely fail. Instead, include all relevant `python_distribution` targets in the `dependencies` field of the `pyoxidizer_binary` target.
 
-```python project/BUILD
+```python title="project/BUILD"
 python_sources(name="lib")
 
 python_distribution(
@@ -165,15 +173,15 @@ pyoxidizer_binary(
     dependencies=[":dist", "project/utils:dist"],
 )
 ```
-```python project/main.py
+```python title="project/main.py"
 from hellotest.utils.greeter import GREET
 
 print(GREET)
 ```
-```python project/utils/greeter.py
+```python title="project/utils/greeter.py"
 GREET = 'Hello world!'
 ```
-```python project/utils/BUILD
+```python title="project/utils/BUILD"
 python_sources(name="lib")
 
 python_distribution(

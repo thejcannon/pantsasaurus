@@ -70,13 +70,17 @@ To ignore something, prefix the argument with `-`. For example,
 `pants test :: -project/integration_tests` will run all your tests except for those in the  
 directory `project/integration_tests`.
 
-> 🚧 Set `[GLOBAL].use_deprecated_directory_cli_args_semantics = false` in `pants.toml`
-> 
-> This will become the default in Pants 2.14.
 
-> 📘 Tip: advanced target selection, such as running over changed files
-> 
-> See [Advanced target selection](doc:advanced-target-selection) for alternative techniques to specify which files/targets to run on.
+:::caution Set `[GLOBAL].use_deprecated_directory_cli_args_semantics = false` in `pants.toml`
+
+    This will become the default in Pants 2.14.
+:::
+
+
+:::note Tip: advanced target selection, such as running over changed files
+
+    See [Advanced target selection](doc:advanced-target-selection) for alternative techniques to specify which files/targets to run on.
+:::
 
 Goal options
 ------------

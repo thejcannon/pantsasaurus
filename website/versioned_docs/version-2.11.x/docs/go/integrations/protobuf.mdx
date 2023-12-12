@@ -8,27 +8,33 @@ How to generate Go from Protocol Buffers.
 
 When your Go code imports Protobuf generated files, Pants will detect the imports and run the Protoc compiler to generate then compile those files.
 
-> 📘 Example repository
->
-> See [the codegen example repository](https://github.com/pantsbuild/example-codegen) for an example of using Protobuf to generate Go.
 
-> 👍 Benefit of Pants: generated files are always up-to-date
->
-> With Pants, there's no need to manually regenerate your code or check it into version control. Pants will ensure you are always using up-to-date files in your builds.
->
-> Thanks to fine-grained caching, Pants will regenerate the minimum amount of code required when you do make changes.
+:::note Example repository
 
-> 🚧 `go mod tidy` will complain about missing modules
->
-> Because Pants does not save generated code to disk, `go mod tidy` will error that it cannot find the generated packages.
->
-> One workaround is to run `./pants export-codegen ::` to save the generated files.
+    See [the codegen example repository](https://github.com/pantsbuild/example-codegen) for an example of using Protobuf to generate Go.
+:::
+
+
+:::tip Benefit of Pants: generated files are always up-to-date
+
+    With Pants, there's no need to manually regenerate your code or check it into version control. Pants will ensure you are always using up-to-date files in your builds.
+    
+    Thanks to fine-grained caching, Pants will regenerate the minimum amount of code required when you do make changes.
+:::
+
+
+:::caution `go mod tidy` will complain about missing modules
+
+    Because Pants does not save generated code to disk, `go mod tidy` will error that it cannot find the generated packages.
+    
+    One workaround is to run `./pants export-codegen ::` to save the generated files.
+:::
 
 ## Step 1: Activate the Protobuf Go backend
 
 Add this to your `pants.toml`:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 backend_packages = [
   "pants.backend.experimental.codegen.protobuf.go",
@@ -40,7 +46,7 @@ This adds the new [`protobuf_source`](doc:reference-protobuf_source) target, whi
 
 To reduce boilerplate, you can also use the [`protobuf_sources`](doc:reference-protobuf_sources) target, which generates one `protobuf_source` target per file in the `sources` field.
 
-```python BUILD
+```python title="BUILD"
 protobuf_sources(name="protos", sources=["user.proto", "admin.proto"])
 
 # Spiritually equivalent to:
@@ -55,7 +61,7 @@ protobuf_sources(name="protos")
 
 The generated Go code requires `google.golang.org/protobuf` to compile. Add it to your `go.mod` with the version you'd like. Then run `go mod download all` to update your `go.sum`.
 
-```text go.mod
+```text title="go.mod"
 require google.golang.org/protobuf v1.27.1
 ```
 
@@ -63,7 +69,7 @@ require google.golang.org/protobuf v1.27.1
 
 Every Protobuf file that should work with Go must set `option go_package` with the name of its Go package. For example:
 
-```text src/protos/example/v1/person.proto
+```text title="src/protos/example/v1/person.proto"
 syntax = "proto3";
 
 package simple_example.v1;
@@ -87,7 +93,7 @@ Pants will use [dependency inference](doc:targets) for any `import` statements i
 
 If you want gRPC code generated for all files in the folder, set `grpc=True`.
 
-```python src/proto/example/BUILD
+```python title="src/proto/example/BUILD"
 protobuf_sources(
     name="protos",
     grpc=True,
@@ -96,7 +102,7 @@ protobuf_sources(
 
 If you only want gRPC generated for some files in the folder, you can use the `overrides` field:
 
-```python src/proto/example/BUILD
+```python title="src/proto/example/BUILD"
 protobuf_sources(
     name="protos",
     overrides={
@@ -111,7 +117,7 @@ protobuf_sources(
 
 Now, you can import the generated Go package in your Go code like normal, using whatever you set with `option go_package` from Step 3.
 
-```go src/go/examples/proto_test.go
+```go title="src/go/examples/proto_test.go"
 package examples
 
 import "testing"
@@ -131,11 +137,13 @@ func TestGenerateUuid(t *testing.T) {
 
 Pants's dependency inference will detect Go imports of Protobuf packages, which you can confirm by running `./pants dependencies path/to/file.go`. You can also run `./pants check path/to/file.go` to confirm that everything compiles.
 
-> 📘 Run `./pants export-codegen ::` to inspect the files
->
-> `./pants export-codegen ::` will run all relevant code generators and write the files to `dist/codegen` using the same paths used normally by Pants.
->
-> You do not need to run this goal for codegen to work when using Pants; `export-codegen` is only for external consumption outside of Pants, e.g. to get `go mod tidy` working.
+
+:::note Run `./pants export-codegen ::` to inspect the files
+
+    `./pants export-codegen ::` will run all relevant code generators and write the files to `dist/codegen` using the same paths used normally by Pants.
+    
+    You do not need to run this goal for codegen to work when using Pants; `export-codegen` is only for external consumption outside of Pants, e.g. to get `go mod tidy` working.
+:::
 
 ## Buf: format and lint Protobuf
 
@@ -143,7 +151,7 @@ Pants integrates with the [`Buf`](https://buf.build/blog/introducing-buf-format)
 
 To activate, add this to `pants.toml`:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 backend_packages = [
   "pants.backend.codegen.protobuf.lint.buf",

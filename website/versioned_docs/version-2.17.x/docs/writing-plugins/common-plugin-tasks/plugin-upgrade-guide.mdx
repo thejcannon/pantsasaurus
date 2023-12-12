@@ -314,7 +314,7 @@ The `convert_dir_literal_to_address_literal` keyword argument for `RawSpecs.crea
 2.14
 ----
 
-See <https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.14.x.md> for the changelog.
+See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.14.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.14.x.md) for the changelog.
 
 ### Removed second type parameter from `Get`
 
@@ -371,7 +371,7 @@ The functionality is the same, but can have better performance because we don't 
 2.13
 ----
 
-See <https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.13.x.md> for the changelog.
+See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.13.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.13.x.md) for the changelog.
 
 ### `AddressInput` and `UnparsedAddressInputs` require `description_of_origin`
 
@@ -455,7 +455,7 @@ You must now use a long option name when [defining options](doc:rules-api-subsys
 2.12
 ----
 
-See <https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.12.x.md> for the changelog.
+See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.12.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.12.x.md) for the changelog.
 
 ### Unified formatters
 
@@ -466,7 +466,7 @@ See [Add a formatter](doc:plugins-fmt-goal) for more information.
 2.11
 ----
 
-See <https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.11.x.md> for the changelog.
+See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.11.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.11.x.md) for the changelog.
 
 ### Deprecated `Subsystem.register_options()`
 
@@ -516,20 +516,20 @@ The functionality is the same, you only need to change your imports for types li
 
 ### Deprecated not implementing `TargetGenerator` in `GenerateTargetsRequest` implementors
 
-See <https://github.com/pantsbuild/pants/pull/14962> for an explanation and some examples of how to fix.
+See [https://github.com/pantsbuild/pants/pull/14962](https://github.com/pantsbuild/pants/pull/14962) for an explanation and some examples of how to fix.
 
 ### Replaced `GoalSubsystem.required_union_implementations` with `GoalSubsystem.activated()`
 
-See <https://github.com/pantsbuild/pants/pull/14313> for an explanation and some examples of how to fix.
+See [https://github.com/pantsbuild/pants/pull/14313](https://github.com/pantsbuild/pants/pull/14313) for an explanation and some examples of how to fix.
 
 2.10
 ----
 
-See <https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.10.x.md> for the changelog.
+See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.10.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.10.x.md) for the changelog.
 
 ### Rename `LintRequest` to `LintTargetsRequest`
 
-Pants 2.10 added a new `LintFilesRequest`, which allows you to run linters on code without any owning targets! <https://github.com/pantsbuild/pants/pull/14102>
+Pants 2.10 added a new `LintFilesRequest`, which allows you to run linters on code without any owning targets! [https://github.com/pantsbuild/pants/pull/14102](https://github.com/pantsbuild/pants/pull/14102)
 
 To improve clarity, we renamed `LintRequest` to `LintTargetsRequest`.
 
@@ -554,11 +554,11 @@ class MyPyRequest(CheckRequest):
 
 This change is what allowed us to add the `lint --only=flake8` feature.
 
-For DRY, it is a good idea to change the `formatter_name`, `linter_name`, and `checker_name` in `FmtResult`, `LintResults`, and `CheckResults`, respectively, to use `request.name` rather than hardcoding the string again. See <https://github.com/pantsbuild/pants/pull/14304> for examples.
+For DRY, it is a good idea to change the `formatter_name`, `linter_name`, and `checker_name` in `FmtResult`, `LintResults`, and `CheckResults`, respectively, to use `request.name` rather than hardcoding the string again. See [https://github.com/pantsbuild/pants/pull/14304](https://github.com/pantsbuild/pants/pull/14304) for examples.
 
 ### Removed `LanguageFmtTargets` for `fmt`
 
-When setting up a new language to be formatted, you used to have to copy and paste a lot of boilerplate like `ShellFmtTargets`. That's been fixed, thanks to <https://github.com/pantsbuild/pants/pull/14166>.
+When setting up a new language to be formatted, you used to have to copy and paste a lot of boilerplate like `ShellFmtTargets`. That's been fixed, thanks to [https://github.com/pantsbuild/pants/pull/14166](https://github.com/pantsbuild/pants/pull/14166).
 
 To fix your code:
 
@@ -567,39 +567,39 @@ To fix your code:
 
 ### `ReplImplementation` now passes root targets, not transitive closure
 
-We realized that it's useful to let REPL rules know what was specified vs. what is a transitive dependency: <https://github.com/pantsbuild/pants/pull/14323>.
+We realized that it's useful to let REPL rules know what was specified vs. what is a transitive dependency: [https://github.com/pantsbuild/pants/pull/14323](https://github.com/pantsbuild/pants/pull/14323).
 
 To adapt to this, you will want to use `transitive_targets = await Get(TransitiveTargets, TransitiveTargetsRequest(request.addresses)`, then operate on `transitive_targets.closure`.
 
 ### Removed `PexFromTargetsRequest.additional_requirements`
 
-Let us know if you were using this, and we can figure out how to add it back: <https://github.com/pantsbuild/pants/pull/14350>.
+Let us know if you were using this, and we can figure out how to add it back: [https://github.com/pantsbuild/pants/pull/14350](https://github.com/pantsbuild/pants/pull/14350).
 
 ### Removed `PexFromTargetsRequest(direct_deps_only: bool)`
 
-Let us know if you were using this, and we can figure out how to add it back: <https://github.com/pantsbuild/pants/pull/14291>.
+Let us know if you were using this, and we can figure out how to add it back: [https://github.com/pantsbuild/pants/pull/14291](https://github.com/pantsbuild/pants/pull/14291).
 
 ### Renamed `GenerateToolLockfileSentinel.options_scope` to `resolve_name`
 
-See <https://github.com/pantsbuild/pants/pull/14231> for more info.
+See [https://github.com/pantsbuild/pants/pull/14231](https://github.com/pantsbuild/pants/pull/14231) for more info.
 
 ### Renamed `PythonModule` to `PythonModuleOwnersRequest`
 
-This type was used to determine the owners of a Python module. The new name makes that more clear. See <https://github.com/pantsbuild/pants/pull/14276>.
+This type was used to determine the owners of a Python module. The new name makes that more clear. See [https://github.com/pantsbuild/pants/pull/14276](https://github.com/pantsbuild/pants/pull/14276).
 
 2.9
 ---
 
-See <https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.9.x.md> for the changelog.
+See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.9.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.9.x.md) for the changelog.
 
 ### Deprecated `RuleRunner.create_files()`, `.create_file()` and `.add_to_build_file()`
 
-Instead, for your `RuleRunner` tests, use `.write_files()`. See <https://github.com/pantsbuild/pants/pull/13817> for some examples.
+Instead, for your `RuleRunner` tests, use `.write_files()`. See [https://github.com/pantsbuild/pants/pull/13817](https://github.com/pantsbuild/pants/pull/13817) for some examples.
 
 2.8
 ---
 
-See <https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.8.x.md> for the changelog.
+See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.8.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.8.x.md) for the changelog.
 
 ### Target modeling changes
 
@@ -630,7 +630,7 @@ The method `OutputPathField.value_or_default()` no longer takes `Address` as an 
 2.7
 ---
 
-See <https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.7.x.md> for the changelog.
+See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.7.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.7.x.md) for the changelog.
 
 ### Type hints work properly
 
@@ -643,7 +643,7 @@ For example, use `my-subsystem` instead of `my_subsystem`. This is to avoid ambi
 2.6
 ---
 
-See <https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.6.x.md> for the changelog.
+See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.6.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.6.x.md) for the changelog.
 
 ### `ProcessCacheScope`
 
@@ -658,7 +658,7 @@ Now called `InterpreterConstraints` and defined in `pants.backend.python.util_ru
 2.5
 ---
 
-See <https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.5.x.md> for the changelog.
+See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.5.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.5.x.md) for the changelog.
 
 ### `TriBoolField`
 
@@ -673,15 +673,15 @@ This is a more declarative way to set up files than the older API of `RuleRunner
 2.4
 ---
 
-See <https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.4.x.md> for the changelog.
+See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.4.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.4.x.md) for the changelog.
 
 ### `PexRequest` changes how entry point is set
 
-See <https://github.com/pantsbuild/pants/pull/11620>. Instead of setting `entry_point="pytest"` in the `PexRequest` constructor, now you set `main=ConsoleScript("black")` or `main=EntryPoint("pytest")`.
+See [https://github.com/pantsbuild/pants/pull/11620](https://github.com/pantsbuild/pants/pull/11620). Instead of setting `entry_point="pytest"` in the `PexRequest` constructor, now you set `main=ConsoleScript("black")` or `main=EntryPoint("pytest")`.
 
 ### Must use `EnvironmentRequest` for accessing environment variables
 
-See <https://github.com/pantsbuild/pants/pull/11641>. Pants now eagerly purges environment variables from the run, so using `os.environ` in plugins won't work anymore.
+See [https://github.com/pantsbuild/pants/pull/11641](https://github.com/pantsbuild/pants/pull/11641). Pants now eagerly purges environment variables from the run, so using `os.environ` in plugins won't work anymore.
 
 Instead, use `await Get(Environment, EnvironmentRequest(["MY_ENV_VAR"])`.
 
@@ -690,12 +690,12 @@ For `RuleRunner` tests, you must now either set `env` or the new `env_inherit` a
 2.3
 ---
 
-There were no substantial changes to the Plugin API in 2.3. See <https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.3.x.md> for the changelog.
+There were no substantial changes to the Plugin API in 2.3. See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.3.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.3.x.md) for the changelog.
 
 2.2
 ---
 
-See <https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.2.x.md> for the changelog.
+See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.2.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.2.x.md) for the changelog.
 
 ### `PrimitiveField` and `AsyncField` are removed (2.2.0.dev0)
 
@@ -728,7 +728,7 @@ Pants will now properly wrap strings and preserve newlines. You may want to run 
 2.1
 ---
 
-See <https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.1.x.rst> for the changelog.
+See [https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.1.x.rst](https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.1.x.rst) for the changelog.
 
 ### `SourcesSnapshot` is now `SpecsSnapshot` (2.1.0rc0)
 
@@ -737,7 +737,7 @@ The type was renamed for clarity. Still import it from `pants.engine.fs`.
 2.0
 ---
 
-See <https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.0.x.rst> for the changelog.
+See [https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.0.x.rst](https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.0.x.rst) for the changelog.
 
 ### Use `TransitiveTargetsRequest` as input for resolving `TransitiveTargets` (2.0.0rc0)
 
@@ -751,7 +751,7 @@ Due to a new cycle in the rule graph, for any codegen implementations, you must 
 
 These behave identically, except that they do not include dependency inference in the results. Unless you are generating for `input = PythonSources`, this should be fine, as dependency inference is currently only used with Python.
 
-This is tracked by <https://github.com/pantsbuild/pants/issues/10917>.
+This is tracked by [https://github.com/pantsbuild/pants/issues/10917](https://github.com/pantsbuild/pants/issues/10917).
 
 ### Dependencies-like fields have more robust support (2.0.0rc0)
 

@@ -7,11 +7,13 @@ Frequently asked questions (FAQs) and known issues you may encounter.
 
 ---
 
-> 👍 We love giving help!
->
-> See [Getting Help](doc:getting-help). We would love to help!
->
-> If you are confused by something, likely someone else will run into the same issue. It is helpful for us to know what is going wrong so that we can improve Pants and improve this documentation.
+
+:::tip We love giving help!
+
+    See [Getting Help](doc:getting-help). We would love to help!
+    
+    If you are confused by something, likely someone else will run into the same issue. It is helpful for us to know what is going wrong so that we can improve Pants and improve this documentation.
+:::
 
 ## Debug tip: enable stack traces and increase logging
 
@@ -67,7 +69,7 @@ This error generally happens because of the option `pants_ignore` in the `[GLOBA
 
 To override something included in your `.gitignore`, add a new value to `pants_ignore` and prefix it with `!`, like the below. `pants_ignore` uses the [same syntax as gitignore](https://git-scm.com/docs/gitignore).
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 pants_ignore.add = ["!folder/"]
 ```
@@ -122,7 +124,7 @@ It may be necessary to explicitly set the directory Pants uses as a temporary di
 
 Use the global option `local_execution_root_dir` to change the tmpdir used by Pants.
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 local_execution_root_dir = "/mnt/large-partition/tmpdir"
 ```
@@ -139,34 +141,13 @@ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo s
 
 You may change any of these options in the `[GLOBAL]` section of your `pants.toml`:
 
-[block:parameters]
-{
-"data": {
-"h-0": "Option",
-"h-1": "What it does",
-"h-2": "Default",
-"0-0": "`local_store_dir`",
-"0-1": "Stores the results of running subprocesses and of some file operations.",
-"0-2": "`~/.cache/pants/lmdb_store`",
-"1-0": "`named_caches_dir`",
-"1-1": "Stores the caches for certain tools used by Pants, like PEX's cache for resolving Python requirements.",
-"1-2": "`~/.cache/pants/named_caches`",
-"2-0": "`pants_workdir`",
-"2-1": "Stores some project-specific logs; used as a temporary directory when running `pants repl` and `pants run`. \n \nThis is not used for caching. \n \nThis must be relative to the build root.",
-"2-2": "`<build_root>/.pants.d/`",
-"3-0": "`pants_distdir`",
-"3-1": "Where Pants writes artifacts to, such as the result of `pants package`. \n \nThis is not used for caching; you can delete this folder and still leverage the cache from `local_store_dir`. \n \nThis must be relative to the build root.",
-"3-2": "`<build_root>/dist/`"
-},
-"cols": 3,
-"rows": 4,
-"align": [
-"left",
-"left",
-"left"
-]
-}
-[/block]
+| Option | What it does | Default |
+| :--- | :--- | :--- |
+| `local_store_dir` | Stores the results of running subprocesses and of some file operations. | `~/.cache/pants/lmdb_store` |
+| `named_caches_dir` | Stores the caches for certain tools used by Pants, like PEX's cache for resolving Python requirements. | `~/.cache/pants/named_caches` |
+| `pants_workdir` | Stores some project-specific logs; used as a temporary directory when running `pants repl` and `pants run`. <br/> <br/>This is not used for caching. <br/> <br/>This must be relative to the build root. | `<build_root>/.pants.d/` |
+| `pants_distdir` | Where Pants writes artifacts to, such as the result of `pants package`. <br/> <br/>This is not used for caching; you can delete this folder and still leverage the cache from `local_store_dir`. <br/> <br/>This must be relative to the build root. | `<build_root>/dist/` |
+
 
 For `local_store_dir` and `named_caches_dir`, you may either specify an absolute path or a relative path, which will be relative to the build root. You may use the special string `%(homedir)s` to get the value of `~`, e.g. `local_store_dir = "%(homedir)s/.custom_cache/pants/lmdb_store"`.
 
@@ -186,7 +167,7 @@ This is an error from `pip`, and it means that the same 3rd-party Python require
 
 You can use `pants peek` to help identify why the same requirement is being used more than once:
 
-```shell Shell
+```shell title="Shell"
 # Check the `requirements` key to see if it has the problematic requirement.
 pants --filter-target-type=python_requirement peek ::
 ```
@@ -217,19 +198,23 @@ This sometimes happens because Pants uses lots of file handles to read and write
 
 This can be fixed by setting `ulimit -n 10000`. (10,000 should work in all cases, but feel free to lower or increase this number as desired.)
 
-> 📘 Tip: permanently configuring `ulimit -n`
->
-> We recommend permanently setting this by either:
->
-> 1. Adding `ulimit -n 10000` to your `pants` script.
-> 2. Using a tool like [Direnv](https://direnv.net) to run `ulimit -n 10000` everytime the project is loaded.
-> 3. Adding `ulimit -n 10000` to your global `.bashrc` or equivalent.
->
-> The first two approaches have the benefit that they will be checked into version control, so every developer at your organization can use the same setting.
 
-> 🚧 macOS users: avoid `ulimit unlimited`
->
-> Contrary to the name, this will not fix the issue. You must use `ulimit -n` instead.
+:::note Tip: permanently configuring `ulimit -n`
+
+    We recommend permanently setting this by either:
+    
+    1. Adding `ulimit -n 10000` to your `pants` script.
+    2. Using a tool like [Direnv](https://direnv.net) to run `ulimit -n 10000` everytime the project is loaded.
+    3. Adding `ulimit -n 10000` to your global `.bashrc` or equivalent.
+    
+    The first two approaches have the benefit that they will be checked into version control, so every developer at your organization can use the same setting.
+:::
+
+
+:::caution macOS users: avoid `ulimit unlimited`
+
+    Contrary to the name, this will not fix the issue. You must use `ulimit -n` instead.
+:::
 
 ## Controlling (test) parallelism
 

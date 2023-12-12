@@ -10,27 +10,20 @@ The core concepts of Targets and Fields.
 The Target API defines how you interact with targets in your plugin. For example, you would use the Target API to read the `sources` field of a target to know which files to run on.
 
 The Target API can also be used to add new target types—such as adding support for a new language. Additionally, the Target API can be used to extend pre-existing target types.
-[block:api-header]
-{
-  "title": "Targets and Fields - the core building blocks"
-}
-[/block]
+## Targets and Fields - the core building blocks
 ### Definition of _target_
 
 As described in [Targets and BUILD files](doc:targets), a _target_ is a set of metadata describing some of your code.
 
 For example, this BUILD file defines a `python_tests` target.
-[block:code]
-{
-  "codes": [
-    {
-      "code": "python_tests(\n    sources=['app_test.py'],\n    compatibility='==3.7.*'\n    timeout=120,\n)",
-      "language": "python",
-      "name": "BUILD"
-    }
-  ]
-}
-[/block]
+```python title="BUILD"
+python_tests(
+    sources=['app_test.py'],
+    compatibility='==3.7.*'
+    timeout=120,
+)
+```
+
 ### Definition of _field_
 
 A _field_ is a single value of metadata belonging to a target.
@@ -38,17 +31,18 @@ A _field_ is a single value of metadata belonging to a target.
 In the above example, `sources`, `compatibility`, and `timeout` are all fields.
 
 Each field has a Python class that defines its BUILD file alias, data type, and optional settings like default values. For example:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from pants.engine.target import IntField, StringField\n\nclass PythonInterpreterCompatibility(StringField):\n    alias = \"compatibility\"\n    \nclass PythonTestsTimeout(IntField):\n    alias = \"timeout\"\n    default = 60\n\n",
-      "language": "python",
-      "name": "example_fields.py"
-    }
-  ]
-}
-[/block]
+```python title="example_fields.py"
+from pants.engine.target import IntField, StringField
+
+class PythonInterpreterCompatibility(StringField):
+    alias = "compatibility"
+    
+class PythonTestsTimeout(IntField):
+    alias = "timeout"
+    default = 60
+
+```
+
 ### Precise definition of _target_: a combination of fields
 
 Precisely, a target is a combination of fields, along with a BUILD file alias.
@@ -56,17 +50,14 @@ Precisely, a target is a combination of fields, along with a BUILD file alias.
 These fields should make sense together. For example, it does not make sense for a `python_library` target to have a `haskell_version` field.
 
 In fact, it only takes 3 lines of code to [create a new target](doc:target-api-new-targets):
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from pants.engine.target import Dependencies, Sources, Target, Tags\n\nclass CustomTarget(Target):\n    alias = \"custom_target\"\n    core_fields = (Sources, Dependencies, Tags)",
-      "language": "python",
-      "name": "plugin_target_type.py"
-    }
-  ]
-}
-[/block]
+```python title="plugin_target_type.py"
+from pants.engine.target import Dependencies, Sources, Target, Tags
+
+class CustomTarget(Target):
+    alias = "custom_target"
+    core_fields = (Sources, Dependencies, Tags)
+```
+
 Any unrecognized fields will cause an exception when used in a BUILD file.
 
 ### Fields may be reused
@@ -74,23 +65,20 @@ Any unrecognized fields will cause an exception when used in a BUILD file.
 Because fields are stand-alone Python classes, the same field definition may be reused across multiple different target types.
 
 For example, most target types have the `sources` field.
-[block:code]
-{
-  "codes": [
-    {
-      "code": "resources(\n    name=\"files_tgt\",\n    sources=[\"demo.txt\"],\n)\n\npython_library(\n    name=\"python_tgt\",\n    sources=[\"demo.py\"],\n)",
-      "language": "python",
-      "name": "BUILD"
-    }
-  ]
-}
-[/block]
+```python title="BUILD"
+resources(
+    name="files_tgt",
+    sources=["demo.txt"],
+)
+
+python_library(
+    name="python_tgt",
+    sources=["demo.py"],
+)
+```
+
 This gives you reuse of code ([DRY](https://en.wikipedia.org/wiki/Don't_repeat_yourself)) and is important for your plugin to work with multiple different target types, as explained below.
-[block:api-header]
-{
-  "title": "A Field-Driven API"
-}
-[/block]
+## A Field-Driven API
 Pants plugins do not care about specific target types; they only care that the target type has the right combination of field types that the plugin needs to operate.
 
 For example, the Python autoformatter Black does not actually care whether you have a `python_library`, `python_tests`, or `custom_target` target; all that it cares about is that your target type has the field `PythonSources`. 
@@ -106,11 +94,7 @@ print(timeout_field.value)
 ```
 
 This means when creating new target types, the fields you choose for your target will determine the functionality it has.
-[block:api-header]
-{
-  "title": "Customizing fields through subclassing"
-}
-[/block]
+## Customizing fields through subclassing
 Often, you may like how a field behaves, but want to make some tweaks. For example, you may want to give a default value to the `Sources` field.
 
 To modify a pre-existing field, simply subclass it.

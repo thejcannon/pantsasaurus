@@ -23,7 +23,7 @@ How to add new fields
 
 First, [define the field](doc:target-api-new-fields). Then, register it by using `OriginalTarget.register_plugin_field(CustomField)`, like this:
 
-```python plugins/register.py
+```python title="plugins/register.py"
 from pants.backend.codegen.protobuf.target_types import ProtobufSourceTarget
 from pants.engine.target import IntField
 

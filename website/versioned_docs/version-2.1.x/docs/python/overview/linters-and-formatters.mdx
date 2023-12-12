@@ -7,11 +7,7 @@ How to activate and use the six Python linters and formatters bundled with Pants
 
 ---
 
-[block:api-header]
-{
-  "title": "Activating linters and formatters"
-}
-[/block]
+## Activating linters and formatters
 Linter/formatter support is implemented in separate backends so that they are easy to opt in to individually:
 
 - `pants.backend.python.lint.bandit`: Supports the the [Bandit](https://bandit.readthedocs.io/en/latest/) security issue detector.
@@ -22,43 +18,44 @@ Linter/formatter support is implemented in separate backends so that they are ea
 - `pants.backend.python.lint.pylint`: Supports the [pylint](https://www.pylint.org/) style and error checker.
 
 To enable linters/formatters, add the appropriate ones in `pants.toml`:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "[GLOBAL]\n...\nbackend_packages = [\n  'pants.backend.python',\n  'pants.backend.python.lint.black',\n  'pants.backend.python.lint.isort',\n]",
-      "language": "toml",
-      "name": "pants.toml"
-    }
-  ]
-}
-[/block]
+```toml title="pants.toml"
+[GLOBAL]
+...
+backend_packages = [
+  'pants.backend.python',
+  'pants.backend.python.lint.black',
+  'pants.backend.python.lint.isort',
+]
+```
+
 You'll now see `lint` and `fmt` goals in the output of `./pants goals`.
-[block:code]
-{
-  "codes": [
-    {
-      "code": "$ ./pants goals\n\nGoals\n-----\n\nUse `./pants help $goal` to get help for a particular goal.\n\n\n...\n\nfmt           Autoformat source code.\n\nlint          Run all linters and/or formatters in check mode.\n\n...",
-      "language": "text",
-      "name": "Shell"
-    }
-  ]
-}
-[/block]
+```text title="Shell"
+$ ./pants goals
 
-[block:callout]
-{
-  "type": "info",
-  "title": "How to activate MyPy",
-  "body": "MyPy is run with the [typecheck goal](doc:python-typecheck-goal), rather than `lint`."
-}
-[/block]
+Goals
+-----
 
-[block:api-header]
-{
-  "title": "Configuring the tools and adding plugins"
-}
-[/block]
+Use `./pants help $goal` to get help for a particular goal.
+
+
+...
+
+fmt           Autoformat source code.
+
+lint          Run all linters and/or formatters in check mode.
+
+...
+```
+
+
+
+:::note How to activate MyPy
+MyPy is run with the [typecheck goal](doc:python-typecheck-goal), rather than `lint`.
+
+:::
+
+
+## Configuring the tools and adding plugins
 Each formatter and linter allows you to configure
 
 * `--version`: the version to use.
@@ -67,49 +64,46 @@ Each formatter and linter allows you to configure
 * `--extra-requirements`: any additional libraries to install, such as any plugins.
 
 For example:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "[black]\nconfig = \"pyproject.toml\"\n\n[docformatter]\nargs = [\"--wrap-summaries=100\", \"--wrap-descriptions=100\"]\n\n[flake8]\nconfig = \"build-support/.flake8\"\nversion = \"flake8==3.8.0\"\n# Add a Flake8 plugin:\nextra_requirements.add = [\"flake8-2020\"]",
-      "language": "toml",
-      "name": "pants.toml"
-    }
-  ]
-}
-[/block]
+```toml title="pants.toml"
+[black]
+config = "pyproject.toml"
+
+[docformatter]
+args = ["--wrap-summaries=100", "--wrap-descriptions=100"]
+
+[flake8]
+config = "build-support/.flake8"
+version = "flake8==3.8.0"
+# Add a Flake8 plugin:
+extra_requirements.add = ["flake8-2020"]
+```
+
 Run `./pants help-advanced black`, `./pants help-advanced flake8`, and so on for more information.
-[block:callout]
-{
-  "type": "warning",
-  "title": "Config files must be explicitly declared",
-  "body": "Many tools will automatically discover their config files if it's at a standard location, like isort looking for the file `.isort.cfg`. This auto-discovery does not work with Pants; you must explicitly set the `--config` option for Pants to use the correct config file.\n\n(Why? When running the linters and formatters, Pants copies over all the relevant files into a temporary directory. This allows Pants to safely cache the result and to run the process in the cloud through remote execution. Pants will only know to copy the config file into the temporary directory if you explicitly set it with the `--config` option.)"
-}
-[/block]
 
-[block:callout]
-{
-  "type": "info",
-  "title": "How to use first-party Pylint plugins",
-  "body": "Pants supports custom Pylint plugins written by you. Run `./pants help pylint_source_plugin` for instructions.\n\nIf you want to write first-party plugins for other linters like Flake8, let us know on [Slack](doc:community)."
-}
-[/block]
+:::caution Config files must be explicitly declared
+Many tools will automatically discover their config files if it's at a standard location, like isort looking for the file `.isort.cfg`. This auto-discovery does not work with Pants; you must explicitly set the `--config` option for Pants to use the correct config file.
 
-[block:api-header]
-{
-  "title": "Temporarily skipping a formatter or linter"
-}
-[/block]
+(Why? When running the linters and formatters, Pants copies over all the relevant files into a temporary directory. This allows Pants to safely cache the result and to run the process in the cloud through remote execution. Pants will only know to copy the config file into the temporary directory if you explicitly set it with the `--config` option.)
+
+:::
+
+
+
+:::note How to use first-party Pylint plugins
+Pants supports custom Pylint plugins written by you. Run `./pants help pylint_source_plugin` for instructions.
+
+If you want to write first-party plugins for other linters like Flake8, let us know on [Slack](doc:community).
+
+:::
+
+
+## Temporarily skipping a formatter or linter
 Use the `--skip` option. For example, run:
 
 ```bash
 $ ./pants --black-skip --flake8-skip fmt ::
 ```
-[block:api-header]
-{
-  "title": "Tip: only run over changed files"
-}
-[/block]
+## Tip: only run over changed files
 With formatters and linters, there is usually no need to rerun on files that have not changed.
 
 Use the option `--changed-since` to get much better performance, like this:

@@ -8,22 +8,17 @@ How to add a new formatter to the `fmt` and `lint` goals.
 ---
 
 In Pants, every formatter is (typically) also a linter, meaning that if you can run a tool with `./pants fmt`, you can run the same tool in check-only mode with `./pants lint`. Start by skimming [Add a linter](doc:plugins-lint-goal) to familiarize yourself with how linters work. 
-[block:callout]
-{
-  "type": "info",
-  "title": "Example repository",
-  "body": "This guide walks through each step of adding shfmt. See [here](https://github.com/pantsbuild/example-plugin/blob/main/pants-plugins/examples/bash/lint/shfmt) for the final result."
-}
-[/block]
+
+:::note Example repository
+This guide walks through each step of adding shfmt. See [here](https://github.com/pantsbuild/example-plugin/blob/main/pants-plugins/examples/bash/lint/shfmt) for the final result.
+
+:::
+
 This guide assumes that you are running a formatter that already exists outside of Pants as a stand-alone binary, such as running Black or Prettier.
 
 If you are instead writing your own formatting logic inline, you can skip Step 1. In Step 4, you will not need to use `Process`.
 
-[block:api-header]
-{
-  "title": "1. Install your formatter"
-}
-[/block]
+## 1. Install your formatter
 There are several ways for Pants to install your formatter. See [Installing tools](doc:rules-api-installing-tools). This example will use `ExternalTool` because there is already a pre-compiled binary for shfmt.
 
 You will also likely want to register some options, like `--config`, `--skip`, and `--args`. Options are registered through a [`Subsystem`](doc:rules-api-subsystems). If you are using `ExternalTool`, this is already a subclass of `Subsystem`. Otherwise, create a subclass of `Subsystem`. Then, set the class property `options_scope` to the name of the tool, e.g. `"shfmt"` or `"prettier"`. Finally, add options via the class method `register_options()`.
@@ -91,21 +86,16 @@ from pants.engine.rules import collect_rules
 def rules():
     return collect_rules()
 ```
-[block:api-header]
-{
-  "title": "2. Set up `LanguageFmtTargets` and `FmtRequest`"
-}
-[/block]
+## 2. Set up `LanguageFmtTargets` and `FmtRequest`
 Unlike linters and test runners, formatters cannot safely run in parallel because they might overwrite each other. Instead, Pants runs formatters sequentially. 
 
 However, it is safe to run formatters belonging to different languages in parallel, such as a Java formatter at the same time as a Python formatter. So, Pants groups formatters by languages via the type `LanguageFmtTargets`. Within each language, the formatters will run sequentially, but across languages, they may run in parallel.
-[block:callout]
-{
-  "type": "info",
-  "title": "New Python formatters can skip this step",
-  "body": "Pants already defines `PythonFmtTargets` and `PythonFmtRequest`, which are both defined in `pants.backend.python.lint.python_fmt`."
-}
-[/block]
+
+:::note New Python formatters can skip this step
+Pants already defines `PythonFmtTargets` and `PythonFmtRequest`, which are both defined in `pants.backend.python.lint.python_fmt`.
+
+:::
+
 To add support for a new language, copy the below code into a new file like `bash_formatters.py`, but change the names of the `LanguageFmtTargets`, `LanguageFmtRequest`, and the rule to match your new language. Update the `LanguageFmtTargets.required_fields` class property, and update the body of the rule to use your language.
 
 ```python
@@ -175,11 +165,7 @@ def rules():
 ```
 
 Note that we use `await Get(FmtResult, BashFmtRequest)` in a `for` loop. Normally, you should use `await MultiGet()` instead of a `for` loop, but we must use a `for` loop here to run sequentially.
-[block:api-header]
-{
-  "title": "3. Set up a `FieldSet` and `FmtRequest`/`LintRequest`"
-}
-[/block]
+## 3. Set up a `FieldSet` and `FmtRequest`/`LintRequest`
 As described in [Rules and the Target API](doc:rules-api-and-target-api), a `FieldSet` is a way to tell Pants which `Field`s you care about targets having for your plugin to work.
 
 Usually, you should add a subclass of the `Sources` field to the class property `required_fields`, such as `BashSources` or `PythonSources`. This means that your linter will run on any target with that sources field or a subclass of it.
@@ -225,11 +211,7 @@ def rules():
         UnionRule(LintRequest, ShfmtRequest),
     ]
 ```
-[block:api-header]
-{
-  "title": "4. Create `fmt` and `lint` rules"
-}
-[/block]
+## 4. Create `fmt` and `lint` rules
 You will need rules for both `fmt` and `lint`. Both rules should take the `LintRequest`/`FmtRequest` from step 3  (e.g. `ShfmtRequest`) as a parameter. The `fmt` rule should return `FmtResult`, and the `lint` rule should return `LintResults`.
 
 ```python
@@ -358,21 +340,14 @@ If you have a `--config` option, you should use `Get(Digest, PathGlobs)` to find
 Use `Get(Digest, MergeDigests)` to combine the different inputs together, such as merging the source files, config file, and downloaded tool.
 
 Finally, update your plugin's `register.py` to activate this file's rules. Note that we must register the rules added in Step 2, as well.
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from bash import bash_formatters, shfmt\n\n\ndef rules():\n    return [*bash_formatters.rules(), *shfmt.rules()]",
-      "language": "python",
-      "name": "pants-plugins/bash/register.py"
-    }
-  ]
-}
-[/block]
+```python title="pants-plugins/bash/register.py"
+from bash import bash_formatters, shfmt
+
+
+def rules():
+    return [*bash_formatters.rules(), *shfmt.rules()]
+```
+
 Now, when you run `./pants fmt ::` or `./pants lint ::`, your new formatter should run. 
-[block:api-header]
-{
-  "title": "5. Add tests (optional)"
-}
-[/block]
+## 5. Add tests (optional)
 Refer to [Testing rules](doc:rules-api-testing).

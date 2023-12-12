@@ -7,11 +7,13 @@ Configuring Pants to understand your imports.
 
 ---
 
-> 📘 Go and Shell can skip this page
-> 
-> Go does have a notion of source roots: where your `go.mod` is located. However, that is handled automatically by Pants without you needing to follow this page.
-> 
-> Shell does not have any notion of source roots.
+
+:::note Go and Shell can skip this page
+
+    Go does have a notion of source roots: where your `go.mod` is located. However, that is handled automatically by Pants without you needing to follow this page.
+    
+    Shell does not have any notion of source roots.
+:::
 
 What are source roots?
 ======================
@@ -27,8 +29,8 @@ src
         ├── __init__.py
         ├── app.py
         ├── config
-        │   ├── __init__.py
-        │   └── prod.json
+        │ ├── __init__.py
+        │ └── prod.json
         └── util
             ├── __init__.py
             └── math.py
@@ -67,7 +69,7 @@ Configuring source roots using patterns
 
 You can provide a set of patterns that match your source roots:
 
-```toml pants.toml
+```toml title="pants.toml"
 [source]
 root_patterns = [
   '/src/python',
@@ -99,8 +101,8 @@ project
 ├── __init__.py
 ├── app.py
 ├── config
-│   ├── __init__.py
-│   └── prod.json
+│ ├── __init__.py
+│ └── prod.json
 └── util
     ├── __init__.py
     └── math.py
@@ -117,23 +119,25 @@ pkgutil.get_data("project.config", "prod.json")
 
 If you have no source roots, use this config:
 
-```toml pants.toml
+```toml title="pants.toml"
 [source]
 root_patterns = ["/"]
 ```
 
-> 📘 Default source roots
-> 
-> The default value of the `root_patterns` config key is `["/", "src", "src/python", "src/py", "src/java", "src/scala", "src/thrift", "src/protos", "src/protobuf"]`. 
-> 
-> These capture a range of common cases, including a source root at the root of the repository. If your source roots match these patterns, you don't need to explicitly configure them.
+
+:::note Default source roots
+
+    The default value of the `root_patterns` config key is `["/", "src", "src/python", "src/py", "src/java", "src/scala", "src/thrift", "src/protos", "src/protobuf"]`. 
+    
+    These capture a range of common cases, including a source root at the root of the repository. If your source roots match these patterns, you don't need to explicitly configure them.
+:::
 
 Configuring source roots using marker files
 -------------------------------------------
 
 You can also denote your source roots using specially-named marker files. To do so, first pick a name (or multiple names) to use:
 
-```toml pants.toml
+```toml title="pants.toml"
 [source]
 marker_filenames = ["SOURCE_ROOT"]
 ```
@@ -145,10 +149,10 @@ For example, given this Python repo, where we have a `setup.py` for each distinc
 ```
 .
 ├── server
-│   ├── server
-│   │   ├── __init__.py
-│   │   └── app.py
-│   └── setup.py
+│ ├── server
+│ │ ├── __init__.py
+│ │ └── app.py
+│ └── setup.py
 └── utils
     ├── setup.py
     └── utils
@@ -159,7 +163,7 @@ For example, given this Python repo, where we have a `setup.py` for each distinc
 
 We could use this config:
 
-```toml pants.toml
+```toml title="pants.toml"
 [source]
 marker_filenames = ["setup.py"]
 ```
@@ -201,28 +205,28 @@ This setup is common in "polyglot" repositories: i.e. repos with multiple langua
 ```
 .
 ├── 3rdparty
-│   ├── java
-│   │   └── ivy.xml
-│   └── python
-│       └── requirements.txt
+│ ├── java
+│ │ └── ivy.xml
+│ └── python
+│     └── requirements.txt
 ├── src
-│   ├── java
-│   │   └── org
-│   │       └── pantsbuild
-│   │           └── project
-│   │               ├── App.java
-│   │               └── util
-│   │                   └── Math.java
-│   └── python
-│       └── project
-│           ├── __init__.py
-│           ├── app.py
-│           ├── config
-│           │   ├── __init__.py
-│           │   └── prod.json
-│           └── util
-│               ├── __init__.py
-│               └── math.py
+│ ├── java
+│ │ └── org
+│ │     └── pantsbuild
+│ │         └── project
+│ │             ├── App.java
+│ │             └── util
+│ │                 └── Math.java
+│ └── python
+│     └── project
+│         ├── __init__.py
+│         ├── app.py
+│         ├── config
+│         │ ├── __init__.py
+│         │ └── prod.json
+│         └── util
+│             ├── __init__.py
+│             └── math.py
 └── test
     └── python
         └── project
@@ -250,7 +254,7 @@ import org.pantsbuild.project.util.Math
 
 ### Config:
 
-```toml pants.toml
+```toml title="pants.toml"
 [source]
 root_patterns = [
     "/src/java",
@@ -271,26 +275,26 @@ This layout has lots of nesting; this is only one possible way to organize the r
 ```
 .
 ├── ads
-│   └── py
-│       └── ads
-│           ├── __init__.py
-│           ├── billing
-│           │   ├── __init__.py
-│           │   └── calculate_bill.py
-│           └── targeting
-│               ├── __init__.py
-│               └── validation.py
+│ └── py
+│     └── ads
+│         ├── __init__.py
+│         ├── billing
+│         │ ├── __init__.py
+│         │ └── calculate_bill.py
+│         └── targeting
+│             ├── __init__.py
+│             └── validation.py
 ├── base
-│   └── py
-│       └── base
-│           ├── __init__.py
-│           ├── models
-│           │   ├── __init__.py
-│           │   ├── org.py
-│           │   └── user.py
-│           └── util
-│               ├── __init__.py
-│               └── math.py
+│ └── py
+│     └── base
+│         ├── __init__.py
+│         ├── models
+│         │ ├── __init__.py
+│         │ ├── org.py
+│         │ └── user.py
+│         └── util
+│             ├── __init__.py
+│             └── math.py
 └── news
     └── js
         └── spa.js
@@ -310,7 +314,7 @@ Note that even though the projects live in different top-level folders, you are 
 
 Either of these are valid and they have the same result:
 
-```toml pants.toml
+```toml title="pants.toml"
 [source]
 root_patterns = [
   "/ads/py",
@@ -319,7 +323,7 @@ root_patterns = [
 ]
 ```
 
-```toml pants.toml
+```toml title="pants.toml"
 [source]
 root_patterns = [
   "py",
@@ -337,14 +341,14 @@ Warning: while this project structure is valid, it often does not scale as well 
 ```
 .
 ├── project
-│   ├── __init__.py
-│   ├── app.py
-│   ├── config
-│   │   ├── __init__.py
-│   │   └── prod.json
-│   └── util
-│       ├── __init__.py
-│       └── math.py
+│ ├── __init__.py
+│ ├── app.py
+│ ├── config
+│ │ ├── __init__.py
+│ │ └── prod.json
+│ └── util
+│     ├── __init__.py
+│     └── math.py
 └── pyproject.toml
 ```
 
@@ -361,7 +365,7 @@ pkgutil.get_data("project.config", "prod.json")
 
 Either of these are valid and they have the same result:
 
-```toml pants.toml
+```toml title="pants.toml"
 [source]
 root_patterns = ["/"]
 ```

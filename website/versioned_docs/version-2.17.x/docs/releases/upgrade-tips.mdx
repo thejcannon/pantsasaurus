@@ -7,11 +7,13 @@ How we recommend staying up-to-date with Pants.
 
 ---
 
-> 📘 Reminder: change the `pants_version` to upgrade
->
-> Change the `pants_version` option in the `[GLOBAL]` scope in your pants.toml to upgrade.
->
-> You can see all releases at <https://github.com/pantsbuild/pants/releases>.
+
+:::note Reminder: change the `pants_version` to upgrade
+
+    Change the `pants_version` option in the `[GLOBAL]` scope in your pants.toml to upgrade.
+    
+    You can see all releases at [https://github.com/pantsbuild/pants/releases](https://github.com/pantsbuild/pants/releases).
+:::
 
 Upgrade one minor release at a time
 -----------------------------------
@@ -45,11 +47,13 @@ Then, see if there are any remaining deprecation warnings:
 
 It is also helpful to spot-check that your main commands like `lint`, `package`, and `test` still work by running on a single target.
 
-> 📘 Use dev releases for the newest
->
-> As described in our [Release strategy](doc:release-strategy), we make weekly dev releases with all the latest features and bug fixes we've been working on. While dev releases are less stable, they mean you get access to improvements sooner.
->
-> If you encounter any blocking issues, you can easily roll back to a prior version by changing the `pants_version` option. (Please let us know the issue by opening a [GitHub issue](https://github.com/pantsbuild/pants/issues) or messaging us on [Slack](doc:the-pants-community)).
+
+:::note Use dev releases for the newest
+
+    As described in our [Release strategy](doc:release-strategy), we make weekly dev releases with all the latest features and bug fixes we've been working on. While dev releases are less stable, they mean you get access to improvements sooner.
+    
+    If you encounter any blocking issues, you can easily roll back to a prior version by changing the `pants_version` option. (Please let us know the issue by opening a [GitHub issue](https://github.com/pantsbuild/pants/issues) or messaging us on [Slack](doc:the-pants-community)).
+:::
 
 Ignore deprecation messages with `ignore_warnings`
 --------------------------------------------------
@@ -58,7 +62,7 @@ Sometimes when upgrading, you will not have time to fully fix the deprecation. T
 
 The `ignore_warnings` option expects a string with the start of the deprecation warning. You can also prefix the string with `$regex$` to use a regex pattern instead of literal string matching.
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 ignore_warnings = [
   "DEPRECATED: option 'config' in scope 'flake8' will be removed",

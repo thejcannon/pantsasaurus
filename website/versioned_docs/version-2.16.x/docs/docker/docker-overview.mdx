@@ -15,7 +15,7 @@ Pants [makes it easy to embed the artifacts Pants builds into your Docker images
 
 To use Pants's Docker support you must enable the appropriate backend:
 
-```toml pants.toml
+```toml title="pants.toml"
 backend_packages = [
   ...
   "pants.backend.docker",
@@ -41,13 +41,13 @@ Created src/docker/app2/BUILD:
 
 Or you can add them manually, such as:
 
-```python src/docker/app1/BUILD
+```python title="src/docker/app1/BUILD"
 docker_image(name="docker")
 ```
 
 Alternatively you may provide the Docker build instructions inline in your BUILD file as [`instructions`](doc:reference-docker_image#codeinstructionscode) on your `docker_image` if you don't want to create a `Dockerfile`.
 
-```python src/docker/app1/BUILD
+```python title="src/docker/app1/BUILD"
 docker_image(
   name="docker",
   instructions=[
@@ -57,9 +57,11 @@ docker_image(
 )
 ```
 
-> 🚧 The `docker_image` `instructions` field
->
-> Each `docker_image` uses a `Dockerfile` referred to by the `source` field, unless you have provided a value to the `instructions` field.
+
+:::caution The `docker_image` `instructions` field
+
+    Each `docker_image` uses a `Dockerfile` referred to by the `source` field, unless you have provided a value to the `instructions` field.
+:::
 
 ## Adding dependencies to your `docker_image` targets
 
@@ -109,7 +111,7 @@ To provide values to any [build `ARG`s](https://docs.docker.com/engine/reference
 
 The build args use the same syntax as the [docker build --build-arg](https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables---build-arg) command line option: `VARNAME=VALUE`, where the value is optional, and if left out, the value is taken from the environment instead.
 
-```toml pants.toml
+```toml title="pants.toml"
 [docker]
 build_args = [
   "VAR1=value1",
@@ -117,14 +119,14 @@ build_args = [
 ]
 ```
 
-```python example/BUILD
+```python title="example/BUILD"
 docker_image(
   name="docker",
   extra_build_args=["VAR1=my_value", "VAR3"]
 )
 ```
 
-```dockerfile example/Dockerfile
+```dockerfile title="example/Dockerfile"
 FROM python:3.8
 ARG VAR1
 ARG VAR2
@@ -154,7 +156,7 @@ See this [blog post](https://blog.pantsbuild.org/optimizing-python-docker-deploy
 
 Secrets are supported for `docker_image` targets with the [`secrets`](doc:reference-docker_image#codesecretscode) field. The defined secrets may then be mounted in the `Dockerfile` as [usual](https://docs.docker.com/develop/develop-images/build_enhancements/#new-docker-build-secret-information).
 
-```python BUILD
+```python title="BUILD"
 docker_image(
   secrets={
     "mysecret": "mysecret.txt",
@@ -172,21 +174,23 @@ RUN --mount=type=secret,id=mysecret cat /run/secrets/mysecret
 RUN --mount=type=secret,id=mysecret,dst=/foobar cat /foobar
 ```
 
-```text mysecret.txt
+```text title="mysecret.txt"
 very-secret-value
 ```
 
-> 📘 Secret file path
->
-> Secrets should not be checked into version control. Use absolute paths to reference a file that is not in the project source tree. However, to keep the BUILD file as hermetic as possible, the files may be placed within the project source tree at build time for instance, and referenced with a path relative to the project root by default, or relative to the directory of the BUILD file when prefixed with `./`.
->
-> See the example for the [`secrets`](doc:reference-docker_image#codesecretscode) field.
+
+:::note Secret file path
+
+    Secrets should not be checked into version control. Use absolute paths to reference a file that is not in the project source tree. However, to keep the BUILD file as hermetic as possible, the files may be placed within the project source tree at build time for instance, and referenced with a path relative to the project root by default, or relative to the directory of the BUILD file when prefixed with `./`.
+    
+    See the example for the [`secrets`](doc:reference-docker_image#codesecretscode) field.
+:::
 
 ### Build Docker image example
 
 This example copies both a `file` and `pex_binary`. The file is specified as an explicit dependency in the `BUILD` file, whereas the `pex_binary` dependency is inferred from the path in the `Dockerfile`.
 
-```python src/docker/hw/BUILD
+```python title="src/docker/hw/BUILD"
 file(name="msg", source="msg.txt")
 
 docker_image(
@@ -195,24 +199,24 @@ docker_image(
 )
 ```
 
-```dockerfile src/docker/hw/Dockerfile
+```dockerfile title="src/docker/hw/Dockerfile"
 FROM python:3.8
 ENTRYPOINT ["/bin/helloworld"]
 COPY src/docker/hw/msg.txt /var/msg
 COPY src.python.hw/bin.pex /bin/helloworld
 ```
 
-```text src/docker/hw/msg.txt
+```text title="src/docker/hw/msg.txt"
 Hello, Docker!
 ```
 
-```python src/python/hw/BUILD
+```python title="src/python/hw/BUILD"
 python_sources(name="lib")
 
 pex_binary(name="bin", entry_point="main.py")
 ```
 
-```python src/py/hw/main.py
+```python title="src/py/hw/main.py"
 import os
 
 msg = "Hello"
@@ -273,7 +277,7 @@ See [here](doc:tagging-docker-images) for how to set up registries.
 
 To configure the Docker binary, set `[docker].env_vars` in your `pants.toml` configuration file. You use that key to list environment variables such as `DOCKER_CONTEXT` or `DOCKER_HOST`, that will be set in the environment of the `docker` binary when Pants runs it. Each listed value can be of the form `NAME=value`, or just `NAME`, in which case the value will be inherited from the Pants process's own environment.
 
-```toml pants.toml
+```toml title="pants.toml"
 [docker]
 env_vars = [
   "DOCKER_CONTEXT=pants_context",
@@ -281,9 +285,11 @@ env_vars = [
 ]
 ```
 
-> 📘 Docker environment variables
->
-> See [Docker documentation](https://docs.docker.com/engine/reference/commandline/cli/#environment-variables) for the authoritative table of environment variables for the Docker CLI.
+
+:::note Docker environment variables
+
+    See [Docker documentation](https://docs.docker.com/engine/reference/commandline/cli/#environment-variables) for the authoritative table of environment variables for the Docker CLI.
+:::
 
 ## Docker authentication
 
@@ -307,7 +313,7 @@ Then, tell Pants to use this config by setting `[docker].env_vars =  ["DOCKER_CO
 
 Most authentication mechanisms will also require tools exposed on the `$PATH` to work. Teach Pants about those by setting the names of the tools in `[docker].tools`, and ensuring that they show up on your `$PATH`. For example, GCloud authentication requires `dirname`, `readlink` and `python3`.
 
-```toml pants.toml
+```toml title="pants.toml"
 # Example GCloud authentication.
 
 [docker]
@@ -326,19 +332,21 @@ tools = [
 
 You may need to set additional environment variables with `[docker].env_vars`.
 
-> 📘 How to troubleshoot authentication
->
-> It can be tricky to figure out what environment variables and tools are missing, as the output often has indirection.
->
-> It can help to simulate a hermetic environment by using `env -i`. With credential helpers, it also helps to directly invoke the helper without Docker and Pants. For example, you can symlink the tools you think you need into a directory like `/some/isolated/directory`, then run the below:
->
-> ```
-> ❯ echo europe-north1-docker.pkg.dev | env -i PATH=/some/isolated/directory docker-credential-gcr get
-> {
->   "Secret": "ya29.A0ARrdaM-...-ZhScVscwTVtQ",
->   "Username": "_dcgcloud_token"
-> }
-> ```
+
+:::note How to troubleshoot authentication
+
+    It can be tricky to figure out what environment variables and tools are missing, as the output often has indirection.
+    
+    It can help to simulate a hermetic environment by using `env -i`. With credential helpers, it also helps to directly invoke the helper without Docker and Pants. For example, you can symlink the tools you think you need into a directory like `/some/isolated/directory`, then run the below:
+    
+    ```
+    ❯ echo europe-north1-docker.pkg.dev | env -i PATH=/some/isolated/directory docker-credential-gcr get
+    {
+      "Secret": "ya29.A0ARrdaM-...-ZhScVscwTVtQ",
+      "Username": "_dcgcloud_token"
+    }
+    ```
+:::
 
 ## Linting Dockerfiles with Hadolint
 
@@ -350,7 +358,7 @@ Pants can run [Hadolint](https://github.com/hadolint/hadolint) on your Dockerfil
 
 This must first be enabled by activating the Hadolint backend:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 backend_packages = ["pants.backend.docker.lint.hadolint"]
 ```

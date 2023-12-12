@@ -15,7 +15,7 @@ Pants configuration lives in a file called `pants.toml` in the root of the repo.
 
 If you haven't yet, create a `pants.toml` file:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 pants_version = "$PANTS_VERSION"
 ```
@@ -34,15 +34,17 @@ To work correctly, Pants needs to know about the source roots in your repo. By d
 
 If your project has a different structure, see [Source roots](doc:source-roots) for how to configure them, and for examples of different project structures you can use Pants with.
 
-> 📘 Golang projects can skip this step
->
-> Golang projects already use `go.mod` to indicate source roots.
+
+:::note Golang projects can skip this step
+
+    Golang projects already use `go.mod` to indicate source roots.
+:::
 
 3. # Enable backends
 
 Most Pants functionality is provided via pluggable [_backends_](doc:enabling-backends), which are activated by adding to the `[GLOBAL].backend_packages` option like this:
 
-```toml pants.toml
+```toml title="pants.toml"
 [GLOBAL]
 ...
 backend_packages = [
@@ -58,16 +60,18 @@ See [here](doc:enabling-backends) for a list of available backends.
 
 If you use Git, we recommend adding these lines to your top-level `.gitignore` file:
 
-```text .gitignore
+```text title=".gitignore"
 # Pants workspace files
 /.pants.*
 /dist/
 /.pids
 ```
 
-> 📘 FYI: Pants will ignore all files in your `.gitignore` by default
->
-> The `pants_ignore` option tells Pants which files to avoid looking at, but it additionally ignores all `.gitignore`d files by default. Occasionally, you will want to ignore something with Git, but still want Pants to work on the file. See [Troubleshooting / common issues](doc:troubleshooting) for how to do this.
+
+:::note FYI: Pants will ignore all files in your `.gitignore` by default
+
+    The `pants_ignore` option tells Pants which files to avoid looking at, but it additionally ignores all `.gitignore`d files by default. Occasionally, you will want to ignore something with Git, but still want Pants to work on the file. See [Troubleshooting / common issues](doc:troubleshooting) for how to do this.
+:::
 
 5. # Generate BUILD files
 
@@ -94,17 +98,19 @@ You may also need to add some targets that Pants cannot generate, like [`resourc
 
 To ignore false positives, set `[tailor].ignore_paths` and `[tailor].ignore_adding_targets`. See [tailor](doc:reference-tailor) for more detail.
 
-> 📘 Run `./pants tailor --check ::` in CI
->
-> We recommend running `./pants tailor --check ::` in your [continuous integration](doc:using-pants-in-ci) so that you don't forget to add any targets and BUILD files (which might mean that tests aren't run or code isn't validated).
->
-> ```
-> ❯ ./pants tailor --check ::
-> Would create scripts/BUILD:
->   - Add shell_sources target scripts
->
-> To fix `tailor` failures, run `./pants tailor`.
-> ```
+
+:::note Run `./pants tailor --check ::` in CI
+
+    We recommend running `./pants tailor --check ::` in your [continuous integration](doc:using-pants-in-ci) so that you don't forget to add any targets and BUILD files (which might mean that tests aren't run or code isn't validated).
+    
+    ```
+    ❯ ./pants tailor --check ::
+    Would create scripts/BUILD:
+      - Add shell_sources target scripts
+    
+    To fix `tailor` failures, run `./pants tailor`.
+    ```
+:::
 
 6. # Visit a language specific overview
 

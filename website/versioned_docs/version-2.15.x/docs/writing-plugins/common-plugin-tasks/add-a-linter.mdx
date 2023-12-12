@@ -11,7 +11,7 @@ This guide assumes that you are running a linter that already exists outside of 
 
 If you are instead writing your own linting logic inline, you can skip Step 1. In Step 3, you will not need to use `Process`. You may find Pants's [`regex-lint` implementation](https://github.com/pantsbuild/pants/blob/main/src/python/pants/backend/project_info/regex_lint.py) helpful for how to integrate custom linting logic into Pants.
 
-# 1. Install your linter
+## 1. Install your linter
 
 There are several ways for Pants to install your linter. See [Installing tools](doc:rules-api-installing-tools).
 This example will use `ExternalTool` because there is already a pre-compiled binary for Shellcheck.
@@ -61,7 +61,7 @@ class Shellcheck(ExternalTool):
 
 ```
 
-# Set up a `FieldSet` and `LintTargetsRequest`
+## Set up a `FieldSet` and `LintTargetsRequest`
 
 As described in [Rules and the Target API](doc:rules-api-and-target-api), a `FieldSet` is a way to
 tell Pants which `Field`s you care about targets having for your plugin to work.
@@ -99,7 +99,7 @@ class ShellcheckRequest(LintTargetsRequest):
     tool_subsystem = Shellcheck
 ```
 
-# 3. Create a rule for your linter logic
+## 3. Create a rule for your linter logic
 
 Your rule should take as a parameter `ShellcheckRequest.Batch` and the
 `Subsystem` (or `ExternalTool`) from step 1 (a `Batch` is an object containing a subset of all
@@ -228,7 +228,7 @@ def rules():
 
 Finally, update your plugin's `register.py` to activate this file's rules.
 
-```python pants-plugins/bash/register.py
+```python title="pants-plugins/bash/register.py"
 from bash import shellcheck
 
 
@@ -238,6 +238,6 @@ def rules():
 
 Now, when you run `pants lint ::`, your new linter should run.
 
-# 4. Add tests (optional)
+## 4. Add tests (optional)
 
 Refer to [Testing rules](doc:rules-api-testing).

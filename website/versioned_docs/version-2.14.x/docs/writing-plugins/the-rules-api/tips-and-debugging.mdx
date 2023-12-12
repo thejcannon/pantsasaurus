@@ -7,11 +7,13 @@
 
 ---
 
-> 📘 Reminder: ask for help
-> 
-> We would love to help you with your plugin. Please reach out through [Slack](doc:community).
-> 
-> We also appreciate any feedback on the Rules API. If you find certain things confusing or are looking for additional mechanisms, please let us know.
+
+:::note Reminder: ask for help
+
+    We would love to help you with your plugin. Please reach out through [Slack](doc:community).
+    
+    We also appreciate any feedback on the Rules API. If you find certain things confusing or are looking for additional mechanisms, please let us know.
+:::
 
 Tip: Use `MultiGet` for increased concurrency
 ---------------------------------------------
@@ -94,7 +96,7 @@ Often the best way to debug a rule graph issue is to isolate where the problem c
 
 We recommend starting by determining which backend—or combination of backends—is causing issues. You can run the below script to find this. Once you find the smallest offending combination, focus on fixing that first by removing all irrelevant backends from `backend_packages` in `pants.toml`—this reduces the surface area of where issues can come from. (You may need to use the option `--no-verify-config` so that Pants doesn't complain about unrecognized options.)
 
-```python find_bad_backend_combos.py
+```python title="find_bad_backend_combos.py"
 #!/usr/bin/env python3
 
 import itertools

@@ -20,14 +20,14 @@ To reduce boilerplate, the [`resources`](doc:reference-resources) target generat
 
 For example, to load resources in Python:
 
-```python src/python/project/app.py
+```python title="src/python/project/app.py"
 import importlib.resources
 
 if __name__ == "__main__":
     config = importlib.resources.read_text("project", "config.json")
     print(f"Config: {config}")
 ```
-```python src/python/project/BUILD
+```python title="src/python/project/BUILD"
 python_source(
   name="app",
   source="app.py",
@@ -40,7 +40,7 @@ resource(
   source="config.json",
 )
 ```
-```json src/python/project/config.json
+```json title="src/python/project/config.json"
 {"k1": "v", "k2": "v"}
 ```
 
@@ -55,13 +55,13 @@ To reduce boilerplate, the [`files`](doc:reference-files) target generates a `fi
 
 For example, to load loose files in Python:
 
-```python src/python/project/app_test.py
+```python title="src/python/project/app_test.py"
 def test_open_file():
     with open("src/python/project/config.json") as f:
         content = f.read().decode()
     assert content == '{"k1": "v", "k2": "v"}'
 ```
-```python src/python/project/BUILD
+```python title="src/python/project/BUILD"
 python_test(
     name="app_test",
     source="app_test.py",
@@ -74,17 +74,19 @@ file(
     source="config.json",
 )
 ```
-```json src/python/project/config.json
+```json title="src/python/project/config.json"
 {"k1": "v", "k2": "v"}
 ```
 
 Note that we open the file with its full path, including the `src/python` prefix.
 
-> 🚧 `file` targets are not included with binaries like `pex_binary`
-> 
-> Pants will not include dependencies on `file` / `files` targets when creating binaries like `pex_binary` and `python_awslambda` via `pants package`. Filesystem APIs like Python's `open()` are relative to the current working directory, and they would try to read the files from where the binary is executed, rather than reading from the binary itself.
-> 
-> Instead, use `resource` / `resources` targets or an `archive` target.
+
+:::caution `file` targets are not included with binaries like `pex_binary`
+
+    Pants will not include dependencies on `file` / `files` targets when creating binaries like `pex_binary` and `python_awslambda` via `pants package`. Filesystem APIs like Python's `open()` are relative to the current working directory, and they would try to read the files from where the binary is executed, rather than reading from the binary itself.
+    
+    Instead, use `resource` / `resources` targets or an `archive` target.
+:::
 
 When to use each asset target type
 ----------------------------------
@@ -114,7 +116,7 @@ However, you may want to change the path to something else. For example, when cr
 
 You can use the `relocated_files` target to change the path used at runtime for the files. Your other targets can then add this target to their `dependencies` field, rather than using the original `files` target:
 
-```python src/assets/BUILD
+```python title="src/assets/BUILD"
 # Original file target.
 file(
     name="logo",
@@ -143,7 +145,7 @@ Running `pants package` on an `archive` target will create a zip or tar file wit
 
 For example:
 
-```python project/BUILD
+```python title="project/BUILD"
 archive(
     name="app_with_config",
     packages=[":app"],

@@ -17,33 +17,35 @@ $ ./pants --changed-since=HEAD fmt
 $ build-support/githooks/pre-commit
 ```
 
-> 📘 Tip: improving Black's formatting by wrapping in `()`
-> 
-> Sometimes, Black will split code over multiple lines awkwardly. For example:
-> 
-> ```python
-> StrOption(
->     "--pants-bin-name",
->     default="./pants",
->     help="The name of the script or binary used to invoke pants. "
->     "Useful when printing help messages.",
-> )
-> ```
-> 
-> Often, you can improve Black's formatting by wrapping the expression in parentheses, then rerunning `fmt`:
-> 
-> ```python
-> StrOption(
->     "--pants-bin-name",
->     default="./pants",
->     help=(
->         "The name of the script or binary used to invoke pants. "
->         "Useful when printing help messages."
->     ),
-> )
-> ```
-> 
-> This is not mandatory, only encouraged.
+
+:::note Tip: improving Black's formatting by wrapping in `()`
+
+    Sometimes, Black will split code over multiple lines awkwardly. For example:
+    
+    ```python
+    StrOption(
+        "--pants-bin-name",
+        default="./pants",
+        help="The name of the script or binary used to invoke pants. "
+        "Useful when printing help messages.",
+    )
+    ```
+    
+    Often, you can improve Black's formatting by wrapping the expression in parentheses, then rerunning `fmt`:
+    
+    ```python
+    StrOption(
+        "--pants-bin-name",
+        default="./pants",
+        help=(
+            "The name of the script or binary used to invoke pants. "
+            "Useful when printing help messages."
+        ),
+    )
+    ```
+    
+    This is not mandatory, only encouraged.
+:::
 
 Comments
 --------
@@ -214,7 +216,7 @@ new_dict["key"] = "value"
 
 ### Prefer comprehensions
 
-[Comprehensions](https://python-3-patterns-idioms-test.readthedocs.io/en/latest/Comprehensions.html) should generally be preferred to explicit loops and `map`/`filter` when creating a new collection. (See <https://www.youtube.com/watch?v=ei71YpmfRX4> for a deep dive on comprehensions.)
+[Comprehensions](https://python-3-patterns-idioms-test.readthedocs.io/en/latest/Comprehensions.html) should generally be preferred to explicit loops and `map`/`filter` when creating a new collection. (See [https://www.youtube.com/watch?v=ei71YpmfRX4](https://www.youtube.com/watch?v=ei71YpmfRX4) for a deep dive on comprehensions.)
 
 Why avoid `map`/`filter`? Normally, these are fantastic constructs and you'll find them abundantly in the [Rust codebase](doc:contributions-rust). They are awkward in Python, however, due to poor support for lambdas and because you would typically need to wrap the expression in a call to `list()` or `tuple()` to convert it from a generator expression to a concrete collection.
 
@@ -316,11 +318,13 @@ def test_demo():
 
 Precisely, all function definitions should have annotations for their parameters and their return type. MyPy will then tell you which other lines need annotations.
 
-> 📘 Interacting with legacy code? Consider adding type hints.
-> 
-> Pants did not widely use type hints until the end of 2019. So, a substantial portion of the codebase is still untyped.
-> 
-> If you are working with legacy code, it is often valuable to start by adding type hints. This will both help you to understand that code and to improve the quality of the codebase. Land those type hints as a precursor to your main PR.
+
+:::note Interacting with legacy code? Consider adding type hints.
+
+    Pants did not widely use type hints until the end of 2019. So, a substantial portion of the codebase is still untyped.
+    
+    If you are working with legacy code, it is often valuable to start by adding type hints. This will both help you to understand that code and to improve the quality of the codebase. Land those type hints as a precursor to your main PR.
+:::
 
 ### Prefer `cast()` to override annotations
 

@@ -13,21 +13,27 @@ The exact type of artifact depends on the type of target the goal is invoked on.
 
 You can run `./pants package ::` to build all artifacts in your project. Pants will filter to only the relevant targets.
 
-> 👍 Benefit of Pants: artifacts only include your true dependencies
-> 
-> Because Pants understands the dependencies of your code, and the dependencies of those dependencies, the generated artifact will only include the exact code needed for your package to work. This results in smaller, more focused packages.
 
-> 👍 Benefit of Pants: easily write automated tests of your packaging pipeline
-> 
-> You can depend on a package target in a `python_test` / `python_tests` target through the `runtime_package_dependencies` field. Pants will run the equivalent of `./pants package` beforehand and copy the built artifact into the test's chroot, allowing you to test things like that the artifact has the correct files present and that it's executable.
-> 
-> This allows you to test your packaging pipeline by simply running `./pants test ::`, without needing custom integration test scripts.
-> 
-> See [test](doc:python-test-goal) for more information.
+:::tip Benefit of Pants: artifacts only include your true dependencies
 
-> 👍 Streamling Docker builds
-> 
-> Check out our blog [Streamling Docker Builds](https://blog.pantsbuild.org/pants-pex-and-docker/) to read about how you can combine these `package` formats with Pants's Docker support. Also see our [Docker docs](doc:docker)
+    Because Pants understands the dependencies of your code, and the dependencies of those dependencies, the generated artifact will only include the exact code needed for your package to work. This results in smaller, more focused packages.
+:::
+
+
+:::tip Benefit of Pants: easily write automated tests of your packaging pipeline
+
+    You can depend on a package target in a `python_test` / `python_tests` target through the `runtime_package_dependencies` field. Pants will run the equivalent of `./pants package` beforehand and copy the built artifact into the test's chroot, allowing you to test things like that the artifact has the correct files present and that it's executable.
+    
+    This allows you to test your packaging pipeline by simply running `./pants test ::`, without needing custom integration test scripts.
+    
+    See [test](doc:python-test-goal) for more information.
+:::
+
+
+:::tip Streamling Docker builds
+
+    Check out our blog [Streamling Docker Builds](https://blog.pantsbuild.org/pants-pex-and-docker/) to read about how you can combine these `package` formats with Pants's Docker support. Also see our [Docker docs](doc:docker)
+:::
 
 Creating a PEX file from a `pex_binary` target
 ----------------------------------------------
@@ -75,7 +81,7 @@ If you use the `entry_point` field,  Pants will use dependency inference, which 
 
 You can specify a file name, which Pants will convert into a well-formed entry point. Like with the `source` / `sources` field, file paths are relative to the BUILD file, rather than the build root.
 
-```python helloworld/BUILD
+```python title="helloworld/BUILD"
 # The default `sources` field will include `main.py`.
 python_sources(name="lib")
 
@@ -98,7 +104,7 @@ This approach has the added benefit that you can use file arguments, e.g. `./pan
 
 You can directly specify the entry point in the format `path.to.module` or `path.to.module:my_func`. This allows you to use an entry point for a third-party requirement or the Python standard library.
 
-```python helloworld/BUILD
+```python title="helloworld/BUILD"
 # The default `sources` field will include `main.py`.
 python_sources(name="lib")
 
@@ -126,7 +132,7 @@ Unlike using `entry_point` with a file name, this does not work with file argume
 
 You can set the `script` to any `console_script` or script exposed by your third-party requirements.
 
-```python helloworld/BUILD
+```python title="helloworld/BUILD"
 python_requirement(name="black_req", requirements=["black==21.10b0"])
 
 pex_binary(
@@ -140,19 +146,25 @@ You must explicitly add the dependencies you'd like to the `dependencies` field.
 
 This does not work with file arguments; you must use the target address, like `./pants package helloworld:black_bin`.
 
-> 🚧 PEX files may be platform-specific
-> 
-> If your code's requirements include distributions that include native code, then the resulting PEX file will only run on the platform it was built on. 
-> 
-> However, if all native code requirements are available as [wheels](https://packaging.python.org/glossary/#term-wheel) for the target platform, then you can cross-build a PEX file on a different source platform by specifying the `platforms` field on the `pex_binary`, e.g. `platforms=["linux-x86_64-cp-37-cp37m", "macosx_10_15_x86_64-cp-38-cp38"]`.
 
-> 📘 Tip: inspect the `.pex` file with `unzip`
-> 
-> Because a `.pex` file is simply a ZIP file, you can use the Unix tool `unzip` to inspect the contents. For example, run `unzip -l dist/app.pex` to see all file members.
+:::caution PEX files may be platform-specific
 
-> 🚧 Use `resource` instead of `file`
-> 
-> `file` and `files` targets will not be included in the built PEX because filesystem APIs like `open()` would not load them as expected. Instead, use the `resource` and `resources` target or wrap your `pex_binary` in an `archive` target. See [Assets and archives](doc:assets) for further explanation.
+    If your code's requirements include distributions that include native code, then the resulting PEX file will only run on the platform it was built on. 
+    
+    However, if all native code requirements are available as [wheels](https://packaging.python.org/glossary/#term-wheel) for the target platform, then you can cross-build a PEX file on a different source platform by specifying the `platforms` field on the `pex_binary`, e.g. `platforms=["linux-x86_64-cp-37-cp37m", "macosx_10_15_x86_64-cp-38-cp38"]`.
+:::
+
+
+:::note Tip: inspect the `.pex` file with `unzip`
+
+    Because a `.pex` file is simply a ZIP file, you can use the Unix tool `unzip` to inspect the contents. For example, run `unzip -l dist/app.pex` to see all file members.
+:::
+
+
+:::caution Use `resource` instead of `file`
+
+    `file` and `files` targets will not be included in the built PEX because filesystem APIs like `open()` would not load them as expected. Instead, use the `resource` and `resources` target or wrap your `pex_binary` in an `archive` target. See [Assets and archives](doc:assets) for further explanation.
+:::
 
 ### Examples
 
@@ -174,7 +186,7 @@ We can also build the same Pex by using the address of the `pex_binary` target, 
 
 If you have several scripts in the same directory, it can be convenient to use the `pex_binaries` [target generator](doc:targets), which will generate one `pex_binary` target per entry in the `entry_points` field:
 
-```python scripts/BUILD
+```python title="scripts/BUILD"
 # The default `sources` will include all our source files.
 python_sources(name="lib")
 

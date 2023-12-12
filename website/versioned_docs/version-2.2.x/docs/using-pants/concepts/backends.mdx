@@ -8,81 +8,40 @@ How to enable specific functionality.
 ---
 
 Pants has some basic, non-language-specific functionality built in to its core. For example, you can count the lines of code under some directory in your repo:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "$ ./pants count-loc 'src/**'\n───────────────────────────────────────────────────────────────────────────────\nLanguage                 Files     Lines   Blanks  Comments     Code Complexity\n───────────────────────────────────────────────────────────────────────────────\nPython                      13       155       50        22       83          5\nBASH                         2       261       29        22      210         10\nJSON                         2        25        0         0       25          0\n...",
-      "language": "text",
-      "name": "Bash"
-    }
-  ]
-}
-[/block]
+```text title="Bash"
+$ ./pants count-loc 'src/**'
+───────────────────────────────────────────────────────────────────────────────
+Language                 Files     Lines   Blanks  Comments     Code Complexity
+───────────────────────────────────────────────────────────────────────────────
+Python                      13       155       50        22       83          5
+BASH                         2       261       29        22      210         10
+JSON                         2        25        0         0       25          0
+...
+```
+
 However most Pants functionality, including all language-specific functionality, is provided via _backends_.
 
 A backend is a Python package that implements some required functionality, and uses hooks to register itself with Pants.  You enable a backend by listing it under the `backend_packages` config key in `pants.toml`.
 
 For example, to enable Python support:
-[block:code]
-{
-  "codes": [
-    {
-      "code": "[GLOBAL]\nbackend_packages = [\"pants.backend.python\"]",
-      "language": "toml",
-      "name": "pants.toml"
-    }
-  ]
-}
-[/block]
+```toml title="pants.toml"
+[GLOBAL]
+backend_packages = ["pants.backend.python"]
+```
 
-[block:api-header]
-{
-  "title": "Available backends"
-}
-[/block]
+
+## Available backends
 Activate by adding the backend to the option `backend_packages` in the `[GLOBAL]` scope in `pants.toml`.
-[block:parameters]
-{
-  "data": {
-    "h-0": "Backend",
-    "h-1": "What it does",
-    "2-0": "`pants.backend.python`",
-    "2-1": "Core Python support.",
-    "h-2": "Docs",
-    "2-2": "[Enabling Python support](doc:python-backend)",
-    "4-0": "`pants.backend.python.lint.bandit`",
-    "4-1": "Enables Bandit, the Python security linter: https://bandit.readthedocs.io/en/latest/.",
-    "4-2": "[Linters and formatters](doc:python-linters-and-formatters)",
-    "5-0": "`pants.backend.python.lint.black`",
-    "5-1": "Enables Black, the Python autoformatter: https://black.readthedocs.io/en/stable/.",
-    "5-2": "[Linters and formatters](doc:python-linters-and-formatters)",
-    "6-0": "`pants.backend.python.lint.docformatter`",
-    "6-1": "Enables Docformatter, the Python docstring autoformatter: https://github.com/myint/docformatter.",
-    "6-2": "[Linters and formatters](doc:python-linters-and-formatters)",
-    "7-0": "`pants.backend.python.lint.flake8`",
-    "8-0": "`pants.backend.python.lint.isort`",
-    "9-0": "`pants.backend.python.lint.pylint`",
-    "10-0": "`pants.backend.python.typecheck.mypy`",
-    "10-2": "[typecheck](doc:python-typecheck-goal)",
-    "7-2": "[Linters and formatters](doc:python-linters-and-formatters)",
-    "8-2": "[Linters and formatters](doc:python-linters-and-formatters)",
-    "9-2": "[Linters and formatters](doc:python-linters-and-formatters)",
-    "3-0": "`pants.backend.python.mixed_interpreter_constraints`",
-    "3-1": "Adds the `py-constraints` goal for insights on Python interpreter constraints.",
-    "3-2": "[Interpreter compatibility](doc:python-interpreter-compatibility)",
-    "0-0": "`pants.backend.awslambda.python`",
-    "1-0": "`pants.backend.codegen.protobuf.python`",
-    "1-1": "Enables generating Python from Protocol Buffers. Includes gRPC support.",
-    "1-2": "[Protobuf and gRPC](doc:protobuf)",
-    "0-1": "Enables generating an AWS Lambda zip file from Python code.",
-    "0-2": "[Python support](doc:awslambda-python)",
-    "7-1": "Enables Flake8, the Python linter: https://flake8.pycqa.org/en/latest/.",
-    "8-1": "Enables isort, the Python import autoformatter: https://timothycrosley.github.io/isort/.",
-    "9-1": "Enables Pylint, the Python linter: https://www.pylint.org.",
-    "10-1": "Enables MyPy, the Python type checker: https://mypy.readthedocs.io/en/stable/."
-  },
-  "cols": 3,
-  "rows": 11
-}
-[/block]
+| Backend | What it does | Docs |
+| :--- | :--- | :--- |
+| `pants.backend.awslambda.python` | Enables generating an AWS Lambda zip file from Python code. | [Python support](doc:awslambda-python) |
+| `pants.backend.codegen.protobuf.python` | Enables generating Python from Protocol Buffers. Includes gRPC support. | [Protobuf and gRPC](doc:protobuf) |
+| `pants.backend.python` | Core Python support. | [Enabling Python support](doc:python-backend) |
+| `pants.backend.python.mixed_interpreter_constraints` | Adds the `py-constraints` goal for insights on Python interpreter constraints. | [Interpreter compatibility](doc:python-interpreter-compatibility) |
+| `pants.backend.python.lint.bandit` | Enables Bandit, the Python security linter: https://bandit.readthedocs.io/en/latest/. | [Linters and formatters](doc:python-linters-and-formatters) |
+| `pants.backend.python.lint.black` | Enables Black, the Python autoformatter: https://black.readthedocs.io/en/stable/. | [Linters and formatters](doc:python-linters-and-formatters) |
+| `pants.backend.python.lint.docformatter` | Enables Docformatter, the Python docstring autoformatter: https://github.com/myint/docformatter. | [Linters and formatters](doc:python-linters-and-formatters) |
+| `pants.backend.python.lint.flake8` | Enables Flake8, the Python linter: https://flake8.pycqa.org/en/latest/. | [Linters and formatters](doc:python-linters-and-formatters) |
+| `pants.backend.python.lint.isort` | Enables isort, the Python import autoformatter: https://timothycrosley.github.io/isort/. | [Linters and formatters](doc:python-linters-and-formatters) |
+| `pants.backend.python.lint.pylint` | Enables Pylint, the Python linter: https://www.pylint.org. | [Linters and formatters](doc:python-linters-and-formatters) |
+| `pants.backend.python.typecheck.mypy` | Enables MyPy, the Python type checker: https://mypy.readthedocs.io/en/stable/. | [typecheck](doc:python-typecheck-goal) |

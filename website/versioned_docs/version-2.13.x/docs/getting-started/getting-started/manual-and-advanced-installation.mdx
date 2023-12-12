@@ -32,18 +32,22 @@ Now, run this to bootstrap Pants and to verify the version it installs:
 ./pants --version
 ```
 
-> 📘 Add `./pants` to version control
-> 
-> You should check the `./pants` script into your repo so that all users can easily run Pants.
 
-> 👍 Upgrading Pants
-> 
-> The `./pants` script will automatically install and use the Pants version specified in `pants.toml`, so upgrading Pants is as simple as editing `pants_version` in that file.
+:::note Add `./pants` to version control
+
+    You should check the `./pants` script into your repo so that all users can easily run Pants.
+:::
+
+
+:::tip Upgrading Pants
+
+    The `./pants` script will automatically install and use the Pants version specified in `pants.toml`, so upgrading Pants is as simple as editing `pants_version` in that file.
+:::
 
 Running Pants from unreleased builds
 ------------------------------------
 
-To use an unreleased build of Pants from the [pantsbuild/pants](https://github.com/pantsbuild/pants) main branch, locate the main branch SHA, set PANTS_SHA=<SHA> in the environment, and run `./pants` as usual:
+To use an unreleased build of Pants from the [pantsbuild/pants](https://github.com/pantsbuild/pants) main branch, locate the main branch SHA, set PANTS_SHA=\<SHA> in the environment, and run `./pants` as usual:
 
 ```bash
 PANTS_SHA=22c566e78b4dd982958429813c82e9f558957817 ./pants --version

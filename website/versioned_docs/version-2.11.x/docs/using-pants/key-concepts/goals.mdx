@@ -52,7 +52,7 @@ Some simple goals—such as the `roots` goal—do not require arguments. But mos
 
 For example, to run the `count-loc` goal, which counts lines of code in your repository, you need to provide a set of files and/or targets to run on:
 
-```text Shell
+```text title="Shell"
 $ ./pants count-loc '**'
 ───────────────────────────────────────────────────────────────────────────────
 Language                 Files     Lines   Blanks  Comments     Code Complexity
@@ -65,9 +65,11 @@ TOML                         2        65       14        18       33          0
 ...
 ```
 
-> 📘 Quoting file patterns
-> 
-> Note the single-quotes around the file pattern `'**'`. This is so that your shell doesn't attempt to expand the pattern, but instead passes it unaltered to Pants.
+
+:::note Quoting file patterns
+
+    Note the single-quotes around the file pattern `'**'`. This is so that your shell doesn't attempt to expand the pattern, but instead passes it unaltered to Pants.
+:::
 
 File arguments vs. target arguments
 -----------------------------------
@@ -84,20 +86,24 @@ Any goal can take either type of argument:
 - If a target argument is given, the goal acts on all the files in the matching targets.
 - If a file argument is given, Pants will map the file back to its containing target to read any necessary metadata. 
 
-> 📘 File/target globs
-> 
-> For file arguments, use `'*'` and `'**'`, with the same semantics as the shell. Reminder: quote the argument if you want Pants to evaluate the glob, rather than your shell.
-> 
-> For target arguments, you can use:
-> 
-> - `dir::`, where `::` means every target in the current directory and recursively in subdirectories.
-> - `dir:`, where `:` means every target in that directory, but not subdirectories.
-> 
-> For example, `./pants list ::` will find every target in your project.
 
-> 📘 Tip: advanced target selection, such as running over changed files
-> 
-> See [Advanced target selection](doc:advanced-target-selection) for alternative techniques to specify which files/targets to run on.
+:::note File/target globs
+
+    For file arguments, use `'*'` and `'**'`, with the same semantics as the shell. Reminder: quote the argument if you want Pants to evaluate the glob, rather than your shell.
+    
+    For target arguments, you can use:
+    
+    - `dir::`, where `::` means every target in the current directory and recursively in subdirectories.
+    - `dir:`, where `:` means every target in that directory, but not subdirectories.
+    
+    For example, `./pants list ::` will find every target in your project.
+:::
+
+
+:::note Tip: advanced target selection, such as running over changed files
+
+    See [Advanced target selection](doc:advanced-target-selection) for alternative techniques to specify which files/targets to run on.
+:::
 
 Goal options
 ------------

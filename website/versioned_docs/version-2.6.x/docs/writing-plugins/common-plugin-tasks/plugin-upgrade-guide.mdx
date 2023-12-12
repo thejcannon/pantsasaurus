@@ -7,11 +7,7 @@ How to adjust for changes made to the Plugin API.
 
 ---
 
-[block:api-header]
-{
-  "title": "2.2"
-}
-[/block]
+## 2.2
 ### `PrimitiveField` and `AsyncField` are removed (2.2.0.dev0)
 
 Rather than subclassing `PrimitiveField`, subclass `Field` directly. `Field` now behaves like `PrimitiveField` used to, and `PrimitiveField` was removed for simplicity.
@@ -39,21 +35,13 @@ class MyField(StringField):
 ```
 
 Pants will now properly wrap strings and preserve newlines. You may want to run `./pants help ${target/subsystem}` to verify things render properly.
-[block:api-header]
-{
-  "title": "2.1"
-}
-[/block]
+## 2.1
 See https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.1.x.rst for the changelog.
 
 ### `SourcesSnapshot` is now `SpecsSnapshot` (2.1.0rc0)
 
 The type was renamed for clarity. Still import it from `pants.engine.fs`.
-[block:api-header]
-{
-  "title": "2.0"
-}
-[/block]
+## 2.0
 See https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.0.x.rst for the changelog.
 
 ### Use `TransitiveTargetsRequest` as input for resolving `TransitiveTargets` (2.0.0rc0)
