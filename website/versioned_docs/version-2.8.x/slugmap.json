@@ -1,11 +1,12 @@
 {
-  "getting-help": "docs/getting-help/getting-help.mdx",
-  "the-pants-community": "docs/getting-help/the-pants-community/index.mdx",
+  "getting-help": "community/getting-help",
+  "the-pants-community": "community/members",
   "community": "community/members",
-  "code-of-conduct": "docs/getting-help/the-pants-community/code-of-conduct.mdx",
+  "code-of-conduct": "community/code-of-conduct",
   "team": "community/meet-the-team",
-  "maintainers": "docs/getting-help/the-pants-community/maintainers.mdx",
-  "contentious-decisions": "docs/getting-help/the-pants-community/contentious-decisions.mdx",
+  "maintainers": "community/maintainers",
+  "contentious-decisions": "community/contentious-decisions",
+  "media": "spotlight/media",
   "documentation": "docs/learn-about-pants/index.mdx",
   "welcome-to-pants": "docs/learn-about-pants/welcome-to-pants.mdx",
   "how-does-pants-work": "docs/learn-about-pants/how-does-pants-work.mdx",
@@ -206,6 +207,5 @@
   "reference-shell_sources": "reference/targets/shell-sources.mdx",
   "reference-shunit2_test": "reference/targets/shunit2-test.mdx",
   "reference-shunit2_tests": "reference/targets/shunit2-tests.mdx",
-  "reference-target": "reference/targets/target.mdx",
-  "media": "/community/media"
+  "reference-target": "reference/targets/target.mdx"
 }

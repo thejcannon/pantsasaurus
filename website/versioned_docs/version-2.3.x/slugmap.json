@@ -1,11 +1,12 @@
 {
-  "getting-help": "docs/introduction/getting-help.mdx",
-  "the-pants-community": "docs/introduction/the-pants-community/index.mdx",
+  "getting-help": "community/getting-help",
+  "the-pants-community": "community/members",
   "community": "community/members",
-  "code-of-conduct": "docs/introduction/the-pants-community/code-of-conduct.mdx",
+  "code-of-conduct": "community/code-of-conduct",
   "team": "community/meet-the-team",
-  "maintainers": "docs/introduction/the-pants-community/maintainers.mdx",
-  "contentious-decisions": "docs/introduction/the-pants-community/contentious-decisions.mdx",
+  "maintainers": "community/maintainers",
+  "contentious-decisions": "community/contentious-decisions",
+  "media": "spotlight/media",
   "documentation": "docs/introduction/index.mdx",
   "welcome-to-pants": "docs/introduction/welcome-to-pants.mdx",
   "how-does-pants-work": "docs/introduction/how-does-pants-work.mdx",
@@ -174,6 +175,5 @@
   "reference-python_tests": "reference/targets/python-tests.mdx",
   "reference-relocated_files": "reference/targets/relocated-files.mdx",
   "reference-resources": "reference/targets/resources.mdx",
-  "reference-target": "reference/targets/target.mdx",
-  "media": "/community/media"
+  "reference-target": "reference/targets/target.mdx"
 }

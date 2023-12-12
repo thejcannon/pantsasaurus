@@ -6,7 +6,7 @@
   "team": "community/meet-the-team",
   "maintainers": "community/maintainers",
   "contentious-decisions": "community/contentious-decisions",
-  "media": "community/media",
+  "media": "spotlight/media",
   "documentation": "docs/introduction/index.mdx",
   "welcome-to-pants": "docs/introduction/welcome-to-pants.mdx",
   "how-does-pants-work": "docs/introduction/how-does-pants-work.mdx",

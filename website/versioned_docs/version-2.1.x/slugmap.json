@@ -6,6 +6,7 @@
   "team": "community/meet-the-team",
   "maintainers": "community/maintainers",
   "contentious-decisions": "community/contentious-decisions",
+  "media": "spotlight/media",
   "documentation": "docs/introduction/index.mdx",
   "welcome-to-pants": "docs/introduction/welcome-to-pants.mdx",
   "how-does-pants-work": "docs/introduction/how-does-pants-work.mdx",
@@ -156,6 +157,5 @@
   "reference-setuptools": "reference/subsystems/setuptools.mdx",
   "reference-source": "reference/subsystems/source.mdx",
   "reference-sourcefile-validation": "reference/subsystems/sourcefile-validation.mdx",
-  "reference-subprocess-environment": "reference/subsystems/subprocess-environment.mdx",
-  "media": "/community/media"
+  "reference-subprocess-environment": "reference/subsystems/subprocess-environment.mdx"
 }

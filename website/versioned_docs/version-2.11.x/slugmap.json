@@ -1,11 +1,13 @@
 {
-  "getting-help": "docs/getting-help/getting-help.mdx",
-  "the-pants-community": "docs/getting-help/the-pants-community/index.mdx",
+  "getting-help": "community/getting-help",
+  "the-pants-community": "community/members",
   "community": "community/members",
-  "code-of-conduct": "docs/getting-help/the-pants-community/code-of-conduct.mdx",
+  "code-of-conduct": "community/code-of-conduct",
   "team": "community/meet-the-team",
-  "maintainers": "docs/getting-help/the-pants-community/maintainers.mdx",
-  "contentious-decisions": "docs/getting-help/the-pants-community/contentious-decisions.mdx",
+  "maintainers": "community/maintainers",
+  "contentious-decisions": "community/contentious-decisions",
+  "media": "spotlight/media",
+  "service-providers": "spotlight/service-providers",
   "documentation": "docs/introduction/index.mdx",
   "welcome-to-pants": "docs/introduction/welcome-to-pants.mdx",
   "how-does-pants-work": "docs/introduction/how-does-pants-work.mdx",
@@ -265,6 +267,5 @@
   "reference-target": "reference/targets/target.mdx",
   "reference-terraform_module": "reference/targets/terraform-module.mdx",
   "reference-thrift_source": "reference/targets/thrift-source.mdx",
-  "reference-thrift_sources": "reference/targets/thrift-sources.mdx",
-  "media": "/community/media"
+  "reference-thrift_sources": "reference/targets/thrift-sources.mdx"
 }
