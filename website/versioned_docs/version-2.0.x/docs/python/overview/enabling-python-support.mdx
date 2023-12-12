@@ -19,9 +19,9 @@ See [here](https://github.com/pantsbuild/example-python) for examples of Pants's
 
 :::
 
-Enable the Python [backend](doc:backends) like this:
+Enable the Python [backend](../../using-pants/concepts/backends.mdx) like this:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [GLOBAL]
 ...
 backend_packages = [
@@ -31,7 +31,7 @@ backend_packages = [
 
 You should now see some new goals available:
 
-```text title="title="Shell""
+```text title="Shell"
 $ ./pants help goals
 ...
 
@@ -101,7 +101,7 @@ interpreter_search_paths = [
 ]
 ```
 
-See [here](doc:python-interpreter-compatibility#changing-the-interpreter-search-path) for more information.
+See [here](./interpreter-compatibility.mdx#changing-the-interpreter-search-path) for more information.
 
 ```
 

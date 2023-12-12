@@ -14,7 +14,7 @@ How to use MyPy.
 
 To opt-in, add `pants.backend.python.typecheck.mypy` to `backend_packages` in your config file.
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [GLOBAL]
 backend_packages.add = [
   "pants.backend.python",
@@ -34,7 +34,7 @@ $ ./pants typecheck ::
 ```
 MyPy determines which Python version to use based on its `python_version` option. If that's undefined, MyPy uses the interpreter the tool is run with. Because you can only use one config file at a time with MyPy, you cannot normally say to use `2.7` for part of your codebase but `3.6` for the rest; you must choose a single version.
 
-Instead, Pants will group your targets based on their [interpreter constraints](doc:python-interpreter-compatibility), and run all the Python 2 targets together and all the Python 3 targets together. It will automatically set `python_version` to the minimum compatible interpreter, such as a constraint like `["==2.7.*", ">3.6"]` using `2.7`.
+Instead, Pants will group your targets based on their [interpreter constraints](../overview/interpreter-compatibility.mdx), and run all the Python 2 targets together and all the Python 3 targets together. It will automatically set `python_version` to the minimum compatible interpreter, such as a constraint like `["==2.7.*", ">3.6"]` using `2.7`.
 
 To turn this off, you can still set `python_version` in `mypy.ini` or `--python-version`/`--py2` in `--mypy-args`; Pants will respect the value you set.
 
@@ -46,7 +46,7 @@ To turn this off, you can still set `python_version` in `mypy.ini` or `--python-
 
 Set the `config` option in the `[mypy]` scope:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [mypy]
 config = "build-support/mypy.ini"
 ```
@@ -55,7 +55,7 @@ config = "build-support/mypy.ini"
 
 Use the `version` option in the `[mypy]` scope:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [mypy]
 version = "mypy==0.782"
 ```
@@ -66,7 +66,7 @@ You can use [`.pyi` files](https://mypy.readthedocs.io/en/stable/stubs.html) for
 
 Pants's dependency inference knows to infer a dependency both on the implementation and the type stub. You can verify this by running `./pants dependencies path/to/file.py`.
 
-When writing stubs for third-party libraries, you may need the set up the `[source].root_patterns` option so that [source roots](doc:source-roots) are properly stripped. For example:
+When writing stubs for third-party libraries, you may need the set up the `[source].root_patterns` option so that [source roots](../../using-pants/concepts/source-roots.mdx) are properly stripped. For example:
 
 <Tabs>
 <TabItem value="pants.toml" label="pants.toml">
@@ -196,7 +196,7 @@ mypy_source_plugin(
 :::note MyPy Protobuf support
 
 ```
-Add `mypy_plugin = true` to the `[python-protobuf]` scope. See [Protobuf](doc:protobuf) for more information.
+Add `mypy_plugin = true` to the `[python-protobuf]` scope. See [Protobuf](../../codegen/protobuf-and-grpc.mdx) for more information.
 
 ```
 
@@ -291,7 +291,7 @@ Pants's MyPy implementation will likely not work if you use namespace packages, 
 
 Further, we've internally had issues with setting `--namespace-packages` causing MyPy to complain about some third-party dependencies, which appears to be a MyPy bug.
 
-Please reach out on [Slack](doc:community) if you need support for namespace packages. We had difficulty getting MyPy to work with namespace packages independently of Pants, and it would help us to understand your use case.
+Please reach out on [Slack](../../../community/members) if you need support for namespace packages. We had difficulty getting MyPy to work with namespace packages independently of Pants, and it would help us to understand your use case.
 
 ## Tip: only run over changed files and their dependees
 
@@ -301,4 +301,4 @@ When changing type hints code, you not only need to run over the changed files, 
 $ ./pants --changed-since=HEAD --changed-dependees=transitive typecheck
 ```
 
-See [Advanced target selection](doc:advanced-target-selection) for more information.
+See [Advanced target selection](../../using-pants/advanced-target-selection.mdx) for more information.

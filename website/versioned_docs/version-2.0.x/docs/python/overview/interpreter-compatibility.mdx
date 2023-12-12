@@ -14,7 +14,7 @@ How to configure which Python version(s) your project should use.
 
 Configure your default Python interpreter compatibility constraints in `pants.toml` like this:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [python-setup]
 interpreter_constraints = ["CPython==3.8.*"]
 ```
@@ -34,7 +34,7 @@ Pants also allows you to specify the interpreter compatibility for particular ta
 
 Use the `compatibility` field on a Python target to override its interpreter constraints, like this:
 
-```python title="title="BUILD""
+```python title="BUILD"
 python_library(
     name="python2_target",
     compatibility="==2.7.*",
@@ -89,7 +89,7 @@ compatibility="==3.6.\*",
 
 ```
 
-This quickly gets tedious to write in BUILD files, so we recommend [defining a macro](doc:macros) that will generate all the targets for you.
+This quickly gets tedious to write in BUILD files, so we recommend [defining a macro](../../writing-plugins/macros.mdx) that will generate all the targets for you.
 
 ```
 
@@ -112,7 +112,7 @@ You can also use `./pnats py-constraints --summary` to generate a CSV of every f
 While every project will have different needs and scope, there are a few best practices with Pants that will allow for a more successful migration.
 
 * Start by setting the `interpreter_constraints` option in `[python-setup]` to describe the status of the majority of your targets. If most are only compatible with Python 2, set it to `==2.7.*`. If most are compatible with Python 2 _and_ Python 3, set to `>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*`. If most are only compatible with Python 3, set to `>=3.5`. For any targets that don't match these global constraints, override with the `compatibility` field.
-* Find your most-used targets, such as your util targets, by running `./pants dependees --transitive --output-format=json` (see [Project introspection](doc:project-introspection)). Focus on getting these targets to be compatible with Python 2 and 3. You may want to also run `./pants dependencies` on these targets to find which are the easiest to migrate.
+* Find your most-used targets, such as your util targets, by running `./pants dependees --transitive --output-format=json` (see [Project introspection](../../using-pants/project-introspection.mdx)). Focus on getting these targets to be compatible with Python 2 and 3. You may want to also run `./pants dependencies` on these targets to find which are the easiest to migrate.
 * Once >40% of your targets work with both Python 2 and Python 3, change the `interpreter_constraints` option in `[python-setup]` to specify compatibility with both Python 2.7 and Python 3 so that all new code uses this by default.
 * For targets at the "top" of the graph, meaning targets which have no or few dependencies, change them to Python 3-only when possible so that you can start using all the neat new Python 3 features like f-strings! You can usually do this to `python_tests` and `pex_binary` targets, as they are never dependencies for other targets. You can also do this if every "dependee" target also works exclusively with Python 3. Use `./pants dependees --transitive path/to:target` to see what depends on the target.
 
@@ -134,7 +134,7 @@ You can specify absolute paths to interpreter binaries and/or to directories con
 
 For example:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [python-setup]
 interpreter_search_paths = ["<PYENV>", "/opt/python3"]
 ```

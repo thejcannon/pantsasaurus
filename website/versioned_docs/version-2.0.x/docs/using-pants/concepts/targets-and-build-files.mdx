@@ -20,7 +20,7 @@ This extra information lives in entities called `targets`. A target is a set of 
 
 Target information lives in files with the name `BUILD`. For example:
 
-```python title="title="helloworld/greet/BUILD""
+```python title="helloworld/greet/BUILD"
 python_library(
     name = 'greet',
     sources = ['*.py', '!*_test.py'],
@@ -78,7 +78,7 @@ However, dependency inference cannot infer everything. For example, dependency i
 
 To add a new explicit dependency, include the address to the target. This will result in all of the files from that target's `sources` field being included. See the below tool tip "Explicit file addresses" for how to instead use more granular dependencies, which is what dependency inference uses.
 
-```python title="title="helloworld/greet/BUILD""
+```python title="helloworld/greet/BUILD"
 python_library(
     dependencies=[
         "3rdparty/python:ansicolors",
@@ -172,7 +172,7 @@ To cut down on boilerplate:
   For example, the default value for the `sources` field of a `python_library` target is `['*.py', '!*_test.py', '!test_*.py', '!conftest.py']`. That is, "all Python source files in this target's directory that aren't test-related".
 
 So, for example, the target above might be rewritten more succinctly as:
-```python title="title="helloworld/greet/BUILD""
+```python title="helloworld/greet/BUILD"
 python_library(
     compatibility = ">=3.6",
 )
@@ -180,7 +180,7 @@ python_library(
 
 If we want to use the default `compatibility` value, we could simply write:
 
-```python title="title="helloworld/greet/BUILD""
+```python title="helloworld/greet/BUILD"
 python_library()
 ```
 
@@ -211,7 +211,7 @@ python_tests(name="tests")
 :::note Tips on setting up initial BUILD files
 
 ```
-See [Adopting Pants in an Existing Repo](doc:existing-repositories) for tips on setting up Pants, including where to add BUILD files.
+See [Adopting Pants in an Existing Repo](../adopting-pants-in-existing-repos.mdx) for tips on setting up Pants, including where to add BUILD files.
 
 ```
 

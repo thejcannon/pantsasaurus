@@ -13,7 +13,7 @@ Common issues you may encounter.
 :::tip Asking for help
 
 ```
-See [Getting Help](doc:community). We would love to help!
+See [Getting Help](../../../community/members). We would love to help!
 
 If you are confused by something, likely someone else will run into the same issue. It is helpful for us to know what is going wrong so that we can improve Pants and improve this documentation.
 
@@ -31,7 +31,7 @@ When you encounter an exception, it can help to use the global options `--print-
 <<pantscmd>> --print-stacktrace -ldebug
 ```
 
-Once you have this stack trace, we recommend copying it into Pastebin or a GitHub Gist, then opening a GitHub issue or posting on Slack. Someone from the Pants team would be happy to help. See [Getting Help](doc:community).
+Once you have this stack trace, we recommend copying it into Pastebin or a GitHub Gist, then opening a GitHub issue or posting on Slack. Someone from the Pants team would be happy to help. See [Getting Help](../../../community/members).
 
 ## \"Out of space\" error: set an alternative tmpdir
 
@@ -39,7 +39,7 @@ It may be necessary to explicitly set the directory Pants uses as a temporary di
 
 Use the global option `local_execution_root_dir` to change the tmpdir used by Pants.
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [GLOBAL]
 local_execution_root_dir = "/mnt/large-partition/tmpdir"
 ```
@@ -48,7 +48,7 @@ local_execution_root_dir = "/mnt/large-partition/tmpdir"
 
 On Linux, Pants uses `inotify` to watch all files and directories related to any particular build. Some systems have limits configured for the maximum number of files watched. To adjust the limit on file watches, you can run:
 
-```shell title="title="shell""
+```shell title="shell"
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 ```
 
@@ -66,7 +66,7 @@ For `local_store_dir` and `named_caches_dir`, you may either specify an absolute
 
 It is safe to delete these folders to free up space.
 
-You can also change the cache used by the `./pants` script described in [Installing Pants](doc:installation), which defaults to `~/.pants/cache/setup`. Either set the environment variable `PANTS_SETUP_CACHE` or change the Bash script directly where it defines `PANTS_SETUP_CACHE`. You may use an absolute path or a path relative to the build root.
+You can also change the cache used by the `./pants` script described in [Installing Pants](../../introduction/getting-started/installing-pants.mdx), which defaults to `~/.pants/cache/setup`. Either set the environment variable `PANTS_SETUP_CACHE` or change the Bash script directly where it defines `PANTS_SETUP_CACHE`. You may use an absolute path or a path relative to the build root.
 
 ## \"Double requirement given\" error when resolving requirements
 
@@ -74,7 +74,7 @@ This is an error from `pip`, and it means that the same 3rd-party Python require
 
 You can use Pants to help identify why the same requirement is being used more than once:
 
-```shell title="title="Shell""
+```shell title="Shell"
 # List all requirement strings used in your project. Once you
 # find the problematic requirement strings, try grepping
 # for them to see where the targets are defined.
@@ -92,7 +92,7 @@ Almost always, this error happens because of the option `pants_ignore` in the `[
 
 To override something included in your `.gitignore`, add a new value to `pants_ignore` and prefix it with `!`, like the below. `pants_ignore` uses the [same syntax as gitignore](https://git-scm.com/docs/gitignore).
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [GLOBAL]
 pants_ignore.add = ["!folder/"]
 ```
@@ -107,7 +107,7 @@ The macOS system Python interpreters are broken in several ways, such as sometim
 ERROR: Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Library/Python/3.7'
 ```
 
-You can set the option `interpreter_search_paths` in the `[python-setup]` scope to teach Pants to ignore the interpreters in `/usr/bin`. See [here](doc:python-interpreter-compatibility#changing-the-interpreter-search-path) for more information.
+You can set the option `interpreter_search_paths` in the `[python-setup]` scope to teach Pants to ignore the interpreters in `/usr/bin`. See [here](../../python/overview/interpreter-compatibility.mdx#changing-the-interpreter-search-path) for more information.
 
 ## \"Too many open files\" error
 

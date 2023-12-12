@@ -54,7 +54,7 @@ Pants analyzes your code's import statements to determine files' dependencies au
 
 Before (Pants v1, other build tools like Bazel):
 
-```python title="title="BUILD""
+```python title="BUILD"
 python_library(
   dependencies=[
     'src/python/pants/backend/python/rules',
@@ -83,7 +83,7 @@ python_tests(
 
 After:
 
-```python title="title="BUILD""
+```python title="BUILD"
 python_library()
 
 python_tests(name='tests')
@@ -91,7 +91,7 @@ python_tests(name='tests')
 
 ### A powerful plugin system
 
-With the [Pants plugin API](doc:plugins-overview), your custom rules will run with the same concurrency, caching, and remoting semantics as the core rules.
+With the [Pants plugin API](../writing-plugins/overview.mdx), your custom rules will run with the same concurrency, caching, and remoting semantics as the core rules.
 
 Some example plugins that users have written:
 

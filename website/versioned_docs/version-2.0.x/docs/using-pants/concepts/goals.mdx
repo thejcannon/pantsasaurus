@@ -16,7 +16,7 @@ To satisfy a goal, Pants will use cached data whenever possible, and perform wor
 
 ## Which goals are available?
 
-Pants is an extensible system, so the exact goals that are available depend upon which [backends](doc:enabling-backends) are enabled.
+Pants is an extensible system, so the exact goals that are available depend upon which [backends](./backends.mdx) are enabled.
 
 To see the current list of goals, run:
 
@@ -26,7 +26,7 @@ To see the current list of goals, run:
 
 For example, if you don't yet have any backends installed, you should see:
 
-```text title="title="Shell""
+```text title="Shell"
 ./pants help goals
 
 Goals
@@ -57,7 +57,7 @@ Use `./pants help $goal` to get help for a specific goal.
 
 Let's try running a goal:
 
-```text title="title="Shell""
+```text title="Shell"
 $ ./pants roots
 3rdparty/python
 src/assets
@@ -70,7 +70,7 @@ Some simple goals—such as the `roots` goal—do not require arguments. But mos
 
 For example, to run the `count-loc` goal, which counts lines of code in your repository, you need to provide a set of files and/or targets to run on:
 
-```text title="title="Shell""
+```text title="Shell"
 $ ./pants count-loc '**'
 ───────────────────────────────────────────────────────────────────────────────
 Language                 Files     Lines   Blanks  Comments     Code Complexity
@@ -97,7 +97,7 @@ Note the single-quotes around the file pattern `'**'`. This is so that your shel
 Goal arguments can be of one of two types:
 
 - _File arguments_: file paths and/or globs.
-- _Target arguments_: addresses and/or address globs of [targets](doc:targets).
+- _Target arguments_: addresses and/or address globs of [targets](./targets-and-build-files.mdx).
 
 Any goal can take either type of argument:
 
@@ -125,7 +125,7 @@ For example, `./pants list ::` will find every target in your project.
 :::note Tip: advanced target selection, such as running over changed files
 
 ```
-See [Advanced target selection](doc:advanced-target-selection) for alternative techniques to specify which files/targets to run on.
+See [Advanced target selection](../advanced-target-selection.mdx) for alternative techniques to specify which files/targets to run on.
 
 ```
 
@@ -133,9 +133,9 @@ See [Advanced target selection](doc:advanced-target-selection) for alternative t
 
 ## Goal options
 
-Many goals also have [options](doc:options) to change how they behave.
+Many goals also have [options](./options.mdx) to change how they behave.
 
-To see if a goal has any options, run `./pants help $goal` or `./pants help-advanced $goal`. See [Command Line Help](doc:getting-help) for more information.
+To see if a goal has any options, run `./pants help $goal` or `./pants help-advanced $goal`. See [Command Line Help](../../../community/getting-help) for more information.
 
 For example:
 

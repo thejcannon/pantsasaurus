@@ -16,6 +16,7 @@ Config section: <span className="color--primary">`[python-binary]`</span>
 <span className={styles.options}>
 
 ## Basic options
+
 None
 
 ## Advanced options
@@ -24,10 +25,12 @@ None
 
 <Option
   cli_repr={`--[no-]python-binary-emit-warnings`}
-  env_repr='PANTS_PYTHON_BINARY_EMIT_WARNINGS'
+  env_repr="PANTS_PYTHON_BINARY_EMIT_WARNINGS"
   default_repr={`True`}
 >
-Whether built PEX binaries should emit PEX warnings at runtime by default. Can be overridden by specifying the `emit_warnings` parameter of individual `pex_binary` targets
+  Whether built PEX binaries should emit PEX warnings at runtime by default. Can
+  be overridden by specifying the `emit_warnings` parameter of individual
+  `pex_binary` targets
 </Option>
 
 ## Deprecated options
@@ -36,12 +39,14 @@ Whether built PEX binaries should emit PEX warnings at runtime by default. Can b
 
 <Option
   cli_repr={`--[no-]python-binary-pex-emit-warnings`}
-  env_repr='PANTS_PYTHON_BINARY_PEX_EMIT_WARNINGS'
+  env_repr="PANTS_PYTHON_BINARY_PEX_EMIT_WARNINGS"
   default_repr={`True`}
-  removal_version='2.1.0.dev0'
-  removal_hint={'Use `emit_warnings` rather than `pex_emit_warnings`.'}
+  removal_version="2.1.0.dev0"
+  removal_hint={"Use `emit_warnings` rather than `pex_emit_warnings`."}
 >
-Whether built PEX binaries should emit pex warnings at runtime by default. Can be overridden by specifying the `emit_warnings` parameter of individual `pex_binary` targets
+  Whether built PEX binaries should emit pex warnings at runtime by default. Can
+  be overridden by specifying the `emit_warnings` parameter of individual
+  `pex_binary` targets
 </Option>
 
 </span>

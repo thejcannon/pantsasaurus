@@ -18,14 +18,14 @@ In addition to the default Python shell, Pants supports the improved [IPython sh
 
 To use IPython, run `./pants repl --shell=ipython`. To permanently use IPython, add this to your `pants.toml`:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [repl]
 shell = "ipython"
 ```
 
 You can change IPython's version with `--ipython-version`:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [ipython]
 version = "ipython>=6.0.0"
 ```
@@ -68,7 +68,7 @@ ignore_cwd = false
 
 ## Examples
 
-```text title="title="Shell""
+```text title="Shell"
 $ ./pants repl helloworld/greet/greeting.py
 
 Python 3.7.6 (default, Feb 26 2020, 08:28:08)
@@ -85,7 +85,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 This will not load any of your code:
 
-```text title="title="Shell""
+```text title="Shell"
 $ ./pants --no-pantsd repl --shell=ipython
 
 Python 3.6.10 (default, Feb 26 2020, 08:26:13)

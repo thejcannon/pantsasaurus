@@ -15,7 +15,7 @@ How to configure Pants to work with proxies.
 ```
 It can be tricky to get a proxy working. It's also possible that Pants does not yet have all the mechanisms it'll need to work with your organization's specific setup, which we'd love to fix.
 
-Please reach out on [Slack](doc:community) or open a [GitHub issue](https://github.com/pantsbuild/pants/issues) for any help.
+Please reach out on [Slack](../../../community/members) or open a [GitHub issue](https://github.com/pantsbuild/pants/issues) for any help.
 
 ```
 
@@ -23,7 +23,7 @@ Please reach out on [Slack](doc:community) or open a [GitHub issue](https://gith
 
 ## Installing Pants
 
-The `./pants` script from [Installing Pants](doc:installation) uses PyPI to download and install the wheel `pantsbuild.pants` and all of Pants's dependencies.
+The `./pants` script from [Installing Pants](../../introduction/getting-started/installing-pants.mdx) uses PyPI to download and install the wheel `pantsbuild.pants` and all of Pants's dependencies.
 
 If you cannot access PyPI, you may instead download Pants as a PEX binary from https://github.com/pantsbuild/pants/releases. After downloading the PEX artifact, you can rename the file to `./pants`, run `chmod +x ./pants`, then run `./pants --version` like you normally would.
 
@@ -33,7 +33,7 @@ You may want to check the binary into version control so that everyone in your o
 
 You may need to configure Pants to use a custom Certificate Authority (CA) bundle:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [GLOBAL]
 ca_certs_path = "/path/to/certs/file"
 ```
@@ -42,7 +42,7 @@ ca_certs_path = "/path/to/certs/file"
 
 You may need to set standard proxy-related environment variables, such as `http_proxy`, `https_proxy` and `all_proxy`, in executed subprocesses:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [subprocess-environment]
 env_vars.add = ["http_proxy=http://myproxy", "https_proxy"]
 ```
@@ -53,7 +53,7 @@ Note that if you leave of the env var's value, as for `https_proxy` above, Pants
 
 ## Using a custom \"cheeseshop\"/PyPI
 
-See [Third-party dependencies](doc:python-third-party-dependencies#using-custom-repositories) for instructions.
+See [Third-party dependencies](../../python/overview/third-party-dependencies.mdx#using-custom-repositories) for instructions.
 
 ## Hosting binaries
 
@@ -80,7 +80,7 @@ For example, `./pants help-advanced protoc` gives us the template `https://githu
 
 Once you determine the full URL, you can download the original binary and host it yourself. Then, you can update the `url_template` option to point to your host:
 
-```python title="title="pants.toml""
+```python title="pants.toml"
 [protoc]
 url_template = "https://binaries.pantsbuild.org/bin/protoc/{version}/{platform}/protoc.zip"
 ```

@@ -16,6 +16,7 @@ Config section: <span className="color--primary">`[basicauth]`</span>
 <span className={styles.options}>
 
 ## Basic options
+
 None
 
 ## Advanced options
@@ -40,12 +41,14 @@ Map from provider name to config dict. This dict contains the following items: &
 
 <Option
   cli_repr={`--[no-]basicauth-allow-insecure-urls`}
-  env_repr='PANTS_BASICAUTH_ALLOW_INSECURE_URLS'
+  env_repr="PANTS_BASICAUTH_ALLOW_INSECURE_URLS"
   default_repr={`False`}
-  removal_version='2.1.0.dev0'
-  removal_hint={'The option `--basicauth-allow-insecure-urls` does not do anything and the `[basicauth]` subsystem will be removed.'}
+  removal_version="2.1.0.dev0"
+  removal_hint={
+    "The option `--basicauth-allow-insecure-urls` does not do anything and the `[basicauth]` subsystem will be removed."
+  }
 >
-Allow auth against non-HTTPS urls. Must only be set when testing!
+  Allow auth against non-HTTPS urls. Must only be set when testing!
 </Option>
 
 </span>

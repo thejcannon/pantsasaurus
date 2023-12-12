@@ -37,7 +37,7 @@ python_requirements()
 
 Pants will use the `python_requirements()` macro to create a distinct `python_requirement_library` target for each specified requirement.
 
-Pants will then use [dependency inference](doc:targets) by looking at your Python import statements to automatically add those targets to the `dependencies` field. For example:
+Pants will then use [dependency inference](../../using-pants/concepts/targets-and-build-files.mdx) by looking at your Python import statements to automatically add those targets to the `dependencies` field. For example:
 
 <Tabs>
 <TabItem value="shell" label="shell">
@@ -63,7 +63,7 @@ import requests
 
 If any of your dependencies expose modules with names different than the project name (i.e. having a requirement named `ansicolors` that is imported as `colors`), you can teach Pants about it by setting `module_mapping`:
 
-```python title="title="BUILD""
+```python title="BUILD"
 python_requirements(
     module_mapping={
         "ansicolors": ["colors"],
@@ -74,7 +74,7 @@ python_requirements(
 
 You can also add an explicit dependency by adding the `python_requirement_library` target to the `dependencies` field for a target. This will make sure that the dependency is included regardless of if dependency inference can infer it or not. For example:
 
-```python title="title="project/BUILD""
+```python title="project/BUILD"
 python_library(
     dependencies=[
         # We don't have an import statement for this dep, so inference
@@ -140,7 +140,7 @@ Pip still works with these PEP 440-compliant formats, so you won't be losing any
 
 Lockfiles are important for reproducible builds. They ensure that the selected versions of all transitive dependencies are consistent, even when third-party libraries release new versions.
 
-If you define a lockfile, Pants will also optimize to avoid resolving requirements more than one time for your project. This greatly speeds up the performance of goals like `test`, `run`, and `repl`. (See [python-setup](doc:reference-python-setup) for more information on the `resolve_all_constraints` option.)
+If you define a lockfile, Pants will also optimize to avoid resolving requirements more than one time for your project. This greatly speeds up the performance of goals like `test`, `run`, and `repl`. (See [python-setup](reference:reference-python-setup) for more information on the `resolve_all_constraints` option.)
 
 Pants uses Pip's [constraints file](https://pip.pypa.io/en/stable/user_guide/#constraints-files) feature to support lockfiles. Constraints files tell Pip to use the specified version of a library when encountered, even if it overrides what was specified in your `requirements.txt`.
 
@@ -195,7 +195,7 @@ You may alternatively use a tool like [Poetry](https://python-poetry.org) or [Pi
 :::caution Need support for multiple lockfiles?
 
 ```
-For now, Pants only supports one single global lockfile. But, we are considering adding support for multiple lockfiles. Please message us on [Slack](doc:community) if you would like this feature - we would appreciate feedback on your use case.
+For now, Pants only supports one single global lockfile. But, we are considering adding support for multiple lockfiles. Please message us on [Slack](../../../community/members) if you would like this feature - we would appreciate feedback on your use case.
 
 ```
 
@@ -207,7 +207,7 @@ Sometimes you may want to use a certain dependency without adding it to your `re
 
 Pants allows you to define inline requirements with the target type `python_requirement_library`, like this:
 
-```python title="title="project/BUILD""
+```python title="project/BUILD"
 python_requirement_library(
     name="old_requests",
     requirements=["requests==2.8.0"],
@@ -224,7 +224,7 @@ pex_binary(
 
 If any of your dependencies expose modules with names different than the project name, you can teach Pants about it by setting `module_mapping`:
 
-```python title="title="project/BUILD""
+```python title="project/BUILD"
 python_requirement_library(
     name="old_requests",
     requirements=["ansicolors=1.18.0"],
@@ -236,7 +236,7 @@ python_requirement_library(
 
 If you host your own wheels at a custom index (aka "cheese shop"), you can instruct Pants to use it with the option `indexes` in the `[python-repos]` scope.
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [python-repos]
 indexes.add = ["https://custom-cheeseshop.net/simple"]
 ```
@@ -251,7 +251,7 @@ You can create a virtualenv using standard Python tooling—such as [Python's bu
 
 For example, this script will first create a venv, and then generate a `constraints.txt` file.
 
-```shell title="title="build-support/generate_constraints.sh""
+```shell title="build-support/generate_constraints.sh"
 #!/usr/bin/env bash
 
 set -euo pipefail

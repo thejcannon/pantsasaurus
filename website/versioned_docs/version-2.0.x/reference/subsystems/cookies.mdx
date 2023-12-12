@@ -16,6 +16,7 @@ Config section: <span className="color--primary">`[cookies]`</span>
 <span className={styles.options}>
 
 ## Basic options
+
 None
 
 ## Advanced options
@@ -28,12 +29,15 @@ None
 
 <Option
   cli_repr={`--cookies-path=<str>`}
-  env_repr='PANTS_COOKIES_PATH'
+  env_repr="PANTS_COOKIES_PATH"
   default_repr={`$XDG_CACHE_HOME/pants/auth/cookies`}
-  removal_version='2.1.0.dev0'
-  removal_hint={'The option `--cookies-path` does not do anything and the `[cookies]` subsystem will be removed.'}
+  removal_version="2.1.0.dev0"
+  removal_hint={
+    "The option `--cookies-path` does not do anything and the `[cookies]` subsystem will be removed."
+  }
 >
-Path to file that stores persistent cookies. Defaults to &lt;pants bootstrap dir&gt;/auth/cookies.
+  Path to file that stores persistent cookies. Defaults to &lt;pants bootstrap
+  dir&gt;/auth/cookies.
 </Option>
 
 </span>

@@ -54,7 +54,7 @@ class CustomSetupKwargsRequest(SetupKwargsRequest):
         return target.address.spec.startswith("src/python/project1")
 ```
 
-Then, register your new `SetupKwargsRequest ` with a [`UnionRule`](doc:rules-api-unions) so that Pants knows your implementation exists:
+Then, register your new `SetupKwargsRequest ` with a [`UnionRule`](<../the-rules-api/union-rules-(advanced).mdx>) so that Pants knows your implementation exists:
 
 ```python
 from pants.engine.rules import collect_rules
@@ -136,7 +136,7 @@ async def setup_kwargs_plugin(request: CustomSetupKwargsRequest) -> SetupKwargs:
 
 Update your plugin's `register.py` to activate this file's rules.
 
-```python title="title="pants-plugins/python_plugins/register.py""
+```python title="pants-plugins/python_plugins/register.py"
 from python_plugins import custom_setup_py
 
 def rules():
@@ -145,7 +145,7 @@ def rules():
 
 Then, temporarily delete any `setup_py_commands` from the `python_distribution` target, run `./pants package path/to:python_distribution`, and inspect the generated `setup.py` in the resulting folder to confirm that your plugin worked correctly.
 
-Often, you will want to read from a file in your project to set kwargs like `version` or `long_description`. Use `await Get(DigestContents, PathGlobs)` to do this (see [File system](doc:rules-api-file-system)):
+Often, you will want to read from a file in your project to set kwargs like `version` or `long_description`. Use `await Get(DigestContents, PathGlobs)` to do this (see [File system](../the-rules-api/file-system.mdx)):
 
 ```python
 from pants.backend.python.goals.setup_py import SetupKwargs
@@ -171,6 +171,6 @@ async def setup_kwargs_plugin(request: CustomSetupKwargsRequest) -> SetupKwargs:
 
 Refer to these guides for additional things you may want to do in your plugin:
 
-- [Read from options](doc:rules-api-subsystems). Also see [here](https://github.com/pantsbuild/pants/blob/master/pants-plugins/internal_plugins/releases/register.py) for an example.
-- [Read values from the target](doc:rules-api-and-target-api) using the Target API.
-- [Run a `Process`](doc:rules-api-process), such as `git`. Also see [Installing tools](doc:rules-api-installing-tools).
+- [Read from options](../the-rules-api/options-and-subsystems.mdx). Also see [here](https://github.com/pantsbuild/pants/blob/master/pants-plugins/internal_plugins/releases/register.py) for an example.
+- [Read values from the target](../the-rules-api/rules-and-the-target-api.mdx) using the Target API.
+- [Run a `Process`](../the-rules-api/processes.mdx), such as `git`. Also see [Installing tools](../the-rules-api/installing-tools.mdx).
