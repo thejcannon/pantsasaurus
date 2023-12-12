@@ -7,7 +7,6 @@ Configuring Pants to understand your imports.
 
 ---
 
-
 :::note Go and Shell can skip this page
 Go does have a notion of source roots: where your `go.mod` is located. However, that is handled automatically by Pants without you needing to follow this page.
 
@@ -65,6 +64,7 @@ src/rust
 ### Configuring source roots using patterns
 
 You can provide a set of patterns that match your source roots:
+
 ```toml title="pants.toml"
 [source]
 root_patterns = [
@@ -114,15 +114,14 @@ pkgutil.get_data("project.config", "prod.json")
 ```
 
 If you have no source roots, use this config:
+
 ```toml title="pants.toml"
 [source]
 root_patterns = ["/"]
 ```
 
-
-
 :::note Default source roots
-The default value of the `root_patterns` config key is `["/", "src", "src/python", "src/py", "src/java", "src/scala", "src/thrift", "src/protos", "src/protobuf"]`. 
+The default value of the `root_patterns` config key is `["/", "src", "src/python", "src/py", "src/java", "src/scala", "src/thrift", "src/protos", "src/protobuf"]`.
 
 These capture a range of common cases, including a source root at the root of the repository. If your source roots match these patterns, you don't need to explicitly configure them.
 
@@ -131,6 +130,7 @@ These capture a range of common cases, including a source root at the root of th
 ### Configuring source roots using marker files
 
 You can also denote your source roots using specially-named marker files. To do so, first pick a name (or multiple names) to use:
+
 ```toml title="pants.toml"
 [source]
 marker_filenames = ["SOURCE_ROOT"]
@@ -156,6 +156,7 @@ For example, given this Python repo, where we have a `setup.py` for each distinc
 ```
 
 We could use this config:
+
 ```toml title="pants.toml"
 [source]
 marker_filenames = ["setup.py"]
@@ -185,7 +186,7 @@ from utils.utils.strutil import capitalize
 
 ## Examples
 
-These project structures are all valid; Pants does not expect you to reorganize your codebase to use the tool. 
+These project structures are all valid; Pants does not expect you to reorganize your codebase to use the tool.
 
 ### `src/<lang>` setup
 
@@ -244,6 +245,7 @@ import org.pantsbuild.project.util.Math
 ```
 
 #### Config:
+
 ```toml title="pants.toml"
 [source]
 root_patterns = [
@@ -252,7 +254,6 @@ root_patterns = [
     "/test/python",
 ]
 ```
-
 
 Note that we organized our 3rdparty requirements in the top-level folders `3rdparty/python` and `3rdparty/java`, but we do not need to include them as source roots because we do not have any first-party code there.
 
@@ -303,6 +304,7 @@ Note that even though the projects live in different top-level folders, you are 
 #### Config:
 
 Either of these are valid and they have the same result:
+
 ```toml title="pants.toml"
 [source]
 root_patterns = [
@@ -311,7 +313,6 @@ root_patterns = [
   "/new/js",
 ]
 ```
-
 
 ```toml title="pants.toml"
 [source]
@@ -353,11 +354,11 @@ pkgutil.get_data("project.config", "prod.json")
 #### Config:
 
 Either of these are valid and they have the same result:
+
 ```toml title="pants.toml"
 [source]
 root_patterns = ["/"]
 ```
-
 
 ```toml title="toml"
 [source]

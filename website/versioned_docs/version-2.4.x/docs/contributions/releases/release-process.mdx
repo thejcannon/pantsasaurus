@@ -8,6 +8,7 @@ How to release a new version of `pantsbuild.pants` and its plugins.
 ---
 
 ## Prerequisites
+
 ### 1. Create a PGP signing key
 
 If you already have one, you can reuse it.
@@ -49,7 +50,9 @@ username: <fill me in>
 password: <fill me in>
 EOF
 ```
+
 ## Step 1: Prepare the release
+
 The release is automated, outside of these steps:
 
 1. Removing any completed deprecations
@@ -57,13 +60,14 @@ The release is automated, outside of these steps:
 3. CONTRIBUTOR.md updates
 4. Version bumping
 
-The first three steps always happen in the `main` branch, whereas the version bump happens in the relevant release branch. 
+The first three steps always happen in the `main` branch, whereas the version bump happens in the relevant release branch.
 
 For dev and `rc0` releases, the release branch is `main`. For all other release candidates and stable releases, the release branch is that respective version's branch, e.g. `1.28.x` or `1.29.x`.
 
 ### 0a. `dev0` - set up the release series
 
-1. Create a new file in ` src/python/pants/notes`, e.g. create  `src/python/pants/notes/2.2.x.md`.
+1. Create a new file in ` src/python/pants/notes`, e.g. create `src/python/pants/notes/2.2.x.md`.
+
 ```
  1. Copy the title and template over from the prior release, e.g. `2.1.x.md`.
 ```
@@ -84,7 +88,7 @@ If there are things that must be removed, you can either:
 
 ### 0c. Release candidates - cherry-pick relevant changes
 
-Cherry-pick all changes labeled `needs-cherrypick` with the relevant milestone for the stable branch, e.g. the milestone `1.28.x`. 
+Cherry-pick all changes labeled `needs-cherrypick` with the relevant milestone for the stable branch, e.g. the milestone `1.28.x`.
 
 These pull requests must have been merged into main first, so they will already be closed.
 
@@ -115,10 +119,8 @@ Even if you are preparing notes for a release candidate, always prepare the note
 
 :::
 
-
-
 :::note See any weird PR titles?
-Sometimes, committers accidentally use the wrong title when squashing and merging because GitHub pulls the title from the commit title when there is only one commit. 
+Sometimes, committers accidentally use the wrong title when squashing and merging because GitHub pulls the title from the commit title when there is only one commit.
 
 If you see a vague or strange title like "fix bug", open the original PR to see if the PR title is more descriptive. If it is, please use the more descriptive title instead.
 
@@ -133,15 +135,15 @@ Take note of any new contributors so that you can give a shoutout in the announc
 ### 3. `dev` and `rc0` - bump the `VERSION`
 
 Change `src/python/pants/VERSION` to the new release, e.g. 1.28.0.dev0.
- 
+
 ### 4. Post the prep to GitHub
 
-Open a pull request on GitHub to merge into `main`. Post the PR to the #announce channel in Slack.  
+Open a pull request on GitHub to merge into `main`. Post the PR to the #announce channel in Slack.
 
 Merge once approved and green.
 
 :::caution Watch out for any recently landed PRs
-From the time you put up your release prep until you hit "merge", be careful that no one merges any commits into main. 
+From the time you put up your release prep until you hit "merge", be careful that no one merges any commits into main.
 
 If they do—and you're doing a dev or `rc0` release—you should merge `main` into your PR and update the changelog with their changes. It's okay if the changes were internal only, but any public changes must be added to the changelog.
 
@@ -163,12 +165,14 @@ $ git push upstream 1.28.x
 1. Checkout from `main` into the release branch, e.g. `1.28.x`.
 2. Cherry-pick the release prep using `git cherry-pick <sha>`.
 3. Bump the `VERSION` in `src/python/pants/VERSION`, e.g. to `1.28.0rc1`. Push this as a new commit directly to the release branch - you do not need to open a pull request.
+
 ## Step 2: Update this docs site
+
 ### `dev0` - set up the new page
 
 Create a new version of the docs. Go to [dash.readme.io/project/pants](https://dash.readme.io/project/pants). In the top left dropdown, where it says the current version, click "Manage versions". Click "Add new version" and use a "v" with the minor release number, e.g. "v1.28". Fork from the prior release.
 
-Then, create a new page in the "Release notes" section titled with the release series, e.g. "1.28.x". 
+Then, create a new page in the "Release notes" section titled with the release series, e.g. "1.28.x".
 
 You can copy the prior release's page to get started. Update the bottom to point to the new changelog.
 
@@ -182,9 +186,10 @@ In a list of bullet points, briefly describe any important changes from your rel
 
 This is a bit subjective, but some things you may want to highlight:
 
-* New features.
-* Major bug fixes.
-* Substantial API changes.
+- New features.
+- Major bug fixes.
+- Substantial API changes.
+
 ```
 * You do not need to highlight small changes like "Upgrade from ansiolors 2.10 to ansicolors 2.12". This is what the changelog is for.
 
@@ -207,12 +212,14 @@ Ping someone in the #maintainers Slack channel to be added. Alternatively, you c
 
 :::
 
-
 ## Step 3: Wait for CI to build the wheels
+
 Once you have merged the `VERSION` bump—which will be on `main` for `dev` and `rc0` releases and the release branch for release candidates—CI will start building the wheels you need to finish the release.
 
 Head to https://github.com/pantsbuild/pants/actions and find your relevant build. You need the "Build wheels and fs_util" jobs to pass.
+
 ## Step 4: Run `release.sh`
+
 First, ensure that you are on your release branch at your version bump commit.
 
 :::note Tip: if new commits have landed after your release commit
@@ -234,17 +241,21 @@ We also release Pants a Pex via GitHub releases. Run this:
 $ PANTS_PEX_RELEASE=stable ./build-support/bin/release.sh
 ```
 
-Then go to https://github.com/pantsbuild/pants/tags, find your release's tag, click `Edit tag`, and upload  the PEX located at `dist/pants.<stable-version>.pex`.
+Then go to https://github.com/pantsbuild/pants/tags, find your release's tag, click `Edit tag`, and upload the PEX located at `dist/pants.<stable-version>.pex`.
+
 ## Step 5: Test the release
+
 Run this script as a basic smoke test:
 
 ```bash
 $ ./build-support/bin/release.sh -t
 ```
 
-You should also [check PyPI](https://pypi.org/pypi/pantsbuild.pants) to ensure everything looks good. Click "Release history" to find the version you released, then click it and confirm the changelog is correct on the "Project description" page and that the `macOS` and `manylinux` wheels show up in the "Download files" page. 
+You should also [check PyPI](https://pypi.org/pypi/pantsbuild.pants) to ensure everything looks good. Click "Release history" to find the version you released, then click it and confirm the changelog is correct on the "Project description" page and that the `macOS` and `manylinux` wheels show up in the "Download files" page.
+
 ## Step 6: Announce the change
-Announce the release to [pants-devel](https://groups.google.com/forum/#!forum/pants-devel). 
+
+Announce the release to [pants-devel](https://groups.google.com/forum/#!forum/pants-devel).
 
 You can get a contributor list by running the following, where `<tag>` is the tag for the prior release (eg: `release_1.28.0.dev0`):
 

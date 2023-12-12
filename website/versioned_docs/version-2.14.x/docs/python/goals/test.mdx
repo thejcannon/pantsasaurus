@@ -9,12 +9,12 @@ Run tests with Pytest.
 
 Pants uses the [Pytest](https://docs.pytest.org/en/latest/) test runner to run Python tests. You may write your tests in Pytest-style, unittest-style, or mix and match both.
 
-
 :::tip Benefit of Pants: runs each file in parallel
 
     Each file gets run as a separate process, which gives you fine-grained caching and better parallelism. Given enough cores, Pants will be able to run all your tests at the same time.
-    
+
     This also gives you fine-grained invalidation. If you run `./pants test ::`, and then you only change one file, then only tests that depended on that changed file will need to rerun.
+
 :::
 
 ## Examples
@@ -70,29 +70,29 @@ python_tests(
 )
 ```
 
-
 :::note Tip: Using the `pytest-xdist` plugin
 
     Pants' default concurrency will run each test target in parallel. If you want to additionally parallelize _within_ each of your targets, you can do so by enabling built-in support for the `pytest-xdist` plugin:
-    
+
     ```toml title="pants.toml"
     [pytest]
     xdist_enabled = True
     ```
-    
+
     This will cause Pants to pass `-n <concurrency>` when running `pytest`.
-    
+
     By default, Pants will automatically compute the value of `<concurrency>` for each target based on the number of tests defined in the file and the number of available worker threads. You can instead set a hard-coded upper limit on the concurrency per target:
-    
+
     ```python title="BUILD"
     python_test(name="tests", source="tests.py", xdist_concurrency=4)
     ```
-    
+
     To explicitly disable the use of `pytest-xdist` for a target, set `xdist_concurrency=0`. This can be necessary for tests that are not safe to run in parallel.
-    
+
     When `pytest-xdist` is in use, the `PYTEST_XDIST_WORKER` and `PYTEST_XDIST_WORKER_COUNT` environment variables will be automatically set. You can use those values to avoid collisions between parallel tests (i.e. by using `PYTEST_XDIST_WORKER` as a suffix for generated database names / file paths).
-    
+
     Note that use of `pytest-xdist` may cause high-level `pytest` fixtures to execute more often than expected. See the `pytest-xdist` docs [here](https://pypi.org/project/pytest-xdist/#making-session-scoped-fixtures-execute-only-once) for more details, and tips on how to mitigate this.
+
 :::
 
 ## Controlling output
@@ -106,23 +106,23 @@ You can permanently set the output format in your `pants.toml` like this:
 output = "all"
 ```
 
-
 :::note Tip: Use Pytest options to make output more or less verbose
 
     See ["Passing arguments to Pytest"](#passing-arguments-to-pytest).
-    
+
     For example:
-    
+
     ```bash
     ❯ ./pants test project/app_test.py -- -q
     ```
-    
+
     You may want to permanently set the Pytest option `--no-header` to avoid printing the Pytest version for each test run:
-    
+
     ```toml
     [pytest]
     args = ["--no-header"]
     ```
+
 :::
 
 ## Passing arguments to Pytest
@@ -140,20 +140,20 @@ You can also use the `args` option in the `[pytest]` scope, like this:
 args = ["-vv"]
 ```
 
-
 :::note Tip: some useful Pytest arguments
 
     See [https://docs.pytest.org/en/latest/usage.html](https://docs.pytest.org/en/latest/usage.html) for more information.
-    
+
     - `-k expression`: only run tests matching the expression.
     - `-v`: verbose mode.
     - `-s`: always print the stdout and stderr of your code, even if a test passes.
-:::
 
+:::
 
 :::caution How to use Pytest's `--pdb` option
 
     You must run `./pants test --debug` for this to work properly. See the section "Debugging Tests" for more information.
+
 :::
 
 ## Config files
@@ -238,58 +238,58 @@ test_debug_example.py
 
 If you use multiple files with `test --debug`, they will run sequentially rather than in parallel.
 
-
 :::note Tip: using `ipdb` in tests
 
     [`ipdb`](https://github.com/gotcha/ipdb) integrates IPython with the normal `pdb` debugger for enhanced features like autocomplete and improved syntax highlighting. `ipdb` is very helpful when debugging tests.
-    
+
     To be able to access `ipdb` when running tests, add this to your `pants.toml`:
-    
+
     ```toml
     [pytest]
     extra_requirements.add = ["ipdb"]
     ```
-    
+
     Then, you can use `import ipdb; ipdb.set_trace()` in your tests.
-    
+
     To run the tests you will need to add `-- -s` to the test call since ipdb will need stdin and pytest will capture it.
-    
+
     ```bash
     ❯ ./pants test --debug  <target>   -- -s
     ```
-:::
 
+:::
 
 :::note Tip: using the VS Code (or any [DAP](https://microsoft.github.io/debug-adapter-protocol/)-compliant editor) remote debugger in tests
 
     1. In your editor, set your breakpoints and any other debug settings (like break-on-exception).
     2. Run your test with `./pants test --debug-adapter`.
     3. Connect your editor to the server. The server host and port are logged by Pants when executing `test --debug-adapter`. (They can also be configured using the `[debug-adapter]` subsystem).
+
 :::
 
 > Run your test with `./pants test --debug` as usual.
 
-
 :::note Tip: using the IntelliJ/PyCharm remote debugger in tests
 
     First, add this to your `pants.toml`:
-    
+
     ```toml
     [pytest]
     extra_requirements.add = ["pydevd-pycharm==203.5419.8"]  # Or whatever version you choose.
     ```
-    
+
     Now, use the remote debugger as usual:
-    
+
     1. Start a Python remote debugging session in PyCharm, say on port 5000.
     2. Add the following code at the point where you want execution to pause and connect to the debugger:
-    
+
     ```python
     import pydevd_pycharm
     pydevd_pycharm.settrace('localhost', port=5000, stdoutToServer=True, stderrToServer=True)
     ```
-    
+
     Run your test with `./pants test --debug` as usual.
+
 :::
 
 ## Timeouts
@@ -324,14 +324,14 @@ timeout_maximum = 600
 
 If a target sets its `timeout` higher than `[test].timeout_maximum`, Pants will use the value in `[test].timeout_maximum`.
 
-
 :::note Tip: temporarily ignoring timeouts
 
     When debugging locally, such as with `pdb`, you might want to temporarily disable timeouts. To do this, set `--no-test-timeouts`:
-    
+
     ```bash
     $ ./pants test project/app_test.py --no-test-timeouts
     ```
+
 :::
 
 ## Test utilities and resources
@@ -429,30 +429,30 @@ Or to permanently use coverage, set in your config file:
 use_coverage = true
 ```
 
-
 :::caution Failure to parse files?
 
     Coverage defaults to running with Python 3.6+ when generating a report, which means it may fail to parse Python 2 syntax and Python 3.8+ syntax. You can fix this by changing the interpreter constraints for running Coverage:
-    
+
     ```toml
     # pants.toml
     [coverage-py]
     interpreter_constraints = [">=3.8"]
     ```
-    
+
     However, if your repository has some Python 2-only code and some Python 3-only code, you will not be able to choose an interpreter that works with both versions. So, you will need to set up a `.coveragerc` config file and set `ignore_errors = True` under `[report]`, like this:
-    
+
     ```
     # .coveragerc
     [report]
     ignore_errors = True
     ```
-    
+
     `ignore_errors = True` means that those files will simply be left off of the final coverage report.
-    
+
     (Pants should autodiscover the config file `.coveragerc`. See [coverage-py](../../../reference/subsystems/coverage-py.mdx#section-config-discovery).)
-    
+
     There's a proposal for Pants to fix this by generating multiple reports when necessary: [https://github.com/pantsbuild/pants/issues/11137](https://github.com/pantsbuild/pants/issues/11137). We'd appreciate your feedback.
+
 :::
 
 Coverage will report data on any files encountered during the tests. You can filter down the results by using the option `--coverage-py-filter` and passing the name(s) of modules you want coverage data for. Each module name is recursive, meaning submodules will be included. For example:
@@ -462,24 +462,24 @@ Coverage will report data on any files encountered during the tests. You can fil
 ❯ ./pants test --use-coverage helloworld/util/lang_test.py --coverage-py-filter='["helloworld.util.lang", "helloworld.util.lang_test"]'
 ```
 
-
 :::note Set `global_report` to include un-encountered files
 
     By default, coverage.py will only report on files encountered during the tests' run. This means
     that your coverage score may be misleading; even with a score of 100%, you may have files
     without any tests.
-    
+
     Instead, you can set `global_report = true`:
-    
+
     ```toml title="pants.toml"
     [coverage-py]
     global_report = true
     ```
-    
+
     Coverage.py will report on [all files it considers importable](https://coverage.readthedocs.io/en/6.3.2/source.html),
     i.e. files at the root of the tree, or in directories with a `__init__.py` file. It may still omit
     files in [implicit namespace packages](https://peps.python.org/pep-0420/) that lack `__init__.py` files.
     This is a shortcoming of Coverage.py itself.
+
 :::
 
 Pants will default to writing the results to the console, but you can also output in HTML, XML, JSON, or the raw SQLite file:

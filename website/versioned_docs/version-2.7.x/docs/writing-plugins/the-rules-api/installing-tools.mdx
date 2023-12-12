@@ -8,6 +8,7 @@ Various methods for Pants to access the tools your plugin needs.
 ---
 
 ## `BinaryPaths`: Find already installed binaries
+
 For certain tools that are hard to automatically install—such as Docker or language interpreters—you may want to assume that the user already has the tool installed on their machine.
 
 The simplest approach is to assume that the binary is installed at a fixed absolute path, such as `/bin/echo` or `/usr/bin/perl`. In the `argv` for your `Process`, use this absolute path as your first element.
@@ -24,7 +25,7 @@ async def demo(...) -> Foo:
         BinaryPathRequest(
             binary_name="docker",
             search_path=["/usr/bin", "/bin"],
-        )  
+        )
     docker_bin = docker_paths.first_path
     if docker_bin is None:
         raise OSError("Could not find 'docker'.")
@@ -42,7 +43,7 @@ When setting up a `BinaryPathsRequest`, you can optionally pass the argument `te
 
 Why do this? This is helpful to ensure that all discovered binaries are valid and safe. This is also important for Pants to be able to detect when the user has changed the binary, such as upgrading its version.
 
-`BinaryPathTest` takes the argument `args: Iterable[str]`, which is the arguments that Pants should run on your binary to ensure that it's a valid program. Usually, you'll set `args=["--version"]`.  
+`BinaryPathTest` takes the argument `args: Iterable[str]`, which is the arguments that Pants should run on your binary to ensure that it's a valid program. Usually, you'll set `args=["--version"]`.
 
 ```python
 from pants.engine.process import BinaryPathRequest, BinaryPathTest
@@ -58,8 +59,8 @@ You can optionally set `fingerprint_stdout=False` to the `BinaryPathTest` constr
 
 :::
 
-
 ## `ExternalTool`: Install pre-compiled binaries
+
 If your tool has a pre-compiled binary available online, Pants can download and use that binary automatically for users. This is often a better user experience than requiring the users to pre-install the tool. This will also make your build more deterministic because everyone will be using the same binary.
 
 First, manually download the file. Typically, the downloaded file will be an archive like a `.zip` or `.tar.xz` file, but it may also be the actual binary. Then, run `shasum -a 256` on the downloaded file to get its digest ID, and `wc -c` to get its number of bytes.
@@ -121,6 +122,7 @@ async def demo(shellcheck: Shellcheck, ...) -> Foo:
 A `DownloadedExternalTool` object has two fields: `digest: Digest` and `exe: str`. Use the `.exe` field as the first value of a `Process`'s `argv`, and use the `.digest` in the `Process's` `input_digest`. If you want to use multiple digests for the input, call `Get(Digest, MergeDigests)` with the `DownloadedExternalTool.digest` included.
 
 ## `Pex`: Install binaries through pip
+
 If a tool can be installed via `pip` - e.g., Pytest or Black - you can install and run it using `Pex`.
 
 ```python
@@ -154,6 +156,7 @@ async def demo(...) -> Foo:
 When defining a `PexRequest` for a tool, you must give arguments for `output_filename`, `requirements`, `main`, and usually `interpreter_constraints`. There are several other optional parameters that may be helpful.
 
 The `main` argument can be one of:
+
 - `ConsoleScript("scriptname")`, where `scriptname` is a [console_script](https://packaging.python.org/specifications/entry-points/) that the tool installs
 - `EntryPoint.parse("module")`, which executes the given module
 - `EntryPoint.parse("module:func")`, which executes the given nullary function in the given module.

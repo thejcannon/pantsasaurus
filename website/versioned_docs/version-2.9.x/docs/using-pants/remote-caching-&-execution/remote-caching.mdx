@@ -3,10 +3,7 @@
     position: 0
 ---
 
-
-
 ---
-
 
 :::caution Remote caching support is still experimental
 :::
@@ -23,7 +20,7 @@ Remote caching requires the availability of a REAPI-compatible cache. See the [R
 
 ### Pants Configuration
 
-After you have either set up a REAPI cache server or obtained access to one, the next step is to point Pants to it so that Pants will use it to read and write process results. 
+After you have either set up a REAPI cache server or obtained access to one, the next step is to point Pants to it so that Pants will use it to read and write process results.
 
 For the following examples, assume that the REAPI server is running on `cache.corp.example.com` at port 8980 and that it is on an internal network. Also assume that the name of the REAPI instance is "main." At a minimum, you will need to configure `pants.toml` as follows:
 
@@ -35,7 +32,7 @@ remote_store_address = "grpc://build.corp.example.com:8980"
 remote_instance_name = "main"
 ```
 
-If the endpoint is using TLS, then the `remote_store_address` option would be specified with the  `grpcs://` scheme, i.e. `"grpcs://cache.corp.example.com:8980"`.
+If the endpoint is using TLS, then the `remote_store_address` option would be specified with the `grpcs://` scheme, i.e. `"grpcs://cache.corp.example.com:8980"`.
 
 ## Reference
 

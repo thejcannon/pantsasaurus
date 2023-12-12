@@ -8,10 +8,12 @@ How to create a Field, including the available templates.
 ---
 
 Before creating a new target type, the first step is to create all of the target type's fields.
+
 ## Defining a Field
+
 To define a new field:
 
-1. Subclass one of the below field templates, like `IntField` or `BoolField`; or, subclass an existing field, like `SingleSourceField`. 
+1. Subclass one of the below field templates, like `IntField` or `BoolField`; or, subclass an existing field, like `SingleSourceField`.
 2. Set the class property `alias`. This is the symbol that people use in BUILD files.
 3. Set the class property `help`. This is used by `./pants help`.
 
@@ -34,7 +36,7 @@ class TimeoutField(IntField):
     alias = "timeout"
     help = "..."
     default = 60
- ```
+```
 
 If you don't override this property, `default` will be set to `None`, which signals that the value was undefined.
 
@@ -45,10 +47,12 @@ Set `required = True` to require explicitly defining the field.
 ```python
 class TimeoutField(IntField):
 ```
+
 alias = "timeout"
 help = "..."
 required = True
-```
+
+````
 
 If you set `required = True`, the `default` will be ignored.
 
@@ -66,11 +70,12 @@ The field templates will validate that users are using the correct _types_, like
 To do this, override the classmethod `compute_value`:
 
 ```python
-```
+````
 
 from pants.engine.target import IntField, InvalidFieldException
 
 class UploadTimeout(IntField):
+
 ```
 alias = "timeout"
 help = "..."
@@ -98,8 +103,8 @@ Otherwise, it's safe to use the new syntax when writing plugins.
 
 :::
 
-
 ## Available templates
+
 All templates are defined in `pants.engine.target`.
 
 ### `BoolField`
@@ -123,7 +128,7 @@ Use this when you expect a float. This will reject integers.
 Use this when you expect a single string.
 
 :::note `StringField` can be like an enum
-You can set the class property `valid_choices` to limit what strings are acceptable. This class property can either be a tuple of strings or an `enum.Enum`. 
+You can set the class property `valid_choices` to limit what strings are acceptable. This class property can either be a tuple of strings or an `enum.Enum`.
 
 For example:
 
@@ -150,22 +155,24 @@ class LeafyGreensField(StringField):
 
 ### `StringSequenceField`
 
-Use this when you expect 0-n strings. 
+Use this when you expect 0-n strings.
 
 The user may use a tuple, set, or list in their BUILD file; Pants will convert the value to an immutable tuple.
 
 ### `SequenceField`
 
-Use this when you expect a homogenous sequence of values other than strings, such as a sequence of integers. 
+Use this when you expect a homogenous sequence of values other than strings, such as a sequence of integers.
 
 The user may use a tuple, set, or list in their BUILD file; Pants will convert the value to an immutable tuple.
 
-You must set the class properties `expected_element_type` and `expected_type_description`.  You should also change the type signature of the classmethod `compute_value` so that Pants can show the correct types when running `./pants help $target_type`.
+You must set the class properties `expected_element_type` and `expected_type_description`. You should also change the type signature of the classmethod `compute_value` so that Pants can show the correct types when running `./pants help $target_type`.
 
 ```python
+
 ```
 
 class ExampleIntSequence(SequenceField):
+
 ```
 alias = "int_sequence"
 expected_element_type = int
@@ -179,6 +186,7 @@ def compute_value(
 ```
 
 ### `DictStringToStringField`
+
 Use this when you expect a dictionary of string keys with strings values, such as `{"k": "v"}`.
 
 The user may use a normal Python dictionary in their BUILD file. Pants will convert this into an instance of `pants.util.frozendict.FrozenDict`, which is a lightweight wrapper around the native `dict` type that simply removes all mechanisms to mutate the dictionary.
@@ -193,11 +201,12 @@ The user may use a normal Python dictionary in their BUILD file, and they may us
 
 If none of these templates work for you, you can subclass `Field`, which is the superclass of all of these templates.
 
-You must give a type hint for `value`,  define the classmethod `compute_value`, and either set `required = True` or define the class property `default`.
+You must give a type hint for `value`, define the classmethod `compute_value`, and either set `required = True` or define the class property `default`.
 
 For example, we could define a `StringField` explicitly like this:
 
 ```python
+
 ```
 
 from typing import Optional
@@ -205,8 +214,8 @@ from typing import Optional
 from pants.engine.addresses import Address
 from pants.engine.target import Field, InvalidFieldTypeException
 
-
 class VersionField(Field):
+
 ```
 alias = "version"
 value: Optional[str]
@@ -215,13 +224,15 @@ help = "The version to build with."
 
 ```
 
-   @classmethod
-   def compute_value(
+@classmethod
+def compute_value(
+
 ```
    cls, raw_value: Optional[str], *, address: Address
 ```
 
-   ) -> Optional[str]:
+) -> Optional[str]:
+
 ```
    value_or_default = super().compute_value(raw_value, address=address)
    if value_or_default is not None and not isinstance(value, str):
@@ -238,15 +249,16 @@ Have a tricky field you're trying to write? We would love to help! See [Getting 
 
 :::
 
-
 ## Examples
 
 ```python title="plugins/target_types.py"
+
 ```
 
 from typing import Optional
 
 from pants.engine.target import (
+
 ```
 BoolField,
 IntField,
@@ -257,8 +269,8 @@ StringField
 
 )
 
-
 class FortranVersion(StringField):
+
 ```
 alias = "fortran_version"
 required = True
@@ -267,8 +279,8 @@ help = "Which version of Fortran should this use?"
 
 ```
 
- 
 class CompressToggle(BoolField):
+
 ```
 alias = "compress"
 default = False
@@ -278,6 +290,7 @@ help = "Whether to compress the generated file."
 ```
 
 class UploadTimeout(IntField):
+
 ```
 alias = "upload_timeout"
 default = 100
@@ -301,10 +314,14 @@ def compute_value(
 
 ```
 
-## Example of subclassing an existing field. 
-## We don't need to define `alias = sources` because the 
+## Example of subclassing an existing field.
+
+## We don't need to define `alias = sources` because the
+
 ## parent class does this already.
+
 class FortranSources(MultipleSourcesField):
+
 ```
 default = ("*.f95",)
 ```

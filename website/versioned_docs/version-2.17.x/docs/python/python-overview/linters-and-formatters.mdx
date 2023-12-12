@@ -7,31 +7,30 @@ How to activate and use the Python linters and formatters bundled with Pants.
 
 ---
 
-
 :::tip Benefit of Pants: consistent interface
 
     `pants lint` and `pants fmt` will consistently and correctly run all your linters and formatters. No need to remember how to invoke each tool, and no need to write custom scripts.
-    
-    This consistent interface even works with multiple languages, like running Python linters at the same time as Go, Shell, Java, and Scala.
-:::
 
+    This consistent interface even works with multiple languages, like running Python linters at the same time as Go, Shell, Java, and Scala.
+
+:::
 
 :::tip Benefit of Pants: concurrency
 
     Pants does several things to speed up running formatters and linters:
-    
+
     - Automatically configures tools that support concurrency (e.g. a `--jobs` option) based on your number of cores and what else is already running.
     - Runs everything in parallel with the `lint` goal (although not the `fmt` goal, which pipes the results of one formatter to the next for correctness).
     - Runs in batches of 256 files by default, which gives parallelism even for tools that don't have a `--jobs` option. This also increases cache reuse.
+
 :::
 
-Activating linters and formatters
----------------------------------
+## Activating linters and formatters
 
 Linter/formatter support is implemented in separate [backends](../../using-pants/key-concepts/backends.mdx) so that they are easy to opt in to individually:
 
 | Backend                                       | Tool                                                                                                                       |
-|:----------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------|
+| :-------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
 | `pants.backend.python.lint.bandit`            | [Bandit](https://bandit.readthedocs.io/en/latest/): security linter                                                        |
 | `pants.backend.python.lint.black`             | [Black](https://black.readthedocs.io/en/stable/): code formatter                                                           |
 | `pants.backend.python.lint.docformatter`      | [Docformatter](https://pypi.org/project/docformatter/): docstring formatter                                                |
@@ -72,24 +71,23 @@ All done! ✨ 🍰 ✨
 ✓ isort succeeded.
 ```
 
-
 :::note How to activate MyPy
 
     MyPy is run with the [check goal](../goals/check.mdx), rather than `lint`.
+
 :::
 
-Configuring the tools, for example, adding plugins
-------------------------------------------
+## Configuring the tools, for example, adding plugins
 
 You can configure each formatter and linter using these options:
 
-| Option                               | What it does                                                                                                                                                                   |
-|:-------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `interpreter_constraints`            | What interpreter to run the tool with. (`bandit`, `flake8`, and `pylint` determine this based on your [code's interpreter constraints](./interpreter-compatibility.mdx).) |
-| `args`                               | Any command-line arguments you want to pass to the tool.                                                                                                                       |
-| `config`                             | Path to a config file. Useful if the file is in a non-standard location such that it cannot be auto-discovered.                                                                |
-| `install_from_resolve`               | Name of a custom resolve to use for tool versions and plugins. See [Lockfiles for tools](./lockfiles.mdx#lockfiles-for-tools).                                            |
-| `requirements`                       | Optional subset of requirements to install from the custom resolve for this formatter or linter. See [Lockfiles for tools](./lockfiles.mdx#lockfiles-for-tools).          |
+| Option                    | What it does                                                                                                                                                              |
+| :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `interpreter_constraints` | What interpreter to run the tool with. (`bandit`, `flake8`, and `pylint` determine this based on your [code's interpreter constraints](./interpreter-compatibility.mdx).) |
+| `args`                    | Any command-line arguments you want to pass to the tool.                                                                                                                  |
+| `config`                  | Path to a config file. Useful if the file is in a non-standard location such that it cannot be auto-discovered.                                                           |
+| `install_from_resolve`    | Name of a custom resolve to use for tool versions and plugins. See [Lockfiles for tools](./lockfiles.mdx#lockfiles-for-tools).                                            |
+| `requirements`            | Optional subset of requirements to install from the custom resolve for this formatter or linter. See [Lockfiles for tools](./lockfiles.mdx#lockfiles-for-tools).          |
 
 For example:
 
@@ -115,6 +113,7 @@ python_requirements(
     resolve="flake8",
 )
 ```
+
 ```Text title="3rdparty/python/flake8-requirements.txt"
 flake8==6.0.0
 flake8-bugbear>=23.3.23
@@ -130,16 +129,15 @@ $ pants generate-lockfiles --resolve=flake8
 
 Run `pants help-advanced black`, `pants help-advanced flake8`, and so on for more information.
 
-
 :::note Config files are normally auto-discovered
 
     For tools that autodiscover config files—such as Black, isort, Flake8, and Pylint—Pants will include any relevant config files in the process's sandbox when running the tool.
-    
+
     If your config file is in a non-standard location, you must instead set the `--config` option, e.g. `[isort].config`. This will ensure that the config file is included in the process's sandbox and Pants will instruct the tool to load the config.
+
 :::
 
-Running only certain formatters or linters
-------------------------------------------
+## Running only certain formatters or linters
 
 To temporarily skip a tool, use the `--skip` option for that tool. For example, run:
 
@@ -179,8 +177,7 @@ python_tests(
 
 When you run `pants fmt` and `pants lint`, Pants will ignore any files belonging to skipped targets.
 
-Tip: only run over changed files
---------------------------------
+## Tip: only run over changed files
 
 With formatters and linters, there is usually no need to rerun on files that have not changed.
 
@@ -198,8 +195,7 @@ or
 
 Pants will find which files have changed and only run over those files. See [Advanced target selection](../../using-pants/advanced-target-selection.mdx) for more information.
 
-Tips for specific tools
------------------------
+## Tips for specific tools
 
 ### Order of `backend_packages` matters for `fmt`
 

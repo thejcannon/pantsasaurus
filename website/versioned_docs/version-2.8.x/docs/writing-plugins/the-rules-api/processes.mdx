@@ -8,7 +8,9 @@ How to safely run subprocesses in your plugin.
 ---
 
 It is not safe to use `subprocess.run()` like you normally would because this can break caching and will not leverage Pants's parallelism. Instead, Pants has safe alternatives with `Process` and `InteractiveProcess`.
+
 ## `Process`
+
 ### Overview
 
 `Process` is similar to `subprocess.Popen()`. The process will run in the background, and you can run multiple processes in parallel.
@@ -30,7 +32,7 @@ async def demo(...) -> Foo:
     logger.info(result.stderr.decode())
 ```
 
-This will return a `ProcessResult` object, which has the fields `stdout: bytes`, `stderr: bytes`, and `output_digest: Digest`. 
+This will return a `ProcessResult` object, which has the fields `stdout: bytes`, `stderr: bytes`, and `output_digest: Digest`.
 
 The process will run in a temporary directory and is hermetic, meaning that it cannot read any arbitrary file from your project and that it will be stripped of environment variables. This sandbox is important for reproducibility and to allow running your `Process` anywhere, such as through remote execution.
 
@@ -100,7 +102,9 @@ Normally, a `ProcessResult` will raise an exception if the return code is not `0
 Use `Get(FallibleProcessResult, Process)` if you expect that the process may fail, such as when running a linter or tests.
 
 Like `ProcessResult`, `FallibleProcessResult` has the attributes `stdout: bytes`, `stderr: bytes`, and `output_digest: Digest`, and it adds `exit_code: int`.
+
 ## `InteractiveProcess`
+
 `InteractiveProcess` is similar to `subprocess.run()`. The process will run in the foreground, optionally with access to the workspace.
 
 Because the process is potentially side-effecting, you may only run an `InteractiveProcess` in an [`@goal_rule`](./goal-rules.mdx) as an `Effect`.

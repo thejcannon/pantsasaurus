@@ -9,30 +9,29 @@ How to generate Go from Protocol Buffers.
 
 When your Go code imports Protobuf generated files, Pants will detect the imports and run the Protoc compiler to generate then compile those files.
 
-
 :::note Example repository
 
     See [the codegen example repository](https://github.com/pantsbuild/example-codegen) for an example of using Protobuf to generate Go.
-:::
 
+:::
 
 :::tip Benefit of Pants: generated files are always up-to-date
 
     With Pants, there's no need to manually regenerate your code or check it into version control. Pants will ensure you are always using up-to-date files in your builds.
-    
-    Thanks to fine-grained caching, Pants will regenerate the minimum amount of code required when you do make changes.
-:::
 
+    Thanks to fine-grained caching, Pants will regenerate the minimum amount of code required when you do make changes.
+
+:::
 
 :::caution `go mod tidy` will complain about missing modules
 
     Because Pants does not save generated code to disk, `go mod tidy` will error that it cannot find the generated packages.
-    
+
     One workaround is to run `./pants export-codegen ::` to save the generated files.
+
 :::
 
-Step 1: Activate the Protobuf Go backend
-----------------------------------------
+## Step 1: Activate the Protobuf Go backend
 
 Add this to your `pants.toml`:
 
@@ -44,7 +43,7 @@ backend_packages = [
 ]
 ```
 
-This adds the new [`protobuf_source`](../../../reference/targets/protobuf-source.mdx) target, which you can confirm by running `./pants help protobuf_source`. 
+This adds the new [`protobuf_source`](../../../reference/targets/protobuf-source.mdx) target, which you can confirm by running `./pants help protobuf_source`.
 
 To reduce boilerplate, you can also use the [`protobuf_sources`](../../../reference/targets/protobuf-sources.mdx) target, which generates one `protobuf_source` target per file in the `sources` field.
 
@@ -59,8 +58,7 @@ protobuf_source(name="admin", source="admin.proto")
 protobuf_sources(name="protos")
 ```
 
-Step 2: Set up your `go.mod` and `go.sum`
------------------------------------------
+## Step 2: Set up your `go.mod` and `go.sum`
 
 The generated Go code requires `google.golang.org/protobuf` to compile. Add it to your `go.mod` with the version you'd like. Then run `go mod download all` to update your `go.sum`.
 
@@ -68,8 +66,7 @@ The generated Go code requires `google.golang.org/protobuf` to compile. Add it t
 require google.golang.org/protobuf v1.27.1
 ```
 
-Step 3: Add `option go_package` to `.proto` files
--------------------------------------------------
+## Step 3: Add `option go_package` to `.proto` files
 
 Every Protobuf file that should work with Go must set `option go_package` with the name of its Go package. For example:
 
@@ -83,8 +80,7 @@ option go_package = "github.com/pantsbuild/example-codegen/gen";
 
 Multiple Protobuf files can set the same `go_package` if their code should show up in the same package.
 
-Step 4: Generate `protobuf_sources` targets
--------------------------------------------
+## Step 4: Generate `protobuf_sources` targets
 
 Run [`./pants tailor ::`](../../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files) for Pants to create a `protobuf_sources` target wherever you have `.proto` files:
 
@@ -118,8 +114,7 @@ protobuf_sources(
 )
 ```
 
-Step 5: Confirm Go imports are working
---------------------------------------
+## Step 5: Confirm Go imports are working
 
 Now, you can import the generated Go package in your Go code like normal, using whatever you set with `option go_package` from Step 3.
 
@@ -143,16 +138,15 @@ func TestGenerateUuid(t *testing.T) {
 
 Pants's dependency inference will detect Go imports of Protobuf packages, which you can confirm by running `./pants dependencies path/to/file.go`. You can also run `./pants check path/to/file.go` to confirm that everything compiles.
 
-
 :::note Run `./pants export-codegen ::` to inspect the files
 
     `./pants export-codegen ::` will run all relevant code generators and write the files to `dist/codegen` using the same paths used normally by Pants.
-    
+
     You do not need to run this goal for codegen to work when using Pants; `export-codegen` is only for external consumption outside of Pants, e.g. to get `go mod tidy` working.
+
 :::
 
-Buf: format and lint Protobuf
------------------------------
+## Buf: format and lint Protobuf
 
 Pants integrates with the [`Buf`](https://buf.build/blog/introducing-buf-format) formatter and linter for Protobuf files.
 

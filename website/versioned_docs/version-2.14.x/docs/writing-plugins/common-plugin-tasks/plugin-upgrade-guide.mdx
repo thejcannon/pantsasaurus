@@ -7,8 +7,7 @@ How to adjust for changes made to the Plugin API.
 
 ---
 
-2.14
-----
+## 2.14
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.14.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.14.x.md) for the changelog.
 
@@ -58,7 +57,7 @@ on `FieldSet`'s mechanisms for matching targets and getting field values.
 Rather than directly subclassing `GenerateToolLockfileSentinel`, we encourage you to subclass
 `GeneratePythonToolLockfileSentinel` and `GenerateJvmToolLockfileSentinel`. This is so that we can
 distinguish what language a tool belongs to, which is used for options like
-`[python].resolves_to_constraints_file` to validate which resolve names are recognized. 
+`[python].resolves_to_constraints_file` to validate which resolve names are recognized.
 
 Things will still work if you do not make this change, other than the new options not recognizing
 your tool.
@@ -75,8 +74,7 @@ The functionality is the same, but can have better performance because we don't 
 same globs each time `.matches()` is called. When possible, reuse the same `FilespecMatcher` object
 to get these performance benefits.
 
-2.13
-----
+## 2.13
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.13.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.13.x.md) for the changelog.
 
@@ -111,17 +109,17 @@ await Get(WrappedTarget, WrappedTargetRequest(my_address, description_of_origin=
 
 Specs, aka command line arguments, were redesigned in Pants 2.13:
 
-* The globs `::` and `:` now match all files, even if there are no owning targets.
-* Directory args like `my_dir/` can be set to match everything in the current directory, rather than the default target `my_dir:my_dir`.
-* Ignore globs were added with a `-` prefix, like `:: -ignore_me::`
+- The globs `::` and `:` now match all files, even if there are no owning targets.
+- Directory args like `my_dir/` can be set to match everything in the current directory, rather than the default target `my_dir:my_dir`.
+- Ignore globs were added with a `-` prefix, like `:: -ignore_me::`
 
 To support these changes, we redesigned the class `Specs` and its sibling classes like `AddressSpecs`.
 
 Renames for `Spec` subclass:
 
-* `SiblingAddresses` -> `DirGlobSpec` (vs. `DirLiteralSpec`)
-* `DescendantAddresses` -> `RecursiveGlobSpec`
-* `AscendantAddresses` -> `AncestorGlobSpec`
+- `SiblingAddresses` -> `DirGlobSpec` (vs. `DirLiteralSpec`)
+- `DescendantAddresses` -> `RecursiveGlobSpec`
+- `AscendantAddresses` -> `AncestorGlobSpec`
 
 Those classes now have a keyword arg `error_if_no_target_matches`, rather than having a distinct class like `MaybeDescendantAddresses`.
 
@@ -159,8 +157,7 @@ You must now use a long option name when [defining options](../the-rules-api/opt
 
 (These changes allowed us to introduce ignore specs, like `./pants list :: -ignore_me::`.)
 
-2.12
-----
+## 2.12
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.12.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.12.x.md) for the changelog.
 
@@ -170,8 +167,7 @@ Formatters no longer need to be installed in both the `FmtRequest` and `LintTarg
 
 See [Add a formatter](./add-a-formatter.mdx) for more information.
 
-2.11
-----
+## 2.11
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.11.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.11.x.md) for the changelog.
 
@@ -229,8 +225,7 @@ See [https://github.com/pantsbuild/pants/pull/14962](https://github.com/pantsbui
 
 See [https://github.com/pantsbuild/pants/pull/14313](https://github.com/pantsbuild/pants/pull/14313) for an explanation and some examples of how to fix.
 
-2.10
-----
+## 2.10
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.10.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.10.x.md) for the changelog.
 
@@ -294,8 +289,7 @@ See [https://github.com/pantsbuild/pants/pull/14231](https://github.com/pantsbui
 
 This type was used to determine the owners of a Python module. The new name makes that more clear. See [https://github.com/pantsbuild/pants/pull/14276](https://github.com/pantsbuild/pants/pull/14276).
 
-2.9
----
+## 2.9
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.9.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.9.x.md) for the changelog.
 
@@ -303,8 +297,7 @@ See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.9.x.
 
 Instead, for your `RuleRunner` tests, use `.write_files()`. See [https://github.com/pantsbuild/pants/pull/13817](https://github.com/pantsbuild/pants/pull/13817) for some examples.
 
-2.8
----
+## 2.8
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.8.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.8.x.md) for the changelog.
 
@@ -334,8 +327,7 @@ You should update all references to these classes in your `@rule`s.
 
 The method `OutputPathField.value_or_default()` no longer takes `Address` as an argument.
 
-2.7
----
+## 2.7
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.7.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.7.x.md) for the changelog.
 
@@ -347,8 +339,7 @@ Pants was not using PEP 561 properly, which means that MyPy would not enforce ty
 
 For example, use `my-subsystem` instead of `my_subsystem`. This is to avoid ambiguity with target types.
 
-2.6
----
+## 2.6
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.6.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.6.x.md) for the changelog.
 
@@ -362,8 +353,7 @@ See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.6.x.
 
 Now called `InterpreterConstraints` and defined in `pants.backend.python.util_rules.interpreter_constraints`.
 
-2.5
----
+## 2.5
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.5.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.5.x.md) for the changelog.
 
@@ -377,8 +367,7 @@ Use `TriBoolField` if you still want to be able to represent a trinary state: `F
 
 This is a more declarative way to set up files than the older API of `RuleRunner.create_file()`, `.create_files()`, and `.add_to_build_files()`. See [Testing plugins](../the-rules-api/testing-plugins.mdx).
 
-2.4
----
+## 2.4
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.4.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.4.x.md) for the changelog.
 
@@ -394,13 +383,11 @@ Instead, use `await Get(Environment, EnvironmentRequest(["MY_ENV_VAR"])`.
 
 For `RuleRunner` tests, you must now either set `env` or the new `env_inherit` arguments for environment variables to be set. Tests are now hermetic.
 
-2.3
----
+## 2.3
 
 There were no substantial changes to the Plugin API in 2.3. See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.3.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.3.x.md) for the changelog.
 
-2.2
----
+## 2.2
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.2.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.2.x.md) for the changelog.
 
@@ -432,8 +419,7 @@ class MyField(StringField):
 
 Pants will now properly wrap strings and preserve newlines. You may want to run `./pants help ${target/subsystem}` to verify things render properly.
 
-2.1
----
+## 2.1
 
 See [https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.1.x.rst](https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.1.x.rst) for the changelog.
 
@@ -441,8 +427,7 @@ See [https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.1.
 
 The type was renamed for clarity. Still import it from `pants.engine.fs`.
 
-2.0
----
+## 2.0
 
 See [https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.0.x.rst](https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.0.x.rst) for the changelog.
 

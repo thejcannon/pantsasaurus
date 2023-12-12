@@ -60,26 +60,26 @@ You can also manually add targets, which is necessary if you have any scripts th
 shell_source(name="script_without_a_extension", source="script_without_an_extension")
 ```
 
-
 :::note Shell dependency inference
 
     Pants will [infer dependencies](../introduction/how-does-pants-work.mdx#dependency-inference) by looking for imports like `source script.sh` and `. script.sh`. You can check that the correct dependencies are inferred by running `pants dependencies path/to/script.sh` and `pants dependencies --transitive path/to/script.sh`.
-    
+
     Normally, Pants will not understand dynamic sources, e.g. using variable expansion. However, Pants uses Shellcheck for parsing, so you can use Shellcheck's syntax to give a hint to Pants:
-    
+
     ```shell
     another_script="dir/some_script.sh"
-    
+
     # Normally Pants couldn't infer this, but we can give a hint like this:
     # shellcheck source=dir/some_script.sh
     source "${another_script}"
     ```
-    
+
     Alternatively, you can explicitly add `dependencies` in the relevant BUILD file.
-    
+
     ```python
     shell_sources(dependencies=["path/to:shell_source_tgt"])
     ```
+
 :::
 
 ## shfmt autoformatter
@@ -135,12 +135,12 @@ Only run shfmt with `--lint-only` and `--fmt-only`:
 pants fmt --only=shfmt ::
 ```
 
-
 :::tip Benefit of Pants: shfmt runs in parallel with Python, Java, Scala, and Go formatters
 
     Normally, Pants runs formatters sequentially so that it can pipe the results of one formatter into the next. However, Pants will run shfmt in parallel to formatters for other languages, [like Python](../python/python-overview/linters-and-formatters.mdx), because shfmt does not operate on those languages.
-    
+
     You can see this concurrency through Pants's dynamic UI.
+
 :::
 
 ## Shellcheck linter
@@ -195,10 +195,10 @@ Only run Shellcheck with `--lint-only`:
 pants lint --only=shellcheck ::
 ```
 
-
 :::tip Benefit of Pants: Shellcheck runs in parallel with other linters
 
     Pants will attempt to run all activated linters and formatters at the same time for improved performance, including [Python](../python/python-overview/linters-and-formatters.mdx), Go, Java, and Scala linters. You can see this through Pants's dynamic UI.
+
 :::
 
 ## shUnit2 test runner
@@ -264,29 +264,29 @@ shell_sources(name="lib")
 shell_tests(name="tests")
 ```
 
-
 :::tip Running your tests with multiple shells
 
     Pants allows you to run the same tests against multiple shells, e.g. Bash and Zsh, to ensure your code works with each shell.
-    
+
     To test multiple shells, use the `parametrize` mechanism, like this:
-    
+
     ```python
     shunit2_tests(
         name="tests",
         shell=parametrize("bash", "zsh"),
     )
     ```
-    
+
     Then, use `pants test`:
-    
+
     ```bash
     # Run tests with both shells.
     pants test scripts/tests.sh
-    
+
     # Run tests with only Zsh.
     pants test scripts/tests.sh:tests@shell=zsh
     ```
+
 :::
 
 ### Controlling output

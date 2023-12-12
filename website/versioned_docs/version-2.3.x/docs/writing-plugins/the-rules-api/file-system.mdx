@@ -14,8 +14,8 @@ If it would help you to have a certain file operation, please let us know by eit
 
 :::
 
-
 ## Core abstractions: `Digest` and `Snapshot`
+
 The core building block is a `Digest`, which is a lightweight reference to a set of files known about by the engine.
 
 - The `Digest` is only a reference; the files are stored in the engine's persistent [content-addressable storage (CAS)](https://en.wikipedia.org/wiki/Lightning_Memory-Mapped_Database).
@@ -52,8 +52,10 @@ from pants.engine.rules import Get, rule
 async def demo(...) -> Foo:
     ...
     snapshot = await Get(Snapshot, Digest, my_digest)
-``` 
+```
+
 ## `CreateDigest`
+
 `CreateDigest` allows you to create a new digest with whichever files you would like, even if they do not exist on disk.
 
 ```python
@@ -64,12 +66,14 @@ from pants.engine.rules import Get, rule
 async def demo(...) -> Foo:
     ...
     digest = await Get(Digest, CreateDigest([FileContent("f1.txt", b"hello world")])
-``` 
+```
 
-The `CreateDigest` constructor expects an iterable of `FileContent` objects, which take a `path: str` parameter, `contents: bytes` parameter, and optional `is_executable: bool` parameter with a default of `False`. 
+The `CreateDigest` constructor expects an iterable of `FileContent` objects, which take a `path: str` parameter, `contents: bytes` parameter, and optional `is_executable: bool` parameter with a default of `False`.
 
 This does _not_ write the `Digest` to the build root. Use `Workspace.write_digest()` for that.
+
 ## `PathGlobs`
+
 `PathGlobs` allows you to read from the local file system.
 
 ```python
@@ -80,11 +84,11 @@ from pants.engine.rules import Get, rule
 async def demo(...) -> Foo:
     ...
     digest = await Get(Digest, PathGlobs(["**/*.txt", "!ignore_me.txt"])
-``` 
+```
 
-* All globs must be relative paths, relative to the build root.
-* `PathGlobs` uses the same syntax as the `sources` field, which is roughly Git's syntax. Use `*` for globs, `**` for recursive globs, and prefix with `!` for ignores.
-* `PathGlobs` will ignore all values from the global option `pants_ignore`.
+- All globs must be relative paths, relative to the build root.
+- `PathGlobs` uses the same syntax as the `sources` field, which is roughly Git's syntax. Use `*` for globs, `**` for recursive globs, and prefix with `!` for ignores.
+- `PathGlobs` will ignore all values from the global option `pants_ignore`.
 
 By default, the engine will no-op for any globs that are unmatched. If you want to instead warn or error, set `glob_match_error_behavior=GlobMatchErrorBehavior.warn` or `GlobMatchErrorBehavior.error`. This will require that you also set `description_of_origin`, which is a human-friendly description of where the `PathGlobs` is coming from so that the error message is helpful. For example:
 
@@ -122,8 +126,10 @@ async def demo(...) -> Foo:
     ...
     paths = await Get(Paths, PathGlobs(["**/*.txt", "!ignore_me.txt"])
     logger.info(paths.files)
-``` 
+```
+
 ## `DigestContents`
+
 `DigestContents` allows you to get the file contents from a `Digest`.
 
 ```python
@@ -137,7 +143,7 @@ async def demo(...) -> Foo:
     for file_content in digest_contents:
         loggger.info(file_content.path)
         logger.info(file_content.content)  # This will be `bytes`.
-``` 
+```
 
 The result will be a sequence of `FileContent` objects, which each have a property `path: str` and a property `content: bytes`. You may want to call `content.decode()` to convert to `str`.
 
@@ -148,8 +154,8 @@ If you are running a `Process`, you only need to pass the `Digest` as input and 
 
 :::
 
-
 ## `MergeDigests`
+
 Often, you will need to provide a single `Digest` somewhere in your plugin—such as the `input_digest` for a `Process`—but you may have multiple `Digest`s that you want to use. Use `MergeDigests` to combine them all into a single `Digest`.
 
 ```python
@@ -165,10 +171,12 @@ async def demo(...) -> Foo:
     )
 ```
 
-* It is okay if multiple digests include the same file, so long as they have identical content.
-* If any digests have different content for the same file, the engine will error. Unlike Git, the engine does not attempt to resolve merge conflicts.
-* It is okay if some of the digests are empty, i.e. `EMPTY_DIGEST`.
+- It is okay if multiple digests include the same file, so long as they have identical content.
+- If any digests have different content for the same file, the engine will error. Unlike Git, the engine does not attempt to resolve merge conflicts.
+- It is okay if some of the digests are empty, i.e. `EMPTY_DIGEST`.
+
 ## `DigestSubset`
+
 To get certain files out of a `Digest`, use `DigestSubset`.
 
 ```python
@@ -184,9 +192,10 @@ async def demo(...) -> Foo:
 ```
 
 See the section `PathGlobs` for more details on how the type works.
-## `AddPrefix` and `RemovePrefix`
-Use `AddPrefix` and `RemovePrefix` to change the paths of every file in the digest, while keeping the file contents the same.
 
+## `AddPrefix` and `RemovePrefix`
+
+Use `AddPrefix` and `RemovePrefix` to change the paths of every file in the digest, while keeping the file contents the same.
 
 ```python
 from pants.engine.fs import AddPrefix, Digest, RemovePrefix
@@ -201,7 +210,9 @@ async def demo(...) -> Foo:
 ```
 
 `RemovePrefix` will error if it encounters any files that do not have the request prefix.
+
 ## `Workspace.write_digest()`
+
 To write a digest to disk in the build root, request the type `Workspace`, then use its method `.write_digest()`.
 
 ```python
@@ -215,12 +226,12 @@ async def run_my_goal(..., workspace: Workspace) -> MyGoal:
     workspace.write_digest(digest)
 ```
 
-* The digest will always be written to the build root; you cannot write to arbitrary locations on your machine.
-* You may set the optional parameter `path_prefix: str` with a relative path.
+- The digest will always be written to the build root; you cannot write to arbitrary locations on your machine.
+- You may set the optional parameter `path_prefix: str` with a relative path.
 
 `Workspace` is a special type that can only be requested in `@goal_rule`s because it is only safe to write to disk in a `@goal_rule`. So, a common pattern is for "downstream" rules to return a `Digest` with the contents they want to write to disk, and then the `@goal_rule` aggregating all the results and writing them to disk. For example, for the `fmt` goal, each `FmtResult` includes a `digest` field.
 
-For better performance, avoid calling `workspace.write_digest` multiple times, such as in a `for` loop. Instead, first, merge all the digests, then write them in a single call. 
+For better performance, avoid calling `workspace.write_digest` multiple times, such as in a `for` loop. Instead, first, merge all the digests, then write them in a single call.
 
 Bad:
 
@@ -235,7 +246,9 @@ Good:
 merged_digest = await Get(Digest, MergeDigests(all_digests))
 workspace.write_digest(merged_digest)
 ```
+
 ## `DownloadFile`
+
 `DownloadFile` allows you to download an asset using a `GET` request.
 
 ```python

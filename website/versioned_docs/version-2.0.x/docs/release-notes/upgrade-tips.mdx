@@ -9,20 +9,20 @@ How we recommend staying up-to-date with Pants.
 
 [block:callout]
 {
-  "type": "info",
-  "title": "Reminder: change the `pants_version` to upgrade",
-  "body": "Change the `pants_version` option in the `[GLOBAL]` scope in your pants.toml to upgrade.\n\nYou can see all releases at https://pypi.org/project/pantsbuild.pants/#history."
+"type": "info",
+"title": "Reminder: change the `pants_version` to upgrade",
+"body": "Change the `pants_version` option in the `[GLOBAL]` scope in your pants.toml to upgrade.\n\nYou can see all releases at https://pypi.org/project/pantsbuild.pants/#history."
 }
 [/block]
 
 [block:api-header]
 {
-  "title": "Upgrade one major release at a time"
+"title": "Upgrade one major release at a time"
 }
 [/block]
 Per our [Deprecation policy](./deprecation-policy.mdx), deprecations must last a minimum of one major release. For example, something may be deprecated in 2.1.0 and then removed in 2.2.0.
 
-This means that it is helpful to upgrade one major release at a time so that you can see all deprecation warnings. 
+This means that it is helpful to upgrade one major release at a time so that you can see all deprecation warnings.
 
 You do not need to land every upgrade into your organization—often, you will want to upgrade your organization multiple versions at a time, e.g. 2.1.0 to 2.4.0. But, when you are working on the upgrade locally, it is helpful to iterate one version at a time.
 
@@ -37,15 +37,15 @@ $ ./pants filedeps :: > /dev/null
 It is also helpful to spot check that your main commands like `lint`, `package`, and `test` still work by running on a single target.
 [block:callout]
 {
-  "type": "info",
-  "title": "Use dev releases for the newest",
-  "body": "As described in our [Release strategy](../contributions/releases/release-strategy.mdx), we make weekly dev releases with all the latest features and bug fixes we've been working on. While dev releases are less stable, they mean you get access to improvements sooner. \n\nIf you encounter any blocking issues, you can easily roll back to a prior version by changing the `pants_version` option. (Please let us know the issue by opening a [GitHub issue](https://github.com/pantsbuild/pants/issues) or messaging us on [Slack](/community/members))."
+"type": "info",
+"title": "Use dev releases for the newest",
+"body": "As described in our [Release strategy](../contributions/releases/release-strategy.mdx), we make weekly dev releases with all the latest features and bug fixes we've been working on. While dev releases are less stable, they mean you get access to improvements sooner. \n\nIf you encounter any blocking issues, you can easily roll back to a prior version by changing the `pants_version` option. (Please let us know the issue by opening a [GitHub issue](https://github.com/pantsbuild/pants/issues) or messaging us on [Slack](/community/members))."
 }
 [/block]
 
 [block:api-header]
 {
-  "title": "Ignore deprecation messages with `ignore_pants_warnings`"
+"title": "Ignore deprecation messages with `ignore_pants_warnings`"
 }
 [/block]
 Sometimes when upgrading, you will not have time to fully fix the deprecation. The `ignore_pants_warnings` option allows you to silence those deprecations.
@@ -53,19 +53,19 @@ Sometimes when upgrading, you will not have time to fully fix the deprecation. T
 The `ignore_pants_warnings` option expects a string with the start of the deprecation warning, like this:
 [block:code]
 {
-  "codes": [
-    {
-      "code": "[GLOBAL]\nignore_pants_warnings = [\n  \"DEPRECATED: the pantsbuild.pants.contrib\",\n  \"DEPRECATED: the antlr, jaxb, ragel, and wire codegen backends\",\n]",
-      "language": "toml",
-      "name": "pants.toml"
-    }
-  ]
+"codes": [
+{
+"code": "[GLOBAL]\nignore_pants_warnings = [\n \"DEPRECATED: the pantsbuild.pants.contrib\",\n \"DEPRECATED: the antlr, jaxb, ragel, and wire codegen backends\",\n]",
+"language": "toml",
+"name": "pants.toml"
+}
+]
 }
 [/block]
 
 [block:api-header]
 {
-  "title": "Find any bugs or issues?"
+"title": "Find any bugs or issues?"
 }
 [/block]
 Please either open a [GitHub issue](https://github.com/pantsbuild/pants/issues) or head over to [Slack](/community/members). We'd be happy to help and would appreciate knowing about the issue!

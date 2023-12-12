@@ -7,12 +7,11 @@ The core concepts of the Rules API.
 
 ---
 
-Rules
------
+## Rules
 
 Plugin logic is defined in _rules_: [pure functions](https://en.wikipedia.org/wiki/Pure_function) that map a set of statically-declared input types to a statically-declared output type.
 
-Each rule is an `async` Python function annotated with the decorator `@rule`, which takes any number of parameters (including zero) and returns a value of one specific type. Rules must be annotated with [type hints](https://www.python.org/dev/peps/pep-0484/). 
+Each rule is an `async` Python function annotated with the decorator `@rule`, which takes any number of parameters (including zero) and returns a value of one specific type. Rules must be annotated with [type hints](https://www.python.org/dev/peps/pep-0484/).
 
 For example, this rule maps `(int) -> str`.
 
@@ -39,8 +38,7 @@ You do not call a rule like you would a normal function. In the above examples, 
 
 Each rule should be pure; you should not use side-effects like `subprocess.run()`, `print()`, or the `requests` library. Instead, the Rules API has its own alternatives that are understood by the Pants engine and which work properly with its caching and parallelism.
 
-The rule graph
---------------
+## The rule graph
 
 All of the registered rules create a rule graph, with each type as a node and the edges being dependencies used to compute those types.
 
@@ -65,16 +63,15 @@ The engine will find a path through the rules to satisfy the types that you are 
 
 If the engine cannot find a path, or if there is ambiguity due to multiple possible paths, the rule graph will fail to compile. This ensures that the rule graph is always unambiguous.
 
-
 :::caution Rule graph errors can be confusing
 
     We know that rule graph errors can be intimidating and confusing to understand. We are planning to improve them. In the meantime, please do not hesitate to ask for help in the #plugins channel on [Slack](/community/getting-help).
-    
+
     Also see [Tips and debugging](./tips-and-debugging.mdx#debugging-rule-graph-issues) for some tips for how to approach these errors.
+
 :::
 
-`await Get` - awaiting results in a rule body
----------------------------------------------
+## `await Get` - awaiting results in a rule body
 
 In addition to requesting types in your rule's parameters, you can request types in the body of your rule.
 
@@ -123,32 +120,32 @@ async def call_fibonacci(...) -> Foo:
     ...
 ```
 
-
 :::note `Get` constructor shorthand
 
     The verbose constructor for a `Get` object takes three parameters: `Get(OutputType, InputType, input)`, where `OutputType` and `InputType` are both types, and `input` is an instance of `InputType`.
-    
+
     Instead, you can use `Get(OutputType, InputType(constructor arguments))`. These two are equivalent:
-    
+
     - `Get(ProcessResult, Process, Process(["/bin/echo"]))`
     - `Get(ProcessResult, Process(["/bin/echo"]))`
-    
+
     However, the below is invalid because Pants's AST parser will not be able to see what the `InputType` is:
-    
+
     ```python
     process = Process(["/bin/echo"])
     Get(ProcessResult, process)
     ```
-:::
 
+:::
 
 :::note Why only one input?
 
     Currently, you can only give a single input. It is not possible to do something like `Get(OutputType, InputType1(...), InputType2(...))`.
-    
+
     Instead, it's common for rules to create a "Request" data class, such as `PexRequest` or `SourceFilesRequest`. This request centralizes all of the data it needs to operate into one data structure, which allows for call sites to say `await Get(SourceFiles, SourceFilesRequest, my_request)`, for example.
-    
+
     See [https://github.com/pantsbuild/pants/issues/7490](https://github.com/pantsbuild/pants/issues/7490) for the tracking issue.
+
 :::
 
 ### `MultiGet` for concurrency
@@ -186,8 +183,7 @@ async def compute_fibonacci(n: int) -> Fibonacci:
     return Fibonacci(x.val + y.val)
 ```
 
-Valid types
------------
+## Valid types
 
 Types used as inputs to `Get`s or `Query`s must be hashable, and therefore should be immutable. Specifically, the type must have implemented `__hash__()` and `__eq__()`. While the engine will not validate that your type is immutable, you should be careful to ensure this so that the cache works properly.
 
@@ -230,37 +226,37 @@ async def demo(name: Name) -> Foo:
     ...
 ```
 
-
 :::caution Don't use `NamedTuple`
 
     `NamedTuple` behaves similarly to dataclasses, but it should not be used because the `__eq__()` implementation uses structural equality, rather than the nominal equality used by the engine.
-:::
 
+:::
 
 :::note Custom dataclass `__init__()`
 
     Sometimes, you may want to have a custom `__init__()` constructor. For example, you may want your dataclass to store a `tuple[str, ...]`, but for your constructor to take the more flexible `Iterable[str]` which you then convert to an immutable tuple sequence.
-    
-    Normally, `@dataclass(frozen=True)` will not allow you to have a custom `__init__()`. But, if you do not set `frozen=True`, then your dataclass would be mutable, which is dangerous with the engine.  
-    
+
+    Normally, `@dataclass(frozen=True)` will not allow you to have a custom `__init__()`. But, if you do not set `frozen=True`, then your dataclass would be mutable, which is dangerous with the engine.
+
     Instead, we added a decorator called `@frozen_after_init`, which can be combined with `@dataclass(unsafe_hash=True)`.
-    
+
     ```python
     from __future__ import annotations
-    
+
     from dataclasses import dataclass
     from typing import Iterable
-    
+
     from pants.util.meta import frozen_after_init
-    
+
     @frozen_after_init
     @dataclass(unsafe_hash=True)
     class Example:
         args: tuple[str, ...]
-    
+
         def __init__(self, args: Iterable[str]) -> None:
             self.args = tuple(args)
     ```
+
 :::
 
 ### `Collection`: a newtype for `tuple`
@@ -308,8 +304,7 @@ async def demo(requirements: RequirementStrings) -> Foo:
 
 You can optionally set the class property `sort_input`, which will often result in more cache hits with the Pantsd daemon.
 
-Registering rules in `register.py`
-----------------------------------
+## Registering rules in `register.py`
 
 To register a new rule, use the `rules()` hook in your [`register.py` file](../plugins-overview.mdx). This function expects a list of functions annotated with `@rule`.
 
@@ -318,7 +313,7 @@ def rules():
     return [rule1, rule2]
 ```
 
-Conventionally, each file will have a function called `rules()` and then `register.py` will re-export them.  This is meant to make imports more organized. Within each file, you can use `collect_rules()` to automatically find the rules in the file.
+Conventionally, each file will have a function called `rules()` and then `register.py` will re-export them. This is meant to make imports more organized. Within each file, you can use `collect_rules()` to automatically find the rules in the file.
 
 ```python title="pants-plugins/fortran/register.py"
 from fortran import fmt, test
@@ -326,6 +321,7 @@ from fortran import fmt, test
 def rules():
     return [*fmt.rules(), *test.rules()]
 ```
+
 ```python title="pants-plugins/fortran/fmt.py"
 from pants.engine.rules import collect_rules, rule
 
@@ -340,6 +336,7 @@ async def fmt_fortran(...) -> FormatResult:
 def rules():
     return collect_rules()
 ```
+
 ```python title="pants-plugins/fortran/test.py"
 from pants.engine.rules import collect_rules, rule
 

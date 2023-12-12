@@ -7,8 +7,7 @@ How to adjust for changes made to the Plugin API.
 
 ---
 
-2.11
-----
+## 2.11
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.11.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.11.x.md) for the changelog.
 
@@ -66,8 +65,7 @@ See [https://github.com/pantsbuild/pants/pull/14962](https://github.com/pantsbui
 
 See [https://github.com/pantsbuild/pants/pull/14313](https://github.com/pantsbuild/pants/pull/14313) for an explanation and some examples of how to fix.
 
-2.10
-----
+## 2.10
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.10.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.10.x.md) for the changelog.
 
@@ -131,8 +129,7 @@ See [https://github.com/pantsbuild/pants/pull/14231](https://github.com/pantsbui
 
 This type was used to determine the owners of a Python module. The new name makes that more clear. See [https://github.com/pantsbuild/pants/pull/14276](https://github.com/pantsbuild/pants/pull/14276).
 
-2.9
----
+## 2.9
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.9.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.9.x.md) for the changelog.
 
@@ -140,8 +137,7 @@ See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.9.x.
 
 Instead, for your `RuleRunner` tests, use `.write_files()`. See [https://github.com/pantsbuild/pants/pull/13817](https://github.com/pantsbuild/pants/pull/13817) for some examples.
 
-2.8
----
+## 2.8
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.8.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.8.x.md) for the changelog.
 
@@ -171,8 +167,7 @@ You should update all references to these classes in your `@rule`s.
 
 The method `OutputPathField.value_or_default()` no longer takes `Address` as an argument.
 
-2.7
----
+## 2.7
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.7.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.7.x.md) for the changelog.
 
@@ -184,8 +179,7 @@ Pants was not using PEP 561 properly, which means that MyPy would not enforce ty
 
 For example, use `my-subsystem` instead of `my_subsystem`. This is to avoid ambiguity with target types.
 
-2.6
----
+## 2.6
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.6.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.6.x.md) for the changelog.
 
@@ -199,8 +193,7 @@ See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.6.x.
 
 Now called `InterpreterConstraints` and defined in `pants.backend.python.util_rules.interpreter_constraints`.
 
-2.5
----
+## 2.5
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.5.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.5.x.md) for the changelog.
 
@@ -214,10 +207,9 @@ Use `TriBoolField` if you still want to be able to represent a trinary state: `F
 
 This is a more declarative way to set up files than the older API of `RuleRunner.create_file()`, `.create_files()`, and `.add_to_build_files()`. See [Testing plugins](../the-rules-api/testing-plugins.mdx).
 
-2.4
----
+## 2.4
 
-See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.4.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.4.x.md) for the changelog. 
+See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.4.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.4.x.md) for the changelog.
 
 ### `PexRequest` changes how entry point is set
 
@@ -227,17 +219,15 @@ See [https://github.com/pantsbuild/pants/pull/11620](https://github.com/pantsbui
 
 See [https://github.com/pantsbuild/pants/pull/11641](https://github.com/pantsbuild/pants/pull/11641). Pants now eagerly purges environment variables from the run, so using `os.environ` in plugins won't work anymore.
 
-Instead, use `await Get(Environment, EnvironmentRequest(["MY_ENV_VAR"])`. 
+Instead, use `await Get(Environment, EnvironmentRequest(["MY_ENV_VAR"])`.
 
 For `RuleRunner` tests, you must now either set `env` or the new `env_inherit` arguments for environment variables to be set. Tests are now hermetic.
 
-2.3
----
+## 2.3
 
-There were no substantial changes to the Plugin API in 2.3. See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.3.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.3.x.md) for the changelog. 
+There were no substantial changes to the Plugin API in 2.3. See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.3.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.3.x.md) for the changelog.
 
-2.2
----
+## 2.2
 
 See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.2.x.md](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.2.x.md) for the changelog.
 
@@ -269,8 +259,7 @@ class MyField(StringField):
 
 Pants will now properly wrap strings and preserve newlines. You may want to run `./pants help ${target/subsystem}` to verify things render properly.
 
-2.1
----
+## 2.1
 
 See [https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.1.x.rst](https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.1.x.rst) for the changelog.
 
@@ -278,8 +267,7 @@ See [https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.1.
 
 The type was renamed for clarity. Still import it from `pants.engine.fs`.
 
-2.0
----
+## 2.0
 
 See [https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.0.x.rst](https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.0.x.rst) for the changelog.
 

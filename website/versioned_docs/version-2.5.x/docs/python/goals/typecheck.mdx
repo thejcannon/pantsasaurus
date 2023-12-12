@@ -8,7 +8,9 @@ How to use MyPy.
 ---
 
 ## Activating MyPy
-To opt-in, add `pants.backend.python.typecheck.mypy` to `backend_packages` in your config file. 
+
+To opt-in, add `pants.backend.python.typecheck.mypy` to `backend_packages` in your config file.
+
 ```toml title="pants.toml"
 [GLOBAL]
 backend_packages.add = [
@@ -38,6 +40,7 @@ To turn this off, you can still set `python_version` in `mypy.ini` or `--python-
 Pants will automatically include your config file if it's located at `mypy.ini`, `.mypy.ini`, or `setup.cfg`.
 
 Otherwise, you must set the option `[mypy].config` for Pants to include the config file in the process's sandbox and to instruct MyPy to load it.
+
 ```toml title="pants.toml"
 [mypy]
 config = "build-support/mypy.ini"
@@ -46,6 +49,7 @@ config = "build-support/mypy.ini"
 ### Change the MyPy version
 
 Use the `version` option in the `[mypy]` scope:
+
 ```toml title="pants.toml"
 [mypy]
 version = "mypy==0.782"
@@ -54,6 +58,7 @@ version = "mypy==0.782"
 ### Incrementally adopt MyPy with `skip_mypy=True`
 
 You can tell Pants to skip running MyPy on certain files by adding `skip_mypy=True` to the relevant targets.
+
 ```python title="project/BUILD"
 # Skip MyPy for all the Python files in this directory
 # (both test and non-test files).
@@ -70,13 +75,14 @@ You can use [`.pyi` files](https://mypy.readthedocs.io/en/stable/stubs.html) for
 Pants's dependency inference knows to infer a dependency both on the implementation and the type stub. You can verify this by running `./pants dependencies path/to/file.py`.
 
 When writing stubs for third-party libraries, you may need the set up the `[source].root_patterns` option so that [source roots](../../using-pants/key-concepts/source-roots.mdx) are properly stripped. For example:
+
 ```toml tab={"label":"pants.toml"}
 [source]
 root_patterns = ["mypy-stubs", "src/python"]
 ```
 
 ```python tab={"label":"mypy-stubs/colors.pyi"}
-# Because we set `mypy-stubs` as a source root, this file will be 
+# Because we set `mypy-stubs` as a source root, this file will be
 # stripped to be simply `colors.pyi`. MyPy will look at this file for
 # imports of the `colors` module.
 
@@ -103,6 +109,7 @@ pex_binary(sources=["app.py"])
 ### Add a third-party plugin
 
 Add the plugin to the `extra_requirements` option in the `[mypy]` scope, then update your `mypy.ini` to load the plugin:
+
 ```toml tab={"label":"pants.toml"}
 [mypy]
 extra_requirements = ["pydantic==1.6.1"]
@@ -117,6 +124,7 @@ plugins =
 For some plugins, like `django-stubs`, you may need to always load certain source files, such as a `settings.py` file. You can make sure that this source file is always used by hijacking the `source_plugins` option, which allows you to specify targets whose `sources` should always be used when running MyPy. See the below section for more information about source plugins.
 
 For example, to fully use the `django-stubs` plugin, your setup might look like this:
+
 ```toml tab={"label":"pants.toml"}
 [source]
 root_patterns = ["src/python"]
@@ -151,8 +159,6 @@ python_library(
 )
 ```
 
-
-
 :::note MyPy Protobuf support
 Add `mypy_plugin = true` to the `[python-protobuf]` scope. See [Protobuf](../integrations/protobuf-and-grpc.mdx) for more information.
 
@@ -167,6 +173,7 @@ Then, add `plugins = path.to.module` to your MyPy config file, using the name of
 Finally, set the option `source_plugins` in the `[mypy]` scope to include this target's address, e.g. `source_plugins = ["pants-plugins/mypy_plugins:plugin"]`. This will ensure that your plugin's sources are always included in the subprocess.
 
 For example:
+
 ```toml tab={"label":"pants.toml"}
 [mypy]
 config = "mypy.ini"
@@ -186,7 +193,7 @@ python_library(
 ```
 
 ```python tab={"label":"pants-plugins/mypy_plugins/change_return_type.py"}
-"""A contrived plugin that changes the return type of any 
+"""A contrived plugin that changes the return type of any
 function ending in `__overriden_by_plugin` to return None."""
 
 from typing import Callable, Optional, Type
@@ -212,7 +219,9 @@ def plugin(_version: str) -> Type[Plugin]:
 ```
 
 Because this is a `python_library` target, Pants will treat this code like your other Python files, such as running linters on it or allowing you to write a `python_distribution` target to distribute the plugin externally.
+
 ## Known limitations
+
 ### Performance may be slower than normal
 
 Pants does not yet leverage MyPy's caching mechanism and daemon, so a typical run with Pants will likely be slower than using MyPy directly.
@@ -226,7 +235,9 @@ Pants's MyPy implementation will likely not work if you use namespace packages, 
 Further, we've internally had issues with setting `--namespace-packages` causing MyPy to complain about some third-party dependencies, which appears to be a MyPy bug.
 
 Please reach out on [Slack](/community/members) if you need support for namespace packages. We had difficulty getting MyPy to work with namespace packages independently of Pants, and it would help us to understand your use case.
+
 ## Tip: only run over changed files and their dependees
+
 When changing type hints code, you not only need to run over the changed files, but also any code that depends on the changed files:
 
 ```bash

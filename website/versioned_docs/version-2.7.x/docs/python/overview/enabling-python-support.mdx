@@ -7,7 +7,6 @@ How to enable Pants's bundled Python backend package.
 
 ---
 
-
 :::note Example Python repository
 See [here](https://github.com/pantsbuild/example-python) for examples of Pants's Python functionality.
 
@@ -16,6 +15,7 @@ See [here](https://github.com/pantsbuild/example-django) for Django-specific exa
 :::
 
 Enable the Python [backend](../../using-pants/key-concepts/backends.mdx) like this:
+
 ```toml title="pants.toml"
 [GLOBAL]
 ...
@@ -25,6 +25,7 @@ backend_packages = [
 ```
 
 You should now see some new goals available:
+
 ```text title="Shell"
 $ ./pants help goals
 ...
@@ -41,8 +42,6 @@ run           Runs a binary target.
 test          Run tests.
 ```
 
-
-
 :::note Have content in your `__init__.py` files?
 Pants automatically uses all relevant `__init__.py` files, even if dependency inference does not include the files and you don't add it to the `dependencies` fields of your targets.
 
@@ -57,8 +56,6 @@ This option will cause Pants to infer "proper" dependencies on any ancestor `__i
 
 :::
 
-
-
 :::caution macOS users: you may need to change interpreter search paths
 By default, Pants will look at both your `$PATH` and—if you use Pyenv—your `$(pyenv root)/versions` folder when discovering Python interpreters. Your `$PATH` likely includes the system Pythons at `/usr/bin/python` and `/usr/bin/python3`, which are known to have many issues like failing to install some dependencies.
 
@@ -71,7 +68,7 @@ However, if you run into issues, you can set the `interpreter_search_paths` opti
 interpreter_search_paths = [
     # This will use all interpreters in `$(pyenv root)/versions`.
     "<PYENV>",
-     # Brew usually installs Python here. 
+     # Brew usually installs Python here.
     "/usr/local/bin",
 ]
 ```

@@ -8,6 +8,7 @@ How to activate and use the Python linters and formatters bundled with Pants.
 ---
 
 ## Activating linters and formatters
+
 Linter/formatter support is implemented in separate [backends](../../using-pants/concepts/backends.mdx) so that they are easy to opt in to individually:
 | Backend | Tool |
 | :--- | :--- |
@@ -19,6 +20,7 @@ Linter/formatter support is implemented in separate [backends](../../using-pants
 | `pants.backend.python.lint.pylint` | [Pylint](https://www.pylint.org/): style and bug linter |
 
 To enable, add the appropriate backends in `pants.toml`:
+
 ```toml title="pants.toml"
 [GLOBAL]
 ...
@@ -50,16 +52,17 @@ MyPy is run with the [typecheck goal](../goals/typecheck.mdx), rather than `lint
 
 :::
 
-
 ## Configuring the tools and adding plugins
+
 Each formatter and linter allows you to configure
 
-* `--version`: the version to use.
-* `--config`: the config file location (relative to the build root).
-* `--args`: any command-line arguments you want to pass to the tool.
-* `--extra-requirements`: any additional libraries to install, such as any plugins.
+- `--version`: the version to use.
+- `--config`: the config file location (relative to the build root).
+- `--args`: any command-line arguments you want to pass to the tool.
+- `--extra-requirements`: any additional libraries to install, such as any plugins.
 
 For example:
+
 ```toml title="pants.toml"
 [black]
 config = "pyproject.toml"
@@ -83,8 +86,6 @@ This was fixed in Pants 2.5.
 
 :::
 
-
-
 :::note How to use first-party Pylint plugins
 Pants supports custom Pylint plugins written by you. Run `./pants help-advanced pylint` for instructions with the `--pylint-source-plugins` option.
 
@@ -92,14 +93,16 @@ If you want to write first-party plugins for other linters like Flake8, let us k
 
 :::
 
-
 ## Temporarily skipping a formatter or linter
+
 Use the `--skip` option. For example, run:
 
 ```bash
 $ ./pants --black-skip --flake8-skip fmt ::
 ```
+
 ## Tip: only run over changed files
+
 With formatters and linters, there is usually no need to rerun on files that have not changed.
 
 Use the option `--changed-since` to get much better performance, like this:

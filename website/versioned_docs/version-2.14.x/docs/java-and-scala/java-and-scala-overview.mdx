@@ -7,22 +7,21 @@ Pants's support for Java and Scala.
 
 ---
 
-
 :::caution Java and Scala support is beta stage
 
     We are done implementing most functionality for Pants's Java and Scala support ([tracked here](https://github.com/pantsbuild/pants/labels/lang-jvm)). However, there may be use cases that we aren't yet handling.
-    
-    Please share feedback for what you need to use Pants with your JVM project by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](/community/members)!
-:::
 
+    Please share feedback for what you need to use Pants with your JVM project by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](/community/members)!
+
+:::
 
 :::note Example Java and Scala repository
 
     Check out [github.com/pantsbuild/example-jvm](https://github.com/pantsbuild/example-jvm) to try out Pants's Java and Scala support.
+
 :::
 
-Initial setup
--------------
+## Initial setup
 
 First, activate the relevant backends in `pants.toml`:
 
@@ -79,10 +78,10 @@ To use multiple Scala versions in a repository, you would define multiple resolv
 
 To cross-build a set of Scala targets for multiple Scala versions, you can use the [`parametrize` builtin](../using-pants/key-concepts/targets-and-build-files.mdx#parametrizing-targets) with the `resolve=` field of the target and its dependencies.
 
-
 :::caution A jvm_artifact for scala-library artifact is explicitly required.
 
     The Scala backend currently requires that a `jvm_artifact` target for the `org.scala-lang:scala-library` Scala runtime be present in any resolve used for Scala. If such a jvm_artifact is missing, Pants will error. Pants will automatically inject a dependency on the runtime. (This target may be automatically supplied by Pants in a future version, but that is not currently implemented.)
+
 :::
 
 ### First-party dependencies
@@ -91,7 +90,7 @@ In many cases, the dependencies of your first-party code are automatically infer
 
 ### Third-party dependencies and lockfiles
 
-Third-party dependencies (i.e. those from repositories like [Maven central](https://search.maven.org/)) are also automatically inferred via dependency inference, but must first be declared once per repository as  [`jvm_artifact` targets](../../reference/targets/jvm-artifact.mdx):
+Third-party dependencies (i.e. those from repositories like [Maven central](https://search.maven.org/)) are also automatically inferred via dependency inference, but must first be declared once per repository as [`jvm_artifact` targets](../../reference/targets/jvm-artifact.mdx):
 
 ```python title="BUILD"
 jvm_artifact(
@@ -105,12 +104,12 @@ jvm_artifact(
 
 Pants requires use of a lockfile for thirdparty dependencies. After adding or editing `jvm_artifact` targets, you will need to update affected lockfiles by running `./pants generate-lockfiles`. The default lockfile is located at `3rdparty/jvm/default.lock`, but it can be relocated (as well as additional resolves declared) via the [`[jvm].resolves` option](../../reference/subsystems/jvm.mdx#section-resolves).
 
-
 :::note Thirdparty symbols and the `packages` argument
 
     To efficiently determine which symbols are provided by thirdparty code (i.e., without hitting the network in order to compute dependencies in the common case), Pants relies on a static mapping of which artifacts provide which symbols, and defaults to treating each `jvm_artifact` as providing symbols within its `group`.
-    
+
     The `packages` argument allows you to override which symbols a `jvm_artifact` provides. See the [`jvm_artifact` docs](../../reference/targets/jvm-artifact.mdx#codepackagescode) for more information.
+
 :::
 
 ### `resource` targets
@@ -129,11 +128,13 @@ For example:
 # the `/src/jvm/ prefix needs to be stripped.
 root_patterns = ["/src/*"]
 ```
+
 ```python title="src/jvm/org/pantsbuild/example/lib/BUILD"
 java_sources(dependencies=[":hello"])
 
 resources(name="hello", sources=["hello.txt"])
 ```
+
 ```java title="src/jvm/org/pantsbuild/example/lib/Loader.java"
 package org.pantsbuild.example.lib;
 
@@ -145,12 +146,12 @@ public class Loader {
   }
 }
 ```
+
 ```text title="src/jvm/org/pantsbuild/example/lib/hello.txt"
 Hello world!
 ```
 
-Compile code
-------------
+## Compile code
 
 To manually check that sources compile, use `./pants check`:
 
@@ -165,8 +166,7 @@ To manually check that sources compile, use `./pants check`:
 ❯ ./pants check ::
 ```
 
-Run tests
----------
+## Run tests
 
 To run tests, use `./pants test`:
 
@@ -236,6 +236,7 @@ With both `[test].extra_env_vars` and the `extra_env_vars` field, you can either
 [test]
 extra_env_vars = ["VAR1", "VAR2=hardcoded_value"]
 ```
+
 ```python title="project/BUILD"
 junit_tests(
     name="tests",
@@ -250,8 +251,7 @@ junit_tests(
 )
 ```
 
-Lint and Format
----------------
+## Lint and Format
 
 `scalafmt` and `Google Java Format` can be enabled by adding the `pants.backend.experimental.scala.lint.scalafmt` and `pants.backend.experimental.java.lint.google_java_format` backends (respectively) to `backend_packages` in the `[GLOBAL]` section of `pants.toml`.
 
@@ -268,8 +268,7 @@ Once enabled, `lint` and `fmt` will check and automatically reformat your code:
 ❯ ./pants --changed-since=HEAD fmt
 ```
 
-Working in an IDE
------------------
+## Working in an IDE
 
 Pants supports loading Java and Scala projects in IntelliJ via the [BSP protocol](https://build-server-protocol.github.io/) (which should ease VSCode support [via Metals](https://scalameta.org/metals/docs/editors/vscode), although it is not yet supported).
 
@@ -293,6 +292,7 @@ After Setup (see below), and after IntelliJ has finished indexing your code, you
 # This directory is not committed: each BSP user will create it independently.
 /.bsp/
 ```
+
 ```Text title="..."
 
 ```
@@ -303,13 +303,14 @@ After Setup (see below), and after IntelliJ has finished indexing your code, you
 # A "group" named `default`.
 # Multiple groups are supported: consider creating a group per project or team.
 [groups.default]
-addresses = [  
-  "src/jvm::",  
-  "tests/jvm::",  
+addresses = [
+  "src/jvm::",
+  "tests/jvm::",
 ]
 
 resolve = "jvm:jvm-default"
 ```
+
 ```Text title="..."
 
 ```
@@ -320,6 +321,7 @@ resolve = "jvm:jvm-default"
 [experimental-bsp]
 groups_config_files = ["bsp-groups.toml"]
 ```
+
 ```Text title="..."
 
 ```

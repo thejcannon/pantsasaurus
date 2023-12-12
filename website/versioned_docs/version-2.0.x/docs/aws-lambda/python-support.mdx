@@ -14,16 +14,15 @@ See [the Python example repository](https://github.com/pantsbuild/example-python
 
 :::
 
-
-
 :::note FYI: how Pants does this
 Under-the-hood, Pants uses the [Lambdex](https://github.com/wickman/lambdex) project. First, Pants will convert your code into a [Pex file](../python/overview/pex-files.mdx). Then, Pants will use Lambdex to convert the Pex into a zip file understood by AWS.
 
 :::
 
-
 ## Step 1: Activate the Python AWS Lambda backend
+
 Add this to your `pants.toml`:
+
 ```toml title="pants.toml"
 [GLOBAL]
 backend_packages.add = [
@@ -33,12 +32,15 @@ backend_packages.add = [
 ```
 
 This adds the new `python_awslambda` target, which you can confirm by running `./pants help python_awslambda`
+
 ## Step 2: Define a `python_awslambda` target
+
 First, add your lambda function in Python like you would [normally do with AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html). Specifically, create a function `def handler_name(event, context)`.
 
 Then, in your BUILD file, create a `python_library` target with the handler file included in the `sources` field. Add a `python_awslambda` target and define the `runtime` and `handler` fields. The `runtime` should be one of the values from https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html. The `handler` has the form `module.dotted.name:handler_func`.
 
 For example:
+
 ```python tab={"label":"project/BUILD"}
 # The default `sources` field will include our handler file.
 python_library(name="lib")
@@ -63,9 +65,9 @@ You can optionally set the `output_path` field to change the generated zip file'
 
 :::
 
-
 ## Step 3: Run `package`
-Now run `./pants package` on your `python_awslambda` target to create a zipped file. 
+
+Now run `./pants package` on your `python_awslambda` target to create a zipped file.
 
 For example:
 
@@ -83,10 +85,8 @@ If this happens, you must either change your dependencies to only use dependenci
 
 :::
 
-
 ## Step 4: Upload to AWS
+
 You can use any of the various AWS methods to upload your zip file, such as the AWS console or the AWS CLI via `aws lambda create-function` and `aws lambda update-function-code`.
 
 You must specify the AWS lambda handler as `lambdex_handler.handler`.
-
-

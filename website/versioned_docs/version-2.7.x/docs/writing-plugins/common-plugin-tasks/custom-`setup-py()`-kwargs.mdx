@@ -11,9 +11,9 @@ By default, Pants will simply copy the kwargs (keyword arguments) used in the `p
 
 You can instead write a plugin to add your own logic to what kwargs are used for the `setup()` function to do any of these things:
 
-* Reduce boilerplate by hardcoding common kwargs.
-* Read from the file system to dynamically determine kwargs, such as the `long_description` or `version`.
-* Run processes like `git` to dynamically determine kwargs like `version`.
+- Reduce boilerplate by hardcoding common kwargs.
+- Read from the file system to dynamically determine kwargs, such as the `long_description` or `version`.
+- Run processes like `git` to dynamically determine kwargs like `version`.
 
 Note: regardless of if you wrote a plugin or not, Pants will automatically set some kwargs like `install_requires` and `namespace_packages` based on analyzing your code.
 
@@ -24,8 +24,8 @@ See [here](https://github.com/pantsbuild/pants/blob/master/pants-plugins/interna
 
 :::
 
-
 ## 1. Set up a subclass of `SetupKwargsRequest`
+
 Set the class method `is_applicable()` to determine whether your implementation should be used for the particular `python_distribution` target. If `False`, Pants will use the default implementation which simply uses the explicitly provided `setup_py` from the BUILD file.
 
 In this example, we will always use our custom implementation:
@@ -49,8 +49,7 @@ class CustomSetupKwargsRequest(SetupKwargsRequest):
         return target.address.spec.startswith("src/python/project1")
 ```
 
-
-Then, register your new `SetupKwargsRequest ` with a [`UnionRule`](../the-rules-api/union-rules-(advanced).mdx) so that Pants knows your implementation exists:
+Then, register your new `SetupKwargsRequest ` with a [`UnionRule`](<../the-rules-api/union-rules-(advanced).mdx>) so that Pants knows your implementation exists:
 
 ```python
 from pants.engine.rules import collect_rules
@@ -107,8 +106,8 @@ class PantsSetupKwargsRequest(SetupKwargsRequest):
 
 :::
 
-
 ## 2. Create a rule with your logic
+
 Your rule should take as a parameter the `SetupKwargsRequest ` from step 1. This type has two fields: `target: Target` and `explicit_kwargs: Dict[str, Any]`. You can use these fields to get more information on the target you are generating a `setup.py` for.
 
 Your rule should return `SetupKwargs`, which takes two arguments: `kwargs: Dict[str, Any]` and `address: Address`.
@@ -127,6 +126,7 @@ async def setup_kwargs_plugin(request: CustomSetupKwargsRequest) -> SetupKwargs:
 ```
 
 Update your plugin's `register.py` to activate this file's rules.
+
 ```python title="pants-plugins/python_plugins/register.py"
 from python_plugins import custom_setup_py
 
@@ -174,7 +174,7 @@ python_distribution(
     setup_py_commands=["sdist"]
 )
 ```
- 
+
 ```python
 import os.path
 
@@ -212,6 +212,6 @@ async def setup_kwargs_plugin(request: CustomSetupKwargsRequest) -> SetupKwargs:
 
 Refer to these guides for additional things you may want to do in your plugin:
 
-* [Read from options](../the-rules-api/options-and-subsystems.mdx). Also see [here](https://github.com/pantsbuild/pants/blob/master/pants-plugins/internal_plugins/releases/register.py) for an example.
-* [Read values from the target](../the-rules-api/rules-and-the-target-api.mdx) using the Target API.
-* [Run a `Process`](../the-rules-api/processes.mdx), such as `git`. Also see [Installing tools](../the-rules-api/installing-tools.mdx).
+- [Read from options](../the-rules-api/options-and-subsystems.mdx). Also see [here](https://github.com/pantsbuild/pants/blob/master/pants-plugins/internal_plugins/releases/register.py) for an example.
+- [Read values from the target](../the-rules-api/rules-and-the-target-api.mdx) using the Target API.
+- [Run a `Process`](../the-rules-api/processes.mdx), such as `git`. Also see [Installing tools](../the-rules-api/installing-tools.mdx).

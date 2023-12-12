@@ -6,7 +6,7 @@ const plugin = (options) => {
       const metaString = `${node.lang ?? ""} ${node.meta ?? ""}`.trim();
       if (!metaString) return;
       const [caption] = metaString.match(
-        /(?<=caption=("|'))(.*?)(?=("|'))/
+        /(?<=caption=("|'))(.*?)(?=("|'))/,
       ) ?? [""];
       if (!caption && metaString.includes("caption=")) {
         file.message("Invalid caption", node, "remark-code-caption");

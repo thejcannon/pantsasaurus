@@ -8,7 +8,9 @@ How to create a Field, including the available templates.
 ---
 
 Before creating a new target type, the first step is to create all of the target type's fields.
+
 ## Defining a Field
+
 To define a new field:
 
 1. Subclass one of the below field templates, like `IntField` or `BoolField`; or, subclass a pre-existing field, like `Sources`.
@@ -50,8 +52,8 @@ See [Concepts](./concepts.mdx) for how subclassing plays a key role in the Targe
 
 :::
 
-
 ## Adding custom validation
+
 The field templates will validate that users are using the correct _types_, like ints or strings. But you may want to add additional validation, such as banning certain values.
 
 To do this, override the classmethod `compute_value`:
@@ -76,7 +78,9 @@ class UploadTimeout(IntField):
 ```
 
 Be careful to use the same type hint for the parameter `raw_value` as used in the template. This is used to generate the documentation in `./pants help my_target`.
+
 ## Available templates
+
 All templates are defined in `pants.engine.target`.
 
 ### `BoolField`
@@ -98,7 +102,7 @@ Use this when you expect a float. This will reject integers.
 Use this when you expect a single string.
 
 :::note `StringField` can be like an enum
-You can set the class property `valid_choices` to limit what strings are acceptable. This class property can either be a tuple of strings or an `enum.Enum`. 
+You can set the class property `valid_choices` to limit what strings are acceptable. This class property can either be a tuple of strings or an `enum.Enum`.
 
 For example:
 
@@ -112,17 +116,16 @@ or:
 
 `python
 class LeafyGreens(Enum):
-    KALE = "kale"
-    SPINACH = "spinach"
-    CHARD = "chard"
+KALE = "kale"
+SPINACH = "spinach"
+CHARD = "chard"
 
 class LeafyGreensField(StringField):
-    alias = "leafy_greens"
-    valid_choices = LeafyGreens
+alias = "leafy_greens"
+valid_choices = LeafyGreens
 `
 
 :::
-
 
 ### `ScalarField` (advanced)
 
@@ -218,12 +221,10 @@ class VersionField(PrimitiveField):
        return value_or_default
 ```
 
-
 :::tip Asking for help
 Have a tricky field you're trying to write? We would love to help! See [Getting Help](/community/members).
 
 :::
-
 
 ## Examples
 
@@ -241,12 +242,12 @@ from pants.engine.target import (
 
 class FortranVersion(StringField):
  """Which version of Fortran should this use?"""
- 
+
  alias = "fortran_version"
  required = True
  valid_choices = ("f95", "f98")
 
- 
+
 class CompressToggle(BoolField):
  """Whether to compress the generated file."""
 
@@ -256,13 +257,13 @@ class CompressToggle(BoolField):
 
 class UploadTimeout(IntField):
  """How long to upload (in seconds) before timing out.
- 
+
  This must be between 10 and 300 seconds.
  """
- 
+
  alias = "upload_timeout"
  default = 100
- 
+
  @classmethod
  def compute_value(
  cls, raw_value: Optional[int], _, address: Address
@@ -276,8 +277,8 @@ class UploadTimeout(IntField):
  return value_or_default
 
 
-# Example of subclassing a pre-existing field. 
-# We don't need to define `alias = sources` because the 
+# Example of subclassing a pre-existing field.
+# We don't need to define `alias = sources` because the
 # parent class does this already.
 class FortranSources(Sources):
  default = ("_.f95",)

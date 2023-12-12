@@ -7,13 +7,16 @@ How to build Docker images containing artifacts built by Pants
 
 ---
 
-[Docker](https://www.docker.com/) images are a common deployment format. 
+[Docker](https://www.docker.com/) images are a common deployment format.
 
 Docker images typically bundle build artifacts, such as PEX files, wheels, loose files, and so on, with other runtime requirements, such as a Python interpreter.
 
 Pants makes it easy to embed the artifacts it builds into your Docker images, for easy deployment.
+
 ## Enabling the Docker backend
+
 To use Pants's Docker support you must enable the appropriate backend:
+
 ```toml title="pants.toml"
 backend_packages = [
   ...
@@ -23,10 +26,12 @@ backend_packages = [
 ```
 
 We expect the Docker backend to graduate out of the "experimental" area soon!
-## Adding `docker_image` targets
-A docker image is built from a recipe specified by a  [Dockerfile](https://docs.docker.com/engine/reference/builder/). When you build docker images with Pants, instead of running `docker` on the Dockerfile directly, you let Pants do that for you.
 
-Pants uses `docker_image` [targets](../using-pants/key-concepts/targets-and-build-files.mdx) to indicate which Dockerfiles you want Pants to know about, and to add any necessary metadata. 
+## Adding `docker_image` targets
+
+A docker image is built from a recipe specified by a [Dockerfile](https://docs.docker.com/engine/reference/builder/). When you build docker images with Pants, instead of running `docker` on the Dockerfile directly, you let Pants do that for you.
+
+Pants uses `docker_image` [targets](../using-pants/key-concepts/targets-and-build-files.mdx) to indicate which Dockerfiles you want Pants to know about, and to add any necessary metadata.
 
 You can autogenerate initial BUILD files for your Docker images, using [tailor](../python/goals/tailor.mdx):
 
@@ -39,30 +44,38 @@ Created src/docker/app2/BUILD:
 ```
 
 Or you can add them manually, such as:
+
 ```python title="src/docker/app1/BUILD"
 docker_image(name='docker')
 ```
 
-
 ## Adding dependencies to your `docker_image` targets
+
 A Dockerfile executes in a _context_ - a set of files that the commands in the Dockerfile can reference, e.g., by copying them into the image).
 
 When you run `docker` directly, the context is usually a directory within your repo. That directory must contain the Dockerfile (typically at the root of the context) and any files that the build requires. If those files are themselves the product of a build step, or if they are sources from elsewhere in the repo, then you have to copy them into the context.
 
-Pants, however, takes care of assembling the context for you. It does so using the dependencies of the `docker_image` target. 
+Pants, however, takes care of assembling the context for you. It does so using the dependencies of the `docker_image` target.
 
 A `docker_image` can depend on loose files belonging to [files targets](../using-pants/resources-and-archives.mdx#files), and on artifacts packaged from a variety of targets, such as [pex_binary](../../reference/targets/pex-binary.mdx) , [python_distribution](../../reference/targets/python-distribution.mdx), [archive](../../reference/targets/archive.mdx), or any other target that can be built via the [package](../../reference/goals/package.mdx) goal.
 
 The context is assembled as follows:
+
 - The sources of `files` targets are assembled at their relative path from the repo root.
-- The artifacts of any packageable targets are built, as if by running `./pants package`, and placed in the context under a subdirectory named for the target's path from the repo root. 
+- The artifacts of any packageable targets are built, as if by running `./pants package`, and placed in the context under a subdirectory named for the target's path from the repo root.
+
 ## Building a Docker image
+
 You build Docker images using the `package` goal:
+
 ```
 $ ./pants package path/to/Dockerfile
 ```
+
 ## Example
+
 To see this in action, look at the following example:
+
 ```python tab={"label":"src/docker/hw/BUILD"}
 files(
     name="msg",
@@ -119,7 +132,9 @@ To push your image:
 $ docker run -it --rm helloworld:latest
 Hello, Docker!
 ```
+
 ## Tagging the image
+
 By default the built image gets a `latest` tag. To select another value to use, provide a `version` value to `docker_image`:
 
 ```python
@@ -136,8 +151,8 @@ We are looking into adding this functionality into the core Docker plugin in the
 
 :::
 
-
 ## Linting Dockerfiles
+
 Pants can run `hadolint` on your Dockerfiles to check for errors and mistakes:
 
 ```
@@ -145,6 +160,7 @@ $ ./pants lint src/docker/hw/Dockerfile
 ```
 
 This must first be enabled by adding the following configuration:
+
 ```toml title="pants.toml"
 [GLOBAL]
 backend_packages.add = ["pants.backend.experimental.docker.lint.hadolint"]

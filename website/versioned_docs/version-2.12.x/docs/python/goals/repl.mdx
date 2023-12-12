@@ -9,8 +9,7 @@ Open a REPL for interactive development.
 
 Pants will load a [REPL](https://en.wikipedia.org/wiki/REPL) with all of your specified source code and any of its third-party dependencies, which allows you to import those values.
 
-IPython
--------
+## IPython
 
 In addition to the default Python shell, Pants supports the improved [IPython shell](https://ipython.org).
 
@@ -31,26 +30,25 @@ lockfile = "3rdparty/python/ipython_lock.txt"
 
 If you set the `version` lower than IPython 7, then you must set `[ipython].ignore_cwd = false` to avoid Pants setting an option that did not exist in earlier IPython releases.
 
-
 :::danger IPython does not yet work with Pantsd
 
     When using IPython, use the option `--no-pantsd` to turn off the Pants daemon, e.g. `./pants --no-pantsd repl --shell=ipython`. We are working to [fix this](https://github.com/pantsbuild/pants/issues/9939).
-:::
 
+:::
 
 :::note Python 2 support
 
     Pants uses IPython 7 by default, which does not work with Python 2. You can override `version` to use IPython 5. As mentioned above, you must set `ignore_cwd = false`.
-    
+
     ```toml
     [ipython]
     version = "ipython<6"
     lockfile = "3rdparty/python/ipython_lock.txt"
     ignore_cwd = false
     ```
-    
+
     You can even use IPython 7 for Python 3 code, and IPython 5 for Python 2 code:
-    
+
     ```toml
     [ipython]
     version = "ipython==7.16.1 ; python_version >= '3.6'"
@@ -58,10 +56,10 @@ If you set the `version` lower than IPython 7, then you must set `[ipython].igno
     lockfile = "3rdparty/python/ipython_lock.txt"
     ignore_cwd = false
     ```
+
 :::
 
-Examples
---------
+## Examples
 
 ```text title="Shell"
 $ ./pants repl helloworld/greet/greeting.py
@@ -98,8 +96,8 @@ Out[1]: 84
 
 `./pants repl ::` will load all your code.
 
-
 :::note Tip: how to exit the REPL
 
 :::
+
 > Either type `exit()` and hit enter, or press `ctrl+d`.

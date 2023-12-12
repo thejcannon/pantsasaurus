@@ -3,14 +3,11 @@
     position: 10
 ---
 
-
-
 ---
 
 If you use a code-aware editor or IDE, such as PyCharm or VSCode, you may want to set it up to understand your code layout and dependencies. This will allow it to perform code navigation, auto-completion and other features that rely on code comprehension.
 
-First-party sources
--------------------
+## First-party sources
 
 To get your editor to understand the repo's first-party sources, you will probably need to tell it about the repo's [source roots](./key-concepts/source-roots.mdx). You can list those with:
 
@@ -18,7 +15,7 @@ To get your editor to understand the repo's first-party sources, you will probab
 $ ./pants roots
 ```
 
-and then apply the corresponding IDE concept. 
+and then apply the corresponding IDE concept.
 
 For example, in PyCharm you would mark each source root as a "Sources" folder. See [Configuring Project Structure](https://www.jetbrains.com/help/pycharm/configuring-project-structure.html) to learn more.
 
@@ -33,12 +30,11 @@ $ python3 -c "print('PYTHONPATH=\"./' + ':./'.join(\"${ROOTS}\".split()) + ':\$P
 
 See [Use of the PYTHONPATH variable](https://code.visualstudio.com/docs/python/environments#_use-of-the-pythonpath-variable) to learn more about using the `PYTHONPATH` variable in VSCode.
 
-Third-party dependencies (Python)
----------------------------------
+## Third-party dependencies (Python)
 
 To get your editor to understand the repo's third-party dependencies, you will probably want to point it at a virtualenv containing those dependencies.
 
-You can use the `export` goal to create a suitable virtualenv. 
+You can use the `export` goal to create a suitable virtualenv.
 
 ```
 ❯ ./pants export ::
@@ -47,10 +43,9 @@ Wrote virtualenv for the resolve 'python-default' (using CPython==3.9.*) to dist
 
 If you are using the ["resolves" feature for Python lockfiles](../python/python-overview/third-party-dependencies.mdx)—which we strongly recommend—Pants will write the virtualenv to `dist/export/python/virtualenvs/<resolve-name>`. If you have multiple resolves, this means that Pants will create one virtualenv per resolve. You can then point your IDE to whichever resolve you want to load at the time.
 
-Generated code
---------------
+## Generated code
 
-If you're using [Protobuf and gRPC](../../reference/targets/protobuf-source.mdx), you may want your editor to be able to index and navigate the generated source code. 
+If you're using [Protobuf and gRPC](../../reference/targets/protobuf-source.mdx), you may want your editor to be able to index and navigate the generated source code.
 
 Normally Pants treats generated code as an internal byproduct, and doesn't expose it. But you can run the `export-codegen` goal to generate code to a well-known output location for consumption:
 
@@ -58,18 +53,16 @@ Normally Pants treats generated code as an internal byproduct, and doesn't expos
 $ ./pants export-codegen ::
 ```
 
-The generated code will be written to `dist/codegen`, and you can now add them as sources in the IDE. For example, in PyCharm you would mark `dist/codegen` as a "Sources" folder. 
+The generated code will be written to `dist/codegen`, and you can now add them as sources in the IDE. For example, in PyCharm you would mark `dist/codegen` as a "Sources" folder.
 
 Warning: you will have to manually rerun this goal when changes are made.
 
-Remote debugging
-----------------
+## Remote debugging
 
-You can use PyCharm to debug code running under Pants. 
+You can use PyCharm to debug code running under Pants.
 
 See the following links for instructions on how to do so under the [test goal](../python/goals/test.mdx) and under the [run goal](../python/goals/run.mdx).
 
-IDE integrations
-----------------
+## IDE integrations
 
 We have not yet developed tight IDE integrations, such as a PyCharm plugin or a VSCode extension, that would allow the IDE to run Pants on your behalf. If you're interested in developing this functionality for your favorite IDE, [let us know](/community/members)!

@@ -7,10 +7,10 @@
 
 ## Environments
 
-
 :::caution Environments are currently in `preview`, and have not yet stabilized.
 
     We'd love your feedback on how Environments could be most useful to you! Please refer to [the tracking issue](https://github.com/pantsbuild/pants/issues/17355) for known stabilization blockers.
+
 :::
 
 By default, Pants will execute all sandboxed build work directly on localhost. But defining and using additional "environments" for particular targets allows Pants to transparently execute some or all of your build either:
@@ -57,10 +57,10 @@ Environment targets have fields ([target](./key-concepts/targets-and-build-files
 
 For example, the [`[python-bootstrap].search_path` option](../../reference/subsystems/python-bootstrap.mdx#search_path) is environment-aware, which is indicated in its help. It can be overridden for a particular environment by a corresponding environment target field, such as [the one on `local_environment`](../../reference/targets/local-environment.mdx#codepython_bootstrap_search_pathcode).
 
-
 :::tip See an option which should be environment-aware, but isn't?
 
     Environments are a new concept: if you see an option value which should be marked environment-aware but isn't, please definitely [file an issue](https://github.com/pantsbuild/pants/issues/new/choose)!
+
 :::
 
 ### Consuming environments
@@ -72,12 +72,12 @@ The `environment=` field may either:
 1. refer to an environment by name
 2. use a special `__local__` environment name, which resolves to any matching `local_environment` (see "Environment matching" below)
 
-
 :::caution Environment compatibility
 
     Currently, there is no static validation that a target's environment is compatible with its dependencies' environments -- only the implicit validation of the goals that you run successfully against those targets (`check`, `lint`, `test`, `package`, etc).
-    
+
     As we gain more experience with how environments are used in the wild, it's possible that more static validation can be added: your feedback would be very welcome!
+
 :::
 
 #### Setting the environment on many targets at once
@@ -165,10 +165,10 @@ local = "//:local"
 
 ... and use that environment by default with all targets. Users or consumers like CI could then toggle whether remote execution is used by setting `--remote-execution`.
 
-
 :::caution Speculation of remote execution
 
     The `2.15.x` series of Pants does not yet support ["speculating" remote execution](https://github.com/pantsbuild/pants/issues/8353) by racing it against another environment (usually local or docker). While we expect that this will be necessary to make remote execution a viable option for local execution on user's laptops (where network connections are less reliable), it is less critical for CI use-cases.
+
 :::
 
 #### Use a `docker_environment` to build the inputs to a `docker_image`
@@ -204,12 +204,12 @@ docker_image(
 )
 ```
 
-
 :::tip Compatibility of `docker_environment` and `docker_image`
 
     Note that the Docker image used in your `docker_environment` does not need to match the base image of the `docker_image` targets that consume them: they only need to be compatible. This is because execution of build steps in a `docker_environment` occurs in an anonymous container, and only the required inputs are provided to the `docker_image` build.
-    
+
     This means that your `docker_environment` can include things like compilers or other tools relevant to your build, without needing to manually use multi-stage Docker builds.
+
 :::
 
 #### Toggle use of an environment for some consumers

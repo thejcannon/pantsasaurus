@@ -10,6 +10,7 @@ How we try to provide you a stable experience.
 Deprecations must live at least one stable release, meaning that if something is deprecated in 2.1.x, for example, it cannot be removed until 2.2.x.
 
 Every deprecation message will include a description of how to respond to the change, such as renaming a value in your `pants.toml` config file.
+
 ## Prohibited changes
 
 - Removing options without a deprecation.
@@ -36,10 +37,11 @@ A module, variable, method, function, or class is part of the public API if at l
 All other code defaults to being a private API and does not need to follow this deprecation policy.
 
 Examples:
+
 ```python title="deprecation_example.py"
 """An example public module.
 
-This means that everything in this module is public, except for 
+This means that everything in this module is public, except for
 values prefixed with `_`.
 
 :API: public
@@ -47,7 +49,7 @@ values prefixed with `_`.
 
 def demo_function(x: int) -> None:
  """An example public top-level function.
- 
+
  :API: public
  """
  print(x)
@@ -55,22 +57,21 @@ def demo_function(x: int) -> None:
 
 class Demo:
  """An example public class.
- 
- All methods and class properties are public, except for values 
+
+ All methods and class properties are public, except for values
  prefixed with `_`.
- 
+
  :API: public
  """
- 
+
  def demo_method(self, x: int) -> None:
  """An example public method.
- 
+
  :API: public
  """
  print(x)
 
 ```
-
 
 ### Prohibited API changes
 
@@ -96,9 +97,8 @@ These changes all require a deprecation.
 - Upgrading Pants to use new versions of third-party libraries.
 - Changes that are required by law.
 
-
 :::caution The Rules and Target APIs are still experimental
-These two APIs do not yet follow this deprecation policy because we are actively shaping the API. 
+These two APIs do not yet follow this deprecation policy because we are actively shaping the API.
 
 We do try, however, to limit changes and may choose to respect the deprecation policy on a case-by-case basis.
 

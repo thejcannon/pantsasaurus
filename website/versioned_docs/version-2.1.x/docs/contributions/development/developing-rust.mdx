@@ -14,35 +14,37 @@ We'd be happy to ping you on Rust changes we make for you to see how Rust is use
 
 :::
 
-
-
 :::caution Recommendation: share your plan first
 Because changes to Rust deeply impact how Pants runs, it is especially helpful to share any plans to work on Rust before making changes. Please message us on [Slack](/community/members) in the #engine channel or open a [GitHub issue](https://github.com/pantsbuild/pants/issues).
 
 :::
 
-
 ## Code organization
+
 The code for the top-level Pants Rust crate lives in `src/rust/engine`. The top-level `Cargo.toml` file at `src/rust/engine/Cargo.toml` defines a cargo workspace containing a number of other subcrates, which live in subdirectories of `src/rust/engine`. Defining multiple subcrates in this way allows changes affecting one subcrate to avoid affecting other subcrates and triggering more recompilation than is necessary.
 
 Several of the particularly important subcrates are:
 
-* `graph`: the core of Pants's rule graph implementation.
-* `ui`: the dynamic UI.
-* `sharded_lmdb`: custom wrappers around the `crates.io` `lmdb` crate, which provides bindings to [lmdb](https://en.wikipedia.org/wiki/Lightning_Memory-Mapped_Database).
-* `fs`: manipulating the filesystem.
-* `process_execution`: running local and remote processes.
+- `graph`: the core of Pants's rule graph implementation.
+- `ui`: the dynamic UI.
+- `sharded_lmdb`: custom wrappers around the `crates.io` `lmdb` crate, which provides bindings to [lmdb](https://en.wikipedia.org/wiki/Lightning_Memory-Mapped_Database).
+- `fs`: manipulating the filesystem.
+- `process_execution`: running local and remote processes.
+
 ## Rust \<-\> Python interaction
-Pants is best conceptualized as a Python program that makes frequent foreign function interface (FFI) calls into Rust code. 
+
+Pants is best conceptualized as a Python program that makes frequent foreign function interface (FFI) calls into Rust code.
 
 The top-level `engine` Rust crate gets compiled into a library named `native_engine.so`, which Python code knows how to interact with. We use the Rust [cpython](https://crates.io/crates/cpython) crate to manage foreign function interaction.
 
 The C FFI functions that Rust code exposes as a public interface live in `src/rust/engine/src/externs/interface.rs`. On the Python side, the `native` module at `src/python/pants/engine/internals/native.py` contains wrappers around invocations of Rust functions and other FFI boilerplate.
 
-Rust can also invoke Python functions and object constructors thanks to the  [cpython](https://crates.io/crates/cpython) crate. Most of our helper code lives in `src/rust/engine/src/externs/mod.rs`.
+Rust can also invoke Python functions and object constructors thanks to the [cpython](https://crates.io/crates/cpython) crate. Most of our helper code lives in `src/rust/engine/src/externs/mod.rs`.
 
 We are planning to port additional functionality from Python to Rust, generally for performance reasons.
+
 ## Common commands
+
 ### Compile
 
 Run `./pants` or `build-support/bin/native/cargo check --manifest-path src/rust/engine/Cargo.toml`.
@@ -96,9 +98,11 @@ We have a wrapper script around `cargo` at `build_support/bin/native/cargo`. Use
 
 1. Bootstrap Pants's Rust toolchain by running `./pants`.
 2. Install the Rust plugin (see IntelliJ Preferences).
-3. Set Rust's `Toolchain location` to  `-support/bin/native`.
+3. Set Rust's `Toolchain location` to `-support/bin/native`.
 4. Set the `Standard library` to `build-support/bin/native/src`.
+
 ## The `fs_util` tool
+
 `fs_util` is a utility that enables you to interact with `Snapshot`s from the command line. You can use it to help debug issues with snapshotted files.
 
 To build it, run this from the root of the repository:

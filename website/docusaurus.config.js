@@ -8,7 +8,7 @@ function getCurrentVersion() {
   const lastReleasedVersion = versions[0];
   const version = parseInt(
     lastReleasedVersion.replace("2.", "").replace(".x", ""),
-    10
+    10,
   );
   return `2.${version + 1}.x`;
 }
@@ -24,8 +24,8 @@ const disableVersioning =
 const latestVersion = disableVersioning
   ? undefined
   : process.env.PANTSASAURUS_INCLUDE_VERSION
-  ? process.env.PANTSASAURUS_INCLUDE_VERSION
-  : versions[0];
+    ? process.env.PANTSASAURUS_INCLUDE_VERSION
+    : versions[0];
 const onlyIncludeVersions = isDev
   ? ["current"].concat(latestVersion ? [latestVersion] : [])
   : undefined;

@@ -14,9 +14,10 @@ Under-the-hood, Pants uses the [Lambdex](https://github.com/pantsbuild/lambdex) 
 
 :::
 
-
 ## Step 1: Activate the Python Google Cloud Function backend
+
 Add this to your `pants.toml`:
+
 ```toml title="pants.toml"
 [GLOBAL]
 backend_packages.add = [
@@ -26,7 +27,9 @@ backend_packages.add = [
 ```
 
 This adds the new `python_google_cloud_function` target, which you can confirm by running `./pants help python_google_cloud_function `
+
 ## Step 2: Define a `python_google_cloud_function ` target
+
 First, add your Cloud function in a Python file like you would [normally do with Google Cloud Functions](https://cloud.google.com/functions/docs/first-python), such as creating a function `def my_handler_name(event, context)` for event-based functions.
 
 Then, in your BUILD file, make sure that you have a `python_source` or `python_sources` target with the handler file included in the `sources` field. You can use [`./pants tailor`](../../getting-started/getting-started/create-initial-build-files.mdx) to automate this.
@@ -34,6 +37,7 @@ Then, in your BUILD file, make sure that you have a `python_source` or `python_s
 Add a `python_google_cloud_function` target and define the `runtime`, `handler`, and `type` fields. The `type` should be either `"event"` or `"http"`. The `runtime` should be one of the values from https://cloud.google.com/functions/docs/concepts/python-runtime. The `handler` has the form `handler_file.py:handler_func`, which Pants will convert into a well-formed entry point. Alternatively, you can set `handler` to the format `path.to.module:handler_func`.
 
 For example:
+
 ```python tab={"label":"project/BUILD"}
 # The default `sources` field will include our handler file.
 python_sources(name="lib")
@@ -61,9 +65,9 @@ You can optionally set the `output_path` field to change the generated zip file'
 
 :::
 
-
 ## Step 3: Run `package`
-Now run `./pants package` on your `python_google_cloud_function` target to create a zipped file. 
+
+Now run `./pants package` on your `python_google_cloud_function` target to create a zipped file.
 
 For example:
 
@@ -81,8 +85,8 @@ If this happens, you must either change your dependencies to only use dependenci
 
 :::
 
-
 ## Step 4: Upload to Google Cloud
+
 You can use any of the various Google Cloud methods to upload your zip file, such as the Google Cloud console or the [Google Cloud CLI](https://cloud.google.com/functions/docs/deploying/filesystem#deploy_using_the_gcloud_tool).
 
 You must specify the handler as `main.handler`.

@@ -7,8 +7,7 @@ Adding new fields to target types.
 
 ---
 
-When to add new fields?
------------------------
+## When to add new fields?
 
 Adding new fields is useful when you are already using a target type, but need to store additional metadata for your plugin.
 
@@ -18,8 +17,7 @@ If you are instead adding support for a new language, [create a new target type]
 
 If you want to reduce boilerplate in BUILD files, such as changing default values, use [macros](../macros.mdx).
 
-How to add new fields
----------------------
+## How to add new fields
 
 First, [define the field](./creating-new-fields.mdx). Then, register it by using `OriginalTarget.register_plugin_field(CustomField)`, like this:
 

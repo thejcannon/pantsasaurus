@@ -4,12 +4,12 @@ title: Deployments
 
 ---
 
-
 :::caution Helm deployment support is in alpha stage
 
     Pants has experimental support for managing deployments via the `experimental-deploy` goal. Helm deployments provides with a basic implementation of this goal.
-    
+
     Please share feedback for what you need to use Pants with your Helm deployments by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](/community/getting-help)!
+
 :::
 
 ## Motivation
@@ -126,11 +126,11 @@ spec:
 helm_deployment(dependencies=["src/chart"], values={"image": "src/docker"})
 ```
 
-
 :::note Docker image references VS Pants' target addresses
 
     You should use typical Docker registry addresses in your Helm charts. Because Helm charts are distributable artifacts and may be used with tools other than Pants, you should create your charts such that when that chart is being used, all Docker image addresses are valid references to images in accessible Docker registries. As shown in the example, we recommend that you make the image address value configurable, especially for charts that deploy first-party Docker images.
     Your chart resources can still use off-the-shelf images published with other means, and in those cases you will also be referencing the Docker image address. Usage of Pants' target addresses is intended for your own first-party images because the image reference of those is not known at the time we create the sources (they are computed later).
+
 :::
 
 With this setup we should be able to run `./pants dependencies src/deployment` and Pants should give the following output:
@@ -142,11 +142,11 @@ src/docker
 
 This should work with any kind of Kubernetes resource that leads to Docker image being deployed into Kubernetes, such as `Deployment`, `StatefulSet`, `ReplicaSet`, `CronJob`, etc. Please get in touch with us in case you find Pants was not capable to infer dependencies in any of your `helm_deployment` targets by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](/community/getting-help).
 
-
 :::note How the Docker image reference is calculated during deployment?
 
     Pants' will rely on the behaviour of the `docker_image` target when it comes down to generate the final image reference. Since a given image may have more than one valid image reference, **Pants will try to use the first one that is not tagged as `latest`**, falling back to `latest` if none could be found.
     It's good practice to publish your Docker images using tags other than `latest` and Pants preferred behaviour is to choose those as this guarantees that the _version_ of the Docker image being deployed is the expected one.
+
 :::
 
 ## Value files
@@ -231,11 +231,11 @@ Now you can launch a deployment using the following command:
 DEPLOY_TIME=$(date) ./pants experimental-deploy src/deployment:dev
 ```
 
-
 :::caution Ensuring repeatable deployments
 
     You should always favor using static values (or value files) VS dynamic values in your deployments. Using interpolated environment variables in your deployments can render your deployments non-repetable anymore if those values can affect the behaviour of the system deployed, or what gets deployed (i.e. Docker image addresses).
     Dynamic values are supported to give the option of passing some info or metadata to the software being deployed (i.e. deploy time, commit hash, etc) or some less harmful settings of a deployment (i.e. replica count. etc). Be careful when chossing the values that are going to be calculated dynamically.
+
 :::
 
 ## Third party chart artifacts
@@ -284,9 +284,9 @@ For example, to make an atomic deployment into a non-default Kubernetes context 
 ./pants experimental-deploy src/deployments:prod -- --kube-context my-custom-kube-context --atomic
 ```
 
-
 :::note How does Pants authenticate with the Kubernetes cluster?
 
     Short answer is: it doesn't.
     Pants will invoke Helm under the hood with the appropriate arguments to only perform the deployment. Any authentication steps that may be needed to perform the given deployment have to be done before invoking the `experimental-deploy` goal. If you are planning to run the deployment procedure from your CI/CD pipelines, ensure that all necessary preliminary steps (including authentication with the cluster) are done before the one that triggers the deployment.
+
 :::

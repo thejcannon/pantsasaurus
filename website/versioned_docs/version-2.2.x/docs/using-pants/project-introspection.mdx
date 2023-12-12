@@ -20,8 +20,8 @@ See [Advanced target selection](./advanced-target-selection.mdx) for more info a
 
 :::
 
-
 ## `list` - find your project's targets
+
 `list` will find all targets that match the arguments.
 
 For example, to show all targets in your project:
@@ -34,7 +34,9 @@ helloworld:config
 helloworld:config_file
 ...
 ```
+
 ## `filter` - find targets that match a predicate
+
 `filter` is like `list`, but will only include targets that match the predicate(s).
 
 Specify a predicate by using one of the below `filter` options, like `--target-type`. You can use a comma to OR multiple values, meaning that at least one member must be matched. You can repeat the option multiple times to AND each filter. You can prefix the filter with `-` to negate the filter, meaning that the target must not be true for the filter.
@@ -68,6 +70,7 @@ Regex strings for the address, such as `^dir` or `:util$`.
 Regex strings for the `tags` field. Alternatively, you can use the global `--tags` option, which uses exact string matches instead of regex. See [Advanced target selection](./advanced-target-selection.mdx).
 
 ## `dependencies` - find a target's dependencies
+
 Use `dependencies` to list all targets used directly by a target.
 
 ```bash
@@ -95,7 +98,9 @@ $ ./pants dependencies --type=3rdparty helloworld/util
 setuptools>=42.0.0
 translate>=3.2.1
 ```
+
 ## `dependees` - find which targets depend on a target
+
 The `dependees` goal finds all targets that directly depend on the target you specify.
 
 ```bash
@@ -151,8 +156,8 @@ For example, do this when [migrating from Python 2 to Python 3](../python/overvi
 
 :::
 
-
 ## `filedeps` - find which files a target owns
+
 `filedeps` outputs all of the files belonging to a target, based on its `sources` field.
 
 ```bash
@@ -183,8 +188,11 @@ helloworld/util/config_loader.py
 helloworld/util/lang.py
 requirements.txt
 ```
+
 ## `count-loc` - count lines of code
+
 `count-loc` counts the lines of code of the specified files by running the [Succinct Code Counter](https://github.com/boyter/scc) tool.
+
 ```text title="Shell"
 $ ./pants count-loc '**/*.py' '**/*.proto'
 ───────────────────────────────────────────────────────────────────────────────
@@ -206,7 +214,7 @@ SCC has [dozens of options](https://github.com/boyter/scc#usage). You can pass t
 :::caution See unexpected results? Set `pants_ignore`.
 By default, Pants will ignore all globs specified in your `.gitignore`, along with `dist/` and any hidden files.
 
-To ignore additional files, add to the global option `pants_ignore` in your `pants.toml`, using the same [syntax](https://git-scm.com/docs/gitignore) as `.gitignore` files. 
+To ignore additional files, add to the global option `pants_ignore` in your `pants.toml`, using the same [syntax](https://git-scm.com/docs/gitignore) as `.gitignore` files.
 
 For example:
 

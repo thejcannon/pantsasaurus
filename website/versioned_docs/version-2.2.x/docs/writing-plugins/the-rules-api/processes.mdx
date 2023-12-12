@@ -8,7 +8,9 @@ How to safely run subprocesses in your plugin.
 ---
 
 It is not safe to use `subprocess.run()` like you normally would because this can break caching and will not leverage Pants's parallelism. Instead, Pants has safe alternatives with `Process` and `InteractiveProcess`.
+
 ## `Process`
+
 `Process` is similar to `subprocess.Popen()`. The process will run in the background, and you can run multiple processes in parallel.
 
 ```python
@@ -28,7 +30,7 @@ async def demo(...) -> Foo:
     logger.info(result.stderr.decode())
 ```
 
-This will return a `ProcessResult` object, which has the fields `stdout: bytes`, `stderr: bytes`, and `output_digest: Digest`. 
+This will return a `ProcessResult` object, which has the fields `stdout: bytes`, `stderr: bytes`, and `output_digest: Digest`.
 
 The process will run in a temporary directory and is hermetic, meaning that it cannot read any arbitrary file from your project and that it will be stripped of environment variables. This sandbox is important for reproducibility and to allow running your `Process` anywhere, such as through remote execution.
 
@@ -41,7 +43,7 @@ To capture output files from the process, set `output_files: Iterable[str]` and/
 To use a timeout, set the `timeout_fields: int` field. Otherwise, the process will never time out, unless the user cancels Pants.
 
 :::note `UncacheableProcess`
-Normally, a `Process` will be cached to `~/.cache/pants/lmdb_store` if the `exit_code` is `0`. 
+Normally, a `Process` will be cached to `~/.cache/pants/lmdb_store` if the `exit_code` is `0`.
 
 If it not safe to cache your `Process`—such as when running `git`—you can instead wrap your `Process` in an `UncacheableProcess`.
 
@@ -69,8 +71,10 @@ Normally, a `ProcessResult` will raise an exception if the return code is not `0
 Use `Get(FallibleProcessResult, Process)` if you expect that the process may fail, such as when running a linter or tests.
 
 Like `ProcessResult`, `FallibleProcessResult` has the attributes `stdout: bytes`, `stderr: bytes`, and `output_digest: Digest`, and it adds `exit_code: int`.
+
 ## `InteractiveProcess`
-`InteractiveProcess` is similar to `subprocess.run()`. The process will run in the foreground and it is blocking. 
+
+`InteractiveProcess` is similar to `subprocess.run()`. The process will run in the foreground and it is blocking.
 
 Because the process is blocking, you may only run an `InteractiveProcess` in an [`@goal_rule`](./goal-rules.mdx). Your `@goal_rule` must request `InteractiveRunner`, and then use its method `.run()`. Typically, you should only use `InteractiveProcess` for things that may require user input, such as running a REPL.
 
@@ -87,7 +91,7 @@ async def hello_world(interactive_runner: InteractiveRunner) -> HelloWorld:
     return HelloWorld(exit_code=result.exit_code)
 ```
 
-You may either set the parameter `input_digest: Digest`, or you may set `run_in_workspace=True`. When running in the workspace, you will have access to any file in the build root. 
+You may either set the parameter `input_digest: Digest`, or you may set `run_in_workspace=True`. When running in the workspace, you will have access to any file in the build root.
 
 To set environment variables, use the parameter `env: Mapping[str, str]`, like you would with `Process`. You can also set `hermetic_env=False` to inherit the environment variables from the parent `./pants` process.
 

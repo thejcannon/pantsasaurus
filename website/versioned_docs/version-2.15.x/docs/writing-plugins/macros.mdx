@@ -7,10 +7,9 @@ Reducing boilerplate in BUILD files.
 
 ---
 
-When to use a macro
--------------------
+## When to use a macro
 
-Macros are useful to reduce boilerplate in BUILD files. For example, if you keep using the same value for a field, you can use a macro. 
+Macros are useful to reduce boilerplate in BUILD files. For example, if you keep using the same value for a field, you can use a macro.
 
 However, also consider that introducing new symbols to BUILD files adds some indirection to your codebase, such as making it harder to follow along with the Pants docs. As with any tool, macros should be used judiciously.
 
@@ -27,10 +26,9 @@ If you instead want to add support for a new language, or do something more comp
 
 If you are already using a target type, but need to store additional metadata for your plugin, [add a new field to the target type](./the-target-api/extending-existing-targets.mdx).
 
-How to add a macro
-------------------
+## How to add a macro
 
-Macros are defined in Python files that act like a normal BUILD file. They have access to all the symbols you normally have registered in a BUILD file, such as all of your target types. 
+Macros are defined in Python files that act like a normal BUILD file. They have access to all the symbols you normally have registered in a BUILD file, such as all of your target types.
 
 Macros cannot import other modules, just like BUILD files cannot have import statements.
 
@@ -78,7 +76,7 @@ def python23_tests(name, **kwargs):
         interpreter_constraints=["==2.7.*"],
         **kwargs,
     )
- 
+
     python_tests(
         name=f"{name}_py3",
         interpreter_constraints=[">=3.5"],
@@ -103,6 +101,7 @@ def custom_python_sources(has_type_hints: bool = True, **kwargs):
         kwargs["tags"] = kwargs.get("tags", []) + ["type_checked"]
     python_sources(**kwargs)
 ```
+
 ```python title="project/BUILD"
 custom_python_sources(
     has_type_hints=False,

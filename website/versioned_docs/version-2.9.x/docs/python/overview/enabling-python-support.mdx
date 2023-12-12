@@ -7,7 +7,6 @@ How to enable Pants's bundled Python backend package.
 
 ---
 
-
 :::note Example Python repository
 See [here](https://github.com/pantsbuild/example-python) for examples of Pants's Python functionality.
 
@@ -16,6 +15,7 @@ See [here](https://github.com/pantsbuild/example-django) for Django-specific exa
 :::
 
 Enable the Python [backend](../../using-pants/key-concepts/backends.mdx) like this:
+
 ```toml title="pants.toml"
 [GLOBAL]
 ...
@@ -27,6 +27,7 @@ backend_packages = [
 Pants use [`python_source`](../../../reference/targets/python-source.mdx) and [`python_test`](../../../reference/targets/python-test.mdx) targets to know which Python files to run on and to set any metadata.
 
 To reduce boilerplate, the [`python_sources`](../../../reference/targets/python-sources.mdx) target generates a `python_source` target for each file in its `sources` field, and [`python_tests`](../../../reference/targets/python-tests.mdx) generates a `python_test` target for each file in its `sources` field.
+
 ```python title="BUILD"
 python_sources(name="lib", sources=["dirutil.py", "strutil.py"])
 python_tests(name="tests", sources=["strutil_test.py"])
@@ -66,8 +67,6 @@ This option will cause Pants to infer "proper" dependencies on any ancestor `__i
 
 :::
 
-
-
 :::caution macOS users: you may need to change interpreter search paths
 By default, Pants will look at both your `$PATH` and—if you use Pyenv—your `$(pyenv root)/versions` folder when discovering Python interpreters. Your `$PATH` likely includes the system Pythons at `/usr/bin/python` and `/usr/bin/python3`, which are known to have many issues like failing to install some dependencies.
 
@@ -80,7 +79,7 @@ However, if you run into issues, you can set the `search_paths` option in the `[
 search_paths = [
     # This will use all interpreters in `$(pyenv root)/versions`.
     "<PYENV>",
-     # Brew usually installs Python here. 
+     # Brew usually installs Python here.
     "/usr/local/bin",
 ]
 ```

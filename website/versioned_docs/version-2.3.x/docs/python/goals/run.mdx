@@ -28,8 +28,6 @@ Pants will propagate the return code from the underlying executable. Run `echo $
 
 :::
 
-
-
 :::note Tip: Using the IntelliJ/PyCharm remote debugger
 First, add the following target in some BUILD file (e.g., the one containing your other 3rd-party dependencies):
 
@@ -53,21 +51,19 @@ import pydevd_pycharm
 pydevd_pycharm.settrace('localhost', port=5000, stdoutToServer=True, stderrToServer=True)
 ```
 
-Run your executable with `./pants run` as usual. 
+Run your executable with `./pants run` as usual.
 
 Note: The first time you do so you may see some extra dependency resolution work, as `pydevd-pycharm` has now been added to the binary's dependencies, via inference. If you have dependency inference turned off in your repo, you will have to manually add a temporary explicit dependency in your binary target on the `pydevd-pycharm` target.
 
 :::
-
-
 
 :::caution Issues finding files?
 Run `./pants dependencies --transitive path/to/binary.py` to ensure that all the files you need are showing up, including for any [resources](../../using-pants/resources-and-archives.mdx) you intend to use.
 
 :::
 
-
 ## Passing arguments
+
 To pass arguments to the script/executable, use `--` at the end of the command, like this:
 
 ```bash

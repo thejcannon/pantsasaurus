@@ -12,6 +12,7 @@ As explained in [Options](../../using-pants/key-concepts/options.mdx), options a
 To add new options:
 
 1. Define a subclass of `Subsystem` from `pants.subsystem.subsystem`.
+
 ```
 1. Set the class property `options_scope` with the name of the subsystem.
      * This value will be prepended to all options in the subsystem, e.g. `--skip` will become `--shellcheck-skip`.
@@ -20,7 +21,8 @@ To add new options:
 
 2. Add new options through the class method `register_options()`.
 3. Register the `Subsystem` with `SubsystemRule` and `register.py`.
-```
+
+````
 - You don't need this if the `Subsystem` is used in an `@rule` because `collect_rules()` will recognize it. It doesn't hurt to keep this around, though.
 ```python tab={"label":"pants-plugins/example/shellcheck.py"}
 from pants.engine.rules import SubsystemRule
@@ -30,7 +32,7 @@ from pants.option.subsystem import Subsystem
 class ShellcheckSubsystem(Subsystem):
     options_scope = "shellcheck"
     help = "The Shellcheck linter."
-    
+
     @classmethod
     def register_options(cls, register):
         super().register_options(register)
@@ -41,10 +43,10 @@ class ShellcheckSubsystem(Subsystem):
             help="Don't use Shellcheck when running `./pants lint`."
         )
 
-        
+
 def rules():
     return [SubsystemRule(ShellcheckSubsystem)]
-```
+````
 
 ```python tab={"label":"pants-plugins/example/register.py"}
 from example import shellcheck
@@ -53,7 +55,7 @@ def rules():
     return [*shellcheck.rules()]
 ```
 
-```
+````
 
 The subsystem should now show up when you run `./pants help shellcheck`.
 
@@ -68,7 +70,7 @@ As explained in [Goal rules](./goal-rules.mdx), goals use a subclass of  `Subsys
 ## `register()` parameters
 ### Flag name
 
-The first argument to `register()` should be a string with the option name, like, `--example-option`. 
+The first argument to `register()` should be a string with the option name, like, `--example-option`.
 
 When users use a command-line flag, the option will get prefixed with the `options_scope`, e.g. `--shellcheck-skip`. With config files, every `-` will be replaced by `_`, e.g. `example_option`.
 
@@ -79,13 +81,13 @@ You may also specify a short flag, like `-e`. You may pass multiple values, so y
 `metavar` changes what users see in `./pants help` as possible values for the flag. If unspecified, Pants will use a `metavar` based on the `type` you specify.
 
 ### `default`
-`default` will be used if the user does not specify the value. 
+`default` will be used if the user does not specify the value.
 
 If you leave this off, the `default` will depend on the `type` you specify.
 
 ### `type`
 
-Refer to [Options](../../using-pants/key-concepts/options.mdx#option-types) for how a user specifies these different types. 
+Refer to [Options](../../using-pants/key-concepts/options.mdx#option-types) for how a user specifies these different types.
 | `type` | Default (if not overridden) | Other notes |
 | :--- | :--- | :--- |
 | `str` | `None` |  |
@@ -115,7 +117,7 @@ register(
     default=LeafyGreens.KALE,
     help="Which veggie Pants should use.",
 )
-```
+````
 
 ### `passthrough`
 
@@ -130,7 +132,9 @@ You should generally set this value if the option will primarily be used by code
 ### `help`
 
 This help message will show up when running `./pants help` and `./pants help-advanced`.
+
 ## Using options in rules
+
 To use a `Subsystem` or `GoalSubsystem` in your rule, request it as a parameter. Then, use the property `.options`, followed by the name of the option. Replace any `-` with `_`, e.g. `--my-option` becomes `my_option`.
 
 ```python
@@ -146,7 +150,7 @@ async def demo(shellcheck: Shellcheck) -> LintResults:
 ```
 
 :::note Tip: teach MyPy about your subsystem
-MyPy does not understand the property `.options`. 
+MyPy does not understand the property `.options`.
 
 Instead, you can create a `@property` for each option and use `typing.cast()` to teach MyPy what each value is.
 
@@ -156,7 +160,7 @@ from typing import cast
 class Shellcheck(Subsystem):
     options_scope = "shellcheck"
     help = "The Shellcheck linter."
-    
+
     @classmethod
     def register_options(cls, register):
         super().register_options(register)
@@ -166,12 +170,12 @@ class Shellcheck(Subsystem):
             default=False,
             help="Don't use Shellcheck when running `./pants lint`.
         )
-    
+
     @property
     def skip(self) -> bool:
         return cast(bool, self.options.skip)
 ```
 
-This is optional. It can make your call sites simpler and safer thanks to MyPy, but it requires some  boilerplate.
+This is optional. It can make your call sites simpler and safer thanks to MyPy, but it requires some boilerplate.
 
 :::

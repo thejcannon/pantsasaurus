@@ -8,6 +8,7 @@ How to set up Pants for local development.
 ---
 
 ## Step 1: Fork and clone `pantsbuild/pants`
+
 We use the popular forking workflow typically used by open source projects. See https://guides.github.com/activities/forking/ for a guide on how to fork [pantsbuild/pants](https://github.com/pantsbuild/pants), then clone it to your local machine.
 
 :::caution macOS users: install a newer `openssl`
@@ -24,8 +25,8 @@ $ echo 'export CPPFLAGS="-I/usr/local/opt/openssl/include"' >> ~/.bashrc
 
 :::
 
-
 ## Step 2: Set up Git hooks
+
 We use two [Git hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks):
 
 1. If you didn't touch any Rust code, we add `[ci skip-rust]` to your commit message. If you didn't touch any of our release-related code, we add `[ci skip-build-wheels]` to your commit message.
@@ -44,14 +45,14 @@ $ build-support/githooks/pre-commit
 ```
 
 :::note How to temporarily skip the pre-commit checks
-Use `git commit --no-verify` to skip the checks. 
+Use `git commit --no-verify` to skip the checks.
 
 We do not recommend this, though! The Python formatter Black frequently needs to make changes, and you'll need to do an entire new CI run if there are any formatting or linting issues.
 
 :::
 
-
 ## Step 3: Download Rust and bootstrap the engine
+
 Pants uses Rustup to install Rust. Run the command from https://rustup.rs to install Rustup; ensure that `rustup` is on your `$PATH`.
 
 Then, run `./pants` to set up the Python virtual environment and compile the engine.
@@ -63,16 +64,12 @@ If this takes more than 25 minutes, please comment on https://github.com/pantsbu
 
 :::
 
-
-
 :::note Want a faster compile?
-We default to compiling with Rust's `release` mode, instead of its `debug` mode, because this makes Pants substantially faster.  However, this results in the compile taking 5-10x longer.
+We default to compiling with Rust's `release` mode, instead of its `debug` mode, because this makes Pants substantially faster. However, this results in the compile taking 5-10x longer.
 
 If you are okay with Pants running much slower when iterating, set the environment variable `MODE=debug` and rerun `./pants` to compile in debug mode.
 
 :::
-
-
 
 :::caution Rust compilation can use lots of storage
 Compiling the engine typically results in several gigabytes of storage over time. We have not yet implemented automated garbage collection for building the engine because contributors are the only ones to need to compile Rust, not every-day users.
@@ -83,31 +80,30 @@ Warning: this will cause Rust to recompile everything.
 
 :::
 
-
 ## Configure your IDE (optional)
+
 ### Hooking up the Python virtual environment
 
-Most IDEs allow you to configure a Python [virtual environment](https://docs.python.org/3/tutorial/venv.html) so that the editor understands your Python import statements. 
+Most IDEs allow you to configure a Python [virtual environment](https://docs.python.org/3/tutorial/venv.html) so that the editor understands your Python import statements.
 
 Pants sets up its virtualenv at `build-support/virtualenvs/<arch>/pants_dev_deps.py{version}.venv`. Point your editor to the `bin/python` file in this folder, e.g. `build-support/virtualenvs/Darwin/pants_dev_deps.py36.venv/bin/python`.
 
 ### Pycharm guide
 
 1. Use "New project" and click the option "Existing interpreter". Point the interpreter to the virtual environment location described above.
-2. In your project tree (the list of folders and files), secondary click the folder `src/python`. Click "Mark directory as" and choose "Source Roots". 
+2. In your project tree (the list of folders and files), secondary click the folder `src/python`. Click "Mark directory as" and choose "Source Roots".
 
 ### VSCode guide
 
 Add this to your `settings.json` file inside the build root's `.vscode` folder:
+
 ```json title="settings.json"
 {
-	"python.analysis.extraPaths": ["src/python"],
+  "python.analysis.extraPaths": ["src/python"],
   "python.formatting.provider": "black",
-  "python.linting.enabled": true,  
-	"python.linting.flake8Enabled": true,
-  "python.linting.flake8Args": [
-  	"--config=build-support/flake8/.flake8"
-  ],
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": ["--config=build-support/flake8/.flake8"]
 }
 ```
 

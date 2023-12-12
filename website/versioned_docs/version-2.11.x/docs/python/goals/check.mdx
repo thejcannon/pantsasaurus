@@ -7,10 +7,9 @@ How to use MyPy.
 
 ---
 
-Activating MyPy
----------------
+## Activating MyPy
 
-To opt-in, add `pants.backend.python.typecheck.mypy` to `backend_packages` in your config file. 
+To opt-in, add `pants.backend.python.typecheck.mypy` to `backend_packages` in your config file.
 
 ```toml title="pants.toml"
 [GLOBAL]
@@ -27,14 +26,14 @@ $ ./pants check helloworld/util/lang.py
 $ ./pants check ::
 ```
 
-
 :::tip Benefit of Pants: typecheck Python 2-only and Python 3-only code at the same time
 
     MyPy determines which Python version to use based on its `python_version` option. If that's undefined, MyPy uses the interpreter the tool is run with. Because you can only use one config file at a time with MyPy, you cannot normally say to use `2.7` for part of your codebase but `3.6` for the rest; you must choose a single version.
-    
+
     Instead, Pants will group your targets based on their [interpreter constraints](../python-overview/interpreter-compatibility.mdx), and run all the Python 2 targets together and all the Python 3 targets together. It will automatically set `python_version` to the minimum compatible interpreter, such as a constraint like `["==2.7.*", ">3.6"]` using `2.7`.
-    
+
     To turn this off, you can still set `python_version` in `mypy.ini` or `--python-version`/`--py2` in `--mypy-args`; Pants will respect the value you set.
+
 :::
 
 ### Hook up a MyPy config file
@@ -82,12 +81,12 @@ python_sources(
 
 When you run `./pants check ::`, Pants will skip any files belonging to skipped targets.
 
-
 :::caution MyPy may still try to check the skipped files!
 
-    The `skip_mypy` field only tells Pants not to provide the skipped files as direct input to MyPy. But MyPy, by default, will still try to check files that are [dependencies of the direct inputs](https://mypy.readthedocs.io/en/stable/running_mypy.html#following-imports).  So if your skipped files are dependencies of unskipped files, they may still be checked. 
-    
+    The `skip_mypy` field only tells Pants not to provide the skipped files as direct input to MyPy. But MyPy, by default, will still try to check files that are [dependencies of the direct inputs](https://mypy.readthedocs.io/en/stable/running_mypy.html#following-imports).  So if your skipped files are dependencies of unskipped files, they may still be checked.
+
     To change this behavior, use MyPy's [`--follow-imports` option](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-follow-imports), typically by setting it to `silent`. You can do so either by adding it to the [`args` option](../../../reference/subsystems/mypy.mdx#section-args) in the `[mypy]` section of your Pants config file, or by setting it in [`mypy.ini`](https://mypy.readthedocs.io/en/stable/config_file.html).
+
 :::
 
 ### First-party type stubs (`.pyi` files)
@@ -102,22 +101,26 @@ When writing stubs for third-party libraries, you may need the set up the `[sour
 [source]
 root_patterns = ["mypy-stubs", "src/python"]
 ```
+
 ```python title="mypy-stubs/colors.pyi"
-# Because we set `mypy-stubs` as a source root, this file will be 
+# Because we set `mypy-stubs` as a source root, this file will be
 # stripped to be simply `colors.pyi`. MyPy will look at this file for
 # imports of the `colors` module.
 
 def red(s: str) -> str: ...
 ```
+
 ```python title="mypy-stubs/BUILD"
 python_sources(name="lib")
 ```
+
 ```python title="src/python/project/app.py"
 from colors import red
 
 if __name__ == "__main__":
     print(red("I'm red!"))
 ```
+
 ```python title="src/python/project/BUILD"
 # Pants will infer a dependency both on the `ansicolors` requirement
 # and our type stub.
@@ -143,6 +146,7 @@ Add the plugin to the `extra_requirements` option in the `[mypy]` scope, then up
 [mypy]
 extra_requirements.add = ["pydantic==1.6.1"]
 ```
+
 ```text title="mypy.ini"
 [mypy]
 plugins =
@@ -166,6 +170,7 @@ extra_requirements = ["django-stubs==1.5.0"]
 extra_type_stubs = ["django-stubs==1.5.0"]
 source_plugins = ["src/python/project:django_settings"]
 ```
+
 ```text title="mypy.ini"
 [mypy]
 plugins =
@@ -174,6 +179,7 @@ plugins =
 [mypy.plugins.django-stubs]
 django_settings_module = project.django_settings
 ```
+
 ```python title="src/python/project/django_settings.py"
 from django.urls import URLPattern
 
@@ -182,14 +188,15 @@ DEFAULT_FROM_EMAIL = "webmaster@example.com"
 SECRET_KEY = "not so secret"
 MY_SETTING = URLPattern(pattern="foo", callback=lambda: None)
 ```
+
 ```python title="src/python/project/BUILD"
 python_source(name="django_settings", source="django_settings.py")
 ```
 
-
 :::note MyPy Protobuf support
 
     Add `mypy_plugin = true` to the `[python-protobuf]` scope. See [Protobuf](../integrations/protobuf-and-grpc.mdx) for more information.
+
 :::
 
 ### Add a first-party plugin
@@ -206,15 +213,18 @@ For example:
 [mypy]
 source_plugins = ["pants-plugins/mypy_plugins:plugin"]
 ```
+
 ```text title="mypy.ini"
 plugins =
     mypy_plugins.change_return_type
 ```
+
 ```python title="pants-plugins/mypy_plugins/BUILD"
 python_source(name="plugin", source="change_return_type.py")
 ```
+
 ```python title="pants-plugins/mypy_plugins/change_return_type.py"
-"""A contrived plugin that changes the return type of any 
+"""A contrived plugin that changes the return type of any
 function ending in `__overriden_by_plugin` to return None."""
 
 from typing import Callable, Optional, Type
@@ -243,7 +253,7 @@ Because this is a `python_source` or `python_sources` target, Pants will treat t
 
 ### Reports
 
-MyPy can generate [various report files](https://mypy.readthedocs.io/en/stable/command_line.html#report-generation). 
+MyPy can generate [various report files](https://mypy.readthedocs.io/en/stable/command_line.html#report-generation).
 
 For Pants to properly preserve the reports, instruct MyPy to write to the `reports/` folder by updating its config file or `--mypy-args`. For example, in your pants.toml:
 
@@ -254,8 +264,7 @@ args = ["--linecount-report=reports"]
 
 Pants will copy all reports into the folder `dist/check/mypy`.
 
-Known limitations
------------------
+## Known limitations
 
 ### Performance is often slower than normal
 
@@ -263,8 +272,7 @@ Pants does not yet leverage MyPy's caching mechanism and daemon, so a typical ru
 
 We are [working to figure out](https://github.com/pantsbuild/pants/issues/10864) how to leverage MyPy's cache in a way that is safe and allows for things like remote execution.
 
-Tip: only run over changed files and their dependees
-----------------------------------------------------
+## Tip: only run over changed files and their dependees
 
 When changing type hints code, you not only need to run over the changed files, but also any code that depends on the changed files:
 

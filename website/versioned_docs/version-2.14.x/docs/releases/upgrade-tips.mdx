@@ -7,16 +7,15 @@ How we recommend staying up-to-date with Pants.
 
 ---
 
-
 :::note Reminder: change the `pants_version` to upgrade
 
     Change the `pants_version` option in the `[GLOBAL]` scope in your pants.toml to upgrade.
-    
+
     You can see all releases at [https://pypi.org/project/pantsbuild.pants/#history](https://pypi.org/project/pantsbuild.pants/#history).
+
 :::
 
-Upgrade one minor release at a time
------------------------------------
+## Upgrade one minor release at a time
 
 Per our [Deprecation policy](./deprecation-policy.mdx), deprecations must last a minimum of one minor release. For example, something may be deprecated in 2.1.0 and then removed in 2.2.0.
 
@@ -47,16 +46,15 @@ Then, see if there are any remaining deprecation warnings:
 
 It is also helpful to spot-check that your main commands like `lint`, `package`, and `test` still work by running on a single target.
 
-
 :::note Use dev releases for the newest
 
     As described in our [Release strategy](../contributions/releases/release-strategy.mdx), we make weekly dev releases with all the latest features and bug fixes we've been working on. While dev releases are less stable, they mean you get access to improvements sooner.
-    
+
     If you encounter any blocking issues, you can easily roll back to a prior version by changing the `pants_version` option. (Please let us know the issue by opening a [GitHub issue](https://github.com/pantsbuild/pants/issues) or messaging us on [Slack](/community/members)).
+
 :::
 
-Ignore deprecation messages with `ignore_warnings`
---------------------------------------------------
+## Ignore deprecation messages with `ignore_warnings`
 
 Sometimes when upgrading, you will not have time to fully fix the deprecation. The `ignore_warnings` option allows you to silence those deprecations.
 
@@ -70,12 +68,10 @@ ignore_warnings = [
 ]
 ```
 
-Check for updates to the `./pants` script
------------------------------------------
+## Check for updates to the `./pants` script
 
 Run `curl -L -o ./pants https://pantsbuild.github.io/setup/pants` to check if there have been any changes, e.g. adding support for running Pants with new Python interpreters.
 
-Find any bugs or issues?
-------------------------
+## Find any bugs or issues?
 
 Please either open a [GitHub issue](https://github.com/pantsbuild/pants/issues) or head over to [Slack](/community/members). We'd be happy to help and would appreciate knowing about the issue!

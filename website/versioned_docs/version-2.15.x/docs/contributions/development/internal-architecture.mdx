@@ -3,15 +3,11 @@
     position: 3
 ---
 
-
-
 ---
 
-Rule Graph Construction
-=======================
+# Rule Graph Construction
 
-Overview
---------
+## Overview
 
 Build logic in [Pants](https://www.pantsbuild.org/) is declared using collections of `@rules` with recursively memoized and invalidated results. This framework (known as Pants' "Engine") has similar goals to Bazel's [Skyframe](https://bazel.build/designs/skyframe.html) and the [Salsa](https://github.com/salsa-rs/salsa) framework: users define logic using a particular API, and the framework manages tracking the dependencies between nodes in a runtime graph.
 
@@ -19,8 +15,7 @@ In order to maximize the amount of work that can be reused at runtime, Pants sta
 
 Concepts used in compilers, including live variable analysis and monomorphization, can also be useful in rule graph construction to minimize rule identities and pre-decide which versions of their dependencies they will use.
 
-Concepts
---------
+## Concepts
 
 A successfully constructed `RuleGraph` contains a graph where nodes have one of three types, `Rule`s, `Query`s, and `Param`s, which map fairly closely to what a Pants `@rule` author consumes. The edges between nodes represent dependencies: `Query`s are always roots of the graph, `Param`s are always leaves, and `Rule`s represent the end user logic making up all of the internal nodes of the graph.
 
@@ -52,8 +47,7 @@ The `Param`s that are available to a `Rule` are made available by the `Rule`'s d
 
 `Params` flow down the graph from `Query`s and the provided `Param`s of `Get`s: their presence does not need to be re-declared at each intermediate callsite. When a `Rule` consumes a `Param` as a positional argument, that `Param` will no longer be available to that `Rule`'s dependencies (but it might still be present in other subgraphs adjacent to that `Rule`).
 
-Goals
------
+## Goals
 
 The goals of `RuleGraph` construction are:
 
@@ -67,8 +61,7 @@ If either of the goals were removed, `RuleGraph` construction might be more stra
 
 But both of the goals are important because together they allow for an API that is easy to write `Rule`s for, with minimal boilerplate required to get the inputs needed for a `Rule` to compute a value, and minimal invalidation. Because the identity of a `Rule` is computed from its transitive input `Param`s rather than from its positional arguments, `Rule`s can accept arbitrarily-many large input values (which don't need to implement hash) with no impact on its memoization hit rate.
 
-Constraints
------------
+## Constraints
 
 There are a few constraints that decide which `Rule`s are able to provide dependencies for one another:
 
@@ -78,8 +71,7 @@ There are a few constraints that decide which `Rule`s are able to provide depend
 - `provided_params` - When deciding whether one `Rule` can use another `Rule` to provide the output type of a `Get`, a constraint is applied that the candidate depedency must (transitively) consume the `Param` that is provided by the `Get`.
   - For example: if a `Rule` `z` has a `Get(A, B)`, only `Rule`s that compute an `A` and (transitively) consume a `B` are eligible to be used. This also means that a `Param` `A` which is already in scope for `Rule` `z` is not eligible to be used, because it would trivially not consume `B`.
 
-Implementation
---------------
+## Implementation
 
 As of [3a188a1e06](https://github.com/pantsbuild/pants/blob/3a188a1e06d8c27ff86d8c311ff1b2bdea0d39ff/src/rust/engine/rule_graph/src/builder.rs#L202-L219), we construct a `RuleGraph` using a combination of data flow analysis and some homegrown (and likely problematic: see the "Issue Overview") node splitting on the call graph of `Rule`s.
 

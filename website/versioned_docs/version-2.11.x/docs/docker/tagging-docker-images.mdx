@@ -7,8 +7,7 @@ How to set registry, repository and tag names on your images
 
 ---
 
-Configuring registries
-----------------------
+## Configuring registries
 
 A `docker_image` target takes an optional `registries` field, whose value is a list of registry endpoints:
 
@@ -35,10 +34,11 @@ default = true
 [docker.registries.company-registry2]
 address = "reg2.company.internal"
 ```
+
 ```python title="src/example/BUILD"
 docker_image(name="demo")
 
-# This is equivalent to the previous target, 
+# This is equivalent to the previous target,
 # since company-registry1 is the default registry:
 docker_image(
     name="demo",
@@ -55,10 +55,9 @@ docker_image(
 )
 ```
 
-Setting a repository name
--------------------------
+## Setting a repository name
 
-In Docker parlance, an image is identified by a _repository_ and one or more _tags_ within that repository. 
+In Docker parlance, an image is identified by a _repository_ and one or more _tags_ within that repository.
 
 You set a repository name using the `repository` field on `docker_image`:
 
@@ -80,6 +79,7 @@ You can also specify a default repository name in config, and this name can cont
 [docker]
 default_repository = "{directory}/{name}"
 ```
+
 ```python title="src/example/BUILD"
 docker_image(
     name="demo",
@@ -97,10 +97,9 @@ Since repository names often conform to patterns like these, this can save you o
 
 See [String interpolation using placeholder values](./tagging-docker-images.mdx#string-interpolation-using-placeholder-values) for more information.
 
-Tagging images
---------------
+## Tagging images
 
-When Docker builds images, it can tag them with a set of tags. Pants will apply the tags listed in the `image_tags` field of `docker_image`. 
+When Docker builds images, it can tag them with a set of tags. Pants will apply the tags listed in the `image_tags` field of `docker_image`.
 
 (Note that the field is named `image_tags` and not just `tags`, because Pants has [its own tags concept](../../reference/targets/target.mdx#codetagscode), which is unrelated.)
 
@@ -129,6 +128,7 @@ docker_image(name="demo1", image_tags=["{tags.baseimage}"])
 # Any stage my be used, and being a format string, you may add extra text as well.
 docker_image(name="demo1", image_tags=["{tags.stage1}-custom-suffix"])
 ```
+
 ```dockerfile title="src/example/Dockerfile"
 FROM upstream:1.2 as upstream
 # ...
@@ -136,7 +136,7 @@ FROM scratch
 # ...
 ```
 
-This way you can specify a version just once, on the base image, and the derived images will automatically acquire the same version. 
+This way you can specify a version just once, on the base image, and the derived images will automatically acquire the same version.
 
 You may also use any Docker build arguments (when configured as described in [Docker build arguments](./docker-overview.mdx#build-arguments)) for interpolation into the `image_tags` in the corresponding `docker_image`:
 
@@ -144,8 +144,7 @@ You may also use any Docker build arguments (when configured as described in [Do
 docker_image(image_tags=["{build_args.ARG_NAME}"])
 ```
 
-Using env vars to include dynamic data in tags
-----------------------------------------------
+## Using env vars to include dynamic data in tags
 
 You can interpolate dynamic data, such as the current Git commit sha, in an image tag, using environment variables and Docker build args.
 
@@ -170,18 +169,17 @@ Then, if you run Pants with the data set in an environment variable of the same 
 $ GIT_COMMIT=$(git rev-parse HEAD) ./pants package src/example:demo
 ```
 
-the value from the environment will be used. 
-
+the value from the environment will be used.
 
 :::note Generating dynamic tags in a plugin
 
     If you don't want to use the environment variable method described above, you'll need to write some custom plugin code. Don't hesitate to [reach out](/community/getting-help) for help with this.
-    
+
     We are looking into making some common dynamic data, such as the git sha, automatically available in the core Docker plugin in the future.
+
 :::
 
-All together: Registries, Repositories and Tags
------------------------------------------------
+## All together: Registries, Repositories and Tags
 
 To illustrate how all the above work together, this target:
 
@@ -203,8 +201,7 @@ reg2/example/demo:1.0
 reg2/example/demo:latest
 ```
 
-String interpolation using placeholder values
----------------------------------------------
+## String interpolation using placeholder values
 
 As we've seen above, some fields of the `docker_image` support replacing placeholder values in curly braces with variable text, such as a build arg or base image tag for instance.
 
@@ -216,8 +213,8 @@ The interpolation context (the available placeholder values) depends on which fi
 
 See [Setting a repository name](./tagging-docker-images.mdx#setting-a-repository-name) for placeholders specific to the `repository` field.
 
-
 :::note The `{pants.hash}` stability guarantee
 
     The calculated hash value _may_ change between stable versions of Pants for the otherwise same input sources.
+
 :::

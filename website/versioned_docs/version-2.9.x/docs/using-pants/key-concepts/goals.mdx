@@ -46,9 +46,10 @@ Use `Ctrl+C` to exit the `--loop`.
 
 ## Goal arguments
 
-Some simple goals—such as the `roots` goal—do not require arguments. But most goals require some arguments to work on. 
+Some simple goals—such as the `roots` goal—do not require arguments. But most goals require some arguments to work on.
 
 For example, to run the `count-loc` goal, which counts lines of code in your repository, you need to provide a set of files and/or targets to run on:
+
 ```text title="Shell"
 $ ./pants count-loc '**'
 ───────────────────────────────────────────────────────────────────────────────
@@ -62,8 +63,6 @@ TOML                         2        65       14        18       33          0
 ...
 ```
 
-
-
 :::note Quoting file patterns
 Note the single-quotes around the file pattern `'**'`. This is so that your shell doesn't attempt to expand the pattern, but instead passes it unaltered to Pants.
 
@@ -73,15 +72,15 @@ Note the single-quotes around the file pattern `'**'`. This is so that your shel
 
 Goal arguments can be of one of two types:
 
-- *File arguments*: file paths and/or globs.
-- *Target arguments*: addresses and/or address globs of [targets](./targets-and-build-files.mdx).
+- _File arguments_: file paths and/or globs.
+- _Target arguments_: addresses and/or address globs of [targets](./targets-and-build-files.mdx).
 
 Typically you can just use file arguments, and not worry about targets.
 
-Any goal can take either type of argument: 
+Any goal can take either type of argument:
 
 - If a target argument is given, the goal acts on all the files in the matching targets.
-- If a file argument is given, Pants will map the file back to its containing target to read any necessary metadata. 
+- If a file argument is given, Pants will map the file back to its containing target to read any necessary metadata.
 
 :::note File/target globs
 For file arguments, use `'*'` and `'**'`, with the same semantics as the shell. Reminder: quote the argument if you want Pants to evaluate the glob, rather than your shell.
@@ -95,8 +94,6 @@ For example, `./pants list ::` will find every target in your project.
 
 :::
 
-
-
 :::note Tip: advanced target selection, such as running over changed files
 See [Advanced target selection](../advanced-target-selection.mdx) for alternative techniques to specify which files/targets to run on.
 
@@ -104,7 +101,7 @@ See [Advanced target selection](../advanced-target-selection.mdx) for alternativ
 
 ### Goal options
 
-Many goals also have [options](./options.mdx) to change how they behave. 
+Many goals also have [options](./options.mdx) to change how they behave.
 
 To see if a goal has any options, run `./pants help $goal` or `./pants help-advanced $goal`. See [Command Line Help](/community/getting-help) for more information.
 

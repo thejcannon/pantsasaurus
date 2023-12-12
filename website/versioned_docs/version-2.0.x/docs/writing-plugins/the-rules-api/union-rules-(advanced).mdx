@@ -12,6 +12,7 @@ Union rules solve the same problem that polymorphism solves in general: how to w
 For example, Pants has many generic goals like `lint` and `test`. Those `@goal_rule` definitions cannot know about every concrete linter or test implementation ahead-of-time.
 
 Unions allow a specific linter to be registered with `UnionRule(LintRequest, ShellcheckRequest)`, and then for `lint.py` to access its type:
+
 ```python tab={"label":"pants/core/goals/lint.py"}
 from pants.engine.rules import Get, MultiGet, goal_rule
 from pants.engine.target import Targets
@@ -43,13 +44,15 @@ class ShellcheckRequest(LintRequest):
     ...
 
 ...
-  
+
 def rules():
     return [UnionRule(LintRequest, ShellcheckRequest)
 ```
 
 This example will find all registered linter implementations by looking up `union_membership[LintRequest]`, which returns a tuple of all `LintRequest` types that were registered with a `UnionRule`, such as `ShellcheckRequest` and `Flake8Request`.
+
 ## How to create a new Union
+
 To set up a new union, create a class for the union "base". Typically, this should be an [abstract class](https://docs.python.org/3/library/abc.html) that is subclassed by the union members, but it does not need to be. Mark the class with `@union`.
 
 ```python
@@ -63,7 +66,7 @@ class Vehicle(ABC):
    def num_wheels(self) -> int:
         pass
 ```
- 
+
 Then, register every implementation of your union with `UnionRule`:
 
 ```python
