@@ -28,7 +28,9 @@ Config section: <span className="color--primary">`[filter]`</span>
   env_repr='PANTS_FILTER_OUTPUT_FILE'
   default_repr={`None`}
 >
+
 Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
 </Option>
 
 ### `sep`
@@ -38,7 +40,9 @@ Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
   env_repr='PANTS_FILTER_SEP'
   default_repr={`\\n`}
 >
+
 String to use to separate lines in line-oriented output.
+
 </Option>
 
 ### `target_type`
@@ -48,7 +52,9 @@ String to use to separate lines in line-oriented output.
   env_repr='PANTS_FILTER_TARGET_TYPE'
   default_repr={`[]`}
 >
+
 Filter on these target types, e.g. `resources` or `python_sources`.
+
 </Option>
 
 ### `granularity`
@@ -59,7 +65,9 @@ Filter on these target types, e.g. `resources` or `python_sources`.
   one_of='all, file, BUILD'
   default_repr={`all`}
 >
+
 Filter to rendering only targets declared in BUILD files, only file-level targets, or all targets.
+
 </Option>
 
 ### `address_regex`
@@ -69,7 +77,9 @@ Filter to rendering only targets declared in BUILD files, only file-level target
   env_repr='PANTS_FILTER_ADDRESS_REGEX'
   default_repr={`[]`}
 >
+
 Filter on target addresses matching these regexes.
+
 </Option>
 
 ### `tag_regex`
@@ -79,7 +89,9 @@ Filter on target addresses matching these regexes.
   env_repr='PANTS_FILTER_TAG_REGEX'
   default_repr={`[]`}
 >
+
 Filter on targets with tags matching these regexes.
+
 </Option>
 
 ## Advanced options

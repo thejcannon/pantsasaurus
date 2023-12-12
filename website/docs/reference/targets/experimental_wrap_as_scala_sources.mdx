@@ -26,9 +26,11 @@ Backend: <span className="color--primary">`pants.backend.experimental.scala`</sp
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -36,9 +38,11 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `inputs`
@@ -46,7 +50,9 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 <Field
     type_repr={`field.type_hint`}
 >
+
 The input targets that are to be made available by this target.
+
 </Field>
 
 ## `outputs`
@@ -54,9 +60,9 @@ The input targets that are to be made available by this target.
 <Field
     type_repr={`field.type_hint`}
 >
+
 The output files that are made available in the new context by this target. If not specified, the target will capture all files with the expected extensions for this source format: see the help for the target for the specific extensions. If no extensions are specified and this value is not specified, all input files will be returned.
+
 </Field>
-
-
 
 </span>

@@ -26,9 +26,11 @@ Backend: <span className="color--primary">`pants.backend.plugin_development`</sp
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -36,9 +38,11 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `version_spec`
@@ -47,7 +51,9 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
     type_repr={`field.type_hint`}
     default_repr={`'== 2.18.0rc5'`}
 >
+
 The PEP 440 version specifier version of Pants to target. E.g. `== 2.15.*`, or `>= 2.16.0, < 2.17.0`
+
 </Field>
 
 ## `testutil`
@@ -56,7 +62,9 @@ The PEP 440 version specifier version of Pants to target. E.g. `== 2.15.*`, or `
     type_repr={`field.type_hint`}
     default_repr={`True`}
 >
+
 If true, include `pantsbuild.pants.testutil` to write tests for your plugin.
+
 </Field>
 
 ## `resolve`
@@ -64,13 +72,13 @@ If true, include `pantsbuild.pants.testutil` to write tests for your plugin.
 <Field
     type_repr={`field.type_hint`}
 >
+
 The resolve from `[python].resolves` that this requirement is included in.
 
 If not defined, will default to `[python].default_resolve`.
 
 When generating a lockfile for a particular resolve via the `generate-lockfiles` goal, it will include all requirements that are declared with that resolve. First-party targets like `python_source` and `pex_binary` then declare which resolve they use via their `resolve` field; so, for your first-party code to use a particular `python_requirement` target, that requirement must be included in the resolve used by that code.
+
 </Field>
-
-
 
 </span>

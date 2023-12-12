@@ -24,6 +24,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
@@ -35,6 +36,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `./pants list --documented ::` to see all targets with descriptions.
@@ -46,6 +48,7 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `./pants dependencies` or `./pants peek` on this target to get the final result.
@@ -63,6 +66,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 <Field
     type_repr={`field.type_hint`}
 >
+
 Import path in Go code to import this package.
 
 This field should not be overridden; use the value from target generation.
@@ -70,5 +74,3 @@ This field should not be overridden; use the value from target generation.
 </Field>
 
 </span>
-
-

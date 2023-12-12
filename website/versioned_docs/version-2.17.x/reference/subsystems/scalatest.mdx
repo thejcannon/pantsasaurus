@@ -24,6 +24,7 @@ Config section: <span className="color--primary">`[scalatest]`</span>
   env_repr='PANTS_SCALATEST_ARGS'
   default_repr={`[]`}
 >
+
 Arguments to pass directly to Scalatest, e.g. `--scalatest-args='-t $testname'`.
 
 See https://www.scalatest.org/user_guide/using_the_runner for supported arguments.
@@ -37,7 +38,9 @@ See https://www.scalatest.org/user_guide/using_the_runner for supported argument
   env_repr="PANTS_SCALATEST_SKIP"
   default_repr={`False`}
 >
-  If true, don&#x27;t use Scalatest when running `scie-pants-linux-x86_64 test`.
+
+If true, don&#x27;t use Scalatest when running `scie-pants-linux-x86_64 test`.
+
 </Option>
 
 ## Advanced options
@@ -49,8 +52,10 @@ See https://www.scalatest.org/user_guide/using_the_runner for supported argument
   env_repr="PANTS_SCALATEST_VERSION"
   default_repr={`3.2.10`}
 >
-  Version string for the tool. This is available for substitution in the
-  `[scalatest].artifacts` option by including the string `{version}`.
+
+Version string for the tool. This is available for substitution in the
+`[scalatest].artifacts` option by including the string `{version}`.
+
 </Option>
 
 ### `artifacts`
@@ -60,11 +65,13 @@ See https://www.scalatest.org/user_guide/using_the_runner for supported argument
   env_repr="PANTS_SCALATEST_ARTIFACTS"
   default_repr={`["org.scalatest:scalatest_2.13:{version}"]`}
 >
-  Artifact requirements for this tool using specified as either the address of a
-  `jvm_artifact` target or, alternatively, as a colon-separated Maven
-  coordinates (e.g., group:name:version). For Maven coordinates, the string `
+
+Artifact requirements for this tool using specified as either the address of a
+`jvm_artifact` target or, alternatively, as a colon-separated Maven
+coordinates (e.g., group:name:version). For Maven coordinates, the string `
   {version}` version will be substituted with the value of the
-  `[scalatest].version` option.
+`[scalatest].version` option.
+
 </Option>
 
 ### `lockfile`
@@ -74,6 +81,7 @@ See https://www.scalatest.org/user_guide/using_the_runner for supported argument
   env_repr='PANTS_SCALATEST_LOCKFILE'
   default_repr={`<default>`}
 >
+
 Path to a lockfile used for installing the tool.
 
 Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.17.1rc3/src/python/pants/backend/scala/subsystems/scalatest.default.lockfile.txt for the default lockfile contents.
@@ -89,6 +97,7 @@ To use a custom lockfile, set this option to a file path relative to the build r
   env_repr='PANTS_SCALATEST_JVM_OPTIONS'
   default_repr={`[]`}
 >
+
 List of JVM options to pass to `scalatest` JVM processes.
 
 Options set here will be added to those set in `[jvm].global_options`. Please check the documentation for the `jvm` subsystem to see what values are accepted here.
@@ -100,4 +109,3 @@ Options set here will be added to those set in `[jvm].global_options`. Please ch
 None
 
 </span>
-

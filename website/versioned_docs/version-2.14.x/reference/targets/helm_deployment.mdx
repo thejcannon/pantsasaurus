@@ -20,6 +20,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -31,6 +32,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -49,6 +51,7 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 dependencies` or `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 peek` on this target to get the final result.
@@ -85,6 +88,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 <Field
     type_repr={`field.type_hint`}
 >
+
 Individual values to use when rendering a given deployment.
 
 Value names should be defined using dot-syntax as in the following example:
@@ -132,4 +136,3 @@ Check the Helm backend documentation on what are the options available and its c
 </Field>
 
 </span>
-

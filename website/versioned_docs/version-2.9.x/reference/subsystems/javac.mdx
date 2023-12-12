@@ -24,7 +24,9 @@ Config section: <span className="color--primary">`[javac]`</span>
   env_repr="PANTS_JAVAC_ARGS"
   default_repr={`[]`}
 >
-  Global `javac` compiler flags, e.g. `--javac-args='-g -deprecation'`.
+
+Global `javac` compiler flags, e.g. `--javac-args='-g -deprecation'`.
+
 </Option>
 
 ## Advanced options
@@ -42,6 +44,7 @@ None
   removal_version='2.10.0.dev0'
   removal_hint={'Use `--jvm-jdk`, which behaves the same.'}
 >
+
 The JDK to use for invoking javac.
 
 This string will be passed directly to Coursier&#x27;s `--jvm` parameter. Run `cs java --available` to see a list of available JVM versions on your platform.
@@ -51,4 +54,3 @@ If the string &#x27;system&#x27; is passed, Coursier&#x27;s `--system-jvm` optio
 </Option>
 
 </span>
-

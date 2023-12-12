@@ -22,6 +22,7 @@ Backend: <span className="color--primary">`pants.backend.google_cloud_function.p
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -33,6 +34,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -44,6 +46,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 <Field
     type_repr={`field.type_hint`}
 >
+
 Where the built asset should be located.
 
 If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`.
@@ -59,6 +62,7 @@ Warning: setting this value risks naming collisions with other package targets y
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `scie-pants-linux-x86_64 dependencies` or `scie-pants-linux-x86_64 peek` on this target to get the final result.
@@ -76,6 +80,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 <Field
     type_repr={`field.type_hint`}
 >
+
 Entry point to the Google Cloud Function handler.
 
 You can specify a full module like `'path.to.module:handler_func'` or use a shorthand to specify a file name, using the same syntax as the `sources` field, e.g. `'cloud_function.py:handler_func'`.
@@ -91,6 +96,7 @@ This is re-exported at `main.handler` in the resulting package to used as the co
 <Field
     type_repr={`field.type_hint`}
 >
+
 The identifier of the Google Cloud Function runtime to target (pythonXY). See https://cloud.google.com/functions/docs/concepts/python-runtime.
 
 In general you&#x27;ll want to define either a `runtime` or one `complete_platforms` but not both. Specifying a `runtime` is simpler, but less accurate. If you have issues either packaging the Google Cloud Function PEX or running it as a deployed Google Cloud Function, you should try using `complete_platforms` instead.
@@ -102,6 +108,7 @@ In general you&#x27;ll want to define either a `runtime` or one `complete_platfo
 <Field
     type_repr={`field.type_hint`}
 >
+
 The platforms the built PEX should be compatible with.
 
 There must be built wheels available for all of the foreign platforms, rather than sdists.
@@ -127,6 +134,7 @@ N.B.: If specifying `complete_platforms` to work around packaging failures encou
 <Field
     type_repr={`field.type_hint`}
 >
+
 The resolve from `[python].resolves` to use.
 
 If not defined, will default to `[python].default_resolve`.
@@ -141,6 +149,7 @@ All dependencies must share the same value for their `resolve` field.
     type_repr={`field.type_hint`}
     default_repr={`'__local__'`}
 >
+
 Specify which environment target to consume environment-sensitive options from.
 
 Once environments are defined in `[environments-preview].names`, you can specify the environment for this target by its name. Any fields that are defined in that environment will override the values from options set by `pants.toml`, command line values, or environment variables.
@@ -150,4 +159,3 @@ You can specify multiple valid environments by using `parametrize`. If `__local_
 </Field>
 
 </span>
-

@@ -24,6 +24,7 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -35,6 +36,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -46,6 +48,7 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 dependencies` or `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 peek` on this target to get the final result.
@@ -63,6 +66,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 <Field
     type_repr={`field.type_hint`}
 >
+
 The resolve from `[python].resolves` to use.
 
 If not defined, will default to `[python].default_resolve`.
@@ -76,6 +80,7 @@ All dependencies must share the same value for their `resolve` field.
 <Field
     type_repr={`field.type_hint`}
 >
+
 Whether to use a sandbox when `run`ning this target. Defaults to `[python].run_goal_use_sandbox`.
 
 If true, runs of this target with the `run` goal will copy the needed first-party sources into a temporary sandbox and run from there.
@@ -93,6 +98,7 @@ The latter mode is similar to creating, activating, and using a virtual environm
 <Field
     type_repr={`field.type_hint`}
 >
+
 A timeout (in seconds) used by each test file belonging to this target.
 
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
@@ -104,6 +110,7 @@ If unset, will default to `[test].timeout_default`; if that option is also unset
 <Field
     type_repr={`field.type_hint`}
 >
+
 Maximum number of CPUs to allocate to run each test file belonging to this target.
 
 Tests are spread across multiple CPUs using `pytest-xdist` (https://pytest-xdist.readthedocs.io/en/latest/index.html). Use of `pytest-xdist` must be enabled using the `[pytest].xdist_enabled` option for this field to have an effect.
@@ -119,6 +126,7 @@ Set this field to `0` to explicitly disable use of `pytest-xdist` for a target.
 <Field
     type_repr={`field.type_hint`}
 >
+
 An arbitrary value used to mark the test files belonging to this target as valid for batched execution.
 
 It&#x27;s _sometimes_ safe to run multiple `python_test`s within a single `pytest` process, and doing so can give significant wins by allowing reuse of expensive test setup / teardown logic. To opt into this behavior, set this field to an arbitrary non-empty string on all the `python_test` targets that are safe/compatible to run in the same process.
@@ -143,6 +151,7 @@ When tests with the same `batch_compatibility_tag` have incompatibilities in som
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to targets that can be built with the `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 package` goal and whose resulting artifacts should be included in the test run.
 
 Pants will build the artifacts as if you had run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 package`. It will include the results in your test&#x27;s chroot, using the same name they would normally have, but without the `--distdir` prefix (e.g. `dist/`).
@@ -156,6 +165,7 @@ You can include anything that can be built by `/home/josh/work/scie-pants/dist/s
 <Field
     type_repr={`field.type_hint`}
 >
+
 Additional environment variables to include in test processes.
 
 Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
@@ -169,6 +179,7 @@ This will be merged with and override values from `[test].extra_env_vars`.
 <Field
     type_repr={`field.type_hint`}
 >
+
 The Python interpreters this code is compatible with.
 
 Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
@@ -193,6 +204,7 @@ See https://www.pantsbuild.org/v2.15/docs/python-interpreter-compatibility for h
     type_repr={`field.type_hint`}
     default_repr={`'__local__'`}
 >
+
 Specify which environment target to consume environment-sensitive options from.
 
 Once environments are defined in `[environments-preview].names`, you can specify the environment for this target by its name. Any fields that are defined in that environment will override the values from options set by `pants.toml`, command line values, or environment variables.
@@ -206,6 +218,7 @@ You can specify multiple valid environments by using `parametrize`. If `__local_
 <Field
     type_repr={`field.type_hint`}
 >
+
 A single file that belongs to this target.
 
 Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
@@ -219,7 +232,9 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
   default_repr={`False`}
   backend="pants.backend.experimental.python.lint.add_trailing_comma"
 >
-  If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
+
+If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
+
 </Field>
 
 ## `skip_pyupgrade`
@@ -229,7 +244,9 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
   default_repr={`False`}
   backend="pants.backend.experimental.python.lint.pyupgrade"
 >
-  If true, don&#x27;t run pyupgrade on this target&#x27;s code.
+
+If true, don&#x27;t run pyupgrade on this target&#x27;s code.
+
 </Field>
 
 ## `skip_docformatter`
@@ -239,7 +256,9 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
   default_repr={`False`}
   backend="pants.backend.python.lint.docformatter"
 >
-  If true, don&#x27;t run Docformatter on this target&#x27;s code.
+
+If true, don&#x27;t run Docformatter on this target&#x27;s code.
+
 </Field>
 
 ## `skip_flake8`
@@ -249,7 +268,9 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
   default_repr={`False`}
   backend="pants.backend.python.lint.flake8"
 >
-  If true, don&#x27;t run Flake8 on this target&#x27;s code.
+
+If true, don&#x27;t run Flake8 on this target&#x27;s code.
+
 </Field>
 
 ## `skip_autoflake`
@@ -259,7 +280,9 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
   default_repr={`False`}
   backend="pants.backend.experimental.python.lint.autoflake"
 >
-  If true, don&#x27;t run Autoflake on this target&#x27;s code.
+
+If true, don&#x27;t run Autoflake on this target&#x27;s code.
+
 </Field>
 
 ## `skip_pylint`
@@ -269,7 +292,9 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
   default_repr={`False`}
   backend="pants.backend.python.lint.pylint"
 >
-  If true, don&#x27;t run Pylint on this target&#x27;s code.
+
+If true, don&#x27;t run Pylint on this target&#x27;s code.
+
 </Field>
 
 ## `skip_black`
@@ -279,7 +304,9 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
   default_repr={`False`}
   backend="pants.backend.python.lint.black"
 >
-  If true, don&#x27;t run Black on this target&#x27;s code.
+
+If true, don&#x27;t run Black on this target&#x27;s code.
+
 </Field>
 
 ## `skip_bandit`
@@ -289,7 +316,9 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
   default_repr={`False`}
   backend="pants.backend.python.lint.bandit"
 >
-  If true, don&#x27;t run Bandit on this target&#x27;s code.
+
+If true, don&#x27;t run Bandit on this target&#x27;s code.
+
 </Field>
 
 ## `skip_yapf`
@@ -299,7 +328,9 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
   default_repr={`False`}
   backend="pants.backend.python.lint.yapf"
 >
-  If true, don&#x27;t run yapf on this target&#x27;s code.
+
+If true, don&#x27;t run yapf on this target&#x27;s code.
+
 </Field>
 
 ## `skip_isort`
@@ -309,7 +340,9 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
   default_repr={`False`}
   backend="pants.backend.python.lint.isort"
 >
-  If true, don&#x27;t run isort on this target&#x27;s code.
+
+If true, don&#x27;t run isort on this target&#x27;s code.
+
 </Field>
 
 ## `skip_mypy`
@@ -319,8 +352,9 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
   default_repr={`False`}
   backend="pants.backend.python.typecheck.mypy"
 >
-  If true, don&#x27;t run MyPy on this target&#x27;s code.
+
+If true, don&#x27;t run MyPy on this target&#x27;s code.
+
 </Field>
 
 </span>
-

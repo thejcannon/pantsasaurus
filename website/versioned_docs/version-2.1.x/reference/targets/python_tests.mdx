@@ -57,9 +57,11 @@ Backend: <span className="color--primary">``</span>
   type_repr={`field.type_hint`}
   default_repr={`('test_*.py', '*_test.py', 'tests.py', 'conftest.py', 'test_*.pyi', '*_test.pyi', 'tests.pyi')`}
 >
-  A list of files and globs that belong to this target. Paths are relative to
-  the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them
-  with `!`. Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
+
+A list of files and globs that belong to this target. Paths are relative to
+the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them
+with `!`. Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
+
 </Field>
 
 ## `dependencies`
@@ -97,4 +99,3 @@ Backend: <span className="color--primary">``</span>
 </Field>
 
 </span>
-

@@ -66,7 +66,9 @@ Backend: <span className="color--primary">``</span>
 <Field
     type_repr={`field.type_hint`}
 >
+
 A string for Python interpreter constraints on this target. This should be written in Requirement-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. As a shortcut, you can leave off `CPython`, e.g. `>=2.7` will be expanded to `CPython>=2.7`. If this is left off, this will default to the option `interpreter_constraints` in the [python-setup] scope. See https://www.pantsbuild.org/docs/python-interpreter-compatibility.
+
 </Field>
 
 ## `dependencies`
@@ -87,4 +89,3 @@ A string for Python interpreter constraints on this target. This should be writt
 </Field>
 
 </span>
-

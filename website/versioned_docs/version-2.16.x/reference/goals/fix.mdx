@@ -28,6 +28,7 @@ Config section: <span className="color--primary">`[fix]`</span>
   env_repr='PANTS_FIX_ONLY'
   default_repr={`[]`}
 >
+
 Only run these fixers and skip all others.
 
 The fixer names are outputted at the final summary of running this goal, e.g. `autoflake` and `pyupgrade`. You can also run `fix --only=fake` to get a list of all activated fixers.
@@ -43,6 +44,7 @@ You can repeat this option, e.g. `fix --only=autoflake --only=pyupgrade` or `fix
   env_repr='PANTS_FIX_SKIP_FORMATTERS'
   default_repr={`False`}
 >
+
 If true, skip running all formatters.
 
 FYI: when running `scie-pants-linux-x86_64 fix fmt ::`, there should be diminishing performance benefit to using this flag. Pants attempts to reuse the results from `fmt` when running `fix` where possible.
@@ -58,6 +60,7 @@ FYI: when running `scie-pants-linux-x86_64 fix fmt ::`, there should be diminish
   env_repr='PANTS_FIX_BATCH_SIZE'
   default_repr={`128`}
 >
+
 The target number of files to be included in each fixer batch.
 
 Fixer processes are batched for a few reasons:
@@ -82,4 +85,3 @@ None
 - [filter](../subsystems/filter.mdx)
 
 </span>
-

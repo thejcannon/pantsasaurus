@@ -28,7 +28,9 @@ None
   env_repr="PANTS_RUN_TRACKER_STATS_LOCAL_JSON_FILE"
   default_repr={`None`}
 >
-  Write stats to this local json file on run completion.
+
+Write stats to this local json file on run completion.
+
 </Option>
 
 ### `stats_option_scopes_to_record`
@@ -38,10 +40,12 @@ None
   env_repr="PANTS_RUN_TRACKER_STATS_OPTION_SCOPES_TO_RECORD"
   default_repr={`[]`}
 >
-  Option scopes to record in stats on run completion. Options may be selected by
-  joining the scope and the option with a ^ character, i.e. to get option
-  `pantsd` in the GLOBAL scope, you&#x27;d pass `GLOBAL^pantsd`. Add a
-  &#x27;*&#x27; to the list to capture all known scopes.
+
+Option scopes to record in stats on run completion. Options may be selected by
+joining the scope and the option with a ^ character, i.e. to get option
+`pantsd` in the GLOBAL scope, you&#x27;d pass `GLOBAL^pantsd`. Add a
+&#x27;\*&#x27; to the list to capture all known scopes.
+
 </Option>
 
 ## Deprecated options
@@ -57,10 +61,12 @@ None
     "RunTracker no longer directly supports uploading run stats to urls."
   }
 >
-  Upload stats to these URLs on run completion. Value is a map from URL to the
-  name of the auth provider the user must auth against in order to upload stats
-  to that URL, or None/empty string if no auth is required. Currently the auth
-  provider name is only used to provide a more helpful error message.
+
+Upload stats to these URLs on run completion. Value is a map from URL to the
+name of the auth provider the user must auth against in order to upload stats
+to that URL, or None/empty string if no auth is required. Currently the auth
+provider name is only used to provide a more helpful error message.
+
 </Option>
 
 ### `stats_upload_timeout`
@@ -74,7 +80,9 @@ None
     "RunTracker no longer directly supports uploading run stats to urls."
   }
 >
-  Wait at most this many seconds for the stats upload to complete.
+
+Wait at most this many seconds for the stats upload to complete.
+
 </Option>
 
 ### `stats_version`
@@ -89,7 +97,9 @@ None
     "RunTracker no longer directly supports uploading run stats to urls."
   }
 >
-  Format of stats JSON for uploads and local json file.
+
+Format of stats JSON for uploads and local json file.
+
 </Option>
 
 ### `num_foreground_workers`
@@ -101,7 +111,9 @@ None
   removal_version="2.1.0.dev0"
   removal_hint={"RunTracker no longer uses foreground workers."}
 >
-  Number of threads for foreground work.
+
+Number of threads for foreground work.
+
 </Option>
 
 ### `num_background_workers`
@@ -113,8 +125,9 @@ None
   removal_version="2.1.0.dev0"
   removal_hint={"RunTracker no longer uses background workers."}
 >
-  Number of threads for background work.
+
+Number of threads for background work.
+
 </Option>
 
 </span>
-

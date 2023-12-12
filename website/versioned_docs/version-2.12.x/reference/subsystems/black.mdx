@@ -24,9 +24,11 @@ Config section: <span className="color--primary">`[black]`</span>
   env_repr="PANTS_BLACK_SKIP"
   default_repr={`False`}
 >
-  Don&#x27;t use Black when running
-  `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and
-  `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
+
+Don&#x27;t use Black when running
+`/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and
+`/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
+
 </Option>
 
 ### `args`
@@ -36,8 +38,10 @@ Config section: <span className="color--primary">`[black]`</span>
   env_repr="PANTS_BLACK_ARGS"
   default_repr={`[]`}
 >
-  Arguments to pass directly to Black, e.g. `--black-args='--target-version=py37
+
+Arguments to pass directly to Black, e.g. `--black-args='--target-version=py37
   --quiet'`.
+
 </Option>
 
 ### `export`
@@ -47,6 +51,7 @@ Config section: <span className="color--primary">`[black]`</span>
   env_repr='PANTS_BLACK_EXPORT'
   default_repr={`True`}
 >
+
 If true, export a virtual environment with Black when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 export`.
 
 This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
@@ -62,7 +67,9 @@ This can be useful, for example, with IDE integrations to point your editor to t
   env_repr="PANTS_BLACK_VERSION"
   default_repr={`black==22.1.0`}
 >
-  Requirement string for the tool.
+
+Requirement string for the tool.
+
 </Option>
 
 ### `extra_requirements`
@@ -72,9 +79,11 @@ This can be useful, for example, with IDE integrations to point your editor to t
   env_repr="PANTS_BLACK_EXTRA_REQUIREMENTS"
   default_repr={`["typing-extensions>=3.10.0.0; python_version < \"3.10\""]`}
 >
-  Any additional requirement strings to use with the tool. This is useful if the
-  tool allows you to install plugins or if you need to constrain a dependency to
-  a certain version.
+
+Any additional requirement strings to use with the tool. This is useful if the
+tool allows you to install plugins or if you need to constrain a dependency to
+a certain version.
+
 </Option>
 
 ### `interpreter_constraints`
@@ -84,7 +93,9 @@ This can be useful, for example, with IDE integrations to point your editor to t
   env_repr="PANTS_BLACK_INTERPRETER_CONSTRAINTS"
   default_repr={`["CPython>=3.7,<4"]`}
 >
-  Python interpreter constraints for this tool.
+
+Python interpreter constraints for this tool.
+
 </Option>
 
 ### `lockfile`
@@ -94,6 +105,7 @@ This can be useful, for example, with IDE integrations to point your editor to t
   env_repr='PANTS_BLACK_LOCKFILE'
   default_repr={`<default>`}
 >
+
 Path to a lockfile used for installing the tool.
 
 Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` and `--extra-requirements` options, and the tool&#x27;s interpreter constraints are compatible with the default. Pants will error or warn if the lockfile is not compatible (controlled by `[python].invalid_lockfile_behavior`). See https://github.com/pantsbuild/pants/blob/release_2.12.1/src/python/pants/backend/python/lint/black/black.lock for the default lockfile contents.
@@ -113,10 +125,12 @@ As explained at https://www.pantsbuild.org/v2.12/docs/python-third-party-depende
   env_repr="PANTS_BLACK_CONSOLE_SCRIPT"
   default_repr={`black`}
 >
-  The console script for the tool. Using this option is generally preferable to
-  (and mutually exclusive with) specifying an --entry-point since console script
-  names have a higher expectation of staying stable across releases of the tool.
-  Usually, you will not want to change this from the default.
+
+The console script for the tool. Using this option is generally preferable to
+(and mutually exclusive with) specifying an --entry-point since console script
+names have a higher expectation of staying stable across releases of the tool.
+Usually, you will not want to change this from the default.
+
 </Option>
 
 ### `entry_point`
@@ -126,9 +140,11 @@ As explained at https://www.pantsbuild.org/v2.12/docs/python-third-party-depende
   env_repr="PANTS_BLACK_ENTRY_POINT"
   default_repr={`None`}
 >
-  The entry point for the tool. Generally you only want to use this option if
-  the tool does not offer a --console-script (which this option is mutually
-  exclusive with). Usually, you will not want to change this from the default.
+
+The entry point for the tool. Generally you only want to use this option if
+the tool does not offer a --console-script (which this option is mutually
+exclusive with). Usually, you will not want to change this from the default.
+
 </Option>
 
 ### `config`
@@ -138,6 +154,7 @@ As explained at https://www.pantsbuild.org/v2.12/docs/python-third-party-depende
   env_repr='PANTS_BLACK_CONFIG'
   default_repr={`None`}
 >
+
 Path to a TOML config file understood by Black (https://github.com/psf/black#configuration-format).
 
 Setting this option will disable `[black].config_discovery`. Use this option if the config is located in a non-standard location.
@@ -151,6 +168,7 @@ Setting this option will disable `[black].config_discovery`. Use this option if 
   env_repr='PANTS_BLACK_CONFIG_DISCOVERY'
   default_repr={`True`}
 >
+
 If true, Pants will include any relevant pyproject.toml config files during runs.
 
 Use `[black].config` instead if your config is in a non-standard location.
@@ -162,4 +180,3 @@ Use `[black].config` instead if your config is in a non-standard location.
 None
 
 </span>
-

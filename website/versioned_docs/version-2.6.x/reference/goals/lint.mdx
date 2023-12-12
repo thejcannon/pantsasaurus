@@ -32,6 +32,7 @@ None
   env_repr='PANTS_LINT_PER_FILE_CACHING'
   default_repr={`False`}
 >
+
 Rather than linting all files in a single batch, lint each file as a separate process.
 
 Why do this? You&#x27;ll get many more cache hits. Why not do this? Linters both have substantial startup overhead and are cheap to add one additional file to the run. On a cold cache, it is much faster to use `--no-per-file-caching`.
@@ -53,8 +54,10 @@ We only recommend using `--per-file-caching` if you are using a remote cache or 
     "Edit the config file for the linter in question, or set its args via Pants options, to cause it to write reports under freports ."
   }
 >
-  Specifying a directory causes linters that support writing report files to
-  write into this directory.
+
+Specifying a directory causes linters that support writing report files to
+write into this directory.
+
 </Option>
 
 ## Related subsystems
@@ -82,4 +85,3 @@ We only recommend using `--per-file-caching` if you are using a remote cache or 
 - [subprocess-environment](../subsystems/subprocess-environment.mdx)
 
 </span>
-

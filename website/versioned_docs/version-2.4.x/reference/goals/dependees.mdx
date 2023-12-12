@@ -28,7 +28,9 @@ Config section: <span className="color--primary">`[dependees]`</span>
   env_repr="PANTS_DEPENDEES_OUTPUT_FILE"
   default_repr={`None`}
 >
-  Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
 </Option>
 
 ### `sep`
@@ -38,7 +40,9 @@ Config section: <span className="color--primary">`[dependees]`</span>
   env_repr="PANTS_DEPENDEES_SEP"
   default_repr={`\\n`}
 >
-  String to use to separate lines in line-oriented output.
+
+String to use to separate lines in line-oriented output.
+
 </Option>
 
 ### `transitive`
@@ -48,7 +52,9 @@ Config section: <span className="color--primary">`[dependees]`</span>
   env_repr="PANTS_DEPENDEES_TRANSITIVE"
   default_repr={`False`}
 >
-  List all transitive dependees, instead of only direct dependees.
+
+List all transitive dependees, instead of only direct dependees.
+
 </Option>
 
 ### `closed`
@@ -58,7 +64,9 @@ Config section: <span className="color--primary">`[dependees]`</span>
   env_repr="PANTS_DEPENDEES_CLOSED"
   default_repr={`False`}
 >
-  Include the input targets in the output, along with the dependees.
+
+Include the input targets in the output, along with the dependees.
+
 </Option>
 
 ### `output_format`
@@ -69,7 +77,9 @@ Config section: <span className="color--primary">`[dependees]`</span>
   one_of='text, json'
   default_repr={`text`}
 >
+
 Use `text` for a flattened list of target addresses; use `json` for each key to be the address of one of the specified targets, with its value being a list of that target&#x27;s dependees, e.g. `{':example': [':dep1', ':dep2']}`.
+
 </Option>
 
 ## Advanced options
@@ -96,4 +106,3 @@ None
 - [subprocess-environment](../subsystems/subprocess-environment.mdx)
 
 </span>
-

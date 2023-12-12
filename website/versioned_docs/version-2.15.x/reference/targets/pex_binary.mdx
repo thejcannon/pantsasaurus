@@ -22,6 +22,7 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -33,6 +34,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -45,6 +47,7 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
     type_repr={`field.type_hint`}
     default_repr={`'__local__'`}
 >
+
 Specify which environment target to consume environment-sensitive options from.
 
 Once environments are defined in `[environments-preview].names`, you can specify the environment for this target by its name. Any fields that are defined in that environment will override the values from options set by `pants.toml`, command line values, or environment variables.
@@ -58,6 +61,7 @@ You can specify multiple valid environments by using `parametrize`. If `__local_
 <Field
     type_repr={`field.type_hint`}
 >
+
 The Python interpreters this code is compatible with.
 
 Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
@@ -75,6 +79,7 @@ See https://www.pantsbuild.org/v2.15/docs/python-interpreter-compatibility for h
 <Field
     type_repr={`field.type_hint`}
 >
+
 The resolve from `[python].resolves` to use.
 
 If not defined, will default to `[python].default_resolve`.
@@ -88,6 +93,7 @@ All dependencies must share the same value for their `resolve` field.
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 dependencies` or `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 peek` on this target to get the final result.
@@ -105,6 +111,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 <Field
     type_repr={`field.type_hint`}
 >
+
 The abbreviated platforms the built PEX should be compatible with.
 
 There must be built wheels available for all of the foreign platforms, rather than sdists.
@@ -127,6 +134,7 @@ Note that using an abbreviated platform means that certain resolves will fail wh
 <Field
     type_repr={`field.type_hint`}
 >
+
 The platforms the built PEX should be compatible with.
 
 There must be built wheels available for all of the foreign platforms, rather than sdists.
@@ -142,6 +150,7 @@ Complete platforms should be addresses of `file` targets that point to files tha
 <Field
     type_repr={`field.type_hint`}
 >
+
 For each of the `platforms` specified, attempt to find a local interpreter that matches.
 
 If a matching interpreter is found, use the interpreter to resolve distributions and build any that are only available in source distribution form. If no matching interpreter is found (or if this option is `False`), resolve for the platform by accepting only pre-built binary distributions (wheels).
@@ -153,6 +162,7 @@ If a matching interpreter is found, use the interpreter to resolve distributions
 <Field
     type_repr={`field.type_hint`}
 >
+
 Whether to inherit the `sys.path` (aka PYTHONPATH) of the environment that the binary runs in.
 
 Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` after packaged dependencies; and use `prefer` to inherit `sys.path` before packaged dependencies.
@@ -165,6 +175,7 @@ Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` afte
     type_repr={`field.type_hint`}
     default_repr={`True`}
 >
+
 Whether or not to strip the PEX runtime environment of `PEX*` environment variables.
 
 Most applications have no need for the `PEX*` environment variables that are used to control PEX startup; so these variables are scrubbed from the environment by Pex before transferring control to the application by default. This prevents any subprocesses that happen to execute other PEX files from inheriting these control knob values since most would be undesired; e.g.: PEX_MODULE or PEX_PATH.
@@ -182,6 +193,7 @@ Most applications have no need for the `PEX*` environment variables that are use
 <Field
     type_repr={`field.type_hint`}
 >
+
 Set the generated PEX to use this shebang, rather than the default of PEX choosing a shebang based on the interpreter constraints.
 
 This influences the behavior of running `./result.pex`. You can ignore the shebang by instead running `/path/to/python_interpreter ./result.pex`.
@@ -193,6 +205,7 @@ This influences the behavior of running `./result.pex`. You can ignore the sheba
 <Field
     type_repr={`field.type_hint`}
 >
+
 Whether or not to emit PEX warnings at runtime.
 
 The default is determined by the option `emit_warnings` in the `[pex-binary-defaults]` scope.
@@ -205,6 +218,7 @@ The default is determined by the option `emit_warnings` in the `[pex-binary-defa
     type_repr={`field.type_hint`}
     default_repr={`'zipapp'`}
 >
+
 The layout used for the PEX binary.
 
 By default, a PEX is created as a single file zipapp, but either a packed or loose directory tree based layout can be chosen instead.
@@ -223,6 +237,7 @@ Both zipapp and packed layouts install themselves in the `$PEX_ROOT` as loose ap
     type_repr={`field.type_hint`}
     default_repr={`'zipapp'`}
 >
+
 The mode the generated PEX file will run in.
 
 The traditional PEX file runs in a modified &#x27;zipapp&#x27; mode (See: https://www.python.org/dev/peps/pep-0441/) where zipped internal code and dependencies are first unpacked to disk. This mode achieves the fastest cold start times and may, for example be the best choice for cloud lambda functions.
@@ -251,6 +266,7 @@ The fastest execution mode in the steady state is &#x27;venv&#x27;, which genera
     type_repr={`field.type_hint`}
     default_repr={`False`}
 >
+
 Whether to include Pex tools in the PEX bootstrap code.
 
 With tools included, the generated PEX file can be executed with `PEX_TOOLS=1 <pex file> --help` to gain access to all the available tools.
@@ -263,6 +279,7 @@ With tools included, the generated PEX file can be executed with `PEX_TOOLS=1 <p
     type_repr={`field.type_hint`}
     default_repr={`False`}
 >
+
 If execution_mode is venv, populate the venv site packages using hard links or copies of resolved PEX dependencies instead of symlinks.
 
 This can be used to work around problems with tools or libraries that are confused by symlinked source files.
@@ -281,6 +298,7 @@ This can be used to work around problems with tools or libraries that are confus
 <Field
     type_repr={`field.type_hint`}
 >
+
 Set the entry point, i.e. what gets run when executing `./my_app.pex`, to a module.
 
 You can specify a full module like &#x27;path.to.module&#x27; and &#x27;path.to.module:func&#x27;, or use a shorthand to specify a file name, using the same syntax as the `sources` field:
@@ -299,6 +317,7 @@ You may either set this field or the `script` field, but not both. Leave off bot
 <Field
     type_repr={`field.type_hint`}
 >
+
 Set the entry point, i.e. what gets run when executing `./my_app.pex`, to a script or console_script as defined by any of the distributions in the PEX.
 
 You may either set this field or the `entry_point` field, but not both. Leave off both fields to have no entry point.
@@ -310,6 +329,7 @@ You may either set this field or the `entry_point` field, but not both. Leave of
 <Field
     type_repr={`field.type_hint`}
 >
+
 Where the built asset should be located.
 
 If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`.
@@ -321,4 +341,3 @@ Warning: setting this value risks naming collisions with other package targets y
 </Field>
 
 </span>
-

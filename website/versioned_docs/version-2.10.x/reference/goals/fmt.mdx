@@ -28,6 +28,7 @@ Config section: <span className="color--primary">`[fmt]`</span>
   env_repr='PANTS_FMT_ONLY'
   default_repr={`[]`}
 >
+
 Only run these formatters and skip all others.
 
 The formatter names are outputted at the final summary of running this goal, e.g. `isort` and `shfmt`. You can also run `fmt --only=fake` to get a list of all activated formatters.
@@ -45,6 +46,7 @@ You can repeat this option, e.g. `fmt --only=isort --only=shfmt` or `fmt --only=
   env_repr='PANTS_FMT_BATCH_SIZE'
   default_repr={`128`}
 >
+
 The target number of files to be included in each formatter batch.
 
 Formatter processes are batched for a few reasons:
@@ -68,6 +70,7 @@ In order to improve cache hit rates (see 2.), batches are created at stable boun
   removal_version='2.11.0.dev0'
   removal_hint={'Formatters are now broken into multiple batches by default using the `--batch-size` argument.<br /><br />To keep (roughly) this option\'s behavior, set [fmt].batch_size = 1. However, you\'ll likely get better performance by using a larger batch size because of reduced overhead launching processes.'}
 >
+
 Rather than formatting all files in a single batch, format each file as a separate process.
 
 Why do this? You&#x27;ll get many more cache hits. Why not do this? Formatters both have substantial startup overhead and are cheap to add one additional file to the run. On a cold cache, it is much faster to use `--no-per-file-caching`.
@@ -77,5 +80,3 @@ We only recommend using `--per-file-caching` if you are using a remote cache or 
 </Option>
 
 </span>
-
-

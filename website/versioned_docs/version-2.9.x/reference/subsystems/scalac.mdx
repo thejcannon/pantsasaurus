@@ -24,7 +24,9 @@ Config section: <span className="color--primary">`[scalac]`</span>
   env_repr="PANTS_SCALAC_ARGS"
   default_repr={`[]`}
 >
-  Global `scalac` compiler flags, e.g. `--scalac-args='-encoding UTF-8'`.
+
+Global `scalac` compiler flags, e.g. `--scalac-args='-encoding UTF-8'`.
+
 </Option>
 
 ## Advanced options
@@ -36,8 +38,10 @@ Config section: <span className="color--primary">`[scalac]`</span>
   env_repr="PANTS_SCALAC_PLUGINS_GLOBAL"
   default_repr={`[]`}
 >
-  A list of addresses of `scalac_plugin` targets which should be used for
-  compilation of all Scala targets in a build.
+
+A list of addresses of `scalac_plugin` targets which should be used for
+compilation of all Scala targets in a build.
+
 </Option>
 
 ### `plugins_global_lockfile`
@@ -47,7 +51,9 @@ Config section: <span className="color--primary">`[scalac]`</span>
   env_repr="PANTS_SCALAC_PLUGINS_GLOBAL_LOCKFILE"
   default_repr={`3rdparty/jvm/global_scalac_plugins.lock`}
 >
-  The filename of a lockfile for global plugins.
+
+The filename of a lockfile for global plugins.
+
 </Option>
 
 ## Deprecated options
@@ -61,8 +67,10 @@ Config section: <span className="color--primary">`[scalac]`</span>
   removal_version="2.10.0.dev0"
   removal_hint={"Use `--plugins-global`, which behaves the same."}
 >
-  A list of addresses of `scalac_plugin` targets which should be used for
-  compilation of all Scala targets in a build.
+
+A list of addresses of `scalac_plugin` targets which should be used for
+compilation of all Scala targets in a build.
+
 </Option>
 
 ### `lockfile`
@@ -74,8 +82,9 @@ Config section: <span className="color--primary">`[scalac]`</span>
   removal_version="2.10.0.dev0"
   removal_hint={"Use `--plugins-global-lockfile`, which behaves the same."}
 >
-  The filename of a lockfile for global plugins.
+
+The filename of a lockfile for global plugins.
+
 </Option>
 
 </span>
-

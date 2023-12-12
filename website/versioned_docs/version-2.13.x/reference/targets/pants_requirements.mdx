@@ -26,6 +26,7 @@ Backend: <span className="color--primary">`pants.backend.plugin_development`</sp
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -37,6 +38,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -54,6 +56,7 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 <Field
     type_repr={`field.type_hint`}
 >
+
 The resolve from `[python].resolves` that this requirement is included in.
 
 If not defined, will default to `[python].default_resolve`.
@@ -63,4 +66,3 @@ When generating a lockfile for a particular resolve via the `generate-lockfiles`
 </Field>
 
 </span>
-

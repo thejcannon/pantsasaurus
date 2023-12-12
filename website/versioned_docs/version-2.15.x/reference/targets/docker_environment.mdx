@@ -24,6 +24,7 @@ Backend: <span className="color--primary">`pants.core`</span>
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -35,6 +36,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -46,6 +48,7 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 <Field
     type_repr={`field.type_hint`}
 >
+
 The docker image ID to use when this environment is loaded.
 
 This value may be any image identifier that the local Docker installation can accept. This includes image names with or without tags (e.g. `centos6` or `centos6:latest`), or image names with an immutable digest (e.g. `centos@sha256:<some_sha256_value>`).
@@ -59,6 +62,7 @@ The choice of image ID can affect the reproducibility of builds. Consider using 
 <Field
     type_repr={`field.type_hint`}
 >
+
 If set, Docker will always use the specified platform when pulling and running the image.
 
 If unset, Pants will default to the CPU architecture of your local host machine. For example, if you are running on Apple Silicon, it will use `linux_arm64`, whereas running on Intel macOS will use `linux_x86_64`. This mirrors Docker&#x27;s behavior when `--platform` is left off.
@@ -70,6 +74,7 @@ If unset, Pants will default to the CPU architecture of your local host machine.
 <Field
     type_repr={`field.type_hint`}
 >
+
 The environment to fallback to when this Docker environment cannot be used because either the global option `--docker-execution` is false, or the field `platform` is not compatible with the local host&#x27;s CPU architecture (this is only an issue when the local host is Linux; macOS is fine).
 
 Must be an environment name from the option `[environments-preview].names`, the special string `__local__` to use the relevant local environment, or the Python value `None` to error when this specific Docker environment cannot be used.
@@ -166,8 +171,10 @@ Must be an environment name from the option `[environments-preview].names`, the 
   type_repr={`field.type_hint`}
   backend="pants.backend.codegen.thrift.apache.python"
 >
-  Overrides the default value from the option
-  `[apache-thrift].thrift_search_paths` when this environment target is active.
+
+Overrides the default value from the option
+`[apache-thrift].thrift_search_paths` when this environment target is active.
+
 </Field>
 
 ## `python_native_code_cpp_flags`
@@ -241,4 +248,3 @@ Must be an environment name from the option `[environments-preview].names`, the 
 </Field>
 
 </span>
-

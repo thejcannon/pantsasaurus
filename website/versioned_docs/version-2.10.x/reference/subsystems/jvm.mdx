@@ -24,7 +24,9 @@ Config section: <span className="color--primary">`[jvm]`</span>
   env_repr="PANTS_JVM_RESOLVES"
   default_repr={`{"jvm-default": "3rdparty/jvm/default.lock"}`}
 >
-  A dictionary mapping resolve names to the path of their lockfile.
+
+A dictionary mapping resolve names to the path of their lockfile.
+
 </Option>
 
 ### `default_resolve`
@@ -34,6 +36,7 @@ Config section: <span className="color--primary">`[jvm]`</span>
   env_repr='PANTS_JVM_DEFAULT_RESOLVE'
   default_repr={`jvm-default`}
 >
+
 The default value used for the `resolve` and `compatible_resolves` fields.
 
 The name must be defined as a resolve in `[jvm].resolves`.
@@ -47,6 +50,7 @@ The name must be defined as a resolve in `[jvm].resolves`.
   env_repr='PANTS_JVM_DEBUG_ARGS'
   default_repr={`[]`}
 >
+
 Extra JVM arguments to use when running tests in debug mode.
 
 For example, if you want to attach a remote debugger, use something like [&#x27;-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005&#x27;]
@@ -62,6 +66,7 @@ For example, if you want to attach a remote debugger, use something like [&#x27;
   env_repr='PANTS_JVM_JDK'
   default_repr={`adopt:1.11`}
 >
+
 The JDK to use.
 
 This string will be passed directly to Coursier&#x27;s `--jvm` parameter. Run `cs java --available` to see a list of available JVM versions on your platform.
@@ -75,5 +80,3 @@ If the string &#x27;system&#x27; is passed, Coursier&#x27;s `--system-jvm` optio
 None
 
 </span>
-
-

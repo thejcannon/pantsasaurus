@@ -32,13 +32,15 @@ None
   env_repr="PANTS_FMT_PER_FILE_CACHING"
   default_repr={`False`}
 >
-  Rather than formatting all files in a single batch, format each file as a
-  separate process. Why do this? You&#x27;ll get many more cache hits. Why not
-  do this? Formatters both have substantial startup overhead and are cheap to
-  add one additional file to the run. On a cold cache, it is much faster to use
-  `--no-per-file-caching`. We only recommend using `--per-file-caching` if you
-  are using a remote cache or if you have benchmarked that this option will be
-  faster than `--no-per-file-caching` for your use case.
+
+Rather than formatting all files in a single batch, format each file as a
+separate process. Why do this? You&#x27;ll get many more cache hits. Why not
+do this? Formatters both have substantial startup overhead and are cheap to
+add one additional file to the run. On a cold cache, it is much faster to use
+`--no-per-file-caching`. We only recommend using `--per-file-caching` if you
+are using a remote cache or if you have benchmarked that this option will be
+faster than `--no-per-file-caching` for your use case.
+
 </Option>
 
 ## Deprecated options
@@ -54,7 +56,9 @@ None
     "Use the renamed `--per-file-caching` option instead. If this option is set, Pants will now run per every file, rather than per target."
   }
 >
-  See `--per-file-caching`.
+
+See `--per-file-caching`.
+
 </Option>
 
 ## Related subsystems
@@ -74,4 +78,3 @@ None
 - [subprocess-environment](../subsystems/subprocess-environment.mdx)
 
 </span>
-

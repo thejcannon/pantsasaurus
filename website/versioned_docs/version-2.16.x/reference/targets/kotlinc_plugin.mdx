@@ -29,6 +29,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.kotlin`</s
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -40,6 +41,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -57,6 +59,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 <Field
     type_repr={`field.type_hint`}
 >
+
 The ID for `kotlinc` to use when setting options for the plugin.
 
 If not set, the plugin ID defaults to the target name.
@@ -70,4 +73,3 @@ If not set, the plugin ID defaults to the target name.
 </Field>
 
 </span>
-

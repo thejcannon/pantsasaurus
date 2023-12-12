@@ -20,6 +20,7 @@ Backend: <span className="color--primary">`pants.backend.codegen.protobuf.python
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -31,6 +32,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -43,6 +45,7 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
     type_repr={`field.type_hint`}
     default_repr={`('*.proto',)`}
 >
+
 A list of files and globs that belong to this target.
 
 Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
@@ -56,6 +59,7 @@ Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
 <Field
     type_repr={`field.type_hint`}
 >
+
 Override the field values for generated `protobuf_source` targets.
 
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
@@ -85,7 +89,9 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
   default_repr={`False`}
   backend="pants.backend.codegen.protobuf.lint.buf"
 >
-  If true, don&#x27;t run `buf format` on this target&#x27;s code.
+
+If true, don&#x27;t run `buf format` on this target&#x27;s code.
+
 </Field>
 
 ## `skip_buf_lint`
@@ -95,7 +101,9 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
   default_repr={`False`}
   backend="pants.backend.codegen.protobuf.lint.buf"
 >
-  If true, don&#x27;t run `buf lint` on this target&#x27;s code.
+
+If true, don&#x27;t run `buf lint` on this target&#x27;s code.
+
 </Field>
 
 ## `python_interpreter_constraints`
@@ -104,6 +112,7 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
     type_repr={`field.type_hint`}
     backend="pants.backend.codegen.protobuf.python"
 >
+
 The Python interpreters this code is compatible with.
 
 Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
@@ -122,6 +131,7 @@ See https://www.pantsbuild.org/v2.12/docs/python-interpreter-compatibility for h
     type_repr={`field.type_hint`}
     backend="pants.backend.codegen.protobuf.python"
 >
+
 The resolve from `[python].resolves` to use.
 
 If not defined, will default to `[python].default_resolve`.
@@ -136,6 +146,7 @@ All dependencies must share the same value for their `resolve` field.
     type_repr={`field.type_hint`}
     backend="pants.backend.codegen.protobuf.python"
 >
+
 The source root to generate Python sources under.
 
 If unspecified, the source root the `protobuf_sources` is under will be used.
@@ -148,8 +159,10 @@ If unspecified, the source root the `protobuf_sources` is under will be used.
   type_repr={`field.type_hint`}
   backend="pants.backend.experimental.codegen.protobuf.java"
 >
-  The major version of the JDK that this target should be built with. If not
-  defined, will default to `[jvm].default_source_jdk`.
+
+The major version of the JDK that this target should be built with. If not
+defined, will default to `[jvm].default_source_jdk`.
+
 </Field>
 
 ## `jvm_resolve`
@@ -158,6 +171,7 @@ If unspecified, the source root the `protobuf_sources` is under will be used.
     type_repr={`field.type_hint`}
     backend="pants.backend.experimental.codegen.protobuf.java"
 >
+
 The resolve from `[jvm].resolves` to use when compiling this target.
 
 If not defined, will default to `[jvm].default_resolve`.
@@ -175,6 +189,7 @@ If not defined, will default to `[jvm].default_resolve`.
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 dependencies` or `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 peek` on this target to get the final result.
@@ -188,4 +203,3 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 </Field>
 
 </span>
-

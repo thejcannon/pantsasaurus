@@ -24,9 +24,11 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -34,9 +36,11 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `source`
@@ -44,9 +48,11 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 <Field
     type_repr={`field.type_hint`}
 >
+
 A single file that belongs to this target.
 
 Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
+
 </Field>
 
 ## `dependencies`
@@ -54,6 +60,7 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `scie-pants-linux-x86_64 dependencies` or `scie-pants-linux-x86_64 peek` on this target to get the final result.
@@ -63,6 +70,7 @@ See https://www.pantsbuild.org/v2.18/docs/targets for more about how addresses a
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
 </Field>
 
 ## `timeout`
@@ -70,9 +78,11 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 <Field
     type_repr={`field.type_hint`}
 >
+
 A timeout (in seconds) used by each test file belonging to this target.
 
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
+
 </Field>
 
 ## `skip_tests`
@@ -81,7 +91,9 @@ If unset, will default to `[test].timeout_default`; if that option is also unset
     type_repr={`field.type_hint`}
     default_repr={`False`}
 >
+
 If true, don&#x27;t run this target&#x27;s tests.
+
 </Field>
 
 ## `shell`
@@ -89,7 +101,9 @@ If true, don&#x27;t run this target&#x27;s tests.
 <Field
     type_repr={`field.type_hint`}
 >
+
 Which shell to run the tests with. If unspecified, Pants will look for a shebang line.
+
 </Field>
 
 ## `runtime_package_dependencies`
@@ -97,11 +111,13 @@ Which shell to run the tests with. If unspecified, Pants will look for a shebang
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to targets that can be built with the `scie-pants-linux-x86_64 package` goal and whose resulting artifacts should be included in the test run.
 
 Pants will build the artifacts as if you had run `scie-pants-linux-x86_64 package`. It will include the results in your test&#x27;s chroot, using the same name they would normally have, but without the `--distdir` prefix (e.g. `dist/`).
 
 You can include anything that can be built by `scie-pants-linux-x86_64 package`, e.g. a `pex_binary`, `python_aws_lambda_function`, or an `archive`.
+
 </Field>
 
 ## `skip_shellcheck`
@@ -111,7 +127,9 @@ You can include anything that can be built by `scie-pants-linux-x86_64 package`,
     default_repr={`False`}
     backend="pants.backend.shell.lint.shellcheck"
 >
+
 If true, don&#x27;t run Shellcheck on this target&#x27;s code.
+
 </Field>
 
 ## `skip_shfmt`
@@ -121,9 +139,9 @@ If true, don&#x27;t run Shellcheck on this target&#x27;s code.
     default_repr={`False`}
     backend="pants.backend.shell.lint.shfmt"
 >
+
 If true, don&#x27;t run shfmt on this target&#x27;s code.
+
 </Field>
-
-
 
 </span>

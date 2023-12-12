@@ -28,6 +28,7 @@ Config section: <span className="color--primary">`[lint]`</span>
   env_repr='PANTS_LINT_ONLY'
   default_repr={`[]`}
 >
+
 Only run these linters and skip all others.
 
 The linter names are outputted at the final summary of running this goal, e.g. `flake8` and `shellcheck`. You can also run `lint --only=fake` to get a list of all activated linters.
@@ -45,6 +46,7 @@ You can repeat this option, e.g. `lint --only=flake8 --only=shellcheck` or `lint
   env_repr='PANTS_LINT_BATCH_SIZE'
   default_repr={`128`}
 >
+
 The target number of files to be included in each linter batch.
 
 Linter processes are batched for a few reasons:
@@ -62,4 +64,3 @@ In order to improve cache hit rates (see 2.), batches are created at stable boun
 None
 
 </span>
-

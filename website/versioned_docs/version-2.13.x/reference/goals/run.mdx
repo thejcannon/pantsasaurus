@@ -32,8 +32,10 @@ Config section: <span className="color--primary">`[run]`</span>
   env_repr="PANTS_RUN_ARGS"
   default_repr={`[]`}
 >
-  Arguments to pass directly to the executed target, e.g. `--run-args='val1 val2
+
+Arguments to pass directly to the executed target, e.g. `--run-args='val1 val2
   --debug'`.
+
 </Option>
 
 ### `cleanup`
@@ -45,6 +47,7 @@ Config section: <span className="color--primary">`[run]`</span>
   removal_version='2.16.0.dev1'
   removal_hint={'Use the global `keep_sandboxes` option instead.'}
 >
+
 Whether to clean up the temporary directory in which the binary is chrooted. Set this to false to retain the directory, e.g., for debugging.
 
 Note that setting the global --keep-sandboxes option may also conserve this directory, along with those of all other processes that Pants executes. This option is more selective and controls just the target binary&#x27;s directory.
@@ -58,6 +61,7 @@ Note that setting the global --keep-sandboxes option may also conserve this dire
   env_repr='PANTS_RUN_DEBUG_ADAPTER'
   default_repr={`False`}
 >
+
 Run the interactive process using a Debug Adapter (https://microsoft.github.io/debug-adapter-protocol/) for the language if supported.
 
 The interactive process used will be immediately blocked waiting for a client before continuing.
@@ -78,4 +82,3 @@ None
 - [filter](../goals/filter.mdx)
 
 </span>
-

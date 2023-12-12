@@ -24,6 +24,7 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -35,6 +36,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -46,6 +48,7 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 dependencies` or `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 peek` on this target to get the final result.
@@ -63,6 +66,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 <Field
     type_repr={`field.type_hint`}
 >
+
 A pip-style requirement string, e.g. `["Django==3.2.8"]`.
 
 You can specify multiple requirements for the same project in order to use environment markers, such as `["foo>=1.2,<1.3 ; python_version>'3.6'", "foo==0.9 ; python_version<'3'"]`.
@@ -76,6 +80,7 @@ If the requirement depends on some other requirement to work, such as needing `s
 <Field
     type_repr={`field.type_hint`}
 >
+
 The modules this requirement provides (used for dependency inference).
 
 For example, the requirement `setuptools` provides `["setuptools", "pkg_resources", "easy_install"]`.
@@ -91,6 +96,7 @@ Mutually exclusive with the `type_stub_modules` field.
 <Field
     type_repr={`field.type_hint`}
 >
+
 The modules this requirement provides if the requirement is a type stub (used for dependency inference).
 
 For example, the requirement `types-requests` provides `["requests"]`.
@@ -106,6 +112,7 @@ Mutually exclusive with the `modules` field.
 <Field
     type_repr={`field.type_hint`}
 >
+
 The resolve from `[python].resolves` that this requirement is included in.
 
 If not defined, will default to `[python].default_resolve`.
@@ -115,4 +122,3 @@ When generating a lockfile for a particular resolve via the `generate-lockfiles`
 </Field>
 
 </span>
-

@@ -28,7 +28,9 @@ Config section: <span className="color--primary">`[peek]`</span>
   env_repr="PANTS_PEEK_OUTPUT_FILE"
   default_repr={`None`}
 >
-  Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
 </Option>
 
 ### `exclude_defaults`
@@ -38,7 +40,9 @@ Config section: <span className="color--primary">`[peek]`</span>
   env_repr="PANTS_PEEK_EXCLUDE_DEFAULTS"
   default_repr={`False`}
 >
-  Whether to leave off values that match the target-defined default values.
+
+Whether to leave off values that match the target-defined default values.
+
 </Option>
 
 ### `include_dep_rules`
@@ -48,8 +52,10 @@ Config section: <span className="color--primary">`[peek]`</span>
   env_repr="PANTS_PEEK_INCLUDE_DEP_RULES"
   default_repr={`False`}
 >
-  Whether to include `_dependencies_rules`, `_dependents_rules` and
-  `_applicable_dep_rules` that apply to the target and its dependencies.
+
+Whether to include `_dependencies_rules`, `_dependents_rules` and
+`_applicable_dep_rules` that apply to the target and its dependencies.
+
 </Option>
 
 ## Advanced options
@@ -66,4 +72,3 @@ None
 - [filter](../subsystems/filter.mdx)
 
 </span>
-

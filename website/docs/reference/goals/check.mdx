@@ -28,11 +28,13 @@ Config section: <span className="color--primary">`[check]`</span>
   env_repr='PANTS_CHECK_ONLY'
   default_repr={`[]`}
 >
+
 Only run these checkers and skip all others.
 
 The checker names are outputted at the final summary of running this goal, e.g. `mypy` and `javac`. You can also run `check --only=fake` to get a list of all activated checkers.
 
 You can repeat this option, e.g. `check --only=mypy --only=javac` or `check --only=['mypy', 'javac']`.
+
 </Option>
 
 ## Advanced options

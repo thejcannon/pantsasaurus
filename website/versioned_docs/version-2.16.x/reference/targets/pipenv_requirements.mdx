@@ -20,6 +20,7 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -31,6 +32,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -43,6 +45,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
     type_repr={`field.type_hint`}
     default_repr={`FrozenDict({})`}
 >
+
 A mapping of requirement names to a list of the modules they provide.
 
 For example, `{"ansicolors": ["colors"]}`.
@@ -57,6 +60,7 @@ Any unspecified requirements will use a default. See the `modules` field from th
     type_repr={`field.type_hint`}
     default_repr={`FrozenDict({})`}
 >
+
 A mapping of type-stub requirement names to a list of the modules they provide.
 
 For example, `{"types-requests": ["requests"]}`.
@@ -71,6 +75,7 @@ If the requirement is not specified _and_ its name looks like a type stub, Pants
     type_repr={`field.type_hint`}
     default_repr={`'Pipfile.lock'`}
 >
+
 A single file that belongs to this target.
 
 Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
@@ -82,6 +87,7 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 <Field
     type_repr={`field.type_hint`}
 >
+
 Override the field values for generated `python_requirement` targets.
 
 Expects a dictionary of requirements to a dictionary for the overrides. You may either use a string for a single requirement, or a string tuple for multiple requirements. Each override is a dictionary of field names to the overridden value.
@@ -107,6 +113,7 @@ You can specify the same requirement in multiple keys, so long as you don&#x27;t
 <Field
     type_repr={`field.type_hint`}
 >
+
 The resolve from `[python].resolves` that this requirement is included in.
 
 If not defined, will default to `[python].default_resolve`.
@@ -116,4 +123,3 @@ When generating a lockfile for a particular resolve via the `generate-lockfiles`
 </Field>
 
 </span>
-

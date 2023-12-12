@@ -24,6 +24,7 @@ Config section: <span className="color--primary">`[go-test]`</span>
   env_repr='PANTS_GO_TEST_ARGS'
   default_repr={`[]`}
 >
+
 Arguments to pass directly to Go test binary, e.g. `--go-test-args='-run TestFoo -v'`.
 
 Known Go test options will be transformed into the form expected by the test binary, e.g. `-v` becomes `-test.v`. Run `go help testflag` from the Go SDK to learn more about the options supported by Go test binaries.
@@ -38,6 +39,7 @@ Known Go test options will be transformed into the form expected by the test bin
   one_of='set, count, atomic'
   default_repr={`set`}
 >
+
 Coverage mode to use when running Go tests with coverage analysis enabled via --test-use-coverage. Valid values are `set`, `count`, and `atomic`:
 
 - `set`: bool: does this statement run?
@@ -45,7 +47,8 @@ Coverage mode to use when running Go tests with coverage analysis enabled via --
 - `count`: int: how many times does this statement run?
 
 - `atomic`: int: count, but correct in multithreaded tests; significantly more expensive.
-  </Option>
+
+</Option>
 
 ### `coverage_html`
 
@@ -54,8 +57,10 @@ Coverage mode to use when running Go tests with coverage analysis enabled via --
   env_repr="PANTS_GO_TEST_COVERAGE_HTML"
   default_repr={`True`}
 >
-  If true, then convert coverage reports to HTML format and write a
-  `coverage.html` file next to the raw coverage data.
+
+If true, then convert coverage reports to HTML format and write a
+`coverage.html` file next to the raw coverage data.
+
 </Option>
 
 ### `coverage_packages`
@@ -65,6 +70,7 @@ Coverage mode to use when running Go tests with coverage analysis enabled via --
   env_repr='PANTS_GO_TEST_COVERAGE_PACKAGES'
   default_repr={`[]`}
 >
+
 A list of &quot;import path patterns&quot; for determining which import paths will be instrumented for code coverage.
 
 From `go help packages`:
@@ -84,8 +90,10 @@ This option is similar to the `go test -coverpkg` option, but without support cu
   env_repr="PANTS_GO_TEST_SKIP"
   default_repr={`False`}
 >
-  If true, don&#x27;t use Go test binary when running `scie-pants-linux-x86_64
+
+If true, don&#x27;t use Go test binary when running `scie-pants-linux-x86_64
   test`.
+
 </Option>
 
 ### `force_race`
@@ -95,6 +103,7 @@ This option is similar to the `go test -coverpkg` option, but without support cu
   env_repr='PANTS_GO_TEST_FORCE_RACE'
   default_repr={`False`}
 >
+
 If true, then always enable the Go data race detector when running tests regardless of the test-by-test `test_race` field on the relevant `go_package` target.
 
 See https://go.dev/doc/articles/race_detector for additional information about the Go data race detector.
@@ -108,6 +117,7 @@ See https://go.dev/doc/articles/race_detector for additional information about t
   env_repr='PANTS_GO_TEST_FORCE_MSAN'
   default_repr={`False`}
 >
+
 If true, then always enable interoperation between Go and the C/C++ &quot;memory sanitizer&quot; when running tests regardless of the test-by-test `msan` field on the relevant `go_package` target.
 
 See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
@@ -121,6 +131,7 @@ See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional inf
   env_repr='PANTS_GO_TEST_FORCE_ASAN'
   default_repr={`False`}
 >
+
 If true, then always enable interoperation between Go and the C/C++ &quot;address sanitizer&quot; when running tests regardless of the test-by-test `asan` field on the relevant `go_package` target.
 
 See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional information about the C/C++ address sanitizer.
@@ -134,10 +145,12 @@ See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional in
   env_repr="PANTS_GO_TEST_BLOCK_PROFILE"
   default_repr={`False`}
 >
-  Capture a goroutine blocking profile from the execution of the test runner.
-  The profile will be written to the file `block.out` in the test extra output
-  directory. The test binary will also be written to the test extra output
-  directory.
+
+Capture a goroutine blocking profile from the execution of the test runner.
+The profile will be written to the file `block.out` in the test extra output
+directory. The test binary will also be written to the test extra output
+directory.
+
 </Option>
 
 ### `cpu_profile`
@@ -147,9 +160,11 @@ See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional in
   env_repr="PANTS_GO_TEST_CPU_PROFILE"
   default_repr={`False`}
 >
-  Capture a CPU profile from the execution of the test runner. The profile will
-  be written to the file `cpu.out` in the test extra output directory. The test
-  binary will also be written to the test extra output directory.
+
+Capture a CPU profile from the execution of the test runner. The profile will
+be written to the file `cpu.out` in the test extra output directory. The test
+binary will also be written to the test extra output directory.
+
 </Option>
 
 ### `mem_profile`
@@ -159,10 +174,12 @@ See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional in
   env_repr="PANTS_GO_TEST_MEM_PROFILE"
   default_repr={`False`}
 >
-  Capture an allocation profile from the execution of the test runner after
-  tests have passed. The profile will be written to the file `mem.out` in the
-  test extra output directory. The test binary will also be written to the test
-  extra output directory.
+
+Capture an allocation profile from the execution of the test runner after
+tests have passed. The profile will be written to the file `mem.out` in the
+test extra output directory. The test binary will also be written to the test
+extra output directory.
+
 </Option>
 
 ### `mutex_profile`
@@ -172,10 +189,12 @@ See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional in
   env_repr="PANTS_GO_TEST_MUTEX_PROFILE"
   default_repr={`False`}
 >
-  Capture a mutex contention profile from the execution of the test runner when
-  all tests are complete. The profile will be written to the file `mutex.out` in
-  the test extra output directory. The test binary will also be written to the
-  test extra output directory.
+
+Capture a mutex contention profile from the execution of the test runner when
+all tests are complete. The profile will be written to the file `mutex.out` in
+the test extra output directory. The test binary will also be written to the
+test extra output directory.
+
 </Option>
 
 ### `trace`
@@ -185,8 +204,10 @@ See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional in
   env_repr="PANTS_GO_TEST_TRACE"
   default_repr={`False`}
 >
-  Capture an execution trace from the execution of the test runner. The trace
-  will be written to the file `trace.out` in the test extra output directory.
+
+Capture an execution trace from the execution of the test runner. The trace
+will be written to the file `trace.out` in the test extra output directory.
+
 </Option>
 
 ## Advanced options
@@ -198,6 +219,7 @@ See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional in
   env_repr='PANTS_GO_TEST_COVERAGE_OUTPUT_DIR'
   default_repr={`{distdir}/coverage/go/{target_spec}`}
 >
+
 Path to write the Go coverage reports to. Must be relative to the build root.
 
 Replacements:
@@ -209,7 +231,8 @@ Replacements:
 - `{import_path}` is replaced with the applicable package&#x27;s import path. Subdirectories will be made for any path components separated by `/` characters.
 
 - `{import_path_escaped}` is replaced with the applicable package&#x27;s import path but with slashes converted to underscores. This is deprecated and only exists to support behavior from earlier versions.
-  </Option>
+
+</Option>
 
 ### `output_test_binary`
 
@@ -218,6 +241,7 @@ Replacements:
   env_repr='PANTS_GO_TEST_OUTPUT_TEST_BINARY'
   default_repr={`False`}
 >
+
 Write the test binary to the test extra output directory.
 
 This is similar to the `go test -c` option, but will still run the underlying test.
@@ -229,4 +253,3 @@ This is similar to the `go test -c` option, but will still run the underlying te
 None
 
 </span>
-

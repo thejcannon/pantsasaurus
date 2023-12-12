@@ -25,10 +25,12 @@ Config section: <span className="color--primary">`[setup-py-generation]`</span>
   one_of="exact, compatible, any"
   default_repr={`exact`}
 >
-  What version to set in `install_requires` when a `python_distribution` depends
-  on other `python_distribution`s. If `exact`, will use `==`. If `compatible`,
-  will use `~=`. If `any`, will leave off the version. See
-  https://www.python.org/dev/peps/pep-0440/#version-specifiers.
+
+What version to set in `install_requires` when a `python_distribution` depends
+on other `python_distribution`s. If `exact`, will use `==`. If `compatible`,
+will use `~=`. If `any`, will leave off the version. See
+https://www.python.org/dev/peps/pep-0440/#version-specifiers.
+
 </Option>
 
 ## Advanced options
@@ -40,4 +42,3 @@ None
 None
 
 </span>
-

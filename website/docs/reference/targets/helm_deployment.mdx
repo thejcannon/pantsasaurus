@@ -20,9 +20,11 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -30,9 +32,11 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `chart`
@@ -40,7 +44,9 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 <Field
     type_repr={`field.type_hint`}
 >
+
 The address of the `helm_chart` or `helm_artifact` that will be used for this deployment.
+
 </Field>
 
 ## `release_name`
@@ -48,7 +54,9 @@ The address of the `helm_chart` or `helm_artifact` that will be used for this de
 <Field
     type_repr={`field.type_hint`}
 >
+
 Name of the release used in the deployment. If not set, the target name will be used instead.
+
 </Field>
 
 ## `dependencies`
@@ -56,6 +64,7 @@ Name of the release used in the deployment. If not set, the target name will be 
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `scie-pants-linux-x86_64 dependencies` or `scie-pants-linux-x86_64 peek` on this target to get the final result.
@@ -65,6 +74,7 @@ See https://www.pantsbuild.org/v2.18/docs/targets for more about how addresses a
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
 </Field>
 
 ## `sources`
@@ -73,7 +83,9 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
     type_repr={`field.type_hint`}
     default_repr={`('*.yaml', '*.yml')`}
 >
+
 Helm configuration files for a given deployment.
+
 </Field>
 
 ## `namespace`
@@ -81,7 +93,9 @@ Helm configuration files for a given deployment.
 <Field
     type_repr={`field.type_hint`}
 >
+
 Kubernetes namespace for the given deployment.
+
 </Field>
 
 ## `skip_crds`
@@ -90,7 +104,9 @@ Kubernetes namespace for the given deployment.
     type_repr={`field.type_hint`}
     default_repr={`False`}
 >
+
 If true, then does not deploy the Custom Resource Definitions that are defined in the chart.
+
 </Field>
 
 ## `values`
@@ -98,9 +114,11 @@ If true, then does not deploy the Custom Resource Definitions that are defined i
 <Field
     type_repr={`field.type_hint`}
 >
+
 Individual values to use when rendering a given deployment.
 
 Value names should be defined using dot-syntax as in the following example:
+
 ```
 helm_deployment(
     values={
@@ -111,6 +129,7 @@ helm_deployment(
 ```
 
 Values can be dynamically calculated using interpolation as shown in the following example:
+
 ```
 helm_deployment(
     values={
@@ -120,6 +139,7 @@ helm_deployment(
 ```
 
 Check the Helm backend documentation on what are the options available and its caveats when making usage of dynamic values in your deployments.
+
 </Field>
 
 ## `no_hooks`
@@ -128,7 +148,9 @@ Check the Helm backend documentation on what are the options available and its c
     type_repr={`field.type_hint`}
     default_repr={`False`}
 >
+
 If true, none of the lifecycle hooks of the given chart will be included in the deployment.
+
 </Field>
 
 ## `timeout`
@@ -136,7 +158,9 @@ If true, none of the lifecycle hooks of the given chart will be included in the 
 <Field
     type_repr={`field.type_hint`}
 >
+
 Timeout in seconds when running a Helm deployment.
+
 </Field>
 
 ## `post_renderers`
@@ -144,11 +168,13 @@ Timeout in seconds when running a Helm deployment.
 <Field
     type_repr={`field.type_hint`}
 >
+
 List of runnable targets to be used to post-process the helm chart after being rendered by Helm.
 
 This is equivalent to the same post-renderer feature already available in Helm with the difference that this supports a list of executables instead of a single one.
 
 When more than one post-renderer is given, they will be combined into a single one in which the input of each of them would be output of the previous one.
+
 </Field>
 
 ## `enable_dns`
@@ -157,9 +183,9 @@ When more than one post-renderer is given, they will be combined into a single o
     type_repr={`field.type_hint`}
     default_repr={`False`}
 >
+
 Enables DNS lookups when using the `getHostByName` template function.
+
 </Field>
-
-
 
 </span>

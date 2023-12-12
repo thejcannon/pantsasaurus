@@ -20,6 +20,7 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -31,6 +32,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -43,6 +45,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
     type_repr={`field.type_hint`}
     default_repr={`('*_test.sh', 'test_*.sh', 'tests.sh')`}
 >
+
 A list of files and globs that belong to this target.
 
 Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
@@ -56,6 +59,7 @@ Example: `sources=['test.sh', 'test_*.sh', '!test_ignore.sh']`
 <Field
     type_repr={`field.type_hint`}
 >
+
 Override the field values for generated `{generated_target_name}` targets.
 
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
@@ -85,7 +89,9 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
   default_repr={`False`}
   backend="pants.backend.shell.lint.shellcheck"
 >
-  If true, don&#x27;t run Shellcheck on this target&#x27;s code.
+
+If true, don&#x27;t run Shellcheck on this target&#x27;s code.
+
 </Field>
 
 ## `skip_shfmt`
@@ -95,7 +101,9 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
   default_repr={`False`}
   backend="pants.backend.shell.lint.shfmt"
 >
-  If true, don&#x27;t run shfmt on this target&#x27;s code.
+
+If true, don&#x27;t run shfmt on this target&#x27;s code.
+
 </Field>
 
 ## `dependencies`
@@ -103,6 +111,7 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `scie-pants-linux-x86_64 dependencies` or `scie-pants-linux-x86_64 peek` on this target to get the final result.
@@ -120,6 +129,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 <Field
     type_repr={`field.type_hint`}
 >
+
 A timeout (in seconds) used by each test file belonging to this target.
 
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
@@ -144,6 +154,7 @@ If unset, will default to `[test].timeout_default`; if that option is also unset
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to targets that can be built with the `scie-pants-linux-x86_64 package` goal and whose resulting artifacts should be included in the test run.
 
 Pants will build the artifacts as if you had run `scie-pants-linux-x86_64 package`. It will include the results in your test&#x27;s chroot, using the same name they would normally have, but without the `--distdir` prefix (e.g. `dist/`).
@@ -153,4 +164,3 @@ You can include anything that can be built by `scie-pants-linux-x86_64 package`,
 </Field>
 
 </span>
-

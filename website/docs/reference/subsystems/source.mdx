@@ -16,6 +16,7 @@ Config section: <span className="color--primary">`[source]`</span>
 <span className={styles.options}>
 
 ## Basic options
+
 None
 
 ## Advanced options
@@ -27,6 +28,7 @@ None
   env_repr='PANTS_SOURCE_ROOT_PATTERNS'
   default_repr={`[\n  "/",\n  "src",\n  "src/python",\n  "src/py",\n  "src/thrift",\n  "src/protobuf",\n  "src/protos",\n  "src/scala",\n  "src/java"\n]`}
 >
+
 A list of source root suffixes.
 
 A directory with this suffix will be considered a potential source root. E.g., `src/python` will match `<buildroot>/src/python`, `<buildroot>/project1/src/python` etc.
@@ -38,6 +40,7 @@ A `*` wildcard will match a single path segment, E.g., `src/*` will match `<buil
 Use `/` to signify that the buildroot itself is a source root.
 
 See https://www.pantsbuild.org/v2.18/docs/source-roots.
+
 </Option>
 
 ### `marker_filenames`
@@ -47,7 +50,9 @@ See https://www.pantsbuild.org/v2.18/docs/source-roots.
   env_repr='PANTS_SOURCE_MARKER_FILENAMES'
   default_repr={`[]`}
 >
+
 The presence of a file of this name in a directory indicates that the directory is a source root. The content of the file doesn&#x27;t matter, and may be empty. Useful when you can&#x27;t or don&#x27;t wish to centrally enumerate source roots via `root_patterns`.
+
 </Option>
 
 ## Deprecated options

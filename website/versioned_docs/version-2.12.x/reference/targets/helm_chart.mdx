@@ -20,6 +20,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -31,6 +32,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -49,6 +51,7 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
     type_repr={`field.type_hint`}
     default_repr={`('values.yaml', 'templates/*.yaml', 'templates/*.tpl')`}
 >
+
 A list of files and globs that belong to this target.
 
 Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
@@ -62,6 +65,7 @@ Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 dependencies` or `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 peek` on this target to get the final result.
@@ -79,6 +83,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 <Field
     type_repr={`field.type_hint`}
 >
+
 Where the built directory tree should be located.
 
 If undefined, this will use the path to the BUILD file, For example, `src/charts/mychart:tgt_name` would be `src.charts.mychart/tgt_name/`.
@@ -102,6 +107,7 @@ Warning: setting this value risks naming collisions with other package targets y
 <Field
     type_repr={`field.type_hint`}
 >
+
 Repository to use in the Helm registry where this chart is going to be published.
 
 If no value is given and `[helm].default-registry-repository` is undefined too, then the chart will be pushed to the root of the OCI registry.
@@ -114,6 +120,7 @@ If no value is given and `[helm].default-registry-repository` is undefined too, 
     type_repr={`field.type_hint`}
     default_repr={`('<ALL DEFAULT HELM REGISTRIES>',)`}
 >
+
 List of addresses or configured aliases to any OCI registries to use for the built chart.
 
 The address is an `oci://` prefixed domain name with optional port for your registry, and any registry aliases are prefixed with `@` for addresses in the [helm].registries configuration section.
@@ -149,4 +156,3 @@ The above example shows two valid `registry` options: using an alias to a config
 </Field>
 
 </span>
-

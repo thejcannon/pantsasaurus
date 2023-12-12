@@ -20,9 +20,11 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -30,9 +32,11 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `chart`
@@ -41,7 +45,9 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
     type_repr={`field.type_hint`}
     default_repr={`'Chart.yaml'`}
 >
+
 The chart definition file.
+
 </Field>
 
 ## `sources`
@@ -50,11 +56,13 @@ The chart definition file.
     type_repr={`field.type_hint`}
     default_repr={`('values.yaml', 'values.yml', 'templates/*.yaml', 'templates/*.yml', 'templates/*.tpl', 'crds/*.yaml', 'crds/*.yml')`}
 >
+
 A list of files and globs that belong to this target.
 
 Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
 
 Example: `sources=['values.yaml', 'templates/*.yaml', '!values_ignore.yaml']`
+
 </Field>
 
 ## `dependencies`
@@ -62,6 +70,7 @@ Example: `sources=['values.yaml', 'templates/*.yaml', '!values_ignore.yaml']`
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `scie-pants-linux-x86_64 dependencies` or `scie-pants-linux-x86_64 peek` on this target to get the final result.
@@ -71,6 +80,7 @@ See https://www.pantsbuild.org/v2.18/docs/targets for more about how addresses a
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
 </Field>
 
 ## `output_path`
@@ -78,6 +88,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 <Field
     type_repr={`field.type_hint`}
 >
+
 Where the built directory tree should be located.
 
 If undefined, this will use the path to the BUILD file, For example, `src/charts/mychart:tgt_name` would be `src.charts.mychart/tgt_name/`.
@@ -87,6 +98,7 @@ Regardless of whether you use the default or set this field, the path will end w
 When running `scie-pants-linux-x86_64 package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
 
 Warning: setting this value risks naming collisions with other package targets you may have.
+
 </Field>
 
 ## `lint_strict`
@@ -94,7 +106,9 @@ Warning: setting this value risks naming collisions with other package targets y
 <Field
     type_repr={`field.type_hint`}
 >
+
 If set to true, enables strict linting of this Helm chart.
+
 </Field>
 
 ## `repository`
@@ -102,9 +116,11 @@ If set to true, enables strict linting of this Helm chart.
 <Field
     type_repr={`field.type_hint`}
 >
+
 Repository to use in the Helm registry where this chart is going to be published.
 
 If no value is given and `[helm].default-registry-repository` is undefined too, then the chart will be pushed to the root of the OCI registry.
+
 </Field>
 
 ## `version`
@@ -112,9 +128,11 @@ If no value is given and `[helm].default-registry-repository` is undefined too, 
 <Field
     type_repr={`field.type_hint`}
 >
+
 Version number for the given Helm chart.
 
 When specified, the version provided in the source Chart.yaml file will be overriden by the value given to this field.
+
 </Field>
 
 ## `registries`
@@ -123,6 +141,7 @@ When specified, the version provided in the source Chart.yaml file will be overr
     type_repr={`field.type_hint`}
     default_repr={`('<ALL DEFAULT HELM REGISTRIES>',)`}
 >
+
 List of addresses or configured aliases to any OCI registries to use for the built chart.
 
 The address is an `oci://` prefixed domain name with optional port for your registry, and any registry aliases are prefixed with `@` for addresses in the `[helm].registries` configuration section.
@@ -130,6 +149,7 @@ The address is an `oci://` prefixed domain name with optional port for your regi
 By default, all configured registries with `default = true` are used.
 
 Example:
+
 ```
 # pants.toml
 [helm.registries.my-registry-alias]
@@ -146,6 +166,7 @@ helm_chart(
 ```
 
 The above example shows two valid `registry` options: using an alias to a configured registry and the address to a registry verbatim in the BUILD file.
+
 </Field>
 
 ## `skip_push`
@@ -154,7 +175,9 @@ The above example shows two valid `registry` options: using an alias to a config
     type_repr={`field.type_hint`}
     default_repr={`False`}
 >
+
 If set to true, do not push this Helm chart to registries when running `scie-pants-linux-x86_64 publish`.
+
 </Field>
 
 ## `skip_lint`
@@ -163,9 +186,9 @@ If set to true, do not push this Helm chart to registries when running `scie-pan
     type_repr={`field.type_hint`}
     default_repr={`False`}
 >
+
 If set to true, do not run any linting in this Helm chart when running `scie-pants-linux-x86_64 lint`.
+
 </Field>
-
-
 
 </span>

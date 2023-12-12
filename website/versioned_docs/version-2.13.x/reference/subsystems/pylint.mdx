@@ -24,8 +24,10 @@ Config section: <span className="color--primary">`[pylint]`</span>
   env_repr="PANTS_PYLINT_SKIP"
   default_repr={`False`}
 >
-  Don&#x27;t use Pylint when running
-  `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
+
+Don&#x27;t use Pylint when running
+`/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
+
 </Option>
 
 ### `args`
@@ -35,8 +37,10 @@ Config section: <span className="color--primary">`[pylint]`</span>
   env_repr="PANTS_PYLINT_ARGS"
   default_repr={`[]`}
 >
-  Arguments to pass directly to Pylint, e.g.
-  `--pylint-args='--ignore=foo.py,bar.py --disable=C0330,W0311'`.
+
+Arguments to pass directly to Pylint, e.g.
+`--pylint-args='--ignore=foo.py,bar.py --disable=C0330,W0311'`.
+
 </Option>
 
 ### `export`
@@ -46,6 +50,7 @@ Config section: <span className="color--primary">`[pylint]`</span>
   env_repr='PANTS_PYLINT_EXPORT'
   default_repr={`True`}
 >
+
 If true, export a virtual environment with Pylint when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 export`.
 
 This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
@@ -61,7 +66,9 @@ This can be useful, for example, with IDE integrations to point your editor to t
   env_repr="PANTS_PYLINT_VERSION"
   default_repr={`pylint>=2.11.0,<2.12`}
 >
-  Requirement string for the tool.
+
+Requirement string for the tool.
+
 </Option>
 
 ### `extra_requirements`
@@ -71,9 +78,11 @@ This can be useful, for example, with IDE integrations to point your editor to t
   env_repr="PANTS_PYLINT_EXTRA_REQUIREMENTS"
   default_repr={`[]`}
 >
-  Any additional requirement strings to use with the tool. This is useful if the
-  tool allows you to install plugins or if you need to constrain a dependency to
-  a certain version.
+
+Any additional requirement strings to use with the tool. This is useful if the
+tool allows you to install plugins or if you need to constrain a dependency to
+a certain version.
+
 </Option>
 
 ### `lockfile`
@@ -83,6 +92,7 @@ This can be useful, for example, with IDE integrations to point your editor to t
   env_repr='PANTS_PYLINT_LOCKFILE'
   default_repr={`<default>`}
 >
+
 Path to a lockfile used for installing the tool.
 
 Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` and `--extra-requirements` options, and the tool&#x27;s interpreter constraints are compatible with the default. Pants will error or warn if the lockfile is not compatible (controlled by `[python].invalid_lockfile_behavior`). See https://github.com/pantsbuild/pants/blob/release_2.13.1/src/python/pants/backend/python/lint/pylint/pylint.lock for the default lockfile contents.
@@ -102,10 +112,12 @@ As explained at https://www.pantsbuild.org/v2.13/docs/python-third-party-depende
   env_repr="PANTS_PYLINT_CONSOLE_SCRIPT"
   default_repr={`pylint`}
 >
-  The console script for the tool. Using this option is generally preferable to
-  (and mutually exclusive with) specifying an --entry-point since console script
-  names have a higher expectation of staying stable across releases of the tool.
-  Usually, you will not want to change this from the default.
+
+The console script for the tool. Using this option is generally preferable to
+(and mutually exclusive with) specifying an --entry-point since console script
+names have a higher expectation of staying stable across releases of the tool.
+Usually, you will not want to change this from the default.
+
 </Option>
 
 ### `entry_point`
@@ -115,9 +127,11 @@ As explained at https://www.pantsbuild.org/v2.13/docs/python-third-party-depende
   env_repr="PANTS_PYLINT_ENTRY_POINT"
   default_repr={`None`}
 >
-  The entry point for the tool. Generally you only want to use this option if
-  the tool does not offer a --console-script (which this option is mutually
-  exclusive with). Usually, you will not want to change this from the default.
+
+The entry point for the tool. Generally you only want to use this option if
+the tool does not offer a --console-script (which this option is mutually
+exclusive with). Usually, you will not want to change this from the default.
+
 </Option>
 
 ### `config`
@@ -127,6 +141,7 @@ As explained at https://www.pantsbuild.org/v2.13/docs/python-third-party-depende
   env_repr='PANTS_PYLINT_CONFIG'
   default_repr={`None`}
 >
+
 Path to a config file understood by Pylint (http://pylint.pycqa.org/en/latest/user_guide/run.html#command-line-options).
 
 Setting this option will disable `[pylint].config_discovery`. Use this option if the config is located in a non-standard location.
@@ -140,6 +155,7 @@ Setting this option will disable `[pylint].config_discovery`. Use this option if
   env_repr='PANTS_PYLINT_CONFIG_DISCOVERY'
   default_repr={`True`}
 >
+
 If true, Pants will include any relevant config files during runs (`.pylintrc`, `pylintrc`, `pyproject.toml`, and `setup.cfg`).
 
 Use `[pylint].config` instead if your config is in a non-standard location.
@@ -153,6 +169,7 @@ Use `[pylint].config` instead if your config is in a non-standard location.
   env_repr='PANTS_PYLINT_SOURCE_PLUGINS'
   default_repr={`[]`}
 >
+
 An optional list of `python_sources` target addresses to load first-party plugins.
 
 You must set the plugin&#x27;s parent directory as a source root. For example, if your plugin is at `build-support/pylint/custom_plugin.py`, add &#x27;build-support/pylint&#x27; to `[source].root_patterns` in `pants.toml`. This is necessary for Pants to know how to tell Pylint to discover your plugin. See https://www.pantsbuild.org/v2.13/docs/source-roots
@@ -172,4 +189,3 @@ Tip: it&#x27;s often helpful to define a dedicated &#x27;resolve&#x27; via `[pyt
 None
 
 </span>
-

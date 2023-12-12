@@ -24,6 +24,7 @@ Config section: <span className="color--primary">`[go-test]`</span>
   env_repr='PANTS_GO_TEST_ARGS'
   default_repr={`[]`}
 >
+
 Arguments to pass directly to Go test binary, e.g. `--go-test-args='-run TestFoo -v'`.
 
 Known Go test options will be transformed into the form expected by the test binary, e.g. `-v` becomes `-test.v`. Run `go help testflag` from the Go SDK to learn more about the options supported by Go test binaries.
@@ -38,6 +39,7 @@ Known Go test options will be transformed into the form expected by the test bin
   one_of='set, count, atomic'
   default_repr={`set`}
 >
+
 Coverage mode to use when running Go tests with coverage analysis enabled via --test-use-coverage. Valid values are `set`, `count`, and `atomic`:
 
 - `set`: bool: does this statement run?
@@ -45,7 +47,8 @@ Coverage mode to use when running Go tests with coverage analysis enabled via --
 - `count`: int: how many times does this statement run?
 
 - `atomic`: int: count, but correct in multithreaded tests; significantly more expensive.
-  </Option>
+
+</Option>
 
 ## Advanced options
 
@@ -56,10 +59,12 @@ Coverage mode to use when running Go tests with coverage analysis enabled via --
   env_repr="PANTS_GO_TEST_COVERAGE_OUTPUT_DIR"
   default_repr={`{distdir}/coverage/go/{import_path_escaped}`}
 >
-  Path to write the Go coverage reports to. Must be relative to the build root.
-  `{distdir}` is replaced with the Pants `distdir`, and `{import_path_escaped}`
-  is replaced with the applicable package&#x27;s import path but with slashes
-  converted to underscores.
+
+Path to write the Go coverage reports to. Must be relative to the build root.
+`{distdir}` is replaced with the Pants `distdir`, and `{import_path_escaped}`
+is replaced with the applicable package&#x27;s import path but with slashes
+converted to underscores.
+
 </Option>
 
 ## Deprecated options
@@ -67,4 +72,3 @@ Coverage mode to use when running Go tests with coverage analysis enabled via --
 None
 
 </span>
-

@@ -28,6 +28,7 @@ None
   env_repr='PANTS_PEX_EXECUTABLE_SEARCH_PATHS'
   default_repr={`["<PATH>"]`}
 >
+
 The PATH value that will be used by the PEX subprocess and any subprocesses it spawns.
 
 The special string `"<PATH>"` will expand to the contents of the PATH env var.
@@ -41,8 +42,10 @@ The special string `"<PATH>"` will expand to the contents of the PATH env var.
   env_repr="PANTS_PEX_VERBOSITY"
   default_repr={`0`}
 >
-  Set the verbosity level of PEX logging, from 0 (no logging) up to 9 (max
-  logging).
+
+Set the verbosity level of PEX logging, from 0 (no logging) up to 9 (max
+logging).
+
 </Option>
 
 ### `venv_use_symlinks`
@@ -52,6 +55,7 @@ The special string `"<PATH>"` will expand to the contents of the PATH env var.
   env_repr='PANTS_PEX_VENV_USE_SYMLINKS'
   default_repr={`False`}
 >
+
 When possible, use venvs whose site-packages directories are populated withsymlinks.
 
 Enabling this can save space in the `--named-caches-dir` directory and lead to slightly faster execution times for Pants Python goals. Some distributions do not work with symlinked venvs though, so you may not be able to enable this optimization as a result.
@@ -63,4 +67,3 @@ Enabling this can save space in the `--named-caches-dir` directory and lead to s
 None
 
 </span>
-

@@ -24,9 +24,11 @@ Backend: <span className="color--primary">`pants.backend.experimental.adhoc`</sp
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
 </Field>
 
 ## `description`
@@ -34,9 +36,11 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
 </Field>
 
 ## `binary_name`
@@ -44,7 +48,9 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 <Field
     type_repr={`field.type_hint`}
 >
+
 The name of the binary to find.
+
 </Field>
 
 ## `extra_search_paths`
@@ -53,7 +59,9 @@ The name of the binary to find.
     type_repr={`field.type_hint`}
     default_repr={`()`}
 >
+
 Extra search paths to look for the binary. These take priority over Pants&#x27; default search paths.
+
 </Field>
 
 ## `fingerprint`
@@ -61,7 +69,9 @@ Extra search paths to look for the binary. These take priority over Pants&#x27; 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A regular expression which will be used to match the fingerprint outputs from candidate binaries found during the search process.
+
 </Field>
 
 ## `fingerprint_args`
@@ -70,7 +80,9 @@ A regular expression which will be used to match the fingerprint outputs from ca
     type_repr={`field.type_hint`}
     default_repr={`()`}
 >
+
 Specifies arguments that will be used to run the binary during the search process.
+
 </Field>
 
 ## `fingerprint_dependencies`
@@ -78,9 +90,9 @@ Specifies arguments that will be used to run the binary during the search proces
 <Field
     type_repr={`field.type_hint`}
 >
+
 Specifies any runnable dependencies that need to be available on the `PATH` when the binary is run, so that the search process may complete successfully. The name of the target must be the name of the runnable dependency that is called by this binary.
+
 </Field>
-
-
 
 </span>

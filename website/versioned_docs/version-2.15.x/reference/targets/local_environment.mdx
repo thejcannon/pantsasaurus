@@ -26,6 +26,7 @@ Backend: <span className="color--primary">`pants.core`</span>
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -37,6 +38,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -49,6 +51,7 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
     type_repr={`field.type_hint`}
     default_repr={`('linux_arm64', 'linux_x86_64', 'macos_arm64', 'macos_x86_64')`}
 >
+
 Which platforms this environment can be used with.
 
 This is used for Pants to automatically determine which environment target to use for the user&#x27;s machine when the environment is set to the special value `__local__`. Currently, there cannot be more than one environment target registered in `[environments-preview].names` for a particular platform. If there is no environment target for a certain platform, Pants will use the options system instead to determine environment variables and executable search paths.
@@ -60,6 +63,7 @@ This is used for Pants to automatically determine which environment target to us
 <Field
     type_repr={`field.type_hint`}
 >
+
 The environment to fallback to when this local environment cannot be used because the field `compatible_platforms` is not compatible with the local host.
 
 Must be an environment name from the option `[environments-preview].names`, the special string `__local__` to use the relevant local environment, or the Python value `None` to error when this specific local environment cannot be used.
@@ -158,8 +162,10 @@ Tip: when targeting Linux, it can be particularly helpful to fallback to a `dock
   type_repr={`field.type_hint`}
   backend="pants.backend.codegen.thrift.apache.python"
 >
-  Overrides the default value from the option
-  `[apache-thrift].thrift_search_paths` when this environment target is active.
+
+Overrides the default value from the option
+`[apache-thrift].thrift_search_paths` when this environment target is active.
+
 </Field>
 
 ## `python_native_code_cpp_flags`
@@ -233,4 +239,3 @@ Tip: when targeting Linux, it can be particularly helpful to fallback to a `dock
 </Field>
 
 </span>
-

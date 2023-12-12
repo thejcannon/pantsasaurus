@@ -34,6 +34,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.adhoc`</sp
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -45,6 +46,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -72,6 +74,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 <Field
     type_repr={`field.type_hint`}
 >
+
 The execution dependencies for this command.
 
 Dependencies specified here are those required to make the command complete successfully (e.g. file inputs, packages compiled from other targets, etc), but NOT required to make the output side-effects useful. Dependencies that are required to use the side-effects produced by this command should be specified using the `output_dependencies` field.
@@ -87,6 +90,7 @@ See also `output_dependencies` and `runnable_dependencies`.
 <Field
     type_repr={`field.type_hint`}
 >
+
 Any dependencies that the output artifacts require in order to be effectively consumed.
 
 To enable legacy use cases, if `execution_dependencies` is `None`, these dependencies will be materialized in the execution sandbox. This behavior is deprecated, and will be removed in version 2.17.0.dev0.
@@ -100,6 +104,7 @@ See also `execution_dependencies` and `runnable_dependencies`.
 <Field
     type_repr={`field.type_hint`}
 >
+
 The runnable dependencies for this command.
 
 Dependencies specified here are those required to exist on the `PATH` to make the command complete successfully (interpreters specified in a `#!` command, etc). Note that these dependencies will be made available on the `PATH` with the name of the target.
@@ -120,6 +125,7 @@ See also `output_dependencies` and `execution_dependencies.
     type_repr={`field.type_hint`}
     default_repr={`()`}
 >
+
 Specify the output files to capture, relative to the value of `workdir`.
 
 For directories, use `output_directories`. At least one of `output_files` and`output_directories` must be specified.
@@ -134,6 +140,7 @@ Relative paths (including `..`) may be used, as long as the path does not ascend
     type_repr={`field.type_hint`}
     default_repr={`()`}
 >
+
 Specify full directories (including recursive descendants) of output to capture, relative to the value of `workdir`.
 
 For individual files, use `output_files`. At least one of `output_files` and`output_directories` must be specified.
@@ -153,6 +160,7 @@ Relative paths (including `..`) may be used, as long as the path does not ascend
 <Field
     type_repr={`field.type_hint`}
 >
+
 Additional environment variables to provide to the process.
 
 Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
@@ -165,6 +173,7 @@ Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_
     type_repr={`field.type_hint`}
     default_repr={`'.'`}
 >
+
 Sets the working directory for the process.
 
 Values are relative to the build root, except in the following cases:
@@ -181,7 +190,9 @@ Values are relative to the build root, except in the following cases:
     type_repr={`field.type_hint`}
     default_repr={`'/'`}
 >
+
 Adjusts the location of files output by this target, when consumed as a dependency.
+
 ```
     Values are relative to the build root, except in the following cases:
 
@@ -191,6 +202,7 @@ Adjusts the location of files output by this target, when consumed as a dependen
     * Values beginning with `/` are also relative to the build root.
 
 ```
+
 </Field>
 
 ## `stdout`
@@ -198,7 +210,9 @@ Adjusts the location of files output by this target, when consumed as a dependen
 <Field
     type_repr={`field.type_hint`}
 >
+
 A filename to capture the contents of `stdout` to. Relative paths are relative to the value of `workdir`, absolute paths start at the build root.
+
 </Field>
 
 ## `stderr`
@@ -206,7 +220,9 @@ A filename to capture the contents of `stdout` to. Relative paths are relative t
 <Field
     type_repr={`field.type_hint`}
 >
+
 A filename to capture the contents of `stderr` to. Relative paths are relative to the value of `workdir`, absolute paths start at the build root.
+
 </Field>
 
 ## `environment`
@@ -215,15 +231,14 @@ A filename to capture the contents of `stderr` to. Relative paths are relative t
     type_repr={`field.type_hint`}
     default_repr={`'__local__'`}
 >
+
 Specify which environment target to consume environment-sensitive options from.
 
 Once environments are defined in `[environments-preview].names`, you can specify the environment for this target by its name. Any fields that are defined in that environment will override the values from options set by `pants.toml`, command line values, or environment variables.
 
 You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
+
 </Field>
-
-
 
 </span>
 ```
-

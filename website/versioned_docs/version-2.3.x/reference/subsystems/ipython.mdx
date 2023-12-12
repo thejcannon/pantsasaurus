@@ -28,7 +28,9 @@ None
   env_repr="PANTS_IPYTHON_VERSION"
   default_repr={`ipython==7.16.1`}
 >
-  Requirement string for the tool.
+
+Requirement string for the tool.
+
 </Option>
 
 ### `extra_requirements`
@@ -38,9 +40,11 @@ None
   env_repr="PANTS_IPYTHON_EXTRA_REQUIREMENTS"
   default_repr={`[]`}
 >
-  Any additional requirement strings to use with the tool. This is useful if the
-  tool allows you to install plugins or if you need to constrain a dependency to
-  a certain version.
+
+Any additional requirement strings to use with the tool. This is useful if the
+tool allows you to install plugins or if you need to constrain a dependency to
+a certain version.
+
 </Option>
 
 ### `entry_point`
@@ -50,8 +54,10 @@ None
   env_repr="PANTS_IPYTHON_ENTRY_POINT"
   default_repr={`IPython:start_ipython`}
 >
-  The main module for the tool. Usually, you will not want to change this from
-  the default.
+
+The main module for the tool. Usually, you will not want to change this from
+the default.
+
 </Option>
 
 ### `ignore_cwd`
@@ -61,6 +67,7 @@ None
   env_repr='PANTS_IPYTHON_IGNORE_CWD'
   default_repr={`True`}
 >
+
 Whether to tell IPython not to put the CWD on the import path.
 
 Normally you want this to be True, so that imports come from the hermetic environment Pants creates.
@@ -74,4 +81,3 @@ However IPython&lt;7.13.0 doesn&#x27;t support this option, so if you&#x27;re us
 None
 
 </span>
-

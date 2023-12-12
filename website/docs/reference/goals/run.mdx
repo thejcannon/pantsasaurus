@@ -32,7 +32,9 @@ Config section: <span className="color--primary">`[run]`</span>
   env_repr='PANTS_RUN_ARGS'
   default_repr={`[]`}
 >
+
 Arguments to pass directly to the executed target, e.g. `--run-args='val1 val2 --debug'`.
+
 </Option>
 
 ### `debug_adapter`
@@ -42,9 +44,11 @@ Arguments to pass directly to the executed target, e.g. `--run-args='val1 val2 -
   env_repr='PANTS_RUN_DEBUG_ADAPTER'
   default_repr={`False`}
 >
+
 Run the interactive process using a Debug Adapter (https://microsoft.github.io/debug-adapter-protocol/) for the language if supported.
 
 The interactive process used will be immediately blocked waiting for a client before continuing.
+
 </Option>
 
 ## Advanced options

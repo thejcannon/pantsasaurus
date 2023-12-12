@@ -26,6 +26,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.python`</s
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -37,6 +38,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -49,6 +51,7 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
     type_repr={`field.type_hint`}
     default_repr={`'^(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)(?:\\+.*)?$'`}
 >
+
 A Python regex string to extract the version string from a VCS tag.
 
 The regex needs to contain either a single match group, or a group named version, that captures the actual version information.
@@ -64,6 +67,7 @@ See https://github.com/pypa/setuptools_scm for implementation details.
 <Field
     type_repr={`field.type_hint`}
 >
+
 Generate the version data to this relative path, using the template field.
 
 Note that the generated output will not be written to disk in the source tree, but will be available as a generated dependency to code that depends on this target.
@@ -75,6 +79,7 @@ Note that the generated output will not be written to disk in the source tree, b
 <Field
     type_repr={`field.type_hint`}
 >
+
 Generate the version data using this format string, which takes a version format kwarg.
 
 E.g., &#x27;version = &quot;&#123;version&#125;&quot;&#x27;
@@ -87,6 +92,7 @@ E.g., &#x27;version = &quot;&#123;version&#125;&quot;&#x27;
     type_repr={`field.type_hint`}
     backend="pants.backend.experimental.python"
 >
+
 The resolve from `[python].resolves` to use.
 
 If not defined, will default to `[python].default_resolve`.
@@ -96,4 +102,3 @@ All dependencies must share the same value for their `resolve` field.
 </Field>
 
 </span>
-

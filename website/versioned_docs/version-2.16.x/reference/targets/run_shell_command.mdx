@@ -33,6 +33,7 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -44,6 +45,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -55,6 +57,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 <Field
     type_repr={`field.type_hint`}
 >
+
 The execution dependencies for this command.
 
 Dependencies specified here are those required to make the command complete successfully (e.g. file inputs, packages compiled from other targets, etc), but NOT required to make the outputs of the command useful.
@@ -68,6 +71,7 @@ See also `runnable_dependencies`.
 <Field
     type_repr={`field.type_hint`}
 >
+
 The runnable dependencies for this command.
 
 Dependencies specified here are those required to exist on the `PATH` to make the command complete successfully (interpreters specified in a `#!` command, etc). Note that these dependencies will be made available on the `PATH` with the name of the target.
@@ -81,6 +85,7 @@ See also `execution_dependencies`.
 <Field
     type_repr={`field.type_hint`}
 >
+
 Shell command to execute.
 
 The command is executed as &#x27;bash -c &lt;command&gt;&#x27; by default. If you want to invoke a binary use `exec -a $0 <binary> <args>` as the command so that the binary gets the correct `argv[0]` set.
@@ -93,6 +98,7 @@ The command is executed as &#x27;bash -c &lt;command&gt;&#x27; by default. If yo
     type_repr={`field.type_hint`}
     default_repr={`'.'`}
 >
+
 Sets the working directory for the process.
 
 Values are relative to the build root, except in the following cases:
@@ -104,4 +110,3 @@ Values are relative to the build root, except in the following cases:
   </Field>
 
 </span>
-

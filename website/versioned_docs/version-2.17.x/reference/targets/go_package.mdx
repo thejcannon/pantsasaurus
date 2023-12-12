@@ -22,6 +22,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -33,6 +34,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -44,6 +46,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `scie-pants-linux-x86_64 dependencies` or `scie-pants-linux-x86_64 peek` on this target to get the final result.
@@ -62,6 +65,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
     type_repr={`field.type_hint`}
     default_repr={`('*.go',)`}
 >
+
 A list of files and globs that belong to this target.
 
 Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
@@ -75,6 +79,7 @@ Example: `sources=['example.go', '*_test.go', '!test_ignore.go']`
 <Field
     type_repr={`field.type_hint`}
 >
+
 Additional environment variables to include in test processes.
 
 Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
@@ -88,6 +93,7 @@ This will be merged with and override values from `[test].extra_env_vars`.
 <Field
     type_repr={`field.type_hint`}
 >
+
 A timeout (in seconds) used by each test file belonging to this target.
 
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
@@ -99,6 +105,7 @@ If unset, will default to `[test].timeout_default`; if that option is also unset
 <Field
     type_repr={`field.type_hint`}
 >
+
 Enable compiling this package&#x27;s test binary with the Go data race detector.
 
 See https://go.dev/doc/articles/race_detector for additional information about the Go data race detector.
@@ -110,6 +117,7 @@ See https://go.dev/doc/articles/race_detector for additional information about t
 <Field
     type_repr={`field.type_hint`}
 >
+
 Enable interoperation between Go code and the C/C++ &quot;memory sanitizer&quot; when building this package&#x27;s test binary.
 
 See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
@@ -121,6 +129,7 @@ See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional inf
 <Field
     type_repr={`field.type_hint`}
 >
+
 Enable interoperation between Go code and the C/C++ &quot;address sanitizer&quot; when building this package&#x27;s test binary.
 
 See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional information about the C/C++ address sanitizer.
@@ -132,6 +141,7 @@ See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional in
 <Field
     type_repr={`field.type_hint`}
 >
+
 Extra flags to pass to the Go assembler (i.e., `go tool asm`) when assembling Go-format assembly code.
 
 Note: These flags will not be added to gcc/clang-format assembly that is assembled in packages using Cgo.
@@ -153,6 +163,7 @@ Run `go doc cmd/asm` to see the flags supported by `go tool asm`.
 <Field
     type_repr={`field.type_hint`}
 >
+
 Extra flags to pass to the Go compiler (i.e., `go tool compile`) when compiling Go code.
 
 This field can be specified on several different target types:
@@ -180,8 +191,9 @@ Run `go doc cmd/compile` to see the flags supported by `go tool compile`.
   default_repr={`False`}
   backend="pants.backend.experimental.go"
 >
-  If true, don&#x27;t run gofmt on this package.
+
+If true, don&#x27;t run gofmt on this package.
+
 </Field>
 
 </span>
-

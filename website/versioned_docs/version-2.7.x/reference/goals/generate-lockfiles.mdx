@@ -28,6 +28,7 @@ Config section: <span className="color--primary">`[generate-lockfiles]`</span>
   env_repr='PANTS_GENERATE_LOCKFILES_RESOLVE'
   default_repr={`[]`}
 >
+
 Only generate lockfiles for the specified resolve(s).
 
 For now, resolves are the options scope for each Python tool that supports lockfiles, such as `black`, `pytest`, and `mypy-protobuf`. For example, you can run `./pants generate-lockfiles --resolve=black --resolve=pytest` to only generate the lockfile for those two tools.
@@ -47,7 +48,9 @@ If not specified, Pants will generate for all resolves.
   env_repr='PANTS_GENERATE_LOCKFILES_CUSTOM_COMMAND'
   default_repr={`None`}
 >
+
 If set, lockfile headers will say to run this command to regenerate the lockfile, rather than running `./pants generate-lockfiles --resolve=<name>` like normal.
+
 </Option>
 
 ## Deprecated options
@@ -86,4 +89,3 @@ None
 - [yapf](../subsystems/yapf.mdx)
 
 </span>
-

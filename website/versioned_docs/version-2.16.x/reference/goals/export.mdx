@@ -28,8 +28,10 @@ Config section: <span className="color--primary">`[export]`</span>
   env_repr="PANTS_EXPORT_RESOLVE"
   default_repr={`[]`}
 >
-  Export the specified resolve(s). The export format is backend-specific, e.g.,
-  Python resolves are exported as virtualenvs.
+
+Export the specified resolve(s). The export format is backend-specific, e.g.,
+Python resolves are exported as virtualenvs.
+
 </Option>
 
 ### `py_resolve_format`
@@ -40,8 +42,11 @@ Config section: <span className="color--primary">`[export]`</span>
   one_of='mutable_virtualenv, symlinked_immutable_virtualenv'
   default_repr={`mutable_virtualenv`}
 >
+
 Export Python resolves using this format. Options are:
-  - mutable_virtualenv: Export a standalone mutable virtualenv that you can
+
+- mutable_virtualenv: Export a standalone mutable virtualenv that you can
+
 ```
 further modify.
 ```
@@ -73,10 +78,12 @@ None
     "Set the `[export].py_resolve_format` option to 'symlinked_immutable_virtualenv'"
   }
 >
-  Export a symlink into a cached Python virtualenv. This virtualenv will have no
-  pip binary, and will be immutable. Any attempt to modify it will corrupt the
-  cache! It may, however, take significantly less time to export than a
-  standalone, mutable virtualenv will.
+
+Export a symlink into a cached Python virtualenv. This virtualenv will have no
+pip binary, and will be immutable. Any attempt to modify it will corrupt the
+cache! It may, however, take significantly less time to export than a
+standalone, mutable virtualenv will.
+
 </Option>
 
 ## Related subsystems
@@ -85,4 +92,3 @@ None
 - [filter](../subsystems/filter.mdx)
 
 </span>
-

@@ -24,7 +24,9 @@ Config section: <span className="color--primary">`[jarjar]`</span>
   env_repr="PANTS_JARJAR_SKIP_MANIFEST"
   default_repr={`False`}
 >
-  Skip the processing of the JAR manifest.
+
+Skip the processing of the JAR manifest.
+
 </Option>
 
 ### `misplaced_class_strategy`
@@ -35,7 +37,9 @@ Config section: <span className="color--primary">`[jarjar]`</span>
   one_of="fatal, skip, omit, move"
   default_repr={`None`}
 >
-  The strategy to use when processing class files that are in the wrong package.
+
+The strategy to use when processing class files that are in the wrong package.
+
 </Option>
 
 ## Advanced options
@@ -47,8 +51,10 @@ Config section: <span className="color--primary">`[jarjar]`</span>
   env_repr="PANTS_JARJAR_VERSION"
   default_repr={`1.8.1`}
 >
-  Version string for the tool. This is available for substitution in the
-  `[jarjar].artifacts` option by including the string `{version}`.
+
+Version string for the tool. This is available for substitution in the
+`[jarjar].artifacts` option by including the string `{version}`.
+
 </Option>
 
 ### `artifacts`
@@ -58,11 +64,13 @@ Config section: <span className="color--primary">`[jarjar]`</span>
   env_repr="PANTS_JARJAR_ARTIFACTS"
   default_repr={`["com.eed3si9n.jarjar:jarjar-assembly:{version}"]`}
 >
-  Artifact requirements for this tool using specified as either the address of a
-  `jvm_artifact` target or, alternatively, as a colon-separated Maven
-  coordinates (e.g., group:name:version). For Maven coordinates, the string `
+
+Artifact requirements for this tool using specified as either the address of a
+`jvm_artifact` target or, alternatively, as a colon-separated Maven
+coordinates (e.g., group:name:version). For Maven coordinates, the string `
   {version}` version will be substituted with the value of the
-  `[jarjar].version` option.
+`[jarjar].version` option.
+
 </Option>
 
 ### `lockfile`
@@ -72,6 +80,7 @@ Config section: <span className="color--primary">`[jarjar]`</span>
   env_repr='PANTS_JARJAR_LOCKFILE'
   default_repr={`<default>`}
 >
+
 Path to a lockfile used for installing the tool.
 
 Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.17.1rc3/src/python/pants/jvm/shading/jarjar.default.lockfile.txt for the default lockfile contents.
@@ -87,6 +96,7 @@ To use a custom lockfile, set this option to a file path relative to the build r
   env_repr='PANTS_JARJAR_JVM_OPTIONS'
   default_repr={`[]`}
 >
+
 List of JVM options to pass to `jarjar` JVM processes.
 
 Options set here will be added to those set in `[jvm].global_options`. Please check the documentation for the `jvm` subsystem to see what values are accepted here.
@@ -98,4 +108,3 @@ Options set here will be added to those set in `[jvm].global_options`. Please ch
 None
 
 </span>
-

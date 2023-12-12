@@ -20,6 +20,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.scala`</sp
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -31,6 +32,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -43,6 +45,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
     type_repr={`field.type_hint`}
     default_repr={`('*Spec.scala', '*Suite.scala')`}
 >
+
 A list of files and globs that belong to this target.
 
 Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
@@ -56,6 +59,7 @@ Example: `sources=['*Spec.scala', '!SuiteIgnore.scala']`
 <Field
     type_repr={`field.type_hint`}
 >
+
 Override the field values for generated `scalatest_tests` targets.
 
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
@@ -83,6 +87,7 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `scie-pants-linux-x86_64 dependencies` or `scie-pants-linux-x86_64 peek` on this target to get the final result.
@@ -100,6 +105,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 <Field
     type_repr={`field.type_hint`}
 >
+
 The names of Scala plugins that this source file requires.
 
 The plugin must be defined by a corresponding `scalac_plugin` AND `jvm_artifact` target, and must be present in this target&#x27;s resolve&#x27;s lockfile.
@@ -113,6 +119,7 @@ If not specified, this will default to the plugins specified in `[scalac].plugin
 <Field
     type_repr={`field.type_hint`}
 >
+
 A timeout (in seconds) used by each test file belonging to this target.
 
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
@@ -124,6 +131,7 @@ If unset, will default to `[test].timeout_default`; if that option is also unset
 <Field
     type_repr={`field.type_hint`}
 >
+
 Additional environment variables to include in test processes.
 
 Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
@@ -144,6 +152,7 @@ This will be merged with and override values from `[test].extra_env_vars`.
 <Field
     type_repr={`field.type_hint`}
 >
+
 Signals that the specified types should be fulfilled by these source files during dependency inference.
 
 This allows for specific types within packages that are otherwise inferred as belonging to `jvm_artifact` targets to be unambiguously inferred as belonging to this first-party source.
@@ -157,6 +166,7 @@ If a given type is defined, at least one source file captured by this target mus
 <Field
     type_repr={`field.type_hint`}
 >
+
 The resolve from `[jvm].resolves` to use when compiling this target.
 
 If not defined, will default to `[jvm].default_resolve`.
@@ -164,4 +174,3 @@ If not defined, will default to `[jvm].default_resolve`.
 </Field>
 
 </span>
-

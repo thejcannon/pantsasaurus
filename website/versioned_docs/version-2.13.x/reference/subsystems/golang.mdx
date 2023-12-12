@@ -24,6 +24,7 @@ Config section: <span className="color--primary">`[golang]`</span>
   env_repr='PANTS_GOLANG_GO_SEARCH_PATHS'
   default_repr={`["<PATH>"]`}
 >
+
 A list of paths to search for Go.
 
 Specify absolute paths to directories with the `go` binary, e.g. `/usr/bin`. Earlier entries will be searched first.
@@ -39,6 +40,7 @@ The special string `"<PATH>"` will expand to the contents of the PATH env var.
   env_repr='PANTS_GOLANG_MINIMUM_EXPECTED_VERSION'
   default_repr={`1.17`}
 >
+
 The minimum Go version the distribution discovered by Pants must support.
 
 For example, if you set `'1.17'`, then Pants will look for a Go binary that is 1.17+, e.g. 1.17 or 1.18.
@@ -58,9 +60,11 @@ Do not include the patch version.
   env_repr="PANTS_GOLANG_SUBPROCESS_ENV_VARS"
   default_repr={`[\n  "LANG",\n  "LC_CTYPE",\n  "LC_ALL",\n  "PATH"\n]`}
 >
-  Environment variables to set when invoking the `go` tool. Entries are either
-  strings in the form `ENV_VAR=value` to set an explicit value; or just
-  `ENV_VAR` to copy the value from Pants&#x27;s own environment.
+
+Environment variables to set when invoking the `go` tool. Entries are either
+strings in the form `ENV_VAR=value` to set an explicit value; or just
+`ENV_VAR` to copy the value from Pants&#x27;s own environment.
+
 </Option>
 
 ### `tailor_go_mod_targets`
@@ -70,8 +74,10 @@ Do not include the patch version.
   env_repr="PANTS_GOLANG_TAILOR_GO_MOD_TARGETS"
   default_repr={`True`}
 >
-  If true, add a `go_mod` target with the `tailor` goal wherever there is a
-  `go.mod` file.
+
+If true, add a `go_mod` target with the `tailor` goal wherever there is a
+`go.mod` file.
+
 </Option>
 
 ### `tailor_package_targets`
@@ -81,8 +87,10 @@ Do not include the patch version.
   env_repr="PANTS_GOLANG_TAILOR_PACKAGE_TARGETS"
   default_repr={`True`}
 >
-  If true, add a `go_package` target with the `tailor` goal in every directory
-  with a `.go` file.
+
+If true, add a `go_package` target with the `tailor` goal in every directory
+with a `.go` file.
+
 </Option>
 
 ### `tailor_binary_targets`
@@ -92,8 +100,10 @@ Do not include the patch version.
   env_repr="PANTS_GOLANG_TAILOR_BINARY_TARGETS"
   default_repr={`True`}
 >
-  If true, add a `go_binary` target with the `tailor` goal in every directory
-  with a `.go` file with `package main`.
+
+If true, add a `go_binary` target with the `tailor` goal in every directory
+with a `.go` file with `package main`.
+
 </Option>
 
 ## Deprecated options
@@ -107,6 +117,7 @@ Do not include the patch version.
   removal_version='2.14.0.dev0'
   removal_hint={'Use `[golang].minimum_expected_version` instead, which is more flexible. Pants will now work if your local Go binary is newer than the expected minimum version; e.g. Go 1.18 works with the version set to `1.17`.'}
 >
+
 The Go version you are using, such as `1.17`.
 
 Pants will only use Go distributions from `--go-search-paths` that have the expected version, and it will error if none are found.
@@ -116,4 +127,3 @@ Do not include the patch version.
 </Option>
 
 </span>
-

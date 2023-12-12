@@ -34,7 +34,9 @@ None
   removal_version='2.1.0.dev0'
   removal_hint={'The option `--basicauth-provides` does not do anything and the `[basicauth]` subsystem will be removed.'}
 >
+
 Map from provider name to config dict. This dict contains the following items: &#123;provider_name: &lt;url of endpoint that accepts basic auth and sets a session cookie&gt;&#125;. For example, `{'prod': 'https://app.pantsbuild.org/auth'}`.
+
 </Option>
 
 ### `allow_insecure_urls`
@@ -48,8 +50,9 @@ Map from provider name to config dict. This dict contains the following items: &
     "The option `--basicauth-allow-insecure-urls` does not do anything and the `[basicauth]` subsystem will be removed."
   }
 >
-  Allow auth against non-HTTPS urls. Must only be set when testing!
+
+Allow auth against non-HTTPS urls. Must only be set when testing!
+
 </Option>
 
 </span>
-

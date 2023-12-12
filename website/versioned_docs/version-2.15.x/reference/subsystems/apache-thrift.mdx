@@ -24,6 +24,7 @@ Config section: <span className="color--primary">`[apache-thrift]`</span>
   env_repr='PANTS_APACHE_THRIFT_EXPECTED_VERSION'
   default_repr={`0.15`}
 >
+
 The major/minor version of Apache Thrift that you are using, such as `0.15`.
 
 Pants will only use Thrift binaries from `--thrift-search-paths` that have the expected version, and it will error if none are found.
@@ -40,6 +41,7 @@ Do not include the patch version.
   default_repr={`["<PATH>"]`}
   target_field_name='apache_thrift_thrift_search_paths'
 >
+
 A list of paths to search for Thrift.
 
 Specify absolute paths to directories with the `thrift` binary, e.g. `/usr/bin`. Earlier entries will be searched first.
@@ -57,4 +59,3 @@ None
 None
 
 </span>
-

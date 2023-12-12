@@ -40,7 +40,9 @@ Backend: <span className="color--primary">``</span>
 <Field
     type_repr={`field.type_hint`}
 >
+
 A string for Python interpreter constraints on this target. This should be written in Requirement-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. As a shortcut, you can leave off `CPython`, e.g. `>=2.7` will be expanded to `CPython>=2.7`. If this is left off, this will default to the option `interpreter_constraints` in the [python-setup] scope. See https://www.pantsbuild.org/docs/python-interpreter-compatibility.
+
 </Field>
 
 ## `dependencies`
@@ -64,10 +66,11 @@ A string for Python interpreter constraints on this target. This should be writt
   type_repr={`field.type_hint`}
   default_repr={`('*.py', '*.pyi', '!test_*.py', '!*_test.py', '!tests.py', '!conftest.py', '!test_*.pyi', '!*_test.pyi', '!tests.pyi')`}
 >
-  A list of files and globs that belong to this target. Paths are relative to
-  the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them
-  with `!`. Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
+
+A list of files and globs that belong to this target. Paths are relative to
+the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them
+with `!`. Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
+
 </Field>
 
 </span>
-

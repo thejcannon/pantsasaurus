@@ -28,7 +28,9 @@ Config section: <span className="color--primary">`[dependencies]`</span>
   env_repr="PANTS_DEPENDENCIES_OUTPUT_FILE"
   default_repr={`None`}
 >
-  Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
 </Option>
 
 ### `sep`
@@ -38,7 +40,9 @@ Config section: <span className="color--primary">`[dependencies]`</span>
   env_repr="PANTS_DEPENDENCIES_SEP"
   default_repr={`\\n`}
 >
-  String to use to separate lines in line-oriented output.
+
+String to use to separate lines in line-oriented output.
+
 </Option>
 
 ### `transitive`
@@ -48,8 +52,10 @@ Config section: <span className="color--primary">`[dependencies]`</span>
   env_repr="PANTS_DEPENDENCIES_TRANSITIVE"
   default_repr={`False`}
 >
-  List all transitive dependencies. If unspecified, list direct dependencies
-  only.
+
+List all transitive dependencies. If unspecified, list direct dependencies
+only.
+
 </Option>
 
 ### `type`
@@ -60,8 +66,10 @@ Config section: <span className="color--primary">`[dependencies]`</span>
   one_of="source, 3rdparty, source-and-3rdparty"
   default_repr={`source`}
 >
-  Which types of dependencies to list, where `source` means source code
-  dependencies and `3rdparty` means third-party requirement strings.
+
+Which types of dependencies to list, where `source` means source code
+dependencies and `3rdparty` means third-party requirement strings.
+
 </Option>
 
 ## Advanced options
@@ -87,4 +95,3 @@ None
 - [subprocess-environment](../subsystems/subprocess-environment.mdx)
 
 </span>
-

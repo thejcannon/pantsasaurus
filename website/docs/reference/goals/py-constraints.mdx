@@ -28,7 +28,9 @@ Config section: <span className="color--primary">`[py-constraints]`</span>
   env_repr='PANTS_PY_CONSTRAINTS_OUTPUT_FILE'
   default_repr={`None`}
 >
+
 Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
 </Option>
 
 ### `summary`
@@ -38,11 +40,13 @@ Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
   env_repr='PANTS_PY_CONSTRAINTS_SUMMARY'
   default_repr={`False`}
 >
+
 Output a CSV summary of interpreter constraints for your whole repository. The headers are `Target`, `Constraints`, `Transitive Constraints`, `# Dependencies`, and `# Dependents`.
 
 This information can be useful when prioritizing a migration from one Python version to another (e.g. to Python 3). Use `# Dependencies` and `# Dependents` to help prioritize which targets are easiest to port (low # dependencies) and highest impact to port (high # dependents).
 
 Use a tool like Pandas or Excel to process the CSV. Use the option `--py-constraints-output-file=summary.csv` to write directly to a file.
+
 </Option>
 
 ## Advanced options

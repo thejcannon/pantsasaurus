@@ -24,11 +24,13 @@ Config section: <span className="color--primary">`[nodejs]`</span>
   env_repr='PANTS_NODEJS_PACKAGE_MANAGER'
   default_repr={`npm`}
 >
+
 Default Node.js package manager to use.
 
 You can either rely on this default together with the [nodejs].package_managers option, or specify the `package.json#packageManager` tool and version in the package.json of your project.
 
 Specifying conflicting package manager versions within a multi-package workspace is an error.
+
 </Option>
 
 ### `package_managers`
@@ -38,11 +40,13 @@ Specifying conflicting package manager versions within a multi-package workspace
   env_repr='PANTS_NODEJS_PACKAGE_MANAGERS'
   default_repr={`{"npm": "8.5.5"}`}
 >
+
 A mapping of package manager versions to semver releases.
 
 Many organizations only need a single version of a package manager, which is a good default and often the simplest thing to do.
 
 The version download is managed by Corepack. This mapping corresponds to the https://github.com/nodejs/corepack#known-good-releases setting, using the `--activate` flag.
+
 </Option>
 
 ## Advanced options
@@ -54,7 +58,9 @@ The version download is managed by Corepack. This mapping corresponds to the htt
   env_repr='PANTS_NODEJS_VERSION'
   default_repr={`v16.15.0`}
 >
+
 Use this version of nodejs.
+
 </Option>
 
 ### `known_versions`
@@ -70,19 +76,22 @@ Known versions to verify downloads against.
 Each element is a pipe-separated string of `version|platform|sha256|length` or
 `version|platform|sha256|length|url_override`, where:
 
-  - `version` is the version string
-  - `platform` is one of `[linux_arm64,linux_x86_64,macos_arm64,macos_x86_64]`
-  - `sha256` is the 64-character hex representation of the expected sha256
+- `version` is the version string
+- `platform` is one of `[linux_arm64,linux_x86_64,macos_arm64,macos_x86_64]`
+- `sha256` is the 64-character hex representation of the expected sha256
+
 ```
 digest of the download file, as emitted by `shasum -a 256`
 ```
 
-  - `length` is the expected length of the download file in bytes, as emitted by
+- `length` is the expected length of the download file in bytes, as emitted by
+
 ```
 `wc -c`
 ```
 
-  - (Optional) `url_override` is a specific url to use instead of the normally
+- (Optional) `url_override` is a specific url to use instead of the normally
+
 ```
 generated url for this version
 ```
@@ -91,6 +100,7 @@ E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44
 and `3.1.2|macos_arm64 |aca5c1da0192e2fd46b7b55ab290a92c5f07309e7b0ebf4e45ba95731ae98291|50926|https://example.mac.org/bin/v3.1.2/mac-aarch64-v3.1.2.tgz`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
+
 </Option>
 
 ### `url_template`
@@ -100,9 +110,11 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   env_repr='PANTS_NODEJS_URL_TEMPLATE'
   default_repr={`https://nodejs.org/dist/{version}/node-{version}-{platform}.tar`}
 >
+
 URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.18/docs/options#config-file-entries)).
 
 Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
 </Option>
 
 ### `url_platform_mapping`
@@ -112,11 +124,13 @@ Use `{version}` to have the value from `--version` substituted, and `{platform}`
   env_repr='PANTS_NODEJS_URL_PLATFORM_MAPPING'
   default_repr={`{\n  "linux_arm64": "linux-arm64",\n  "linux_x86_64": "linux-x64",\n  "macos_arm64": "darwin-arm64",\n  "macos_x86_64": "darwin-x64"\n}`}
 >
+
 A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
 
 In `--url-template`, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
 
 For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}`, and run Pants on Linux with an intel architecture, then `{platform}` will be substituted in the `--url-template` option with `unknown-linux`.
+
 </Option>
 
 ### `resolves`
@@ -126,6 +140,7 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
   env_repr='PANTS_NODEJS_RESOLVES'
   default_repr={`{}`}
 >
+
 A mapping of names to lockfile paths used in your project.
 
 Specifying a resolve name is optional. If unspecified, the default resolve name is calculated by taking the path from the source root to the directory containing the lockfile and replacing &#x27;/&#x27; with &#x27;.&#x27; in that path.
@@ -133,6 +148,7 @@ Specifying a resolve name is optional. If unspecified, the default resolve name 
 Example: An npm lockfile located at `src/js/package/package-lock.json' will result in a resolve named `js.package`, assuming src/ is a source root.
 
 Run `scie-pants-linux-x86_64 generate-lockfiles` to generate the lockfile(s).
+
 </Option>
 
 ### `executable_search_paths`
@@ -143,7 +159,9 @@ Run `scie-pants-linux-x86_64 generate-lockfiles` to generate the lockfile(s).
   default_repr={`["<PATH>"]`}
   target_field_name='nodejs_executable_search_paths'
 >
+
 The PATH value that will be used to find any tools required to run nodejs processes. The special string `"<PATH>"` will expand to the contents of the PATH env var.
+
 </Option>
 
 ### `search_path`
@@ -154,6 +172,7 @@ The PATH value that will be used to find any tools required to run nodejs proces
   default_repr={`["<PATH>"]`}
   target_field_name='nodejs_search_path'
 >
+
 A list of paths to search for Node.js distributions.
 
 This option is only used if a templated url download specified via [nodejs].known_versions does not contain a version matching the configured [nodejs].version range.
@@ -164,15 +183,16 @@ The following special strings are supported:
 
 For all runtime environment types:
 
-* `<PATH>`, the contents of the PATH env var
+- `<PATH>`, the contents of the PATH env var
 
 When the environment is a `local_environment` target:
 
-* `<ASDF>`, all Node.js versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
-* `<ASDF_LOCAL>`, the ASDF binaries with the version in `BUILD_ROOT/.tool-versions`
-* `<NVM>`, all NodeJS versions under $NVM_DIR/versions/node
-* `<NVM_LOCAL>`, the nvm installation with the version in BUILD_ROOT/.nvmrc
-Note that the version in the .nvmrc file has to be on the form &quot;vX.Y.Z&quot;.
+- `<ASDF>`, all Node.js versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
+- `<ASDF_LOCAL>`, the ASDF binaries with the version in `BUILD_ROOT/.tool-versions`
+- `<NVM>`, all NodeJS versions under $NVM_DIR/versions/node
+- `<NVM_LOCAL>`, the nvm installation with the version in BUILD_ROOT/.nvmrc
+  Note that the version in the .nvmrc file has to be on the form &quot;vX.Y.Z&quot;.
+
 </Option>
 
 ### `corepack_env_vars`
@@ -183,11 +203,13 @@ Note that the version in the .nvmrc file has to be on the form &quot;vX.Y.Z&quot
   default_repr={`[]`}
   target_field_name='nodejs_corepack_env_vars'
 >
+
 Environment variables to set for `corepack` invocations.
 
 Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27;s own environment.
 
 Review https://github.com/nodejs/corepack#environment-variables for available variables.
+
 </Option>
 
 ## Deprecated options

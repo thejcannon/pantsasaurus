@@ -28,6 +28,7 @@ None
   env_repr='PANTS_SHELL_SETUP_EXECUTABLE_SEARCH_PATHS'
   default_repr={`["<PATH>"]`}
 >
+
 The PATH value that will be used to find shells and to run certain processes like the shunit2 test runner.
 
 The special string &quot;&lt;PATH&gt;&quot; will expand to the contents of the PATH env var.
@@ -41,8 +42,10 @@ The special string &quot;&lt;PATH&gt;&quot; will expand to the contents of the P
   env_repr="PANTS_SHELL_SETUP_DEPENDENCY_INFERENCE"
   default_repr={`True`}
 >
-  Infer Shell dependencies on other Shell files by analyzing `source`
-  statements.
+
+Infer Shell dependencies on other Shell files by analyzing `source`
+statements.
+
 </Option>
 
 ## Deprecated options
@@ -50,4 +53,3 @@ The special string &quot;&lt;PATH&gt;&quot; will expand to the contents of the P
 None
 
 </span>
-

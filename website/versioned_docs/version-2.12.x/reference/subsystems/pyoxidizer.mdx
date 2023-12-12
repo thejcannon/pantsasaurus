@@ -26,8 +26,10 @@ Config section: <span className="color--primary">`[pyoxidizer]`</span>
   env_repr="PANTS_PYOXIDIZER_ARGS"
   default_repr={`[]`}
 >
-  Arguments to pass directly to PyOxidizer, e.g.
-  `--pyoxidizer-args='--release'`.
+
+Arguments to pass directly to PyOxidizer, e.g.
+`--pyoxidizer-args='--release'`.
+
 </Option>
 
 ## Advanced options
@@ -39,7 +41,9 @@ Config section: <span className="color--primary">`[pyoxidizer]`</span>
   env_repr="PANTS_PYOXIDIZER_VERSION"
   default_repr={`pyoxidizer==0.18.0`}
 >
-  Requirement string for the tool.
+
+Requirement string for the tool.
+
 </Option>
 
 ### `extra_requirements`
@@ -49,9 +53,11 @@ Config section: <span className="color--primary">`[pyoxidizer]`</span>
   env_repr="PANTS_PYOXIDIZER_EXTRA_REQUIREMENTS"
   default_repr={`[]`}
 >
-  Any additional requirement strings to use with the tool. This is useful if the
-  tool allows you to install plugins or if you need to constrain a dependency to
-  a certain version.
+
+Any additional requirement strings to use with the tool. This is useful if the
+tool allows you to install plugins or if you need to constrain a dependency to
+a certain version.
+
 </Option>
 
 ### `interpreter_constraints`
@@ -61,7 +67,9 @@ Config section: <span className="color--primary">`[pyoxidizer]`</span>
   env_repr="PANTS_PYOXIDIZER_INTERPRETER_CONSTRAINTS"
   default_repr={`["CPython>=3.8,<4"]`}
 >
-  Python interpreter constraints for this tool.
+
+Python interpreter constraints for this tool.
+
 </Option>
 
 ### `console_script`
@@ -71,10 +79,12 @@ Config section: <span className="color--primary">`[pyoxidizer]`</span>
   env_repr="PANTS_PYOXIDIZER_CONSOLE_SCRIPT"
   default_repr={`pyoxidizer`}
 >
-  The console script for the tool. Using this option is generally preferable to
-  (and mutually exclusive with) specifying an --entry-point since console script
-  names have a higher expectation of staying stable across releases of the tool.
-  Usually, you will not want to change this from the default.
+
+The console script for the tool. Using this option is generally preferable to
+(and mutually exclusive with) specifying an --entry-point since console script
+names have a higher expectation of staying stable across releases of the tool.
+Usually, you will not want to change this from the default.
+
 </Option>
 
 ### `entry_point`
@@ -84,9 +94,11 @@ Config section: <span className="color--primary">`[pyoxidizer]`</span>
   env_repr="PANTS_PYOXIDIZER_ENTRY_POINT"
   default_repr={`None`}
 >
-  The entry point for the tool. Generally you only want to use this option if
-  the tool does not offer a --console-script (which this option is mutually
-  exclusive with). Usually, you will not want to change this from the default.
+
+The entry point for the tool. Generally you only want to use this option if
+the tool does not offer a --console-script (which this option is mutually
+exclusive with). Usually, you will not want to change this from the default.
+
 </Option>
 
 ## Deprecated options
@@ -94,4 +106,3 @@ Config section: <span className="color--primary">`[pyoxidizer]`</span>
 None
 
 </span>
-

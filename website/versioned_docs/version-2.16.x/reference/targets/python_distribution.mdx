@@ -22,6 +22,7 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -33,6 +34,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -44,6 +46,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 <Field
     type_repr={`field.type_hint`}
 >
+
 The Python interpreters this code is compatible with.
 
 Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
@@ -61,6 +64,7 @@ See https://www.pantsbuild.org/v2.16/docs/python-interpreter-compatibility for h
 <Field
     type_repr={`field.type_hint`}
 >
+
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `scie-pants-linux-x86_64 dependencies` or `scie-pants-linux-x86_64 peek` on this target to get the final result.
@@ -78,6 +82,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 <Field
     type_repr={`field.type_hint`}
 >
+
 Any entry points, such as `console_scripts` and `gui_scripts`.
 
 Specify as a nested dictionary, with a dictionary for each type of entry point, e.g. `console_scripts` vs. `gui_scripts`. Each dictionary maps the entry point name to either a setuptools entry point (&quot;path.to.module:func&quot;) or a Pants target address to a pex_binary target.
@@ -108,6 +113,7 @@ scie-pants-linux-x86_64 dependencies <python_distribution target address>
 <Field
     type_repr={`field.type_hint`}
 >
+
 The setup.py kwargs for the external artifact built from this target.
 
 You must define `name`. You can also set almost any keyword argument accepted by setup.py in the `setup()` function: (https://packaging.python.org/guides/distributing-packages-using-setuptools/#setup-args).
@@ -154,6 +160,7 @@ See https://www.pantsbuild.org/v2.16/docs/plugins-setup-py for how to write a pl
 <Field
     type_repr={`field.type_hint`}
 >
+
 Environment variables to set when running the PEP-517 build backend.
 
 Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27;s own environment.
@@ -165,6 +172,7 @@ Entries are either strings in the form `ENV_VAR=value` to set an explicit value;
 <Field
     type_repr={`field.type_hint`}
 >
+
 Path to a file that will be used to fill the long_description field in setup.py.
 
 Path is relative to the build root.
@@ -181,6 +189,7 @@ This field won&#x27;t automatically set `long_description_content_type` field fo
     type_repr={`field.type_hint`}
     default_repr={`''`}
 >
+
 The path to the directory to write the distribution file to, relative the dist directory.
 
 If undefined, this defaults to the empty path, i.e. the output goes at the top level of the dist dir.
@@ -193,6 +202,7 @@ If undefined, this defaults to the empty path, i.e. the output goes at the top l
     type_repr={`field.type_hint`}
     backend="pants.backend.experimental.python"
 >
+
 List of URL addresses or Twine repository aliases where to publish the Python package.
 
 Twine is used for publishing Python packages, so the address to any kind of repository that Twine supports may be used here.
@@ -208,7 +218,9 @@ Aliases are prefixed with `@` to refer to a config section in your Twine configu
   default_repr={`False`}
   backend="pants.backend.experimental.python"
 >
-  If true, don&#x27;t publish this target&#x27;s packages using Twine.
+
+If true, don&#x27;t publish this target&#x27;s packages using Twine.
+
 </Field>
 
 ## `uses_mypyc`
@@ -218,6 +230,7 @@ Aliases are prefixed with `@` to refer to a config section in your Twine configu
     default_repr={`False`}
     backend="pants.backend.python.typecheck.mypy"
 >
+
 If true, this distribution is built using mypyc.
 
 In this case, Pants will build the distribution in an environment that includes mypy, as configured in the `[mypy]` subsystem, including plugins, config files, extra type stubs, and the distribution&#x27;s own requirements (which normally would not be needed at build time, but in this case may provide necessary type annotations).
@@ -227,4 +240,3 @@ You will typically set this field on distributions whose setup.py uses mypyc.bui
 </Field>
 
 </span>
-

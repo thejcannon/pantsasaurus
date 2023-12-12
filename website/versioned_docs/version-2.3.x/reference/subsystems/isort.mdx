@@ -24,9 +24,11 @@ Config section: <span className="color--primary">`[isort]`</span>
   env_repr="PANTS_ISORT_SKIP"
   default_repr={`False`}
 >
-  Don&#x27;t use isort when running
-  `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and
-  `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
+
+Don&#x27;t use isort when running
+`/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and
+`/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
+
 </Option>
 
 ### `args`
@@ -36,8 +38,10 @@ Config section: <span className="color--primary">`[isort]`</span>
   env_repr="PANTS_ISORT_ARGS"
   default_repr={`[]`}
 >
-  Arguments to pass directly to isort, e.g. `--isort-args="--case-sensitive
+
+Arguments to pass directly to isort, e.g. `--isort-args="--case-sensitive
   --trailing-comma"`.
+
 </Option>
 
 ## Advanced options
@@ -49,7 +53,9 @@ Config section: <span className="color--primary">`[isort]`</span>
   env_repr="PANTS_ISORT_VERSION"
   default_repr={`isort[pyproject]>=5.5.1,<5.6`}
 >
-  Requirement string for the tool.
+
+Requirement string for the tool.
+
 </Option>
 
 ### `extra_requirements`
@@ -59,9 +65,11 @@ Config section: <span className="color--primary">`[isort]`</span>
   env_repr="PANTS_ISORT_EXTRA_REQUIREMENTS"
   default_repr={`["setuptools"]`}
 >
-  Any additional requirement strings to use with the tool. This is useful if the
-  tool allows you to install plugins or if you need to constrain a dependency to
-  a certain version.
+
+Any additional requirement strings to use with the tool. This is useful if the
+tool allows you to install plugins or if you need to constrain a dependency to
+a certain version.
+
 </Option>
 
 ### `entry_point`
@@ -71,8 +79,10 @@ Config section: <span className="color--primary">`[isort]`</span>
   env_repr="PANTS_ISORT_ENTRY_POINT"
   default_repr={`isort.main`}
 >
-  The main module for the tool. Usually, you will not want to change this from
-  the default.
+
+The main module for the tool. Usually, you will not want to change this from
+the default.
+
 </Option>
 
 ### `interpreter_constraints`
@@ -82,7 +92,9 @@ Config section: <span className="color--primary">`[isort]`</span>
   env_repr="PANTS_ISORT_INTERPRETER_CONSTRAINTS"
   default_repr={`["CPython>=3.6"]`}
 >
-  Python interpreter constraints for this tool.
+
+Python interpreter constraints for this tool.
+
 </Option>
 
 ### `config`
@@ -92,7 +104,9 @@ Config section: <span className="color--primary">`[isort]`</span>
   env_repr="PANTS_ISORT_CONFIG"
   default_repr={`[]`}
 >
-  Path to `isort.cfg` or alternative isort config file(s).
+
+Path to `isort.cfg` or alternative isort config file(s).
+
 </Option>
 
 ## Deprecated options
@@ -100,4 +114,3 @@ Config section: <span className="color--primary">`[isort]`</span>
 None
 
 </span>
-

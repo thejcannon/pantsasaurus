@@ -24,7 +24,9 @@ Config section: <span className="color--primary">`[changed]`</span>
   env_repr="PANTS_CHANGED_SINCE"
   default_repr={`None`}
 >
-  Calculate changes since this Git spec (commit range/SHA/ref).
+
+Calculate changes since this Git spec (commit range/SHA/ref).
+
 </Option>
 
 ### `diffspec`
@@ -34,7 +36,9 @@ Config section: <span className="color--primary">`[changed]`</span>
   env_repr="PANTS_CHANGED_DIFFSPEC"
   default_repr={`None`}
 >
-  Calculate changes contained within a given Git spec (commit range/SHA/ref).
+
+Calculate changes contained within a given Git spec (commit range/SHA/ref).
+
 </Option>
 
 ### `dependees`
@@ -45,7 +49,9 @@ Config section: <span className="color--primary">`[changed]`</span>
   one_of="none, direct, transitive"
   default_repr={`none`}
 >
-  Include direct or transitive dependees of changed targets.
+
+Include direct or transitive dependees of changed targets.
+
 </Option>
 
 ## Advanced options
@@ -65,7 +71,9 @@ None
     "Use `--changed-since` instead of `--changed-parent` or `--changed-changes-since`."
   }
 >
-  Calculate changes since this tree-ish/scm ref.
+
+Calculate changes since this tree-ish/scm ref.
+
 </Option>
 
 ### `include_dependees`
@@ -80,7 +88,9 @@ None
     "Use `--changed-dependees` instead of `--changed-include-dependees`."
   }
 >
-  Include direct or transitive dependees of changed targets.
+
+Include direct or transitive dependees of changed targets.
+
 </Option>
 
 ### `fast`
@@ -92,9 +102,10 @@ None
   removal_version="2.1.0.dev0"
   removal_hint={"The option `--changed-fast` no longer does anything."}
 >
-  Stop searching for owners once a source is mapped to at least one owning
-  target.
+
+Stop searching for owners once a source is mapped to at least one owning
+target.
+
 </Option>
 
 </span>
-

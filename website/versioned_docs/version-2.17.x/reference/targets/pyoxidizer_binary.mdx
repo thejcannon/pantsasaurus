@@ -24,6 +24,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.python.pac
 <Field
     type_repr={`field.type_hint`}
 >
+
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
@@ -35,6 +36,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 <Field
     type_repr={`field.type_hint`}
 >
+
 A human-readable description of the target.
 
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
@@ -46,6 +48,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 <Field
     type_repr={`field.type_hint`}
 >
+
 Where the built directory tree should be located.
 
 If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:bin` would be `src.python.project/bin/`.
@@ -70,6 +73,7 @@ Warning: setting this value risks naming collisions with other package targets y
 <Field
     type_repr={`field.type_hint`}
 >
+
 If set, will use your custom configuration rather than using Pants&#x27;s default template.
 
 The path is relative to the BUILD file&#x27;s directory, and it must end in `.blzt`.
@@ -89,6 +93,7 @@ Available template parameters:
 <Field
     type_repr={`field.type_hint`}
 >
+
 The addresses of `python_distribution` target(s) to include in the binary, e.g. `['src/python/project:dist']`.
 
 The distribution(s) must generate at least one wheel file. For example, if using `generate_setup=True`, then make sure `wheel=True`. See https://www.pantsbuild.org/v2.17/docs/python-distributions.
@@ -104,6 +109,7 @@ Target types other than `python_distribution` will be ignored.
 <Field
     type_repr={`field.type_hint`}
 >
+
 Set the entry point, i.e. what gets run when executing `./my_app`, to a module. This represents the content of PyOxidizer&#x27;s `python_config.run_module` and leaving this field empty will create a REPL binary.
 
 It is specified with the full module declared: `'path.to.module'`.
@@ -126,6 +132,7 @@ This field is passed into the PyOxidizer config as-is, and does not undergo vali
     type_repr={`field.type_hint`}
     default_repr={`'__local__'`}
 >
+
 Specify which environment target to consume environment-sensitive options from.
 
 Once environments are defined in `[environments-preview].names`, you can specify the environment for this target by its name. Any fields that are defined in that environment will override the values from options set by `pants.toml`, command line values, or environment variables.
@@ -135,4 +142,3 @@ You can specify multiple valid environments by using `parametrize`. If `__local_
 </Field>
 
 </span>
-

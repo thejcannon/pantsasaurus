@@ -24,7 +24,9 @@ Config section: <span className="color--primary">`[helm]`</span>
   env_repr='PANTS_HELM_REGISTRIES'
   default_repr={`{}`}
 >
+
 Configure Helm OCI registries. The schema for a registry entry is as follows:
+
 ```
 {
     "registry-alias": {
@@ -52,7 +54,9 @@ Registries also participate in resolving third party Helm charts uplodaded to th
   env_repr="PANTS_HELM_LINT_STRICT"
   default_repr={`False`}
 >
-  Enables strict linting of Helm charts
+
+Enables strict linting of Helm charts
+
 </Option>
 
 ### `default_registry_repository`
@@ -62,6 +66,7 @@ Registries also participate in resolving third party Helm charts uplodaded to th
   env_repr='PANTS_HELM_DEFAULT_REGISTRY_REPOSITORY'
   default_repr={`None`}
 >
+
 Default location where to push Helm charts in the available registries when no specific one has been given.
 
 If no registry repository is given, charts will be pushed to the root of the OCI registry.
@@ -77,7 +82,9 @@ If no registry repository is given, charts will be pushed to the root of the OCI
   env_repr="PANTS_HELM_VERSION"
   default_repr={`3.8.0`}
 >
-  Use this version of helmsubsystem.
+
+Use this version of helmsubsystem.
+
 </Option>
 
 ### `known_versions`
@@ -129,6 +136,7 @@ Supported helmsubsystem versions: unspecified
   env_repr='PANTS_HELM_URL_TEMPLATE'
   default_repr={`https://get.helm.sh/helm-v{version}-{platform}.tar.gz`}
 >
+
 URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.13/docs/options#config-file-entries)).
 
 Use `{version}` to have the value from --version substituted, and `{platform}` to have a value from --url-platform-mapping substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
@@ -142,6 +150,7 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
   env_repr='PANTS_HELM_URL_PLATFORM_MAPPING'
   default_repr={`{\n  "linux_arm64": "linux-arm64",\n  "linux_x86_64": "linux-amd64",\n  "macos_arm64": "darwin-arm64",\n  "macos_x86_64": "darwin-amd64"\n}`}
 >
+
 A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
 
 In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
@@ -157,7 +166,9 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
   env_repr="PANTS_HELM_TAILOR"
   default_repr={`True`}
 >
-  If true, add `helm_chart` targets with the `tailor` goal.
+
+If true, add `helm_chart` targets with the `tailor` goal.
+
 </Option>
 
 ## Deprecated options
@@ -165,4 +176,3 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 None
 
 </span>
-

@@ -28,6 +28,7 @@ None
   env_repr='PANTS_TERRAFORM_HCL2_PARSER_INSTALL_FROM_RESOLVE'
   default_repr={`None`}
 >
+
 If specified, install the tool using the lockfile for this named resolve.
 
 This resolve must be defined in [python].resolves, as described in https://www.pantsbuild.org/v2.17/docs/python-third-party-dependencies#user-lockfiles.
@@ -47,6 +48,7 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
   env_repr='PANTS_TERRAFORM_HCL2_PARSER_REQUIREMENTS'
   default_repr={`[]`}
 >
+
 If install_from_resolve is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
 
 Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of python_requirement targets (or targets that generate or depend on python_requirement targets).
@@ -64,7 +66,9 @@ If unspecified, install the entire lockfile.
   env_repr="PANTS_TERRAFORM_HCL2_PARSER_INTERPRETER_CONSTRAINTS"
   default_repr={`["CPython>=3.7,<4"]`}
 >
-  Python interpreter constraints for this tool.
+
+Python interpreter constraints for this tool.
+
 </Option>
 
 ## Deprecated options
@@ -80,7 +84,9 @@ If unspecified, install the entire lockfile.
     "Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles."
   }
 >
-  Requirement string for the tool.
+
+Requirement string for the tool.
+
 </Option>
 
 ### `extra_requirements`
@@ -94,9 +100,11 @@ If unspecified, install the entire lockfile.
     "Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles."
   }
 >
-  Any additional requirement strings to use with the tool. This is useful if the
-  tool allows you to install plugins or if you need to constrain a dependency to
-  a certain version.
+
+Any additional requirement strings to use with the tool. This is useful if the
+tool allows you to install plugins or if you need to constrain a dependency to
+a certain version.
+
 </Option>
 
 ### `lockfile`
@@ -108,6 +116,7 @@ If unspecified, install the entire lockfile.
   removal_version='2.18.0.dev0'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.<br /><br />1. If you have an existing resolve that includes the requirements for this tool,<br />    you can set `[terraform-hcl2-parser].install_from_resolve = "<resolve name>".<br />    This may be the case if the tool also provides a runtime library, and you want<br />    to specify the version in just one place.<br />2. If not, you can set up a new resolve as described at the link above.<br /><br />Either way, the resolve you choose should provide the requirements currently set by the `version` and `extra-requirements` options for this tool, which you can see by running `pants help-advanced terraform-hcl2-parser`.'}
 >
+
 Path to a lockfile used for installing the tool.
 
 Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` and `--extra-requirements` options, and the tool&#x27;s interpreter constraints are compatible with the default. Pants will error or warn if the lockfile is not compatible (controlled by `[python].invalid_lockfile_behavior`). See https://github.com/pantsbuild/pants/blob/release_2.17.1rc3/src/python/pants/backend/terraform/hcl2.lock for the default lockfile contents.
@@ -119,4 +128,3 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 </Option>
 
 </span>
-

@@ -28,6 +28,7 @@ Config section: <span className="color--primary">`[generate-lockfiles]`</span>
   env_repr='PANTS_GENERATE_LOCKFILES_RESOLVE'
   default_repr={`[]`}
 >
+
 Only generate lockfiles for the specified resolve(s).
 
 Resolves are the logical names for the different lockfiles used in your project. For your own code&#x27;s dependencies, these come from the option `[python].resolves`. For tool lockfiles, resolve names are the options scope for that tool such as `black`, `pytest`, and `mypy-protobuf`.
@@ -49,7 +50,9 @@ If not specified, Pants will generate lockfiles for all resolves.
   env_repr='PANTS_GENERATE_LOCKFILES_CUSTOM_COMMAND'
   default_repr={`None`}
 >
+
 If set, lockfile headers will say to run this command to regenerate the lockfile, rather than running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 generate-lockfiles --resolve=<name>` like normal.
+
 </Option>
 
 ## Deprecated options
@@ -57,4 +60,3 @@ If set, lockfile headers will say to run this command to regenerate the lockfile
 None
 
 </span>
-

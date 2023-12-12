@@ -24,8 +24,10 @@ Config section: <span className="color--primary">`[pytest]`</span>
   env_repr="PANTS_PYTEST_ARGS"
   default_repr={`[]`}
 >
-  Arguments to pass directly to Pytest, e.g. `--pytest-args="-k test_foo
+
+Arguments to pass directly to Pytest, e.g. `--pytest-args="-k test_foo
   --quiet"`
+
 </Option>
 
 ### `timeouts`
@@ -35,10 +37,12 @@ Config section: <span className="color--primary">`[pytest]`</span>
   env_repr="PANTS_PYTEST_TIMEOUTS"
   default_repr={`True`}
 >
-  Enable test target timeouts. If timeouts are enabled then test targets with a
-  timeout= parameter set on their target will time out after the given number of
-  seconds if not completed. If no timeout is set, then either the default
-  timeout is used or no timeout is configured.
+
+Enable test target timeouts. If timeouts are enabled then test targets with a
+timeout= parameter set on their target will time out after the given number of
+seconds if not completed. If no timeout is set, then either the default
+timeout is used or no timeout is configured.
+
 </Option>
 
 ## Advanced options
@@ -50,7 +54,9 @@ Config section: <span className="color--primary">`[pytest]`</span>
   env_repr="PANTS_PYTEST_VERSION"
   default_repr={`pytest>=6.2.4,<6.3`}
 >
-  Requirement string for the tool.
+
+Requirement string for the tool.
+
 </Option>
 
 ### `extra_requirements`
@@ -60,9 +66,11 @@ Config section: <span className="color--primary">`[pytest]`</span>
   env_repr="PANTS_PYTEST_EXTRA_REQUIREMENTS"
   default_repr={`["pytest-cov>=2.12,!=2.12.1,<3.1"]`}
 >
-  Any additional requirement strings to use with the tool. This is useful if the
-  tool allows you to install plugins or if you need to constrain a dependency to
-  a certain version.
+
+Any additional requirement strings to use with the tool. This is useful if the
+tool allows you to install plugins or if you need to constrain a dependency to
+a certain version.
+
 </Option>
 
 ### `lockfile`
@@ -72,6 +80,7 @@ Config section: <span className="color--primary">`[pytest]`</span>
   env_repr='PANTS_PYTEST_LOCKFILE'
   default_repr={`<default>`}
 >
+
 Path to a lockfile used for installing the tool.
 
 Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` and `--extra-requirements` options, and the tool&#x27;s interpreter constraints are compatible with the default. Pants will error or warn if the lockfile is not compatible (controlled by `[python].invalid_lockfile_behavior`). See https://github.com/pantsbuild/pants/blob/release_2.9.2/src/python/pants/backend/python/subsystems/pytest_lockfile.txt for the default lockfile contents.
@@ -91,10 +100,12 @@ Lockfile generation currently does not wire up the `[python-repos]` options. If 
   env_repr="PANTS_PYTEST_CONSOLE_SCRIPT"
   default_repr={`pytest`}
 >
-  The console script for the tool. Using this option is generally preferable to
-  (and mutually exclusive with) specifying an --entry-point since console script
-  names have a higher expectation of staying stable across releases of the tool.
-  Usually, you will not want to change this from the default.
+
+The console script for the tool. Using this option is generally preferable to
+(and mutually exclusive with) specifying an --entry-point since console script
+names have a higher expectation of staying stable across releases of the tool.
+Usually, you will not want to change this from the default.
+
 </Option>
 
 ### `entry_point`
@@ -104,9 +115,11 @@ Lockfile generation currently does not wire up the `[python-repos]` options. If 
   env_repr="PANTS_PYTEST_ENTRY_POINT"
   default_repr={`None`}
 >
-  The entry point for the tool. Generally you only want to use this option if
-  the tool does not offer a --console-script (which this option is mutually
-  exclusive with). Usually, you will not want to change this from the default.
+
+The entry point for the tool. Generally you only want to use this option if
+the tool does not offer a --console-script (which this option is mutually
+exclusive with). Usually, you will not want to change this from the default.
+
 </Option>
 
 ### `timeout_default`
@@ -116,8 +129,10 @@ Lockfile generation currently does not wire up the `[python-repos]` options. If 
   env_repr="PANTS_PYTEST_TIMEOUT_DEFAULT"
   default_repr={`None`}
 >
-  The default timeout (in seconds) for a test target if the `timeout` field is
-  not set on the target.
+
+The default timeout (in seconds) for a test target if the `timeout` field is
+not set on the target.
+
 </Option>
 
 ### `timeout_maximum`
@@ -127,7 +142,9 @@ Lockfile generation currently does not wire up the `[python-repos]` options. If 
   env_repr="PANTS_PYTEST_TIMEOUT_MAXIMUM"
   default_repr={`None`}
 >
-  The maximum timeout (in seconds) that may be used on a `python_tests` target.
+
+The maximum timeout (in seconds) that may be used on a `python_tests` target.
+
 </Option>
 
 ### `junit_family`
@@ -137,8 +154,10 @@ Lockfile generation currently does not wire up the `[python-repos]` options. If 
   env_repr="PANTS_PYTEST_JUNIT_FAMILY"
   default_repr={`xunit2`}
 >
-  The format of generated junit XML files. See
-  https://docs.pytest.org/en/latest/reference.html#confval-junit_family.
+
+The format of generated junit XML files. See
+https://docs.pytest.org/en/latest/reference.html#confval-junit_family.
+
 </Option>
 
 ### `execution_slot_var`
@@ -148,8 +167,10 @@ Lockfile generation currently does not wire up the `[python-repos]` options. If 
   env_repr="PANTS_PYTEST_EXECUTION_SLOT_VAR"
   default_repr={`None`}
 >
-  If a non-empty string, the process execution slot id (an integer) will be
-  exposed to tests under this environment variable name.
+
+If a non-empty string, the process execution slot id (an integer) will be
+exposed to tests under this environment variable name.
+
 </Option>
 
 ### `config_discovery`
@@ -159,10 +180,12 @@ Lockfile generation currently does not wire up the `[python-repos]` options. If 
   env_repr="PANTS_PYTEST_CONFIG_DISCOVERY"
   default_repr={`True`}
 >
-  If true, Pants will include all relevant Pytest config files (e.g.
-  `pytest.ini`) during runs. See
-  https://docs.pytest.org/en/stable/customize.html#finding-the-rootdir for where
-  config files should be located for Pytest to discover them.
+
+If true, Pants will include all relevant Pytest config files (e.g.
+`pytest.ini`) during runs. See
+https://docs.pytest.org/en/stable/customize.html#finding-the-rootdir for where
+config files should be located for Pytest to discover them.
+
 </Option>
 
 ## Deprecated options
@@ -170,4 +193,3 @@ Lockfile generation currently does not wire up the `[python-repos]` options. If 
 None
 
 </span>
-
