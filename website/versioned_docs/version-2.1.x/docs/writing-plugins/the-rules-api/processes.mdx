@@ -36,7 +36,7 @@ The process will run in a temporary directory and is hermetic, meaning that it c
 
 To populate the temporary directory with files, use the parameter `input_digest: Digest`. It's common to use [`MergeDigests`](docs:rules-api-file-system) to combine multiple `Digest`s into one single `input_digest`.
 
-To set environment variables, use the parameter `env: Mapping[str, str]`. You generally should not read from `os.environ` because this reduces reproducibility and breaks caching. Instead, hardcode the value or add a [`Subsystem` option](doc:rules-api-subsystems) for the environment variable in question.
+To set environment variables, use the parameter `env: Mapping[str, str]`. You generally should not read from `os.environ` because this reduces reproducibility and breaks caching. Instead, hardcode the value or add a [`Subsystem` option](./options-and-subsystems.mdx) for the environment variable in question.
 
 To capture output files from the process, set `output_files: Iterable[str]` and/or `output_directories: Iterable[str]`. Then, you can use the `ProcessResult.output_digest` field to get a [`Digest`](docs:rules-api-file-system) of the result.
 
@@ -77,7 +77,7 @@ Like `ProcessResult`, `FallibleProcessResult` has the attributes `stdout: bytes`
 
 `InteractiveProcess` is similar to `subprocess.run()`. The process will run in the foreground and it is blocking.
 
-Because the process is blocking, you may only run an `InteractiveProcess` in an [`@goal_rule`](doc:rules-api-goal-rules). Your `@goal_rule` must request `InteractiveRunner`, and then use its method `.run()`. Typically, you should only use `InteractiveProcess` for things that may require user input, such as running a REPL.
+Because the process is blocking, you may only run an `InteractiveProcess` in an [`@goal_rule`](./goal-rules.mdx). Your `@goal_rule` must request `InteractiveRunner`, and then use its method `.run()`. Typically, you should only use `InteractiveProcess` for things that may require user input, such as running a REPL.
 
 ```python
 from pants.engine.rules import goal_rule
@@ -97,3 +97,13 @@ You may either set the parameter `input_digest: Digest`, or you may set `run_in_
 To set environment variables, use the parameter `env: Mapping[str, str]`, like you would with `Process`. You can also set `hermetic_env=False` to inherit the environment variables from the parent `./pants` process.
 
 The method will return an `InteractiveProcessResult`, which has a single field `exit_code: int`.
+
+
+
+
+
+
+
+
+
+

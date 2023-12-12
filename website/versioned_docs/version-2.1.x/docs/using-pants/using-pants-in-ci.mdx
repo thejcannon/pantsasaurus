@@ -61,7 +61,7 @@ In your CI's config file, we recommend caching these directories:
 - `$HOME/.cache/pants/named_caches`: caches of tools like pip and PEX.
 - `$HOME/.cache/pants/lmdb_store`: cached content for prior Pants runs.
 
-See [Troubleshooting](doc:troubleshooting#how-to-change-your-cache-directory) for how to change these cache locations.
+See [Troubleshooting](./troubleshooting-common-issues/index.mdx#how-to-change-your-cache-directory) for how to change these cache locations.
 
 :::note Nuking the cache when too big
 
@@ -108,7 +108,7 @@ Because most linters do not care about a target's dependencies, we lint all chan
 
 Meanwhile, tests should be rerun when any changes are made to the tests _or_ to dependencies of those tests, so we use the option `--changed-dependees=transitive`. `typecheck` should also run on any transitive changes.
 
-See [Advanced target selection](doc:advanced-target-selection) for more information on `--changed-since` and alternative techniques to select targets to run in CI.
+See [Advanced target selection](./advanced-target-selection.mdx) for more information on `--changed-since` and alternative techniques to select targets to run in CI.
 
 :::caution This will not handle all cases, like hooking up a new linter
 
@@ -136,3 +136,9 @@ $ ./pants lint typecheck test ::
 ```
 
 However, when the cache gets too big, it should be nuked (see "Directories to cache"), so your CI may end up doing more work than Approach #1.
+
+
+
+
+
+

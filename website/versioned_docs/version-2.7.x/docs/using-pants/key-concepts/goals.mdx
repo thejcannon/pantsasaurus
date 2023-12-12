@@ -16,7 +16,7 @@ To satisfy a goal, Pants will use cached data whenever possible, and perform wor
 
 ## Which goals are available?
 
-Pants is an extensible system, so the exact goals that are available depend upon which [backends](doc:enabling-backends) are enabled.
+Pants is an extensible system, so the exact goals that are available depend upon which [backends](./backends.mdx) are enabled.
 
 To see the current list of goals, run:
 
@@ -116,7 +116,7 @@ TOML                         2        65       14        18       33          0
 Goal arguments can be of one of two types:
 
 - _File arguments_: file paths and/or globs.
-- _Target arguments_: addresses and/or address globs of [targets](doc:targets).
+- _Target arguments_: addresses and/or address globs of [targets](./targets-and-build-files.mdx).
 
 Any goal can take either type of argument:
 
@@ -140,15 +140,15 @@ So again, for the most part, you can just use file arguments and not worry about
 
 :::note Tip: advanced target selection, such as running over changed files
 
-    See [Advanced target selection](doc:advanced-target-selection) for alternative techniques to specify which files/targets to run on.
+    See [Advanced target selection](../advanced-target-selection.mdx) for alternative techniques to specify which files/targets to run on.
 
 :::
 
 ### Goal options
 
-Many goals also have [options](doc:options) to change how they behave.
+Many goals also have [options](./options.mdx) to change how they behave.
 
-To see if a goal has any options, run `./pants help $goal` or `./pants help-advanced $goal`. See [Command Line Help](doc:getting-help) for more information.
+To see if a goal has any options, run `./pants help $goal` or `./pants help-advanced $goal`. See [Command Line Help](../../learn-about-pants/getting-help.mdx) for more information.
 
 For example:
 
@@ -189,3 +189,4 @@ As a shorthand, if you put the option after the goal, you can leave off the goal
 ```bash
 ./pants roots --sep=', '
 ```
+

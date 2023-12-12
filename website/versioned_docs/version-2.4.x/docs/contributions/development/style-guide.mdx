@@ -215,7 +215,7 @@ new_dict["key"] = "value"
 
 [Comprehensions](https://python-3-patterns-idioms-test.readthedocs.io/en/latest/Comprehensions.html) should generally be preferred to explicit loops and `map`/`filter` when creating a new collection. (See https://www.youtube.com/watch?v=ei71YpmfRX4 for a deep dive on comprehensions.)
 
-Why avoid `map`/`filter`? Normally, these are fantastic constructs and you'll find them abundantly in the [Rust codebase](doc:contributions-rust). They are awkward in Python, however, due to poor support for lambdas and because you would typically need to wrap the expression in a call to `list()` or `tuple()` to convert it from a generator expression to a concrete collection.
+Why avoid `map`/`filter`? Normally, these are fantastic constructs and you'll find them abundantly in the [Rust codebase](./developing-rust.mdx). They are awkward in Python, however, due to poor support for lambdas and because you would typically need to wrap the expression in a call to `list()` or `tuple()` to convert it from a generator expression to a concrete collection.
 
 ```python
 # Good
@@ -429,3 +429,4 @@ class TestDemo(unittest.TestCase):
     def test_demo(self) -> None:
         assert True
 ```
+

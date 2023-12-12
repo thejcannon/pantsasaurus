@@ -56,7 +56,7 @@ resources(
 </TabItem>
 </Tabs>
 
-[Source root](doc:source-roots) stripping applies to resources, just as it does for code. In the example above, Python loads the resource named `project/config`, rather than `src/python/project/config.json`.
+[Source root](./key-concepts/source-roots.mdx) stripping applies to resources, just as it does for code. In the example above, Python loads the resource named `project/config`, rather than `src/python/project/config.json`.
 
 ## `files`
 
@@ -173,6 +173,7 @@ The format can be `zip`, `tar`, `tar.xz`, `tar.gz`, or `tar.bz2`.
 
 The `packages` field is a list of targets that can be built using `./pants package`, such as `pex_binary`, `python_awslambda`, and even other `archive` targets. Pants will build the packages as if you had run `./pants package`. It will include the results in your archive using the same name they would normally have, but without the `dist/` prefix.
 
-The `files` field is a list of `files` and/or `relocated_files` targets. See [resources](doc:resources) for more details.
+The `files` field is a list of `files` and/or `relocated_files` targets. See [resources](./resources-and-archives.mdx) for more details.
 
 You can optionally set the field `output_path` to change the generated archive's name.
+

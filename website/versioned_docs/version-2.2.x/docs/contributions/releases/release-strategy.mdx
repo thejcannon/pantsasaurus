@@ -7,13 +7,13 @@ Our approach to semantic versioning + time-based releases.
 
 ---
 
-Pants follows semantic versioning, along with using regular time-based dev releases. We follow a strict [Deprecation policy](doc:deprecation-policy).
+Pants follows semantic versioning, along with using regular time-based dev releases. We follow a strict [Deprecation policy](../../release-notes/deprecation-policy.mdx).
 
 :::note Tip: join the mailing group for release announcements
 
-    See [Community](doc:community).
+    See [Community](../../../community/members).
 
-    Also see [Upgrade tips](doc:upgrade-tips) for suggestions on how to effectively upgrade Pants versions.
+    Also see [Upgrade tips](../../release-notes/upgrade-tips.mdx) for suggestions on how to effectively upgrade Pants versions.
 
 :::
 
@@ -29,7 +29,7 @@ Any new patch versions will only include backward-compatible bug fixes, and will
 
     We try our best to write bug-free code, but, like everyone, we sometimes make mistakes.
 
-    If you encounter a bug, please gently let us know by opening a GitHub issue or messaging us on Slack. See [Community](doc:community).
+    If you encounter a bug, please gently let us know by opening a GitHub issue or messaging us on Slack. See [Community](../../../community/members).
 
 :::
 
@@ -45,7 +45,7 @@ Release candidates should only contain bug fixes; they should generally not incl
 
     We greatly appreciate when users test out release candidates. While we do our best to have comprehensive CI—and we "dogfood" release candidates—we are not able to test all the ways Pants is used in the wild.
 
-    If you encounter a bug, please gently let us know by opening a GitHub issue or messaging us on Slack. See [Community](doc:community).
+    If you encounter a bug, please gently let us know by opening a GitHub issue or messaging us on Slack. See [Community](../../../community/members).
 
 :::
 
@@ -65,7 +65,7 @@ Dev releases help to ensure a steady release cadence from `master` by filling in
 
 Dev releases are named with the major, minor, and patch version, and end in `.dev` and a number. For example, `2.1.0.dev0` or `2.1.0.dev1`.
 
-Dev releases can include any changes, so long as they comply with the [Deprecation policy](doc:deprecation-policy).
+Dev releases can include any changes, so long as they comply with the [Deprecation policy](../../release-notes/deprecation-policy.mdx).
 
 :::note How many dev releases until starting a release candidate?
 
@@ -74,3 +74,4 @@ Dev releases can include any changes, so long as they comply with the [Deprecati
     We try to limit the number of changes in each stable release to make it easier for users to upgrade. If the dev releases have been particularly disruptive, such as making major deprecations, we may start a release candidate sooner, such as after `dev1`.
 
 :::
+

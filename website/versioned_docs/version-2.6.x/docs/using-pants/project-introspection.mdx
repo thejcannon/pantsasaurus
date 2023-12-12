@@ -32,7 +32,7 @@ Pants provides several goals to provide insights into your project's structure.
     $ ./pants dependees project:lib | xargs ./pants test
     ```
 
-    See [Advanced target selection](doc:advanced-target-selection) for more info and other techniques to use the results.
+    See [Advanced target selection](./advanced-target-selection.mdx) for more info and other techniques to use the results.
 
 :::
 
@@ -83,7 +83,7 @@ Regex strings for the address, such as `^dir` or `:util$`.
 
 ### `filter --tag-regex`
 
-Regex strings for the `tags` field. Alternatively, you can use the global `--tags` option, which uses exact string matches instead of regex. See [Advanced target selection](doc:advanced-target-selection).
+Regex strings for the `tags` field. Alternatively, you can use the global `--tags` option, which uses exact string matches instead of regex. See [Advanced target selection](./advanced-target-selection.mdx).
 
 ## `dependencies` - find a target's dependencies
 
@@ -169,7 +169,7 @@ $ ./pants dependees --output-format=json helloworld/util helloworld/protos
 
     Running `./pants dependees --transitive --output-format=json ::` will allow you to find the most-depended on code in your project, such as util code. Often, you will want to convert these targets first.
 
-    For example, do this when [migrating from Python 2 to Python 3](doc:python-interpreter-compatibility), or adding an incremental type checker like MyPy or TypeScript to your project.
+    For example, do this when [migrating from Python 2 to Python 3](../python/overview/interpreter-compatibility.mdx), or adding an incremental type checker like MyPy or TypeScript to your project.
 
 :::
 
@@ -266,3 +266,6 @@ SCC has [dozens of options](https://github.com/boyter/scc#usage). You can pass t
     ```
 
 :::
+
+
+

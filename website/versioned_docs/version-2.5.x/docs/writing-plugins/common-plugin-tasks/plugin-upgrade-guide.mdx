@@ -98,3 +98,7 @@ You optionally may want to add this `output_path` field to your custom target ty
 1. Include `OutputPathField` from `pants.core.goals.package` in your target's `core_fields` class property.
 2. In your `PackageFieldSet` subclass, include `output_path: OutputPathField`.
 3. When computing the filename in your rule, use `my_package_field_set.output_path.value_or_default(field_set.address, file_ending="my_ext")`.
+
+
+
+

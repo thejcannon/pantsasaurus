@@ -14,13 +14,13 @@ How to configure Pants to work with proxies.
 
     It can be tricky to get a proxy working. It's also possible that Pants does not yet have all the mechanisms it'll need to work with your organization's specific setup, which we'd love to fix.
 
-    Please reach out on [Slack](doc:community) or open a [GitHub issue](https://github.com/pantsbuild/pants/issues) for any help.
+    Please reach out on [Slack](../../../community/members) or open a [GitHub issue](https://github.com/pantsbuild/pants/issues) for any help.
 
 :::
 
 ## Installing Pants
 
-The `./pants` script from [Installing Pants](doc:installation) uses PyPI to download and install the wheel `pantsbuild.pants` and all of Pants's dependencies.
+The `./pants` script from [Installing Pants](../../getting-started/getting-started/installing-pants.mdx) uses PyPI to download and install the wheel `pantsbuild.pants` and all of Pants's dependencies.
 
 If you cannot access PyPI, you may instead download Pants as a PEX binary from https://github.com/pantsbuild/pants/releases. After downloading the PEX artifact, you can rename the file to `./pants`, run `chmod +x ./pants`, then run `./pants --version` like you normally would.
 
@@ -50,7 +50,7 @@ Note that if you leave of the env var's value, as for `https_proxy` above, Pants
 
 ## Using a custom \"cheeseshop\" / index for Python
 
-See [Third-party dependencies](doc:python-third-party-dependencies#using-custom-repositories) for instructions.
+See [Third-party dependencies](../../python/overview/third-party-dependencies.mdx#using-custom-repositories) for instructions.
 
 ## Hosting binaries
 
@@ -87,3 +87,7 @@ url_template = "https://binaries.pantsbuild.org/bin/protoc/{version}/{platform}/
 For simplicity, we used the original value for `url_platform_mapping`, meaning that we set up our hosted URL to store the macOS x86 binary at `.../osx-x86_64/protoc.zip`, for example. You can override the option `url_platform_mapping` if you want to use different values.
 
 Occasionally, new Pants releases will upgrade to new versions of these binaries, which will be mentioned in the "User API Changes" part of the changelog https://github.com/pantsbuild/pants/tree/master/src/python/pants/notes. When upgrading to these new Pants releases, you should download the new artifact and upload a copy to your host.
+
+
+
+

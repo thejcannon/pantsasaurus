@@ -46,7 +46,7 @@ Each target type has different _fields_, or individual metadata values. Run `./p
 
 All target types have a `name` field, which is used to identify the target. Target names must be unique within a directory.
 
-Use [`./pants tailor`](doc:create-initial-build-files) to automate generating BUILD files.
+Use [`./pants tailor`](../../getting-started/getting-started/create-initial-build-files.mdx) to automate generating BUILD files.
 
 ## Target addresses
 
@@ -143,7 +143,7 @@ You only need to declare direct dependencies. Pants will pull in _transitive dep
 
 :::note Ignore dependencies with `!` and `!!`
 
-    If you don't like that Pants inferred a certain dependency—as reported by [`./pants dependencies path/to:tgt`](doc:project-introspection)—tell Pants to ignore it with `!`:
+    If you don't like that Pants inferred a certain dependency—as reported by [`./pants dependencies path/to:tgt`](../project-introspection.mdx)—tell Pants to ignore it with `!`:
 
     ```python
     python_sources(
@@ -166,7 +166,7 @@ To reduce boilerplate, Pants provides target types that generate other targets. 
 - `python_tests` -> `python_test`
 - `go_mod` -> `go_third_party_package`
 
-Usually, prefer these target generators. [`./pants tailor`](doc:create-initial-build-files) will automatically add them for you.
+Usually, prefer these target generators. [`./pants tailor`](../../getting-started/getting-started/create-initial-build-files.mdx) will automatically add them for you.
 
 Run `./pants help targets` to see how the target determines what to generate. Targets for first-party code, like `resources` and `python_tests`, will generate one target for each file in their `sources` field.
 
@@ -201,7 +201,7 @@ The address for generated targets depends if the generated target is for first-p
 | First-party, e.g. `python_source` and `file` | `path/to/file.ext:tgt_generator`<br/><br/>Example: `src/py/app.py:lib`<br/><br/>The address always starts with the path to the file.<br/><br/>If the file lives in the same directory as the target generator and the target generator left off the `name` field, you can use just the file path. For example, `src/py/app.py` (without the `:lib` suffix).<br/><br/>If the file lives in a subdirectory of the target generator, the suffix will look like `../tgt_generator`. For example, `src/py/subdir/f.py:../lib`, where the target generator is `src/py:lib`. |
 | All other targets, e.g. `go_third_party_package` | `path/to:tgt_generator#generated_name`<br/><br/>Example:`src/go:mod#github.com/google/uuid`<br/><br/>Run `./pants help $target_type` on the target generator to see how it sets the generated name. For example, `go_mod` uses the Go package's name.<br/><br/>If the target generator left off the `name` field, you can leave it off for the generated address too, e.g. `src/go#github.com/google/uuid` (without the `:mod` portion). |
 
-Run [`./pants list dir:`](doc:project-introspection) in the directory of the target generator to see all generated target addresses, and [`./pants peek dir:`](doc:project-introspection) to see all their metadata.
+Run [`./pants list dir:`](../project-introspection.mdx) in the directory of the target generator to see all generated target addresses, and [`./pants peek dir:`](../project-introspection.mdx) to see all their metadata.
 
 You can use the address for the target generator as an alias for all of its generated targets. For example, if you have the `files` target `assets:logos`, adding `dependencies=["assets:logos"]`to another target will add a dependency on each generated `file` target. Likewise, if you have a `python_tests` target `project:tests`, then `./pants test project:tests` will run on each generated `python_test` target.
 
@@ -213,6 +213,8 @@ You can use the address for the target generator as an alias for all of its gene
 
     It's useful for metadata to be as fine-grained as feasible, such as by using the `overrides` field to only change the files you need to. Fine-grained metadata is key to having smaller cache keys (resulting in more cache hits), and allows you to more accurately reflect the status of your project. We have found that using one BUILD file per directory encourages fine-grained metadata by defining the metadata adjacent to where the code lives.
 
-    [`./pants tailor`](doc:create-initial-build-files) will automatically create targets that only apply metadata for the directory.
+    [`./pants tailor`](../../getting-started/getting-started/create-initial-build-files.mdx) will automatically create targets that only apply metadata for the directory.
 
 :::
+
+

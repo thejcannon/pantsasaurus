@@ -28,7 +28,7 @@ The Target API can also be used to add new target types—such as adding support
 
     See [here](https://gist.github.com/Eric-Arellano/f83dcb8cfb891afe6af50f4b15707894) for an example of writing a binding.
 
-    Please message us on [Slack](doc:community) if you have any questions or you would like help writing bindings! We are eager to help.
+    Please message us on [Slack](../../../community/members) if you have any questions or you would like help writing bindings! We are eager to help.
 
 :::
 
@@ -36,7 +36,7 @@ The Target API can also be used to add new target types—such as adding support
 
 ### Definition of _target_
 
-As described in [Targets and BUILD files](doc:targets), a _target_ is a set of metadata describing some of your code.
+As described in [Targets and BUILD files](../../using-pants/concepts/targets-and-build-files.mdx), a _target_ is a set of metadata describing some of your code.
 
 For example, this BUILD file defines a `python_tests` target.
 
@@ -74,7 +74,7 @@ Precisely, a target is a combination of fields, along with a BUILD file alias.
 
 These fields should make sense together. For example, it does not make sense for a `python_library` target to have a `haskell_version` field.
 
-In fact, it only takes 3 lines of code to [create a new target](doc:target-api-new-targets):
+In fact, it only takes 3 lines of code to [create a new target](./creating-new-targets.mdx):
 
 ```python title="plugin_target_type.py"
 from pants.engine.target import Dependencies, Sources, Target, Tags
@@ -154,3 +154,9 @@ This subclass mechanism is key to how the Target API behaves:
 
 - You can use subclasses of fields—along with `Target.has_field()`— to filter out irrelevant targets. For example, the Black autoformatter doesn't work with any plain `Sources` field; it needs `PythonSources`. The Python test runner is even more specific: it needs `PythonTestsSources`.
 - You can create custom fields and custom target types that still work with pre-existing functionality. For example, you can subclass `PythonSources` to create `DjangoSources`, and the Black autoformatter will still be able to operate on your target.
+
+
+
+
+
+

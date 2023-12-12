@@ -30,7 +30,7 @@ The fields depend on what makes sense for the package format you're adding suppo
 
 Usually, you should include `OutputPathField` from `pants.core.goals.package` in your target's fields, which will allow the user to change where the package is built to.
 
-See [Creating new targets](doc:target-api-new-targets) for a guide on how to define new target types.
+See [Creating new targets](../the-target-api/creating-new-targets.mdx) for a guide on how to define new target types.
 
 ```python
 from pants.core.goals.package import OutputPathField
@@ -66,7 +66,7 @@ class BashBinarySources(BashSources):
 
 ## 2. Set up a subclass of `PackageFieldSet`
 
-As described in [Rules and the Target API](doc:rules-api-and-target-api), a `FieldSet` is a way to tell Pants which `Field`s you care about targets having for your plugin to work.
+As described in [Rules and the Target API](../the-rules-api/rules-and-the-target-api.mdx), a `FieldSet` is a way to tell Pants which `Field`s you care about targets having for your plugin to work.
 
 Create a new dataclass that subclasses `PackageFieldSet`. Set the class property `required_fields` to the fields your target must have registered to work. Usually, this is a field like `BashBinarySources` or `BashBinaryEntryPoint`.
 
@@ -83,7 +83,7 @@ class BashBinaryFieldSet(PackageFieldSet):
     output_path: OutputPathField
 ```
 
-Then, register your new `PackageFieldSet` with a [`UnionRule`](doc:rules-api-unions) so that Pants knows your binary implementation exists:
+Then, register your new `PackageFieldSet` with a [`UnionRule`](../the-rules-api/union-rules-(advanced).mdx) so that Pants knows your binary implementation exists:
 
 ```python
 from pants.engine.rules import collect_rules
@@ -186,4 +186,8 @@ Now, when you run `./pants package ::`, Pants should create packages for all you
 
 ## 4. Add tests (optional)
 
-Refer to [Testing rules](doc:rules-api-testing).
+Refer to [Testing rules](../the-rules-api/testing-plugins.mdx).
+
+
+
+

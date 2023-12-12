@@ -23,7 +23,7 @@ See https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.8.x.m
 
 Pants 2.8 cleaned up the modeling of targets. Now, there are targets that describe the atom of each language, like `python_test` and `python_source` which correspond to a single file. There are also target generators which exist solely for less boilerplate, like `python_tests` and `python_sources`.
 
-We recommend re-reading [Targets and BUILD files](doc:targets).
+We recommend re-reading [Targets and BUILD files](../../using-pants/key-concepts/targets-and-build-files.mdx).
 
 #### `SourcesField`
 
@@ -83,7 +83,7 @@ Use `TriBoolField` if you still want to be able to represent a trinary state: `F
 
 ### Added `RuleRunner.write_files()`
 
-This is a more declarative way to set up files than the older API of `RuleRunner.create_file()`, `.create_files()`, and `.add_to_build_files()`. See [Testing plugins](doc:rules-api-testing).
+This is a more declarative way to set up files than the older API of `RuleRunner.create_file()`, `.create_files()`, and `.add_to_build_files()`. See [Testing plugins](../the-rules-api/testing-plugins.mdx).
 
 ## 2.4
 
@@ -198,3 +198,6 @@ You optionally may want to add this `output_path` field to your custom target ty
 1. Include `OutputPathField` from `pants.core.goals.package` in your target's `core_fields` class property.
 2. In your `PackageFieldSet` subclass, include `output_path: OutputPathField`.
 3. When computing the filename in your rule, use `my_package_field_set.output_path.value_or_default(field_set.address, file_ending="my_ext")`.
+
+
+

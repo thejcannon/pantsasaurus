@@ -48,7 +48,7 @@ If you set `required = True`, the `default` value will be ignored.
 
     If you want to change how a pre-existing field behaves, you should subclass the original field. For example, if you want to change a default value, subclass the original field.
 
-    See [Concepts](doc:target-api-concepts) for how subclassing plays a key role in the Target API.
+    See [Concepts](./concepts.mdx) for how subclassing plays a key role in the Target API.
 
 :::
 
@@ -130,7 +130,7 @@ Use this when you expect a single string.
 
 ### `ScalarField` (advanced)
 
-Use this when you expect a single value, but it is a non-primitive type. For example, use this with any [`objects`](doc:plugins-macros) you defined.
+Use this when you expect a single value, but it is a non-primitive type. For example, use this with any [`objects`](../macros.mdx) you defined.
 
 You must set the class properties `expected_type` and `expected_type_description`. You should also change the type signature of the classmethod `compute_value` so that Pants can show the correct types when running `./pants help $target_type`.
 
@@ -225,7 +225,7 @@ class VersionField(Field):
 
 :::tip Asking for help
 
-    Have a tricky field you're trying to write? We would love to help! See [Getting Help](doc:community).
+    Have a tricky field you're trying to write? We would love to help! See [Getting Help](../../../community/members).
 
 :::
 
@@ -283,3 +283,6 @@ class UploadTimeout(IntField):
 class FortranSources(Sources):
     default = ("*.f95",)
 ```
+
+
+

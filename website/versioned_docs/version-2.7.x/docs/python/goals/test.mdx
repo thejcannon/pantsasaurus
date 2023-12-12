@@ -51,9 +51,9 @@ extra_requirements.add = [
 ]
 ```
 
-If you change either `version` or `extra_requirements`, Pants's default lockfile for Pytest will not work. Either set the `lockfile` option to a custom path or `"<none>"` to opt out. See [Third-party dependencies](doc:python-third-party-dependencies#tool-lockfiles).
+If you change either `version` or `extra_requirements`, Pants's default lockfile for Pytest will not work. Either set the `lockfile` option to a custom path or `"<none>"` to opt out. See [Third-party dependencies](../overview/third-party-dependencies.mdx#tool-lockfiles).
 
-Alternatively, if you only want to install the plugin for certain tests, you can add the plugin to the `dependencies` field of your `python_tests`. See [Third-party dependencies](doc:python-third-party-dependencies) for how to install Python dependencies. For example:
+Alternatively, if you only want to install the plugin for certain tests, you can add the plugin to the `dependencies` field of your `python_tests`. See [Third-party dependencies](../overview/third-party-dependencies.mdx) for how to install Python dependencies. For example:
 
 <Tabs>
 <TabItem value="requirements.txt" label="requirements.txt">
@@ -109,7 +109,7 @@ output = "all"
 
 :::note Tip: Use Pytest options to make output more or less verbose
 
-    See ["Passing arguments to Pytest"](doc:test#passing-arguments-to-pytest).
+    See ["Passing arguments to Pytest"](#passing-arguments-to-pytest).
 
     For example:
 
@@ -403,7 +403,7 @@ def test_app() -> None:
 
 ### Resources
 
-Refer to [Resources](doc:resources) for how to include resource files in your tests.
+Refer to [Resources](../../using-pants/resources-and-archives.mdx) for how to include resource files in your tests.
 
 It's often most convenient to use `files` and `relocated_files` targets in your test code, although you can also use `resources`.
 
@@ -490,7 +490,7 @@ use_coverage = true
 
     `ignore_errors = True` means that those files will simply be left off of the final coverage report.
 
-    (Pants should autodiscover the config file `.coveragerc`. See [coverage-py](https://www.pantsbuild.org/docs/reference-coverage-py#section-config-discovery).)
+    (Pants should autodiscover the config file `.coveragerc`. See [coverage-py](reference:reference-coverage-py#section-config-discovery).)
 
     There's a proposal for Pants to fix this by generating multiple reports when necessary: https://github.com/pantsbuild/pants/issues/11137. We'd appreciate your feedback.
 
@@ -542,3 +542,4 @@ junit_xml_dir = "dist/pytest_results"
 ```
 
 You may also want to set the option `junit_family` in the `[pytest]` scope to change the format. Run `./pants help-advanced pytest` for more information.
+

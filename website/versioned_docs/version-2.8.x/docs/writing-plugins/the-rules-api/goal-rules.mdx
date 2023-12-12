@@ -10,22 +10,22 @@ How to create new goals.
 
 ---
 
-For many [plugin tasks](doc:common-plugin-tasks), you will be extending existing goals, such as adding a new linter to the `lint` goal. However, you may instead want to create a new goal, such as a `publish` goal. This page explains how to create a new goal.
+For many [plugin tasks](../common-plugin-tasks/index.mdx), you will be extending existing goals, such as adding a new linter to the `lint` goal. However, you may instead want to create a new goal, such as a `publish` goal. This page explains how to create a new goal.
 
-As explained in [Concepts](doc:rules-api-concepts), `@goal_rule`s are the entry-point into the rule graph. When a user runs `./pants my-goal`, the Pants engine will look for the respective `@goal_rule`. That `@goal_rule` will usually request other types, either as parameters in the `@goal_rule` signature or through `await Get`. But unlike a `@rule`, a `@goal_rule` may also trigger side-effects (such as running interactive processes, writing to the filesystem, etc) via `await Effect`.
+As explained in [Concepts](./concepts.mdx), `@goal_rule`s are the entry-point into the rule graph. When a user runs `./pants my-goal`, the Pants engine will look for the respective `@goal_rule`. That `@goal_rule` will usually request other types, either as parameters in the `@goal_rule` signature or through `await Get`. But unlike a `@rule`, a `@goal_rule` may also trigger side-effects (such as running interactive processes, writing to the filesystem, etc) via `await Effect`.
 
 Often, you can keep all of your logic inline in the `@goal_rule`. As your `@goal_rule` gets more complex, you may end up factoring out helper `@rule`s, but you do not need to start with writing helper `@rule`s.
 
 ## How to register a new goal
 
-There are four steps to creating a new [goal](doc:goals) with Pants:
+There are four steps to creating a new [goal](../../using-pants/key-concepts-to-know-about-pants/goals.mdx) with Pants:
 
 1. Define a subclass of `GoalSubsystem`. This is the API to your goal.
 
 ```
 1. Set the class property `name` to the name of your goal.
 2. Set the class property `help`, which is used by `./pants help`.
-3. You may register options through the class method `register_options()`. See [Options and subsystems](doc:subsystems).
+3. You may register options through the class method `register_options()`. See [Building distributions](./options-and-subsystems.mdx).
 ```
 
 2. Define a subclass of `Goal`. When a user runs `./pants my-goal`, the engine will request your subclass, which is what causes the `@goal_rule` to run.
@@ -177,7 +177,7 @@ helloworld/util
 helloworld/util:tests
 ```
 
-See [Rules and the Target API](doc:rules-api-and-target-api) for detailed information on how to use these targets in your rules, including accessing the metadata specified in BUILD files.
+See [Rules and the Target API](./rules-and-the-target-api.mdx) for detailed information on how to use these targets in your rules, including accessing the metadata specified in BUILD files.
 
 :::caution Common mistake: requesting the type of target you want in the `@goal_rule` signature
 
@@ -193,7 +193,7 @@ See [Rules and the Target API](doc:rules-api-and-target-api) for detailed inform
 
     Instead, request `Targets`, which will give you all of the targets that the user specified on the command line. The engine knows how to resolve this type because it can go from `AddressSpecs + FilesystemSpecs` -> `Specs` -> `Addresses` -> `Targets`.
 
-    From here, filter out the relevant targets you want using the Target API (see [Rules and the Target API](doc:rules-api-and-target-api).
+    From here, filter out the relevant targets you want using the Target API (see [Rules and the Target API](./rules-and-the-target-api.mdx).
 
     ```python
     from pants.engine.target import Targets
@@ -224,3 +224,7 @@ async def hello_world(console: Console, specs_snapshot: SpecsSnapshot) -> HelloW
 ```
 
 When users use address arguments like `::`, you will get all the sources belonging to the matched targets. When users use file arguments like `'**'`, you will get all matching files, even if the file doesn't have any owning target.
+
+
+
+

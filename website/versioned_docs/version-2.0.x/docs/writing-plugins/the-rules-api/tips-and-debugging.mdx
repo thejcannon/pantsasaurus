@@ -78,3 +78,5 @@ Pants will log the path to the chroot, e.g.:
 You can create a visual representation of the rule graph through the option `--native-engine-visualize-to=$dir_path $goal`. This will create the files `rule_graph.dot`, `rule_graph.$goal.dot`, and `graph.000.dot`, which are [`.dot` files](https://en.wikipedia.org/wiki/DOT_%28graph_description_language%29). `rule_graph.$goal.dot` contains only the rules used during your run, `rule_graph.dot` contains all rules, and `graph.000.dot` contains the actual runtime results of all rules (it can be quite large!).
 
 To open up the `.dot` file, you can install the [`graphviz`](https://graphviz.org) program, then run `dot -Tpdf -O $destination`. We recommend opening up the PDF in Google Chrome or OSX Preview, which do a good job of zooming in large PDF files.
+
+

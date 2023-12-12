@@ -30,7 +30,7 @@ Thanks to Pants's execution engine, your plugins will automatically bring you th
 
 :::danger The Plugin API is not yet stable
 
-    While we'll try our best to limit changes, the Plugin API does not yet follow the [Deprecation Policy](doc:deprecation-policy). Components of the API may change between minor versions—e.g. 2.1.0 to 2.2.0—without a deprecation.
+    While we'll try our best to limit changes, the Plugin API does not yet follow the [Deprecation Policy](../release-notes/deprecation-policy.mdx). Components of the API may change between minor versions—e.g. 2.1.0 to 2.2.0—without a deprecation.
 
     We will document any changes in the release notes with a guide on how to navigate the change.
 
@@ -40,8 +40,8 @@ Thanks to Pants's execution engine, your plugins will automatically bring you th
 
 The plugin API is split into two main interfaces:
 
-1. [The Target API](doc:target-api-concepts): a declarative interface for creating new target types and extending pre-existing targets.
-2. [The Rules API](doc:rules-api-concepts): where you define your logic and model each step of your build.
+1. [The Target API](./the-target-api/concepts.mdx): a declarative interface for creating new target types and extending pre-existing targets.
+2. [The Rules API](./the-rules-api/concepts.mdx): where you define your logic and model each step of your build.
 
 Plugins are written in typed Python 3 code. You write your logic in Python, and then Pants will run your plugin in the Rust engine.
 
@@ -93,7 +93,7 @@ plugins = [
 
 ## Enabling Plugins with `register.py`
 
-Recall that a Pants [_backend_](doc:enabling-backends) is a Python package that implements some required functionality, and uses hooks to register itself with Pants.
+Recall that a Pants [_backend_](../using-pants/concepts/backends.mdx) is a Python package that implements some required functionality, and uses hooks to register itself with Pants.
 
 A plugin will contain one or more backends, with the hooks for each one defined in a file called `register.py`. To enable a custom plugin you add its backends to your `backend_packages` configuration:
 
@@ -131,9 +131,9 @@ def target_types():
 
 ## Building in-repo plugins with Pants
 
-Because plugin code is written in Python, you can use Pants's [Python backend](doc:python-backend) to build your plugin code. For example, you can use Pants to lint, format, and test your plugin code.
+Because plugin code is written in Python, you can use Pants's [Python backend](../python/overview/enabling-python-support.mdx) to build your plugin code. For example, you can use Pants to lint, format, and test your plugin code.
 
-To do so, set up Pants for [Python support](doc:python), and add your `pants-plugins` directory as a source root:
+To do so, set up Pants for [Python support](../python/overview/index.mdx), and add your `pants-plugins` directory as a source root:
 
 ```toml title="pants.toml"
 [source]
@@ -153,7 +153,7 @@ A better way is to use the `pants_requirement()` macro, which uses the `pants_ve
 pants_requirement(name="pants", dist="pantsbuild.pants")
 ```
 
-Pants's [dependency inference](doc:targets) understands imports of the `pants` module and will automatically add dependencies on the `pants_requirement` where relevant. You can also explicitly add it to the `dependencies` field:
+Pants's [dependency inference](../using-pants/concepts/targets-and-build-files.mdx) understands imports of the `pants` module and will automatically add dependencies on the `pants_requirement` where relevant. You can also explicitly add it to the `dependencies` field:
 
 ```python title="pants-plugins/bash/BUILD"
 python_library(
@@ -169,3 +169,4 @@ python_library(
     See https://www.pantsbuild.org/v2.0/docs/python-third-party-dependencies.
 
 :::
+

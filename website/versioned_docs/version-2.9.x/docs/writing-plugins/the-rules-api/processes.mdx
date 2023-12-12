@@ -50,7 +50,7 @@ To populate the temporary directory with files, use the parameter `input_digest:
 
 ### Environment Variables
 
-To set environment variables, use the parameter `env: Mapping[str, str]`. `@rules` are prevented from accessing `os.environ` (it will always be empty) because this reduces reproducibility and breaks caching. Instead, either hardcode the value or add a [`Subsystem` option](doc:rules-api-subsystems) for the environment variable in question, or request the `Environment` type in your `@rule`.
+To set environment variables, use the parameter `env: Mapping[str, str]`. `@rules` are prevented from accessing `os.environ` (it will always be empty) because this reduces reproducibility and breaks caching. Instead, either hardcode the value or add a [`Subsystem` option](./options-and-subsystems.mdx) for the environment variable in question, or request the `Environment` type in your `@rule`.
 
 The `Environment` type contains a subset of the environment that Pants was run in, and is requested via a `EnvironmentRequest` that lists the variables to consume.
 
@@ -109,7 +109,7 @@ Like `ProcessResult`, `FallibleProcessResult` has the attributes `stdout: bytes`
 
 `InteractiveProcess` is similar to `subprocess.run()`. The process will run in the foreground, optionally with access to the workspace.
 
-Because the process is potentially side-effecting, you may only run an `InteractiveProcess` in an [`@goal_rule`](doc:rules-api-goal-rules) as an `Effect`.
+Because the process is potentially side-effecting, you may only run an `InteractiveProcess` in an [`@goal_rule`](./goal-rules.mdx) as an `Effect`.
 
 ```python
 from pants.engine.rules import Effect, goal_rule
@@ -130,3 +130,6 @@ You may either set the parameter `input_digest: Digest`, or you may set `run_in_
 To set environment variables, use the parameter `env: Mapping[str, str]`, like you would with `Process`. You can also set `hermetic_env=False` to inherit the environment variables from the parent `./pants` process.
 
 The `Effect` will return an `InteractiveProcessResult`, which has a single field `exit_code: int`.
+
+
+

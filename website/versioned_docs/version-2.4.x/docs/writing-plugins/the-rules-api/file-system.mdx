@@ -11,7 +11,7 @@ It is not safe to use functions like `open` or the non-pure operations of `pathl
 
 :::caution Missing certain file operations?
 
-    If it would help you to have a certain file operation, please let us know by either opening a new [GitHub issue](https://github.com/pantsbuild/pants/issues) or by messaging us on [Slack](doc:community) in the #engine room.
+    If it would help you to have a certain file operation, please let us know by either opening a new [GitHub issue](https://github.com/pantsbuild/pants/issues) or by messaging us on [Slack](../../../community/members) in the #engine room.
 
 :::
 
@@ -271,7 +271,7 @@ async def demo(...) -> Foo:
 
 `DownloadFile` expects a `url: str` parameter pointing to a stable URL for the asset, along with an `expected_digest: FileDigest` parameter. A `FileDigest` is like a normal `Digest`, but represents a single file, rather than a set of files/directories. To determine the `expected_digest`, manually download the file, then run `shasum -a 256` to compute the fingerprint and `wc -c` to compute the expected length of the downloaded file in bytes.
 
-Often, you will want to download a pre-compiled binary for a tool. When doing this, use `ExternalTool` instead for help with extracting the binary from the download. See [Installing tools](doc:rules-api-installing-tools).
+Often, you will want to download a pre-compiled binary for a tool. When doing this, use `ExternalTool` instead for help with extracting the binary from the download. See [Installing tools](./installing-tools.mdx).
 
 :::tip Want support for HTTP requests? Let us know.
 
@@ -282,3 +282,4 @@ Often, you will want to download a pre-compiled binary for a tool. When doing th
     If you would like proper support for HTTP requests to use in your plugin, please let us know by commenting on the tracking GitHub issue so that we know to prioritize this: https://github.com/pantsbuild/pants/issues/8347.
 
 :::
+

@@ -10,7 +10,7 @@ How to add a new formatter to the `fmt` and `lint` goals.
 
 ---
 
-In Pants, every formatter is (typically) also a linter, meaning that if you can run a tool with `./pants fmt`, you can run the same tool in check-only mode with `./pants lint`. Start by skimming [Add a linter](doc:plugins-lint-goal) to familiarize yourself with how linters work.
+In Pants, every formatter is (typically) also a linter, meaning that if you can run a tool with `./pants fmt`, you can run the same tool in check-only mode with `./pants lint`. Start by skimming [Add a linter](./add-a-linter.mdx) to familiarize yourself with how linters work.
 
 :::note Example repository
 
@@ -24,9 +24,9 @@ If you are instead writing your own formatting logic inline, you can skip Step 1
 
 ## 1. Install your formatter
 
-There are several ways for Pants to install your formatter. See [Installing tools](doc:rules-api-installing-tools). This example will use `ExternalTool` because there is already a pre-compiled binary for shfmt.
+There are several ways for Pants to install your formatter. See [Installing tools](../the-rules-api/installing-tools.mdx). This example will use `ExternalTool` because there is already a pre-compiled binary for shfmt.
 
-You will also likely want to register some options, like `--config`, `--skip`, and `--args`. Options are registered through a [`Subsystem`](doc:rules-api-subsystems). If you are using `ExternalTool`, this is already a subclass of `Subsystem`. Otherwise, create a subclass of `Subsystem`. Then, set the class property `options_scope` to the name of the tool, e.g. `"shfmt"` or `"prettier"`. Finally, add options via the class method `register_options()`.
+You will also likely want to register some options, like `--config`, `--skip`, and `--args`. Options are registered through a [`Subsystem`](../the-rules-api/options-and-subsystems.mdx). If you are using `ExternalTool`, this is already a subclass of `Subsystem`. Otherwise, create a subclass of `Subsystem`. Then, set the class property `options_scope` to the name of the tool, e.g. `"shfmt"` or `"prettier"`. Finally, add options via the class method `register_options()`.
 
 ```python
 from pants.core.util_rules.external_tool import ExternalTool
@@ -163,7 +163,7 @@ Note that we use `await Get(FmtResult, BashFmtRequest)` in a `for` loop. Normall
 
 ## 3. Set up a `FieldSet` and `FmtRequest`/`LintRequest`
 
-As described in [Rules and the Target API](doc:rules-api-and-target-api), a `FieldSet` is a way to tell Pants which `Field`s you care about targets having for your plugin to work.
+As described in [Rules and the Target API](../the-rules-api/rules-and-the-target-api.mdx), a `FieldSet` is a way to tell Pants which `Field`s you care about targets having for your plugin to work.
 
 Usually, you should add a subclass of the `Sources` field to the class property `required_fields`, such as `BashSources` or `PythonSources`. This means that your linter will run on any target with that sources field or a subclass of it.
 
@@ -194,7 +194,7 @@ class ShfmtRequest(BashFmtRequest, LintRequest):
     field_set_type = ShfmtFieldSet
 ```
 
-Finally, register your new `LintRequest`/`FmtRequest` with two [`UnionRule`s](doc:rules-api-unions) so that Pants knows your formatter exists:
+Finally, register your new `LintRequest`/`FmtRequest` with two [`UnionRule`s](../the-rules-api/union-rules-(advanced).mdx) so that Pants knows your formatter exists:
 
 ```python
 from pants.engine.unions import UnionRule
@@ -351,4 +351,5 @@ Now, when you run `./pants fmt ::` or `./pants lint ::`, your new formatter shou
 
 ## 5. Add tests (optional)
 
-Refer to [Testing rules](doc:rules-api-testing).
+Refer to [Testing rules](../the-rules-api/testing-plugins.mdx).
+

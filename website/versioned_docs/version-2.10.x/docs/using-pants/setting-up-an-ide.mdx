@@ -12,7 +12,7 @@ If you use a code-aware editor or IDE, such as PyCharm or VSCode, you may want t
 
 ## First-party sources
 
-To get your editor to understand the repo's first-party sources, you will probably need to tell it about the repo's [source roots](doc:source-roots). You can list those with:
+To get your editor to understand the repo's first-party sources, you will probably need to tell it about the repo's [source roots](./key-concepts/source-roots.mdx). You can list those with:
 
 ```shell title="shell"
 $ ./pants roots
@@ -44,11 +44,11 @@ You can use the `export` goal to create a suitable virtualenv.
 Wrote virtualenv for the resolve 'python-default' (using CPython==3.9.*) to dist/export/python/virtualenvs/python-default
 ```
 
-If you are using the ["resolves" feature for Python lockfiles](doc:python-third-party-dependencies)—which we strongly recommend—Pants will write the virtualenv to `dist/export/python/virtualenvs/<resolve-name>`. If you have multiple resolves, this means that Pants will create one virtualenv per resolve. You can then point your IDE to whichever resolve you want to load at the time.
+If you are using the ["resolves" feature for Python lockfiles](../python/overview/third-party-dependencies.mdx)—which we strongly recommend—Pants will write the virtualenv to `dist/export/python/virtualenvs/<resolve-name>`. If you have multiple resolves, this means that Pants will create one virtualenv per resolve. You can then point your IDE to whichever resolve you want to load at the time.
 
 ## Generated code
 
-If you're using [Protobuf and gRPC](doc:protobuf), you may want your editor to be able to index and navigate the generated source code.
+If you're using [Protobuf and gRPC](reference:reference-protobuf_source), you may want your editor to be able to index and navigate the generated source code.
 
 Normally Pants treats generated code as an internal byproduct, and doesn't expose it. But you can run the `export-codegen` goal to generate code to a well-known output location for consumption:
 
@@ -64,8 +64,11 @@ Warning: you will have to manually rerun this goal when changes are made.
 
 You can use PyCharm to debug code running under Pants.
 
-See the following links for instructions on how to do so under the [test goal](doc:python-test-goal) and under the [run goal](doc:python-run-goal).
+See the following links for instructions on how to do so under the [test goal](../python/goals/test.mdx) and under the [run goal](../python/goals/run.mdx).
 
 ## IDE integrations
 
-We have not yet developed tight IDE integrations, such as a PyCharm plugin or a VSCode extension, that would allow the IDE to run Pants on your behalf. If you're interested in developing this functionality for your favorite IDE, [let us know](doc:the-pants-community)!
+We have not yet developed tight IDE integrations, such as a PyCharm plugin or a VSCode extension, that would allow the IDE to run Pants on your behalf. If you're interested in developing this functionality for your favorite IDE, [let us know](../getting-help/the-pants-community/index.mdx)!
+
+
+

@@ -30,9 +30,9 @@ Thanks to Pants's execution engine, your plugins will automatically bring you th
 
 :::danger The Plugin API is not yet stable
 
-    While we'll try our best to limit changes, the Plugin API does not yet follow the [Deprecation Policy](doc:deprecation-policy). Components of the API may change between minor versions—e.g. 2.7 to 2.8—without a deprecation.
+    While we'll try our best to limit changes, the Plugin API does not yet follow the [Deprecation Policy](../releases/deprecation-policy.mdx). Components of the API may change between minor versions—e.g. 2.7 to 2.8—without a deprecation.
 
-    We will document changes at [Plugin upgrade guide](doc:plugin-upgrade-guide).
+    We will document changes at [Plugin upgrade guide](./common-plugin-tasks/plugin-upgrade-guide.mdx).
 
 :::
 
@@ -40,8 +40,8 @@ Thanks to Pants's execution engine, your plugins will automatically bring you th
 
 The plugin API is split into two main interfaces:
 
-1. [The Target API](doc:target-api-concepts): a declarative interface for creating new target types and extending existing targets.
-2. [The Rules API](doc:rules-api-concepts): where you define your logic and model each step of your build.
+1. [The Target API](./the-target-api/concepts.mdx): a declarative interface for creating new target types and extending existing targets.
+2. [The Rules API](./the-rules-api/concepts.mdx): where you define your logic and model each step of your build.
 
 Plugins are written in typed Python 3 code. You write your logic in Python, and then Pants will run your plugin in the Rust engine.
 
@@ -91,7 +91,7 @@ However, be careful adding third-party dependencies that perform side-effects li
 
 ## Enabling Plugins with `register.py`
 
-A Pants [_backend_](doc:enabling-backends) is a Python package that implements some required functionality and uses hooks to register itself with Pants.
+A Pants [_backend_](../using-pants/key-concepts/backends.mdx) is a Python package that implements some required functionality and uses hooks to register itself with Pants.
 
 A plugin will contain one or more backends, with the hooks for each one defined in a file called `register.py`. To enable a custom plugin you add its backends to your `backend_packages` configuration:
 
@@ -129,9 +129,9 @@ def target_types():
 
 ## Building in-repo plugins with Pants
 
-Because plugin code is written in Python, you can optionally use Pants's [Python backend](doc:python-backend) to build your plugin code. For example, you can use Pants to lint, format, and test your plugin code. This is not required, but it's usually a good idea to improve the quality of your plugin.
+Because plugin code is written in Python, you can optionally use Pants's [Python backend](../python/overview/enabling-python-support.mdx) to build your plugin code. For example, you can use Pants to lint, format, and test your plugin code. This is not required, but it's usually a good idea to improve the quality of your plugin.
 
-To do so, activate the [Python backend](doc:python) and `plugin_development` backend, which adds the `pants_requirements` target type. Also add your `pants-plugins` directory as a source root:
+To do so, activate the [Python backend](../python/overview/index.mdx) and `plugin_development` backend, which adds the `pants_requirements` target type. Also add your `pants-plugins` directory as a source root:
 
 ```toml title="pants.toml"
 [GLOBAL]
@@ -153,11 +153,11 @@ Then, add the `pants_requirements` target generator.
 pants_requirements(name="pants")
 ```
 
-This will generate [`python_requirement` targets](doc:python-third-party-dependencies) for the `pantsbuild.pants` and `pantsbuild.pants.testutil` distributions, so that when you build your code—like running MyPy or Pytest on your plugin—the dependency on Pants itself is properly resolved. This isn't used for your plugin to work, only for Pants goals like `test` and `check` to understand how to resolve the dependency.
+This will generate [`python_requirement` targets](../python/overview/third-party-dependencies.mdx) for the `pantsbuild.pants` and `pantsbuild.pants.testutil` distributions, so that when you build your code—like running MyPy or Pytest on your plugin—the dependency on Pants itself is properly resolved. This isn't used for your plugin to work, only for Pants goals like `test` and `check` to understand how to resolve the dependency.
 
-The target generator dynamically sets the version downloaded to match your current `pants_version` set in `pants.toml`. Pants's [dependency inference](doc:targets) understands imports of the `pants` module and will automatically add dependencies on the generated `python_requirement` targets where relevant.
+The target generator dynamically sets the version downloaded to match your current `pants_version` set in `pants.toml`. Pants's [dependency inference](../using-pants/key-concepts/targets-and-build-files.mdx) understands imports of the `pants` module and will automatically add dependencies on the generated `python_requirement` targets where relevant.
 
-If you do not want your plugin requirements to mix with your normal requirements, it's often a good idea to set up a dedicated "resolve" (lockfile) for your plugins. See [Third-party dependencies](doc:python-third-party-dependencies) for more information, including the current limitations of multiple resolves. For example:
+If you do not want your plugin requirements to mix with your normal requirements, it's often a good idea to set up a dedicated "resolve" (lockfile) for your plugins. See [Third-party dependencies](../python/overview/third-party-dependencies.mdx) for more information, including the current limitations of multiple resolves. For example:
 
 ```python title="pants.toml"
 [python]
@@ -188,9 +188,18 @@ Pants plugins can be published to PyPI and consumed by other Pants users.
 
 As mentioned above: the plugin API is still unstable, and so supporting multiple versions of Pants with a single plugin version may be challenging. Give careful consideration to who you expect to consume the plugin, and what types of maintenance guarantees you hope to provide.
 
-When publishing a plugin, ensure that any [`python_requirement` targets](doc:python-third-party-dependencies) that the plugin depends on either:
+When publishing a plugin, ensure that any [`python_requirement` targets](../python/overview/third-party-dependencies.mdx) that the plugin depends on either:
 
 1. Do not overlap with [the requirements of Pants itself](https://github.com/pantsbuild/pants/blob/aa0932a54e8c1b6ed6f3be8e084a11b2f6c808e5/3rdparty/python/requirements.txt), or
 2. Use range requirements that are compatible with Pants' own requirements.
 
 For example: if a particular version of Pants depends on `requests>=2.25.1` and your plugin must also depend on `requests`, then the safest approach is to specify exactly that range in the plugins' requirements.
+
+
+
+
+
+
+
+
+

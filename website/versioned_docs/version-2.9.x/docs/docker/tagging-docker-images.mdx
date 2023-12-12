@@ -120,7 +120,7 @@ Since repository names often conform to patterns like these, this can save you o
 
 When Docker builds images, it can tag them with a set of tags. Pants will apply the tags listed in the `image_tags` field of `docker_image`.
 
-(Note that the field is named `image_tags` and not just `tags`, because Pants has [its own tags concept](doc:reference-target#codetagscode), which is unrelated.)
+(Note that the field is named `image_tags` and not just `tags`, because Pants has [its own tags concept](reference:reference-target#codetagscode), which is unrelated.)
 
 ```python title="src/example/BUILD"
 docker_image(
@@ -166,7 +166,7 @@ FROM scratch
 
 This way you can specify a version just once, on the base image, and the derived images will automatically acquire the same version.
 
-You may also use any Docker build arguments (when configured as described in [Docker build arguments](doc:docker#build-arguments)) for interpolation into the `image_tags` in the corresponding `docker_image`:
+You may also use any Docker build arguments (when configured as described in [Docker build arguments](./overview.mdx#build-arguments)) for interpolation into the `image_tags` in the corresponding `docker_image`:
 
 ```python title="src/example/BUILD"
 docker_image(image_tags=["{build_args.ARG_NAME}"])
@@ -201,7 +201,7 @@ the value from the environment will be used.
 
 :::note Generating dynamic tags in a plugin
 
-    If you don't want to use the environment variable method described above, you'll need to write some custom plugin code. Don't hesitate to [reach out](doc:getting-help) for help with this.
+    If you don't want to use the environment variable method described above, you'll need to write some custom plugin code. Don't hesitate to [reach out](../getting-help/getting-help.mdx) for help with this.
 
     We are looking into making some common dynamic data, such as the git sha, automatically available in the core Docker plugin in the future.
 
@@ -228,3 +228,6 @@ reg1/example/demo:latest
 reg2/example/demo:1.0
 reg2/example/demo:latest
 ```
+
+
+

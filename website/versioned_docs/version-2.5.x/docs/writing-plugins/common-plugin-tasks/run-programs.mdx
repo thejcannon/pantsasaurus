@@ -24,7 +24,7 @@ Usually, you will want to add a "binary" target type for your language, such as 
 
 When creating a binary target, you should usually subclass the `Sources` field and set the class property `expected_num_files = 1`.
 
-See [Creating new targets](doc:target-api-new-targets) for a guide on how to define new target types.
+See [Creating new targets](../the-target-api/creating-new-targets.mdx) for a guide on how to define new target types.
 
 ```python
 from pants.engine.target import COMMON_TARGET_FIELDS, Dependencies, Sources, Target
@@ -47,7 +47,7 @@ class BashBinarySources(BashSources):
 
 ## 2. Set up a subclass of `RunFieldSet`
 
-As described in [Rules and the Target API](doc:rules-api-and-target-api), a `FieldSet` is a way to tell Pants which `Field`s you care about targets having for your plugin to work.
+As described in [Rules and the Target API](../the-rules-api/rules-and-the-target-api.mdx), a `FieldSet` is a way to tell Pants which `Field`s you care about targets having for your plugin to work.
 
 Usually, you will require the binary target's `Sources` subclass from Step 1, such as `BashBinarySources` or `PythonBinarySources`. Add this `Sources` subclass to the class property `required_fields` of your new `FieldSet`. This means that your binary implementation will run on any target with that sources field or a subclass of it.
 
@@ -65,7 +65,7 @@ class BashRunFieldSet(BinaryFieldSet):
     sources: BashBinarySources
 ```
 
-Then, register your new `RunFieldSet` with a [`UnionRule`](doc:rules-api-unions) so that Pants knows your binary implementation exists:
+Then, register your new `RunFieldSet` with a [`UnionRule`](../the-rules-api/union-rules-(advanced).mdx) so that Pants knows your binary implementation exists:
 
 ```python
 from pants.engine.rules import collect_rules
@@ -161,4 +161,8 @@ Now, when you run `./pants run path/to/binary.sh`, Pants should run the program.
 
 ## 4. Add tests (optional)
 
-Refer to [Testing rules](doc:rules-api-testing). TODO
+Refer to [Testing rules](../the-rules-api/testing-plugins.mdx). TODO
+
+
+
+

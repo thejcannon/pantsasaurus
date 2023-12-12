@@ -22,9 +22,9 @@ If you are instead writing your own linting logic inline, you can skip Step 1. I
 
 ## 1. Install your linter
 
-There are several ways for Pants to install your linter. See [Installing tools](doc:rules-api-installing-tools). This example will use `ExternalTool` because there is already a pre-compiled binary for Shellcheck.
+There are several ways for Pants to install your linter. See [Installing tools](../the-rules-api/installing-tools.mdx). This example will use `ExternalTool` because there is already a pre-compiled binary for Shellcheck.
 
-You will also likely want to register some options, like `--config`, `--skip`, and `--args`. Options are registered through a [`Subsystem`](doc:rules-api-subsystems). If you are using `ExternalTool`, this is already a subclass of `Subsystem`. Otherwise, create a subclass of `Subsystem`. Then, set the class property `options_scope` to the name of the tool, e.g. `"shellcheck"` or `"eslint"`. Finally, add options via the class method `register_options()`.
+You will also likely want to register some options, like `--config`, `--skip`, and `--args`. Options are registered through a [`Subsystem`](../the-rules-api/options-and-subsystems.mdx). If you are using `ExternalTool`, this is already a subclass of `Subsystem`. Otherwise, create a subclass of `Subsystem`. Then, set the class property `options_scope` to the name of the tool, e.g. `"shellcheck"` or `"eslint"`. Finally, add options via the class method `register_options()`.
 
 ```python
 from pants.core.util_rules.external_tool import ExternalTool
@@ -92,7 +92,7 @@ def rules():
 
 ## 2. Set up a `FieldSet` and `LintRequest`
 
-As described in [Rules and the Target API](doc:rules-api-and-target-api), a `FieldSet` is a way to tell Pants which `Field`s you care about targets having for your plugin to work.
+As described in [Rules and the Target API](../the-rules-api/rules-and-the-target-api.mdx), a `FieldSet` is a way to tell Pants which `Field`s you care about targets having for your plugin to work.
 
 Usually, you should add a subclass of the `Sources` field to the class property `required_fields`, such as `BashSources` or `PythonSources`. This means that your linter will run on any target with that sources field or a subclass of it.
 
@@ -124,7 +124,7 @@ class ShellcheckRequest(LintRequest):
     field_set_type = ShellcheckFieldSet
 ```
 
-Finally, register your new `LintRequest` with a [`UnionRule`](doc:rules-api-unions) so that Pants knows your linter exists:
+Finally, register your new `LintRequest` with a [`UnionRule`](../the-rules-api/union-rules-(advanced).mdx) so that Pants knows your linter exists:
 
 ```python
 from pants.engine.unions import UnionRule
@@ -169,7 +169,7 @@ If you have a `--config` option, you should use `Get(Digest, PathGlobs)` to find
 
 Use `Get(Digest, MergeDigests)` to combine the different inputs together, such as merging the source files, config file, and downloaded tool.
 
-Usually, you will use `Get(FallibleProcessResult, Process)` to run a subprocess (see [Processes](doc:rules-api-process)). We use `Fallible` because Pants should not throw an exception if the linter returns a non-zero exit code. Then, you can use `LintResult.from_fallible_process_result()` to convert this into a `LintResult`.
+Usually, you will use `Get(FallibleProcessResult, Process)` to run a subprocess (see [Processes](../the-rules-api/processes.mdx)). We use `Fallible` because Pants should not throw an exception if the linter returns a non-zero exit code. Then, you can use `LintResult.from_fallible_process_result()` to convert this into a `LintResult`.
 
 ```python
 from pants.core.goals.lint import LintRequest, LintResult, LintResults
@@ -276,4 +276,7 @@ Now, when you run `./pants lint ::`, your new linter should run.
 
 ## 4. Add tests (optional)
 
-Refer to [Testing rules](doc:rules-api-testing). TODO
+Refer to [Testing rules](../the-rules-api/testing-plugins.mdx). TODO
+
+
+

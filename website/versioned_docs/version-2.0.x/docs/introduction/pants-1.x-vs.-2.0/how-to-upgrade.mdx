@@ -150,7 +150,6 @@ Once `./pants` works, run `./pants list ::` to make sure that Pants can parse al
 
 :::note Reminder: use `ignore_pants_warnings` to ignore deprecations
 
-````
 For example:
 
 ```toml
@@ -158,25 +157,26 @@ For example:
 ignore_pants_warnings = [
   "DEPRECATED: Use the target type `pex_binary`",
 ]
-````
 
 ```
 
 :::
 
-
 ## Step 5: Tweak your CI's caching (recommended)
+
 With the v1 engine, most caching was saved to the folder `<build root>/.pants.d`. With the v2 engine, caching is saved to `~/.cache/pants/lmdb_store` and `~/.cache/pants/named_caches`.
 
 Refer to [Using Pants in CI](../../using-pants/using-pants-in-ci.mdx) for more information, including a script to nuke your cache when it has gotten too large.
+
 ## Step 6: Set up a constraints file (strongly recommended)
+
 A constraints file (aka lockfile) is important for reproducible builds.
 
 Setting up a constraints file also allows Pants to optimize to avoid resolving requirements more than one time for your project. This greatly speeds up the performance of goals like `test`, `run`, and `repl`.
 
 See [Third-party dependencies](../../python/overview/third-party-dependencies.mdx) for a guide to set this up.
-## Key differences to be aware of
 
+## Key differences to be aware of
 
 :::tip Missing features? Let us know!
 
@@ -184,7 +184,7 @@ See [Third-party dependencies](../../python/overview/third-party-dependencies.md
 
 Please message us on [Slack](../../../community/members) if you are having issues upgrading or find something missing. We would love to help.
 
-````
+```
 
 :::
 
@@ -198,10 +198,10 @@ Now, files are the "atomic unit". You can now depend on a specific file, which w
 
 This should have little impact on your day-to-day usage, other than:
 
-* Tests run per-file, rather than per-target.
-* The project introspection goals like `list`, `filter`, `dependencies`, and `dependees` will have different output.
-* `--changed-since` is more precise. It used to return all sibling files to files that were changed, even if those siblings were untouched. Now, it only returns files that were actually changed.
-* If you use dependency inference, Pants will infer dependencies on specific files, rather than the entire target. For one Pants user with ~70k lines of Python code, this finer-grained precision reduced the size of dependencies by 30%!
+- Tests run per-file, rather than per-target.
+- The project introspection goals like `list`, `filter`, `dependencies`, and `dependees` will have different output.
+- `--changed-since` is more precise. It used to return all sibling files to files that were changed, even if those siblings were untouched. Now, it only returns files that were actually changed.
+- If you use dependency inference, Pants will infer dependencies on specific files, rather than the entire target. For one Pants user with ~70k lines of Python code, this finer-grained precision reduced the size of dependencies by 30%!
 
 `run`, `package` (formerly `binary`, `setup-py`, and `awslambda`), `fmt`, and `lint` will all behave the same as before. You can still use both files and address specs like `::` on the command line. You can keep your `dependencies` fields the same as before.
 
@@ -221,7 +221,7 @@ Now, with dependency inference enabled, you can start deleting `dependencies` fr
 
 ### Less magical handling of `__init__.py` files (1.30 vs. 2.0)
 
-Previously, with both the v1 and v2 engines, Pants would detect any missing `__init__.py` files and automatically inject them by generating empty files. This is surprising and also breaks [PEP 420](https://www.python.org/dev/peps/pep-0420/)  style namespace packages.
+Previously, with both the v1 and v2 engines, Pants would detect any missing `__init__.py` files and automatically inject them by generating empty files. This is surprising and also breaks [PEP 420](https://www.python.org/dev/peps/pep-0420/) style namespace packages.
 
 Instead, now Pants will use any `__init__.py` files it discovers for a file or its ancestor directories. `__init__.py` files will be used even if they are left off of the `sources` field in a target. Pants will no longer auto-generate any missing `__init__.py` files.
 
@@ -243,7 +243,7 @@ We consolidated all three of those goals into the new `package` goal. (The old g
 
 `package` behaves identically for `binary` and `awslambda`. For `setup-py`, rather than using command line arguments like `./pants setup-py path/to:tgt -- bdist_wheel`, set the field `setup_py_commands = ['bdist_wheel']`, for example.
 
-### Use  `python_distribution` target type for `provides=setup_py()` (1.30 vs. 2.0)
+### Use `python_distribution` target type for `provides=setup_py()` (1.30 vs. 2.0)
 
 Previously, the `provides` field was used on `python_library` targets for the [`setup-py` goal](reference:reference-setup-py). Now, use a dedicated `python_distribution` target.
 
@@ -265,7 +265,7 @@ python_distribution(
         ...
     )
 )
-````
+```
 
 ### `python_binary` is deprecated in favor of `pex_binary` (1.30 vs. 2.0)
 

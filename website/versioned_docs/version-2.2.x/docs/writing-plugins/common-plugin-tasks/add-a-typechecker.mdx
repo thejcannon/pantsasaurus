@@ -7,7 +7,7 @@ How to add a new typechecker to the `typecheck` goal.
 
 ---
 
-Adding a typechecker is almost identical to [adding a linter](doc:plugins-lint-goal), except for these differences:
+Adding a typechecker is almost identical to [adding a linter](./add-a-linter.mdx), except for these differences:
 
 1. Subclass `TypecheckRequest` from `pants.core.goals.typecheck`, rather than `LintRequest`. Register a `UnionRule(TypecheckRequest, CustomTypecheckerRequest)`.
 2. Return `TypecheckResults` in your rule—which is a collection of `TypecheckResult` objects—rather than returning `LintResults`. Both types are defined in `pants.core.goals.typecheck`.
@@ -48,4 +48,5 @@ def rules():
     return [*collect_rules(), UnionRule(TypecheckRequest, MyPyRequest)]
 ```
 
-Refer to [Add a linter](doc:plugins-lint-goal). See [`pants/backend/python/typecheck/mypy/rules.py`](https://github.com/pantsbuild/pants/blob/master/src/python/pants/backend/python/typecheck/mypy/rules.py) for an example of MyPy.
+Refer to [Add a linter](./add-a-linter.mdx). See [`pants/backend/python/typecheck/mypy/rules.py`](https://github.com/pantsbuild/pants/blob/master/src/python/pants/backend/python/typecheck/mypy/rules.py) for an example of MyPy.
+

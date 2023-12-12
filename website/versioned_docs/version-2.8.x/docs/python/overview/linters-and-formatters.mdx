@@ -12,7 +12,7 @@ How to activate and use the Python linters and formatters bundled with Pants.
 
 ## Activating linters and formatters
 
-Linter/formatter support is implemented in separate [backends](doc:enabling-backends) so that they are easy to opt in to individually:
+Linter/formatter support is implemented in separate [backends](../../using-pants/key-concepts-to-know-about-pants/backends.mdx) so that they are easy to opt in to individually:
 | Backend | Tool |
 | :--- | :--- |
 | `pants.backend.python.lint.bandit` | [Bandit](https://bandit.readthedocs.io/en/latest/): security linter |
@@ -55,7 +55,7 @@ All done! ✨ 🍰 ✨
 
 :::note How to activate MyPy
 
-    MyPy is run with the [check goal](doc:python-check-goal), rather than `lint`.
+    MyPy is run with the [check goal](../goals/check.mdx), rather than `lint`.
 
 :::
 
@@ -67,10 +67,10 @@ Most of the formatters and linters allow you to configure
 | :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `version`                 | E.g. `flake8==3.8.0`.                                                                                                                                                                  |
 | `extra_requirements`      | Any additional dependencies to install, such as any plugins.                                                                                                                           |
-| `interpreter_constraints` | What interpreter to run the tool with. (`bandit`, `flake8`, and `pylint` instead determine this based on your [code's interpreter constraints](doc:python-interpreter-compatibility).) |
+| `interpreter_constraints` | What interpreter to run the tool with. (`bandit`, `flake8`, and `pylint` instead determine this based on your [code's interpreter constraints](./interpreter-compatibility.mdx).) |
 | `args`                    | Any command-line arguments you want to pass to the tool.                                                                                                                               |
 | `config`                  | Path to a config file. Useful if the file is in a non-standard location such that it cannot be auto-discovered.                                                                        |
-| `lockfile`                | Path to a custom lockfile if the default does not work, or `"<none>"` to opt out. See [Third-party dependencies](doc:python-third-party-dependencies#tool-lockfiles).                  |
+| `lockfile`                | Path to a custom lockfile if the default does not work, or `"<none>"` to opt out. See [Third-party dependencies](./third-party-dependencies.mdx#tool-lockfiles).                  |
 
 For example:
 
@@ -144,7 +144,7 @@ or
 $ ./pants --changed-since=main lint
 ```
 
-Pants will find which files have changed and only run over those files. See [Advanced target selection](doc:advanced-target-selection) for more information.
+Pants will find which files have changed and only run over those files. See [Advanced target selection](../../using-pants/advanced-target-selection.mdx) for more information.
 
 ## Tips for specific tools
 
@@ -166,9 +166,9 @@ Pants will copy all reports into the folder `dist/lint/<linter_name>`.
 
 ### Pylint: how to add first-party plugins
 
-See [`[pylint].source_plugins`](https://www.pantsbuild.org/docs/reference-pylint#section-source-plugins) for instructions to add plugins written by you.
+See [`[pylint].source_plugins`](reference:reference-pylint#section-source-plugins) for instructions to add plugins written by you.
 
-If you want to write first-party plugins for other linters like Flake8, let us know on [Slack](doc:getting-help).
+If you want to write first-party plugins for other linters like Flake8, let us know on [Slack](../../getting-help/getting-help.mdx).
 
 ### Bandit: less verbose logging
 
@@ -225,3 +225,7 @@ default_section = "THIRDPARTY"
 ```
 
 You may also want to try downgrading to iSort 4.x by setting `version = "isort>=4.6,<5"` in the `[isort]` options scope.
+
+
+
+

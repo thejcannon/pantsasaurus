@@ -107,3 +107,5 @@ The construction algorithm is broken up into phases:
 ```
 
 5. [finalize](https://github.com/pantsbuild/pants/blob/3a188a1e06d8c27ff86d8c311ff1b2bdea0d39ff/src/rust/engine/rule_graph/src/builder.rs#L1064-L1068) - After `prune_edges` the graph is known to be valid, and this phase generates the final static `RuleGraph` for all `Rule`s reachable from `Query`s.
+
+

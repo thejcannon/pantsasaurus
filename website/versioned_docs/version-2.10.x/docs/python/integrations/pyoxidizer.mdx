@@ -10,7 +10,7 @@ Creating Python binaries through PyOxidizer.
 
 ---
 
-PyOxidizer allows you to distribute your code as a single binary file, similar to [Pex files](doc:pex-files). Unlike Pex, these binaries include a Python interpreter, often greatly simplifying distribution.
+PyOxidizer allows you to distribute your code as a single binary file, similar to [Pex files](../overview/pex-files.mdx). Unlike Pex, these binaries include a Python interpreter, often greatly simplifying distribution.
 
 See our blog post on [Packaging Python with the Pants PyOxidizer Plugin](https://blog.pantsbuild.org/packaging-python-with-the-pyoxidizer-pants-plugin/) for more discussion of the benefits of PyOxidizer.
 
@@ -30,9 +30,9 @@ This adds the new `pyoxidizer_binary` target, which you can confirm by running `
 
 :::caution This backend is experimental
 
-    We are still discovering the best ways to provide PyOxidizer support, such as how to make our [default template more useful](https://github.com/pantsbuild/pants/pull/14183/files#r788253973). This backend does not follow the normal [deprecation policy](doc:deprecation-policy), although we will do our best to minimize breaking changes.
+    We are still discovering the best ways to provide PyOxidizer support, such as how to make our [default template more useful](https://github.com/pantsbuild/pants/pull/14183/files#r788253973). This backend does not follow the normal [deprecation policy](../../releases/deprecation-policy.mdx), although we will do our best to minimize breaking changes.
 
-    We would [love your feedback](doc:getting-help) on this backend!
+    We would [love your feedback](../../getting-help/getting-help.mdx) on this backend!
 
 :::
 
@@ -40,7 +40,7 @@ This adds the new `pyoxidizer_binary` target, which you can confirm by running `
 
 The `pyoxidizer_binary` target works by pointing to a `python_distribution` target with the code you want included. Pants then passes the distribution to PyOxidizer to install it as a binary.
 
-So, to get started, create a `python_distribution` target per [Building distributions](doc:python-distributions).
+So, to get started, create a `python_distribution` target per [Building distributions](../overview/building-distributions.mdx).
 
 ```python title="project/BUILD"
 python_sources(name="lib")
@@ -56,7 +56,7 @@ The `python_distribution` must produce at least one wheel (`.whl`) file. If you 
 
 ## Step 3: Define a `pyoxidizer_binary` target
 
-Now, create a `pyoxidizer_binary` target and set the `dependencies` field to the [address](doc:targets) of the `python_distribution` you created previously.
+Now, create a `pyoxidizer_binary` target and set the `dependencies` field to the [address](../../using-pants/key-concepts/targets-and-build-files.mdx) of the `python_distribution` you created previously.
 
 ```python title="project/BUILD"
 pyoxidizer_binary(
@@ -108,7 +108,7 @@ For example:
 14:15:31.23 [INFO] Wrote dist/src.py.project/bin/aarch64-apple-darwin/debug/install/bin
 ```
 
-By default, Pants will write the package using this scheme: `dist/{path.to.tgt_dir}/{tgt_name}/{platform}/{debug,release}/install/{tgt_name}`. You can change the first part of this path by setting the `output_path` field, although you risk name collisions with other `pyoxidizer_binary` targets in your project. See [pyoxidizer_binary](doc:reference-pyoxidizer_binary) for more info.
+By default, Pants will write the package using this scheme: `dist/{path.to.tgt_dir}/{tgt_name}/{platform}/{debug,release}/install/{tgt_name}`. You can change the first part of this path by setting the `output_path` field, although you risk name collisions with other `pyoxidizer_binary` targets in your project. See [pyoxidizer_binary](reference:reference-pyoxidizer_binary) for more info.
 
 :::caution `debug` vs `release` builds
 
@@ -133,7 +133,7 @@ By default, Pants will write the package using this scheme: `dist/{path.to.tgt_d
 
 :::tip Missing functionality? Let us know!
 
-    We would like to keep improving Pants's PyOxidizer support. We encourage you to let us know what features are missing through [Slack or GitHub](doc:getting-help)!
+    We would like to keep improving Pants's PyOxidizer support. We encourage you to let us know what features are missing through [Slack or GitHub](../../getting-help/getting-help.mdx)!
 
 :::
 
@@ -147,7 +147,7 @@ By default, Pants will write the package using this scheme: `dist/{path.to.tgt_d
 
 ### `python_distribution`s that implicitly depend on each other
 
-As explained at [Building distributions](doc:python-distributions#mapping-source-files-to-distributions), Pants automatically detects when one `python_distribution` depends on another, and it will add that dependency to the `install_requires` for the distribution.
+As explained at [Building distributions](../overview/building-distributions.mdx#mapping-source-files-to-distributions), Pants automatically detects when one `python_distribution` depends on another, and it will add that dependency to the `install_requires` for the distribution.
 
 When this happens, PyOxidizer would naively try installing that first-party dependency from PyPI, which will likely fail. Instead, include all relevant `python_distribution` targets in the `dependencies` field of the `pyoxidizer_binary` target.
 
@@ -255,3 +255,13 @@ pyoxidizer_binary(
     filesystem_resources=["numpy==1.17"],
 )
 ```
+
+
+
+
+
+
+
+
+
+
