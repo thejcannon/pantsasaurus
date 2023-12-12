@@ -10,7 +10,6 @@ import styles from "@site/src/components/reference/styles.module.css";
 A single Protobuf file used to generate various languages.
 
 See language-specific docs:
-
 ```
 Python: https://www.pantsbuild.org/v2.15/docs/protobuf-python
 Go: https://www.pantsbuild.org/v2.15/docs/protobuf-go
@@ -78,8 +77,13 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 
 ## `grpc`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  Whether to generate gRPC code or not.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+Whether to generate gRPC code or not.
+
 </Field>
 
 ## `python_resolve`
@@ -100,12 +104,11 @@ All dependencies must share the same value for their `resolve` field.
 ## `jvm_jdk`
 
 <Field
-  type_repr={`field.type_hint`}
-  backend="pants.backend.experimental.codegen.protobuf.java"
+    type_repr={`field.type_hint`}
+    backend="pants.backend.experimental.codegen.protobuf.java"
 >
 
-The major version of the JDK that this target should be built with. If not
-defined, will default to `[jvm].default_source_jdk`.
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
 
 </Field>
 
@@ -157,9 +160,9 @@ If not defined, will default to `[jvm].default_resolve`.
 ## `skip_buf_lint`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.codegen.protobuf.lint.buf"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.codegen.protobuf.lint.buf"
 >
 
 If true, don&#x27;t run `buf lint` on this target&#x27;s code.
@@ -184,13 +187,15 @@ If there is a single `go_mod` target in the repository, then this field defaults
 ## `skip_buf_format`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.codegen.protobuf.lint.buf"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.codegen.protobuf.lint.buf"
 >
 
 If true, don&#x27;t run `buf format` on this target&#x27;s code.
 
 </Field>
+
+
 
 </span>

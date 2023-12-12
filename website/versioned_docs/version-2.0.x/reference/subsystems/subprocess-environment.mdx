@@ -16,7 +16,6 @@ Config section: <span className="color--primary">`[subprocess-environment]`</spa
 <span className={styles.options}>
 
 ## Basic options
-
 None
 
 ## Advanced options
@@ -41,10 +40,10 @@ Each ENV_VAR must be one of `LANG`, `LC_CTYPE`, `LC_ALL`, `http_proxy`, `https_p
 
 <Option
   cli_repr={`--subprocess-environment-lang=<str>`}
-  env_repr="PANTS_SUBPROCESS_ENVIRONMENT_LANG"
+  env_repr='PANTS_SUBPROCESS_ENVIRONMENT_LANG'
   default_repr={`en_US.UTF-8`}
-  removal_version="2.1.0.dev0"
-  removal_hint={"Use the env_vars option in this scope instead."}
+  removal_version='2.1.0.dev0'
+  removal_hint={'Use the env_vars option in this scope instead.'}
 >
 
 Override the `LANG` environment variable for any forked subprocesses.
@@ -55,10 +54,10 @@ Override the `LANG` environment variable for any forked subprocesses.
 
 <Option
   cli_repr={`--subprocess-environment-lc-all=<str>`}
-  env_repr="PANTS_SUBPROCESS_ENVIRONMENT_LC_ALL"
+  env_repr='PANTS_SUBPROCESS_ENVIRONMENT_LC_ALL'
   default_repr={`None`}
-  removal_version="2.1.0.dev0"
-  removal_hint={"Use the env_vars option in this scope instead."}
+  removal_version='2.1.0.dev0'
+  removal_hint={'Use the env_vars option in this scope instead.'}
 >
 
 Override the `LC_ALL` environment variable for any forked subprocesses.

@@ -74,9 +74,12 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 ## `jdk`
 
-<Field type_repr={`field.type_hint`}>
-  The major version of the JDK that this target should be built with. If not
-  defined, will default to `[jvm].default_source_jdk`.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+
 </Field>
 
 ## `experimental_provides_types`
@@ -103,6 +106,9 @@ The resolve from `[jvm].resolves` to use when compiling this target.
 
 If not defined, will default to `[jvm].default_resolve`.
 
+
 </Field>
+
+
 
 </span>

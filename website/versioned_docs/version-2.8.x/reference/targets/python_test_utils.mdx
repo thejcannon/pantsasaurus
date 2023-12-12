@@ -99,7 +99,6 @@ Override the field values for generated `python_source` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
-
 ```
 overrides={
   "foo.py": {"skip_pylint": True]},
@@ -118,56 +117,114 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 
 ## `skip_autoflake`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run Autoflake on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Autoflake on this target&#x27;s code.
+
 </Field>
 
 ## `skip_black`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run Black on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Black on this target&#x27;s code.
+
 </Field>
 
 ## `skip_docformatter`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run Docformatter on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Docformatter on this target&#x27;s code.
+
 </Field>
 
 ## `skip_flake8`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run Flake8 on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Flake8 on this target&#x27;s code.
+
 </Field>
 
 ## `skip_isort`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run isort on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run isort on this target&#x27;s code.
+
 </Field>
 
 ## `skip_mypy`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run MyPy on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run MyPy on this target&#x27;s code.
+
+</Field>
+
+## `skip_pyupgrade`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run pyupgrade on this target&#x27;s code.
+
 </Field>
 
 ## `skip_bandit`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run Bandit on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Bandit on this target&#x27;s code.
+
 </Field>
 
 ## `skip_pylint`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run Pylint on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Pylint on this target&#x27;s code.
+
 </Field>
 
 ## `skip_yapf`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run yapf on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run yapf on this target&#x27;s code.
+
 </Field>
+
+
 
 </span>

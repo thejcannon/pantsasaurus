@@ -79,6 +79,7 @@ The set of resolves from `[jvm].resolves` that this target is compatible with.
 
 If not defined, will default to `[jvm].default_resolve`.
 
+
 </Field>
 
 ## `experimental_provides_types`
@@ -98,13 +99,15 @@ If a given type is defined, at least one source file captured by this target mus
 ## `skip_scalafmt`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.experimental.scala.lint.scalafmt"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.scala.lint.scalafmt"
 >
 
 If true, don&#x27;t run `scalafmt` on this target&#x27;s code.
 
 </Field>
+
+
 
 </span>

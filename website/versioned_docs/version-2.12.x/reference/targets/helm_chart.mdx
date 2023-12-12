@@ -41,8 +41,13 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 
 ## `chart`
 
-<Field type_repr={`field.type_hint`} default_repr={`'Chart.yaml'`}>
-  The chart definition file.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`'Chart.yaml'`}
+>
+
+The chart definition file.
+
 </Field>
 
 ## `sources`
@@ -98,8 +103,12 @@ Warning: setting this value risks naming collisions with other package targets y
 
 ## `lint_strict`
 
-<Field type_repr={`field.type_hint`}>
-  If set to true, enables strict linting of this Helm chart.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+If set to true, enables strict linting of this Helm chart.
+
 </Field>
 
 ## `repository`
@@ -128,7 +137,6 @@ The address is an `oci://` prefixed domain name with optional port for your regi
 By default, all configured registries with `default = true` are used.
 
 Example:
-
 ```
 # pants.toml
 [helm.registries.my-registry-alias]
@@ -150,9 +158,15 @@ The above example shows two valid `registry` options: using an alias to a config
 
 ## `skip_push`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If set to true, do not push this helm chart to registries when running
-  `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 publish`.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If set to true, do not push this helm chart to registries when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 publish`.
+
 </Field>
+
+
 
 </span>

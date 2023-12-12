@@ -49,14 +49,11 @@ To ignore a false positive, you can either put `# pants: no-infer-dep` on the li
 
 <Option
   cli_repr={`--python-infer-string-imports-min-dots=<int>`}
-  env_repr="PANTS_PYTHON_INFER_STRING_IMPORTS_MIN_DOTS"
+  env_repr='PANTS_PYTHON_INFER_STRING_IMPORTS_MIN_DOTS'
   default_repr={`2`}
 >
 
-If --string-imports is True, treat valid-looking strings with at least this
-many dots in them as potential dynamic dependencies. E.g., `'foo.bar.Baz'`
-will be treated as a potential dependency if this option is set to 2 but not
-if set to 3.
+If --string-imports is True, treat valid-looking strings with at least this many dots in them as potential dynamic dependencies. E.g., `'foo.bar.Baz'` will be treated as a potential dependency if this option is set to 2 but not if set to 3.
 
 </Option>
 
@@ -78,13 +75,11 @@ To ignore a false positive, you can either put `# pants: no-infer-dep` on the li
 
 <Option
   cli_repr={`--python-infer-assets-min-slashes=<int>`}
-  env_repr="PANTS_PYTHON_INFER_ASSETS_MIN_SLASHES"
+  env_repr='PANTS_PYTHON_INFER_ASSETS_MIN_SLASHES'
   default_repr={`1`}
 >
 
-If --assets is True, treat valid-looking strings with at least this many
-forward slash characters as potential assets. E.g. `'data/databases/prod.db'`
-will be treated as a potential candidate if this option is set to 2 but not to 3.
+If --assets is True, treat valid-looking strings with at least this many forward slash characters as potential assets. E.g. `'data/databases/prod.db'` will be treated as a potential candidate if this option is set to 2 but not to 3.
 
 </Option>
 
@@ -109,12 +104,11 @@ By default, Pants only adds a &quot;proper&quot; dependency if there is content 
 
 <Option
   cli_repr={`--[no-]python-infer-conftests`}
-  env_repr="PANTS_PYTHON_INFER_CONFTESTS"
+  env_repr='PANTS_PYTHON_INFER_CONFTESTS'
   default_repr={`True`}
 >
 
-Infer a test target&#x27;s dependencies on any conftest.py files in the
-current directory and ancestor directories.
+Infer a test target&#x27;s dependencies on any conftest.py files in the current directory and ancestor directories.
 
 </Option>
 
@@ -122,13 +116,11 @@ current directory and ancestor directories.
 
 <Option
   cli_repr={`--[no-]python-infer-entry-points`}
-  env_repr="PANTS_PYTHON_INFER_ENTRY_POINTS"
+  env_repr='PANTS_PYTHON_INFER_ENTRY_POINTS'
   default_repr={`True`}
 >
 
-Infer dependencies on targets&#x27; entry points, e.g. `pex_binary`&#x27;s
-`entry_point` field, `python_awslambda`&#x27;s `handler` field and
-`python_distribution`&#x27;s `entry_points` field.
+Infer dependencies on targets&#x27; entry points, e.g. `pex_binary`&#x27;s `entry_point` field, `python_awslambda`&#x27;s `handler` field and `python_distribution`&#x27;s `entry_points` field.
 
 </Option>
 
@@ -175,8 +167,7 @@ When multiple sources provide the same symbol, how to choose the provider to use
 >
 
 Unowned imports that should be ignored.
-
-````
+```
         If there are any unowned import statements and adding the `# pants: no-infer-dep`
         to the lines of the import is impractical, you can instead provide a list of imports
         that Pants should ignore. You can declare a specific import or a path to a package
@@ -192,8 +183,7 @@ Unowned imports that should be ignored.
             ```
 
         by setting `ignored-unowned-imports=["src.generated.app", "src.generated.client.connect"]`.
-
-````
+```
 
 </Option>
 
@@ -206,4 +196,3 @@ None
 None
 
 </span>
-```

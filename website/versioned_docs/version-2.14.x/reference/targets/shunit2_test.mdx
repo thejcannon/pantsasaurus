@@ -87,15 +87,23 @@ If unset, will default to `[test].timeout_default`; if that option is also unset
 
 ## `skip_tests`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run this target&#x27;s tests.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run this target&#x27;s tests.
+
 </Field>
 
 ## `shell`
 
-<Field type_repr={`field.type_hint`}>
-  Which shell to run the tests with. If unspecified, Pants will look for a
-  shebang line.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Which shell to run the tests with. If unspecified, Pants will look for a shebang line.
+
 </Field>
 
 ## `runtime_package_dependencies`
@@ -115,9 +123,9 @@ You can include anything that can be built by `/home/josh/work/scie-pants/dist/s
 ## `skip_shellcheck`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.shell.lint.shellcheck"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.shell.lint.shellcheck"
 >
 
 If true, don&#x27;t run Shellcheck on this target&#x27;s code.
@@ -127,13 +135,15 @@ If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 ## `skip_shfmt`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.shell.lint.shfmt"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.shell.lint.shfmt"
 >
 
 If true, don&#x27;t run shfmt on this target&#x27;s code.
 
 </Field>
+
+
 
 </span>

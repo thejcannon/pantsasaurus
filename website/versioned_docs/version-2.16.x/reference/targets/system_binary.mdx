@@ -45,36 +45,56 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 
 ## `binary_name`
 
-<Field type_repr={`field.type_hint`}>The name of the binary to find.</Field>
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The name of the binary to find.
+
+</Field>
 
 ## `extra_search_paths`
 
-<Field type_repr={`field.type_hint`} default_repr={`()`}>
-  Extra search paths to look for the binary. These take priority over
-  Pants&#x27; default search paths.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`()`}
+>
+
+Extra search paths to look for the binary. These take priority over Pants&#x27; default search paths.
+
 </Field>
 
 ## `fingerprint`
 
-<Field type_repr={`field.type_hint`}>
-  A regular expression which will be used to match the fingerprint outputs from
-  candidate binaries found during the search process.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A regular expression which will be used to match the fingerprint outputs from candidate binaries found during the search process.
+
 </Field>
 
 ## `fingerprint_args`
 
-<Field type_repr={`field.type_hint`} default_repr={`()`}>
-  Specifies arguments that will be used to run the binary during the search
-  process.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`()`}
+>
+
+Specifies arguments that will be used to run the binary during the search process.
+
 </Field>
 
 ## `fingerprint_dependencies`
 
-<Field type_repr={`field.type_hint`}>
-  Specifies any runnable dependencies that need to be available on the `PATH`
-  when the binary is run, so that the search process may complete successfully.
-  The name of the target must be the name of the runnable dependency that is
-  called by this binary.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Specifies any runnable dependencies that need to be available on the `PATH` when the binary is run, so that the search process may complete successfully. The name of the target must be the name of the runnable dependency that is called by this binary.
+
 </Field>
+
+
 
 </span>

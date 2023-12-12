@@ -3,30 +3,44 @@
     position: 0
 ---
 
+
+
 ---
 
 The Python ecosystem has a great many tools for various features. Pants installs, configures, and invokes those tools for you, while taking care of orchestrating the workflow, caching results, and running concurrently.
 
 Pants currently supports the following goals and features for Python:
-| goal | underlying tools |
-| :--- | :--- |
-| dependency resolution | [`pip`](./third-party-dependencies.mdx) |
-| test running | [`pytest`](reference:reference-pytest) |
-| linting/formatting | [`black`](reference:reference-black), [`yapf`](reference:reference-yapf), [`flake8`](reference:reference-flake8), [`docformatter`](reference:reference-docformatter), [`isort`](reference:reference-isort), [`pylint`](reference:reference-pylint), [`bandit`](reference:reference-bandit), [`autoflake`](reference:reference-autoflake), [`pyupgrade`](reference:reference-pyupgrade) |
-| typechecking | [`Mypy`](reference:reference-mypy) |
-| code generation | [`protoc`](docs:reference-protoc) (including the `gRPC` and `MyPy` plugins) |
-| packaging | [`setuptools`](reference:reference-setuptools), [`pex`](reference:reference-pex), [`aws lambda`](reference:reference-lambdex) |
-| running a REPL | `python`, [`iPython`](reference:reference-ipython) |
-| counting lines of code | [`scc`](reference:reference-scc) |
+[block:parameters]
+{
+  "data": {
+    "h-0": "goal",
+    "h-1": "underlying tools",
+    "0-0": "dependency resolution",
+    "0-1": "[`pip`](doc:python-third-party-dependencies)",
+    "1-0": "test running",
+    "1-1": "[`pytest`](doc:reference-pytest)",
+    "2-0": "linting/formatting",
+    "2-1": "[`black`](doc:reference-black), [`yapf`](doc:reference-yapf), [`flake8`](doc:reference-flake8), [`docformatter`](doc:reference-docformatter), [`isort`](doc:reference-isort), [`pylint`](doc:reference-pylint), [`bandit`](doc:reference-bandit), [`autoflake`](doc:reference-autoflake), [`pyupgrade`](doc:reference-pyupgrade)",
+    "3-0": "typechecking",
+    "3-1": "[`Mypy`](doc:reference-mypy)",
+    "4-0": "code generation",
+    "4-1": "[`protoc`](docs:reference-protoc) (including the `gRPC` and `MyPy` plugins)",
+    "5-0": "packaging",
+    "5-1": "[`setuptools`](doc:reference-setuptools), [`pex`](doc:reference-pex), [`aws lambda`](doc:reference-lambdex)",
+    "6-0": "running a REPL",
+    "6-1": "`python`, [`iPython`](doc:reference-ipython)",
+    "7-0": "counting lines of code",
+    "7-1": "[`scc`](doc:reference-scc)"
+  },
+  "cols": 2,
+  "rows": 8
+}
+[/block]
+There are also [goals](doc:project-introspection) for querying and understanding your dependency graph, and a robust [help system](doc:command-line-help). We're adding support for additional tools and features all the time, and it's straightforward to [implement your own](doc:plugins-overview). 
 
-There are also [goals](../../using-pants/project-introspection.mdx) for querying and understanding your dependency graph, and a robust [help system](../../using-pants/command-line-help.mdx). We're adding support for additional tools and features all the time, and it's straightforward to [implement your own](../../writing-plugins/overview.mdx).
-
-- [Enabling Python support](./enabling-python-support.mdx)
-- [Third-party dependencies](./third-party-dependencies.mdx)
-- [Interpreter compatibility](./interpreter-compatibility.mdx)
-- [Linters and formatters](./linters-and-formatters.mdx)
-- [Pex files](./pex-files.mdx)
-- [Building distributions](./building-distributions.mdx)
-
-
-
+- [Enabling Python support](doc:python-backend) 
+- [Third-party dependencies](doc:python-third-party-dependencies) 
+- [Interpreter compatibility](doc:python-interpreter-compatibility) 
+- [Linters and formatters](doc:python-linters-and-formatters) 
+- [Pex files](doc:pex-files) 
+- [Building distributions](doc:python-distributions)

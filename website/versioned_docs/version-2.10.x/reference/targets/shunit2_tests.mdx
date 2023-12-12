@@ -86,15 +86,23 @@ If unset, the test will never time out.
 
 ## `skip_tests`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run this target&#x27;s tests.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run this target&#x27;s tests.
+
 </Field>
 
 ## `shell`
 
-<Field type_repr={`field.type_hint`}>
-  Which shell to run the tests with. If unspecified, Pants will look for a
-  shebang line.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Which shell to run the tests with. If unspecified, Pants will look for a shebang line.
+
 </Field>
 
 ## `runtime_package_dependencies`
@@ -122,7 +130,6 @@ Override the field values for generated `shunit2_test` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
-
 ```
 overrides={
   "foo_test.sh": {"timeout": 120]},
@@ -142,9 +149,9 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 ## `skip_shellcheck`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.shell.lint.shellcheck"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.shell.lint.shellcheck"
 >
 
 If true, don&#x27;t run Shellcheck on this target&#x27;s code.
@@ -154,13 +161,15 @@ If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 ## `skip_shfmt`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.shell.lint.shfmt"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.shell.lint.shfmt"
 >
 
 If true, don&#x27;t run shfmt on this target&#x27;s code.
 
 </Field>
+
+
 
 </span>

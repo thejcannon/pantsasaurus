@@ -57,9 +57,9 @@ Example: `sources=['openapi.json']`
 ## `skip_spectral`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.experimental.openapi.lint.spectral"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.openapi.lint.spectral"
 >
 
 If true, don&#x27;t run `spectral lint` on this target&#x27;s code.
@@ -83,5 +83,7 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
+
 
 </span>

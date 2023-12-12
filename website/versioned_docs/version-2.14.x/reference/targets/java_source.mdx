@@ -97,21 +97,26 @@ If a given type is defined, at least one source file captured by this target mus
 
 ## `jdk`
 
-<Field type_repr={`field.type_hint`}>
-  The major version of the JDK that this target should be built with. If not
-  defined, will default to `[jvm].default_source_jdk`.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+
 </Field>
 
 ## `skip_google_java_format`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.experimental.java.lint.google_java_format"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.java.lint.google_java_format"
 >
 
 If true, don&#x27;t run Google Java Format on this target&#x27;s code.
 
 </Field>
+
+
 
 </span>

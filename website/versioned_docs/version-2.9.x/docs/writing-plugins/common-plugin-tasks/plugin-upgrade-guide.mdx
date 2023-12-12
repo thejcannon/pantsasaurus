@@ -7,23 +7,28 @@ How to adjust for changes made to the Plugin API.
 
 ---
 
-## 2.9
-
+[block:api-header]
+{
+  "title": "2.9"
+}
+[/block]
 See https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.9.x.md for the changelog.
 
 ### Deprecated `RuleRunner.create_files()`, `.create_file()` and `.add_to_build_file()`
 
 Instead, for your `RuleRunner` tests, use `.write_files()`. See https://github.com/pantsbuild/pants/pull/13817 for some examples.
-
-## 2.8
-
+[block:api-header]
+{
+  "title": "2.8"
+}
+[/block]
 See https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.8.x.md for the changelog.
 
 ### Target modeling changes
 
 Pants 2.8 cleaned up the modeling of targets. Now, there are targets that describe the atom of each language, like `python_test` and `python_source` which correspond to a single file. There are also target generators which exist solely for less boilerplate, like `python_tests` and `python_sources`.
 
-We recommend re-reading [Targets and BUILD files](../../using-pants/key-concepts/targets-and-build-files.mdx).
+We recommend re-reading [Targets and BUILD files](doc:targets).
 
 #### `SourcesField`
 
@@ -37,16 +42,18 @@ Wherever you were using `Sources` in your `@rule`s, simply replace with `Sources
 
 You should update all references to these classes in your `@rule`s.
 
-- `FilesSources` -> `FileSourceField`
-- `ResourcesSources` -> `ResourceSourceField`
-- `PythonSources` -> `PythonSourceField`
+* `FilesSources` -> `FileSourceField`
+* `ResourcesSources` -> `ResourceSourceField`
+* `PythonSources` -> `PythonSourceField`
 
 ### `OutputPathField.value_or_default()`
 
 The method `OutputPathField.value_or_default()` no longer takes `Address` as an argument.
-
-## 2.7
-
+[block:api-header]
+{
+  "title": "2.7"
+}
+[/block]
 See https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.7.x.md for the changelog.
 
 ### Type hints work properly
@@ -56,9 +63,11 @@ Pants was not using PEP 561 properly, which means that MyPy would not enforce ty
 ### Options scopes should not have `_`
 
 For example, use `my-subsystem` instead of `my_subsystem`. This is to avoid ambiguity with target types.
-
-## 2.6
-
+[block:api-header]
+{
+  "title": "2.6"
+}
+[/block]
 See https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.6.x.md for the changelog.
 
 ### `ProcessCacheScope`
@@ -70,9 +79,11 @@ See https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.6.x.m
 ### `PexInterpreterConstraints`
 
 Now called `InterpreterConstraints` and defined in `pants.backend.python.util_rules.interpreter_constraints`.
-
-## 2.5
-
+[block:api-header]
+{
+  "title": "2.5"
+}
+[/block]
 See https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.5.x.md for the changelog.
 
 ### `TriBoolField`
@@ -83,11 +94,13 @@ Use `TriBoolField` if you still want to be able to represent a trinary state: `F
 
 ### Added `RuleRunner.write_files()`
 
-This is a more declarative way to set up files than the older API of `RuleRunner.create_file()`, `.create_files()`, and `.add_to_build_files()`. See [Testing plugins](../the-rules-api/testing-plugins.mdx).
-
-## 2.4
-
-See https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.4.x.md for the changelog.
+This is a more declarative way to set up files than the older API of `RuleRunner.create_file()`, `.create_files()`, and `.add_to_build_files()`. See [Testing plugins](doc:rules-api-testing).
+[block:api-header]
+{
+  "title": "2.4"
+}
+[/block]
+See https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.4.x.md for the changelog. 
 
 ### `PexRequest` changes how entry point is set
 
@@ -97,16 +110,20 @@ See https://github.com/pantsbuild/pants/pull/11620. Instead of setting `entry_po
 
 See https://github.com/pantsbuild/pants/pull/11641. Pants now eagerly purges environment variables from the run, so using `os.environ` in plugins won't work anymore.
 
-Instead, use `await Get(Environment, EnvironmentRequest(["MY_ENV_VAR"])`.
+Instead, use `await Get(Environment, EnvironmentRequest(["MY_ENV_VAR"])`. 
 
 For `RuleRunner` tests, you must now either set `env` or the new `env_inherit` arguments for environment variables to be set. Tests are now hermetic.
-
-## 2.3
-
-There were no substantial changes to the Plugin API in 2.3. See https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.3.x.md for the changelog.
-
-## 2.2
-
+[block:api-header]
+{
+  "title": "2.3"
+}
+[/block]
+There were no substantial changes to the Plugin API in 2.3. See https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.3.x.md for the changelog. 
+[block:api-header]
+{
+  "title": "2.2"
+}
+[/block]
 See https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.2.x.md for the changelog.
 
 ### `PrimitiveField` and `AsyncField` are removed (2.2.0.dev0)
@@ -136,17 +153,21 @@ class MyField(StringField):
 ```
 
 Pants will now properly wrap strings and preserve newlines. You may want to run `./pants help ${target/subsystem}` to verify things render properly.
-
-## 2.1
-
+[block:api-header]
+{
+  "title": "2.1"
+}
+[/block]
 See https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.1.x.rst for the changelog.
 
 ### `SourcesSnapshot` is now `SpecsSnapshot` (2.1.0rc0)
 
 The type was renamed for clarity. Still import it from `pants.engine.fs`.
-
-## 2.0
-
+[block:api-header]
+{
+  "title": "2.0"
+}
+[/block]
 See https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.0.x.rst for the changelog.
 
 ### Use `TransitiveTargetsRequest` as input for resolving `TransitiveTargets` (2.0.0rc0)
@@ -198,6 +219,3 @@ You optionally may want to add this `output_path` field to your custom target ty
 1. Include `OutputPathField` from `pants.core.goals.package` in your target's `core_fields` class property.
 2. In your `PackageFieldSet` subclass, include `output_path: OutputPathField`.
 3. When computing the filename in your rule, use `my_package_field_set.output_path.value_or_default(field_set.address, file_ending="my_ext")`.
-
-
-

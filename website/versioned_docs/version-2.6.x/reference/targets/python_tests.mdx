@@ -118,59 +118,102 @@ You can include anything that can be built by `./pants package`, e.g. a `pex_bin
 
 ## `extra_env_vars`
 
-<Field type_repr={`field.type_hint`}>
-  Additional environment variables to include in test processes. Entries are
-  strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to
-  copy the value of a variable in Pants&#x27;s own environment. This will be
-  merged with and override values from [test].extra_env_vars.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Additional environment variables to include in test processes. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment. This will be merged with and override values from [test].extra_env_vars.
+
 </Field>
 
 ## `skip_tests`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run this target&#x27;s tests.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run this target&#x27;s tests.
+
 </Field>
 
 ## `skip_black`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run Black on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Black on this target&#x27;s code.
+
 </Field>
 
 ## `skip_docformatter`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run Docformatter on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Docformatter on this target&#x27;s code.
+
 </Field>
 
 ## `skip_flake8`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run Flake8 on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Flake8 on this target&#x27;s code.
+
 </Field>
 
 ## `skip_isort`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run isort on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run isort on this target&#x27;s code.
+
 </Field>
 
 ## `skip_mypy`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run MyPy on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run MyPy on this target&#x27;s code.
+
 </Field>
 
 ## `skip_bandit`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run Bandit on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Bandit on this target&#x27;s code.
+
 </Field>
 
 ## `skip_pylint`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run Pylint on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Pylint on this target&#x27;s code.
+
 </Field>
+
+
 
 </span>

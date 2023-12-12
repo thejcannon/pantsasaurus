@@ -3,32 +3,24 @@
     position: 4
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
-
 Finding insights in your project.
 
 ---
 
 Pants provides several goals to provide insights into your project's structure.
+[block:callout]
+{
+  "type": "info",
+  "title": "Tip: Use `xargs` to pipe these goals into other Pants commands",
+  "body": "For example:\n\n```bash\n$ ./pants dependees project:lib | xargs ./pants test\n```\n\nSee [Advanced target selection](doc:advanced-target-selection) for more info and other techniques to use the results."
+}
+[/block]
 
-:::note Tip: Use `xargs` to pipe these goals into other Pants commands
-
-````
-For example:
-
-```bash
-$ ./pants dependees project:lib | xargs ./pants test
-````
-
-See [Advanced target selection](./advanced-target-selection.mdx) for more info and other techniques to use the results.
-
-````
-
-:::
-
-
-## `list` - find your project's targets
+[block:api-header]
+{
+  "title": "`list` - find your project's targets"
+}
+[/block]
 `list` will find all targets that match the arguments.
 
 For example, to show all targets in your project:
@@ -40,10 +32,12 @@ $ ./pants list ::
 helloworld:config
 helloworld:config_file
 ...
-````
-
-## `filter` - find targets that match a predicate
-
+```
+[block:api-header]
+{
+  "title": "`filter` - find targets that match a predicate"
+}
+[/block]
 `filter` is like `list`, but will only include targets that match the predicate(s).
 
 Specify a predicate by using one of the below `filter` options, like `--target-type`. You can use a comma to OR multiple values, meaning that at least one member must be matched. You can repeat the option multiple times to AND each filter. You can prefix the filter with `-` to negate the filter, meaning that the target must not be true for the filter.
@@ -74,10 +68,13 @@ Regex strings for the address, such as `^dir` or `:util$`.
 
 ### `filter --tag-regex`
 
-Regex strings for the `tags` field. Alternatively, you can use the global `--tags` option, which uses exact string matches instead of regex. See [Advanced target selection](./advanced-target-selection.mdx).
+Regex strings for the `tags` field. Alternatively, you can use the global `--tags` option, which uses exact string matches instead of regex. See [Advanced target selection](doc:advanced-target-selection).
 
-## `dependencies` - find a target's dependencies
-
+[block:api-header]
+{
+  "title": "`dependencies` - find a target's dependencies"
+}
+[/block]
 Use `dependencies` to list all targets used directly by a target.
 
 ```bash
@@ -105,9 +102,11 @@ $ ./pants dependencies --type=3rdparty helloworld/util
 setuptools>=42.0.0
 translate>=3.2.1
 ```
-
-## `dependees` - find which targets depend on a target
-
+[block:api-header]
+{
+  "title": "`dependees` - find which targets depend on a target"
+}
+[/block]
 The `dependees` goal finds all targets that directly depend on the target you specify.
 
 ```bash
@@ -155,20 +154,19 @@ $ ./pants dependees --output-format=json helloworld/util helloworld/protos
     ]
 }
 ```
+[block:callout]
+{
+  "type": "info",
+  "title": "Tip: use `dependees` when starting a big migration",
+  "body": "Running `./pants dependees --transitive --output-format=json ::` will allow you to find the most-depended on code in your project, such as util code. Often, you will want to convert these targets first.\n\nFor example, do this when [migrating from Python 2 to Python 3](doc:python-interpreter-compatibility), or adding an incremental type checker like MyPy or TypeScript to your project."
+}
+[/block]
 
-:::note Tip: use `dependees` when starting a big migration
-
-```
-Running `./pants dependees --transitive --output-format=json ::` will allow you to find the most-depended on code in your project, such as util code. Often, you will want to convert these targets first.
-
-For example, do this when [migrating from Python 2 to Python 3](../python/overview/interpreter-compatibility.mdx), or adding an incremental type checker like MyPy or TypeScript to your project.
-
-```
-
-:::
-
-## `filedeps` - find which files a target owns
-
+[block:api-header]
+{
+  "title": "`filedeps` - find which files a target owns"
+}
+[/block]
 `filedeps` outputs all of the files belonging to a target, based on its `sources` field.
 
 ```bash
@@ -199,46 +197,32 @@ helloworld/util/config_loader.py
 helloworld/util/lang.py
 requirements.txt
 ```
-
-## `count-loc` - count lines of code
-
+[block:api-header]
+{
+  "title": "`count-loc` - count lines of code"
+}
+[/block]
 `count-loc` counts the lines of code of the specified files by running the [Succinct Code Counter](https://github.com/boyter/scc) tool.
-
-```text title="Shell"
-$ ./pants count-loc '**/*.py' '**/*.proto'
-───────────────────────────────────────────────────────────────────────────────
-Language                 Files     Lines   Blanks  Comments     Code Complexity
-───────────────────────────────────────────────────────────────────────────────
-Python                      13       155       50        22       83          5
-Protocol Buffers             1        11        3         2        6          0
-───────────────────────────────────────────────────────────────────────────────
-Total                       14       166       53        24       89          5
-───────────────────────────────────────────────────────────────────────────────
-```
-
+[block:code]
+{
+  "codes": [
+    {
+      "code": "$ ./pants count-loc '**/*.py' '**/*.proto'\n───────────────────────────────────────────────────────────────────────────────\nLanguage                 Files     Lines   Blanks  Comments     Code Complexity\n───────────────────────────────────────────────────────────────────────────────\nPython                      13       155       50        22       83          5\nProtocol Buffers             1        11        3         2        6          0\n───────────────────────────────────────────────────────────────────────────────\nTotal                       14       166       53        24       89          5\n───────────────────────────────────────────────────────────────────────────────",
+      "language": "text",
+      "name": "Shell"
+    }
+  ]
+}
+[/block]
 SCC has [dozens of options](https://github.com/boyter/scc#usage). You can pass through options by either setting `--scc-args` or using `--` at the end of your command, like this:
 
 ```bash
 ./pants count-loc '**' -- --no-cocomo
 ```
-
-:::caution See unexpected results? Set `pants_ignore`.
-
-````
-By default, Pants will ignore all globs specified in your `.gitignore`, along with `dist/` and any hidden files.
-
-To ignore additional files, add to the global option `pants_ignore` in your `pants.toml`, using the same [syntax](https://git-scm.com/docs/gitignore) as `.gitignore` files.
-
-For example:
-
-```toml
-[GLOBAL]
-pants_ignore.add = ["/ignore_this_dir/"]
-````
-
-```
-
-:::
-```
-
-
+[block:callout]
+{
+  "type": "warning",
+  "title": "See unexpected results? Set `pants_ignore`.",
+  "body": "By default, Pants will ignore all globs specified in your `.gitignore`, along with `dist/` and any hidden files.\n\nTo ignore additional files, add to the global option `pants_ignore` in your `pants.toml`, using the same [syntax](https://git-scm.com/docs/gitignore) as `.gitignore` files. \n\nFor example:\n\n```toml\n[GLOBAL]\npants_ignore.add = [\"/ignore_this_dir/\"]\n```"
+}
+[/block]

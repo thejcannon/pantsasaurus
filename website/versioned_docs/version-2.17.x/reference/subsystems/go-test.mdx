@@ -42,11 +42,11 @@ Known Go test options will be transformed into the form expected by the test bin
 
 Coverage mode to use when running Go tests with coverage analysis enabled via --test-use-coverage. Valid values are `set`, `count`, and `atomic`:
 
-- `set`: bool: does this statement run?
+* `set`: bool: does this statement run?
 
-- `count`: int: how many times does this statement run?
+* `count`: int: how many times does this statement run?
 
-- `atomic`: int: count, but correct in multithreaded tests; significantly more expensive.
+* `atomic`: int: count, but correct in multithreaded tests; significantly more expensive.
 
 </Option>
 
@@ -54,12 +54,11 @@ Coverage mode to use when running Go tests with coverage analysis enabled via --
 
 <Option
   cli_repr={`--[no-]go-test-coverage-html`}
-  env_repr="PANTS_GO_TEST_COVERAGE_HTML"
+  env_repr='PANTS_GO_TEST_COVERAGE_HTML'
   default_repr={`True`}
 >
 
-If true, then convert coverage reports to HTML format and write a
-`coverage.html` file next to the raw coverage data.
+If true, then convert coverage reports to HTML format and write a `coverage.html` file next to the raw coverage data.
 
 </Option>
 
@@ -87,12 +86,11 @@ This option is similar to the `go test -coverpkg` option, but without support cu
 
 <Option
   cli_repr={`--[no-]go-test-skip`}
-  env_repr="PANTS_GO_TEST_SKIP"
+  env_repr='PANTS_GO_TEST_SKIP'
   default_repr={`False`}
 >
 
-If true, don&#x27;t use Go test binary when running `scie-pants-linux-x86_64
-  test`.
+If true, don&#x27;t use Go test binary when running `scie-pants-linux-x86_64 test`.
 
 </Option>
 
@@ -142,14 +140,11 @@ See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional in
 
 <Option
   cli_repr={`--[no-]go-test-block-profile`}
-  env_repr="PANTS_GO_TEST_BLOCK_PROFILE"
+  env_repr='PANTS_GO_TEST_BLOCK_PROFILE'
   default_repr={`False`}
 >
 
-Capture a goroutine blocking profile from the execution of the test runner.
-The profile will be written to the file `block.out` in the test extra output
-directory. The test binary will also be written to the test extra output
-directory.
+Capture a goroutine blocking profile from the execution of the test runner. The profile will be written to the file `block.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
 
 </Option>
 
@@ -157,13 +152,11 @@ directory.
 
 <Option
   cli_repr={`--[no-]go-test-cpu-profile`}
-  env_repr="PANTS_GO_TEST_CPU_PROFILE"
+  env_repr='PANTS_GO_TEST_CPU_PROFILE'
   default_repr={`False`}
 >
 
-Capture a CPU profile from the execution of the test runner. The profile will
-be written to the file `cpu.out` in the test extra output directory. The test
-binary will also be written to the test extra output directory.
+Capture a CPU profile from the execution of the test runner. The profile will be written to the file `cpu.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
 
 </Option>
 
@@ -171,14 +164,11 @@ binary will also be written to the test extra output directory.
 
 <Option
   cli_repr={`--[no-]go-test-mem-profile`}
-  env_repr="PANTS_GO_TEST_MEM_PROFILE"
+  env_repr='PANTS_GO_TEST_MEM_PROFILE'
   default_repr={`False`}
 >
 
-Capture an allocation profile from the execution of the test runner after
-tests have passed. The profile will be written to the file `mem.out` in the
-test extra output directory. The test binary will also be written to the test
-extra output directory.
+Capture an allocation profile from the execution of the test runner after tests have passed. The profile will be written to the file `mem.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
 
 </Option>
 
@@ -186,14 +176,11 @@ extra output directory.
 
 <Option
   cli_repr={`--[no-]go-test-mutex-profile`}
-  env_repr="PANTS_GO_TEST_MUTEX_PROFILE"
+  env_repr='PANTS_GO_TEST_MUTEX_PROFILE'
   default_repr={`False`}
 >
 
-Capture a mutex contention profile from the execution of the test runner when
-all tests are complete. The profile will be written to the file `mutex.out` in
-the test extra output directory. The test binary will also be written to the
-test extra output directory.
+Capture a mutex contention profile from the execution of the test runner when all tests are complete. The profile will be written to the file `mutex.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
 
 </Option>
 
@@ -201,12 +188,11 @@ test extra output directory.
 
 <Option
   cli_repr={`--[no-]go-test-trace`}
-  env_repr="PANTS_GO_TEST_TRACE"
+  env_repr='PANTS_GO_TEST_TRACE'
   default_repr={`False`}
 >
 
-Capture an execution trace from the execution of the test runner. The trace
-will be written to the file `trace.out` in the test extra output directory.
+Capture an execution trace from the execution of the test runner. The trace will be written to the file `trace.out` in the test extra output directory.
 
 </Option>
 

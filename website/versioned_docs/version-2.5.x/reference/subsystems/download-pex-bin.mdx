@@ -16,7 +16,6 @@ Config section: <span className="color--primary">`[download-pex-bin]`</span>
 <span className={styles.options}>
 
 ## Basic options
-
 None
 
 ## Advanced options
@@ -25,7 +24,7 @@ None
 
 <Option
   cli_repr={`--download-pex-bin-version=<str>`}
-  env_repr="PANTS_DOWNLOAD_PEX_BIN_VERSION"
+  env_repr='PANTS_DOWNLOAD_PEX_BIN_VERSION'
   default_repr={`v2.1.42`}
 >
 
@@ -41,20 +40,19 @@ Use this version of pex.
   default_repr={`[\n  "v2.1.42|darwin|69d6b1b1009b00dd14a3a9f19b72cff818a713ca44b3186c9b12074b2a31e51f|3613838",\n  "v2.1.42|linux|69d6b1b1009b00dd14a3a9f19b72cff818a713ca44b3186c9b12074b2a31e51f|3613838"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
 
-- `version` is the version string
-- `platform` is one of [darwin,linux],
-- `sha256` is the 64-character hex representation of the expected sha256
-
+  - `version` is the version string
+  - `platform` is one of [darwin,linux],
+  - `sha256` is the 64-character hex representation of the expected sha256
 ```
 digest of the download file, as emitted by `shasum -a 256`
 ```
 
-- `length` is the expected length of the download file in bytes, as emmitted by
-
+  - `length` is the expected length of the download file in bytes, as emmitted by
 ```
 `wc -c`
 ```

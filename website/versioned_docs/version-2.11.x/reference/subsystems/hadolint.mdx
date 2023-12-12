@@ -21,12 +21,11 @@ Config section: <span className="color--primary">`[hadolint]`</span>
 
 <Option
   cli_repr={`--[no-]hadolint-skip`}
-  env_repr="PANTS_HADOLINT_SKIP"
+  env_repr='PANTS_HADOLINT_SKIP'
   default_repr={`False`}
 >
 
-Don&#x27;t use Hadolint when running
-`/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
+Don&#x27;t use Hadolint when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
 
 </Option>
 
@@ -34,12 +33,11 @@ Don&#x27;t use Hadolint when running
 
 <Option
   cli_repr={`--hadolint-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr="PANTS_HADOLINT_ARGS"
+  env_repr='PANTS_HADOLINT_ARGS'
   default_repr={`[]`}
 >
 
-Arguments to pass directly to Hadolint, e.g. `--hadolint-args='--format
-  json'`.
+Arguments to pass directly to Hadolint, e.g. `--hadolint-args='--format json'`.
 
 </Option>
 
@@ -49,7 +47,7 @@ Arguments to pass directly to Hadolint, e.g. `--hadolint-args='--format
 
 <Option
   cli_repr={`--hadolint-version=<str>`}
-  env_repr="PANTS_HADOLINT_VERSION"
+  env_repr='PANTS_HADOLINT_VERSION'
   default_repr={`v2.8.0`}
 >
 
@@ -65,10 +63,10 @@ Use this version of Hadolint.
   default_repr={`[\n  "v2.8.0|macos_x86_64|27985f257a216ecab06a16e643e8cb0123e7145b5d526cfcb4ce7a31fe99f357|2428944",\n  "v2.8.0|macos_arm64 |27985f257a216ecab06a16e643e8cb0123e7145b5d526cfcb4ce7a31fe99f357|2428944",\n  "v2.8.0|linux_x86_64|9dfc155139a1e1e9b3b28f3de9907736b9dfe7cead1c3a0ae7ff0158f3191674|5895708"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
-
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -92,6 +90,7 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   one_of='error, warning'
   default_repr={`error`}
 >
+
 
 What action to take in case the requested version of Hadolint is not supported.
 

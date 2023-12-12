@@ -16,7 +16,6 @@ Config section: <span className="color--primary">`[ipython]`</span>
 <span className={styles.options}>
 
 ## Basic options
-
 None
 
 ## Advanced options
@@ -25,7 +24,7 @@ None
 
 <Option
   cli_repr={`--ipython-version=<str>`}
-  env_repr="PANTS_IPYTHON_VERSION"
+  env_repr='PANTS_IPYTHON_VERSION'
   default_repr={`ipython==7.16.1`}
 >
 
@@ -37,13 +36,11 @@ Requirement string for the tool.
 
 <Option
   cli_repr={`--ipython-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_IPYTHON_EXTRA_REQUIREMENTS"
+  env_repr='PANTS_IPYTHON_EXTRA_REQUIREMENTS'
   default_repr={`[]`}
 >
 
-Any additional requirement strings to use with the tool. This is useful if the
-tool allows you to install plugins or if you need to constrain a dependency to
-a certain version.
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
 
 </Option>
 
@@ -51,12 +48,11 @@ a certain version.
 
 <Option
   cli_repr={`--ipython-entry-point=<str>`}
-  env_repr="PANTS_IPYTHON_ENTRY_POINT"
+  env_repr='PANTS_IPYTHON_ENTRY_POINT'
   default_repr={`IPython:start_ipython`}
 >
 
-The main module for the tool. Usually, you will not want to change this from
-the default.
+The main module for the tool. Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -64,16 +60,11 @@ the default.
 
 <Option
   cli_repr={`--[no-]ipython-ignore-cwd`}
-  env_repr="PANTS_IPYTHON_IGNORE_CWD"
+  env_repr='PANTS_IPYTHON_IGNORE_CWD'
   default_repr={`True`}
 >
 
-Whether to tell IPython not to put the CWD on the import path. Normally you
-want this to be True, so that imports come from the hermetic environment Pants
-creates. However IPython&lt;7.13.0 doesn&#x27;t support this option, so if
-you&#x27;re using an earlier version (e.g., because you have Python 2.7 code)
-then you will need to set this to False, and you may have issues with imports
-from your CWD shading the hermetic environment.
+Whether to tell IPython not to put the CWD on the import path. Normally you want this to be True, so that imports come from the hermetic environment Pants creates. However IPython&lt;7.13.0 doesn&#x27;t support this option, so if you&#x27;re using an earlier version (e.g., because you have Python 2.7 code) then you will need to set this to False, and you may have issues with imports from your CWD shading the hermetic environment.
 
 </Option>
 
@@ -83,12 +74,10 @@ from your CWD shading the hermetic environment.
 
 <Option
   cli_repr={`--ipython-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_IPYTHON_INTERPRETER_CONSTRAINTS"
+  env_repr='PANTS_IPYTHON_INTERPRETER_CONSTRAINTS'
   default_repr={`[]`}
-  removal_version="2.1.0.dev0"
-  removal_hint={
-    "This option no longer does anything, as Pants auto-configures the interpreter constraints for ipython based on your code's interpreter constraints."
-  }
+  removal_version='2.1.0.dev0'
+  removal_hint={'This option no longer does anything, as Pants auto-configures the interpreter constraints for ipython based on your code\'s interpreter constraints.'}
 >
 
 Python interpreter constraints for this tool.

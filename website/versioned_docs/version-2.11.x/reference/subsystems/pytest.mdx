@@ -21,12 +21,11 @@ Config section: <span className="color--primary">`[pytest]`</span>
 
 <Option
   cli_repr={`--pytest-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
-  env_repr="PANTS_PYTEST_ARGS"
+  env_repr='PANTS_PYTEST_ARGS'
   default_repr={`[]`}
 >
 
-Arguments to pass directly to Pytest, e.g. `--pytest-args='-k test_foo
-  --quiet'`.
+Arguments to pass directly to Pytest, e.g. `--pytest-args='-k test_foo --quiet'`.
 
 </Option>
 
@@ -34,14 +33,11 @@ Arguments to pass directly to Pytest, e.g. `--pytest-args='-k test_foo
 
 <Option
   cli_repr={`--[no-]pytest-timeouts`}
-  env_repr="PANTS_PYTEST_TIMEOUTS"
+  env_repr='PANTS_PYTEST_TIMEOUTS'
   default_repr={`True`}
 >
 
-Enable test target timeouts. If timeouts are enabled then test targets with a
-timeout= parameter set on their target will time out after the given number of
-seconds if not completed. If no timeout is set, then either the default
-timeout is used or no timeout is configured.
+Enable test target timeouts. If timeouts are enabled then test targets with a timeout= parameter set on their target will time out after the given number of seconds if not completed. If no timeout is set, then either the default timeout is used or no timeout is configured.
 
 </Option>
 
@@ -51,7 +47,7 @@ timeout is used or no timeout is configured.
 
 <Option
   cli_repr={`--pytest-version=<str>`}
-  env_repr="PANTS_PYTEST_VERSION"
+  env_repr='PANTS_PYTEST_VERSION'
   default_repr={`pytest==7.0.1`}
 >
 
@@ -63,13 +59,11 @@ Requirement string for the tool.
 
 <Option
   cli_repr={`--pytest-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_PYTEST_EXTRA_REQUIREMENTS"
+  env_repr='PANTS_PYTEST_EXTRA_REQUIREMENTS'
   default_repr={`["pytest-cov>=2.12,!=2.12.1,<3.1"]`}
 >
 
-Any additional requirement strings to use with the tool. This is useful if the
-tool allows you to install plugins or if you need to constrain a dependency to
-a certain version.
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
 
 </Option>
 
@@ -97,14 +91,11 @@ As explained at https://www.pantsbuild.org/v2.11/docs/python-third-party-depende
 
 <Option
   cli_repr={`--pytest-console-script=<str>`}
-  env_repr="PANTS_PYTEST_CONSOLE_SCRIPT"
+  env_repr='PANTS_PYTEST_CONSOLE_SCRIPT'
   default_repr={`pytest`}
 >
 
-The console script for the tool. Using this option is generally preferable to
-(and mutually exclusive with) specifying an --entry-point since console script
-names have a higher expectation of staying stable across releases of the tool.
-Usually, you will not want to change this from the default.
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -112,13 +103,11 @@ Usually, you will not want to change this from the default.
 
 <Option
   cli_repr={`--pytest-entry-point=<str>`}
-  env_repr="PANTS_PYTEST_ENTRY_POINT"
+  env_repr='PANTS_PYTEST_ENTRY_POINT'
   default_repr={`None`}
 >
 
-The entry point for the tool. Generally you only want to use this option if
-the tool does not offer a --console-script (which this option is mutually
-exclusive with). Usually, you will not want to change this from the default.
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -126,12 +115,11 @@ exclusive with). Usually, you will not want to change this from the default.
 
 <Option
   cli_repr={`--pytest-timeout-default=<int>`}
-  env_repr="PANTS_PYTEST_TIMEOUT_DEFAULT"
+  env_repr='PANTS_PYTEST_TIMEOUT_DEFAULT'
   default_repr={`None`}
 >
 
-The default timeout (in seconds) for a test target if the `timeout` field is
-not set on the target.
+The default timeout (in seconds) for a test target if the `timeout` field is not set on the target.
 
 </Option>
 
@@ -139,7 +127,7 @@ not set on the target.
 
 <Option
   cli_repr={`--pytest-timeout-maximum=<int>`}
-  env_repr="PANTS_PYTEST_TIMEOUT_MAXIMUM"
+  env_repr='PANTS_PYTEST_TIMEOUT_MAXIMUM'
   default_repr={`None`}
 >
 
@@ -151,12 +139,11 @@ The maximum timeout (in seconds) that may be used on a `python_tests` target.
 
 <Option
   cli_repr={`--pytest-junit-family=<str>`}
-  env_repr="PANTS_PYTEST_JUNIT_FAMILY"
+  env_repr='PANTS_PYTEST_JUNIT_FAMILY'
   default_repr={`xunit2`}
 >
 
-The format of generated junit XML files. See
-https://docs.pytest.org/en/latest/reference.html#confval-junit_family.
+The format of generated junit XML files. See https://docs.pytest.org/en/latest/reference.html#confval-junit_family.
 
 </Option>
 
@@ -164,12 +151,11 @@ https://docs.pytest.org/en/latest/reference.html#confval-junit_family.
 
 <Option
   cli_repr={`--pytest-execution-slot-var=<str>`}
-  env_repr="PANTS_PYTEST_EXECUTION_SLOT_VAR"
+  env_repr='PANTS_PYTEST_EXECUTION_SLOT_VAR'
   default_repr={`None`}
 >
 
-If a non-empty string, the process execution slot id (an integer) will be
-exposed to tests under this environment variable name.
+If a non-empty string, the process execution slot id (an integer) will be exposed to tests under this environment variable name.
 
 </Option>
 
@@ -177,14 +163,11 @@ exposed to tests under this environment variable name.
 
 <Option
   cli_repr={`--[no-]pytest-config-discovery`}
-  env_repr="PANTS_PYTEST_CONFIG_DISCOVERY"
+  env_repr='PANTS_PYTEST_CONFIG_DISCOVERY'
   default_repr={`True`}
 >
 
-If true, Pants will include all relevant Pytest config files (e.g.
-`pytest.ini`) during runs. See
-https://docs.pytest.org/en/stable/customize.html#finding-the-rootdir for where
-config files should be located for Pytest to discover them.
+If true, Pants will include all relevant Pytest config files (e.g. `pytest.ini`) during runs. See https://docs.pytest.org/en/stable/customize.html#finding-the-rootdir for where config files should be located for Pytest to discover them.
 
 </Option>
 

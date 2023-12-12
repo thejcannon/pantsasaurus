@@ -93,10 +93,13 @@ This is re-exported at `lambda_function.handler` in the resulting package to be 
 
 ## `include_requirements`
 
-<Field type_repr={`field.type_hint`} default_repr={`True`}>
-  Whether to resolve requirements and include them in the Pex. This is most
-  useful with Lambda Layers to make code uploads smaller when deps are in
-  layers. https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`True`}
+>
+
+Whether to resolve requirements and include them in the Pex. This is most useful with Lambda Layers to make code uploads smaller when deps are in layers. https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+
 </Field>
 
 ## `runtime`
@@ -157,5 +160,7 @@ Once environments are defined in `[environments-preview].names`, you can specify
 You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
 
 </Field>
+
+
 
 </span>

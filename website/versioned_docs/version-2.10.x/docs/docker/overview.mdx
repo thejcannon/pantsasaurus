@@ -3,9 +3,6 @@
     position: 0
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
-
 How to build Docker images containing artifacts built by Pants
 
 ---
@@ -13,26 +10,34 @@ How to build Docker images containing artifacts built by Pants
 Docker images typically bundle build artifacts, such as PEX files, wheels, loose files, and so on, with other runtime requirements, such as a Python interpreter.
 
 Pants [makes it easy to embed the artifacts Pants builds into your Docker images](https://blog.pantsbuild.org/pants-pex-and-docker/), for easy deployment.
-
-## Enabling the Docker backend
-
+[block:api-header]
+{
+"title": "Enabling the Docker backend"
+}
+[/block]
 To use Pants's Docker support you must enable the appropriate backend:
-
-```toml title="pants.toml"
-backend_packages = [
-  ...
-  "pants.backend.docker",
-  ...
+[block:code]
+{
+"codes": [
+{
+"code": "backend_packages = [\n ...\n \"pants.backend.docker\",\n ...\n]",
+"language": "toml",
+"name": "pants.toml"
+}
 ]
-```
+}
+[/block]
 
-## Adding `docker_image` targets
-
+[block:api-header]
+{
+"title": "Adding `docker_image` targets"
+}
+[/block]
 A Docker image is built from a recipe specified by a [Dockerfile](https://docs.docker.com/engine/reference/builder/). When you build Docker images with Pants, instead of running `docker` on the Dockerfile directly, you let Pants do that for you.
 
-Pants uses [`docker_image`](reference:reference-docker_image) [targets](../using-pants/key-concepts/targets-and-build-files.mdx) to indicate which Dockerfiles you want Pants to know about, and to add any necessary metadata.
+Pants uses [`docker_image`](doc:reference-docker_image) [targets](doc:targets) to indicate which Dockerfiles you want Pants to know about, and to add any necessary metadata.
 
-You can generate initial BUILD files for your Docker images, using [tailor](../getting-started/getting-started/create-initial-build-files.mdx):
+You can generate initial BUILD files for your Docker images, using [tailor](doc:create-initial-build-files):
 
 ```
 ❯ ./pants tailor
@@ -43,59 +48,67 @@ Created src/docker/app2/BUILD:
 ```
 
 Or you can add them manually, such as:
+[block:code]
+{
+"codes": [
+{
+"code": "docker_image(name=\"docker\")",
+"language": "python",
+"name": "src/docker/app1/BUILD"
+}
+]
+}
+[/block]
+Alternatively you may provide the Docker build instructions inline in your BUILD file as [`instructions`](doc:reference-docker_image#codeinstructionscode) on your `docker_image` if you don't want to create a `Dockerfile`.
+[block:code]
+{
+"codes": [
+{
+"code": "docker_image(\n name=\"docker\",\n instructions=[\n \"FROM python:3.8\",\n \"RUN ..\",\n ]\n)",
+"language": "python",
+"name": "src/docker/app1/BUILD"
+}
+]
+}
+[/block]
 
-```python title="src/docker/app1/BUILD"
-docker_image(name="docker")
-```
+[block:callout]
+{
+"type": "warning",
+"title": "The `docker_image` `instructions` field",
+"body": "Each `docker_image` uses a `Dockerfile` referred to by the `source` field, unless you have provided a value to the `instructions` field.\n\nWhen using the `instructions` field, make sure that the default value for `source` does not match a file, or there will be a conflict about which information to use."
+}
+[/block]
 
-Alternatively you may provide the Docker build instructions inline in your BUILD file as [`instructions`](reference:reference-docker_image#codeinstructionscode) on your `docker_image` if you don't want to create a `Dockerfile`.
-
-```python title="src/docker/app1/BUILD"
-docker_image(
-  name="docker",
-  instructions=[
-    "FROM python:3.8",
-    "RUN ..",
-  ]
-)
-```
-
-:::caution The `docker_image` `instructions` field
-
-    Each `docker_image` uses a `Dockerfile` referred to by the `source` field, unless you have provided a value to the `instructions` field.
-
-    When using the `instructions` field, make sure that the default value for `source` does not match a file, or there will be a conflict about which information to use.
-
-:::
-
-## Adding dependencies to your `docker_image` targets
-
+[block:api-header]
+{
+"title": "Adding dependencies to your `docker_image` targets"
+}
+[/block]
 A Dockerfile executes in a _context_ - a set of files that the commands in the Dockerfile can reference, e.g., by copying them into the image).
 
 When you run `docker` directly, the context is usually a directory within your repo. That directory must contain the Dockerfile (typically at the root of the context) and any files that the build requires. If those files are themselves the product of a build step, or if they are sources from elsewhere in the repo, then you have to copy them into the context.
 
 Pants, however, takes care of assembling the context for you. It does so using the dependencies of the `docker_image` target.
 
-A [`docker_image`](reference:reference-docker_image) can depend on loose files belonging to [`file` / `files` targets](../using-pants/assets-and-archives.mdx#files), and on artifacts packaged from a variety of targets, such as [`pex_binary`](reference:reference-pex_binary) , [`python_distribution`](reference:reference-python_distribution), [`archive`](reference:reference-archive), or any other target that can be built via the [package](reference:reference-package) goal.
+A [`docker_image`](doc:reference-docker_image) can depend on loose files belonging to [`file` / `files` targets](doc:assets#files), and on artifacts packaged from a variety of targets, such as [`pex_binary`](doc:reference-pex_binary) , [`python_distribution`](doc:reference-python_distribution), [`archive`](doc:reference-archive), or any other target that can be built via the [package](doc:reference-package) goal.
 
 The context is assembled as follows:
 
 - The sources of `file` / `files` targets are assembled at their relative path from the repo root.
 - The artifacts of any packageable targets are built, as if by running `./pants package`, and placed in the context using the artifact's `output_path` field.
-
-```
- - The `output_path` defaults to the scheme `path.to.directory/tgt_name.ext`, e.g. `src.python.helloworld/bin.pex`.
-
-```
+  - The `output_path` defaults to the scheme `path.to.directory/tgt_name.ext`, e.g. `src.python.helloworld/bin.pex`.
 
 ### Dependency inference for `pex_binary`
 
 When you `COPY` PEX binaries into your image, the dependency on the `pex_binary` target will be inferred, so you don't have to add that explicitly to the list of `dependencies` on your `docker_image` target.
 
 For example, the `pex_binary` target `src/python/helloworld/bin.pex` has the default `output_path` of `src.python.helloworld/bin.pex`. So, Pants can infer a dependecy based on the line `COPY src.python.helloworld/bin.pex /bin/helloworld`.
-
-## Building a Docker image
-
+[block:api-header]
+{
+"title": "Building a Docker image"
+}
+[/block]
 You build Docker images using the `package` goal:
 
 ```
@@ -107,53 +120,41 @@ You build Docker images using the `package` goal:
 To provide values to any [build `ARG`s](https://docs.docker.com/engine/reference/builder/#arg) in the Dockerfile, you can list them in the `[docker].build_args` option, which will apply for all images. You can also list any image-specific build args in the field `extra_build_args` for the `docker_image` target.
 
 The build args use the same syntax as the [docker build --build-arg](https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables---build-arg) command line option: `VARNAME=VALUE`, where the value is optional, and if left out, the value is taken from the environment instead.
-
-<Tabs>
-<TabItem value="pants.toml" label="pants.toml">
-
-```toml
-[docker]
-build_args = [
-  "VAR1=value1",
-  "VAR2"
+[block:code]
+{
+"codes": [
+{
+"code": "[docker]\nbuild_args = [\n \"VAR1=value1\",\n \"VAR2\"\n]",
+"language": "toml",
+"name": "pants.toml"
+},
+{
+"code": "docker_image(\n name=\"docker\",\n extra_build_args=[\"VAR1=my_value\", \"VAR3\"]\n)",
+"language": "python",
+"name": "example/BUILD"
+},
+{
+"code": "FROM python:3.8\nARG VAR1\nARG VAR2\nARG VAR3=default\n...",
+"language": "dockerfile",
+"name": "example/Dockerfile"
+}
 ]
-```
-
-</TabItem>
-<TabItem value="example/BUILD" label="example/BUILD">
-
-```python
-docker_image(
-  name="docker",
-  extra_build_args=["VAR1=my_value", "VAR3"]
-)
-```
-
-</TabItem>
-<TabItem value="example/Dockerfile" label="example/Dockerfile">
-
-```dockerfile
-FROM python:3.8
-ARG VAR1
-ARG VAR2
-ARG VAR3=default
-...
-```
-
-</TabItem>
-</Tabs>
+}
+[/block]
 
 ### Target build stage
 
-When your `Dockerfile` is a multi stage build file, you may specify which stage to build with the [`--docker-build-target-stage`](reference:reference-docker#section-build-target-stage) for all images, or provide a per image setting with the `docker_image` field [`target_stage`](reference:reference-docker_image#codetarget_stagecode).
-
-```dockerfile title="dockerfile"
-FROM python:3.8 AS base
-RUN <install required tools>
-
-FROM base AS img
-COPY files /
-```
+When your `Dockerfile` is a multi stage build file, you may specify which stage to build with the [`--docker-build-target-stage`](doc:reference-docker#section-build-target-stage) for all images, or provide a per image setting with the `docker_image` field [`target_stage`](doc:reference-docker_image#codetarget_stagecode).
+[block:code]
+{
+"codes": [
+{
+"code": "FROM python:3.8 AS base\nRUN <install required tools>\n\nFROM base AS img\nCOPY files /",
+"language": "dockerfile"
+}
+]
+}
+[/block]
 
 ```
 ❯ ./pants package --docker-build-target-stage=base Dockerfile
@@ -161,108 +162,70 @@ COPY files /
 
 ### Build time secrets
 
-Secrets are supported for `docker_image` targets with the [`secrets`](reference:reference-docker_image#codesecretscode) field. The defined secrets may then be mounted in the `Dockerfile` as [usual](https://docs.docker.com/develop/develop-images/build_enhancements/#new-docker-build-secret-information).
+Secrets are supported for `docker_image` targets with the [`secrets`](doc:reference-docker_image#codesecretscode) field. The defined secrets may then be mounted in the `Dockerfile` as [usual](https://docs.docker.com/develop/develop-images/build_enhancements/#new-docker-build-secret-information).
+[block:code]
+{
+"codes": [
+{
+"code": "docker_image(\n secrets={\n \"mysecret\": \"mysecret.txt\",\n }\n)",
+"language": "python",
+"name": "BUILD"
+},
+{
+"code": "FROM python:3.8\n\n# shows secret from default secret location:\nRUN --mount=type=secret,id=mysecret cat /run/secrets/mysecret\n\n# shows secret from custom secret location:\nRUN --mount=type=secret,id=mysecret,dst=/foobar cat /foobar\n",
+"language": "dockerfile"
+},
+{
+"code": "very-secret-value",
+"language": "text",
+"name": "mysecret.txt"
+}
+]
+}
+[/block]
 
-<Tabs>
-<TabItem value="BUILD" label="BUILD">
-
-```python
-docker_image(
-  secrets={
-    "mysecret": "mysecret.txt",
-  }
-)
-```
-
-</TabItem>
-<TabItem value="dockerfile" label="dockerfile">
-
-```dockerfile
-FROM python:3.8
-
-# shows secret from default secret location:
-RUN --mount=type=secret,id=mysecret cat /run/secrets/mysecret
-
-# shows secret from custom secret location:
-RUN --mount=type=secret,id=mysecret,dst=/foobar cat /foobar
-```
-
-</TabItem>
-<TabItem value="mysecret.txt" label="mysecret.txt">
-
-```text
-very-secret-value
-```
-
-</TabItem>
-</Tabs>
-
-:::note Secret file path
-
-    Secrets should not be checked into version control. Use absolute paths to reference a file that is not in the project source tree. However, to keep the BUILD file as hermetic as possible, the files may be placed within the project source tree at build time for instance, and referenced with a path relative to the project root by default, or relative to the directory of the BUILD file when prefixed with `./`.
-
-    See the example for the [`secrets`](reference:reference-docker_image#codesecretscode) field.
-
-:::
+[block:callout]
+{
+"type": "info",
+"title": "Secret file path",
+"body": "Secrets should not be checked into version control. Use absolute paths to reference a file that is not in the project source tree. However, to keep the BUILD file as hermetic as possible, the files may be placed within the project source tree at build time for instance, and referenced with a path relative to the project root by default, or relative to the directory of the BUILD file when prefixed with `./`.\n\nSee the example for the [`secrets`](doc:reference-docker_image#codesecretscode) field."
+}
+[/block]
 
 ### Build Docker image example
 
 This example copies both a `file` and `pex_binary`:
-
-<Tabs>
-<TabItem value="src/docker/hw/BUILD" label="src/docker/hw/BUILD">
-
-```python
-file(name="msg", source="msg.txt")
-
-docker_image(
-    name="docker",
-    dependencies=[":msg", "src/python/hw:bin"],
-)
-```
-
-</TabItem>
-<TabItem value="src/docker/hw/Dockerfile" label="src/docker/hw/Dockerfile">
-
-```dockerfile
-FROM python:3.8
-ENTRYPOINT ["/bin/helloworld"]
-COPY src/docker/hw/msg.txt /var/msg
-COPY src.python.hw/bin.pex /bin/helloworld
-```
-
-</TabItem>
-<TabItem value="src/docker/hw/msg.txt" label="src/docker/hw/msg.txt">
-
-```text
-Hello, Docker!
-```
-
-</TabItem>
-<TabItem value="src/py/hw/BUILD" label="src/py/hw/BUILD">
-
-```python
-python_sources(name="lib")
-
-pex_binary(name="bin", entry_point="main.py")
-```
-
-</TabItem>
-<TabItem value="src/py/hw/main.py" label="src/py/hw/main.py">
-
-```python
-import os
-
-msg = "Hello"
-if os.path.exists("/var/msg"):
-    with open("/var/msg") as fp:
-        msg = fp.read().strip()
-
-print(msg)
-```
-
-</TabItem>
-</Tabs>
+[block:code]
+{
+"codes": [
+{
+"code": "file(name=\"msg\", source=\"msg.txt\")\n\ndocker_image(\n name=\"docker\",\n dependencies=[\":msg\", \"src/python/hw:bin\"],\n)\n",
+"language": "python",
+"name": "src/docker/hw/BUILD"
+},
+{
+"code": "FROM python:3.8\nENTRYPOINT [\"/bin/helloworld\"]\nCOPY src/docker/hw/msg.txt /var/msg\nCOPY src.python.hw/bin.pex /bin/helloworld",
+"language": "dockerfile",
+"name": "src/docker/hw/Dockerfile"
+},
+{
+"code": "Hello, Docker!",
+"language": "text",
+"name": "src/docker/hw/msg.txt"
+},
+{
+"code": "python_sources(name=\"lib\")\n\npex_binary(name=\"bin\", entry_point=\"main.py\")",
+"language": "python",
+"name": "src/py/hw/BUILD"
+},
+{
+"code": "import os\n\nmsg = \"Hello\"\nif os.path.exists(\"/var/msg\"):\n with open(\"/var/msg\") as fp:\n msg = fp.read().strip()\n\nprint(msg)",
+"language": "python",
+"name": "src/py/hw/main.py"
+}
+]
+}
+[/block]
 
 ```
 ❯ ./pants package src/docker/hw/Dockerfile
@@ -272,8 +235,11 @@ print(msg)
 18:07:31.83 [INFO] Built docker image: helloworld:latest
 ```
 
-## Running a Docker image
-
+[block:api-header]
+{
+"title": "Running a Docker image"
+}
+[/block]
 You can ask Pants to run a Docker image on your local system with the `run` goal:
 
 ```
@@ -295,9 +261,11 @@ To provide any command line arguments to the `docker run` command, you may use t
 ```
 
 As with all configuration options, this is not limited to the command line, but may be configured in a Pants rc file (such as `pants.toml`) in the `[docker].run_args` section or as an environment variable, `PANTS_DOCKER_RUN_ARGS` as well.
-
-## Publishing images
-
+[block:api-header]
+{
+"title": "Publishing images"
+}
+[/block]
 Pants can push your images to registries using `./pants publish`:
 
 ```shell
@@ -305,22 +273,30 @@ Pants can push your images to registries using `./pants publish`:
 # Will build the image and push it to all registries, with all tags.
 ```
 
-See [here](./tagging-docker-images.mdx) for how to set up registries.
-
-## Docker configuration
-
+See [here](doc:tagging-docker-images) for how to set up registries.
+[block:api-header]
+{
+"title": "Docker configuration"
+}
+[/block]
 To configure the Docker binary, set `[docker].env_vars` in your `pants.toml` configuration file. You use that key to list environment variables such as `DOCKER_CONTEXT` or `DOCKER_HOST`, that will be set in the environment of the `docker` binary when Pants runs it. Each listed value can be of the form `NAME=value`, or just `NAME`, in which case the value will be inherited from the Pants process's own environment.
-
-```toml title="pants.toml"
-[docker]
-env_vars = [
-  "DOCKER_CONTEXT=pants_context",
-  "DOCKER_HOST"
+[block:code]
+{
+"codes": [
+{
+"code": "[docker]\nenv_vars = [\n \"DOCKER_CONTEXT=pants_context\",\n \"DOCKER_HOST\"\n]",
+"language": "toml",
+"name": "pants.toml"
+}
 ]
-```
+}
+[/block]
 
-## Linting Dockerfiles with Hadolint
-
+[block:api-header]
+{
+"title": "Linting Dockerfiles with Hadolint"
+}
+[/block]
 Pants can run [Hadolint](https://github.com/hadolint/hadolint) on your Dockerfiles to check for errors and mistakes:
 
 ```
@@ -328,14 +304,14 @@ Pants can run [Hadolint](https://github.com/hadolint/hadolint) on your Dockerfil
 ```
 
 This must first be enabled by activating the Hadolint backend:
-
-```toml title="pants.toml"
-[GLOBAL]
-backend_packages = ["pants.backend.docker.lint.hadolint"]
-```
-
-
-
-
-
-
+[block:code]
+{
+"codes": [
+{
+"code": "[GLOBAL]\nbackend_packages = [\"pants.backend.docker.lint.hadolint\"]",
+"language": "toml",
+"name": "pants.toml"
+}
+]
+}
+[/block]

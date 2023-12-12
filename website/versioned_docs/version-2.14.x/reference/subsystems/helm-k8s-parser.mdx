@@ -16,7 +16,6 @@ Config section: <span className="color--primary">`[helm-k8s-parser]`</span>
 <span className={styles.options}>
 
 ## Basic options
-
 None
 
 ## Advanced options
@@ -25,7 +24,7 @@ None
 
 <Option
   cli_repr={`--helm-k8s-parser-version=<str>`}
-  env_repr="PANTS_HELM_K8S_PARSER_VERSION"
+  env_repr='PANTS_HELM_K8S_PARSER_VERSION'
   default_repr={`hikaru==0.11.0b`}
 >
 
@@ -37,13 +36,11 @@ Requirement string for the tool.
 
 <Option
   cli_repr={`--helm-k8s-parser-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_HELM_K8S_PARSER_EXTRA_REQUIREMENTS"
+  env_repr='PANTS_HELM_K8S_PARSER_EXTRA_REQUIREMENTS'
   default_repr={`[]`}
 >
 
-Any additional requirement strings to use with the tool. This is useful if the
-tool allows you to install plugins or if you need to constrain a dependency to
-a certain version.
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
 
 </Option>
 
@@ -51,7 +48,7 @@ a certain version.
 
 <Option
   cli_repr={`--helm-k8s-parser-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_HELM_K8S_PARSER_INTERPRETER_CONSTRAINTS"
+  env_repr='PANTS_HELM_K8S_PARSER_INTERPRETER_CONSTRAINTS'
   default_repr={`["CPython>=3.7,<3.10"]`}
 >
 

@@ -21,12 +21,11 @@ Config section: <span className="color--primary">`[black]`</span>
 
 <Option
   cli_repr={`--[no-]black-skip`}
-  env_repr="PANTS_BLACK_SKIP"
+  env_repr='PANTS_BLACK_SKIP'
   default_repr={`False`}
 >
 
-If true, don&#x27;t use Black when running `scie-pants-linux-x86_64 fmt` and
-`scie-pants-linux-x86_64 lint`.
+If true, don&#x27;t use Black when running `scie-pants-linux-x86_64 fmt` and `scie-pants-linux-x86_64 lint`.
 
 </Option>
 
@@ -34,12 +33,11 @@ If true, don&#x27;t use Black when running `scie-pants-linux-x86_64 fmt` and
 
 <Option
   cli_repr={`--black-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr="PANTS_BLACK_ARGS"
+  env_repr='PANTS_BLACK_ARGS'
   default_repr={`[]`}
 >
 
-Arguments to pass directly to Black, e.g. `--black-args='--target-version=py37
-  --quiet'`.
+Arguments to pass directly to Black, e.g. `--black-args='--target-version=py37 --quiet'`.
 
 </Option>
 
@@ -87,7 +85,7 @@ If unspecified, install the entire lockfile.
 
 <Option
   cli_repr={`--black-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_BLACK_INTERPRETER_CONSTRAINTS"
+  env_repr='PANTS_BLACK_INTERPRETER_CONSTRAINTS'
   default_repr={`["CPython>=3.7,<4"]`}
 >
 
@@ -99,14 +97,11 @@ Python interpreter constraints for this tool.
 
 <Option
   cli_repr={`--black-console-script=<str>`}
-  env_repr="PANTS_BLACK_CONSOLE_SCRIPT"
+  env_repr='PANTS_BLACK_CONSOLE_SCRIPT'
   default_repr={`black`}
 >
 
-The console script for the tool. Using this option is generally preferable to
-(and mutually exclusive with) specifying an --entry-point since console script
-names have a higher expectation of staying stable across releases of the tool.
-Usually, you will not want to change this from the default.
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -114,13 +109,11 @@ Usually, you will not want to change this from the default.
 
 <Option
   cli_repr={`--black-entry-point=<str>`}
-  env_repr="PANTS_BLACK_ENTRY_POINT"
+  env_repr='PANTS_BLACK_ENTRY_POINT'
   default_repr={`None`}
 >
 
-The entry point for the tool. Generally you only want to use this option if
-the tool does not offer a --console-script (which this option is mutually
-exclusive with). Usually, you will not want to change this from the default.
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -158,12 +151,10 @@ Use `[black].config` instead if your config is in a non-standard location.
 
 <Option
   cli_repr={`--black-version=<str>`}
-  env_repr="PANTS_BLACK_VERSION"
+  env_repr='PANTS_BLACK_VERSION'
   default_repr={`black>=22.6.0,<24`}
-  removal_version="2.18.0.dev1"
-  removal_hint={
-    "Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles."
-  }
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
 >
 
 Requirement string for the tool.
@@ -174,17 +165,13 @@ Requirement string for the tool.
 
 <Option
   cli_repr={`--black-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_BLACK_EXTRA_REQUIREMENTS"
+  env_repr='PANTS_BLACK_EXTRA_REQUIREMENTS'
   default_repr={`["typing-extensions>=3.10.0.0; python_version < \"3.10\""]`}
-  removal_version="2.18.0.dev1"
-  removal_hint={
-    "Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles."
-  }
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
 >
 
-Any additional requirement strings to use with the tool. This is useful if the
-tool allows you to install plugins or if you need to constrain a dependency to
-a certain version.
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
 
 </Option>
 

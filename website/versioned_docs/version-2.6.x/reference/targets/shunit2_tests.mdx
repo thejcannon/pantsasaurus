@@ -74,16 +74,22 @@ Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
 
 ## `timeout`
 
-<Field type_repr={`field.type_hint`}>
-  A timeout (in seconds) used by each test file belonging to this target. If
-  unset, the test will never time out.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A timeout (in seconds) used by each test file belonging to this target. If unset, the test will never time out.
+
 </Field>
 
 ## `shell`
 
-<Field type_repr={`field.type_hint`}>
-  Which shell to run the tests with. If unspecified, Pants will look for a
-  shebang line.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Which shell to run the tests with. If unspecified, Pants will look for a shebang line.
+
 </Field>
 
 ## `runtime_package_dependencies`
@@ -102,14 +108,26 @@ You can include anything that can be built by `./pants package`, e.g. a `pex_bin
 
 ## `skip_shellcheck`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run Shellcheck on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Shellcheck on this target&#x27;s code.
+
 </Field>
 
 ## `skip_shfmt`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run shfmt on this target&#x27;s code.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run shfmt on this target&#x27;s code.
+
 </Field>
+
+
 
 </span>

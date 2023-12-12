@@ -10,7 +10,6 @@ import styles from "@site/src/components/reference/styles.module.css";
 Run a script as a test via the `test` goal, with all dependencies packaged/copied available in the chroot.
 
 Example BUILD file:
-
 ```
 experimental_test_shell_command(
     name="test",
@@ -84,14 +83,24 @@ The command is executed as `'bash -c <command>'` by default. If you want to invo
 
 ## `log_output`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  Set to true if you want the output logged to the console.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+Set to true if you want the output logged to the console.
+
 </Field>
 
 ## `timeout`
 
-<Field type_repr={`field.type_hint`} default_repr={`30`}>
-  Command execution timeout (in seconds).
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`30`}
+>
+
+Command execution timeout (in seconds).
+
 </Field>
 
 ## `tools`
@@ -136,8 +145,13 @@ You can specify multiple valid environments by using `parametrize`. If `__local_
 
 ## `skip_tests`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run this tests for target.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run this tests for target.
+
 </Field>
 
 ## `workdir`
@@ -151,11 +165,13 @@ Sets the working directory for the process.
 
 Values are relative to the build root, except in the following cases:
 
-- `.` specifies the location of the `BUILD` file.
-- Values beginning with `./` are relative to the location of the `BUILD` file.
-- `/` or the empty string specifies the build root.
-- Values beginning with `/` are also relative to the build root.
+* `.` specifies the location of the `BUILD` file.
+* Values beginning with `./` are relative to the location of the `BUILD` file.
+* `/` or the empty string specifies the build root.
+* Values beginning with `/` are also relative to the build root.
 
 </Field>
+
+
 
 </span>

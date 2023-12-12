@@ -21,7 +21,7 @@ Config section: <span className="color--primary">`[jarjar]`</span>
 
 <Option
   cli_repr={`--[no-]jarjar-skip-manifest`}
-  env_repr="PANTS_JARJAR_SKIP_MANIFEST"
+  env_repr='PANTS_JARJAR_SKIP_MANIFEST'
   default_repr={`False`}
 >
 
@@ -33,8 +33,8 @@ Skip the processing of the JAR manifest.
 
 <Option
   cli_repr={`--jarjar-misplaced-class-strategy=<MisplacedClassStrategy>`}
-  env_repr="PANTS_JARJAR_MISPLACED_CLASS_STRATEGY"
-  one_of="fatal, skip, omit, move"
+  env_repr='PANTS_JARJAR_MISPLACED_CLASS_STRATEGY'
+  one_of='fatal, skip, omit, move'
   default_repr={`None`}
 >
 
@@ -48,12 +48,11 @@ The strategy to use when processing class files that are in the wrong package.
 
 <Option
   cli_repr={`--jarjar-version=<str>`}
-  env_repr="PANTS_JARJAR_VERSION"
+  env_repr='PANTS_JARJAR_VERSION'
   default_repr={`1.8.1`}
 >
 
-Version string for the tool. This is available for substitution in the
-`[jarjar].artifacts` option by including the string `{version}`.
+Version string for the tool. This is available for substitution in the `[jarjar].artifacts` option by including the string `{version}`.
 
 </Option>
 
@@ -61,15 +60,11 @@ Version string for the tool. This is available for substitution in the
 
 <Option
   cli_repr={`--jarjar-artifacts="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_JARJAR_ARTIFACTS"
+  env_repr='PANTS_JARJAR_ARTIFACTS'
   default_repr={`["com.eed3si9n.jarjar:jarjar-assembly:{version}"]`}
 >
 
-Artifact requirements for this tool using specified as either the address of a
-`jvm_artifact` target or, alternatively, as a colon-separated Maven
-coordinates (e.g., group:name:version). For Maven coordinates, the string `
-  {version}` version will be substituted with the value of the
-`[jarjar].version` option.
+Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., group:name:version). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[jarjar].version` option.
 
 </Option>
 

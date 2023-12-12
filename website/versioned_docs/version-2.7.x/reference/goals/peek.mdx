@@ -25,7 +25,7 @@ Config section: <span className="color--primary">`[peek]`</span>
 
 <Option
   cli_repr={`--peek-output-file=<path>`}
-  env_repr="PANTS_PEEK_OUTPUT_FILE"
+  env_repr='PANTS_PEEK_OUTPUT_FILE'
   default_repr={`None`}
 >
 
@@ -37,13 +37,12 @@ Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
 
 <Option
   cli_repr={`--peek-output=<OutputOptions>`}
-  env_repr="PANTS_PEEK_OUTPUT"
-  one_of="raw, json"
+  env_repr='PANTS_PEEK_OUTPUT'
+  one_of='raw, json'
   default_repr={`json`}
 >
 
-Which output style peek should use: `json` will show each target as a seperate
-entry, whereas `raw` will simply show the original non-normalized BUILD files.
+Which output style peek should use: `json` will show each target as a seperate entry, whereas `raw` will simply show the original non-normalized BUILD files.
 
 </Option>
 
@@ -51,12 +50,11 @@ entry, whereas `raw` will simply show the original non-normalized BUILD files.
 
 <Option
   cli_repr={`--[no-]peek-exclude-defaults`}
-  env_repr="PANTS_PEEK_EXCLUDE_DEFAULTS"
+  env_repr='PANTS_PEEK_EXCLUDE_DEFAULTS'
   default_repr={`False`}
 >
 
-Whether to leave off values that match the target-defined default values when
-using `json` output.
+Whether to leave off values that match the target-defined default values when using `json` output.
 
 </Option>
 

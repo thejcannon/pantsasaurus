@@ -21,12 +21,11 @@ Config section: <span className="color--primary">`[spectral]`</span>
 
 <Option
   cli_repr={`--[no-]spectral-skip`}
-  env_repr="PANTS_SPECTRAL_SKIP"
+  env_repr='PANTS_SPECTRAL_SKIP'
   default_repr={`False`}
 >
 
-If true, don&#x27;t use Spectral when running
-`/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
+If true, don&#x27;t use Spectral when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
 
 </Option>
 
@@ -34,12 +33,11 @@ If true, don&#x27;t use Spectral when running
 
 <Option
   cli_repr={`--spectral-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr="PANTS_SPECTRAL_ARGS"
+  env_repr='PANTS_SPECTRAL_ARGS'
   default_repr={`[]`}
 >
 
-Arguments to pass directly to Spectral, e.g.
-`--spectral-args='--fail-severity=warn'`.
+Arguments to pass directly to Spectral, e.g. `--spectral-args='--fail-severity=warn'`.
 
 </Option>
 
@@ -49,7 +47,7 @@ Arguments to pass directly to Spectral, e.g.
 
 <Option
   cli_repr={`--spectral-version=<str>`}
-  env_repr="PANTS_SPECTRAL_VERSION"
+  env_repr='PANTS_SPECTRAL_VERSION'
   default_repr={`v6.5.1`}
 >
 
@@ -65,10 +63,10 @@ Use this version of Spectral.
   default_repr={`[\n  "v6.5.1|linux_arm64 |81017af87e04711ab0a0a7c15af9985241f6c84101d039775057bbec17572916|72709153",\n  "v6.5.1|linux_x86_64|81017af87e04711ab0a0a7c15af9985241f6c84101d039775057bbec17572916|72709153",\n  "v6.5.1|macos_arm64 |5b10d772cb309d82b6a49b689ed58580dcb3393ead82b82ab648eead7da4bd79|77446257",\n  "v6.5.1|macos_x86_64|5b10d772cb309d82b6a49b689ed58580dcb3393ead82b82ab648eead7da4bd79|77446257"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
-
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -92,6 +90,7 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   one_of='error, warning'
   default_repr={`error`}
 >
+
 
 What action to take in case the requested version of Spectral is not supported.
 

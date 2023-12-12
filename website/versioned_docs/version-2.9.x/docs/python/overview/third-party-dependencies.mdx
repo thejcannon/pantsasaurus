@@ -3,17 +3,13 @@
     position: 1
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
-
 How to use third-party Python libraries in your project.
 
 ---
 
-Pants handles dependencies with more precision than traditional Python workflows. Traditionally, you have a single heavyweight [virtual environment](https://docs.python.org/3/tutorial/venv.html) that includes a large set of dependencies, whether or not you actually need them for your current task.
+Pants handles dependencies with more precision than traditional Python workflows. Traditionally, you have a single heavyweight [virtual environment](https://docs.python.org/3/tutorial/venv.html) that includes a large set of dependencies, whether or not you actually need them for your current task. 
 
 Instead, Pants understands exactly which dependencies every file in your project needs, and efficiently uses just that subset of dependencies needed for the task.
-
 ```
 $ ./pants dependencies src/py/app.py
 //:flask
@@ -24,166 +20,118 @@ $ ./pants dependencies src/py/util.py
 ```
 
 Among other benefits, this precise and automatic understanding of your dependencies gives you fine-grained caching. This means, for example, that if none of the dependencies for a particular test file have changed, the cached result can be safely used.
-
-## Teaching Pants your \"universe\" of dependencies
-
+[block:api-header]
+{
+  "title": "Teaching Pants your \"universe\" of dependencies"
+}
+[/block]
 For Pants to know which dependencies each file uses, it must first know which specific dependencies are in your "universe", i.e. all the third-party dependencies your project uses.
 
 Each third-party dependency is modeled by a `python_requirement` target:
-
-```python title="BUILD"
-python_requirement(
-    name="Django",
-    requirements=["Django==3.2.1"],
-)
-```
-
+[block:code]
+{
+  "codes": [
+    {
+      "code": "python_requirement(\n    name=\"Django\",\n    requirements=[\"Django==3.2.1\"],\n)",
+      "language": "python",
+      "name": "BUILD"
+    }
+  ]
+}
+[/block]
 To minimize boilerplate, Pants has macros to generate `python_requirement` targets for you:
 
-- `python_requirements` for `requirements.txt`.
-- `poetry_requirements` for Poetry projects.
+* `python_requirements` for `requirements.txt`.
+* `poetry_requirements` for Poetry projects.
 
 ### `requirements.txt`
 
-The `python_requirements()` macro parses a [`requirements.txt`-style file](https://pip.pypa.io/en/stable/user_guide/#requirements-files) to produce a `python_requirement` target for each entry.
+The `python_requirements()` macro parses a [`requirements.txt`-style file](https://pip.pypa.io/en/stable/user_guide/#requirements-files) to produce a `python_requirement` target for each entry. 
 
 For example:
-
-<Tabs>
-<TabItem value="requirements.txt" label="requirements.txt">
-
-```text
-flask>=1.1.2,<1.3
-requests[security]==2.23.0
-dataclasses ; python_version<'3.7'
-```
-
-</TabItem>
-<TabItem value="BUILD" label="BUILD">
-
-```python
-python_requirements()
-
-# The above macro is equivalent to explicitly setting this:
-python_requirement(
-    name="flask",
-    requirements=["flask>=1.1.2,<1.3"],
-)
-python_requirement(
-    name="requests",
-    requirements=["requests[security]==2.23.0"],
-)
-python_requirement(
-    name="dataclasses",
-    requirements=["dataclasses ; python_version<'3.7'"],
-)
-```
-
-</TabItem>
-</Tabs>
-
+[block:code]
+{
+  "codes": [
+    {
+      "code": "flask>=1.1.2,<1.3\nrequests[security]==2.23.0\ndataclasses ; python_version<'3.7'\n",
+      "language": "text",
+      "name": "requirements.txt"
+    },
+    {
+      "code": "python_requirements()\n\n# The above macro is equivalent to explicitly setting this:\npython_requirement(\n    name=\"flask\",\n    requirements=[\"flask>=1.1.2,<1.3\"],\n)\npython_requirement(\n    name=\"requests\",\n    requirements=[\"requests[security]==2.23.0\"],\n)\npython_requirement(\n    name=\"dataclasses\",\n    requirements=[\"dataclasses ; python_version<'3.7'\"],\n)",
+      "language": "python",
+      "name": "BUILD"
+    }
+  ]
+}
+[/block]
 If the file uses a different name than `requirements.txt`, set `source` like this:
 
 ```python
 python_requirements(source="reqs.txt")
 ```
-
-:::note Where should I put the `requirements.txt`?
-
-    You can put the file wherever makes the most sense for your project.
-
-    In smaller repositories that only use Python, it's often convenient to put the file at the "build root" (top-level), as used on this page.
-
-    For larger repositories or multilingual repositories, it's often useful to have a `3rdparty` or `3rdparty/python` directory. Rather than the target's address being `//:my_requirement`, its address would be `3rdparty/python:my_requirement`, for example.
-
-    BUT: if you place your `requirements.txt` in a non-standard location (or give it another name via the `python_requirements(source=..)` argument), you will need to configure `pantsd` to restart for edits to the non-standard filename: see [#9946](https://github.com/pantsbuild/pants/pull/9946).
-
-:::
-
-### Poetry
+[block:callout]
+{
+  "type": "info",
+  "title": "Where should I put the `requirements.txt`?",
+  "body": "You can put the file wherever makes the most sense for your project.\n\nIn smaller repositories that only use Python, it's often convenient to put the file at the \"build root\" (top-level), as used on this page.\n\nFor larger repositories or multilingual repositories, it's often useful to have a `3rdparty` or `3rdparty/python` directory. Rather than the target's address being `//:my_requirement`, its address would be `3rdparty/python:my_requirement`, for example.\n\nBUT: if you place your `requirements.txt` in a non-standard location (or give it another name via the `python_requirements(source=..)` argument), you will need to configure `pantsd` to restart for edits to the non-standard filename: see [#9946](https://github.com/pantsbuild/pants/pull/9946)."
+}
+[/block]
+ ### Poetry
 
 The `poetry_requirements()` macro parses the [Poetry](https://python-poetry.org/docs/) section in `pyproject.toml` to produce a `python_requirement` target for each entry.
-
-<Tabs>
-<TabItem value="pyproject.toml" label="pyproject.toml">
-
-```toml
-[tool.poetry.dependencies]
-python = "^3.8"
-requests = {extras = ["security"], version = "~1"}
-flask = "~1.12"
-
-[tool.poetry.dev-dependencies]
-isort = "~5.5"
-```
-
-</TabItem>
-<TabItem value="BUILD" label="BUILD">
-
-```python
-poetry_requirements()
-
-# The above macro is equivalent to explicitly setting this:
-python_requirement(
-    name="requests",
-    requirements=["requests[security]>=1,<2.0"],
-)
-python_requirement(
-    name="flask",
-    requirements=["flask>=1.12,<1.13"],
-)
-python_requirement(
-    name="isort",
-    requirements=["isort>=5.5,<5.6"],
-)
-```
-
-</TabItem>
-</Tabs>
-
+[block:code]
+{
+  "codes": [
+    {
+      "code": "[tool.poetry.dependencies]\npython = \"^3.8\"\nrequests = {extras = [\"security\"], version = \"~1\"}\nflask = \"~1.12\"\n\n[tool.poetry.dev-dependencies]\nisort = \"~5.5\"",
+      "language": "toml",
+      "name": "pyproject.toml"
+    },
+    {
+      "code": "poetry_requirements()\n\n# The above macro is equivalent to explicitly setting this:\npython_requirement(\n    name=\"requests\",\n    requirements=[\"requests[security]>=1,<2.0\"],\n)\npython_requirement(\n    name=\"flask\",\n    requirements=[\"flask>=1.12,<1.13\"],\n)\npython_requirement(\n    name=\"isort\",\n    requirements=[\"isort>=5.5,<5.6\"],\n)",
+      "language": "python",
+      "name": "BUILD"
+    }
+  ]
+}
+[/block]
 See the section "Lockfiles" below for how you can also hook up `poetry.lock` to Pants.
-
-## How dependencies are chosen
-
-Once Pants knows about your "universe" of dependencies, it determines which subset should be used through [dependency inference](https://blog.pantsbuild.org/dependency-inference/). Pants will read your import statements, like `import django`, and map it back to the relevant `python_requirement` target. Run [`./pants dependencies path/to/file.py`](../../using-pants/project-introspection.mdx) or `./pants dependencies path/to:target` to confirm this works.
+[block:api-header]
+{
+  "title": "How dependencies are chosen"
+}
+[/block]
+Once Pants knows about your "universe" of dependencies, it determines which subset should be used through [dependency inference](https://blog.pantsbuild.org/dependency-inference/). Pants will read your import statements, like `import django`, and map it back to the relevant `python_requirement` target. Run [`./pants dependencies path/to/file.py`](doc:project-introspection) or `./pants dependencies path/to:target` to confirm this works.
 
 If dependency inference does not work—such as because it's a runtime dependency you do not import—you can explicitly add the `python_requirement` target to the `dependencies` field, like this:
-
-```python title="project/BUILD"
-python_sources(
-    name="lib",
-    dependencies=[
-        # We don't have an import statement for this dep, so inference
-        # won't add it automatically. We add it explicitly instead.
-        "//:psyscopg2-binary",
-    ],
-)
-```
-
+[block:code]
+{
+  "codes": [
+    {
+      "code": "python_sources(\n    name=\"lib\",\n    dependencies=[\n        # We don't have an import statement for this dep, so inference\n        # won't add it automatically. We add it explicitly instead.\n        \"//:psyscopg2-binary\",\n    ],\n)",
+      "language": "python",
+      "name": "project/BUILD"
+    }
+  ]
+}
+[/block]
 ### Use `modules` and `module_mapping` when the module name is not standard
 
 Some dependencies expose a module different than their project name, such as `beautifulsoup4` exposing `bs4`. Pants assumes that a dependency's module is its normalized name—i.e. `My-distribution` exposes the module `my_distribution`. If that default does not apply to a dependency, it will not be inferred.
 
 Pants already defines a [default module mapping](https://github.com/pantsbuild/pants/blob/main/src/python/pants/backend/python/dependency_inference/default_module_mapping.py) for some common Python requirements, but you may need to augment this by teaching Pants additional mappings:
-
-```python title="BUILD"
-# `modules` and `module_mapping` is only needed for requirements where the defaults do not work.
-
-python_requirement(
-    name="my_distribution",
-    requirements=["my_distribution==4.1"],
-    modules=["custom_module"],
-)
-
-python_requirements(
-    module_mapping={"my_distribution": ["custom_module"]},
-)
-
-poetry_requirements(
-    module_mapping={"my_distribution": ["custom_module"]},
-)
-```
-
+[block:code]
+{
+  "codes": [
+    {
+      "code": "# `modules` and `module_mapping` is only needed for requirements where the defaults do not work.\n\npython_requirement(\n    name=\"my_distribution\",\n    requirements=[\"my_distribution==4.1\"],\n    modules=[\"custom_module\"],\n)\n                   \npython_requirements(\n    module_mapping={\"my_distribution\": [\"custom_module\"]},\n)\n\npoetry_requirements(\n    module_mapping={\"my_distribution\": [\"custom_module\"]},\n)",
+      "language": "python",
+      "name": "BUILD"
+    }
+  ]
+}
+[/block]
 If the dependency is a type stub, and the default does not work, set `type_stub_modules` on the `python_requirement` target, and `type_stubs_module_mapping` on the `python_requirements` and `poetry_requirements` macros. (The default for type stubs is to strip off `types-`, `-types`, `-stubs`, and `stubs-`. So, `types-requests` gives type stubs for the module `requests`.)
 
 ### Warning: multiple versions of the same dependency
@@ -193,90 +141,81 @@ When you have multiple targets for the same dependency—such as a target with `
 This ambiguity is often a problem when you have 2+ `requirements.txt` or `pyproject.toml` files in your project, such as `project1/requirements.txt` and `project2/requirements.txt` both specifying `Django`. If the version of the overlapping constraints are the same, you may wish to move the common requirements into a common requirements file.
 
 It can, however, be helpful to have multiple targets for the same dependency. For example, this allows part of your repository to upgrade to Django 3 even if the rest of your code still uses Django 2:
+[block:code]
+{
+  "codes": [
+    {
+      "code": "python_requirement(\n    name=\"Django2\",\n    requirements=[\"Django>=2.2.24,<3\"]\n)\npython_requirement(\n    name=\"Django3\",\n    requirements=[\"Django>=3.2.7,<4\"]\n)\n\npython_source(\n    name=\"new-app\",\n    source=\"new_app.py\",\n    dependencies=[\":Django3\"],\n)\npython_source(\n    name=\"legacy-app\",\n    source=\"legacy_app.py\",\n    dependencies=[\":Django2\"],\n)",
+      "language": "python",
+      "name": "BUILD"
+    }
+  ]
+}
+[/block]
 
-```python title="BUILD"
-python_requirement(
-    name="Django2",
-    requirements=["Django>=2.2.24,<3"]
-)
-python_requirement(
-    name="Django3",
-    requirements=["Django>=3.2.7,<4"]
-)
-
-python_source(
-    name="new-app",
-    source="new_app.py",
-    dependencies=[":Django3"],
-)
-python_source(
-    name="legacy-app",
-    source="legacy_app.py",
-    dependencies=[":Django2"],
-)
-```
-
-## Lockfiles
-
+[block:api-header]
+{
+  "title": "Lockfiles"
+}
+[/block]
 We strongly recommend using lockfiles because they make your builds [more stable](https://classic.yarnpkg.com/blog/2016/11/24/lockfiles-for-all/) so that new releases will not break your project.
 
 ### User lockfile
 
 This lockfile is used for your own code, such as when packaging into a PEX binary or resolving dependencies for your tests.
+[block:callout]
+{
+  "type": "warning",
+  "title": "Better user lockfile support is coming",
+  "body": "We've been [redesigning user lockfile support](https://github.com/pantsbuild/pants/issues/12314) to be more ergonomic and flexible. In the meantime, there are limitations:\n\n* Only one lockfile may be used for the whole repository.\n    * If you must use conflicting versions for the same dependency, such as `Django==2` and `Django==3`, then you'll need to leave the dependency out of the lockfile. \n* You can leave off dependencies, which means the lockfile might not be comprehensive.\n* The lockfile must be manually generated.\n* The lockfile cannot include `--hash` to ensure that the downloaded files are what is expected."
+}
+[/block]
 
-:::caution Better user lockfile support is coming
-
-    We've been [redesigning user lockfile support](https://github.com/pantsbuild/pants/issues/12314) to be more ergonomic and flexible. In the meantime, there are limitations:
-
-    * Only one lockfile may be used for the whole repository.
-        * If you must use conflicting versions for the same dependency, such as `Django==2` and `Django==3`, then you'll need to leave the dependency out of the lockfile.
-    * You can leave off dependencies, which means the lockfile might not be comprehensive.
-    * The lockfile must be manually generated.
-    * The lockfile cannot include `--hash` to ensure that the downloaded files are what is expected.
-
-:::
-
-:::note User lockfiles greatly improve performance
-
-    As explained above, Pants only uses the subset of the "universe" of your dependencies that is actually needed for a build, such as running tests and packaging a wheel file. This gives fine-grained caching and has other benefits like built packages (e.g. PEX binaries) only including their true dependencies. However, this also means that you may need to resolve dependencies multiple times, which can be slow.
-
-    If you use a lockfile, Pants will optimize to only resolve your requirements one time for your project. Then, for each build, Pants will [extract](https://blog.pantsbuild.org/introducing-pants-2-5/) from that resolve the exact subset needed. This greatly speeds up the performance of goals like `test`, `run`, `package`, and `repl`.
-
-    If the build's dependencies are not all included in the lockfile, this performance optimization will not be used.
-
-:::
-
+[block:callout]
+{
+  "type": "info",
+  "title": "User lockfiles greatly improve performance",
+  "body": "As explained above, Pants only uses the subset of the \"universe\" of your dependencies that is actually needed for a build, such as running tests and packaging a wheel file. This gives fine-grained caching and has other benefits like built packages (e.g. PEX binaries) only including their true dependencies. However, this also means that you may need to resolve dependencies multiple times, which can be slow.\n\nIf you use a lockfile, Pants will optimize to only resolve your requirements one time for your project. Then, for each build, Pants will [extract](https://blog.pantsbuild.org/introducing-pants-2-5/) from that resolve the exact subset needed. This greatly speeds up the performance of goals like `test`, `run`, `package`, and `repl`.\n\nIf the build's dependencies are not all included in the lockfile, this performance optimization will not be used."
+}
+[/block]
 To use a lockfile, first generate a `constraints.txt` file, such as by using one of these techniques:
-| Technique | Command | Limitations |
-| :--- | :--- | :--- |
-| `venv` + `pip freeze` | Create a script like the one in "Set up a virtual environment" below. | The lockfile may not work on platforms and Python versions other than what was used to create the virtual env. |
-| [pip-compile](https://github.com/jazzband/pip-tools) | `pip-compile --allow-unsafe --strip-extras -o constraints.txt requirements.txt` | The lockfile may not work on platforms and Python versions other than what was used to run `pip-compile`.<br/><br/>Will not capture any `python_requirement` targets declared explicitly in BUILD files or in `pyproject.toml`. |
-| [Poetry](https://python-poetry.org) | `poetry export --dev --without-hashes -o constraints.txt` | Requires that you are using Poetry for dependency management.<br/><br/>Will not capture any `python_requirement ` targets declared explicitly in BUILD files or in `requirements.txt`. |
-
+[block:parameters]
+{
+  "data": {
+    "h-2": "Limitations",
+    "0-2": "The lockfile may not work on platforms and Python versions other than what was used to create the virtual env.",
+    "0-0": "`venv` + `pip freeze`",
+    "h-0": "Technique",
+    "h-1": "Command",
+    "1-0": "[pip-compile](https://github.com/jazzband/pip-tools)",
+    "1-1": "`pip-compile --allow-unsafe --strip-extras -o constraints.txt requirements.txt`",
+    "1-2": "The lockfile may not work on platforms and Python versions other than what was used to run `pip-compile`.\n\nWill not capture any `python_requirement` targets declared explicitly in BUILD files or in `pyproject.toml`.",
+    "2-0": "[Poetry](https://python-poetry.org)",
+    "2-1": "`poetry export --dev --without-hashes -o constraints.txt`",
+    "2-2": "Requires that you are using Poetry for dependency management.\n\nWill not capture any `python_requirement ` targets declared explicitly in BUILD files or in `requirements.txt`.",
+    "0-1": "Create a script like the one in \"Set up a virtual environment\" below."
+  },
+  "cols": 3,
+  "rows": 3
+}
+[/block]
 Then, set the option `[python].requirements_constraints` like this:
-
-<Tabs>
-<TabItem value="pants.toml" label="pants.toml">
-
-```toml
-[python]
-requirement_constraints = "constraints.txt"
-```
-
-</TabItem>
-<TabItem value="constraints.txt" label="constraints.txt">
-
-```text
-certifi==2019.6.16
-chardet==3.0.2
-idna==2.7
-requests==2.23.0
-urllib3==1.25.6
-```
-
-</TabItem>
-</Tabs>
-
+[block:code]
+{
+  "codes": [
+    {
+      "code": "[python]\nrequirement_constraints = \"constraints.txt\"",
+      "language": "toml",
+      "name": "pants.toml"
+    },
+    {
+      "code": "certifi==2019.6.16\nchardet==3.0.2\nidna==2.7\nrequests==2.23.0\nurllib3==1.25.6",
+      "language": "text",
+      "name": "constraints.txt"
+    }
+  ]
+}
+[/block]
 Pants will then ensure that pip always uses the versions pinned in your lockfile when installing requirements.
 
 ### Tool lockfiles
@@ -308,9 +247,11 @@ You can also run `./pants generate-lockfiles --resolve=tool`, e.g. `--resolve=fl
 Anytime your custom lockfile becomes stale, such as because you changed the `version` again, Pants will error with instructions to regenerate the lockfile.
 
 To disable lockfiles, set `lockfile = "<none>"` for that tool, although we do not recommend this!
-
-## Advanced usage
-
+[block:api-header]
+{
+  "title": "Advanced usage"
+}
+[/block]
 ### Requirements with undeclared dependencies
 
 Sometimes a requirement does not properly declare in its packaging metadata the other dependencies it depends on, so those will not be installed. It's especially common to leave off dependencies on `setuptools`, which results in import errors like this:
@@ -321,46 +262,34 @@ ModuleNotFoundError: No module named 'pkg_resources'
 ```
 
 To work around this, you can use the `dependencies` field of `python_requirement`, so that anytime you depend on your requirement, you also bring in the undeclared dependency.
-
-```python title="BUILD"
-# First, make sure you have a `python_requirement` target for
-# the undeclared dependency.
-python_requirement(
-    name="setuptools",
-    requirements=["setuptools"],
-)
-
-python_requirement(
-    name="mongomock",
-    requirements=["mongomock"],
-    dependencies=[":setuptools"],
-)
-```
-
+[block:code]
+{
+  "codes": [
+    {
+      "code": "# First, make sure you have a `python_requirement` target for \n# the undeclared dependency.\npython_requirement(\n    name=\"setuptools\",\n    requirements=[\"setuptools\"],\n)\n\npython_requirement(\n    name=\"mongomock\",\n    requirements=[\"mongomock\"],\n    dependencies=[\":setuptools\"],\n)",
+      "language": "python",
+      "name": "BUILD"
+    }
+  ]
+}
+[/block]
 If you are using the `python_requirements` and `poetry_requirements` target generators, you can use the `overrides` field to do the same thing:
-
-<Tabs>
-<TabItem value="requirements.txt" label="requirements.txt">
-
-```text
-setuptools
-mongomock
-```
-
-</TabItem>
-<TabItem value="BUILD" label="BUILD">
-
-```python
-python_requirements(
-    overrides={
-        "mongomock": {"dependencies": [":setuptools"]},
+[block:code]
+{
+  "codes": [
+    {
+      "code": "setuptools\nmongomock",
+      "language": "text",
+      "name": "requirements.txt"
     },
-)
-```
-
-</TabItem>
-</Tabs>
-
+    {
+      "code": "python_requirements(\n    overrides={\n        \"mongomock\": {\"dependencies\": [\":setuptools\"]},\n    },\n)",
+      "language": "python",
+      "name": "BUILD"
+    }
+  ]
+}
+[/block]
 ### Version control and local requirements
 
 You might be used to using pip's proprietary VCS-style requirements for this, like `git+https://github.com/django/django.git#egg=django`. However, this proprietary format does not work with Pants.
@@ -388,96 +317,67 @@ Django @ file:///Users/pantsbuild/prebuilt_wheels/django-3.1.1-py3-none-any.whl
 ```
 
 Pip still works with these PEP 440-compliant formats, so you won't be losing any functionality by switching to using them.
-
-:::note Version control via SSH
-
-    When using version controlled direct references hosted on private repositories with SSH access:
-    ```
-    target@ git+ssh://git@github.com:/myorg/myrepo.git@myhash
-    ```
-    ...you may see errors like:
-    ```
-     Complete output (5 lines):
-      git@github.com: Permission denied (publickey).
-      fatal: Could not read from remote repository.
-      Please make sure you have the correct access rights
-      and the repository exists.
-      ----------------------------------------
-    ```
-
-    To fix this, Pants needs to be configured to pass relevant SSH specific environment variables to processes by adding the following to `pants.toml`:
-
-    ```
-    [subprocess-environment]
-    env_vars.add = [
-      "SSH_AUTH_SOCK",
-    ]
-    ```
-
-:::
-
+[block:callout]
+{
+  "type": "info",
+  "title": "Version control via SSH",
+  "body": "When using version controlled direct references hosted on private repositories with SSH access:\n```\ntarget@ git+ssh://git@github.com:/myorg/myrepo.git@myhash\n```\n...you may see errors like:\n```\n Complete output (5 lines):\n  git@github.com: Permission denied (publickey).\n  fatal: Could not read from remote repository.\n  Please make sure you have the correct access rights\n  and the repository exists.\n  ----------------------------------------\n```\n\nTo fix this, Pants needs to be configured to pass relevant SSH specific environment variables to processes by adding the following to `pants.toml`:\n\n```\n[subprocess-environment]\nenv_vars.add = [\n  \"SSH_AUTH_SOCK\",\n]\n```"
+}
+[/block]
 ### Custom repositories
 
 If you host your own wheels at a custom index (aka "cheese shop"), you can instruct Pants to use it with the option `indexes` in the `[python-repos]` scope.
-
-```toml title="pants.toml"
-[python-repos]
-indexes.add = ["https://custom-cheeseshop.net/simple"]
-```
-
+[block:code]
+{
+  "codes": [
+    {
+      "code": "[python-repos]\nindexes.add = [\"https://custom-cheeseshop.net/simple\"]",
+      "language": "toml",
+      "name": "pants.toml"
+    }
+  ]
+}
+[/block]
 To exclusively use your custom index—i.e. to not use PyPI—use `indexes = [..]` instead of `indexes.add = [..]`.
 
 You can also add Python repositories with the option `repos` in the `[python-repos]` scope.
-
-```toml title="toml"
-[python-repos]
-repos = ["https://your/repo/here"]
-```
-
+[block:code]
+{
+  "codes": [
+    {
+      "code": "[python-repos]\nrepos = [\"https://your/repo/here\"]",
+      "language": "toml"
+    }
+  ]
+}
+[/block]
 Indexes are assumed to have a nested structure (like http://pypi.org/simple), whereas repos are flat lists of packages.
-
-## Tip: Set up a virtual environment (optional)
-
+[block:api-header]
+{
+  "title": "Tip: Set up a virtual environment (optional)"
+}
+[/block]
 While Pants itself doesn't need a [virtualenv](https://docs.python.org/3/library/venv.html), it may be useful to create one for working with your tooling outside Pants, such as your IDE.
 
 You can create a virtualenv using standard Python tooling—such as [Python's builtin `venv` module](https://docs.python.org/3/library/venv.html)—along with running Pants to query for all of your Python requirements.
 
 For example, this script will first create a venv, and then generate a `constraints.txt` file to use as a lockfile.
-
-```shell title="build-support/generate_constraints.sh"
-#!/usr/bin/env bash
-
-set -euo pipefail
-
-# You can change these constants.
-PYTHON_BIN=python3
-VIRTUALENV=build-support/.venv
-PIP="${VIRTUALENV}/bin/pip"
-REQUIREMENTS_FILE=requirements.txt
-CONSTRAINTS_FILE=constraints.txt
-
-"${PYTHON_BIN}" -m venv "${VIRTUALENV}"
-"${PIP}" install pip --upgrade
-# Install all our requirements.txt, and also any 3rdparty
-# dependencies specified outside requirements.txt, e.g. via a
-# handwritten python_requirement_library target.
-"${PIP}" install \
-  -r "${REQUIREMENTS_FILE}" \
-  -r <(./pants dependencies :: |
-    xargs ./pants filter --target-type=python_requirement |
-    xargs ./pants peek |
-    jq -r '.[]["requirements"][]')
-echo "# Generated by build-support/generate_constraints.sh on $(date)" > "${CONSTRAINTS_FILE}"
-"${PIP}" freeze --all >> "${CONSTRAINTS_FILE}"
-```
-
+[block:code]
+{
+  "codes": [
+    {
+      "code": "#!/usr/bin/env bash\n\nset -euo pipefail\n\n# You can change these constants.\nPYTHON_BIN=python3\nVIRTUALENV=build-support/.venv\nPIP=\"${VIRTUALENV}/bin/pip\"\nREQUIREMENTS_FILE=requirements.txt\nCONSTRAINTS_FILE=constraints.txt\n\n\"${PYTHON_BIN}\" -m venv \"${VIRTUALENV}\"\n\"${PIP}\" install pip --upgrade\n# Install all our requirements.txt, and also any 3rdparty\n# dependencies specified outside requirements.txt, e.g. via a\n# handwritten python_requirement_library target.\n\"${PIP}\" install \\\n  -r \"${REQUIREMENTS_FILE}\" \\\n  -r <(./pants dependencies :: |\n    xargs ./pants filter --target-type=python_requirement |\n    xargs ./pants peek |\n    jq -r '.[][\"requirements\"][]')\necho \"# Generated by build-support/generate_constraints.sh on $(date)\" > \"${CONSTRAINTS_FILE}\"\n\"${PIP}\" freeze --all >> \"${CONSTRAINTS_FILE}\"",
+      "language": "shell",
+      "name": "build-support/generate_constraints.sh"
+    }
+  ]
+}
+[/block]
 (Note that this requires installing the tool [jq](https://github.com/stedolan/jq).)
-
-:::caution This script only captures dependencies that are consumed
-
-    Unless the dependency was specified in `requirements.txt`, Pants will only capture it if it is actually used by your code.
-
-:::
-
-
-
+[block:callout]
+{
+  "type": "warning",
+  "title": "This script only captures dependencies that are consumed",
+  "body": "Unless the dependency was specified in `requirements.txt`, Pants will only capture it if it is actually used by your code."
+}
+[/block]

@@ -72,8 +72,13 @@ Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
 
 ## `grpc`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  Whether to generate gRPC code or not.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+Whether to generate gRPC code or not.
+
 </Field>
 
 ## `python_interpreter_constraints`
@@ -84,7 +89,7 @@ Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
 
 The Python interpreters this code is compatible with.
 
-Each element should be written in pip-style format, e.g. &#x27;CPython==2.7.\*&#x27; or &#x27;CPython&gt;=3.6,&lt;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&gt;=2.7&#x27; will be expanded to &#x27;CPython&gt;=2.7&#x27;.
+Each element should be written in pip-style format, e.g. &#x27;CPython==2.7.*&#x27; or &#x27;CPython&gt;=3.6,&lt;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&gt;=2.7&#x27; will be expanded to &#x27;CPython&gt;=2.7&#x27;.
 
 Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
 
@@ -105,5 +110,7 @@ The source root to generate Python sources under.
 If unspecified, the source root the protobuf_library is under will be used.
 
 </Field>
+
+
 
 </span>

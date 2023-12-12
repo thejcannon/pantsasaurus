@@ -21,7 +21,7 @@ Config section: <span className="color--primary">`[yamllint]`</span>
 
 <Option
   cli_repr={`--yamllint-include="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_YAMLLINT_INCLUDE"
+  env_repr='PANTS_YAMLLINT_INCLUDE'
   default_repr={`[\n  "**/*.yml",\n  "**/*.yaml"\n]`}
 >
 
@@ -33,7 +33,7 @@ Glob for which YAML files to lint.
 
 <Option
   cli_repr={`--yamllint-exclude="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_YAMLLINT_EXCLUDE"
+  env_repr='PANTS_YAMLLINT_EXCLUDE'
   default_repr={`[]`}
 >
 
@@ -45,7 +45,7 @@ Glob for which YAML files to exclude from linting.
 
 <Option
   cli_repr={`--yamllint-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr="PANTS_YAMLLINT_ARGS"
+  env_repr='PANTS_YAMLLINT_ARGS'
   default_repr={`[]`}
 >
 
@@ -57,7 +57,7 @@ Arguments to pass directly to Yamllint, e.g. `--yamllint-args='-d relaxed'`.
 
 <Option
   cli_repr={`--[no-]yamllint-skip`}
-  env_repr="PANTS_YAMLLINT_SKIP"
+  env_repr='PANTS_YAMLLINT_SKIP'
   default_repr={`False`}
 >
 
@@ -109,7 +109,7 @@ If unspecified, install the entire lockfile.
 
 <Option
   cli_repr={`--yamllint-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_YAMLLINT_INTERPRETER_CONSTRAINTS"
+  env_repr='PANTS_YAMLLINT_INTERPRETER_CONSTRAINTS'
   default_repr={`["CPython>=3.7,<4"]`}
 >
 
@@ -121,14 +121,11 @@ Python interpreter constraints for this tool.
 
 <Option
   cli_repr={`--yamllint-console-script=<str>`}
-  env_repr="PANTS_YAMLLINT_CONSOLE_SCRIPT"
+  env_repr='PANTS_YAMLLINT_CONSOLE_SCRIPT'
   default_repr={`yamllint`}
 >
 
-The console script for the tool. Using this option is generally preferable to
-(and mutually exclusive with) specifying an --entry-point since console script
-names have a higher expectation of staying stable across releases of the tool.
-Usually, you will not want to change this from the default.
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -136,13 +133,11 @@ Usually, you will not want to change this from the default.
 
 <Option
   cli_repr={`--yamllint-entry-point=<str>`}
-  env_repr="PANTS_YAMLLINT_ENTRY_POINT"
+  env_repr='PANTS_YAMLLINT_ENTRY_POINT'
   default_repr={`None`}
 >
 
-The entry point for the tool. Generally you only want to use this option if
-the tool does not offer a --console-script (which this option is mutually
-exclusive with). Usually, you will not want to change this from the default.
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -150,14 +145,11 @@ exclusive with). Usually, you will not want to change this from the default.
 
 <Option
   cli_repr={`--yamllint-config-file-name=<str>`}
-  env_repr="PANTS_YAMLLINT_CONFIG_FILE_NAME"
+  env_repr='PANTS_YAMLLINT_CONFIG_FILE_NAME'
   default_repr={`.yamllint`}
 >
 
-Name of a config file understood by yamllint
-(https://yamllint.readthedocs.io/en/stable/configuration.html). The plugin
-will search the ancestors of each directory in which YAML files are found for
-a config file of this name.
+Name of a config file understood by yamllint (https://yamllint.readthedocs.io/en/stable/configuration.html). The plugin will search the ancestors of each directory in which YAML files are found for a config file of this name.
 
 </Option>
 
@@ -167,12 +159,10 @@ a config file of this name.
 
 <Option
   cli_repr={`--yamllint-version=<str>`}
-  env_repr="PANTS_YAMLLINT_VERSION"
+  env_repr='PANTS_YAMLLINT_VERSION'
   default_repr={`yamllint==1.29.0`}
-  removal_version="2.18.0.dev1"
-  removal_hint={
-    "Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles."
-  }
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
 >
 
 Requirement string for the tool.
@@ -183,17 +173,13 @@ Requirement string for the tool.
 
 <Option
   cli_repr={`--yamllint-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_YAMLLINT_EXTRA_REQUIREMENTS"
+  env_repr='PANTS_YAMLLINT_EXTRA_REQUIREMENTS'
   default_repr={`[]`}
-  removal_version="2.18.0.dev1"
-  removal_hint={
-    "Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles."
-  }
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
 >
 
-Any additional requirement strings to use with the tool. This is useful if the
-tool allows you to install plugins or if you need to constrain a dependency to
-a certain version.
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
 
 </Option>
 

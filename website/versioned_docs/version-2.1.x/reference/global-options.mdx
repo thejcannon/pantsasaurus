@@ -21,8 +21,8 @@ Config section: <span className="color--primary">`[GLOBAL]`</span>
 
 <Option
   cli_repr={`-l=<LogLevel>, --level=<LogLevel>`}
-  env_repr="PANTS_LEVEL"
-  one_of="trace, debug, info, warn, error"
+  env_repr='PANTS_LEVEL'
+  one_of='trace, debug, info, warn, error'
   default_repr={`info`}
 >
 
@@ -34,12 +34,11 @@ Set the logging level.
 
 <Option
   cli_repr={`--[no-]colors`}
-  env_repr="PANTS_COLORS"
+  env_repr='PANTS_COLORS'
   default_repr={`False`}
 >
 
-Whether Pants should use colors in output or not. This may also impact whether
-some tools Pants run use color.
+Whether Pants should use colors in output or not. This may also impact whether some tools Pants run use color.
 
 </Option>
 
@@ -47,12 +46,11 @@ some tools Pants run use color.
 
 <Option
   cli_repr={`--spec-files="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_SPEC_FILES"
+  env_repr='PANTS_SPEC_FILES'
   default_repr={`[]`}
 >
 
-Read additional specs (target addresses, files, and/or globs), one per
-line,from these files.
+Read additional specs (target addresses, files, and/or globs), one per line,from these files.
 
 </Option>
 
@@ -60,14 +58,11 @@ line,from these files.
 
 <Option
   cli_repr={`--[no-]dynamic-ui`}
-  env_repr="PANTS_DYNAMIC_UI"
+  env_repr='PANTS_DYNAMIC_UI'
   default_repr={`True`}
 >
 
-Display a dynamically-updating console UI as Pants runs. This is true by
-default if Pants detects a TTY and there is no &#x27;CI&#x27; environment
-variable indicating that Pants is running in a continuous integration
-environment.
+Display a dynamically-updating console UI as Pants runs. This is true by default if Pants detects a TTY and there is no &#x27;CI&#x27; environment variable indicating that Pants is running in a continuous integration environment.
 
 </Option>
 
@@ -75,13 +70,11 @@ environment.
 
 <Option
   cli_repr={`--tag="[[+-]tag1,tag2,..., [+-]tag1,tag2,..., ...]"`}
-  env_repr="PANTS_TAG"
+  env_repr='PANTS_TAG'
   default_repr={`[]`}
 >
 
-Include only targets with these tags (optional &#x27;+&#x27; prefix) or
-without these tags (&#x27;-&#x27; prefix). See
-https://www.pantsbuild.org/docs/advanced-target-selection.
+Include only targets with these tags (optional &#x27;+&#x27; prefix) or without these tags (&#x27;-&#x27; prefix). See https://www.pantsbuild.org/docs/advanced-target-selection.
 
 </Option>
 
@@ -89,7 +82,7 @@ https://www.pantsbuild.org/docs/advanced-target-selection.
 
 <Option
   cli_repr={`--exclude-target-regexp="[<regexp>, <regexp>, ...]"`}
-  env_repr="PANTS_EXCLUDE_TARGET_REGEXP"
+  env_repr='PANTS_EXCLUDE_TARGET_REGEXP'
   default_repr={`[]`}
 >
 
@@ -99,8 +92,13 @@ Exclude targets that match these regexes. This does not impact file arguments.
 
 ### `loop`
 
-<Option cli_repr={`--[no-]loop`} env_repr="PANTS_LOOP" default_repr={`False`}>
-  Run goals continuously as file changes are detected. Alpha feature.
+<Option
+  cli_repr={`--[no-]loop`}
+  env_repr='PANTS_LOOP'
+  default_repr={`False`}
+>
+
+Run goals continuously as file changes are detected. Alpha feature.
 
 </Option>
 
@@ -124,14 +122,11 @@ The backend packages must be present on the PYTHONPATH, typically because they a
 
 <Option
   cli_repr={`--plugins="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_PLUGINS"
+  env_repr='PANTS_PLUGINS'
   default_repr={`[]`}
 >
 
-Allow backends to be loaded from these plugins (usually released through
-PyPI). The default backends for each plugin will be loaded automatically.
-Other backends in a plugin can be loaded by listing them in `backend_packages`
-in the `[GLOBAL]` scope.
+Allow backends to be loaded from these plugins (usually released through PyPI). The default backends for each plugin will be loaded automatically. Other backends in a plugin can be loaded by listing them in `backend_packages` in the `[GLOBAL]` scope.
 
 </Option>
 
@@ -139,7 +134,7 @@ in the `[GLOBAL]` scope.
 
 <Option
   cli_repr={`--[no-]plugins-force-resolve`}
-  env_repr="PANTS_PLUGINS_FORCE_RESOLVE"
+  env_repr='PANTS_PLUGINS_FORCE_RESOLVE'
   default_repr={`False`}
 >
 
@@ -151,7 +146,7 @@ Re-resolve plugins, even if previously resolved.
 
 <Option
   cli_repr={`--plugin-cache-dir=<str>`}
-  env_repr="PANTS_PLUGIN_CACHE_DIR"
+  env_repr='PANTS_PLUGIN_CACHE_DIR'
   default_repr={`$XDG_CACHE_HOME/pants/plugins`}
 >
 
@@ -163,12 +158,11 @@ Cache resolved plugin requirements here.
 
 <Option
   cli_repr={`--[no-]show-log-target`}
-  env_repr="PANTS_SHOW_LOG_TARGET"
+  env_repr='PANTS_SHOW_LOG_TARGET'
   default_repr={`False`}
 >
 
-Display the target where a log message originates in that log message&#x27;s
-output. This can be helpful when paired with --log-levels-by-target.
+Display the target where a log message originates in that log message&#x27;s output. This can be helpful when paired with --log-levels-by-target.
 
 </Option>
 
@@ -188,12 +182,11 @@ Set a more specific logging level for one or more logging targets. The names of 
 
 <Option
   cli_repr={`--[no-]log-show-rust-3rdparty`}
-  env_repr="PANTS_LOG_SHOW_RUST_3RDPARTY"
+  env_repr='PANTS_LOG_SHOW_RUST_3RDPARTY'
   default_repr={`False`}
 >
 
-Whether to show/hide logging done by 3rdparty Rust crates used by the Pants
-engine.
+Whether to show/hide logging done by 3rdparty Rust crates used by the Pants engine.
 
 </Option>
 
@@ -201,13 +194,11 @@ engine.
 
 <Option
   cli_repr={`--ignore-pants-warnings="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_IGNORE_PANTS_WARNINGS"
+  env_repr='PANTS_IGNORE_PANTS_WARNINGS'
   default_repr={`[]`}
 >
 
-Regexps matching warning strings to ignore, e.g. [&quot;DEPRECATED: the option
-`--my-opt` will be removed&quot;]. The regex patterns will be matched from the
-start of the warning string, and are case-insensitive.
+Regexps matching warning strings to ignore, e.g. [&quot;DEPRECATED: the option `--my-opt` will be removed&quot;]. The regex patterns will be matched from the start of the warning string, and are case-insensitive.
 
 </Option>
 
@@ -231,12 +222,11 @@ Run `./pants --version` to check what is being used.
 
 <Option
   cli_repr={`--pants-bin-name=<str>`}
-  env_repr="PANTS_BIN_NAME"
+  env_repr='PANTS_BIN_NAME'
   default_repr={`./pants`}
 >
 
-The name of the script or binary used to invoke Pants. Useful when printing
-help messages.
+The name of the script or binary used to invoke Pants. Useful when printing help messages.
 
 </Option>
 
@@ -244,7 +234,7 @@ help messages.
 
 <Option
   cli_repr={`--pants-bootstrapdir=<dir>`}
-  env_repr="PANTS_BOOTSTRAPDIR"
+  env_repr='PANTS_BOOTSTRAPDIR'
   default_repr={`$XDG_CACHE_HOME/pants`}
 >
 
@@ -256,7 +246,7 @@ Unused. Will be deprecated in 2.2.0.
 
 <Option
   cli_repr={`--pants-configdir=<dir>`}
-  env_repr="PANTS_CONFIGDIR"
+  env_repr='PANTS_CONFIGDIR'
   default_repr={`/home/josh/.config/pants`}
 >
 
@@ -268,7 +258,7 @@ Unused. Will be deprecated in 2.2.0.
 
 <Option
   cli_repr={`--pants-workdir=<dir>`}
-  env_repr="PANTS_WORKDIR"
+  env_repr='PANTS_WORKDIR'
   default_repr={`<buildroot>/.pants.d`}
 >
 
@@ -280,13 +270,11 @@ Write intermediate logs and output files to this dir.
 
 <Option
   cli_repr={`--pants-physical-workdir-base=<dir>`}
-  env_repr="PANTS_PHYSICAL_WORKDIR_BASE"
+  env_repr='PANTS_PHYSICAL_WORKDIR_BASE'
   default_repr={`None`}
 >
 
-When set, a base directory in which to store `--pants-workdir` contents. If
-this option is a set, the workdir will be created as symlink into a
-per-workspace subdirectory.
+When set, a base directory in which to store `--pants-workdir` contents. If this option is a set, the workdir will be created as symlink into a per-workspace subdirectory.
 
 </Option>
 
@@ -294,7 +282,7 @@ per-workspace subdirectory.
 
 <Option
   cli_repr={`--pants-supportdir=<dir>`}
-  env_repr="PANTS_SUPPORTDIR"
+  env_repr='PANTS_SUPPORTDIR'
   default_repr={`<buildroot>/build-support`}
 >
 
@@ -306,7 +294,7 @@ Unused. Will be deprecated in 2.2.0.
 
 <Option
   cli_repr={`--pants-distdir=<dir>`}
-  env_repr="PANTS_DISTDIR"
+  env_repr='PANTS_DISTDIR'
   default_repr={`<buildroot>/dist`}
 >
 
@@ -318,13 +306,11 @@ Write end products, such as the results of `./pants package`, to this dir.
 
 <Option
   cli_repr={`--pants-subprocessdir=<str>`}
-  env_repr="PANTS_SUBPROCESSDIR"
+  env_repr='PANTS_SUBPROCESSDIR'
   default_repr={`<buildroot>/.pids`}
 >
 
-The directory to use for tracking subprocess metadata. This should live
-outside of the dir used by `pants_workdir` to allow for tracking subprocesses
-that outlive the workdir data.
+The directory to use for tracking subprocess metadata. This should live outside of the dir used by `pants_workdir` to allow for tracking subprocesses that outlive the workdir data.
 
 </Option>
 
@@ -332,14 +318,11 @@ that outlive the workdir data.
 
 <Option
   cli_repr={`--pants-config-files="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_CONFIG_FILES"
+  env_repr='PANTS_CONFIG_FILES'
   default_repr={`["/tmp/tmp.MpwSc5OGVo/pants.toml"]`}
 >
 
-Paths to Pants config files. This may only be set through the environment
-variable `PANTS_CONFIG_FILES` and the command line argument
-`--pants-config-files`; it will be ignored if in a config file like
-`pants.toml`.
+Paths to Pants config files. This may only be set through the environment variable `PANTS_CONFIG_FILES` and the command line argument `--pants-config-files`; it will be ignored if in a config file like `pants.toml`.
 
 </Option>
 
@@ -347,12 +330,11 @@ variable `PANTS_CONFIG_FILES` and the command line argument
 
 <Option
   cli_repr={`--[no-]pantsrc`}
-  env_repr="PANTS_PANTSRC"
+  env_repr='PANTS_PANTSRC'
   default_repr={`True`}
 >
 
-Use pantsrc files located at the paths specified in the global option
-`pantsrc_files`.
+Use pantsrc files located at the paths specified in the global option `pantsrc_files`.
 
 </Option>
 
@@ -360,12 +342,11 @@ Use pantsrc files located at the paths specified in the global option
 
 <Option
   cli_repr={`--pantsrc-files="[<path>, <path>, ...]"`}
-  env_repr="PANTS_PANTSRC_FILES"
+  env_repr='PANTS_PANTSRC_FILES'
   default_repr={`[\n  "/etc/pantsrc",\n  "~/.pants.rc"\n]`}
 >
 
-Override config with values from these files, using syntax matching that of
-`--pants-config-files`.
+Override config with values from these files, using syntax matching that of `--pants-config-files`.
 
 </Option>
 
@@ -373,12 +354,11 @@ Override config with values from these files, using syntax matching that of
 
 <Option
   cli_repr={`--pythonpath="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_PYTHONPATH"
+  env_repr='PANTS_PYTHONPATH'
   default_repr={`[]`}
 >
 
-Add these directories to PYTHONPATH to search for plugins. This does not
-impact the PYTHONPATH used by Pants when running your Python code.
+Add these directories to PYTHONPATH to search for plugins. This does not impact the PYTHONPATH used by Pants when running your Python code.
 
 </Option>
 
@@ -386,7 +366,7 @@ impact the PYTHONPATH used by Pants when running your Python code.
 
 <Option
   cli_repr={`--[no-]verify-config`}
-  env_repr="PANTS_VERIFY_CONFIG"
+  env_repr='PANTS_VERIFY_CONFIG'
   default_repr={`True`}
 >
 
@@ -398,16 +378,11 @@ Verify that all config file values correspond to known options.
 
 <Option
   cli_repr={`--pants-ignore="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_IGNORE"
+  env_repr='PANTS_IGNORE'
   default_repr={`[\n  ".*/",\n  "/dist/"\n]`}
 >
 
-Paths to ignore for all filesystem operations performed by pants (e.g. BUILD
-file scanning, glob matching, etc). Patterns use the gitignore syntax
-(https://git-scm.com/docs/gitignore). The `pants_distdir` and `pants_workdir`
-locations are automatically ignored. `pants_ignore` can be used in tandem with
-`pants_ignore_use_gitignore`; any rules specified here are applied after rules
-specified in a .gitignore file.
+Paths to ignore for all filesystem operations performed by pants (e.g. BUILD file scanning, glob matching, etc). Patterns use the gitignore syntax (https://git-scm.com/docs/gitignore). The `pants_distdir` and `pants_workdir` locations are automatically ignored. `pants_ignore` can be used in tandem with `pants_ignore_use_gitignore`; any rules specified here are applied after rules specified in a .gitignore file.
 
 </Option>
 
@@ -415,14 +390,11 @@ specified in a .gitignore file.
 
 <Option
   cli_repr={`--[no-]pants-ignore-use-gitignore`}
-  env_repr="PANTS_IGNORE_USE_GITIGNORE"
+  env_repr='PANTS_IGNORE_USE_GITIGNORE'
   default_repr={`True`}
 >
 
-Make use of a root .gitignore file when determining whether to ignore
-filesystem operations performed by Pants. If used together with
-`--pants-ignore`, any exclude/include patterns specified there apply after
-.gitignore rules.
+Make use of a root .gitignore file when determining whether to ignore filesystem operations performed by Pants. If used together with `--pants-ignore`, any exclude/include patterns specified there apply after .gitignore rules.
 
 </Option>
 
@@ -430,7 +402,7 @@ filesystem operations performed by Pants. If used together with
 
 <Option
   cli_repr={`-d=<dir>, --logdir=<dir>`}
-  env_repr="PANTS_LOGDIR"
+  env_repr='PANTS_LOGDIR'
   default_repr={`None`}
 >
 
@@ -442,13 +414,11 @@ Write logs to files under this directory.
 
 <Option
   cli_repr={`--[no-]pantsd`}
-  env_repr="PANTS_PANTSD"
+  env_repr='PANTS_PANTSD'
   default_repr={`True`}
 >
 
-Enables use of the Pants daemon (pantsd). pantsd can significantly improve
-runtime performance by lowering per-run startup cost, and by memoizing
-filesystem operations and rule execution.
+Enables use of the Pants daemon (pantsd). pantsd can significantly improve runtime performance by lowering per-run startup cost, and by memoizing filesystem operations and rule execution.
 
 </Option>
 
@@ -456,13 +426,11 @@ filesystem operations and rule execution.
 
 <Option
   cli_repr={`--[no-]concurrent`}
-  env_repr="PANTS_CONCURRENT"
+  env_repr='PANTS_CONCURRENT'
   default_repr={`False`}
 >
 
-Enable concurrent runs of Pants. Without this enabled, Pants will start up all
-concurrent invocations (e.g. in other terminals) without pantsd. Enabling this
-option requires parallel Pants invocations to block on the first
+Enable concurrent runs of Pants. Without this enabled, Pants will start up all concurrent invocations (e.g. in other terminals) without pantsd. Enabling this option requires parallel Pants invocations to block on the first
 
 </Option>
 
@@ -470,14 +438,11 @@ option requires parallel Pants invocations to block on the first
 
 <Option
   cli_repr={`--pantsd-timeout-when-multiple-invocations=<float>`}
-  env_repr="PANTS_PANTSD_TIMEOUT_WHEN_MULTIPLE_INVOCATIONS"
+  env_repr='PANTS_PANTSD_TIMEOUT_WHEN_MULTIPLE_INVOCATIONS'
   default_repr={`60.0`}
 >
 
-The maximum amount of time to wait for the invocation to start until raising a
-timeout exception. Because pantsd currently does not support parallel runs,
-any prior running Pants command must be finished for the current one to start.
-To never timeout, use the value -1.
+The maximum amount of time to wait for the invocation to start until raising a timeout exception. Because pantsd currently does not support parallel runs, any prior running Pants command must be finished for the current one to start. To never timeout, use the value -1.
 
 </Option>
 
@@ -485,12 +450,11 @@ To never timeout, use the value -1.
 
 <Option
   cli_repr={`--pantsd-max-memory-usage=<int>`}
-  env_repr="PANTS_PANTSD_MAX_MEMORY_USAGE"
+  env_repr='PANTS_PANTSD_MAX_MEMORY_USAGE'
   default_repr={`1073741824`}
 >
 
-The maximum memory usage of a pantsd process (in bytes). There is at most one
-pantsd process per workspace.
+The maximum memory usage of a pantsd process (in bytes). There is at most one pantsd process per workspace.
 
 </Option>
 
@@ -498,7 +462,7 @@ pantsd process per workspace.
 
 <Option
   cli_repr={`--[no-]print-stacktrace`}
-  env_repr="PANTS_PRINT_STACKTRACE"
+  env_repr='PANTS_PRINT_STACKTRACE'
   default_repr={`False`}
 >
 
@@ -510,12 +474,11 @@ Print the full exception stack trace for any errors.
 
 <Option
   cli_repr={`--native-engine-visualize-to=<dir_option>`}
-  env_repr="PANTS_NATIVE_ENGINE_VISUALIZE_TO"
+  env_repr='PANTS_NATIVE_ENGINE_VISUALIZE_TO'
   default_repr={`None`}
 >
 
-A directory to write execution and rule graphs to as `dot` files. The contents
-of the directory will be overwritten if any filenames collide.
+A directory to write execution and rule graphs to as `dot` files. The contents of the directory will be overwritten if any filenames collide.
 
 </Option>
 
@@ -523,7 +486,7 @@ of the directory will be overwritten if any filenames collide.
 
 <Option
   cli_repr={`--pantsd-pailgun-port=<int>`}
-  env_repr="PANTS_PANTSD_PAILGUN_PORT"
+  env_repr='PANTS_PANTSD_PAILGUN_PORT'
   default_repr={`0`}
 >
 
@@ -535,12 +498,11 @@ The port to bind the Pants nailgun server to. Defaults to a random port.
 
 <Option
   cli_repr={`--pantsd-pailgun-quit-timeout=<float>`}
-  env_repr="PANTS_PANTSD_PAILGUN_QUIT_TIMEOUT"
+  env_repr='PANTS_PANTSD_PAILGUN_QUIT_TIMEOUT'
   default_repr={`5.0`}
 >
 
-The length of time (in seconds) to wait for further output after sending a
-signal to the remote pantsd process before killing it.
+The length of time (in seconds) to wait for further output after sending a signal to the remote pantsd process before killing it.
 
 </Option>
 
@@ -548,13 +510,11 @@ signal to the remote pantsd process before killing it.
 
 <Option
   cli_repr={`--pantsd-invalidation-globs="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_PANTSD_INVALIDATION_GLOBS"
+  env_repr='PANTS_PANTSD_INVALIDATION_GLOBS'
   default_repr={`[]`}
 >
 
-Filesystem events matching any of these globs will trigger a daemon restart.
-Pants&#x27;s own code, plugins, and `--pants-config-files` are inherently
-invalidated.
+Filesystem events matching any of these globs will trigger a daemon restart. Pants&#x27;s own code, plugins, and `--pants-config-files` are inherently invalidated.
 
 </Option>
 
@@ -562,13 +522,11 @@ invalidated.
 
 <Option
   cli_repr={`--local-store-dir=<str>`}
-  env_repr="PANTS_LOCAL_STORE_DIR"
+  env_repr='PANTS_LOCAL_STORE_DIR'
   default_repr={`$XDG_CACHE_HOME/pants/lmdb_store`}
 >
 
-Directory to use for the local file store, which stores the results of
-subprocesses run by Pants. The path may be absolute or relative. If the
-directory is within the build root, be sure to include it in `--pants-ignore`.
+Directory to use for the local file store, which stores the results of subprocesses run by Pants. The path may be absolute or relative. If the directory is within the build root, be sure to include it in `--pants-ignore`.
 
 </Option>
 
@@ -576,13 +534,11 @@ directory is within the build root, be sure to include it in `--pants-ignore`.
 
 <Option
   cli_repr={`--named-caches-dir=<str>`}
-  env_repr="PANTS_NAMED_CACHES_DIR"
+  env_repr='PANTS_NAMED_CACHES_DIR'
   default_repr={`$XDG_CACHE_HOME/pants/named_caches`}
 >
 
-Directory to use for named global caches for tools and processes with trusted,
-concurrency-safe caches. The path may be absolute or relative. If the
-directory is within the build root, be sure to include it in `--pants-ignore`.
+Directory to use for named global caches for tools and processes with trusted, concurrency-safe caches. The path may be absolute or relative. If the directory is within the build root, be sure to include it in `--pants-ignore`.
 
 </Option>
 
@@ -590,13 +546,11 @@ directory is within the build root, be sure to include it in `--pants-ignore`.
 
 <Option
   cli_repr={`--local-execution-root-dir=<str>`}
-  env_repr="PANTS_LOCAL_EXECUTION_ROOT_DIR"
+  env_repr='PANTS_LOCAL_EXECUTION_ROOT_DIR'
   default_repr={`/tmp`}
 >
 
-Directory to use for local process execution sandboxing. The path may be
-absolute or relative. If the directory is within the build root, be sure to
-include it in `--pants-ignore`.
+Directory to use for local process execution sandboxing. The path may be absolute or relative. If the directory is within the build root, be sure to include it in `--pants-ignore`.
 
 </Option>
 
@@ -604,7 +558,7 @@ include it in `--pants-ignore`.
 
 <Option
   cli_repr={`--[no-]process-execution-use-local-cache`}
-  env_repr="PANTS_PROCESS_EXECUTION_USE_LOCAL_CACHE"
+  env_repr='PANTS_PROCESS_EXECUTION_USE_LOCAL_CACHE'
   default_repr={`True`}
 >
 
@@ -616,12 +570,11 @@ Whether to keep process executions in a local cache persisted to disk.
 
 <Option
   cli_repr={`--[no-]process-execution-cleanup-local-dirs`}
-  env_repr="PANTS_PROCESS_EXECUTION_CLEANUP_LOCAL_DIRS"
+  env_repr='PANTS_PROCESS_EXECUTION_CLEANUP_LOCAL_DIRS'
   default_repr={`True`}
 >
 
-Whether or not to cleanup directories used for local process execution
-(primarily useful for e.g. debugging).
+Whether or not to cleanup directories used for local process execution (primarily useful for e.g. debugging).
 
 </Option>
 
@@ -629,12 +582,11 @@ Whether or not to cleanup directories used for local process execution
 
 <Option
   cli_repr={`--ca-certs-path=<str>`}
-  env_repr="PANTS_CA_CERTS_PATH"
+  env_repr='PANTS_CA_CERTS_PATH'
   default_repr={`None`}
 >
 
-Path to a file containing PEM-format CA certificates used for verifying secure
-connections when downloading files required by a build.
+Path to a file containing PEM-format CA certificates used for verifying secure connections when downloading files required by a build.
 
 </Option>
 
@@ -642,7 +594,7 @@ connections when downloading files required by a build.
 
 <Option
   cli_repr={`--process-execution-local-parallelism=<int>`}
-  env_repr="PANTS_PROCESS_EXECUTION_LOCAL_PARALLELISM"
+  env_repr='PANTS_PROCESS_EXECUTION_LOCAL_PARALLELISM'
   default_repr={`64`}
 >
 
@@ -654,7 +606,7 @@ Number of concurrent processes that may be executed locally.
 
 <Option
   cli_repr={`--process-execution-remote-parallelism=<int>`}
-  env_repr="PANTS_PROCESS_EXECUTION_REMOTE_PARALLELISM"
+  env_repr='PANTS_PROCESS_EXECUTION_REMOTE_PARALLELISM'
   default_repr={`128`}
 >
 
@@ -666,13 +618,11 @@ Number of concurrent processes that may be executed remotely.
 
 <Option
   cli_repr={`--process-execution-cache-namespace=<str>`}
-  env_repr="PANTS_PROCESS_EXECUTION_CACHE_NAMESPACE"
+  env_repr='PANTS_PROCESS_EXECUTION_CACHE_NAMESPACE'
   default_repr={``}
 >
 
-The cache namespace for process execution. Change this value to invalidate
-every artifact&#x27;s execution, or to prevent process cache entries from
-being (re)used for different usecases or users.
+The cache namespace for process execution. Change this value to invalidate every artifact&#x27;s execution, or to prevent process cache entries from being (re)used for different usecases or users.
 
 </Option>
 
@@ -680,12 +630,11 @@ being (re)used for different usecases or users.
 
 <Option
   cli_repr={`--process-execution-speculation-delay=<float>`}
-  env_repr="PANTS_PROCESS_EXECUTION_SPECULATION_DELAY"
+  env_repr='PANTS_PROCESS_EXECUTION_SPECULATION_DELAY'
   default_repr={`1.0`}
 >
 
-Number of seconds to wait before speculating a second request for a slow
-process. see `--process-execution-speculation-strategy`
+Number of seconds to wait before speculating a second request for a slow process.  see `--process-execution-speculation-strategy`
 
 </Option>
 
@@ -693,18 +642,15 @@ process. see `--process-execution-speculation-strategy`
 
 <Option
   cli_repr={`--process-execution-speculation-strategy=<str>`}
-  env_repr="PANTS_PROCESS_EXECUTION_SPECULATION_STRATEGY"
-  one_of="remote_first, local_first, none"
+  env_repr='PANTS_PROCESS_EXECUTION_SPECULATION_STRATEGY'
+  one_of='remote_first, local_first, none'
   default_repr={`none`}
 >
 
-Speculate a second request for an underlying process if the first one does not
-complete within `--process-execution-speculation-delay` seconds. `local_first`
-(default): Try to run the process locally first, and fall back to remote
-execution if available. `remote_first`: Run the process on the remote
-execution backend if available, and fall back to the local host if remote
-calls take longer than the speculation timeout. `none`: Do not speculate about
-long running processes.
+Speculate a second request for an underlying process if the first one does not complete within `--process-execution-speculation-delay` seconds.
+`local_first` (default): Try to run the process locally first, and fall back to remote execution if available.
+`remote_first`: Run the process on the remote execution backend if available, and fall back to the local host if remote calls take longer than the speculation timeout.
+`none`: Do not speculate about long running processes.
 
 </Option>
 
@@ -712,12 +658,11 @@ long running processes.
 
 <Option
   cli_repr={`--[no-]process-execution-local-enable-nailgun`}
-  env_repr="PANTS_PROCESS_EXECUTION_LOCAL_ENABLE_NAILGUN"
+  env_repr='PANTS_PROCESS_EXECUTION_LOCAL_ENABLE_NAILGUN'
   default_repr={`False`}
 >
 
-Whether or not to use nailgun to run the requests that are marked as
-nailgunnable.
+Whether or not to use nailgun to run the requests that are marked as nailgunnable.
 
 </Option>
 
@@ -725,7 +670,7 @@ nailgunnable.
 
 <Option
   cli_repr={`--[no-]remote-execution`}
-  env_repr="PANTS_REMOTE_EXECUTION"
+  env_repr='PANTS_REMOTE_EXECUTION'
   default_repr={`False`}
 >
 
@@ -737,7 +682,7 @@ Enables remote workers for increased parallelism. (Alpha)
 
 <Option
   cli_repr={`--[no-]remote-cache-read`}
-  env_repr="PANTS_REMOTE_CACHE_READ"
+  env_repr='PANTS_REMOTE_CACHE_READ'
   default_repr={`False`}
 >
 
@@ -749,7 +694,7 @@ Whether to enable reading from a remote cache
 
 <Option
   cli_repr={`--[no-]remote-cache-write`}
-  env_repr="PANTS_REMOTE_CACHE_WRITE"
+  env_repr='PANTS_REMOTE_CACHE_WRITE'
   default_repr={`False`}
 >
 
@@ -761,7 +706,7 @@ Whether to enable writing results to a remote cache
 
 <Option
   cli_repr={`--remote-store-server="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_REMOTE_STORE_SERVER"
+  env_repr='PANTS_REMOTE_STORE_SERVER'
   default_repr={`[]`}
 >
 
@@ -773,7 +718,7 @@ host:port of grpc server to use as remote execution file store.
 
 <Option
   cli_repr={`--remote-store-thread-count=<int>`}
-  env_repr="PANTS_REMOTE_STORE_THREAD_COUNT"
+  env_repr='PANTS_REMOTE_STORE_THREAD_COUNT'
   default_repr={`1`}
 >
 
@@ -785,7 +730,7 @@ Thread count to use for the pool that interacts with the remote file store.
 
 <Option
   cli_repr={`--remote-execution-server=<str>`}
-  env_repr="PANTS_REMOTE_EXECUTION_SERVER"
+  env_repr='PANTS_REMOTE_EXECUTION_SERVER'
   default_repr={`None`}
 >
 
@@ -797,7 +742,7 @@ host:port of grpc server to use as remote execution scheduler.
 
 <Option
   cli_repr={`--remote-store-chunk-bytes=<int>`}
-  env_repr="PANTS_REMOTE_STORE_CHUNK_BYTES"
+  env_repr='PANTS_REMOTE_STORE_CHUNK_BYTES'
   default_repr={`1048576`}
 >
 
@@ -809,12 +754,11 @@ Size in bytes of chunks transferred to/from the remote file store.
 
 <Option
   cli_repr={`--remote-store-chunk-upload-timeout-seconds=<int>`}
-  env_repr="PANTS_REMOTE_STORE_CHUNK_UPLOAD_TIMEOUT_SECONDS"
+  env_repr='PANTS_REMOTE_STORE_CHUNK_UPLOAD_TIMEOUT_SECONDS'
   default_repr={`60`}
 >
 
-Timeout (in seconds) for uploads of individual chunks to the remote file
-store.
+Timeout (in seconds) for uploads of individual chunks to the remote file store.
 
 </Option>
 
@@ -822,7 +766,7 @@ store.
 
 <Option
   cli_repr={`--remote-store-rpc-retries=<int>`}
-  env_repr="PANTS_REMOTE_STORE_RPC_RETRIES"
+  env_repr='PANTS_REMOTE_STORE_RPC_RETRIES'
   default_repr={`2`}
 >
 
@@ -834,7 +778,7 @@ Number of times to retry any RPC to the remote store before giving up.
 
 <Option
   cli_repr={`--remote-store-connection-limit=<int>`}
-  env_repr="PANTS_REMOTE_STORE_CONNECTION_LIMIT"
+  env_repr='PANTS_REMOTE_STORE_CONNECTION_LIMIT'
   default_repr={`5`}
 >
 
@@ -846,12 +790,11 @@ Number of remote stores to concurrently allow connections to.
 
 <Option
   cli_repr={`--remote-store-initial-timeout=<int>`}
-  env_repr="PANTS_REMOTE_STORE_INITIAL_TIMEOUT"
+  env_repr='PANTS_REMOTE_STORE_INITIAL_TIMEOUT'
   default_repr={`10`}
 >
 
-Initial timeout (in milliseconds) when there is a failure in accessing a
-remote store.
+Initial timeout (in milliseconds) when there is a failure in accessing a remote store.
 
 </Option>
 
@@ -859,13 +802,11 @@ remote store.
 
 <Option
   cli_repr={`--remote-store-timeout-multiplier=<float>`}
-  env_repr="PANTS_REMOTE_STORE_TIMEOUT_MULTIPLIER"
+  env_repr='PANTS_REMOTE_STORE_TIMEOUT_MULTIPLIER'
   default_repr={`2.0`}
 >
 
-Multiplier used to increase the timeout (starting with value of
---remote-store-initial-timeout) between retry attempts in accessing a remote
-store.
+Multiplier used to increase the timeout (starting with value of --remote-store-initial-timeout) between retry attempts in accessing a remote store.
 
 </Option>
 
@@ -873,12 +814,11 @@ store.
 
 <Option
   cli_repr={`--remote-store-maximum-timeout=<int>`}
-  env_repr="PANTS_REMOTE_STORE_MAXIMUM_TIMEOUT"
+  env_repr='PANTS_REMOTE_STORE_MAXIMUM_TIMEOUT'
   default_repr={`10`}
 >
 
-Maximum timeout (in millseconds) to allow between retry attempts in accessing
-a remote store.
+Maximum timeout (in millseconds) to allow between retry attempts in accessing a remote store.
 
 </Option>
 
@@ -886,12 +826,11 @@ a remote store.
 
 <Option
   cli_repr={`--remote-instance-name=<str>`}
-  env_repr="PANTS_REMOTE_INSTANCE_NAME"
+  env_repr='PANTS_REMOTE_INSTANCE_NAME'
   default_repr={`None`}
 >
 
-Name of the remote execution instance to use. Used for routing within
---remote-execution-server and --remote-store-server.
+Name of the remote execution instance to use. Used for routing within --remote-execution-server and --remote-store-server.
 
 </Option>
 
@@ -899,13 +838,11 @@ Name of the remote execution instance to use. Used for routing within
 
 <Option
   cli_repr={`--remote-ca-certs-path=<str>`}
-  env_repr="PANTS_REMOTE_CA_CERTS_PATH"
+  env_repr='PANTS_REMOTE_CA_CERTS_PATH'
   default_repr={`None`}
 >
 
-Path to a PEM file containing CA certificates used for verifying secure
-connections to --remote-execution-server and --remote-store-server. If not
-specified, TLS will not be used.
+Path to a PEM file containing CA certificates used for verifying secure connections to --remote-execution-server and --remote-store-server. If not specified, TLS will not be used.
 
 </Option>
 
@@ -913,13 +850,11 @@ specified, TLS will not be used.
 
 <Option
   cli_repr={`--remote-oauth-bearer-token-path=<str>`}
-  env_repr="PANTS_REMOTE_OAUTH_BEARER_TOKEN_PATH"
+  env_repr='PANTS_REMOTE_OAUTH_BEARER_TOKEN_PATH'
   default_repr={`None`}
 >
 
-Path to a file containing an oauth token to use for grpc connections to
---remote-execution-server and --remote-store-server. If not specified, no
-authorization will be performed.
+Path to a file containing an oauth token to use for grpc connections to --remote-execution-server and --remote-store-server. If not specified, no authorization will be performed.
 
 </Option>
 
@@ -927,13 +862,11 @@ authorization will be performed.
 
 <Option
   cli_repr={`--remote-execution-extra-platform-properties="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_REMOTE_EXECUTION_EXTRA_PLATFORM_PROPERTIES"
+  env_repr='PANTS_REMOTE_EXECUTION_EXTRA_PLATFORM_PROPERTIES'
   default_repr={`[]`}
 >
 
-Platform properties to set on remote execution requests. Format:
-property=value. Multiple values should be specified as multiple occurrences of
-this flag. Pants itself may add additional platform properties.
+Platform properties to set on remote execution requests. Format: property=value. Multiple values should be specified as multiple occurrences of this flag. Pants itself may add additional platform properties.
 
 </Option>
 
@@ -941,12 +874,11 @@ this flag. Pants itself may add additional platform properties.
 
 <Option
   cli_repr={`--remote-execution-headers="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr="PANTS_REMOTE_EXECUTION_HEADERS"
+  env_repr='PANTS_REMOTE_EXECUTION_HEADERS'
   default_repr={`{}`}
 >
 
-Headers to set on remote execution requests. Format: header=value. Pants
-itself may add additional headers.
+Headers to set on remote execution requests. Format: header=value. Pants itself may add additional headers.
 
 </Option>
 
@@ -954,12 +886,11 @@ itself may add additional headers.
 
 <Option
   cli_repr={`--remote-execution-overall-deadline-secs=<int>`}
-  env_repr="PANTS_REMOTE_EXECUTION_OVERALL_DEADLINE_SECS"
+  env_repr='PANTS_REMOTE_EXECUTION_OVERALL_DEADLINE_SECS'
   default_repr={`3600`}
 >
 
-Overall timeout in seconds for each remote execution request from time of
-submission
+Overall timeout in seconds for each remote execution request from time of submission
 
 </Option>
 
@@ -967,14 +898,12 @@ submission
 
 <Option
   cli_repr={`--files-not-found-behavior=<FilesNotFoundBehavior>`}
-  env_repr="PANTS_FILES_NOT_FOUND_BEHAVIOR"
-  one_of="warn, error"
+  env_repr='PANTS_FILES_NOT_FOUND_BEHAVIOR'
+  one_of='warn, error'
   default_repr={`warn`}
 >
 
-What to do when files and globs specified in BUILD files, such as in the
-`sources` field, cannot be found. This happens when the files do not exist on
-your machine or when they are ignored by the `--pants-ignore` option.
+What to do when files and globs specified in BUILD files, such as in the `sources` field, cannot be found. This happens when the files do not exist on your machine or when they are ignored by the `--pants-ignore` option.
 
 </Option>
 
@@ -982,13 +911,12 @@ your machine or when they are ignored by the `--pants-ignore` option.
 
 <Option
   cli_repr={`--owners-not-found-behavior=<OwnersNotFoundBehavior>`}
-  env_repr="PANTS_OWNERS_NOT_FOUND_BEHAVIOR"
-  one_of="ignore, warn, error"
+  env_repr='PANTS_OWNERS_NOT_FOUND_BEHAVIOR'
+  one_of='ignore, warn, error'
   default_repr={`error`}
 >
 
-What to do when file arguments do not have any owning target. This happens
-when there are no targets whose `sources` fields include the file argument.
+What to do when file arguments do not have any owning target. This happens when there are no targets whose `sources` fields include the file argument.
 
 </Option>
 
@@ -996,13 +924,11 @@ when there are no targets whose `sources` fields include the file argument.
 
 <Option
   cli_repr={`--build-patterns="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_BUILD_PATTERNS"
+  env_repr='PANTS_BUILD_PATTERNS'
   default_repr={`[\n  "BUILD",\n  "BUILD.*"\n]`}
 >
 
-The naming scheme for BUILD files, i.e. where you define targets. This only
-sets the naming scheme, not the directory paths to look for. To add
-ignorepatterns, use the option `--build-ignore`.
+The naming scheme for BUILD files, i.e. where you define targets. This only sets the naming scheme, not the directory paths to look for. To add ignorepatterns, use the option `--build-ignore`.
 
 </Option>
 
@@ -1010,13 +936,11 @@ ignorepatterns, use the option `--build-ignore`.
 
 <Option
   cli_repr={`--build-ignore="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_BUILD_IGNORE"
+  env_repr='PANTS_BUILD_IGNORE'
   default_repr={`[]`}
 >
 
-Paths to ignore when identifying BUILD files. This does not affect any other
-filesystem operations; use `--pants-ignore` for that instead. Patterns use the
-gitignore pattern syntax (https://git-scm.com/docs/gitignore).
+Paths to ignore when identifying BUILD files. This does not affect any other filesystem operations; use `--pants-ignore` for that instead. Patterns use the gitignore pattern syntax (https://git-scm.com/docs/gitignore).
 
 </Option>
 
@@ -1024,12 +948,11 @@ gitignore pattern syntax (https://git-scm.com/docs/gitignore).
 
 <Option
   cli_repr={`--build-file-prelude-globs="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_BUILD_FILE_PRELUDE_GLOBS"
+  env_repr='PANTS_BUILD_FILE_PRELUDE_GLOBS'
   default_repr={`[]`}
 >
 
-Python files to evaluate and whose symbols should be exposed to all BUILD
-files. See https://www.pantsbuild.org/docs/macros.
+Python files to evaluate and whose symbols should be exposed to all BUILD files. See https://www.pantsbuild.org/docs/macros.
 
 </Option>
 
@@ -1037,12 +960,11 @@ files. See https://www.pantsbuild.org/docs/macros.
 
 <Option
   cli_repr={`--subproject-roots="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_SUBPROJECT_ROOTS"
+  env_repr='PANTS_SUBPROJECT_ROOTS'
   default_repr={`[]`}
 >
 
-Paths that correspond with build roots for any subproject that this project
-depends on.
+Paths that correspond with build roots for any subproject that this project depends on.
 
 </Option>
 
@@ -1050,7 +972,7 @@ depends on.
 
 <Option
   cli_repr={`--loop-max=<int>`}
-  env_repr="PANTS_LOOP_MAX"
+  env_repr='PANTS_LOOP_MAX'
   default_repr={`4294967296`}
 >
 
@@ -1062,12 +984,11 @@ The maximum number of times to loop when `--loop` is specified.
 
 <Option
   cli_repr={`--streaming-workunits-report-interval=<float>`}
-  env_repr="PANTS_STREAMING_WORKUNITS_REPORT_INTERVAL"
+  env_repr='PANTS_STREAMING_WORKUNITS_REPORT_INTERVAL'
   default_repr={`10.0`}
 >
 
-Interval in seconds between when streaming workunit event receivers will be
-polled.
+Interval in seconds between when streaming workunit event receivers will be polled.
 
 </Option>
 
@@ -1075,15 +996,11 @@ polled.
 
 <Option
   cli_repr={`--streaming-workunits-handlers="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_STREAMING_WORKUNITS_HANDLERS"
+  env_repr='PANTS_STREAMING_WORKUNITS_HANDLERS'
   default_repr={`[]`}
 >
 
-Use this option to name Subsystems which will receive streaming workunit
-events. For instance,
-`--streaming-workunits-handlers="['pants.reporting.workunit.Workunits']"` will
-register a Subsystem called Workunits defined in the module
-&quot;pants.reporting.workunit&quot;.
+Use this option to name Subsystems which will receive streaming workunit events. For instance, `--streaming-workunits-handlers="['pants.reporting.workunit.Workunits']"` will register a Subsystem called Workunits defined in the module &quot;pants.reporting.workunit&quot;.
 
 </Option>
 
@@ -1093,19 +1010,13 @@ register a Subsystem called Workunits defined in the module
 
 <Option
   cli_repr={`--[no-]pants-distdir-legacy-paths`}
-  env_repr="PANTS_DISTDIR_LEGACY_PATHS"
+  env_repr='PANTS_DISTDIR_LEGACY_PATHS'
   default_repr={`False`}
-  removal_version="2.2.0.dev0"
-  removal_hint={
-    "The pre-2.0 naming scheme for artifacts built with `./pants package` is being removed because it often resulted in ambiguity and overwriting other artifacts. Use the field `output_path` on each `pex_binary`, `python_awslambda`, and `archive` target where you would like to avoid the default."
-  }
+  removal_version='2.2.0.dev0'
+  removal_hint={'The pre-2.0 naming scheme for artifacts built with `./pants package` is being removed because it often resulted in ambiguity and overwriting other artifacts. Use the field `output_path` on each `pex_binary`, `python_awslambda`, and `archive` target where you would like to avoid the default.'}
 >
 
-If true, will write paths for artifacts built with `./pants package` using
-only the target name, which may be ambiguous and result in overwriting
-unrelated artifacts. Otherwise, will use the target&#x27;s address, e.g.
-`src.python.project/app.pex`, rather than `app.pex`. Use the field
-`output_path` to override these default values.
+If true, will write paths for artifacts built with `./pants package` using only the target name, which may be ambiguous and result in overwriting unrelated artifacts. Otherwise, will use the target&#x27;s address, e.g. `src.python.project/app.pex`, rather than `app.pex`. Use the field `output_path` to override these default values.
 
 </Option>
 
@@ -1113,15 +1024,13 @@ unrelated artifacts. Otherwise, will use the target&#x27;s address, e.g.
 
 <Option
   cli_repr={`--remote-execution-process-cache-namespace=<str>`}
-  env_repr="PANTS_REMOTE_EXECUTION_PROCESS_CACHE_NAMESPACE"
+  env_repr='PANTS_REMOTE_EXECUTION_PROCESS_CACHE_NAMESPACE'
   default_repr={`None`}
-  removal_version="2.2.0.dev0"
-  removal_hint={"Use the `--process-execution-cache-namespace` option instead."}
+  removal_version='2.2.0.dev0'
+  removal_hint={'Use the `--process-execution-cache-namespace` option instead.'}
 >
 
-The cache namespace for remote process execution. Bump this to invalidate
-every artifact&#x27;s remote execution. This is the remote execution
-equivalent of the legacy cache-key-gen-version flag.
+The cache namespace for remote process execution. Bump this to invalidate every artifact&#x27;s remote execution. This is the remote execution equivalent of the legacy cache-key-gen-version flag.
 
 </Option>
 

@@ -21,12 +21,11 @@ Config section: <span className="color--primary">`[pylint]`</span>
 
 <Option
   cli_repr={`--[no-]pylint-skip`}
-  env_repr="PANTS_PYLINT_SKIP"
+  env_repr='PANTS_PYLINT_SKIP'
   default_repr={`False`}
 >
 
-Don&#x27;t use Pylint when running
-`/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
+Don&#x27;t use Pylint when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
 
 </Option>
 
@@ -34,12 +33,11 @@ Don&#x27;t use Pylint when running
 
 <Option
   cli_repr={`--pylint-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr="PANTS_PYLINT_ARGS"
+  env_repr='PANTS_PYLINT_ARGS'
   default_repr={`[]`}
 >
 
-Arguments to pass directly to Pylint, e.g.
-`--pylint-args='--ignore=foo.py,bar.py --disable=C0330,W0311'`.
+Arguments to pass directly to Pylint, e.g. `--pylint-args='--ignore=foo.py,bar.py --disable=C0330,W0311'`.
 
 </Option>
 
@@ -63,7 +61,7 @@ This can be useful, for example, with IDE integrations to point your editor to t
 
 <Option
   cli_repr={`--pylint-version=<str>`}
-  env_repr="PANTS_PYLINT_VERSION"
+  env_repr='PANTS_PYLINT_VERSION'
   default_repr={`pylint>=2.11.0,<2.12`}
 >
 
@@ -75,13 +73,11 @@ Requirement string for the tool.
 
 <Option
   cli_repr={`--pylint-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_PYLINT_EXTRA_REQUIREMENTS"
+  env_repr='PANTS_PYLINT_EXTRA_REQUIREMENTS'
   default_repr={`[]`}
 >
 
-Any additional requirement strings to use with the tool. This is useful if the
-tool allows you to install plugins or if you need to constrain a dependency to
-a certain version.
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
 
 </Option>
 
@@ -109,14 +105,11 @@ As explained at https://www.pantsbuild.org/v2.13/docs/python-third-party-depende
 
 <Option
   cli_repr={`--pylint-console-script=<str>`}
-  env_repr="PANTS_PYLINT_CONSOLE_SCRIPT"
+  env_repr='PANTS_PYLINT_CONSOLE_SCRIPT'
   default_repr={`pylint`}
 >
 
-The console script for the tool. Using this option is generally preferable to
-(and mutually exclusive with) specifying an --entry-point since console script
-names have a higher expectation of staying stable across releases of the tool.
-Usually, you will not want to change this from the default.
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -124,13 +117,11 @@ Usually, you will not want to change this from the default.
 
 <Option
   cli_repr={`--pylint-entry-point=<str>`}
-  env_repr="PANTS_PYLINT_ENTRY_POINT"
+  env_repr='PANTS_PYLINT_ENTRY_POINT'
   default_repr={`None`}
 >
 
-The entry point for the tool. Generally you only want to use this option if
-the tool does not offer a --console-script (which this option is mutually
-exclusive with). Usually, you will not want to change this from the default.
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 

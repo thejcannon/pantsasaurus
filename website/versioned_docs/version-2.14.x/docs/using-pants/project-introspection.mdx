@@ -9,31 +9,28 @@ Finding insights in your project.
 
 Pants provides several goals to provide insights into your project's structure.
 
-<iframe
-  class="embedly-embed"
-  src="//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2FIpEv5cWfyko%3Ffeature%3Doembed&display_name=YouTube&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DIpEv5cWfyko&image=https%3A%2F%2Fi.ytimg.com%2Fvi%2FIpEv5cWfyko%2Fhqdefault.jpg&key=f2aa6fc3595946d0afc3d76cbbd25dc3&type=text%2Fhtml&schema=youtube"
-  width="640"
-  height="480"
-  scrolling="no"
-  title="YouTube embed"
-  frameborder="0"
-  allow="autoplay; fullscreen"
-  allowfullscreen="true"
-></iframe>
+[block:embed]
+{
+  "html": "<iframe class=\"embedly-embed\" src=\"//cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2FIpEv5cWfyko%3Ffeature%3Doembed&display_name=YouTube&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DIpEv5cWfyko&image=https%3A%2F%2Fi.ytimg.com%2Fvi%2FIpEv5cWfyko%2Fhqdefault.jpg&key=f2aa6fc3595946d0afc3d76cbbd25dc3&type=text%2Fhtml&schema=youtube\" width=\"640\" height=\"480\" scrolling=\"no\" title=\"YouTube embed\" frameborder=\"0\" allow=\"autoplay; fullscreen\" allowfullscreen=\"true\"></iframe>",
+  "url": "https://www.youtube.com/watch?v=IpEv5cWfyko",
+  "title": "Pants Build 2: Project introspection and dependency inference",
+  "favicon": "https://www.youtube.com/s/desktop/d9bba4ed/img/favicon.ico",
+  "image": "https://i.ytimg.com/vi/IpEv5cWfyko/hqdefault.jpg"
+}
+[/block]
 
-:::note Tip: Use `xargs` to pipe these goals into other Pants commands
+> 📘 Tip: Use `xargs` to pipe these goals into other Pants commands
+> 
+> For example:
+> 
+> ```bash
+> $ ./pants dependees project/util.py | xargs ./pants test
+> ```
+> 
+> See [Advanced target selection](doc:advanced-target-selection) for more info and other techniques to use the results.
 
-    For example:
-
-    ```bash
-    $ ./pants dependees project/util.py | xargs ./pants test
-    ```
-
-    See [Advanced target selection](./advanced-target-selection.mdx) for more info and other techniques to use the results.
-
-:::
-
-## `list` - find your project's targets
+`list` - find your project's targets
+------------------------------------
 
 `list` will find all targets that match the arguments.
 
@@ -58,10 +55,11 @@ helloworld/greet/greeting_test.py:tests
 ```
 
 `list` often works well when paired with the `--filter` options from
-[Advanced Target Selection](./advanced-target-selection.mdx), e.g.
+[Advanced Target Selection](doc:advanced-target-selection), e.g.
 `./pants --filter-target-type=python_test list ::` to find all your `python_test` targets.
 
-## `dependencies` - find a target's dependencies
+`dependencies` - find a target's dependencies
+---------------------------------------------
 
 Use `dependencies` to list all targets used directly by a target.
 
@@ -92,7 +90,8 @@ helloworld/main.py:lib
 helloworld/translator/translator.py:lib
 ```
 
-## `dependees` - find which targets depend on a target
+`dependees` - find which targets depend on a target
+---------------------------------------------------
 
 The `dependees` goal finds all targets that directly depend on the target you specify.
 
@@ -129,7 +128,8 @@ To include the original target itself, use `--closed`:
 helloworld/main.py:lib
 ```
 
-## `filedeps` - find which files a target owns
+`filedeps` - find which files a target owns
+-------------------------------------------
 
 `filedeps` outputs all of the files belonging to a target, based on its `sources` field.
 
@@ -161,7 +161,8 @@ helloworld/greet/translations.json
 ...
 ```
 
-## `peek` - programmatically inspect a target
+`peek` - programmatically inspect a target
+------------------------------------------
 
 `peek` outputs JSON for each target specified.
 
@@ -208,55 +209,52 @@ $ ./pants peek --exclude-defaults helloworld/util:tests
 ]
 ```
 
-:::note Piping peek output into jq
+> 📘 Piping peek output into jq
+> 
+> `peek` can be particularly useful when paired with [JQ](https://stedolan.github.io/jq/) to query the JSON. For example, you can combine `./pants peek` with JQ to find all targets where you set the field `skip_flake8=True`:
+> 
+> ```bash
+> $ ./pants peek :: | jq -r '.[] | select(.skip_flake8 == true) | .["address"]'
+> helloworld/greet:lib
+> helloworld/greet:tests
+> helloworld/util:lib
+> ```
 
-    `peek` can be particularly useful when paired with [JQ](https://stedolan.github.io/jq/) to query the JSON. For example, you can combine `./pants peek` with JQ to find all targets where you set the field `skip_flake8=True`:
+> 📘 Piping other introspection commands into `./pants peek`
+> 
+> Some introspection goals, such as `filter`, `dependencies` and `dependees` emit a flat list of target addresses. It's often useful to expand each of those into a full JSON structure with detailed properties of each target, by piping to `./pants peek`:
+> 
+> ```bash
+> ./pants dependees  helloworld/main.py:lib | xargs ./pants peek --exclude-defaults
+> [
+>   {
+>     "address": "helloworld:lib",
+>     "target_type": "python_sources",
+>     "dependencies": [
+>       "helloworld/__init__.py:lib",
+>       "helloworld/main.py:lib"
+>     ],
+>     "sources": [
+>       "helloworld/__init__.py",
+>       "helloworld/main.py"
+>     ]
+>   },
+>   {
+>     "address": "helloworld:pex_binary",
+>     "target_type": "pex_binary",
+>     "dependencies": [
+>       "helloworld/main.py:lib"
+>     ],
+>     "entry_point": {
+>       "module": "main.py",
+>       "function": null
+>     }
+>   }
+> ]
+> ```
 
-    ```bash
-    $ ./pants peek :: | jq -r '.[] | select(.skip_flake8 == true) | .["address"]'
-    helloworld/greet:lib
-    helloworld/greet:tests
-    helloworld/util:lib
-    ```
-
-:::
-
-:::note Piping other introspection commands into `./pants peek`
-
-    Some introspection goals, such as `filter`, `dependencies` and `dependees` emit a flat list of target addresses. It's often useful to expand each of those into a full JSON structure with detailed properties of each target, by piping to `./pants peek`:
-
-    ```bash
-    ./pants dependees  helloworld/main.py:lib | xargs ./pants peek --exclude-defaults
-    [
-      {
-        "address": "helloworld:lib",
-        "target_type": "python_sources",
-        "dependencies": [
-          "helloworld/__init__.py:lib",
-          "helloworld/main.py:lib"
-        ],
-        "sources": [
-          "helloworld/__init__.py",
-          "helloworld/main.py"
-        ]
-      },
-      {
-        "address": "helloworld:pex_binary",
-        "target_type": "pex_binary",
-        "dependencies": [
-          "helloworld/main.py:lib"
-        ],
-        "entry_point": {
-          "module": "main.py",
-          "function": null
-        }
-      }
-    ]
-    ```
-
-:::
-
-## `paths` - find dependency paths
+`paths` - find dependency paths
+-------------------------------
 
 `paths` emits a list of all dependency paths between two targets:
 
@@ -271,7 +269,8 @@ $ ./pants paths --from=helloworld/main.py --to=helloworld/translator/translator.
 ]
 ```
 
-## `count-loc` - count lines of code
+`count-loc` - count lines of code
+---------------------------------
 
 `count-loc` counts the lines of code of the specified files by running the [Succinct Code Counter](https://github.com/boyter/scc) tool.
 
@@ -305,18 +304,15 @@ SCC has [dozens of options](https://github.com/boyter/scc#usage). You can pass t
 ./pants count-loc :: -- --no-cocomo
 ```
 
-:::caution See unexpected results? Set `pants_ignore`.
-
-    By default, Pants will ignore all globs specified in your `.gitignore`, along with `dist/` and any hidden files.
-
-    To ignore additional files, add to the global option `pants_ignore` in your `pants.toml`, using the same [syntax](https://git-scm.com/docs/gitignore) as `.gitignore` files.
-
-    For example:
-
-    ```toml title="pants.toml"
-    [GLOBAL]
-    pants_ignore.add = ["/ignore_this_dir/"]
-    ```
-
-:::
-
+> 🚧 See unexpected results? Set `pants_ignore`.
+> 
+> By default, Pants will ignore all globs specified in your `.gitignore`, along with `dist/` and any hidden files.
+> 
+> To ignore additional files, add to the global option `pants_ignore` in your `pants.toml`, using the same [syntax](https://git-scm.com/docs/gitignore) as `.gitignore` files. 
+> 
+> For example:
+> 
+> ```toml pants.toml
+> [GLOBAL]
+> pants_ignore.add = ["/ignore_this_dir/"]
+> ```

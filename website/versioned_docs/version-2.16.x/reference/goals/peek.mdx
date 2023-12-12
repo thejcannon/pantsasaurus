@@ -25,7 +25,7 @@ Config section: <span className="color--primary">`[peek]`</span>
 
 <Option
   cli_repr={`--peek-output-file=<path>`}
-  env_repr="PANTS_PEEK_OUTPUT_FILE"
+  env_repr='PANTS_PEEK_OUTPUT_FILE'
   default_repr={`None`}
 >
 
@@ -37,7 +37,7 @@ Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
 
 <Option
   cli_repr={`--[no-]peek-exclude-defaults`}
-  env_repr="PANTS_PEEK_EXCLUDE_DEFAULTS"
+  env_repr='PANTS_PEEK_EXCLUDE_DEFAULTS'
   default_repr={`False`}
 >
 
@@ -49,12 +49,11 @@ Whether to leave off values that match the target-defined default values.
 
 <Option
   cli_repr={`--[no-]peek-include-dep-rules`}
-  env_repr="PANTS_PEEK_INCLUDE_DEP_RULES"
+  env_repr='PANTS_PEEK_INCLUDE_DEP_RULES'
   default_repr={`False`}
 >
 
-Whether to include `_dependencies_rules`, `_dependents_rules` and
-`_applicable_dep_rules` that apply to the target and its dependencies.
+Whether to include `_dependencies_rules`, `_dependents_rules` and `_applicable_dep_rules` that apply to the target and its dependencies.
 
 </Option>
 

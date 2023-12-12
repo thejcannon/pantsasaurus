@@ -21,7 +21,7 @@ Config section: <span className="color--primary">`[shunit2]`</span>
 
 <Option
   cli_repr={`--[no-]shunit2-skip`}
-  env_repr="PANTS_SHUNIT2_SKIP"
+  env_repr='PANTS_SHUNIT2_SKIP'
   default_repr={`False`}
 >
 
@@ -35,7 +35,7 @@ If true, don&#x27;t use shunit2 when running `scie-pants-linux-x86_64 test`.
 
 <Option
   cli_repr={`--shunit2-version=<str>`}
-  env_repr="PANTS_SHUNIT2_VERSION"
+  env_repr='PANTS_SHUNIT2_VERSION'
   default_repr={`b9102bb763cc603b3115ed30a5648bf950548097`}
 >
 
@@ -51,10 +51,10 @@ Use this version of shunit2.
   default_repr={`[\n  "b9102bb763cc603b3115ed30a5648bf950548097|macos_arm64|1f11477b7948150d1ca50cdd41d89be4ed2acd137e26d2e0fe23966d0e272cc5|40987",\n  "b9102bb763cc603b3115ed30a5648bf950548097|macos_x86_64|1f11477b7948150d1ca50cdd41d89be4ed2acd137e26d2e0fe23966d0e272cc5|40987",\n  "b9102bb763cc603b3115ed30a5648bf950548097|linux_x86_64|1f11477b7948150d1ca50cdd41d89be4ed2acd137e26d2e0fe23966d0e272cc5|40987",\n  "b9102bb763cc603b3115ed30a5648bf950548097|linux_arm64|1f11477b7948150d1ca50cdd41d89be4ed2acd137e26d2e0fe23966d0e272cc5|40987"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
-
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -108,6 +108,7 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
   one_of='error, warning'
   default_repr={`error`}
 >
+
 
 What action to take in case the requested version of shunit2 is not supported.
 

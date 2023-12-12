@@ -21,12 +21,11 @@ Config section: <span className="color--primary">`[protoc]`</span>
 
 <Option
   cli_repr={`--[no-]protoc-dependency-inference`}
-  env_repr="PANTS_PROTOC_DEPENDENCY_INFERENCE"
+  env_repr='PANTS_PROTOC_DEPENDENCY_INFERENCE'
   default_repr={`True`}
 >
 
-Infer Protobuf dependencies on other Protobuf files by analyzing import
-statements.
+Infer Protobuf dependencies on other Protobuf files by analyzing import statements.
 
 </Option>
 
@@ -36,7 +35,7 @@ statements.
 
 <Option
   cli_repr={`--protoc-version=<str>`}
-  env_repr="PANTS_PROTOC_VERSION"
+  env_repr='PANTS_PROTOC_VERSION'
   default_repr={`3.11.4`}
 >
 
@@ -52,20 +51,19 @@ Use this version of protoc.
   default_repr={`[\n  "3.11.4|darwin|8c6af11e1058efe953830ecb38324c0e0fd2fb67df3891896d138c535932e7db|2482119",\n  "3.11.4|linux |6d0f18cd84b918c7b3edd0203e75569e0c8caecb1367bbbe409b45e28514f5be|1591191"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
 
-- `version` is the version string
-- `platform` is one of [darwin,linux],
-- `sha256` is the 64-character hex representation of the expected sha256
-
+  - `version` is the version string
+  - `platform` is one of [darwin,linux],
+  - `sha256` is the 64-character hex representation of the expected sha256
 ```
 digest of the download file, as emitted by `shasum -a 256`
 ```
 
-- `length` is the expected length of the download file in bytes, as emmitted by
-
+  - `length` is the expected length of the download file in bytes, as emmitted by
 ```
 `wc -c`
 ```

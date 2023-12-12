@@ -34,7 +34,6 @@ A list of config files that define groups of Pants targets to expose to IDEs via
 Pants generally uses fine-grained targets to define the components of a build (in many cases on a file-by-file basis). Many IDEs, however, favor coarse-grained targets that contain large numbers of source files. To accommodate this distinction, the Pants BSP server will compute a set of BSP build targets to use from the groups specified in the config files set for this option. Each group will become one or more BSP build targets.
 
 Each config file is a TOML file with a `groups` dictionary with the following format for an entry:
-
 ```
 # The dictionary key is used to identify the group. It must be unique.
 [groups.ID1]:
@@ -61,12 +60,11 @@ Pants will merge the contents of the config files together. If the same ID is us
 
 <Option
   cli_repr={`--[no-]experimental-bsp-server`}
-  env_repr="PANTS_EXPERIMENTAL_BSP_SERVER"
+  env_repr='PANTS_EXPERIMENTAL_BSP_SERVER'
   default_repr={`False`}
 >
 
-Run the Build Server Protocol server. Pants will receive BSP RPC requests via
-the console. This should only ever be invoked via the IDE.
+Run the Build Server Protocol server. Pants will receive BSP RPC requests via the console. This should only ever be invoked via the IDE.
 
 </Option>
 

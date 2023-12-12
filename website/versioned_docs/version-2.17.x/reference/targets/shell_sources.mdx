@@ -65,7 +65,6 @@ Override the field values for generated `shell_source` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
-
 ```
 overrides={
     "foo.sh": {"skip_shellcheck": True]},
@@ -85,9 +84,9 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 ## `skip_shellcheck`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.shell.lint.shellcheck"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.shell.lint.shellcheck"
 >
 
 If true, don&#x27;t run Shellcheck on this target&#x27;s code.
@@ -97,9 +96,9 @@ If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 ## `skip_shfmt`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.shell.lint.shfmt"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.shell.lint.shfmt"
 >
 
 If true, don&#x27;t run shfmt on this target&#x27;s code.
@@ -123,5 +122,7 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
+
 
 </span>

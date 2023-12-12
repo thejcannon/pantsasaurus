@@ -3,32 +3,45 @@
     position: 0
 ---
 
+
+
 ---
 
 The Python ecosystem has a great many tools for various features. Pants installs, configures, and invokes those tools for you, while taking care of orchestrating the workflow, caching results, and running concurrently.
 
 Pants currently supports the following goals and features for Python:
-| goal | underlying tools |
-| :--- | :--- |
-| dependency resolution | `pip` |
-| test running | `pytest` |
-| linting/formatting | `black`, `flake8`, `docformatter`, `isort`, `pylint`, `bandit`, `grep` |
-| typechecking | `Mypy` |
-| code generation | `protoc` (including the `gRPC` and `Mypy` plugins) |
-| packaging | `setuptools`, `pex`, `aws lambda` |
-| running a REPL | `python`, `iPython` |
-| counting lines of code | `scc` |
+[block:parameters]
+{
+  "data": {
+    "h-0": "goal",
+    "h-1": "underlying tools",
+    "0-0": "dependency resolution",
+    "0-1": "`pip`",
+    "1-0": "test running",
+    "1-1": "`pytest`",
+    "2-0": "linting/formatting",
+    "2-1": "`black`, `flake8`, `docformatter`, `isort`, `pylint`, `bandit`, `grep`",
+    "3-0": "typechecking",
+    "3-1": "`Mypy`",
+    "4-0": "code generation",
+    "4-1": "`protoc` (including the `gRPC` and `Mypy` plugins)",
+    "5-0": "packaging",
+    "5-1": "`setuptools`, `pex`, `aws lambda`",
+    "6-0": "running a REPL",
+    "6-1": "`python`, `iPython`",
+    "7-0": "counting lines of code",
+    "7-1": "`scc`"
+  },
+  "cols": 2,
+  "rows": 8
+}
+[/block]
+There are also [goals](https://www.pantsbuild.org/docs/project-introspection) for querying and understanding your dependency graph, and a robust [help system](https://www.pantsbuild.org/docs/command-line-help).  We're adding support for additional tools and features all the time, and it's straightforward to [implement your own](https://www.pantsbuild.org/docs/plugins-overview). 
 
-There are also [goals](../../using-pants/project-introspection.mdx) for querying and understanding your dependency graph, and a robust [help system](../../using-pants/command-line-help.mdx). We're adding support for additional tools and features all the time, and it's straightforward to [implement your own](../../writing-plugins/overview.mdx).
-
-- [Enabling Python support](./enabling-python-support.mdx)
-- [Target types](./target-types.mdx)
-- [Third-party dependencies](./third-party-dependencies.mdx)
-- [Interpreter compatibility](./interpreter-compatibility.mdx)
-- [Linters and formatters](./linters-and-formatters.mdx)
-- [Pex files](./pex-files.mdx)
-- [Building distributions](./building-distributions.mdx)
-
-
-
-
+- [Enabling Python support](doc:python-backend) 
+- [Target types](doc:python-target-types) 
+- [Third-party dependencies](doc:python-third-party-dependencies) 
+- [Interpreter compatibility](doc:python-interpreter-compatibility) 
+- [Linters and formatters](doc:python-linters-and-formatters) 
+- [Pex files](doc:pex-files) 
+- [Building distributions](doc:python-distributions)

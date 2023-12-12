@@ -15,9 +15,10 @@ To see the current list of goals, run:
 ❯ pants help goals
 ```
 
-You'll see more goals activated as you activate more [backends](./backends.mdx).
+You'll see more goals activated as you activate more [backends](doc:enabling-backends).
 
-# Running goals
+Running goals
+=============
 
 For example:
 
@@ -49,18 +50,19 @@ sequentially, and then Pants will wait until a relevant file has changed to try 
 
 Use `Ctrl+C` to exit the `--loop`.
 
-# Goal arguments
+Goal arguments
+==============
 
-Most goals require arguments to know what to work on.
+Most goals require arguments to know what to work on. 
 
 You can use several argument types:
 
-| Argument type                   | Semantics                                   | Example                       |
-| ------------------------------- | ------------------------------------------- | ----------------------------- |
+| Argument type                   | Semantics                                   | Example                         |
+| ------------------------------- | ------------------------------------------- | ------------------------------- |
 | File path                       | Match the file                              | `pants test project/tests.py` |
 | Directory path                  | Match everything in the directory           | `pants test project/utils`    |
 | `::` globs                      | Match everything in the directory and below | `pants test project::`        |
-| [Target addresses](./targets-and-build-files.mdx) | Match the target                            | `pants package project:tests` |
+| [Target addresses](doc:targets) | Match the target                            | `pants package project:tests` |
 
 You can combine argument types, e.g. `pants fmt src/go:: src/py/app.py`.
 
@@ -68,23 +70,20 @@ To ignore something, prefix the argument with `-`. For example,
 `pants test :: -project/integration_tests` will run all your tests except for those in the  
 directory `project/integration_tests`.
 
-:::caution Set `[GLOBAL].use_deprecated_directory_cli_args_semantics = false` in `pants.toml`
+> 🚧 Set `[GLOBAL].use_deprecated_directory_cli_args_semantics = false` in `pants.toml`
+> 
+> This will become the default in Pants 2.14.
 
-    This will become the default in Pants 2.14.
+> 📘 Tip: advanced target selection, such as running over changed files
+> 
+> See [Advanced target selection](doc:advanced-target-selection) for alternative techniques to specify which files/targets to run on.
 
-:::
+Goal options
+------------
 
-:::note Tip: advanced target selection, such as running over changed files
+Many goals also have [options](doc:options) to change how they behave. Every option in Pants can be set via an environment variable, config file, and the command line.
 
-    See [Advanced target selection](../advanced-target-selection.mdx) for alternative techniques to specify which files/targets to run on.
-
-:::
-
-## Goal options
-
-Many goals also have [options](./options.mdx) to change how they behave. Every option in Pants can be set via an environment variable, config file, and the command line.
-
-To see if a goal has any options, run `pants help $goal` or `pants help-advanced $goal`. See [Command Line Help](../../getting-help/getting-help.mdx) for more information.
+To see if a goal has any options, run `pants help $goal` or `pants help-advanced $goal`. See [Command Line Help](doc:getting-help) for more information.
 
 For example:
 
@@ -128,4 +127,3 @@ As a shorthand, if you put the option after the goal and before the file/target 
 ```bash
 pants test --debug project/app_test.py
 ```
-

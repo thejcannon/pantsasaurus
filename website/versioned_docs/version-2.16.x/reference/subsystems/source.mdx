@@ -16,7 +16,6 @@ Config section: <span className="color--primary">`[source]`</span>
 <span className={styles.options}>
 
 ## Basic options
-
 None
 
 ## Advanced options
@@ -47,14 +46,11 @@ See https://www.pantsbuild.org/v2.16/docs/source-roots.
 
 <Option
   cli_repr={`--source-marker-filenames="[filename, filename, ...]"`}
-  env_repr="PANTS_SOURCE_MARKER_FILENAMES"
+  env_repr='PANTS_SOURCE_MARKER_FILENAMES'
   default_repr={`[]`}
 >
 
-The presence of a file of this name in a directory indicates that the
-directory is a source root. The content of the file doesn&#x27;t matter, and
-may be empty. Useful when you can&#x27;t or don&#x27;t wish to centrally
-enumerate source roots via `root_patterns`.
+The presence of a file of this name in a directory indicates that the directory is a source root. The content of the file doesn&#x27;t matter, and may be empty. Useful when you can&#x27;t or don&#x27;t wish to centrally enumerate source roots via `root_patterns`.
 
 </Option>
 

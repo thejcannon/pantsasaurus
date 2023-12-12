@@ -57,9 +57,9 @@ Example: `sources=['Example.kt', 'New*.kt', '!OldIgnore.kt']`
 ## `skip_ktlint`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.experimental.kotlin.lint.ktlint"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.kotlin.lint.ktlint"
 >
 
 If true, don&#x27;t run Ktlint on this target&#x27;s code.
@@ -112,9 +112,12 @@ If not defined, will default to `[jvm].default_resolve`.
 
 ## `jdk`
 
-<Field type_repr={`field.type_hint`}>
-  The major version of the JDK that this target should be built with. If not
-  defined, will default to `[jvm].default_source_jdk`.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+
 </Field>
 
 ## `experimental_provides_types`
@@ -130,5 +133,7 @@ This allows for specific types within packages that are otherwise inferred as be
 If a given type is defined, at least one source file captured by this target must actually provide that symbol.
 
 </Field>
+
+
 
 </span>

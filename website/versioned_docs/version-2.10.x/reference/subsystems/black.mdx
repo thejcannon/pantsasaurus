@@ -21,13 +21,11 @@ Config section: <span className="color--primary">`[black]`</span>
 
 <Option
   cli_repr={`--[no-]black-skip`}
-  env_repr="PANTS_BLACK_SKIP"
+  env_repr='PANTS_BLACK_SKIP'
   default_repr={`False`}
 >
 
-Don&#x27;t use Black when running
-`/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and
-`/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`
+Don&#x27;t use Black when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`
 
 </Option>
 
@@ -35,12 +33,11 @@ Don&#x27;t use Black when running
 
 <Option
   cli_repr={`--black-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr="PANTS_BLACK_ARGS"
+  env_repr='PANTS_BLACK_ARGS'
   default_repr={`[]`}
 >
 
-Arguments to pass directly to Black, e.g. `--black-args="--target-version=py37
-  --quiet"`
+Arguments to pass directly to Black, e.g. `--black-args="--target-version=py37 --quiet"`
 
 </Option>
 
@@ -50,7 +47,7 @@ Arguments to pass directly to Black, e.g. `--black-args="--target-version=py37
 
 <Option
   cli_repr={`--black-version=<str>`}
-  env_repr="PANTS_BLACK_VERSION"
+  env_repr='PANTS_BLACK_VERSION'
   default_repr={`black==22.1.0`}
 >
 
@@ -62,13 +59,11 @@ Requirement string for the tool.
 
 <Option
   cli_repr={`--black-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_BLACK_EXTRA_REQUIREMENTS"
+  env_repr='PANTS_BLACK_EXTRA_REQUIREMENTS'
   default_repr={`["typing-extensions>=3.10.0.0; python_version < \"3.10\""]`}
 >
 
-Any additional requirement strings to use with the tool. This is useful if the
-tool allows you to install plugins or if you need to constrain a dependency to
-a certain version.
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
 
 </Option>
 
@@ -76,7 +71,7 @@ a certain version.
 
 <Option
   cli_repr={`--black-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_BLACK_INTERPRETER_CONSTRAINTS"
+  env_repr='PANTS_BLACK_INTERPRETER_CONSTRAINTS'
   default_repr={`["CPython>=3.6.2"]`}
 >
 
@@ -108,14 +103,11 @@ Lockfile generation currently does not wire up the `[python-repos]` options. If 
 
 <Option
   cli_repr={`--black-console-script=<str>`}
-  env_repr="PANTS_BLACK_CONSOLE_SCRIPT"
+  env_repr='PANTS_BLACK_CONSOLE_SCRIPT'
   default_repr={`black`}
 >
 
-The console script for the tool. Using this option is generally preferable to
-(and mutually exclusive with) specifying an --entry-point since console script
-names have a higher expectation of staying stable across releases of the tool.
-Usually, you will not want to change this from the default.
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -123,13 +115,11 @@ Usually, you will not want to change this from the default.
 
 <Option
   cli_repr={`--black-entry-point=<str>`}
-  env_repr="PANTS_BLACK_ENTRY_POINT"
+  env_repr='PANTS_BLACK_ENTRY_POINT'
   default_repr={`None`}
 >
 
-The entry point for the tool. Generally you only want to use this option if
-the tool does not offer a --console-script (which this option is mutually
-exclusive with). Usually, you will not want to change this from the default.
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 

@@ -16,7 +16,6 @@ Config section: <span className="color--primary">`[python-repos]`</span>
 <span className={styles.options}>
 
 ## Basic options
-
 None
 
 ## Advanced options
@@ -25,12 +24,11 @@ None
 
 <Option
   cli_repr={`--python-repos-repos="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_PYTHON_REPOS_REPOS"
+  env_repr='PANTS_PYTHON_REPOS_REPOS'
   default_repr={`[]`}
 >
 
-URLs of code repositories to look for requirements. In Pip and Pex, this
-option corresponds to the `--find-links` option.
+URLs of code repositories to look for requirements. In Pip and Pex, this option corresponds to the `--find-links` option.
 
 </Option>
 
@@ -38,13 +36,11 @@ option corresponds to the `--find-links` option.
 
 <Option
   cli_repr={`--python-repos-indexes="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_PYTHON_REPOS_INDEXES"
+  env_repr='PANTS_PYTHON_REPOS_INDEXES'
   default_repr={`["https://pypi.org/simple/"]`}
 >
 
-URLs of code repository indexes to look for requirements. If set to an empty
-list, then Pex will use no indices (meaning it will not use PyPI). The values
-should be compliant with PEP 503.
+URLs of code repository indexes to look for requirements. If set to an empty list, then Pex will use no indices (meaning it will not use PyPI). The values should be compliant with PEP 503.
 
 </Option>
 

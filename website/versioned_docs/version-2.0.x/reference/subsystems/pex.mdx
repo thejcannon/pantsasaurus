@@ -16,7 +16,6 @@ Config section: <span className="color--primary">`[pex]`</span>
 <span className={styles.options}>
 
 ## Basic options
-
 None
 
 ## Advanced options
@@ -25,13 +24,11 @@ None
 
 <Option
   cli_repr={`--pex-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
-  env_repr="PANTS_PEX_EXECUTABLE_SEARCH_PATHS"
+  env_repr='PANTS_PEX_EXECUTABLE_SEARCH_PATHS'
   default_repr={`["<PATH>"]`}
 >
 
-The PATH value that will be used by the PEX subprocess and any subprocesses it
-spawns. The special string &quot;&lt;PATH&gt;&quot; will expand to the
-contents of the PATH env var.
+The PATH value that will be used by the PEX subprocess and any subprocesses it spawns. The special string &quot;&lt;PATH&gt;&quot; will expand to the contents of the PATH env var.
 
 </Option>
 
@@ -39,14 +36,11 @@ contents of the PATH env var.
 
 <Option
   cli_repr={`--pex-bootstrap-interpreter-names="[<bootstrap-python-names>, <bootstrap-python-names>, ...]"`}
-  env_repr="PANTS_PEX_BOOTSTRAP_INTERPRETER_NAMES"
+  env_repr='PANTS_PEX_BOOTSTRAP_INTERPRETER_NAMES'
   default_repr={`[\n  "python",\n  "python3",\n  "python2"\n]`}
 >
 
-The names of Python binaries to search for to bootstrap PEX files with. This
-does not impact which Python interpreter is used to run your code, only what
-is used to run the PEX tool. See the `interpreter_search_paths` option in
-`[python-setup]` to influence where interpreters are searched for.
+The names of Python binaries to search for to bootstrap PEX files with. This does not impact which Python interpreter is used to run your code, only what is used to run the PEX tool. See the `interpreter_search_paths` option in `[python-setup]` to influence where interpreters are searched for.
 
 </Option>
 
@@ -54,12 +48,11 @@ is used to run the PEX tool. See the `interpreter_search_paths` option in
 
 <Option
   cli_repr={`--pex-verbosity=<int>`}
-  env_repr="PANTS_PEX_VERBOSITY"
+  env_repr='PANTS_PEX_VERBOSITY'
   default_repr={`0`}
 >
 
-Set the verbosity level of PEX logging, from 0 (no logging) up to 9 (max
-logging).
+Set the verbosity level of PEX logging, from 0 (no logging) up to 9 (max logging).
 
 </Option>
 

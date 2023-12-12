@@ -7,15 +7,15 @@ A deep dive into how options may be configured.
 
 ---
 
-## Option scopes
+# Option scopes
 
 Options are partitioned into named _scopes_.
 
-Some systemwide options belong in the _global scope_. For example, the `--level` option, which controls the logging level, is in the global scope.
+Some systemwide options belong in the _global scope_. For example, the `--level` option, which controls the logging level, is in the global scope. 
 
-Other options belong to a _subsystem scope_. A _subsystem_ is simply a collection of related options, in a scope. For example, the `source` subsystem contains options related to [source roots](./source-roots).
+Other options belong to a _subsystem scope_. A _subsystem_ is simply a collection of related options, in a scope. For example, the `source` subsystem contains options related to [source roots](./source-roots). 
 
-## Setting options
+# Setting options
 
 Every option can be set in the following ways, in order of precedence:
 
@@ -76,7 +76,7 @@ root_patterns = ["/src/python"]
 
 Note that any dashes in the option flag name are converted to underscores: `--multiword-name` becomes `multiword_name` .
 
-## Option types
+# Option types
 
 Every option has a type, and any values you set must be of that type.
 
@@ -88,28 +88,25 @@ The option types are:
 - list
 - dict
 
-A list-valued option may also declare a specific type for its members (e.g., a list of strings, or a list of integers).
+A list-valued option may also declare a specific type for its members (e.g., a list of strings, or a list of integers). 
 
 ## String and integer values
 
 Standalone string and integer values are written without quotes. Any quotes will be considered part of the value, after shell escaping.
 
 ### Command-line flags:
-
 ```bash
 ./pants --scope-intopt=42
 ./pants --scope-stropt=qux
 ```
 
 ### Environment variables:
-
 ```bash
 PANTS_SCOPE_INTOPT=42
 PANTS_SCOPE_STROPT=qux
 ```
 
 ### Config file entries:
-
 ```toml
 [scope]
 intopt = 42
@@ -121,7 +118,6 @@ stropt = "qux"
 Boolean values can be specified using the special strings `true` and `false`. When specifying them via command-line flags you can also use the `--boolflag/--no-boolflag` syntax.
 
 ### Command-line flags:
-
 ```bash
 ./pants --scope-boolopt=true
 ./pants --scope-boolopt
@@ -129,13 +125,11 @@ Boolean values can be specified using the special strings `true` and `false`. Wh
 ```
 
 ### Environment variables:
-
 ```bash
 PANTS_SCOPE_BOOLOPT=true
 ```
 
 ### Config file entries:
-
 ```toml
 [scope]
 boolopt = true
@@ -146,80 +140,57 @@ boolopt = true
 List values are parsed as Python list literals, so you must quote string values, and you may need to apply shell-level quoting and/or escaping, as required.
 
 ### Command-line flags:
-
 ```bash
 ./pants --scope-listopt="['foo','bar']"
 ```
 
 ### Environment variables:
-
 ```bash
 PANTS_SCOPE_LISTOPT="['foo','bar']"
 ```
 
 ### Config file entries:
-
 ```toml
 [scope]
 listopt = [
-  'foo',
+  'foo', 
   'bar'
 ]
 ```
 
 List values have some extra semantics:
 
-- A value can be preceded by `+`, which will _append_ the elements to the value obtained from lower-precedence sources.
-- A value can be preceded by `-`, which will _remove_ the elements from the value obtained from lower-precedence sources.
+- A value can be preceded by `+`, which will _append_ the elements to the value obtained from lower-precedence sources. 
+- A value can be preceded by `-`, which will _remove_ the elements from the value obtained from lower-precedence sources. 
 - Multiple `+` and `-` values can be provided, separated by commas.
-- Otherwise, the value _replaces_ the one obtained from lower-precedence sources.
+- Otherwise, the value _replaces_ the one obtained from lower-precedence sources. 
 
-For example, if the value of `--listopt` in `scope` is set to `[1, 2]` in a config file, then
+For example, if the value of `--listopt` in `scope` is set to `[1, 2]` in a config file, then 
 
 ```bash
 ./pants --scope-listopt="+[3,4]"
 ```
 
-will set the value to `[1, 2, 3, 4]`.
+will set the value to `[1, 2, 3, 4]`. 
 
 ```bash
 ./pants --scope-listopt="-[1],+[3,4]"
 ```
 
-will set the value to `[2, 3, 4]`, and
+will set the value to `[2, 3, 4]`, and 
 
 ```bash
 ./pants --scope-listopt="[3,4]"
 ```
 
 will set the value to `[3, 4]`.
-
-:::note Add/remove syntax in .toml files
-
-````
-The +/- syntax works in .toml files, but the entire value must be quoted:
-
-```toml
-[scope]
-listopt = "+[1,2],-[3,4]"
-````
-
-This means that TOML treats the value as a string, instead of a TOML list.
-
-Alternatively, you can use this syntactic sugar, which allows the values to be regular TOML lists:
-
-```toml
-[scope]
-listopt.add = [1, 2]
-listopt.remove = [3, 4]
-```
-
-But note that this only works in Pants's .toml config files, not in environment variables or command-line flags.
-
-````
-
-:::
-
+[block:callout]
+{
+  "type": "info",
+  "title": "Add/remove syntax in .toml files",
+  "body": "The +/- syntax works in .toml files, but the entire value must be quoted:\n\n```toml\n[scope]\nlistopt = \"+[1,2],-[3,4]\"\n```\n\nThis means that TOML treats the value as a string, instead of a TOML list. \n\nAlternatively, you can use this syntactic sugar, which allows the values to be regular TOML lists: \n\n```toml\n[scope]\nlistopt.add = [1, 2]\nlistopt.remove = [3, 4]\n```\n\nBut note that this only works in Pants's .toml config files, not in environment variables or command-line flags."
+}
+[/block]
 ## Dict values
 
 Dict values are parsed as Python dict literals, so you must quote string keys and values, and you may need to apply shell-level quoting and/or escaping, as required.
@@ -227,20 +198,18 @@ Dict values are parsed as Python dict literals, so you must quote string keys an
 ### Command-line flags:
 ```bash
 ./pants --scope-dictopt="{'foo':1,'bar':2}"
-````
+```
 
 ### Environment variables:
-
 ```bash
 PANTS_SCOPE_DICTOPT="{'foo':1,'bar':2}"
 ```
 
 ### Config file entries:
-
 ```toml
 [scope]
 dictopt = """{
-  'foo': 1,
+  'foo': 1, 
   'bar': 2
 }"""
 # Note that dict values in .toml files must be quoted.
@@ -249,20 +218,18 @@ dictopt = """{
 Dict values have some extra semantics:
 
 - A value can be preceded by `+`, which will _update_ the value obtained from lower-precedence sources with the entries.
-- Otherwise, the value _replaces_ the one obtained from lower-precendence sources.
+- Otherwise, the value _replaces_ the one obtained from lower-precendence sources. 
 
-For example, if the value of `--dictopt` in `scope` is set to `{'foo', 1, 'bar': 2}` in a config file, then
+For example, if the value of `--dictopt` in `scope` is set to `{'foo', 1, 'bar': 2}` in a config file, then 
 
 ```bash
 ./pants --scope-dictopt="+{'foo':42,'baz':3}"
 ```
 
-will set the value to `{'foo': 42, 'bar': 2, 'baz': 3}`, and
+will set the value to `{'foo': 42, 'bar': 2, 'baz': 3}`, and 
 
 ```bash
 ./pants --scope-dictopt="{'foo':42,'baz':3}"
 ```
 
 will set the value to `{'foo': 42, 'baz': 3}`.
-
-

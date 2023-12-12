@@ -68,7 +68,6 @@ Override the field values for generated `pex_binary` targets.
 Expects a dictionary mapping values from the `entry_points` field to a dictionary for their overrides. You may either use a single string or a tuple of strings to override multiple targets.
 
 For example:
-
 ```
 overrides={
   "foo.py": {"execution_mode": "venv"]},
@@ -149,10 +148,10 @@ You can give a list of multiple platforms to create a multiplatform PEX, meaning
 
 Platforms should be in the format defined by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#platform), i.e. PLATFORM-IMPL-PYVER-ABI (e.g. &quot;linux_x86_64-cp-37-cp37m&quot;, &quot;macosx_10.12_x86_64-cp-310-cp310&quot;):
 
-- PLATFORM: the host platform, e.g. &quot;linux-x86_64&quot;, &quot;macosx-10.12-x86_64&quot;.
-- IMPL: the Python implementation abbreviation, e.g. &quot;cp&quot; or &quot;pp&quot;.
-- PYVER: a two or more digit string representing the python major/minor version (e.g., &quot;37&quot; or &quot;310&quot;) or else a component dotted version string (e.g., &quot;3.7&quot; or &quot;3.10.1&quot;).
-- ABI: the ABI tag, e.g. &quot;cp37m&quot;, &quot;cp310&quot;, &quot;abi3&quot;, &quot;none&quot;.
+  - PLATFORM: the host platform, e.g. &quot;linux-x86_64&quot;, &quot;macosx-10.12-x86_64&quot;.
+  - IMPL: the Python implementation abbreviation, e.g. &quot;cp&quot; or &quot;pp&quot;.
+  - PYVER: a two or more digit string representing the python major/minor version (e.g., &quot;37&quot; or &quot;310&quot;) or else a component dotted version string (e.g., &quot;3.7&quot; or &quot;3.10.1&quot;).
+  - ABI: the ABI tag, e.g. &quot;cp37m&quot;, &quot;cp310&quot;, &quot;abi3&quot;, &quot;none&quot;.
 
 Note that using an abbreviated platform means that certain resolves will fail when they encounter environment markers that cannot be deduced from the abbreviated platform string. A common example of this is &#x27;python_full_version&#x27; which requires knowing the patch level version of the foreign Python interpreter. To remedy this you should use a 3-component dotted version for PYVER. If your resolves fail due to more esoteric undefined environment markers, you should switch to specifying `complete_platforms` instead.
 
@@ -213,8 +212,13 @@ Most applications have no need for the `PEX*` environment variables that are use
 
 ## `ignore_errors`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  Should PEX ignore when it cannot resolve dependencies?
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+Should PEX ignore when it cannot resolve dependencies?
+
 </Field>
 
 ## `shebang`
@@ -277,16 +281,24 @@ The fastest execution mode in the steady state is &#x27;venv&#x27;, which genera
 
 ## `include_requirements`
 
-<Field type_repr={`field.type_hint`} default_repr={`True`}>
-  Whether to include the third party requirements the binary depends on in the
-  packaged PEX file.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`True`}
+>
+
+Whether to include the third party requirements the binary depends on in the packaged PEX file.
+
 </Field>
 
 ## `include_sources`
 
-<Field type_repr={`field.type_hint`} default_repr={`True`}>
-  Whether to include your first party sources the binary uses in the packaged
-  PEX file.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`True`}
+>
+
+Whether to include your first party sources the binary uses in the packaged PEX file.
+
 </Field>
 
 ## `include_tools`
@@ -304,9 +316,15 @@ With tools included, the generated PEX file can be executed with `PEX_TOOLS=1 <p
 
 ## `restartable`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, runs of this target with the `run` goal may be interrupted and
-  restarted when its input files change.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
+
 </Field>
+
+
 
 </span>

@@ -21,7 +21,7 @@ Config section: <span className="color--primary">`[scalac]`</span>
 
 <Option
   cli_repr={`--scalac-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr="PANTS_SCALAC_ARGS"
+  env_repr='PANTS_SCALAC_ARGS'
   default_repr={`[]`}
 >
 
@@ -49,13 +49,11 @@ If you set this, you must also set `[scalac].plugins_global_lockfile`.
 
 <Option
   cli_repr={`--scalac-plugins-global-lockfile=<str>`}
-  env_repr="PANTS_SCALAC_PLUGINS_GLOBAL_LOCKFILE"
+  env_repr='PANTS_SCALAC_PLUGINS_GLOBAL_LOCKFILE'
   default_repr={`<default>`}
 >
 
-The filename of the lockfile for global plugins. You must set this option to a
-file path, e.g. &#x27;3rdparty/jvm/global_scalac_plugins.lock&#x27;, if you
-set `[scalac].plugins_global`.
+The filename of the lockfile for global plugins. You must set this option to a file path, e.g. &#x27;3rdparty/jvm/global_scalac_plugins.lock&#x27;, if you set `[scalac].plugins_global`.
 
 </Option>
 

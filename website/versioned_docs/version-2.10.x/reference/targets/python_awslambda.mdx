@@ -91,17 +91,23 @@ You must use the file name shorthand for file arguments to work with this target
 
 ## `include_requirements`
 
-<Field type_repr={`field.type_hint`} default_repr={`True`}>
-  Whether to resolve requirements and include them in the Pex. This is most
-  useful with Lambda Layers to make code uploads smaller when deps are in
-  layers. https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`True`}
+>
+
+Whether to resolve requirements and include them in the Pex. This is most useful with Lambda Layers to make code uploads smaller when deps are in layers. https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+
 </Field>
 
 ## `runtime`
 
-<Field type_repr={`field.type_hint`}>
-  The identifier of the AWS Lambda runtime to target (pythonX.Y). See
-  https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The identifier of the AWS Lambda runtime to target (pythonX.Y). See https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html.
+
 </Field>
 
 ## `complete_platforms`
@@ -133,5 +139,7 @@ If not defined, will default to `[python].default_resolve`.
 All dependencies must share the same value for their `resolve` field.
 
 </Field>
+
+
 
 </span>

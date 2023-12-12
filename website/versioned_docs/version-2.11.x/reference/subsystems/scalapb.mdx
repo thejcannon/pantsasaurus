@@ -21,16 +21,11 @@ Config section: <span className="color--primary">`[scalapb]`</span>
 
 <Option
   cli_repr={`--scalapb-runtime-dependencies="[<target_option>, <target_option>, ...]"`}
-  env_repr="PANTS_SCALAPB_RUNTIME_DEPENDENCIES"
+  env_repr='PANTS_SCALAPB_RUNTIME_DEPENDENCIES'
   default_repr={`[]`}
 >
 
-A list of addresses to `jvm_artifact` targets for the runtime dependencies
-needed for generated Scala code to work. For example,
-`['3rdparty/jvm:scalapb-runtime']`. These dependencies will be automatically
-added to every `protobuf_sources` target. At the very least, this option must
-be set to a `jvm_artifact` for the
-`com.thesamet.scalapb:scalapb-runtime_SCALAVER:0.11.6` runtime library.
+A list of addresses to `jvm_artifact` targets for the runtime dependencies needed for generated Scala code to work. For example, `['3rdparty/jvm:scalapb-runtime']`. These dependencies will be automatically added to every `protobuf_sources` target. At the very least, this option must be set to a `jvm_artifact` for the `com.thesamet.scalapb:scalapb-runtime_SCALAVER:0.11.6` runtime library.
 
 </Option>
 
@@ -54,12 +49,11 @@ For example, to invoke the fs2-grpc protoc plugin, the following option would wo
 
 <Option
   cli_repr={`--scalapb-version=<str>`}
-  env_repr="PANTS_SCALAPB_VERSION"
+  env_repr='PANTS_SCALAPB_VERSION'
   default_repr={`0.11.6`}
 >
 
-Version string for the tool. This is available for substitution in the
-`[scalapb].artifacts` option by including the string `{version}`.
+Version string for the tool. This is available for substitution in the `[scalapb].artifacts` option by including the string `{version}`.
 
 </Option>
 
@@ -67,15 +61,11 @@ Version string for the tool. This is available for substitution in the
 
 <Option
   cli_repr={`--scalapb-artifacts="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_SCALAPB_ARTIFACTS"
+  env_repr='PANTS_SCALAPB_ARTIFACTS'
   default_repr={`["com.thesamet.scalapb:scalapbc_2.13:{version}"]`}
 >
 
-Artifact requirements for this tool using specified as either the address of a
-`jvm_artifact` target or, alternatively, as a colon-separated Maven
-coordinates (e.g., group:name:version). For Maven coordinates, the string `
-  {version}` version will be substituted with the value of the
-`[scalapb].version` option.
+Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., group:name:version). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[scalapb].version` option.
 
 </Option>
 
@@ -92,6 +82,7 @@ Path to a lockfile used for installing the tool.
 Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.11.1/src/python/pants/backend/codegen/protobuf/scala/scalapbc.default.lockfile.txt for the default lockfile contents.
 
 To use a custom lockfile, set this option to a file path relative to the build root, then run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 jvm-generate-lockfiles --resolve=scalapb`.
+
 
 </Option>
 

@@ -25,7 +25,7 @@ Config section: <span className="color--primary">`[filter]`</span>
 
 <Option
   cli_repr={`--filter-output-file=<path>`}
-  env_repr="PANTS_FILTER_OUTPUT_FILE"
+  env_repr='PANTS_FILTER_OUTPUT_FILE'
   default_repr={`None`}
 >
 
@@ -37,7 +37,7 @@ Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
 
 <Option
   cli_repr={`--filter-sep=<separator>`}
-  env_repr="PANTS_FILTER_SEP"
+  env_repr='PANTS_FILTER_SEP'
   default_repr={`\\n`}
 >
 
@@ -49,7 +49,7 @@ String to use to separate lines in line-oriented output.
 
 <Option
   cli_repr={`--filter-target-type="[[+-]type1,type2,..., [+-]type1,type2,..., ...]"`}
-  env_repr="PANTS_FILTER_TARGET_TYPE"
+  env_repr='PANTS_FILTER_TARGET_TYPE'
   default_repr={`[]`}
 >
 
@@ -61,7 +61,7 @@ Filter on these target types, e.g. `resources` or `python_library`.
 
 <Option
   cli_repr={`--filter-address-regex="[[+-]regex1,regex2,..., [+-]regex1,regex2,..., ...]"`}
-  env_repr="PANTS_FILTER_ADDRESS_REGEX"
+  env_repr='PANTS_FILTER_ADDRESS_REGEX'
   default_repr={`[]`}
 >
 
@@ -73,7 +73,7 @@ Filter on target addresses matching these regexes.
 
 <Option
   cli_repr={`--filter-tag-regex="[[+-]regex1,regex2,..., [+-]regex1,regex2,..., ...]"`}
-  env_repr="PANTS_FILTER_TAG_REGEX"
+  env_repr='PANTS_FILTER_TAG_REGEX'
   default_repr={`[]`}
 >
 
@@ -91,10 +91,10 @@ None
 
 <Option
   cli_repr={`--filter-type="[[+-]type1,type2,..., [+-]type1,type2,..., ...]"`}
-  env_repr="PANTS_FILTER_TYPE"
+  env_repr='PANTS_FILTER_TYPE'
   default_repr={`[]`}
-  removal_version="2.1.0.dev0"
-  removal_hint={"Use `--target-type` instead of `--type`."}
+  removal_version='2.1.0.dev0'
+  removal_hint={'Use `--target-type` instead of `--type`.'}
 >
 
 Filter on these target types, e.g. `resources` or `python_library`.
@@ -105,10 +105,10 @@ Filter on these target types, e.g. `resources` or `python_library`.
 
 <Option
   cli_repr={`--filter-regex="[[+-]regex1,regex2,..., [+-]regex1,regex2,..., ...]"`}
-  env_repr="PANTS_FILTER_REGEX"
+  env_repr='PANTS_FILTER_REGEX'
   default_repr={`[]`}
-  removal_version="2.1.0.dev0"
-  removal_hint={"Use `--address-regex` instead of `--regex`."}
+  removal_version='2.1.0.dev0'
+  removal_hint={'Use `--address-regex` instead of `--regex`.'}
 >
 
 Filter on target addresses matching these regexes.
@@ -119,12 +119,10 @@ Filter on target addresses matching these regexes.
 
 <Option
   cli_repr={`--filter-target="[[+-]spec1,spec2,..., [+-]spec1,spec2,..., ...]"`}
-  env_repr="PANTS_FILTER_TARGET"
+  env_repr='PANTS_FILTER_TARGET'
   default_repr={`[]`}
-  removal_version="2.1.0.dev0"
-  removal_hint={
-    "`--filter-target` was removed because it is similar to `--filter-address-regex`. If you still need this feature, please message us on Slack (https://www.pantsbuild.org/docs/community)."
-  }
+  removal_version='2.1.0.dev0'
+  removal_hint={'`--filter-target` was removed because it is similar to `--filter-address-regex`. If you still need this feature, please message us on Slack (https://www.pantsbuild.org/docs/community).'}
 >
 
 Filter on these target addresses.
@@ -135,12 +133,10 @@ Filter on these target addresses.
 
 <Option
   cli_repr={`--filter-ancestor="[[+-]spec1,spec2,..., [+-]spec1,spec2,..., ...]"`}
-  env_repr="PANTS_FILTER_ANCESTOR"
+  env_repr='PANTS_FILTER_ANCESTOR'
   default_repr={`[]`}
-  removal_version="2.1.0.dev0"
-  removal_hint={
-    "`--filter-ancestor` was removed because it is not trivial to implement. If you still need this feature, please message us on Slack (https://www.pantsbuild.org/docs/community)."
-  }
+  removal_version='2.1.0.dev0'
+  removal_hint={'`--filter-ancestor` was removed because it is not trivial to implement. If you still need this feature, please message us on Slack (https://www.pantsbuild.org/docs/community).'}
 >
 
 Filter on targets that these targets depend on.

@@ -21,7 +21,7 @@ Config section: <span className="color--primary">`[coursier]`</span>
 
 <Option
   cli_repr={`--coursier-repos="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_COURSIER_REPOS"
+  env_repr='PANTS_COURSIER_REPOS'
   default_repr={`[\n  "https://maven-central.storage-download.googleapis.com/maven2",\n  "https://repo1.maven.org/maven2"\n]`}
 >
 
@@ -35,7 +35,7 @@ Maven style repositories to resolve artifacts from.
 
 <Option
   cli_repr={`--coursier-version=<str>`}
-  env_repr="PANTS_COURSIER_VERSION"
+  env_repr='PANTS_COURSIER_VERSION'
   default_repr={`v2.0.16-169-g194ebc55c`}
 >
 
@@ -51,20 +51,19 @@ Use this version of coursier.
   default_repr={`[\n  "v2.0.16-169-g194ebc55c|linux_arm64 |da38c97d55967505b8454c20a90370c518044829398b9bce8b637d194d79abb3|18114472",\n  "v2.0.16-169-g194ebc55c|linux_x86_64|4c61a634c4bd2773b4543fe0fc32210afd343692891121cddb447204b48672e8|18486946",\n  "v2.0.16-169-g194ebc55c|macos_arm64 |15bce235d223ef1d022da30b67b4c64e9228d236b876c834b64e029bbe824c6f|17957182",\n  "v2.0.16-169-g194ebc55c|macos_x86_64|15bce235d223ef1d022da30b67b4c64e9228d236b876c834b64e029bbe824c6f|17957182"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
 
-- `version` is the version string
-- `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
-- `sha256` is the 64-character hex representation of the expected sha256
-
+  - `version` is the version string
+  - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
+  - `sha256` is the 64-character hex representation of the expected sha256
 ```
 digest of the download file, as emitted by `shasum -a 256`
 ```
 
-- `length` is the expected length of the download file in bytes, as emitted by
-
+  - `length` is the expected length of the download file in bytes, as emitted by
 ```
 `wc -c`
 ```
@@ -83,6 +82,7 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   one_of='error, warning'
   default_repr={`error`}
 >
+
 
 What action to take in case the requested version of coursier is not supported.
 

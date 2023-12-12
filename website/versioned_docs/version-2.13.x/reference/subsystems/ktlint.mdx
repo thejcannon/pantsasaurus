@@ -21,13 +21,11 @@ Config section: <span className="color--primary">`[ktlint]`</span>
 
 <Option
   cli_repr={`--[no-]ktlint-skip`}
-  env_repr="PANTS_KTLINT_SKIP"
+  env_repr='PANTS_KTLINT_SKIP'
   default_repr={`False`}
 >
 
-Don&#x27;t use Ktlint when running
-`/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and
-`/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
+Don&#x27;t use Ktlint when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
 
 </Option>
 
@@ -37,12 +35,11 @@ Don&#x27;t use Ktlint when running
 
 <Option
   cli_repr={`--ktlint-version=<str>`}
-  env_repr="PANTS_KTLINT_VERSION"
+  env_repr='PANTS_KTLINT_VERSION'
   default_repr={`0.45.2`}
 >
 
-Version string for the tool. This is available for substitution in the
-`[ktlint].artifacts` option by including the string `{version}`.
+Version string for the tool. This is available for substitution in the `[ktlint].artifacts` option by including the string `{version}`.
 
 </Option>
 
@@ -50,15 +47,11 @@ Version string for the tool. This is available for substitution in the
 
 <Option
   cli_repr={`--ktlint-artifacts="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_KTLINT_ARTIFACTS"
+  env_repr='PANTS_KTLINT_ARTIFACTS'
   default_repr={`["com.pinterest:ktlint:{version}"]`}
 >
 
-Artifact requirements for this tool using specified as either the address of a
-`jvm_artifact` target or, alternatively, as a colon-separated Maven
-coordinates (e.g., group:name:version). For Maven coordinates, the string `
-  {version}` version will be substituted with the value of the
-`[ktlint].version` option.
+Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., group:name:version). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[ktlint].version` option.
 
 </Option>
 

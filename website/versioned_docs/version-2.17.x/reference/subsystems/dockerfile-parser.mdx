@@ -16,7 +16,6 @@ Config section: <span className="color--primary">`[dockerfile-parser]`</span>
 <span className={styles.options}>
 
 ## Basic options
-
 None
 
 ## Advanced options
@@ -63,7 +62,7 @@ If unspecified, install the entire lockfile.
 
 <Option
   cli_repr={`--dockerfile-parser-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_DOCKERFILE_PARSER_INTERPRETER_CONSTRAINTS"
+  env_repr='PANTS_DOCKERFILE_PARSER_INTERPRETER_CONSTRAINTS'
   default_repr={`["CPython>=3.7,<4"]`}
 >
 
@@ -77,12 +76,10 @@ Python interpreter constraints for this tool.
 
 <Option
   cli_repr={`--dockerfile-parser-version=<str>`}
-  env_repr="PANTS_DOCKERFILE_PARSER_VERSION"
+  env_repr='PANTS_DOCKERFILE_PARSER_VERSION'
   default_repr={`dockerfile==3.2.0`}
-  removal_version="2.18.0.dev1"
-  removal_hint={
-    "Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles."
-  }
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
 >
 
 Requirement string for the tool.
@@ -93,17 +90,13 @@ Requirement string for the tool.
 
 <Option
   cli_repr={`--dockerfile-parser-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_DOCKERFILE_PARSER_EXTRA_REQUIREMENTS"
+  env_repr='PANTS_DOCKERFILE_PARSER_EXTRA_REQUIREMENTS'
   default_repr={`[]`}
-  removal_version="2.18.0.dev1"
-  removal_hint={
-    "Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles."
-  }
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
 >
 
-Any additional requirement strings to use with the tool. This is useful if the
-tool allows you to install plugins or if you need to constrain a dependency to
-a certain version.
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
 
 </Option>
 

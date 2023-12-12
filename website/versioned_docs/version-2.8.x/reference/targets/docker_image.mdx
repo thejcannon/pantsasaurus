@@ -70,8 +70,13 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 ## `source`
 
-<Field type_repr={`field.type_hint`} default_repr={`'Dockerfile'`}>
-  The Dockerfile to use when building the Docker image.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`'Dockerfile'`}
+>
+
+The Dockerfile to use when building the Docker image.
+
 </Field>
 
 ## `image_tags`
@@ -103,7 +108,6 @@ The address is a domain name with optional port for your registry, and any regis
 By default, all configured registries with `default = true` are used.
 
 Example:
-
 ```
 # pants.toml
 [docker]
@@ -141,16 +145,26 @@ It uses the `[docker].default_repository` by default.This field value may contai
 
 ## `skip_push`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If set to true, do not push this image to registries when running `./pants
-  publish`.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If set to true, do not push this image to registries when running `./pants publish`.
+
 </Field>
 
 ## `restartable`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, runs of this target with the `run` goal may be interrupted and
-  restarted when its input files change.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
+
 </Field>
+
+
 
 </span>

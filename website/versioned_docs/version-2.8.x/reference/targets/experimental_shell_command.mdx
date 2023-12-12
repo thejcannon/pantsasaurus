@@ -10,7 +10,6 @@ import styles from "@site/src/components/reference/styles.module.css";
 Execute any external tool for its side effects.
 
 Example BUILD file:
-
 ```
 experimental_shell_command(
   command="./my-script.sh --flag",
@@ -84,8 +83,13 @@ The command is executed as &#x27;bash -c &lt;command&gt;&#x27; by default.
 
 ## `log_output`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  Set to true if you want the output from the command logged to the console.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+Set to true if you want the output from the command logged to the console.
+
 </Field>
 
 ## `outputs`
@@ -102,8 +106,13 @@ Use a trailing slash on directory names, i.e. `my_dir/`.
 
 ## `timeout`
 
-<Field type_repr={`field.type_hint`} default_repr={`30`}>
-  Command execution timeout (in seconds).
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`30`}
+>
+
+Command execution timeout (in seconds).
+
 </Field>
 
 ## `tools`
@@ -117,5 +126,7 @@ Specify required executable tools that might be used.
 Only the tools explicitly provided will be available on the search PATH, and these tools must be found on the paths provided by [shell-setup].executable_search_paths (which defaults to the system PATH).
 
 </Field>
+
+
 
 </span>

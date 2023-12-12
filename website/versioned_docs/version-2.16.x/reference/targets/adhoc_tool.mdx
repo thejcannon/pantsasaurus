@@ -10,7 +10,6 @@ import styles from "@site/src/components/reference/styles.module.css";
 Execute any runnable target for its side effects.
 
 Example BUILD file:
-
 ```
 adhoc_tool(
     runnable=":python_source",
@@ -55,18 +54,23 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 
 ## `runnable`
 
-<Field type_repr={`field.type_hint`}>
-  Address to a target that can be invoked by the `run` goal (and does not set
-  `run_in_sandbox_behavior=NOT_SUPPORTED`). This will be executed along with any
-  arguments specified by `args`, in a sandbox with that target&#x27;s transitive
-  dependencies, along with the transitive dependencies specified by
-  `execution_dependencies`.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Address to a target that can be invoked by the `run` goal (and does not set `run_in_sandbox_behavior=NOT_SUPPORTED`). This will be executed along with any arguments specified by `args`, in a sandbox with that target&#x27;s transitive dependencies, along with the transitive dependencies specified by `execution_dependencies`.
+
 </Field>
 
 ## `args`
 
-<Field type_repr={`field.type_hint`} default_repr={`()`}>
-  Extra arguments to pass into the `runnable` field.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`()`}
+>
+
+Extra arguments to pass into the `runnable` field.
+
 </Field>
 
 ## `execution_dependencies`
@@ -115,8 +119,13 @@ See also `output_dependencies` and `execution_dependencies.
 
 ## `log_output`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  Set to true if you want the output logged to the console.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+Set to true if you want the output logged to the console.
+
 </Field>
 
 ## `output_files`
@@ -151,8 +160,13 @@ Relative paths (including `..`) may be used, as long as the path does not ascend
 
 ## `timeout`
 
-<Field type_repr={`field.type_hint`} default_repr={`30`}>
-  Command execution timeout (in seconds).
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`30`}
+>
+
+Command execution timeout (in seconds).
+
 </Field>
 
 ## `extra_env_vars`
@@ -178,10 +192,10 @@ Sets the working directory for the process.
 
 Values are relative to the build root, except in the following cases:
 
-- `.` specifies the location of the `BUILD` file.
-- Values beginning with `./` are relative to the location of the `BUILD` file.
-- `/` or the empty string specifies the build root.
-- Values beginning with `/` are also relative to the build root.
+* `.` specifies the location of the `BUILD` file.
+* Values beginning with `./` are relative to the location of the `BUILD` file.
+* `/` or the empty string specifies the build root.
+* Values beginning with `/` are also relative to the build root.
 
 </Field>
 
@@ -193,7 +207,6 @@ Values are relative to the build root, except in the following cases:
 >
 
 Adjusts the location of files output by this target, when consumed as a dependency.
-
 ```
     Values are relative to the build root, except in the following cases:
 
@@ -201,7 +214,6 @@ Adjusts the location of files output by this target, when consumed as a dependen
     * Values beginning with `./` are relative to the location of the `BUILD` file.
     * `/` or the empty string specifies the build root.
     * Values beginning with `/` are also relative to the build root.
-
 ```
 
 </Field>
@@ -241,5 +253,6 @@ You can specify multiple valid environments by using `parametrize`. If `__local_
 
 </Field>
 
+
+
 </span>
-```

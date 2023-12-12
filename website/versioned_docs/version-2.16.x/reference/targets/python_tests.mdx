@@ -65,7 +65,6 @@ Override the field values for generated `{generated_target_name}` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
-
 ```
 overrides={
     "foo_test.py": {"timeout": 120},
@@ -85,9 +84,9 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 ## `skip_pydocstyle`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.pydocstyle"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.pydocstyle"
 >
 
 If true, don&#x27;t run pydocstyle on this target&#x27;s code.
@@ -97,9 +96,9 @@ If true, don&#x27;t run pydocstyle on this target&#x27;s code.
 ## `skip_add_trailing_comma`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.experimental.python.lint.add_trailing_comma"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.lint.add_trailing_comma"
 >
 
 If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
@@ -109,9 +108,9 @@ If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
 ## `skip_pylint`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.pylint"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.pylint"
 >
 
 If true, don&#x27;t run Pylint on this target&#x27;s code.
@@ -121,9 +120,9 @@ If true, don&#x27;t run Pylint on this target&#x27;s code.
 ## `skip_isort`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.isort"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.isort"
 >
 
 If true, don&#x27;t run isort on this target&#x27;s code.
@@ -133,9 +132,9 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 ## `skip_ruff`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.experimental.python.lint.ruff"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.lint.ruff"
 >
 
 If true, don&#x27;t run ruff on this target&#x27;s code.
@@ -164,9 +163,9 @@ The stevedore namespace format (my.stevedore.extension) is similar to a python n
 ## `skip_docformatter`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.docformatter"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.docformatter"
 >
 
 If true, don&#x27;t run Docformatter on this target&#x27;s code.
@@ -176,9 +175,9 @@ If true, don&#x27;t run Docformatter on this target&#x27;s code.
 ## `skip_autoflake`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.autoflake"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.autoflake"
 >
 
 If true, don&#x27;t run Autoflake on this target&#x27;s code.
@@ -188,9 +187,9 @@ If true, don&#x27;t run Autoflake on this target&#x27;s code.
 ## `skip_flake8`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.flake8"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.flake8"
 >
 
 If true, don&#x27;t run Flake8 on this target&#x27;s code.
@@ -200,9 +199,9 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 ## `skip_bandit`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.bandit"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.bandit"
 >
 
 If true, don&#x27;t run Bandit on this target&#x27;s code.
@@ -212,9 +211,9 @@ If true, don&#x27;t run Bandit on this target&#x27;s code.
 ## `skip_pyupgrade`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.pyupgrade"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.pyupgrade"
 >
 
 If true, don&#x27;t run pyupgrade on this target&#x27;s code.
@@ -224,9 +223,9 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 ## `skip_mypy`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.typecheck.mypy"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.typecheck.mypy"
 >
 
 If true, don&#x27;t run MyPy on this target&#x27;s code.
@@ -236,9 +235,9 @@ If true, don&#x27;t run MyPy on this target&#x27;s code.
 ## `skip_yapf`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.yapf"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.yapf"
 >
 
 If true, don&#x27;t run yapf on this target&#x27;s code.
@@ -248,9 +247,9 @@ If true, don&#x27;t run yapf on this target&#x27;s code.
 ## `skip_black`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.black"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.black"
 >
 
 If true, don&#x27;t run Black on this target&#x27;s code.
@@ -350,7 +349,6 @@ If this field is left unset on a target, the target is assumed to be incompatibl
 If this field is set on a target, and its value is different from the value on some other `python_test`, then the two targets are explicitly incompatible and are guaranteed to not run in the same `pytest` process.
 
 If this field is set on a target, and its value is the same as the value on some other `python_test`, then the two targets are explicitly compatible and _may_ run in the same `pytest` process. Compatible tests may not end up in the same `pytest` batch if:
-
 ```
 * There are "too many" compatible tests in a partition, as determined by the `[test].batch_size` config parameter, or
 * Compatible tests have some incompatibility in Pants metadata (i.e. different `resolve`s or `extra_env_vars`).
@@ -408,8 +406,13 @@ See https://www.pantsbuild.org/v2.16/docs/python-interpreter-compatibility for h
 
 ## `skip_tests`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run this target&#x27;s tests.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run this target&#x27;s tests.
+
 </Field>
 
 ## `environment`
@@ -426,5 +429,7 @@ Once environments are defined in `[environments-preview].names`, you can specify
 You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
 
 </Field>
+
+
 
 </span>

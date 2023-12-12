@@ -77,16 +77,22 @@ Warning: setting this value risks naming collisions with other package targets y
 
 ## `main`
 
-<Field type_repr={`field.type_hint`}>
-  `.`-separated name of the JVM class containing the `main()` method to be
-  called when executing this JAR.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+`.`-separated name of the JVM class containing the `main()` method to be called when executing this JAR.
+
 </Field>
 
 ## `jdk`
 
-<Field type_repr={`field.type_hint`}>
-  The major version of the JDK that this target should be built with. If not
-  defined, will default to `[jvm].default_source_jdk`.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+
 </Field>
 
 ## `resolve`
@@ -99,13 +105,20 @@ The resolve from `[jvm].resolves` to use when compiling this target.
 
 If not defined, will default to `[jvm].default_resolve`.
 
+
 </Field>
 
 ## `restartable`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, runs of this target with the `run` goal may be interrupted and
-  restarted when its input files change.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
+
 </Field>
+
+
 
 </span>

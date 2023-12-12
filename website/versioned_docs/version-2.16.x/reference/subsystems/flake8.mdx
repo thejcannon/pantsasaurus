@@ -21,7 +21,7 @@ Config section: <span className="color--primary">`[flake8]`</span>
 
 <Option
   cli_repr={`--[no-]flake8-skip`}
-  env_repr="PANTS_FLAKE8_SKIP"
+  env_repr='PANTS_FLAKE8_SKIP'
   default_repr={`False`}
 >
 
@@ -33,12 +33,11 @@ If true, don&#x27;t use Flake8 when running `scie-pants-linux-x86_64 lint`.
 
 <Option
   cli_repr={`--flake8-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr="PANTS_FLAKE8_ARGS"
+  env_repr='PANTS_FLAKE8_ARGS'
   default_repr={`[]`}
 >
 
-Arguments to pass directly to Flake8, e.g. `--flake8-args='--ignore E123,W456
-  --enable-extensions H111'`.
+Arguments to pass directly to Flake8, e.g. `--flake8-args='--ignore E123,W456 --enable-extensions H111'`.
 
 </Option>
 
@@ -86,14 +85,11 @@ If unspecified, install the entire lockfile.
 
 <Option
   cli_repr={`--flake8-console-script=<str>`}
-  env_repr="PANTS_FLAKE8_CONSOLE_SCRIPT"
+  env_repr='PANTS_FLAKE8_CONSOLE_SCRIPT'
   default_repr={`flake8`}
 >
 
-The console script for the tool. Using this option is generally preferable to
-(and mutually exclusive with) specifying an --entry-point since console script
-names have a higher expectation of staying stable across releases of the tool.
-Usually, you will not want to change this from the default.
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -101,13 +97,11 @@ Usually, you will not want to change this from the default.
 
 <Option
   cli_repr={`--flake8-entry-point=<str>`}
-  env_repr="PANTS_FLAKE8_ENTRY_POINT"
+  env_repr='PANTS_FLAKE8_ENTRY_POINT'
   default_repr={`None`}
 >
 
-The entry point for the tool. Generally you only want to use this option if
-the tool does not offer a --console-script (which this option is mutually
-exclusive with). Usually, you will not want to change this from the default.
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -129,12 +123,14 @@ Setting this option will disable `[flake8].config_discovery`. Use this option if
 
 <Option
   cli_repr={`--flake8-extra-files="[<file_option>, <file_option>, ...]"`}
-  env_repr="PANTS_FLAKE8_EXTRA_FILES"
+  env_repr='PANTS_FLAKE8_EXTRA_FILES'
   default_repr={`[]`}
 >
 
-Paths to extra files to include in the sandbox. This can be useful for Flake8
-plugins, `` like including config files for the `flake8-bandit` plugin. ``
+Paths to extra files to include in the sandbox. This can be useful for Flake8 plugins,
+```
+        like including config files for the `flake8-bandit` plugin.
+```
 
 </Option>
 
@@ -167,7 +163,6 @@ You must set the plugin&#x27;s parent directory as a source root. For example, i
 You must also set `[flake8:local-plugins]` in your Flake8 config file.
 
 For example:
-
 ```
 [flake8:local-plugins]
     extension =
@@ -188,12 +183,10 @@ Tip: it&#x27;s often helpful to define a dedicated &#x27;resolve&#x27; via `[pyt
 
 <Option
   cli_repr={`--flake8-version=<str>`}
-  env_repr="PANTS_FLAKE8_VERSION"
+  env_repr='PANTS_FLAKE8_VERSION'
   default_repr={`flake8>=5.0.4,<7`}
-  removal_version="2.18.0.dev1"
-  removal_hint={
-    "Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles."
-  }
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
 >
 
 Requirement string for the tool.
@@ -204,17 +197,13 @@ Requirement string for the tool.
 
 <Option
   cli_repr={`--flake8-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_FLAKE8_EXTRA_REQUIREMENTS"
+  env_repr='PANTS_FLAKE8_EXTRA_REQUIREMENTS'
   default_repr={`[]`}
-  removal_version="2.18.0.dev1"
-  removal_hint={
-    "Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles."
-  }
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
 >
 
-Any additional requirement strings to use with the tool. This is useful if the
-tool allows you to install plugins or if you need to constrain a dependency to
-a certain version.
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
 
 </Option>
 

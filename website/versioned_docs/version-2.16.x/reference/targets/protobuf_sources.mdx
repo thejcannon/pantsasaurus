@@ -65,7 +65,6 @@ Override the field values for generated `{generated_target_name}` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
-
 ```
 overrides={
     "foo.proto": {"grpc": True},
@@ -85,9 +84,9 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 ## `skip_buf_format`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.codegen.protobuf.lint.buf"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.codegen.protobuf.lint.buf"
 >
 
 If true, don&#x27;t run `buf format` on this target&#x27;s code.
@@ -125,12 +124,11 @@ If there is a single `go_mod` target in the repository, then this field defaults
 ## `jvm_jdk`
 
 <Field
-  type_repr={`field.type_hint`}
-  backend="pants.backend.experimental.codegen.protobuf.java"
+    type_repr={`field.type_hint`}
+    backend="pants.backend.experimental.codegen.protobuf.java"
 >
 
-The major version of the JDK that this target should be built with. If not
-defined, will default to `[jvm].default_source_jdk`.
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
 
 </Field>
 
@@ -184,9 +182,9 @@ See https://www.pantsbuild.org/v2.16/docs/python-interpreter-compatibility for h
 ## `skip_buf_lint`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.codegen.protobuf.lint.buf"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.codegen.protobuf.lint.buf"
 >
 
 If true, don&#x27;t run `buf lint` on this target&#x27;s code.
@@ -195,8 +193,13 @@ If true, don&#x27;t run `buf lint` on this target&#x27;s code.
 
 ## `grpc`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  Whether to generate gRPC code or not.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+Whether to generate gRPC code or not.
+
 </Field>
 
 ## `dependencies`
@@ -216,5 +219,7 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
+
 
 </span>

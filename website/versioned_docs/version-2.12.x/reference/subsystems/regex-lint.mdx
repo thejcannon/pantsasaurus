@@ -30,7 +30,6 @@ Config section: <span className="color--primary">`[regex-lint]`</span>
 >
 
 Config schema is as follows:
-
 ```
 {
 'required_matches': {
@@ -68,8 +67,8 @@ It&#x27;s often helpful to load this config from a JSON or YAML file. To do that
 
 <Option
   cli_repr={`--regex-lint-detail-level=<DetailLevel>`}
-  env_repr="PANTS_REGEX_LINT_DETAIL_LEVEL"
-  one_of="none, summary, nonmatching, names, all"
+  env_repr='PANTS_REGEX_LINT_DETAIL_LEVEL'
+  one_of='none, summary, nonmatching, names, all'
   default_repr={`nonmatching`}
 >
 

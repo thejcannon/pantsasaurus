@@ -11,15 +11,15 @@ There are two ways to include asset files in your project: `resource` and `file`
 
 ## `resources`
 
-A [`resource`](reference:reference-resource) target is for files that are members of code packages, and are loaded via language-specific mechanisms, such as Python's `importlib.resources.read_text()` or Java's `getResource()`.
+A [`resource`](doc:reference-resource) target is for files that are members of code packages, and are loaded via language-specific mechanisms, such as Python's `importlib.resources.read_text()` or Java's `getResource()`.
 
 Pants will make resources available on the appropriate runtime path, such as Python's `PYTHONPATH` or the JVM classpath. Resources can be loaded directly from a binary in which they are embedded, such as a Pex file, without first unpacking it.
 
-To reduce boilerplate, the [`resources`](reference:reference-resources) target generates a `resource` target per file in the `sources` field.
+To reduce boilerplate, the [`resources`](doc:reference-resources) target generates a `resource` target per file in the `sources` field.
 
 For example, to load resources in Python:
 
-```python title="src/python/project/app.py"
+```python src/python/project/app.py
 import importlib.resources
 
 if __name__ == "__main__":
@@ -27,7 +27,7 @@ if __name__ == "__main__":
     print(f"Config: {config}")
 ```
 
-```python title="src/python/project/BUILD"
+```python src/python/project/BUILD
 python_source(
   name="app",
   source="app.py",
@@ -41,28 +41,28 @@ resource(
 )
 ```
 
-```json title="src/python/project/config.json"
+```json src/python/project/config.json
 { "k1": "v", "k2": "v" }
 ```
 
-[Source root](./key-concepts/source-roots.mdx) stripping applies to resources, just as it does for code. In the example above, Python loads the resource named `project/config`, rather than `src/python/project/config.json`.
+[Source root](doc:source-roots) stripping applies to resources, just as it does for code. In the example above, Python loads the resource named `project/config`, rather than `src/python/project/config.json`.
 
 ## `files`
 
 A `file` target is for loose files that are copied into the chroot where Pants runs your code. You can then load these files through direct mechanisms like Python's `open()` or Java's `FileInputStream`. The files are not associated with a code package, and must be extracted out of a deployed archive file before they can be loaded.
 
-To reduce boilerplate, the [`files`](reference:reference-files) target generates a `file` target per file in the `sources` field.
+To reduce boilerplate, the [`files`](doc:reference-files) target generates a `file` target per file in the `sources` field.
 
 For example, to load loose files in Python:
 
-```python title="src/python/project/app_test.py"
+```python src/python/project/app_test.py
 def test_open_file():
     with open("src/python/project/config.json") as f:
         content = f.read().decode()
     assert content == '{"k1": "v", "k2": "v"}'
 ```
 
-```python title="src/python/project/BUILD"
+```python src/python/project/BUILD
 python_test(
     name="app_test",
     source="app_test.py",
@@ -76,19 +76,17 @@ file(
 )
 ```
 
-```json title="src/python/project/config.json"
+```json src/python/project/config.json
 { "k1": "v", "k2": "v" }
 ```
 
 Note that we open the file with its full path, including the `src/python` prefix.
 
-:::caution `file` targets are not included with binaries like `pex_binary`
-
-    Pants will not include dependencies on `file` / `files` targets when creating binaries like `pex_binary` and `python_awslambda` via `pants package`. Filesystem APIs like Python's `open()` are relative to the current working directory, and they would try to read the files from where the binary is executed, rather than reading from the binary itself.
-
-    Instead, use `resource` / `resources` targets or an `archive` target.
-
-:::
+> 🚧 `file` targets are not included with binaries like `pex_binary`
+>
+> Pants will not include dependencies on `file` / `files` targets when creating binaries like `pex_binary` and `python_awslambda` via `pants package`. Filesystem APIs like Python's `open()` are relative to the current working directory, and they would try to read the files from where the binary is executed, rather than reading from the binary itself.
+>
+> Instead, use `resource` / `resources` targets or an `archive` target.
 
 ## When to use each asset target type
 
@@ -116,7 +114,7 @@ However, you may want to change the path to something else. For example, when cr
 
 You can use the `relocated_files` target to change the path used at runtime for the files. Your other targets can then add this target to their `dependencies` field, rather than using the original `files` target:
 
-```python title="src/assets/BUILD"
+```python src/assets/BUILD
 # Original file target.
 file(
     name="logo",
@@ -144,7 +142,7 @@ Running `pants package` on an `archive` target will create a zip or tar file wit
 
 For example:
 
-```python title="project/BUILD"
+```python project/BUILD
 archive(
     name="app_with_config",
     packages=[":app"],
@@ -157,7 +155,6 @@ The format can be `zip`, `tar`, `tar.xz`, `tar.gz`, or `tar.bz2`.
 
 The `packages` field is a list of targets that can be built using `pants package`, such as `pex_binary`, `python_awslambda`, and even other `archive` targets. Pants will build the packages as if you had run `pants package`. It will include the results in your archive using the same name they would normally have, but without the `dist/` prefix.
 
-The `files` field is a list of `file`, `files`, and `relocated_files` targets. See [resources](#resources) for more details.
+The `files` field is a list of `file`, `files`, and `relocated_files` targets. See [resources](doc:assets) for more details.
 
 You can optionally set the field `output_path` to change the generated archive's name.
-

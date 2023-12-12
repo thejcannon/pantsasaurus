@@ -16,7 +16,6 @@ Config section: <span className="color--primary">`[setuptools-scm]`</span>
 <span className={styles.options}>
 
 ## Basic options
-
 None
 
 ## Advanced options
@@ -63,7 +62,7 @@ If unspecified, install the entire lockfile.
 
 <Option
   cli_repr={`--setuptools-scm-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_SETUPTOOLS_SCM_INTERPRETER_CONSTRAINTS"
+  env_repr='PANTS_SETUPTOOLS_SCM_INTERPRETER_CONSTRAINTS'
   default_repr={`["CPython>=3.7,<4"]`}
 >
 
@@ -75,14 +74,11 @@ Python interpreter constraints for this tool.
 
 <Option
   cli_repr={`--setuptools-scm-console-script=<str>`}
-  env_repr="PANTS_SETUPTOOLS_SCM_CONSOLE_SCRIPT"
+  env_repr='PANTS_SETUPTOOLS_SCM_CONSOLE_SCRIPT'
   default_repr={`None`}
 >
 
-The console script for the tool. Using this option is generally preferable to
-(and mutually exclusive with) specifying an --entry-point since console script
-names have a higher expectation of staying stable across releases of the tool.
-Usually, you will not want to change this from the default.
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -90,13 +86,11 @@ Usually, you will not want to change this from the default.
 
 <Option
   cli_repr={`--setuptools-scm-entry-point=<str>`}
-  env_repr="PANTS_SETUPTOOLS_SCM_ENTRY_POINT"
+  env_repr='PANTS_SETUPTOOLS_SCM_ENTRY_POINT'
   default_repr={`setuptools_scm`}
 >
 
-The entry point for the tool. Generally you only want to use this option if
-the tool does not offer a --console-script (which this option is mutually
-exclusive with). Usually, you will not want to change this from the default.
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -106,12 +100,10 @@ exclusive with). Usually, you will not want to change this from the default.
 
 <Option
   cli_repr={`--setuptools-scm-version=<str>`}
-  env_repr="PANTS_SETUPTOOLS_SCM_VERSION"
+  env_repr='PANTS_SETUPTOOLS_SCM_VERSION'
   default_repr={`setuptools-scm==7.1.0`}
-  removal_version="2.18.0.dev1"
-  removal_hint={
-    "Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles."
-  }
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
 >
 
 Requirement string for the tool.
@@ -122,17 +114,13 @@ Requirement string for the tool.
 
 <Option
   cli_repr={`--setuptools-scm-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_SETUPTOOLS_SCM_EXTRA_REQUIREMENTS"
+  env_repr='PANTS_SETUPTOOLS_SCM_EXTRA_REQUIREMENTS'
   default_repr={`[]`}
-  removal_version="2.18.0.dev1"
-  removal_hint={
-    "Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles."
-  }
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
 >
 
-Any additional requirement strings to use with the tool. This is useful if the
-tool allows you to install plugins or if you need to constrain a dependency to
-a certain version.
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
 
 </Option>
 

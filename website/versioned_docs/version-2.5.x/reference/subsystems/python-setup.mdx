@@ -16,7 +16,6 @@ Config section: <span className="color--primary">`[python-setup]`</span>
 <span className={styles.options}>
 
 ## Basic options
-
 None
 
 ## Advanced options
@@ -61,7 +60,7 @@ Mutually exclusive with `--requirement-constraints-target`.
   default_repr={`None`}
 >
 
-When resolving third-party requirements, use this \_python_constraints target to determine which versions to use.
+When resolving third-party requirements, use this _python_constraints target to determine which versions to use.
 
 This is primarily intended for macros (for now). Normally, use `--requirement-constraints` instead with a constraints file.
 
@@ -96,10 +95,10 @@ Requires [python-setup].requirement_constraints to be set.
 
 A list of paths to search for Python interpreters that match your project&#x27;s interpreter constraints. You can specify absolute paths to interpreter binaries and/or to directories containing interpreter binaries. The order of entries does not matter. The following special strings are supported:
 
-- &quot;&lt;PATH&gt;&quot;, the contents of the PATH env var
-- &quot;&lt;PYENV&gt;&quot;, all Python versions under $(pyenv root)/versions
-- &quot;&lt;PYENV_LOCAL&gt;&quot;, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
-- &quot;&lt;PEXRC&gt;&quot;, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
+* &quot;&lt;PATH&gt;&quot;, the contents of the PATH env var
+* &quot;&lt;PYENV&gt;&quot;, all Python versions under $(pyenv root)/versions
+* &quot;&lt;PYENV_LOCAL&gt;&quot;, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
+* &quot;&lt;PEXRC&gt;&quot;, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
 
 </Option>
 
@@ -107,14 +106,11 @@ A list of paths to search for Python interpreters that match your project&#x27;s
 
 <Option
   cli_repr={`--python-setup-resolver-manylinux=<str>`}
-  env_repr="PANTS_PYTHON_SETUP_RESOLVER_MANYLINUX"
+  env_repr='PANTS_PYTHON_SETUP_RESOLVER_MANYLINUX'
   default_repr={`manylinux2014`}
 >
 
-Whether to allow resolution of manylinux wheels when resolving requirements
-for foreign linux platforms. The value should be a manylinux platform upper
-bound, e.g.: &#x27;manylinux2010&#x27;, or else the string &#x27;no&#x27; to
-disallow.
+Whether to allow resolution of manylinux wheels when resolving requirements for foreign linux platforms. The value should be a manylinux platform upper bound, e.g.: &#x27;manylinux2010&#x27;, or else the string &#x27;no&#x27; to disallow.
 
 </Option>
 
@@ -128,7 +124,7 @@ disallow.
 
 The maximum number of concurrent jobs to build wheels with.
 
-Because Pants can run multiple subprocesses in parallel, the maximum total parallelism will be `--process-execution-{local,remote}-parallelism x --python-setup-resolver-jobs`.
+Because Pants can run multiple subprocesses in parallel, the maximum total parallelism will be `--process-execution-{local,remote}-parallelism x --python-setup-resolver-jobs`. 
 
 Setting this option higher may result in better parallelism, but, if set too high, may result in starvation and Out of Memory errors.
 

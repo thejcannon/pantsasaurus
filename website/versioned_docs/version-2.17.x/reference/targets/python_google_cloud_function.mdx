@@ -123,10 +123,12 @@ N.B.: If specifying `complete_platforms` to work around packaging failures encou
 
 ## `type`
 
-<Field type_repr={`field.type_hint`}>
-  The trigger type of the cloud function. Can either be `'event'` or `'http'`.
-  See https://cloud.google.com/functions/docs/concepts/python-runtime for
-  reference to `--trigger-http`.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The trigger type of the cloud function. Can either be `'event'` or `'http'`. See https://cloud.google.com/functions/docs/concepts/python-runtime for reference to `--trigger-http`.
+
 </Field>
 
 ## `resolve`
@@ -157,5 +159,7 @@ Once environments are defined in `[environments-preview].names`, you can specify
 You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
 
 </Field>
+
+
 
 </span>

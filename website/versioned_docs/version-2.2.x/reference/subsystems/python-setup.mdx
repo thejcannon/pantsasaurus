@@ -16,7 +16,6 @@ Config section: <span className="color--primary">`[python-setup]`</span>
 <span className={styles.options}>
 
 ## Basic options
-
 None
 
 ## Advanced options
@@ -60,11 +59,11 @@ See https://pip.pypa.io/en/stable/user_guide/#constraints-files for more informa
   default_repr={`nondeployables`}
 >
 
-If set, and the requirements of the code being operated on are a subset of the constraints file, then the entire constraints file will be used instead of the subset. If unset, or any requirement of the code being operated on is not in the constraints file, each subset will be independently resolved as needed, which is more correct - work is only invalidated if a requirement it actually depends on changes - but also a lot slower, due to the extra resolving.
+If set, and the requirements of the code being operated on are a subset of the constraints file, then the entire constraints file will be used instead of the subset. If unset, or any requirement of the code being operated on is not in the constraints file, each subset will be independently resolved as needed, which is more correct - work is only invalidated if a requirement it actually depends on changes - but also a lot slower, due to the extra resolving. 
 
-- `never` will always use proper subsets, regardless of the goal being run.
-- `nondeployables` will use proper subsets for `./pants package`, but otherwise attempt to use a single resolve.
-- `always` will always attempt to use a single resolve.
+* `never` will always use proper subsets, regardless of the goal being run.
+* `nondeployables` will use proper subsets for `./pants package`, but otherwise attempt to use a single resolve.
+* `always` will always attempt to use a single resolve.
 
 Requires [python-setup].requirement_constraints to be set.
 
@@ -80,10 +79,10 @@ Requires [python-setup].requirement_constraints to be set.
 
 A list of paths to search for Python interpreters that match your project&#x27;s interpreter constraints. You can specify absolute paths to interpreter binaries and/or to directories containing interpreter binaries. The order of entries does not matter. The following special strings are supported:
 
-- &quot;&lt;PATH&gt;&quot;, the contents of the PATH env var
-- &quot;&lt;PYENV&gt;&quot;, all Python versions under $(pyenv root)/versions
-- &quot;&lt;PYENV_LOCAL&gt;&quot;, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
-- &quot;&lt;PEXRC&gt;&quot;, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
+* &quot;&lt;PATH&gt;&quot;, the contents of the PATH env var
+* &quot;&lt;PYENV&gt;&quot;, all Python versions under $(pyenv root)/versions
+* &quot;&lt;PYENV_LOCAL&gt;&quot;, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
+* &quot;&lt;PEXRC&gt;&quot;, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
 
 </Option>
 
@@ -108,14 +107,11 @@ Support for the &#x27;pip-legacy-resolver&#x27; will be removed in Pants 2.5; so
 
 <Option
   cli_repr={`--python-setup-resolver-manylinux=<str>`}
-  env_repr="PANTS_PYTHON_SETUP_RESOLVER_MANYLINUX"
+  env_repr='PANTS_PYTHON_SETUP_RESOLVER_MANYLINUX'
   default_repr={`manylinux2014`}
 >
 
-Whether to allow resolution of manylinux wheels when resolving requirements
-for foreign linux platforms. The value should be a manylinux platform upper
-bound, e.g.: &#x27;manylinux2010&#x27;, or else the string &#x27;no&#x27; to
-disallow.
+Whether to allow resolution of manylinux wheels when resolving requirements for foreign linux platforms. The value should be a manylinux platform upper bound, e.g.: &#x27;manylinux2010&#x27;, or else the string &#x27;no&#x27; to disallow.
 
 </Option>
 
@@ -123,16 +119,11 @@ disallow.
 
 <Option
   cli_repr={`--python-setup-resolver-jobs=<int>`}
-  env_repr="PANTS_PYTHON_SETUP_RESOLVER_JOBS"
+  env_repr='PANTS_PYTHON_SETUP_RESOLVER_JOBS'
   default_repr={`32`}
 >
 
-The maximum number of concurrent jobs to build wheels with. Because Pants can
-run multiple subprocesses in parallel, the maximum total parallelism will be
-`--process-execution-{(local, remote)}-parallelism x
-  --python-setup-resolver-jobs`. Setting this option higher may result in better
-parallelism, but, if set too high, may result in starvation and Out of Memory
-errors.
+The maximum number of concurrent jobs to build wheels with. Because Pants can run multiple subprocesses in parallel, the maximum total parallelism will be `--process-execution-{local,remote}-parallelism x --python-setup-resolver-jobs`. Setting this option higher may result in better parallelism, but, if set too high, may result in starvation and Out of Memory errors.
 
 </Option>
 
@@ -142,10 +133,10 @@ errors.
 
 <Option
   cli_repr={`--python-setup-resolver-http-cache-ttl=<int>`}
-  env_repr="PANTS_PYTHON_SETUP_RESOLVER_HTTP_CACHE_TTL"
+  env_repr='PANTS_PYTHON_SETUP_RESOLVER_HTTP_CACHE_TTL'
   default_repr={`0`}
-  removal_version="2.4.0.dev1"
-  removal_hint={"Unused."}
+  removal_version='2.4.0.dev1'
+  removal_hint={'Unused.'}
 >
 
 Unused.

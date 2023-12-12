@@ -21,12 +21,11 @@ Config section: <span className="color--primary">`[protoc]`</span>
 
 <Option
   cli_repr={`--[no-]protoc-dependency-inference`}
-  env_repr="PANTS_PROTOC_DEPENDENCY_INFERENCE"
+  env_repr='PANTS_PROTOC_DEPENDENCY_INFERENCE'
   default_repr={`True`}
 >
 
-Infer Protobuf dependencies on other Protobuf files by analyzing import
-statements.
+Infer Protobuf dependencies on other Protobuf files by analyzing import statements.
 
 </Option>
 
@@ -36,7 +35,7 @@ statements.
 
 <Option
   cli_repr={`--protoc-version=<str>`}
-  env_repr="PANTS_PROTOC_VERSION"
+  env_repr='PANTS_PROTOC_VERSION'
   default_repr={`3.11.4`}
 >
 
@@ -52,10 +51,10 @@ Use this version of protoc.
   default_repr={`[\n  "3.11.4|linux_arm64 |f24c9fa1fc4a7770b8a5da66e515cb8a638d086ad2afa633abb97137c5f029a8|1481946",\n  "3.11.4|linux_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c8caecb1367bbbe409b45e28514f5be|1591191",\n  "3.11.4|macos_arm64 |8c6af11e1058efe953830ecb38324c0e0fd2fb67df3891896d138c535932e7db|2482119",\n  "3.11.4|macos_x86_64|8c6af11e1058efe953830ecb38324c0e0fd2fb67df3891896d138c535932e7db|2482119"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
-
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -79,6 +78,7 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   one_of='error, warning'
   default_repr={`error`}
 >
+
 
 What action to take in case the requested version of protoc is not supported.
 

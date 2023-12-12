@@ -77,9 +77,12 @@ Warning: setting this value risks naming collisions with other package targets y
 
 ## `main`
 
-<Field type_repr={`field.type_hint`}>
-  `.`-separated name of the JVM class containing the `main()` method to be
-  called when executing this JAR.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+`.`-separated name of the JVM class containing the `main()` method to be called when executing this JAR.
+
 </Field>
 
 ## `resolve`
@@ -95,5 +98,7 @@ If not defined, will default to `[jvm].default_resolve`.
 The name must be defined as a resolve in `[jvm].resolves`.
 
 </Field>
+
+
 
 </span>

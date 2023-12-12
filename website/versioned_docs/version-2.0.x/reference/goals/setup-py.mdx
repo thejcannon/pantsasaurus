@@ -25,12 +25,11 @@ Config section: <span className="color--primary">`[setup-py]`</span>
 
 <Option
   cli_repr={`--setup-py-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
-  env_repr="PANTS_SETUP_PY_ARGS"
+  env_repr='PANTS_SETUP_PY_ARGS'
   default_repr={`[]`}
 >
 
-Arguments to pass directly to setup.py, e.g. `--setup-py-args='bdist_wheel
-  --python-tag py36.py37'`. If unspecified, Pants will dump the setup.py chroot.
+Arguments to pass directly to setup.py, e.g. `--setup-py-args='bdist_wheel --python-tag py36.py37'`. If unspecified, Pants will dump the setup.py chroot.
 
 </Option>
 
@@ -38,12 +37,11 @@ Arguments to pass directly to setup.py, e.g. `--setup-py-args='bdist_wheel
 
 <Option
   cli_repr={`--[no-]setup-py-transitive`}
-  env_repr="PANTS_SETUP_PY_TRANSITIVE"
+  env_repr='PANTS_SETUP_PY_TRANSITIVE'
   default_repr={`False`}
 >
 
-If specified, will run the setup.py command recursively on all exported
-targets that the specified targets depend on, in dependency order.
+If specified, will run the setup.py command recursively on all exported targets that the specified targets depend on, in dependency order.
 
 </Option>
 

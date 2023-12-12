@@ -98,7 +98,6 @@ The `Dockerfile` content, typically one instruction per list item.
 Use the `source` field instead if you prefer having the Dockerfile in your project source tree.
 
 Example:
-
 ```
 # example/BUILD
 docker_image(
@@ -140,7 +139,6 @@ The address is a domain name with optional port for your registry, and any regis
 By default, all configured registries with `default = true` are used.
 
 Example:
-
 ```
 # pants.toml
 [docker.registries.my-registry-alias]
@@ -183,7 +181,6 @@ Secret files to expose to the build (only if BuildKit enabled).
 Secrets may use absolute paths, or paths relative to your project build root, or the BUILD file if prefixed with `./`. The id should be valid as used by the Docker build `--secret` option. See [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) for more information.
 
 Example:
-
 ```
 docker_image(
     secrets={
@@ -198,9 +195,13 @@ docker_image(
 
 ## `skip_push`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If set to true, do not push this image to registries when running `./pants
-  publish`.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If set to true, do not push this image to registries when running `./pants publish`.
+
 </Field>
 
 ## `target_stage`
@@ -219,15 +220,26 @@ Read more about [multi-stage Docker builds](https://docs.docker.com/develop/deve
 
 ## `restartable`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, runs of this target with the `run` goal may be interrupted and
-  restarted when its input files change.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
+
 </Field>
 
 ## `skip_hadolint`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run hadolint on this target&#x27;s Dockerfile.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run hadolint on this target&#x27;s Dockerfile.
+
 </Field>
+
+
 
 </span>

@@ -43,9 +43,13 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 
 ## `restartable`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, runs of this target with the `run` goal may be interrupted and
-  restarted when its input files change.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
+
 </Field>
 
 ## `output_path`
@@ -84,16 +88,22 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 ## `main`
 
-<Field type_repr={`field.type_hint`}>
-  `.`-separated name of the JVM class containing the `main()` method to be
-  called when executing this JAR.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+`.`-separated name of the JVM class containing the `main()` method to be called when executing this JAR.
+
 </Field>
 
 ## `jdk`
 
-<Field type_repr={`field.type_hint`}>
-  The major version of the JDK that this target should be built with. If not
-  defined, will default to `[jvm].default_source_jdk`.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+
 </Field>
 
 ## `resolve`
@@ -120,7 +130,6 @@ A list of the rules to apply when duplicate file entries are found in the final 
 When defining a duplicate policy, just add `duplicate_rule` directives to this field as follows:
 
 Example:
-
 ```
 duplicate_policy=[
     duplicate_rule(pattern="^META-INF/services", action="concat_text"),
@@ -131,8 +140,8 @@ duplicate_policy=[
 
 Where:
 
-- The `pattern` field is treated as a regular expression
-- The `action` field must be one of `['skip', 'replace', 'concat', 'concat_text', 'throw']`.
+* The `pattern` field is treated as a regular expression
+* The `action` field must be one of `['skip', 'replace', 'concat', 'concat_text', 'throw']`.
 
 Note that the order in which the rules are listed is relevant.
 
@@ -147,14 +156,15 @@ Note that the order in which the rules are listed is relevant.
 Shading rules to be applied to the final JAR artifact.
 
 There are 4 possible shading rules available, which are as follows:
-
-- `shading_relocate`: Relocates the classes under the given `package` into the new package name. The default target package is `__shaded_by_pants__` if none provided in the `into` parameter.
-- `shading_rename`: Renames all occurrences of the given `pattern` by the `replacement`.
-- `shading_zap`: Removes from the final artifact the occurrences of the `pattern`.
-- `shading_keep`: Keeps in the final artifact the occurrences of the `pattern` (and removes anything else).
+  * `shading_relocate`: Relocates the classes under the given `package` into the new package name. The default target package is `__shaded_by_pants__` if none provided in the `into` parameter.
+  * `shading_rename`: Renames all occurrences of the given `pattern` by the `replacement`.
+  * `shading_zap`: Removes from the final artifact the occurrences of the `pattern`.
+  * `shading_keep`: Keeps in the final artifact the occurrences of the `pattern` (and removes anything else).
 
 When defining shading rules, just add them in this field using the previously listed rule alias and passing along the required parameters.
 
 </Field>
+
+
 
 </span>

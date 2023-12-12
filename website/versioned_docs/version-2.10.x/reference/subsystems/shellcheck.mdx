@@ -21,7 +21,7 @@ Config section: <span className="color--primary">`[shellcheck]`</span>
 
 <Option
   cli_repr={`--[no-]shellcheck-skip`}
-  env_repr="PANTS_SHELLCHECK_SKIP"
+  env_repr='PANTS_SHELLCHECK_SKIP'
   default_repr={`False`}
 >
 
@@ -33,12 +33,11 @@ Don&#x27;t use Shellcheck when running `./pants lint`.
 
 <Option
   cli_repr={`--shellcheck-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr="PANTS_SHELLCHECK_ARGS"
+  env_repr='PANTS_SHELLCHECK_ARGS'
   default_repr={`[]`}
 >
 
-Arguments to pass directly to Shellcheck, e.g. `--shellcheck-args='-e
-  SC20529'`.&#x27;
+Arguments to pass directly to Shellcheck, e.g. `--shellcheck-args='-e SC20529'`.&#x27;
 
 </Option>
 
@@ -48,7 +47,7 @@ Arguments to pass directly to Shellcheck, e.g. `--shellcheck-args='-e
 
 <Option
   cli_repr={`--shellcheck-version=<str>`}
-  env_repr="PANTS_SHELLCHECK_VERSION"
+  env_repr='PANTS_SHELLCHECK_VERSION'
   default_repr={`v0.8.0`}
 >
 
@@ -64,20 +63,19 @@ Use this version of shellcheck.
   default_repr={`[\n  "v0.8.0|macos_arm64 |e065d4afb2620cc8c1d420a9b3e6243c84ff1a693c1ff0e38f279c8f31e86634|4049756",\n  "v0.8.0|macos_x86_64|e065d4afb2620cc8c1d420a9b3e6243c84ff1a693c1ff0e38f279c8f31e86634|4049756",\n  "v0.8.0|linux_arm64 |9f47bbff5624babfa712eb9d64ece14c6c46327122d0c54983f627ae3a30a4ac|2996468",\n  "v0.8.0|linux_x86_64|ab6ee1b178f014d1b86d1e24da20d1139656c8b0ed34d2867fbb834dad02bf0a|1403852"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
 
-- `version` is the version string
-- `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
-- `sha256` is the 64-character hex representation of the expected sha256
-
+  - `version` is the version string
+  - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
+  - `sha256` is the 64-character hex representation of the expected sha256
 ```
 digest of the download file, as emitted by `shasum -a 256`
 ```
 
-- `length` is the expected length of the download file in bytes, as emitted by
-
+  - `length` is the expected length of the download file in bytes, as emitted by
 ```
 `wc -c`
 ```
@@ -96,6 +94,7 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   one_of='error, warning'
   default_repr={`error`}
 >
+
 
 What action to take in case the requested version of shellcheck is not supported.
 
@@ -137,13 +136,11 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 
 <Option
   cli_repr={`--[no-]shellcheck-config-discovery`}
-  env_repr="PANTS_SHELLCHECK_CONFIG_DISCOVERY"
+  env_repr='PANTS_SHELLCHECK_CONFIG_DISCOVERY'
   default_repr={`True`}
 >
 
-If true, Pants will include all relevant `.shellcheckrc` and `shellcheckrc`
-files during runs. See https://www.mankier.com/1/shellcheck#RC_Files for where
-these can be located.
+If true, Pants will include all relevant `.shellcheckrc` and `shellcheckrc` files during runs. See https://www.mankier.com/1/shellcheck#RC_Files for where these can be located.
 
 </Option>
 

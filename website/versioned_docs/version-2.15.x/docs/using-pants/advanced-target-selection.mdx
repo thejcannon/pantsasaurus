@@ -7,13 +7,14 @@ Alternative techniques to tell Pants which files/targets to run on.
 
 ---
 
-See [Goal arguments](./key-concepts/goals.mdx#goal-arguments) for the normal techniques for telling Pants what to
-run on.
+See [Goal arguments](doc:goals#goal-arguments) for the normal techniques for telling Pants what to
+run on. 
 
-See [Project introspection](./project-introspection.mdx) for queries that you can run and then pipe
+See [Project introspection](doc:project-introspection) for queries that you can run and then pipe
 into another Pants run, such as finding the dependencies of a target or file.
 
-## Running over changed files with `--changed-since`
+Running over changed files with `--changed-since`
+-------------------------------------------------
 
 Because Pants understands Git, it can find which files have changed since a certain commit through the `--changed-since` option.
 
@@ -29,7 +30,7 @@ To run against another branch, run:
 pants --changed-since=origin/main lint
 ```
 
-By default, `--changed-since` will only run over files directly changed. Often, though, you will want to run over any [dependees](./project-introspection.mdx) of those changed files, meaning any targets that depend on the changed files. Use ` --changed-dependees=direct` or ` --changed-dependees=transitive` for this:
+By default, `--changed-since` will only run over files directly changed. Often, though, you will want to run over any [dependees](doc:project-introspection) of those changed files, meaning any targets that depend on the changed files. Use ` --changed-dependees=direct` or ` --changed-dependees=transitive` for this:
 
 ```bash
 ❯ pants \
@@ -38,7 +39,8 @@ By default, `--changed-since` will only run over files directly changed. Often, 
   test
 ```
 
-## `filter` options
+`filter` options
+----------------
 
 Use filters to operate on only targets that match the predicate, e.g. only running Python tests.
 
@@ -80,17 +82,18 @@ Regex strings for the address, such as
 
 ### `--filter-tag-regex`
 
-Regex strings to match against the `tags` field, such as
+Regex strings to match against the `tags` field, such as 
 `pants --filter-tag-regex='^skip_lint$' lint ::`.
 
 If you don't need the power of regex, use the simpler `--tag` global option explained below.
 
-## Tags: annotating targets
+Tags: annotating targets
+------------------------
 
 Every target type has a field called `tags`, which allows you to add a sequence of strings. The
 strings can be whatever you'd like, such as `"integration_test"`.
 
-```python title="BUILD"
+```python BUILD
 python_tests(
     name="integration",
     sources=["*_integration_test.py"],
@@ -98,7 +101,7 @@ python_tests(
 )
 ```
 
-You can then filter by tags with the global `--tag` [option](reference:reference-global#section-tag), like this:
+You can then filter by tags with the global `--tag` [option](doc:reference-global#section-tag), like this:
 
 ```bash
 pants --tag=integration_test list ::
@@ -118,7 +121,8 @@ pants --tag='+type_checked,skip_lint' --tag='-integration_test' list ::
 
 Use `--filter-tag-regex` instead for more complex queries.
 
-## `--spec-files`
+`--spec-files`
+--------------
 
 The global option `--spec-files` allows you to pass a file containing target addresses and/or file names/globs to Pants.
 
@@ -126,23 +130,21 @@ Each entry must be separated by a new line.
 
 For example:
 
-```text title="Shell"
+```text Shell
 $ pants --spec-files=targets.txt list
 ```
-
-```text title="targets.txt"
+```text targets.txt
 helloworld/lang/*.py
 helloworld/util
 helloworld/util:tests
 ```
 
-:::note Tip: centralized allow/block lists
+> 📘 Tip: centralized allow/block lists
+> 
+> Whereas `tags` are useful for _decentralized_ allow/block lists, `--spec-files` is useful when you want to define one single list of targets or files.
 
-    Whereas `tags` are useful for _decentralized_ allow/block lists, `--spec-files` is useful when you want to define one single list of targets or files.
-
-:::
-
-## Piping to other Pants runs
+Piping to other Pants runs
+--------------------------
 
 To pipe a Pants run, use your shell's `|` pipe operator and `xargs`:
 
@@ -159,27 +161,26 @@ You can, of course, pipe multiple times:
    xargs pants lint
 ```
 
-:::note Alternative: use `--spec-files`
+> 📘 Alternative: use `--spec-files`
+> 
+> Sometimes, you may want to reuse the output of a Pants run for multiple subsequent Pants runs. Rather than repeating `xargs` multiple times, you can generate a file through stdout redirection and `--spec-files`.
+> 
+> For example:
+> 
+> ```bash
+> $ pants dependencies helloworld/util > util_dependencies.txt
+> $ pants --spec-files=util_dependencies.txt lint
+> ```
+> 
+> If you don't want to save the output to an actual file—such as to not pollute version control—you can use a variable and a named pipe:
+> 
+> ```bash
+> $ TARGETS=$(pants dependencies helloworld/util)
+> $ pants --spec-files=<(echo $TARGETS) lint
+> ```
 
-    Sometimes, you may want to reuse the output of a Pants run for multiple subsequent Pants runs. Rather than repeating `xargs` multiple times, you can generate a file through stdout redirection and `--spec-files`.
-
-    For example:
-
-    ```bash
-    $ pants dependencies helloworld/util > util_dependencies.txt
-    $ pants --spec-files=util_dependencies.txt lint
-    ```
-
-    If you don't want to save the output to an actual file—such as to not pollute version control—you can use a variable and a named pipe:
-
-    ```bash
-    $ TARGETS=$(pants dependencies helloworld/util)
-    $ pants --spec-files=<(echo $TARGETS) lint
-    ```
-
-:::
-
-## Sharding the input targets
+Sharding the input targets
+--------------------------
 
 The `test` goal natively supports sharding input targets into multiple shards. Use the option `--test-shard=k/N`, where k is a non-negative integer less than N. For example, you can split up your CI into three shards with `--shard=0/3`, `--shard=1/3`, and `--shard=2/3`.
 
@@ -188,4 +189,3 @@ For other goals, you can leverage shell piping to partition the input targets in
 ```bash
 pants list :: | awk 'NR % 5 == 0' | xargs pants package
 ```
-

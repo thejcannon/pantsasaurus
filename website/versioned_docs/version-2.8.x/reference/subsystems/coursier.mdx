@@ -16,7 +16,6 @@ Config section: <span className="color--primary">`[coursier]`</span>
 <span className={styles.options}>
 
 ## Basic options
-
 None
 
 ## Advanced options
@@ -25,7 +24,7 @@ None
 
 <Option
   cli_repr={`--coursier-version=<str>`}
-  env_repr="PANTS_COURSIER_VERSION"
+  env_repr='PANTS_COURSIER_VERSION'
   default_repr={`v2.0.13`}
 >
 
@@ -41,20 +40,19 @@ Use this version of coursier.
   default_repr={`[\n  "v2.0.13|linux_arm64 |8d428bede2d9d0e48ffad8360d49de48bd0c2c3b0e54e82e3a7665019b65e4d0|58622664",\n  "v2.0.13|linux_x86_64|1ae089789cc4b0a4d296d6852b760d7f8bf72805267a6b7571e99b681d5e13b4|59652208",\n  "v2.0.13|macos_arm64 |d74b8fe4ffc2f4e9011d7151722fc8b5ffca8a72b3bc4188c61df3326228c4ef|57625024",\n  "v2.0.13|macos_x86_64|d74b8fe4ffc2f4e9011d7151722fc8b5ffca8a72b3bc4188c61df3326228c4ef|57625024"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
 
-- `version` is the version string
-- `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
-- `sha256` is the 64-character hex representation of the expected sha256
-
+  - `version` is the version string
+  - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
+  - `sha256` is the 64-character hex representation of the expected sha256
 ```
 digest of the download file, as emitted by `shasum -a 256`
 ```
 
-- `length` is the expected length of the download file in bytes, as emmitted by
-
+  - `length` is the expected length of the download file in bytes, as emmitted by
 ```
 `wc -c`
 ```
@@ -73,6 +71,7 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   one_of='error, warning'
   default_repr={`error`}
 >
+
 
 What action to take in case the requested version of coursier is not supported.
 

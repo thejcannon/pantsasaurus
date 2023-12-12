@@ -21,14 +21,11 @@ Config section: <span className="color--primary">`[python-protobuf.mypy-plugin]`
 
 <Option
   cli_repr={`--python-protobuf-mypy-plugin-runtime-dependencies="[<target_option>, <target_option>, ...]"`}
-  env_repr="PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_RUNTIME_DEPENDENCIES"
+  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_RUNTIME_DEPENDENCIES'
   default_repr={`[]`}
 >
 
-A list of addresses to `python_requirement_library` targets for the runtime
-dependencies needed for generated Python code to work. For example,
-`['3rdparty/python:protobuf', '3rdparty/python:grpcio']`. These dependencies
-will be automatically added to every `protobuf_library` target
+A list of addresses to `python_requirement_library` targets for the runtime dependencies needed for generated Python code to work. For example, `['3rdparty/python:protobuf', '3rdparty/python:grpcio']`. These dependencies will be automatically added to every `protobuf_library` target
 
 </Option>
 
@@ -36,12 +33,11 @@ will be automatically added to every `protobuf_library` target
 
 <Option
   cli_repr={`--[no-]python-protobuf-mypy-plugin-mypy-plugin`}
-  env_repr="PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_MYPY_PLUGIN"
+  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_MYPY_PLUGIN'
   default_repr={`False`}
 >
 
-Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to
-also generate .pyi type stubs.
+Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to also generate .pyi type stubs.
 
 </Option>
 
@@ -51,7 +47,7 @@ also generate .pyi type stubs.
 
 <Option
   cli_repr={`--python-protobuf-mypy-plugin-version=<str>`}
-  env_repr="PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_VERSION"
+  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_VERSION'
   default_repr={`mypy-protobuf==2.4`}
 >
 
@@ -63,13 +59,11 @@ Requirement string for the tool.
 
 <Option
   cli_repr={`--python-protobuf-mypy-plugin-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_EXTRA_REQUIREMENTS"
+  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_EXTRA_REQUIREMENTS'
   default_repr={`[]`}
 >
 
-Any additional requirement strings to use with the tool. This is useful if the
-tool allows you to install plugins or if you need to constrain a dependency to
-a certain version.
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
 
 </Option>
 
@@ -77,7 +71,7 @@ a certain version.
 
 <Option
   cli_repr={`--python-protobuf-mypy-plugin-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_INTERPRETER_CONSTRAINTS"
+  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_INTERPRETER_CONSTRAINTS'
   default_repr={`["CPython>=3.6"]`}
 >
 

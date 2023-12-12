@@ -80,6 +80,7 @@ The resolve from `[jvm].resolves` to use when compiling this target.
 
 If not defined, will default to `[jvm].default_resolve`.
 
+
 </Field>
 
 ## `experimental_provides_types`
@@ -98,9 +99,12 @@ If a given type is defined, at least one source file captured by this target mus
 
 ## `jdk`
 
-<Field type_repr={`field.type_hint`}>
-  The major version of the JDK that this target should be built with. If not
-  defined, will default to `[jvm].default_source_jdk`.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+
 </Field>
 
 ## `source`
@@ -115,5 +119,7 @@ A single file that belongs to this target.
 Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 </Field>
+
+
 
 </span>

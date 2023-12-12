@@ -51,7 +51,7 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 
 The Python interpreters this code is compatible with.
 
-Each element should be written in pip-style format, e.g. &#x27;CPython==2.7.\*&#x27; or &#x27;CPython&gt;=3.6,&lt;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&gt;=2.7&#x27; will be expanded to &#x27;CPython&gt;=2.7&#x27;.
+Each element should be written in pip-style format, e.g. &#x27;CPython==2.7.*&#x27; or &#x27;CPython&gt;=3.6,&lt;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&gt;=2.7&#x27; will be expanded to &#x27;CPython&gt;=2.7&#x27;.
 
 Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
 
@@ -115,5 +115,7 @@ A timeout (in seconds) which covers the total runtime of all tests in this targe
 This only applies if the option `--pytest-timeouts` is set to True.
 
 </Field>
+
+
 
 </span>

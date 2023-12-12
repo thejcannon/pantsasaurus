@@ -3,17 +3,16 @@
     position: 1
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
-
 How to create a Field, including the available templates.
 
 ---
 
 Before creating a new target type, the first step is to create all of the target type's fields.
-
-## Defining a Field
-
+[block:api-header]
+{
+"title": "Defining a Field"
+}
+[/block]
 To define a new field:
 
 1. Subclass one of the below field templates, like `IntField` or `BoolField`; or, subclass a pre-existing field, like `Sources`.
@@ -47,20 +46,19 @@ If you set `required = True`, the `default` value will be ignored.
 ### FYI: Pants uses the Docstring to generate docs
 
 When you run `./pants help my_target`, Pants will use your field definition to generate the output. It will look at the class's docstring, the field template used, and whether `required = True`.
+[block:callout]
+{
+"type": "info",
+"title": "Reminder: subclass pre-existing fields to modify their behavior",
+"body": "If you want to change how a pre-existing field behaves, you should subclass the original field. For example, if you want to change a default value, subclass the original field.\n\nSee [Concepts](doc:target-api-concepts) for how subclassing plays a key role in the Target API."
+}
+[/block]
 
-:::note Reminder: subclass pre-existing fields to modify their behavior
-
-```
-If you want to change how a pre-existing field behaves, you should subclass the original field. For example, if you want to change a default value, subclass the original field.
-
-See [Concepts](./concepts.mdx) for how subclassing plays a key role in the Target API.
-
-```
-
-:::
-
-## Adding custom validation
-
+[block:api-header]
+{
+"title": "Adding custom validation"
+}
+[/block]
 The field templates will validate that users are using the correct _types_, like ints or strings. But you may want to add additional validation, such as banning certain values.
 
 To do this, override the classmethod `compute_value`:
@@ -85,9 +83,11 @@ class UploadTimeout(IntField):
 ```
 
 Be careful to use the same type hint for the parameter `raw_value` as used in the template. This is used to generate the documentation in `./pants help my_target`.
-
-## Available templates
-
+[block:api-header]
+{
+"title": "Available templates"
+}
+[/block]
 All templates are defined in `pants.engine.target`.
 
 ### `BoolField`
@@ -107,41 +107,17 @@ Use this when you expect a float. This will reject integers.
 ### `StringField`
 
 Use this when you expect a single string.
-
-:::note `StringField` can be like an enum
-
-````
-You can set the class property `valid_choices` to limit what strings are acceptable. This class property can either be a tuple of strings or an `enum.Enum`.
-
-For example:
-
-```python
-class LeafyGreensField(StringField):
-    alias = "leafy_greens"
-    valid_choices = ("kale", "spinach", "chard")
-````
-
-or:
-
-```python
-class LeafyGreens(Enum):
-    KALE = "kale"
-    SPINACH = "spinach"
-    CHARD = "chard"
-
-class LeafyGreensField(StringField):
-    alias = "leafy_greens"
-    valid_choices = LeafyGreens
-```
-
-````
-
-:::
-
+[block:callout]
+{
+"type": "info",
+"title": "`StringField` can be like an enum",
+"body": "You can set the class property `valid_choices` to limit what strings are acceptable. This class property can either be a tuple of strings or an `enum.Enum`. \n\nFor example:\n\n`python\nclass LeafyGreensField(StringField):\n    alias = \"leafy_greens\"\n    valid_choices = (\"kale\", \"spinach\", \"chard\")\n`\n\nor:\n\n`python\nclass LeafyGreens(Enum):\n    KALE = \"kale\"\n    SPINACH = \"spinach\"\n    CHARD = \"chard\"\n\nclass LeafyGreensField(StringField):\n    alias = \"leafy_greens\"\n    valid_choices = LeafyGreens\n`"
+}
+[/block]
 
 ### `ScalarField` (advanced)
 
-Use this when you expect a single value, but it is a non-primitive type. For example, use this with any [`objects`](../macros.mdx) you defined.
+Use this when you expect a single value, but it is a non-primitive type. For example, use this with any [`objects`](doc:macros) you defined.
 
 You must set the class properties `expected_type` and `expected_type_description`. You should also change the type signature of the classmethod `compute_value` so that Pants can show the correct types when running `./pants help $target_type`.
 
@@ -158,7 +134,7 @@ class DemoScalarField(ScalarField):
         raw_value: Optional[MyObject], *, address: Address
     ) -> Optional[MyObject]:
         return super().compute_value(raw_value, address=address)
-````
+```
 
 ### `StringSequenceField`
 
@@ -233,71 +209,28 @@ class VersionField(PrimitiveField):
        return value_or_default
 ```
 
-:::tip Asking for help
+[block:callout]
+{
+"type": "success",
+"title": "Asking for help",
+"body": "Have a tricky field you're trying to write? We would love to help! See [Getting Help](doc:community)."
+}
+[/block]
 
-```
-Have a tricky field you're trying to write? We would love to help! See [Getting Help](../../../community/members).
+[block:api-header]
+{
+"title": "Examples"
+}
+[/block]
 
-```
-
-:::
-
-## Examples
-
-```python title="plugins/target_types.py"
-from typing import Optional
-
-from pants.engine.target import (
-    BoolField,
-    IntField,
-    InvalidFieldException,
-    Sources,
-    StringField
-)
-
-
-class FortranVersion(StringField):
-    """Which version of Fortran should this use?"""
-
-    alias = "fortran_version"
-    required = True
-    valid_choices = ("f95", "f98")
-
-
-class CompressToggle(BoolField):
-    """Whether to compress the generated file."""
-
-    alias = "compress"
-    default = False
-
-
-class UploadTimeout(IntField):
-    """How long to upload (in seconds) before timing out.
-
-    This must be between 10 and 300 seconds.
-    """
-
-    alias = "upload_timeout"
-    default = 100
-
-    @classmethod
-    def compute_value(
-        cls, raw_value: Optional[int], *, address: Address
-    ) -> int:
-      value_or_default = super().compute_value(raw_value, address=address)
-      if value_or_default < 10 or value_or_default > 300:
-          raise InvalidFieldException(
-              f"The {repr(cls.alias)} field in target {address} must "
-              f"be between 10 and 300, but was {value_or_default}."
-          )
-      return value_or_default
-
-
-# Example of subclassing a pre-existing field.
-# We don't need to define `alias = sources` because the
-# parent class does this already.
-class FortranSources(Sources):
-    default = ("*.f95",)
-```
-
-
+[block:code]
+{
+"codes": [
+{
+"code": "from typing import Optional\n\nfrom pants.engine.target import (\n BoolField,\n IntField,\n InvalidFieldException,\n Sources,\n StringField\n)\n\n\nclass FortranVersion(StringField):\n \"\"\"Which version of Fortran should this use?\"\"\"\n \n alias = \"fortran_version\"\n required = True\n valid_choices = (\"f95\", \"f98\")\n\n \nclass CompressToggle(BoolField):\n \"\"\"Whether to compress the generated file.\"\"\"\n\n alias = \"compress\"\n default = False\n\n\nclass UploadTimeout(IntField):\n \"\"\"How long to upload (in seconds) before timing out.\n \n This must be between 10 and 300 seconds.\n \"\"\"\n \n alias = \"upload_timeout\"\n default = 100\n \n @classmethod\n def compute_value(\n cls, raw_value: Optional[int], _, address: Address\n ) -> int:\n value_or_default = super().compute_value(raw_value, address=address)\n if value_or_default < 10 or value_or_default > 300:\n raise InvalidFieldException(\n f\"The {repr(cls.alias)} field in target {address} must \"\n f\"be between 10 and 300, but was {value_or_default}.\"\n )\n return value_or_default\n\n\n# Example of subclassing a pre-existing field. \n# We don't need to define `alias = sources` because the \n# parent class does this already.\nclass FortranSources(Sources):\n default = (\"_.f95\",)",
+"language": "python",
+"name": "plugins/target_types.py"
+}
+]
+}
+[/block]

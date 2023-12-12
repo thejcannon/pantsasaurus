@@ -10,7 +10,6 @@ import styles from "@site/src/components/reference/styles.module.css";
 Execute any external tool for its side effects.
 
 Example BUILD file:
-
 ```
 shell_command(
     command="./my-script.sh --flag",
@@ -115,8 +114,13 @@ The command is executed as &#x27;bash -c &lt;command&gt;&#x27; by default. If yo
 
 ## `log_output`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  Set to true if you want the output logged to the console.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+Set to true if you want the output logged to the console.
+
 </Field>
 
 ## `output_files`
@@ -151,8 +155,13 @@ Relative paths (including `..`) may be used, as long as the path does not ascend
 
 ## `timeout`
 
-<Field type_repr={`field.type_hint`} default_repr={`30`}>
-  Command execution timeout (in seconds).
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`30`}
+>
+
+Command execution timeout (in seconds).
+
 </Field>
 
 ## `tools`
@@ -191,10 +200,10 @@ Sets the working directory for the process.
 
 Values are relative to the build root, except in the following cases:
 
-- `.` specifies the location of the `BUILD` file.
-- Values beginning with `./` are relative to the location of the `BUILD` file.
-- `/` or the empty string specifies the build root.
-- Values beginning with `/` are also relative to the build root.
+* `.` specifies the location of the `BUILD` file.
+* Values beginning with `./` are relative to the location of the `BUILD` file.
+* `/` or the empty string specifies the build root.
+* Values beginning with `/` are also relative to the build root.
 
 </Field>
 
@@ -206,7 +215,6 @@ Values are relative to the build root, except in the following cases:
 >
 
 Adjusts the location of files output by this target, when consumed as a dependency.
-
 ```
     Values are relative to the build root, except in the following cases:
 
@@ -214,7 +222,6 @@ Adjusts the location of files output by this target, when consumed as a dependen
     * Values beginning with `./` are relative to the location of the `BUILD` file.
     * `/` or the empty string specifies the build root.
     * Values beginning with `/` are also relative to the build root.
-
 ```
 
 </Field>
@@ -234,5 +241,6 @@ You can specify multiple valid environments by using `parametrize`. If `__local_
 
 </Field>
 
+
+
 </span>
-```

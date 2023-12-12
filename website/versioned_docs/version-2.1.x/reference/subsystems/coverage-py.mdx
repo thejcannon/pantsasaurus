@@ -21,17 +21,11 @@ Config section: <span className="color--primary">`[coverage-py]`</span>
 
 <Option
   cli_repr={`--coverage-py-filter="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_COVERAGE_PY_FILTER"
+  env_repr='PANTS_COVERAGE_PY_FILTER'
   default_repr={`[]`}
 >
 
-A list of Python modules to use in the coverage report, e.g.
-`['helloworld_test', 'helloworld.util.dirutil']. The modules are recursive:
-  any submodules will be included. If you leave this off, the coverage report
-  will include every file in the transitive closure of the address/file
-  arguments; for example, `test ::`will include every Python file in your
-  project, whereas`test project/app_test.py`will include`app_test.py` and any
-of its transitive dependencies.
+A list of Python modules to use in the coverage report, e.g. `['helloworld_test', 'helloworld.util.dirutil']. The modules are recursive: any submodules will be included. If you leave this off, the coverage report will include every file in the transitive closure of the address/file arguments; for example, `test ::` will include every Python file in your project, whereas `test project/app_test.py` will include `app_test.py` and any of its transitive dependencies.
 
 </Option>
 
@@ -39,8 +33,8 @@ of its transitive dependencies.
 
 <Option
   cli_repr={`--coverage-py-report="[<CoverageReportType>, <CoverageReportType>, ...]"`}
-  env_repr="PANTS_COVERAGE_PY_REPORT"
-  one_of="console, xml, html, raw, json"
+  env_repr='PANTS_COVERAGE_PY_REPORT'
+  one_of='console, xml, html, raw, json'
   default_repr={`["console"]`}
 >
 
@@ -54,7 +48,7 @@ Which coverage report type(s) to emit.
 
 <Option
   cli_repr={`--coverage-py-version=<str>`}
-  env_repr="PANTS_COVERAGE_PY_VERSION"
+  env_repr='PANTS_COVERAGE_PY_VERSION'
   default_repr={`coverage>=5.0.3,<5.1`}
 >
 
@@ -66,13 +60,11 @@ Requirement string for the tool.
 
 <Option
   cli_repr={`--coverage-py-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_COVERAGE_PY_EXTRA_REQUIREMENTS"
+  env_repr='PANTS_COVERAGE_PY_EXTRA_REQUIREMENTS'
   default_repr={`[]`}
 >
 
-Any additional requirement strings to use with the tool. This is useful if the
-tool allows you to install plugins or if you need to constrain a dependency to
-a certain version.
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
 
 </Option>
 
@@ -80,12 +72,11 @@ a certain version.
 
 <Option
   cli_repr={`--coverage-py-entry-point=<str>`}
-  env_repr="PANTS_COVERAGE_PY_ENTRY_POINT"
+  env_repr='PANTS_COVERAGE_PY_ENTRY_POINT'
   default_repr={`coverage`}
 >
 
-The main module for the tool. Usually, you will not want to change this from
-the default.
+The main module for the tool. Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -93,7 +84,7 @@ the default.
 
 <Option
   cli_repr={`--coverage-py-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_COVERAGE_PY_INTERPRETER_CONSTRAINTS"
+  env_repr='PANTS_COVERAGE_PY_INTERPRETER_CONSTRAINTS'
   default_repr={`["CPython>=3.6"]`}
 >
 
@@ -105,7 +96,7 @@ Python interpreter constraints for this tool.
 
 <Option
   cli_repr={`--coverage-py-output-dir=<str>`}
-  env_repr="PANTS_COVERAGE_PY_OUTPUT_DIR"
+  env_repr='PANTS_COVERAGE_PY_OUTPUT_DIR'
   default_repr={`dist/coverage/python`}
 >
 
@@ -117,7 +108,7 @@ Path to write the Pytest Coverage report to. Must be relative to build root.
 
 <Option
   cli_repr={`--coverage-py-config=<file_option>`}
-  env_repr="PANTS_COVERAGE_PY_CONFIG"
+  env_repr='PANTS_COVERAGE_PY_CONFIG'
   default_repr={`None`}
 >
 

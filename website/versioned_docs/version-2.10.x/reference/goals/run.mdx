@@ -29,12 +29,11 @@ Config section: <span className="color--primary">`[run]`</span>
 
 <Option
   cli_repr={`--run-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
-  env_repr="PANTS_RUN_ARGS"
+  env_repr='PANTS_RUN_ARGS'
   default_repr={`[]`}
 >
 
-Arguments to pass directly to the executed target, e.g. `--run-args="val1 val2
-  --debug"`
+Arguments to pass directly to the executed target, e.g. `--run-args="val1 val2 --debug"`
 
 </Option>
 
@@ -42,12 +41,11 @@ Arguments to pass directly to the executed target, e.g. `--run-args="val1 val2
 
 <Option
   cli_repr={`--[no-]run-cleanup`}
-  env_repr="PANTS_RUN_CLEANUP"
+  env_repr='PANTS_RUN_CLEANUP'
   default_repr={`True`}
 >
 
-Whether to clean up the temporary directory in which the binary is chrooted.
-Set to false to retain the directory, e.g., for debugging.
+Whether to clean up the temporary directory in which the binary is chrooted. Set to false to retain the directory, e.g., for debugging.
 
 </Option>
 

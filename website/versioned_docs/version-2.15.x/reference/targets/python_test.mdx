@@ -136,7 +136,6 @@ If this field is left unset on a target, the target is assumed to be incompatibl
 If this field is set on a target, and its value is different from the value on some other `python_test`, then the two targets are explicitly incompatible and are guaranteed to not run in the same `pytest` process.
 
 If this field is set on a target, and its value is the same as the value on some other `python_test`, then the two targets are explicitly compatible and _may_ run in the same `pytest` process. Compatible tests may not end up in the same `pytest` batch if:
-
 ```
 * There are "too many" compatible tests in a partition, as determined by the `[test].batch_size` config parameter, or
 * Compatible tests have some incompatibility in Pants metadata (i.e. different `resolve`s or `extra_env_vars`).
@@ -194,8 +193,13 @@ See https://www.pantsbuild.org/v2.15/docs/python-interpreter-compatibility for h
 
 ## `skip_tests`
 
-<Field type_repr={`field.type_hint`} default_repr={`False`}>
-  If true, don&#x27;t run this target&#x27;s tests.
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run this target&#x27;s tests.
+
 </Field>
 
 ## `environment`
@@ -228,9 +232,9 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 ## `skip_add_trailing_comma`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.experimental.python.lint.add_trailing_comma"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.lint.add_trailing_comma"
 >
 
 If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
@@ -240,9 +244,9 @@ If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
 ## `skip_pyupgrade`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.experimental.python.lint.pyupgrade"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.lint.pyupgrade"
 >
 
 If true, don&#x27;t run pyupgrade on this target&#x27;s code.
@@ -252,9 +256,9 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 ## `skip_docformatter`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.docformatter"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.docformatter"
 >
 
 If true, don&#x27;t run Docformatter on this target&#x27;s code.
@@ -264,9 +268,9 @@ If true, don&#x27;t run Docformatter on this target&#x27;s code.
 ## `skip_flake8`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.flake8"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.flake8"
 >
 
 If true, don&#x27;t run Flake8 on this target&#x27;s code.
@@ -276,9 +280,9 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 ## `skip_autoflake`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.experimental.python.lint.autoflake"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.lint.autoflake"
 >
 
 If true, don&#x27;t run Autoflake on this target&#x27;s code.
@@ -288,9 +292,9 @@ If true, don&#x27;t run Autoflake on this target&#x27;s code.
 ## `skip_pylint`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.pylint"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.pylint"
 >
 
 If true, don&#x27;t run Pylint on this target&#x27;s code.
@@ -300,9 +304,9 @@ If true, don&#x27;t run Pylint on this target&#x27;s code.
 ## `skip_black`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.black"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.black"
 >
 
 If true, don&#x27;t run Black on this target&#x27;s code.
@@ -312,9 +316,9 @@ If true, don&#x27;t run Black on this target&#x27;s code.
 ## `skip_bandit`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.bandit"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.bandit"
 >
 
 If true, don&#x27;t run Bandit on this target&#x27;s code.
@@ -324,9 +328,9 @@ If true, don&#x27;t run Bandit on this target&#x27;s code.
 ## `skip_yapf`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.yapf"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.yapf"
 >
 
 If true, don&#x27;t run yapf on this target&#x27;s code.
@@ -336,9 +340,9 @@ If true, don&#x27;t run yapf on this target&#x27;s code.
 ## `skip_isort`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.lint.isort"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.isort"
 >
 
 If true, don&#x27;t run isort on this target&#x27;s code.
@@ -348,13 +352,15 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 ## `skip_mypy`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.python.typecheck.mypy"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.typecheck.mypy"
 >
 
 If true, don&#x27;t run MyPy on this target&#x27;s code.
 
 </Field>
+
+
 
 </span>

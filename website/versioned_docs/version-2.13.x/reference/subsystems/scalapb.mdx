@@ -37,12 +37,11 @@ For example, to invoke the fs2-grpc protoc plugin, the following option would wo
 
 <Option
   cli_repr={`--scalapb-version=<str>`}
-  env_repr="PANTS_SCALAPB_VERSION"
+  env_repr='PANTS_SCALAPB_VERSION'
   default_repr={`0.11.6`}
 >
 
-Version string for the tool. This is available for substitution in the
-`[scalapb].artifacts` option by including the string `{version}`.
+Version string for the tool. This is available for substitution in the `[scalapb].artifacts` option by including the string `{version}`.
 
 </Option>
 
@@ -50,15 +49,11 @@ Version string for the tool. This is available for substitution in the
 
 <Option
   cli_repr={`--scalapb-artifacts="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_SCALAPB_ARTIFACTS"
+  env_repr='PANTS_SCALAPB_ARTIFACTS'
   default_repr={`["com.thesamet.scalapb:scalapbc_2.13:{version}"]`}
 >
 
-Artifact requirements for this tool using specified as either the address of a
-`jvm_artifact` target or, alternatively, as a colon-separated Maven
-coordinates (e.g., group:name:version). For Maven coordinates, the string `
-  {version}` version will be substituted with the value of the
-`[scalapb].version` option.
+Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., group:name:version). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[scalapb].version` option.
 
 </Option>
 

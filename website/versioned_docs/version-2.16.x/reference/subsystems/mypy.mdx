@@ -21,7 +21,7 @@ Config section: <span className="color--primary">`[mypy]`</span>
 
 <Option
   cli_repr={`--[no-]mypy-skip`}
-  env_repr="PANTS_MYPY_SKIP"
+  env_repr='PANTS_MYPY_SKIP'
   default_repr={`False`}
 >
 
@@ -33,12 +33,11 @@ If true, don&#x27;t use MyPy when running `scie-pants-linux-x86_64 check`.
 
 <Option
   cli_repr={`--mypy-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr="PANTS_MYPY_ARGS"
+  env_repr='PANTS_MYPY_ARGS'
   default_repr={`[]`}
 >
 
-Arguments to pass directly to MyPy, e.g. `--mypy-args='--python-version 3.7
-  --disallow-any-expr'`.
+Arguments to pass directly to MyPy, e.g. `--mypy-args='--python-version 3.7 --disallow-any-expr'`.
 
 </Option>
 
@@ -86,7 +85,7 @@ If unspecified, install the entire lockfile.
 
 <Option
   cli_repr={`--mypy-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_MYPY_INTERPRETER_CONSTRAINTS"
+  env_repr='PANTS_MYPY_INTERPRETER_CONSTRAINTS'
   default_repr={`["CPython>=3.7,<4"]`}
 >
 
@@ -98,14 +97,11 @@ Python interpreter constraints for this tool.
 
 <Option
   cli_repr={`--mypy-console-script=<str>`}
-  env_repr="PANTS_MYPY_CONSOLE_SCRIPT"
+  env_repr='PANTS_MYPY_CONSOLE_SCRIPT'
   default_repr={`mypy`}
 >
 
-The console script for the tool. Using this option is generally preferable to
-(and mutually exclusive with) specifying an --entry-point since console script
-names have a higher expectation of staying stable across releases of the tool.
-Usually, you will not want to change this from the default.
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -113,13 +109,11 @@ Usually, you will not want to change this from the default.
 
 <Option
   cli_repr={`--mypy-entry-point=<str>`}
-  env_repr="PANTS_MYPY_ENTRY_POINT"
+  env_repr='PANTS_MYPY_ENTRY_POINT'
   default_repr={`None`}
 >
 
-The entry point for the tool. Generally you only want to use this option if
-the tool does not offer a --console-script (which this option is mutually
-exclusive with). Usually, you will not want to change this from the default.
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -173,12 +167,10 @@ To instead load third-party plugins, set the option `[mypy].extra_requirements` 
 
 <Option
   cli_repr={`--mypy-version=<str>`}
-  env_repr="PANTS_MYPY_VERSION"
+  env_repr='PANTS_MYPY_VERSION'
   default_repr={`mypy==1.1.1`}
-  removal_version="2.18.0.dev1"
-  removal_hint={
-    "Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles."
-  }
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
 >
 
 Requirement string for the tool.
@@ -189,17 +181,13 @@ Requirement string for the tool.
 
 <Option
   cli_repr={`--mypy-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr="PANTS_MYPY_EXTRA_REQUIREMENTS"
+  env_repr='PANTS_MYPY_EXTRA_REQUIREMENTS'
   default_repr={`[]`}
-  removal_version="2.18.0.dev1"
-  removal_hint={
-    "Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles."
-  }
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
 >
 
-Any additional requirement strings to use with the tool. This is useful if the
-tool allows you to install plugins or if you need to constrain a dependency to
-a certain version.
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
 
 </Option>
 

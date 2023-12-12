@@ -21,12 +21,11 @@ Config section: <span className="color--primary">`[shfmt]`</span>
 
 <Option
   cli_repr={`--[no-]shfmt-skip`}
-  env_repr="PANTS_SHFMT_SKIP"
+  env_repr='PANTS_SHFMT_SKIP'
   default_repr={`False`}
 >
 
-If true, don&#x27;t use shfmt when running `scie-pants-linux-x86_64 fmt` and
-`scie-pants-linux-x86_64 lint`.
+If true, don&#x27;t use shfmt when running `scie-pants-linux-x86_64 fmt` and `scie-pants-linux-x86_64 lint`.
 
 </Option>
 
@@ -34,7 +33,7 @@ If true, don&#x27;t use shfmt when running `scie-pants-linux-x86_64 fmt` and
 
 <Option
   cli_repr={`--shfmt-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr="PANTS_SHFMT_ARGS"
+  env_repr='PANTS_SHFMT_ARGS'
   default_repr={`[]`}
 >
 
@@ -48,7 +47,7 @@ Arguments to pass directly to shfmt, e.g. `--shfmt-args='-i 2'`.
 
 <Option
   cli_repr={`--shfmt-version=<str>`}
-  env_repr="PANTS_SHFMT_VERSION"
+  env_repr='PANTS_SHFMT_VERSION'
   default_repr={`v3.6.0`}
 >
 
@@ -64,10 +63,10 @@ Use this version of shfmt.
   default_repr={`[\n  "v3.2.4|macos_arm64 |e70fc42e69debe3e400347d4f918630cdf4bf2537277d672bbc43490387508ec|2998546",\n  "v3.2.4|macos_x86_64|43a0461a1b54070ddc04fbbf1b78f7861ee39a65a61f5466d15a39c4aba4f917|2980208",\n  "v3.2.4|linux_arm64 |6474d9cc08a1c9fe2ef4be7a004951998e3067d46cf55a011ddd5ff7bfab3de6|2752512",\n  "v3.2.4|linux_x86_64|3f5a47f8fec27fae3e06d611559a2063f5d27e4b9501171dde9959b8c60a3538|2797568",\n  "v3.6.0|macos_arm64 |633f242246ee0a866c5f5df25cbf61b6af0d5e143555aca32950059cf13d91e0|3065202",\n  "v3.6.0|macos_x86_64|b8c9c025b498e2816b62f0b717f6032e9ab49e725a45b8205f52f66318f17185|3047552",\n  "v3.6.0|linux_arm64 |fb1cf0af3dbe9aac7d98e38e3c7426765208ecfe23cb2da51037bb234776fd70|2818048",\n  "v3.6.0|linux_x86_64|5741a02a641de7e56b8da170e71a97e58050d66a3cf485fb268d6a5a8bb74afb|2850816"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
-
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -91,6 +90,7 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   one_of='error, warning'
   default_repr={`error`}
 >
+
 
 What action to take in case the requested version of shfmt is not supported.
 
@@ -132,12 +132,11 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 
 <Option
   cli_repr={`--[no-]shfmt-config-discovery`}
-  env_repr="PANTS_SHFMT_CONFIG_DISCOVERY"
+  env_repr='PANTS_SHFMT_CONFIG_DISCOVERY'
   default_repr={`True`}
 >
 
-If true, Pants will include all relevant `.editorconfig` files during runs.
-See https://editorconfig.org.
+If true, Pants will include all relevant `.editorconfig` files during runs. See https://editorconfig.org.
 
 </Option>
 

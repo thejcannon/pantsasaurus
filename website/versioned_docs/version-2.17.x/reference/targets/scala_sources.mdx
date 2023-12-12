@@ -65,7 +65,6 @@ Override the field values for generated `scala_sources` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
-
 ```
 overrides={
     "Foo.scala": {"dependencies": [":files"]},
@@ -85,9 +84,9 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 ## `skip_scalafmt`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.experimental.scala.lint.scalafmt"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.scala.lint.scalafmt"
 >
 
 If true, don&#x27;t run `scalafmt` on this target&#x27;s code.
@@ -140,20 +139,22 @@ If not defined, will default to `[jvm].default_resolve`.
 
 ## `jdk`
 
-<Field type_repr={`field.type_hint`}>
-  The major version of the JDK that this target should be built with. If not
-  defined, will default to `[jvm].default_source_jdk`.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+
 </Field>
 
 ## `main`
 
-<Field type_repr={`field.type_hint`}>
-  `.`-separated name of the JVM class containing the `main()` method to be
-  called when executing this target. If not supplied, this will be calculated
-  automatically, either by inspecting the existing manifest (for 3rd-party
-  JARs), or by inspecting the classes inside the JAR, looking for a valid `main`
-  method. If a value cannot be calculated automatically, you must supply a value
-  for `run` to succeed.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+`.`-separated name of the JVM class containing the `main()` method to be called when executing this target. If not supplied, this will be calculated automatically, either by inspecting the existing manifest (for 3rd-party JARs), or by inspecting the classes inside the JAR, looking for a valid `main` method. If a value cannot be calculated automatically, you must supply a value for `run` to succeed.
+
 </Field>
 
 ## `experimental_provides_types`
@@ -169,5 +170,7 @@ This allows for specific types within packages that are otherwise inferred as be
 If a given type is defined, at least one source file captured by this target must actually provide that symbol.
 
 </Field>
+
+
 
 </span>

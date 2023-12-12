@@ -23,12 +23,11 @@ Config section: <span className="color--primary">`[python-protobuf]`</span>
 
 <Option
   cli_repr={`--[no-]python-protobuf-mypy-plugin`}
-  env_repr="PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN"
+  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN'
   default_repr={`False`}
 >
 
-Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to
-also generate .pyi type stubs.
+Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to also generate .pyi type stubs.
 
 </Option>
 
@@ -56,18 +55,13 @@ Unless this option is disabled, Pants will error if no relevant target is found 
 
 <Option
   cli_repr={`--python-protobuf-runtime-dependencies="[<target_option>, <target_option>, ...]"`}
-  env_repr="PANTS_PYTHON_PROTOBUF_RUNTIME_DEPENDENCIES"
+  env_repr='PANTS_PYTHON_PROTOBUF_RUNTIME_DEPENDENCIES'
   default_repr={`[]`}
-  removal_version="2.11.0.dev0"
-  removal_hint={
-    "Pants can now infer dependencies on the Protobuf and gRPC runtime libraries for you. Not only is this more convenient, it allows Pants to support the new `[python].resolves` feature.<br /><br />To use Pants's new mechanism, simply remove this option. Run `./pants dependencies path/to/f.proto` to confirm that dependencies are still added correctly. You can disable this new dependency inference feature by setting `[python-protobuf].infer_runtime_dependency = false`."
-  }
+  removal_version='2.11.0.dev0'
+  removal_hint={'Pants can now infer dependencies on the Protobuf and gRPC runtime libraries for you. Not only is this more convenient, it allows Pants to support the new `[python].resolves` feature.<br /><br />To use Pants\'s new mechanism, simply remove this option. Run `./pants dependencies path/to/f.proto` to confirm that dependencies are still added correctly. You can disable this new dependency inference feature by setting `[python-protobuf].infer_runtime_dependency = false`.'}
 >
 
-A list of addresses to `python_requirement` targets for the runtime
-dependencies needed for generated Python code to work. For example,
-`['3rdparty/python:protobuf', '3rdparty/python:grpcio']`. These dependencies
-will be automatically added to every `protobuf_sources` target
+A list of addresses to `python_requirement` targets for the runtime dependencies needed for generated Python code to work. For example, `['3rdparty/python:protobuf', '3rdparty/python:grpcio']`. These dependencies will be automatically added to every `protobuf_sources` target
 
 </Option>
 

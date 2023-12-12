@@ -9,9 +9,9 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 Options for general JVM functionality.
 
-JDK strings will be passed directly to Coursier&#x27;s `--jvm` parameter. Run `cs java --available` to see a list of available JVM versions on your platform.
+ JDK strings will be passed directly to Coursier&#x27;s `--jvm` parameter. Run `cs java --available` to see a list of available JVM versions on your platform.
 
-If the string &#x27;system&#x27; is passed, Coursier&#x27;s `--system-jvm` option will be used instead, but note that this can lead to inconsistent behavior since the JVM version will be whatever happens to be found first on the system&#x27;s PATH.
+ If the string &#x27;system&#x27; is passed, Coursier&#x27;s `--system-jvm` option will be used instead, but note that this can lead to inconsistent behavior since the JVM version will be whatever happens to be found first on the system&#x27;s PATH.
 
 Backend: <span className="color--primary">`pants.backend.experimental.java`</span>
 
@@ -25,7 +25,7 @@ Config section: <span className="color--primary">`[jvm]`</span>
 
 <Option
   cli_repr={`--jvm-resolves="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr="PANTS_JVM_RESOLVES"
+  env_repr='PANTS_JVM_RESOLVES'
   default_repr={`{"jvm-default": "3rdparty/jvm/default.lock"}`}
 >
 
@@ -67,12 +67,11 @@ For example, if you want to attach a remote debugger, use something like [&#x27;
 
 <Option
   cli_repr={`--jvm-tool-jdk=<str>`}
-  env_repr="PANTS_JVM_TOOL_JDK"
+  env_repr='PANTS_JVM_TOOL_JDK'
   default_repr={`adopt:1.11`}
 >
 
-The JDK to use when building and running Pants&#x27; internal JVM support code
-and other non-compiler tools. See `jvm` help for supported values.
+The JDK to use when building and running Pants&#x27; internal JVM support code and other non-compiler tools. See `jvm` help for supported values.
 
 </Option>
 
@@ -86,9 +85,9 @@ and other non-compiler tools. See `jvm` help for supported values.
 
 The JDK to use.
 
-This string will be passed directly to Coursier&#x27;s `--jvm` parameter. Run `cs java --available` to see a list of available JVM versions on your platform.
+ This string will be passed directly to Coursier&#x27;s `--jvm` parameter. Run `cs java --available` to see a list of available JVM versions on your platform.
 
-If the string &#x27;system&#x27; is passed, Coursier&#x27;s `--system-jvm` option will be used instead, but note that this can lead to inconsistent behavior since the JVM version will be whatever happens to be found first on the system&#x27;s PATH.
+ If the string &#x27;system&#x27; is passed, Coursier&#x27;s `--system-jvm` option will be used instead, but note that this can lead to inconsistent behavior since the JVM version will be whatever happens to be found first on the system&#x27;s PATH.
 
 </Option>
 

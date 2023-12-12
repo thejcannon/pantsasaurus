@@ -53,9 +53,12 @@ If not defined, will default to `[jvm].default_resolve`.
 
 ## `content`
 
-<Field type_repr={`field.type_hint`}>
-  A list of addresses to `resources` and `files` targets with content to place
-  in the document root of this WAR file.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A list of addresses to `resources` and `files` targets with content to place in the document root of this WAR file.
+
 </Field>
 
 ## `dependencies`
@@ -78,9 +81,12 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 ## `descriptor`
 
-<Field type_repr={`field.type_hint`}>
-  Path to a file containing the descriptor (i.e., web.xml) for this WAR file.
-  Defaults to `web.xml`.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Path to a file containing the descriptor (i.e., web.xml) for this WAR file. Defaults to `web.xml`.
+
 </Field>
 
 ## `shading_rules`
@@ -92,11 +98,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 Shading rules to be applied to the individual JAR artifacts embedded in the `WEB-INF/lib` folder.
 
 There are 4 possible shading rules available, which are as follows:
-
-- `shading_relocate`: Relocates the classes under the given `package` into the new package name. The default target package is `__shaded_by_pants__` if none provided in the `into` parameter.
-- `shading_rename`: Renames all occurrences of the given `pattern` by the `replacement`.
-- `shading_zap`: Removes from the final artifact the occurrences of the `pattern`.
-- `shading_keep`: Keeps in the final artifact the occurrences of the `pattern` (and removes anything else).
+  * `shading_relocate`: Relocates the classes under the given `package` into the new package name. The default target package is `__shaded_by_pants__` if none provided in the `into` parameter.
+  * `shading_rename`: Renames all occurrences of the given `pattern` by the `replacement`.
+  * `shading_zap`: Removes from the final artifact the occurrences of the `pattern`.
+  * `shading_keep`: Keeps in the final artifact the occurrences of the `pattern` (and removes anything else).
 
 When defining shading rules, just add them in this field using the previously listed rule alias and passing along the required parameters.
 
@@ -117,5 +122,7 @@ When running `scie-pants-linux-x86_64 package`, this path will be prefixed by `-
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
+
+
 
 </span>

@@ -3,26 +3,27 @@
     position: 7
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
-
 Tips for how to incrementally add Pants to your repository.
 
 ---
 
-## Recommended steps
-
+[block:api-header]
+{
+"title": "Recommended steps"
+}
+[/block]
 We recommend using an incremental migration to adopt Pants, as it will help to ensure that your builds keep behaving how you'd expect.
-
-:::note Joining Slack
-
-    We would love to help you with adopting Pants. Please reach out through [Slack](../../community/members).
-
-:::
+[block:callout]
+{
+"type": "info",
+"body": "We would love to help you with adopting Pants. Please reach out through [Slack](doc:community).",
+"title": "Joining Slack"
+}
+[/block]
 
 ### 1. A basic `pants.toml`
 
-Follow the [Getting Started](../introduction/getting-started/index.mdx) guide to install Pants and set up an initial `pants.toml`. Validate that running `./pants count-loc '**'` works properly.
+Follow the [Getting Started](doc:getting-started) guide to install Pants and set up an initial `pants.toml`. Validate that running `./pants count-loc '**'` works properly.
 
 Add `backend_packages = ["pants.backend.python"]` to the `[GLOBAL]` section.
 
@@ -30,7 +31,7 @@ Add `backend_packages = ["pants.backend.python"]` to the `[GLOBAL]` section.
 
 Formatters and linters are often the simplest to get working because—for all tools other than Pylint— you do not need to worry about things like dependencies and third-party requirements.
 
-First, create a BUILD file in each directory with Python code. As explained in [Targets and BUILD files](./concepts/targets-and-build-files.mdx), you can use fewer BUILD files, such as one BUILD file per subproject: but if using coarser grained BUILD files, make sure that all Python source code is included in some target's `sources` parameter (either by explicitly selecting files or with `sources=["**/*.py"]`). We find that using one BUILD file per directory is a good default.
+First, create a BUILD file in each directory with Python code. As explained in [Targets and BUILD files](doc:targets), you can use fewer BUILD files, such as one BUILD file per subproject: but if using coarser grained BUILD files, make sure that all Python source code is included in some target's `sources` parameter (either by explicitly selecting files or with `sources=["**/*.py"]`). We find that using one BUILD file per directory is a good default.
 
 If your directory only contains production code, use `python_library`:
 
@@ -54,34 +55,34 @@ python_tests(name="tests")
 
 Unless you want to change the default values, such as setting timeouts for your tests, you can simply use these 1-3 lines in each BUILD file.
 
-Then, activate the Python [Linters and formatters](../python/overview/linters-and-formatters.mdx) you'd like to use. Hook up the `fmt` and `lint` goals to your [CI](./using-pants-in-ci.mdx).
+Then, activate the Python [Linters and formatters](doc:python-linters-and-formatters) you'd like to use. Hook up the `fmt` and `lint` goals to your [CI](doc:using-pants-in-ci).
 
 ### 3. Set up tests
 
-To get [tests](../python/goals/test.mdx) working, you will first need to [set up third-party dependencies](../python/overview/third-party-dependencies.mdx). We strongly recommend setting up a lockfile for reproducibility and better performance.
+To get [tests](doc:python-test-goal) working, you will first need to [set up third-party dependencies](doc:python-third-party-dependencies). We strongly recommend setting up a lockfile for reproducibility and better performance.
 
 Pants's dependency inference will infer most dependencies for you by looking at your Python import statements. Generally, you will not need to update your BUILD files any more than the previous step.
 
-However, if your tests depend on any resource files, you will need to explicitly declare these dependencies because Pants cannot infer them. See [Resources](./resources-and-archives.mdx).
+However, if your tests depend on any resource files, you will need to explicitly declare these dependencies because Pants cannot infer them. See [Resources](doc:resources).
 
 Try running `./pants test ::` in CI to see if any tests fail. Sometimes, your tests will fail with Pants even if they pass with your normal setup because tests are more isolated than when running Pytest/unittest directly:
 
-- Tests run in a chroot, meaning they can only access dependencies that Pants knows about. If you have a missing file or missing import, run `./pants dependencies path/to/my_test.py` and `./pants dependencies --transitive path/to/my_test.py` to confirm what you are expecting is known by Pants. If not, add to the [`dependencies` field](./concepts/targets-and-build-files.mdx).
+- Tests run in a chroot, meaning they can only access dependencies that Pants knows about. If you have a missing file or missing import, run `./pants dependencies path/to/my_test.py` and `./pants dependencies --transitive path/to/my_test.py` to confirm what you are expecting is known by Pants. If not, add to the [`dependencies` field](doc:targets).
 - Test files are isolated from each other. If your tests depended on running in a certain order, they may now fail. This requires rewriting your tests to remove the shared global state.
 
-In your CI, you may want to speed up your build by having Pants only run tests for changed files. Refer to [Using Pants in CI](./using-pants-in-ci.mdx).
+In your CI, you may want to speed up your build by having Pants only run tests for changed files. Refer to [Using Pants in CI](doc:using-pants-in-ci).
 
 ### 4. Set up `./pants package`
 
-You can use `./pants package` to package your code into various formats, such as a [PEX binary](../python/goals/package.mdx), a [wheel](../python/overview/building-distributions.mdx), an [AWS Lambda](../aws-lambda/python-support.mdx), or a [zip/tar archive](./resources-and-archives.mdx).
+You can use `./pants package` to package your code into various formats, such as a [PEX binary](doc:python-package-goal), a [wheel](doc:python-distributions), an [AWS Lambda](doc:awslambda-python), or a [zip/tar archive](doc:resources).
 
-We recommend manually verifying that this step is working how you'd like by inspecting the built packages. Alternatively, you can [write automated tests](../python/goals/test.mdx) that will call the equivalent of `./pants package` for you, and insert the built package into your test environment.
+We recommend manually verifying that this step is working how you'd like by inspecting the built packages. Alternatively, you can [write automated tests](doc:python-test-goal) that will call the equivalent of `./pants package` for you, and insert the built package into your test environment.
 
 ### 5. Check out writing a plugin
 
 Pants is highly extensible. In fact, all of Pants's core functionality is implemented using the exact same API used by plugins.
 
-Check out [Plugins Overview](../writing-plugins/overview.mdx). We'd also love to help in the #plugins channel on [Slack](../../community/members).
+Check out [Plugins Overview](doc:plugins-overview). We'd also love to help in the #plugins channel on [Slack](doc:community).
 
 Some example plugins that users have written:
 
@@ -89,20 +90,32 @@ Some example plugins that users have written:
 - Building a Docker image with packages built via `./pants package`
 - Custom `setup.py` logic to compute the `version` dynamically
 - Jupyter support
-
-## Migrating from other BUILD tools? Set custom BUILD file names
-
-If you're migrating from another build tool that already uses the name `BUILD`, such as Bazel or Please, you can tell Pants to use a different file name than `BUILD` to avoid conflicts:
-
-```toml title="pants.toml"
-[GLOBAL]
-build_patterns = ["BUILD.pants"]
-```
-
-Alternatively, you can tell Pants to not look for BUILD files in certain locations. This can be helpful, for example, if you use a tool like Bazel for Java, but use Pants for Python:
-
-```toml title="pants.toml"
-[GLOBAL]
-build_ignore = ["src/java"]
-```
-
+  [block:api-header]
+  {
+  "title": "Migrating from other BUILD tools? Set custom BUILD file names"
+  }
+  [/block]
+  If you're migrating from another build tool that already uses the name `BUILD`, such as Bazel or Please, you can tell Pants to use a different file name than `BUILD` to avoid conflicts:
+  [block:code]
+  {
+  "codes": [
+  {
+  "code": "[GLOBAL]\nbuild_patterns = [\"BUILD.pants\"]",
+  "language": "toml",
+  "name": "pants.toml"
+  }
+  ]
+  }
+  [/block]
+  Alternatively, you can tell Pants to not look for BUILD files in certain locations. This can be helpful, for example, if you use a tool like Bazel for Java, but use Pants for Python:
+  [block:code]
+  {
+  "codes": [
+  {
+  "code": "[GLOBAL]\nbuild_ignore = [\"src/java\"]",
+  "language": "toml",
+  "name": "pants.toml"
+  }
+  ]
+  }
+  [/block]

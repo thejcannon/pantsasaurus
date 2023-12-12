@@ -3,34 +3,33 @@
     position: 5
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
-
 How to add a new implementation to the `package` goal.
 
 ---
 
-The `package` goal bundles all the relevant code and third-party dependencies into a single asset, such as a JAR, PEX, or zip file.
+The `package` goal bundles all the relevant code and third-party dependencies into a single asset, such as a JAR, PEX, or zip file. 
 
 Often, the asset is executable, but it need not be.
+[block:callout]
+{
+  "type": "info",
+  "title": "Example repository",
+  "body": "This guide walks through adding a simple `package` implementation for Bash that simply puts all the relevant source files into a `.zip` file.\n\nThis duplicates the `archive` target type, and is solely implemented for instructional purposes. See [here](https://github.com/pantsbuild/example-plugin/blob/main/pants-plugins/examples/bash/package_binary.py) for the final implementation."
+}
+[/block]
 
-:::note Example repository
-
-    This guide walks through adding a simple `package` implementation for Bash that simply puts all the relevant source files into a `.zip` file.
-
-    This duplicates the `archive` target type, and is solely implemented for instructional purposes. See [here](https://github.com/pantsbuild/example-plugin/blob/main/pants-plugins/examples/bash/package_binary.py) for the final implementation.
-
-:::
-
-## 1. Set up a package target type (recommended)
-
+[block:api-header]
+{
+  "title": "1. Set up a package target type (recommended)"
+}
+[/block]
 Usually, you will want to add a new target type for your implementation, such as `bash_binary` or `python_distribution`.
 
 If your package has a specific file as its entry point, you may want to subclass the `Sources` field and set the class property `expected_num_files = 1`.
 
 Usually, you will want to include `OutputPathField` from `pants.core.goals.package` in your target's fields, which will allow the user to change where the package is built to.
 
-See [Creating new targets](../the-target-api/creating-new-targets.mdx) for a guide on how to define new target types.
+See [Creating new targets](doc:target-api-new-targets) for a guide on how to define new target types. 
 
 ```python
 from pants.core.goals.package import OutputPathField
@@ -51,10 +50,12 @@ class BashBinarySources(BashSources):
      alias = "bash_binary"
      core_fields = (*COMMON_TARGET_FIELDS, OutputPathField, Dependencies, BashBinarySources)
 ```
-
-## 2. Set up a subclass of `PackageFieldSet`
-
-As described in [Rules and the Target API](../the-rules-api/rules-and-the-target-api.mdx), a `FieldSet` is a way to tell Pants which `Field`s you care about targets having for your plugin to work.
+[block:api-header]
+{
+  "title": "2. Set up a subclass of `PackageFieldSet`"
+}
+[/block]
+As described in [Rules and the Target API](doc:rules-api-and-target-api), a `FieldSet` is a way to tell Pants which `Field`s you care about targets having for your plugin to work.
 
 Create a new dataclass that subclasses `PackageFieldSet`. Set the class property `required_fields` to the fields your target must have registered to work. Usually, this is a field like `BashEntryPoint` or `BashBinarySources`.
 
@@ -71,7 +72,7 @@ class BashBinaryFieldSet(PackageFieldSet):
     output_path: OutputPathField
 ```
 
-Then, register your new `PackageFieldSet` with a [`UnionRule`](../the-rules-api/union-rules-(advanced).mdx) so that Pants knows your binary implementation exists:
+Then, register your new `PackageFieldSet` with a [`UnionRule`](doc:rules-api-unions) so that Pants knows your binary implementation exists:
 
 ```python
 from pants.engine.rules import collect_rules
@@ -85,12 +86,14 @@ def rules():
         UnionRule(PackageFieldSet, BashBinaryFieldSet),
     ]
 ```
-
-## 3. Create a rule for your logic
-
+[block:api-header]
+{
+  "title": "3. Create a rule for your logic"
+}
+[/block]
 Your rule should take as a parameter the `PackageFieldSet` from Step 2. It should return `BuiltPackage`, which has the fields `digest: Digest` and `artifacts: Tuple[BuiltPackageArtifact, ...]`, where each `BuiltPackageArtifact` has the field `relpath: str` and optional `extra_log_lines: Tuple[str, ...]`.
 
-Your package rule can have whatever logic you'd like to create a package. All that Pants cares about is that you return a valid `BuiltPackage` object.
+Your package rule can have whatever logic you'd like to create a package. All that Pants cares about is that you return a valid `BuiltPackage` object. 
 
 In this example, we simply create a `.zip` file with the `bash_binary` and all of its dependencies.
 
@@ -161,27 +164,21 @@ async def package_bash_binary(field_set: BashBinaryFieldSet) -> BuiltPckage:
 Note that we use `field_set.output_path.value_or_default` to determine the output filename, which will use the `output_path` field if defined, and will default to an unambiguous value otherwise.
 
 Finally, update your plugin's `register.py` to activate this file's rules.
-
-```python title="pants-plugins/bash/register.py"
-from bash import package_binary
-
-
-def rules():
-    return [*package_binary.rules()]
-```
-
+[block:code]
+{
+  "codes": [
+    {
+      "code": "from bash import package_binary\n\n\ndef rules():\n    return [*package_binary.rules()]",
+      "language": "python",
+      "name": "pants-plugins/bash/register.py"
+    }
+  ]
+}
+[/block]
 Now, when you run `./pants package ::`, Pants should create packages for all your package target types in the `--pants-distdir` (defaults to `dist/`).
-
-## 4. Add tests (optional)
-
-Refer to [Testing rules](../the-rules-api/testing-plugins.mdx). TODO
-
-
-
-
-
-
-
-
-
-
+[block:api-header]
+{
+  "title": "4. Add tests (optional)"
+}
+[/block]
+Refer to [Testing rules](doc:rules-api-testing). TODO

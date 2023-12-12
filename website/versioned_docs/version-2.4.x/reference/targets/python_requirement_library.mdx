@@ -59,9 +59,12 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 ## `requirements`
 
-<Field type_repr={`field.type_hint`}>
-  A sequence of pip-style requirement strings, e.g. [&#x27;foo==1.8&#x27;,
-  &#x27;bar&lt;=3 ; python_version&lt;&#x27;3&#x27;].
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A sequence of pip-style requirement strings, e.g. [&#x27;foo==1.8&#x27;, &#x27;bar&lt;=3 ; python_version&lt;&#x27;3&#x27;].
+
 </Field>
 
 ## `module_mapping`
@@ -77,5 +80,7 @@ For example, `{"ansicolors": ["colors"]}`. Any unspecified requirements will use
 This is used for Pants to be able to infer dependencies in BUILD files.
 
 </Field>
+
+
 
 </span>

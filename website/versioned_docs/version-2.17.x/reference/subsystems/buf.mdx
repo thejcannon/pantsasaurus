@@ -21,12 +21,11 @@ Config section: <span className="color--primary">`[buf]`</span>
 
 <Option
   cli_repr={`--[no-]buf-format-skip`}
-  env_repr="PANTS_BUF_FORMAT_SKIP"
+  env_repr='PANTS_BUF_FORMAT_SKIP'
   default_repr={`False`}
 >
 
-If true, don&#x27;t use Buf when running `scie-pants-linux-x86_64 fmt` and
-`scie-pants-linux-x86_64 lint`.
+If true, don&#x27;t use Buf when running `scie-pants-linux-x86_64 fmt` and `scie-pants-linux-x86_64 lint`.
 
 </Option>
 
@@ -34,7 +33,7 @@ If true, don&#x27;t use Buf when running `scie-pants-linux-x86_64 fmt` and
 
 <Option
   cli_repr={`--[no-]buf-lint-skip`}
-  env_repr="PANTS_BUF_LINT_SKIP"
+  env_repr='PANTS_BUF_LINT_SKIP'
   default_repr={`False`}
 >
 
@@ -46,7 +45,7 @@ If true, don&#x27;t use Buf when running `scie-pants-linux-x86_64 lint`.
 
 <Option
   cli_repr={`--buf-format-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr="PANTS_BUF_FORMAT_ARGS"
+  env_repr='PANTS_BUF_FORMAT_ARGS'
   default_repr={`[]`}
 >
 
@@ -58,7 +57,7 @@ Arguments to pass directly to Buf, e.g. `--buf-args='--error-format json'`.
 
 <Option
   cli_repr={`--buf-lint-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr="PANTS_BUF_LINT_ARGS"
+  env_repr='PANTS_BUF_LINT_ARGS'
   default_repr={`[]`}
 >
 
@@ -72,7 +71,7 @@ Arguments to pass directly to Buf, e.g. `--buf-args='--error-format json'`.
 
 <Option
   cli_repr={`--buf-version=<str>`}
-  env_repr="PANTS_BUF_VERSION"
+  env_repr='PANTS_BUF_VERSION'
   default_repr={`v1.3.0`}
 >
 
@@ -88,10 +87,10 @@ Use this version of Buf.
   default_repr={`[\n  "v1.3.0|linux_arm64 |fbfd53c501451b36900247734bfa4cbe86ae05d0f51bc298de8711d5ee374ee5|13940828",\n  "v1.3.0|linux_x86_64|e29c4283b1cd68ada41fa493171c41d7605750d258fcd6ecdf692a63fae95213|15267162",\n  "v1.3.0|macos_arm64 |147985d7f2816a545792e38b26178ff4027bf16cd3712f6e387a4e3692a16deb|15391890",\n  "v1.3.0|macos_x86_64|3b6bd2e5a5dd758178aee01fb067261baf5d31bfebe93336915bfdf7b21928c4|15955291"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
-
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -145,6 +144,7 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
   one_of='error, warning'
   default_repr={`error`}
 >
+
 
 What action to take in case the requested version of Buf is not supported.
 

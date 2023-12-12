@@ -111,32 +111,36 @@ If a given type is defined, at least one source file captured by this target mus
 
 ## `jdk`
 
-<Field type_repr={`field.type_hint`}>
-  The major version of the JDK that this target should be built with. If not
-  defined, will default to `[jvm].default_source_jdk`.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+
 </Field>
 
 ## `main`
 
-<Field type_repr={`field.type_hint`}>
-  `.`-separated name of the JVM class containing the `main()` method to be
-  called when executing this target. If not supplied, this will be calculated
-  automatically, either by inspecting the existing manifest (for 3rd-party
-  JARs), or by inspecting the classes inside the JAR, looking for a valid `main`
-  method. If a value cannot be calculated automatically, you must supply a value
-  for `run` to succeed.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+`.`-separated name of the JVM class containing the `main()` method to be called when executing this target. If not supplied, this will be calculated automatically, either by inspecting the existing manifest (for 3rd-party JARs), or by inspecting the classes inside the JAR, looking for a valid `main` method. If a value cannot be calculated automatically, you must supply a value for `run` to succeed.
+
 </Field>
 
 ## `skip_ktlint`
 
 <Field
-  type_repr={`field.type_hint`}
-  default_repr={`False`}
-  backend="pants.backend.experimental.kotlin.lint.ktlint"
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.kotlin.lint.ktlint"
 >
 
 If true, don&#x27;t run Ktlint on this target&#x27;s code.
 
 </Field>
+
+
 
 </span>

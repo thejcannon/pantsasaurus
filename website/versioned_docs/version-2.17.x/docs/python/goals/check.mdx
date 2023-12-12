@@ -7,11 +7,12 @@ How to use MyPy.
 
 ---
 
-## Activating MyPy
+Activating MyPy
+---------------
 
 To opt-in, add `pants.backend.python.typecheck.mypy` to `backend_packages` in your config file.
 
-```toml title="pants.toml"
+```toml pants.toml
 [GLOBAL]
 backend_packages.add = [
   "pants.backend.python",
@@ -26,15 +27,13 @@ $ pants check helloworld/util/lang.py
 $ pants check ::
 ```
 
-:::tip Benefit of Pants: typecheck Python 2-only and Python 3-only code at the same time
-
-    MyPy determines which Python version to use based on its `python_version` option. If that's undefined, MyPy uses the interpreter the tool is run with. Because you can only use one config file at a time with MyPy, you cannot normally say to use `2.7` for part of your codebase but `3.6` for the rest; you must choose a single version.
-
-    Instead, Pants will group your targets based on their [interpreter constraints](../python-overview/interpreter-compatibility.mdx), and run all the Python 2 targets together and all the Python 3 targets together. It will automatically set `python_version` to the minimum compatible interpreter, such as a constraint like `["==2.7.*", ">3.6"]` using `2.7`.
-
-    To turn this off, you can still set `python_version` in `mypy.ini` or `--python-version`/`--py2` in `--mypy-args`; Pants will respect the value you set.
-
-:::
+> 👍 Benefit of Pants: typecheck Python 2-only and Python 3-only code at the same time
+>
+> MyPy determines which Python version to use based on its `python_version` option. If that's undefined, MyPy uses the interpreter the tool is run with. Because you can only use one config file at a time with MyPy, you cannot normally say to use `2.7` for part of your codebase but `3.6` for the rest; you must choose a single version.
+>
+> Instead, Pants will group your targets based on their [interpreter constraints](doc:python-interpreter-compatibility), and run all the Python 2 targets together and all the Python 3 targets together. It will automatically set `python_version` to the minimum compatible interpreter, such as a constraint like `["==2.7.*", ">3.6"]` using `2.7`.
+>
+> To turn this off, you can still set `python_version` in `mypy.ini` or `--python-version`/`--py2` in `--mypy-args`; Pants will respect the value you set.
 
 ### Hook up a MyPy config file
 
@@ -42,7 +41,7 @@ Pants will automatically include your config file if it's located at `mypy.ini`,
 
 Otherwise, you must set the option `[mypy].config` for Pants to include the config file in the process's sandbox and to instruct MyPy to load it.
 
-```toml title="pants.toml"
+```toml pants.toml
 [mypy]
 config = "build-support/mypy.ini"
 ```
@@ -51,7 +50,7 @@ config = "build-support/mypy.ini"
 
 Use the `install_from_resolve` option in the `[mypy]` scope:
 
-```toml title="pants.toml"
+```toml pants.toml
 [python.resolves]
 mypy = "3rdparty/python/mypy.lock"
 
@@ -59,13 +58,13 @@ mypy = "3rdparty/python/mypy.lock"
 install_from_resolve = "mypy"
 ```
 
-See [Lockfiles for tools](../python-overview/lockfiles.mdx#lockfiles-for-tools).
+See [Lockfiles for tools](doc:python-lockfiles#lockfiles-for-tools).
 
 ### Incrementally adopt MyPy with `skip_mypy=True`
 
 You can tell Pants to skip running MyPy on certain files by adding `skip_mypy=True` to the relevant targets.
 
-```python title="project/BUILD"
+```python project/BUILD
 # Skip MyPy for all the Python files in this directory
 # (both test and non-test files).
 python_sources(name="lib", skip_mypy=True)
@@ -84,13 +83,11 @@ python_sources(
 
 When you run `pants check ::`, Pants will skip any files belonging to skipped targets.
 
-:::caution MyPy may still try to check the skipped files!
-
-    The `skip_mypy` field only tells Pants not to provide the skipped files as direct input to MyPy. But MyPy, by default, will still try to check files that are [dependencies of the direct inputs](https://mypy.readthedocs.io/en/stable/running_mypy.html#following-imports).  So if your skipped files are dependencies of unskipped files, they may still be checked.
-
-    To change this behavior, use MyPy's [`--follow-imports` option](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-follow-imports), typically by setting it to `silent`. You can do so either by adding it to the [`args` option](reference:reference-mypy#section-args) in the `[mypy]` section of your Pants config file, or by setting it in [`mypy.ini`](https://mypy.readthedocs.io/en/stable/config_file.html).
-
-:::
+> 🚧 MyPy may still try to check the skipped files!
+>
+> The `skip_mypy` field only tells Pants not to provide the skipped files as direct input to MyPy. But MyPy, by default, will still try to check files that are [dependencies of the direct inputs](https://mypy.readthedocs.io/en/stable/running_mypy.html#following-imports).  So if your skipped files are dependencies of unskipped files, they may still be checked.
+>
+> To change this behavior, use MyPy's [`--follow-imports` option](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-follow-imports), typically by setting it to `silent`. You can do so either by adding it to the [`args` option](https://www.pantsbuild.org/docs/reference-mypy#section-args) in the `[mypy]` section of your Pants config file, or by setting it in [`mypy.ini`](https://mypy.readthedocs.io/en/stable/config_file.html).
 
 ### First-party type stubs (`.pyi` files)
 
@@ -98,33 +95,29 @@ You can use [`.pyi` files](https://mypy.readthedocs.io/en/stable/stubs.html) for
 
 Pants's dependency inference knows to infer a dependency both on the implementation and the type stub. You can verify this by running `pants dependencies path/to/file.py`.
 
-When writing stubs for third-party libraries, you may need the set up the `[source].root_patterns` option so that [source roots](../../using-pants/key-concepts/source-roots.mdx) are properly stripped. For example:
+When writing stubs for third-party libraries, you may need the set up the `[source].root_patterns` option so that [source roots](doc:source-roots) are properly stripped. For example:
 
-```toml title="pants.toml"
+```toml pants.toml
 [source]
 root_patterns = ["mypy-stubs", "src/python"]
 ```
-
-```python title="mypy-stubs/colors.pyi"
+```python mypy-stubs/colors.pyi
 # Because we set `mypy-stubs` as a source root, this file will be
 # stripped to be simply `colors.pyi`. MyPy will look at this file for
 # imports of the `colors` module.
 
 def red(s: str) -> str: ...
 ```
-
-```python title="mypy-stubs/BUILD"
+```python mypy-stubs/BUILD
 python_sources(name="lib")
 ```
-
-```python title="src/python/project/app.py"
+```python src/python/project/app.py
 from colors import red
 
 if __name__ == "__main__":
     print(red("I'm red!"))
 ```
-
-```python title="src/python/project/BUILD"
+```python src/python/project/BUILD
 # Pants will infer a dependency both on the `ansicolors` requirement
 # and our type stub.
 python_sources(name="lib")
@@ -132,30 +125,28 @@ python_sources(name="lib")
 
 ### Third-party type stubs
 
-You can install third-party type stubs (for example, `types-requests`) like [normal Python requirements](../python-overview/third-party-dependencies.mdx). Pants will infer a dependency on both the type stub and the actual dependency, for example, both `types-requests` and `requests`, which you can confirm by running `pants dependencies path/to/f.py`.
+You can install third-party type stubs (for example, `types-requests`) like [normal Python requirements](doc:python-third-party-dependencies). Pants will infer a dependency on both the type stub and the actual dependency, for example, both `types-requests` and `requests`, which you can confirm by running `pants dependencies path/to/f.py`.
 
-If you install MyPy from a [custom lockfile](../python-overview/lockfiles.mdx#lockfiles-for-tools) you can also add type stub requirements to that lockfile.
+If you install MyPy from a [custom lockfile](doc:python-lockfiles#lockfiles-for-tools) you can also add type stub requirements to that lockfile.
 This ensures that the stubs are only used when running MyPy and are not included when, for example,
-[packaging a PEX](./package.mdx).
+[packaging a PEX](doc:python-package-goal).
 
 ### Add a third-party plugin
 
-Add any third-party MyPy plugins to a [custom lockfile](../python-overview/lockfiles.mdx#lockfiles-for-tools):
+Add any third-party MyPy plugins to a [custom lockfile](doc:python-lockfiles#lockfiles-for-tools):
 
-```toml title="pants.toml"
+```toml pants.toml
 [python.resolves]
 mypy = "3rdparty/python/mypy-lock.txt"
 
 [mypy]
 install_from_resolve = "mypy"
 ```
-
-```Text title="3rdparty/python/mypy-requirements.txt"
+```Text 3rdparty/python/mypy-requirements.txt
 mypy==1.3.0
 pydantic==1.6.1
 ```
-
-```python title="3rdparty/python/BUILD"
+```python 3rdparty/python/BUILD
 python_requirements(
     name="mypy",
     source="mypy-requirements.txt",
@@ -165,7 +156,7 @@ python_requirements(
 
 Then update your `mypy.ini` to load the plugin:
 
-```text title="mypy.ini"
+```text mypy.ini
 [mypy]
 plugins =
     pydantic.mypy
@@ -175,7 +166,7 @@ For some plugins, such as `django-stubs`, you may need to always load certain so
 
 For example, to fully use the `django-stubs` plugin, your setup might look like this:
 
-```toml title="pants.toml"
+```toml pants.toml
 [source]
 root_patterns = ["src/python"]
 
@@ -183,21 +174,18 @@ root_patterns = ["src/python"]
 install_from_resolve = "mypy"
 source_plugins = ["src/python/project:django_settings"]
 ```
-
-```Text title="3rdparty/python/mypy-requirements.txt"
+```Text 3rdparty/python/mypy-requirements.txt
 mypy==1.3.0
 django-stubs==1.5.0
 ```
-
-```python title="3rdparty/python/BUILD"
+```python 3rdparty/python/BUILD
 python_requirements(
     name="mypy",
     source="mypy-requirements.txt",
     resolve="mypy",
 )
 ```
-
-```text title="mypy.ini"
+```text mypy.ini
 [mypy]
 plugins =
     mypy_django_plugin.main
@@ -205,8 +193,7 @@ plugins =
 [mypy.plugins.django-stubs]
 django_settings_module = project.django_settings
 ```
-
-```python title="src/python/project/django_settings.py"
+```python src/python/project/django_settings.py
 from django.urls import URLPattern
 
 DEBUG = True
@@ -214,52 +201,47 @@ DEFAULT_FROM_EMAIL = "webmaster@example.com"
 SECRET_KEY = "not so secret"
 MY_SETTING = URLPattern(pattern="foo", callback=lambda: None)
 ```
-
-```python title="src/python/project/BUILD"
+```python src/python/project/BUILD
 python_source(name="django_settings", source="django_settings.py")
 ```
 
-:::caution Importing type stubs
+> 🚧 Importing type stubs
+>
+> Type stubs specified in the MyPy custom lockfile are not visible to the `python-infer` subsystem, and cannot be referenced as explicit `dependencies`. If you `import` from a stubs module in your code, and it does not have a corresponding implementation `python_requirement` target that provides the imported module, you may see a warning/error depending on the value you've configured for `[python-infer].unowned_dependency_behavior`. Goals other than `check` will also raise `ImportError`s if the `import` isn't conditional on the value of `typing.TYPE_CHECKING`:
+>
+> ```toml pants.toml
+> [python-infer]
+> unowned_dependency_behavior = "warning"
+> [mypy]
+> install_from_resolve = "mypy"
+> ```
+> ```Text 3rdparty/python/mypy-requirements.txt
+> mypy==1.3.0
+> mypy_boto3_ec2==1.26.136
+> ```
+> ```python 3rdparty/python/BUILD
+> python_requirements(
+> name="mypy",
+> source="mypy-requirements.txt",
+> resolve="mypy",
+> )
+> ```
+> ```python src/example.py
+> from typing import TYPE_CHECKING
+>
+> # Unsafe! Will fail outside of `check`
+> from mypy_boto3_ec2 import EC2Client
+>
+> if TYPE_CHECKING:
+>     # Safe, but will be flagged as a warning
+>     from mypy_boto3_ec2 import EC2ServiceResource
+> ```
+>
+> For these reasons, it's recommended to load any type-stub libraries that require explicit imports as part of your normal [third-party dependencies](doc:python-third-party-dependencies). Alternatively, you can set `# pants: no-infer-dep` on the lines of type-stub imports "guarded" by a check of `if TYPE_CHECKING`.
 
-    Type stubs specified in the MyPy custom lockfile are not visible to the `python-infer` subsystem, and cannot be referenced as explicit `dependencies`. If you `import` from a stubs module in your code, and it does not have a corresponding implementation `python_requirement` target that provides the imported module, you may see a warning/error depending on the value you've configured for `[python-infer].unowned_dependency_behavior`. Goals other than `check` will also raise `ImportError`s if the `import` isn't conditional on the value of `typing.TYPE_CHECKING`:
-
-    ```toml title="pants.toml"
-    [python-infer]
-    unowned_dependency_behavior = "warning"
-    [mypy]
-    install_from_resolve = "mypy"
-    ```
-    ```Text title="3rdparty/python/mypy-requirements.txt"
-    mypy==1.3.0
-    mypy_boto3_ec2==1.26.136
-    ```
-    ```python title="3rdparty/python/BUILD"
-    python_requirements(
-    name="mypy",
-    source="mypy-requirements.txt",
-    resolve="mypy",
-    )
-    ```
-    ```python title="src/example.py"
-    from typing import TYPE_CHECKING
-
-    # Unsafe! Will fail outside of `check`
-    from mypy_boto3_ec2 import EC2Client
-
-    if TYPE_CHECKING:
-        # Safe, but will be flagged as a warning
-        from mypy_boto3_ec2 import EC2ServiceResource
-    ```
-
-    For these reasons, it's recommended to load any type-stub libraries that require explicit imports as part of your normal [third-party dependencies](../python-overview/third-party-dependencies.mdx). Alternatively, you can set `# pants: no-infer-dep` on the lines of type-stub imports "guarded" by a check of `if TYPE_CHECKING`.
-
-:::
-
-:::note MyPy Protobuf support
-
-    Add `mypy_plugin = true` to the `[python-protobuf]` scope. See [Protobuf](../integrations/protobuf-and-grpc.mdx) for more information.
-
-:::
+> 📘 MyPy Protobuf support
+>
+> Add `mypy_plugin = true` to the `[python-protobuf]` scope. See [Protobuf](doc:protobuf-python) for more information.
 
 ### Add a first-party plugin
 
@@ -271,21 +253,18 @@ Finally, set the option `source_plugins` in the `[mypy]` scope to include this t
 
 For example:
 
-```toml title="pants.toml"
+```toml pants.toml
 [mypy]
 source_plugins = ["pants-plugins/mypy_plugins:plugin"]
 ```
-
-```text title="mypy.ini"
+```text mypy.ini
 plugins =
     mypy_plugins.change_return_type
 ```
-
-```python title="pants-plugins/mypy_plugins/BUILD"
+```python pants-plugins/mypy_plugins/BUILD
 python_source(name="plugin", source="change_return_type.py")
 ```
-
-```python title="pants-plugins/mypy_plugins/change_return_type.py"
+```python pants-plugins/mypy_plugins/change_return_type.py
 """A contrived plugin that changes the return type of any
 function ending in `__overriden_by_plugin` to return None."""
 
@@ -319,14 +298,15 @@ MyPy can generate [various report files](https://mypy.readthedocs.io/en/stable/c
 
 For Pants to properly preserve the reports, instruct MyPy to write to the `reports/` folder by updating its config file or `--mypy-args`. For example, in your pants.toml:
 
-```toml title="pants.toml"
+```toml pants.toml
 [mypy]
 args = ["--linecount-report=reports"]
 ```
 
 Pants will copy all reports into the folder `dist/check/mypy`.
 
-## Known limitations
+Known limitations
+-----------------
 
 ### Performance is sometimes slower than normal
 
@@ -337,7 +317,9 @@ The support, however, requires features that were added to MyPy in version `0.70
 If you're using a version of MyPy older than `0.700`, consider upgrading to unlock super-speedy subsequent runs of MyPy.
 Additionally consider not providing `python_version` in your config or args.
 
-## Tip: only run over changed files and their dependents
+
+Tip: only run over changed files and their dependents
+-----------------------------------------------------
 
 When changing type hints code, you not only need to run over the changed files, but also any code that depends on the changed files:
 
@@ -345,5 +327,4 @@ When changing type hints code, you not only need to run over the changed files, 
 $ pants --changed-since=HEAD --changed-dependents=transitive check
 ```
 
-See [Advanced target selection](../../using-pants/advanced-target-selection.mdx) for more information.
-
+See [Advanced target selection](doc:advanced-target-selection) for more information.

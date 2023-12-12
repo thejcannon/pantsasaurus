@@ -83,7 +83,6 @@ Override the field values for generated `helm_unittest_test` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
-
 ```
 overrides={
     "configmap_test.yaml": {"timeout": 120},
@@ -101,8 +100,12 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 
 ## `strict`
 
-<Field type_repr={`field.type_hint`}>
-  If set to true, parses the UnitTest suite files strictly.
+<Field
+    type_repr={`field.type_hint`}
+>
+
+If set to true, parses the UnitTest suite files strictly.
+
 </Field>
 
 ## `timeout`
@@ -116,5 +119,7 @@ A timeout (in seconds) used by each test file belonging to this target.
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
 
 </Field>
+
+
 
 </span>

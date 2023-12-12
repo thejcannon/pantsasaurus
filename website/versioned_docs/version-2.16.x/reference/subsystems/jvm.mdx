@@ -25,7 +25,7 @@ Config section: <span className="color--primary">`[jvm]`</span>
 
 <Option
   cli_repr={`--jvm-resolves="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr="PANTS_JVM_RESOLVES"
+  env_repr='PANTS_JVM_RESOLVES'
   default_repr={`{"jvm-default": "3rdparty/jvm/default.lock"}`}
 >
 
@@ -67,12 +67,11 @@ For example, if you want to attach a remote debugger, use something like [&#x27;
 
 <Option
   cli_repr={`--jvm-tool-jdk=<str>`}
-  env_repr="PANTS_JVM_TOOL_JDK"
+  env_repr='PANTS_JVM_TOOL_JDK'
   default_repr={`temurin:1.11`}
 >
 
-The JDK to use when building and running Pants&#x27; internal JVM support code
-and other non-compiler tools. See `jvm` help for supported values.
+The JDK to use when building and running Pants&#x27; internal JVM support code and other non-compiler tools. See `jvm` help for supported values.
 
 </Option>
 
