@@ -28,7 +28,7 @@ Pants reads a PEP 517 `[build-system]` specification from `pyproject.toml` and a
 
 If there is no `pyproject.toml` with a `[build-system]` table available, Pants falls back to using Setuptools directly.
 ## The `python_distribution` target
-You configure a distribution using a [`python_distribution`](doc:reference-python_distribution) target. This target provides Pants with the information needed to build the distribution.
+You configure a distribution using a [`python_distribution`](../../../reference/targets/python-distribution.mdx) target. This target provides Pants with the information needed to build the distribution.
 
 ### PEP 517
 
@@ -81,7 +81,7 @@ python_distribution(
 Running `./pants package example/dists:mydist` will cause Pants to run Setuptools, which will in turn run the `setup.py` script in the `python_distribution` target's directory. If no such script exists, Pants can generate one for you (see below).
 
 :::note See `package` for other package formats
-This page focuses on building sdists and wheels with the `./pants package` goal. See [package](doc:python-package-goal) for information on other formats that can be built with `./pants package`, such as PEX binaries and zip/tar archives.
+This page focuses on building sdists and wheels with the `./pants package` goal. See [package](../goals/package.mdx) for information on other formats that can be built with `./pants package`, such as PEX binaries and zip/tar archives.
 
 :::
 
@@ -124,7 +124,7 @@ You can use almost any [keyword argument](https://packaging.python.org/guides/di
 However, you cannot use `data_files`, `install_requires`, `namespace_packages`, `package_dir`, `package_data`, or `packages` because Pants will generate these for you, based on the data derived from your code and dependencies.
 
 :::note Use the `entry_points` field to register entry points like `console_scripts`
-The [`entry_points` field](doc:reference-python_distribution#codeentry_pointscode) allows you to configure [setuptools-style entry points](https://packaging.python.org/specifications/entry-points/#entry-points-specification):
+The [`entry_points` field](../../../reference/targets/python-distribution.mdx#codeentry_pointscode) allows you to configure [setuptools-style entry points](https://packaging.python.org/specifications/entry-points/#entry-points-specification):
 
 `python
 python_distribution(
@@ -141,7 +141,7 @@ python_distribution(
 
 Pants will infer dependencies on each entry point, which you can confirm by running `./pants dependencies path/to:python_dist`.
 
-In addition to using the format `path.to.module:func`, you can use an [address](doc:targets) to a `pex_binary` target, like `src/py/project:pex_binary` or `:sibling_pex_binary`. Pants will use the `entry_point` already specified by the `pex_binary`, and it will infer a dependency on the `pex_binary` target. This allows you to better DRY your project's entry points.
+In addition to using the format `path.to.module:func`, you can use an [address](../../using-pants/key-concepts-to-know-about-pants/targets-and-build-files.mdx) to a `pex_binary` target, like `src/py/project:pex_binary` or `:sibling_pex_binary`. Pants will use the `entry_point` already specified by the `pex_binary`, and it will infer a dependency on the `pex_binary` target. This allows you to better DRY your project's entry points.
 
 :::
 
@@ -154,7 +154,7 @@ You may want to write a plugin to do any of these things:
 * Read from the file system to dynamically determine kwargs, such as the `long_description` or `version`.
 * Run processes like Git to dynamically determine the `version` kwarg.
 
-Start by reading about the [Plugin API](doc:plugins-overview), then refer to the [Custom `python_artifact()` kwargs](doc:plugins-setup-py) instructions.
+Start by reading about the [Plugin API](../../writing-plugins/overview.mdx), then refer to the [Custom `python_artifact()` kwargs](../../writing-plugins/common-plugin-tasks/custom-`setup-py()`-kwargs.mdx) instructions.
 
 :::
 
@@ -204,6 +204,6 @@ See https://www.python.org/dev/peps/pep-0440/#version-specifiers for more inform
 :::note How to upload your distributions to a package index
 Pants does not have a mechanism to upload your distributions. Instead, run `package` as described above to create the asset, such as a `.whl` file, then use a tool like Twine to upload your package.
 
-Please let us know on [Slack](doc:community) or [GitHub issues](https://github.com/pantsbuild/pants/issues/new) if you would like this feature.
+Please let us know on [Slack](/community/members) or [GitHub issues](https://github.com/pantsbuild/pants/issues/new) if you would like this feature.
 
 :::

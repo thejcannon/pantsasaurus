@@ -13,7 +13,7 @@ The Target API can also be used to add new target types—such as adding support
 ## Targets and Fields - the core building blocks
 ### Definition of _target_
 
-As described in [Targets and BUILD files](doc:targets), a _target_ is a set of metadata describing some of your code.
+As described in [Targets and BUILD files](../../using-pants/key-concepts/targets-and-build-files.mdx), a _target_ is a set of metadata describing some of your code.
 
 For example, this BUILD file defines a `python_tests` target.
 ```python title="BUILD"
@@ -49,7 +49,7 @@ Precisely, a target is a combination of fields, along with a BUILD file alias.
 
 These fields should make sense together. For example, it does not make sense for a `python_library` target to have a `haskell_version` field.
 
-In fact, it only takes 3 lines of code to [create a new target](doc:target-api-new-targets):
+In fact, it only takes 3 lines of code to [create a new target](./creating-new-targets.mdx):
 ```python title="plugin_target_type.py"
 from pants.engine.target import Dependencies, Sources, Target, Tags
 

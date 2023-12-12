@@ -7,7 +7,7 @@ Run a `pex_binary` target.
 
 ---
 
-To run an executable/script, use `./pants run` on a [`pex_binary`](doc:reference-pex_binary) target. (See [package](doc:python-package-goal) for more on the `pex_binary` target.)
+To run an executable/script, use `./pants run` on a [`pex_binary`](../../../reference/targets/pex-binary.mdx) target. (See [package](./package.mdx) for more on the `pex_binary` target.)
 
 ```bash
 $ ./pants run project/app.py
@@ -37,7 +37,7 @@ Pants will propagate the return code from the underlying executable. Run `echo $
 
 
 :::caution Issues finding files?
-Run `./pants dependencies --transitive path/to/binary.py` to ensure that all the files you need are showing up, including for any [assets](doc:assets) you intend to use.
+Run `./pants dependencies --transitive path/to/binary.py` to ensure that all the files you need are showing up, including for any [assets](../../using-pants/assets-and-archives.mdx) you intend to use.
 
 :::
 
@@ -45,7 +45,7 @@ Run `./pants dependencies --transitive path/to/binary.py` to ensure that all the
 ## Watching the filesystem
 If the app that you are running is long lived and safe to restart (including web apps like Django and Flask or other types of servers/services), you can set `restartable=True` on your `pex_binary` target to indicate this to Pants. The `run` goal will then automatically restart the app when its input files change!
 
-On the other hand, if your app is short lived (like a script) and you'd like to re-run it when files change but never interrupt an ongoing run, consider using `./pants --loop run` instead. See [Goals](doc:goals#running-goals) for more information on `--loop`.
+On the other hand, if your app is short lived (like a script) and you'd like to re-run it when files change but never interrupt an ongoing run, consider using `./pants --loop run` instead. See [Goals](../../using-pants/key-concepts/goals.mdx#running-goals) for more information on `--loop`.
 ## Debugging
 
 

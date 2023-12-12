@@ -18,7 +18,7 @@ To run Pants, you need:
 
 :::note Restricted Internet access?
 
-    See [Restricted Internet access](doc:restricted-internet-access) for instructions.
+    See [Restricted Internet access](../../using-pants/restricted-internet-access.mdx) for instructions.
 :::
 
 System-specific notes
@@ -38,7 +38,7 @@ System-specific notes
 
     Pants for Linux is currently distributed as a manylinux wheel. Alpine Linux is not covered by manylinux (it uses MUSL libc while manylinux requires glibc), so at present Pants will not run on Alpine Linux. 
     
-    If you need to run Pants on Alpine, [let us know](doc:community), so we can prioritize this work. Meanwhile, you can try [building Pants yourself](doc:manual-installation#building-pants-from-sources) on Alpine.
+    If you need to run Pants on Alpine, [let us know](/community/members), so we can prioritize this work. Meanwhile, you can try [building Pants yourself](./manual-installation.mdx#building-pants-from-sources) on Alpine.
 :::
 
 
@@ -46,7 +46,7 @@ System-specific notes
 
     Pants 2.16 will be distributed for Linux x86_64 and ARM64. Earlier versions are only distributed for Linux x86_64.
     
-    If you need to run an earlier version of Pants on ARM, you can try [building Pants yourself](doc:manual-installation#building-pants-from-sources) on that platform.
+    If you need to run an earlier version of Pants on ARM, you can try [building Pants yourself](./manual-installation.mdx#building-pants-from-sources) on that platform.
 :::
 
 ### macOS
@@ -56,7 +56,7 @@ System-specific notes
 
     If running Pants inside a Docker container on an Apple Silicon machine you may need to set `--no-watch-filesystem --no-pantsd`. This is because notifications on native macOS files aren't mirrored over to the virtualized Linux system.
     
-    We don't recommend setting this permanently, as these options are crucial for performance when iterating. Instead, you may want to look at the new [Environments](doc:environments) feature, that lets Pants run natively on macOS but selectively invoke processes in a Docker container.
+    We don't recommend setting this permanently, as these options are crucial for performance when iterating. Instead, you may want to look at the new [Environments](../../using-pants/environments:-cross-platform-or-remote-builds.mdx) feature, that lets Pants run natively on macOS but selectively invoke processes in a Docker container.
 :::
 
 ### Microsoft Windows

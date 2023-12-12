@@ -8,7 +8,7 @@ title: Integrating new tools without plugins
 
 The `adhoc_tool` target allows you to execute "runnable" targets inside the Pants sandbox. Runnable targets include first-party sources that can be run with `pants run`, 3rd-party dependencies like `python_requirement` or `jvm_artifact`, or even executables that exist on your system and managed externally to Pants.
 
-`adhoc_tool` provides you with the building blocks needed to put together a custom build process without needing to develop and maintain a plugin. The level of initial effort involved in using `adhoc_tool` is significantly lower than that of [writing a plugin](doc:plugins-overview), so it's well-suited to consuming one-off scripts, or for rapidly prototyping a process before actually writing a plugin. The tradeoff is that there is more manual work involved in defining build processes that reflect your codebase's structure, and that the targets that define the tools you consume are less easy to reuse.
+`adhoc_tool` provides you with the building blocks needed to put together a custom build process without needing to develop and maintain a plugin. The level of initial effort involved in using `adhoc_tool` is significantly lower than that of [writing a plugin](../writing-plugins/plugins-overview.mdx), so it's well-suited to consuming one-off scripts, or for rapidly prototyping a process before actually writing a plugin. The tradeoff is that there is more manual work involved in defining build processes that reflect your codebase's structure, and that the targets that define the tools you consume are less easy to reuse.
 
 The `antlr` demo in the [`example-adhoc` respository](https://github.org/pantsbuild/example-adhoc) shows an example of running a JVM-based tool to transparently generate Python code that can be used in another language:
 
@@ -36,7 +36,7 @@ The tool will be run with values from `args` specified as arguments. By default,
 
 :::caution `runnable` targets must be pure functions
 
-    When run by `adhoc_tool`, Pants assumes that the inputs provided to the process -- that is, the values of the `adhoc_tool`'s fields, and the contents of the runnable and execution dependencies -- fully describe the output. Output values will be [cached](doc:how-does-pants-work#caching) by Pants, and future invocations with identical inputs will be retrieved from the cache instead of being re-executed. If your process has behavior that is not fully defined by its inputs, Pants' behavior may be unexpected or inconsistent.
+    When run by `adhoc_tool`, Pants assumes that the inputs provided to the process -- that is, the values of the `adhoc_tool`'s fields, and the contents of the runnable and execution dependencies -- fully describe the output. Output values will be [cached](../introduction/how-does-pants-work.mdx#caching) by Pants, and future invocations with identical inputs will be retrieved from the cache instead of being re-executed. If your process has behavior that is not fully defined by its inputs, Pants' behavior may be unexpected or inconsistent.
 :::
 
 

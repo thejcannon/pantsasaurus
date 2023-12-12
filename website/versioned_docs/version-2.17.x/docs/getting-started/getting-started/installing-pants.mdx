@@ -33,9 +33,9 @@ bin i github.com/pantsbuild/scie-pants ~/.local/bin/pants
 
 - If you run `pants` in a repo that is already configured to use Pants, it will read the repo's Pants version from the `pants.toml` config file, install that version if necessary, and then run it.
 
-- If you run `pants` in a repo that is not yet configured to use Pants, it will prompt you to set up a skeleton `pants.toml` that uses that latest stable version of Pants. You'll then need to edit that config file to add [initial configuration](doc:initial-configuration).
+- If you run `pants` in a repo that is not yet configured to use Pants, it will prompt you to set up a skeleton `pants.toml` that uses that latest stable version of Pants. You'll then need to edit that config file to add [initial configuration](./initial-configuration.mdx).
 
-If you have difficulty installing Pants, see our [getting help](doc:getting-help) for community resources to help you resolve your issue.
+If you have difficulty installing Pants, see our [getting help](/community/getting-help) for community resources to help you resolve your issue.
 
 
 :::tip Upgrading Pants
@@ -57,12 +57,12 @@ To use an unreleased build of Pants from the [pantsbuild/pants](https://github.c
 PANTS_SHA=8553e8cbc5a1d9da3f84dcfc5e7bf3139847fb5f pants --version
 ```
 
-If a particular SHA does not have built wheels, you can either wait for [the next release from the relevant branch](doc:release-strategy), ping a maintainer [in Slack](doc:getting-help), or file a Github issue mentioning the SHA that you would like to test.
+If a particular SHA does not have built wheels, you can either wait for [the next release from the relevant branch](../../contributions/releases/release-strategy.mdx), ping a maintainer [in Slack](/community/getting-help), or file a Github issue mentioning the SHA that you would like to test.
 
 Running Pants from sources
 --------------------------
 
-See [here](doc:running-pants-from-sources) for instructions on how to run Pants directly from its [sources](https://github.com/pantsbuild/pants).
+See [here](../../contributions/development/running-pants-from-sources.mdx) for instructions on how to run Pants directly from its [sources](https://github.com/pantsbuild/pants).
 
 This is useful when making changes directly to Pants, to see how those changes impact your repo.
 
@@ -74,7 +74,7 @@ This is useful when making changes directly to Pants, to see how those changes i
     
     The `pants` launcher binary uses an embedded interpreter and does not rely on one being present on the system (although if your repo contains Python code then it naturally requires a Python interpreter).
     
-    We strongly recommend removing the `./pants` script from your repo and using the `pants` binary instead. You can keep a simple `./pants` script that delegates to `pants` to ease the transition. However, if you do need to continue to use the old installation method for some reason, it is described [here](doc:manual-installation). But please [let us know](doc:getting-help) so we can accommodate your use case in the launcher binary.
+    We strongly recommend removing the `./pants` script from your repo and using the `pants` binary instead. You can keep a simple `./pants` script that delegates to `pants` to ease the transition. However, if you do need to continue to use the old installation method for some reason, it is described [here](./manual-installation.mdx). But please [let us know](/community/getting-help) so we can accommodate your use case in the launcher binary.
 :::
 
 The `pants` binary's implementation

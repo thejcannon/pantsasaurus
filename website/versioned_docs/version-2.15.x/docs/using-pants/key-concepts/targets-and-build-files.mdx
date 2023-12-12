@@ -44,7 +44,7 @@ Each target type has different _fields_, or individual metadata values. Run `pan
 
 All target types have a `name` field, which is used to identify the target. Target names must be unique within a directory.
 
-You can autoformat `BUILD` files by enabling a `BUILD` file formatter by adding it to `[GLOBAL].backend_packages` in `pants.toml` (such as `pants.backend.build_files.fmt.black` [or others](doc:enabling-backends)). Then to format, run `pants fmt '**/BUILD'` or `pants fmt ::` (formats everything).
+You can autoformat `BUILD` files by enabling a `BUILD` file formatter by adding it to `[GLOBAL].backend_packages` in `pants.toml` (such as `pants.backend.build_files.fmt.black` [or others](./backends.mdx)). Then to format, run `pants fmt '**/BUILD'` or `pants fmt ::` (formats everything).
 
 Target addresses
 ================
@@ -151,7 +151,7 @@ You only need to declare direct dependencies. Pants will pull in _transitive dep
 
 :::note Ignore dependencies with `!` and `!!`
 
-    If you don't like that Pants inferred a certain dependency—as reported by [`pants dependencies path/to:tgt`](doc:project-introspection)—tell Pants to ignore it with `!`:
+    If you don't like that Pants inferred a certain dependency—as reported by [`pants dependencies path/to:tgt`](../project-introspection.mdx)—tell Pants to ignore it with `!`:
     
     ```python
     python_sources(
@@ -168,7 +168,7 @@ You only need to declare direct dependencies. Pants will pull in _transitive dep
 Field default values
 ====================
 
-As mentioned above in [BUILD files](doc:targets#build-files), most target fields have sensible defaults. And it's easy to override those values on a specific target. But applying the same non-default value on many targets can get unwieldy, error-prone and hard to maintain. Enter `__defaults__`.
+As mentioned above in [BUILD files](./targets-and-build-files.mdx#build-files), most target fields have sensible defaults. And it's easy to override those values on a specific target. But applying the same non-default value on many targets can get unwieldy, error-prone and hard to maintain. Enter `__defaults__`.
 
 Alternative default field values are set using the `__defaults__` BUILD file symbol, and apply to targets in the filesystem tree under that BUILD file's directory.
 
@@ -235,7 +235,7 @@ To reduce boilerplate, Pants provides target types that generate other targets. 
 - `python_tests` -> `python_test`
 - `go_mod` -> `go_third_party_package`
 
-Usually, prefer these target generators. [`pants tailor ::`](doc:initial-configuration#5-generate-build-files) will automatically add them for you.
+Usually, prefer these target generators. [`pants tailor ::`](../../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files) will automatically add them for you.
 
 Run `pants help targets` to see how the target determines what to generate. Targets for first-party code, like `resources` and `python_tests`, will generate one target for each file in their `sources` field.
 
@@ -267,7 +267,7 @@ python_tests(
 
 :::caution Field default values for generated targets
 
-    [Default field values](doc:targets#field-default-values) apply to target generators, _not_ to generated targets. For example, if you have:
+    [Default field values](./targets-and-build-files.mdx#field-default-values) apply to target generators, _not_ to generated targets. For example, if you have:
     
     ```python
     __defaults__({python_test: {"timeout": 30}})
@@ -293,7 +293,7 @@ The address for generated targets depends if the generated target is for first-p
 | All other targets, e.g. `go_third_party_package` | `path/to:tgt_generator#generated_name`  <br/>  <br/>Example: `3rdparty/py:reqs#django`  <br/>  <br/>Run `pants help $target_type` on the target generator to see how it sets the generated name. For example, `go_mod` uses the Go package's name.  <br/>  <br/>If the target generator left off the `name` field, you can leave it off for the generated address too, e.g. `3rdparty/py#django` (without the `:reqs` portion).  <br/>  <br/>With the `dependencies` field, you can use relative addresses to reference generated targets in the same BUILD file, e.g. `:generator#generated_name` instead of `src/py:generated#generated_name`. If the target generator uses the default `name`, you can simply use `#generated_name`. |
 
 
-Run [`pants list dir:`](doc:project-introspection) in the directory of the target generator to see all generated target addresses, and [`pants peek dir:`](doc:project-introspection) to see all their metadata.
+Run [`pants list dir:`](../project-introspection.mdx) in the directory of the target generator to see all generated target addresses, and [`pants peek dir:`](../project-introspection.mdx) to see all their metadata.
 
 You can use the address for the target generator as an alias for all of its generated targets. For example, if you have the `files` target `assets:logos`, adding `dependencies=["assets:logos"]`to another target will add a dependency on each generated `file` target. Likewise, if you have a `python_tests` target `project:tests`, then `pants test project:tests` will run on each generated `python_test` target.
 
@@ -306,7 +306,7 @@ You can use the address for the target generator as an alias for all of its gene
     
     It's useful for metadata to be as fine-grained as feasible, such as by using the `overrides` field to only change the files you need to. Fine-grained metadata is key to having smaller cache keys (resulting in more cache hits), and allows you to more accurately reflect the status of your project. We have found that using one BUILD file per directory encourages fine-grained metadata by defining the metadata adjacent to where the code lives.
     
-    [`pants tailor ::`](doc:initial-configuration#5-generate-build-files) will automatically create targets that only apply metadata for the directory.
+    [`pants tailor ::`](../../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files) will automatically create targets that only apply metadata for the directory.
 :::
 
 Parametrizing targets
@@ -352,7 +352,7 @@ python_test(
 )
 ```
 
-The targets' addresses will have `@key=value` at the end, as shown above. Run [`pants list dir:`](doc:project-introspection) in the directory of the parametrized target to see all parametrized target addresses, and [`pants peek dir:`](doc:project-introspection) to see all their metadata.
+The targets' addresses will have `@key=value` at the end, as shown above. Run [`pants list dir:`](../project-introspection.mdx) in the directory of the parametrized target to see all parametrized target addresses, and [`pants peek dir:`](../project-introspection.mdx) to see all their metadata.
 
 Generally, you can use the address without the `@` suffix as an alias to all the parametrized targets. For example, `pants test example:tests` will run all the targets in parallel. Use the more precise address if you only want to use one parameter value, e.g. `pants test example:tests@shell=bash`.
 

@@ -44,9 +44,9 @@ backend_packages = [
 ]
 ```
 
-This adds the new [`protobuf_source`](doc:reference-protobuf_source) target, which you can confirm by running `./pants help protobuf_source`. 
+This adds the new [`protobuf_source`](../../../reference/targets/protobuf-source.mdx) target, which you can confirm by running `./pants help protobuf_source`. 
 
-To reduce boilerplate, you can also use the [`protobuf_sources`](doc:reference-protobuf_sources) target, which generates one `protobuf_source` target per file in the `sources` field.
+To reduce boilerplate, you can also use the [`protobuf_sources`](../../../reference/targets/protobuf-sources.mdx) target, which generates one `protobuf_source` target per file in the `sources` field.
 
 ```python title="BUILD"
 protobuf_sources(name="protos", sources=["user.proto", "admin.proto"])
@@ -86,7 +86,7 @@ Multiple Protobuf files can set the same `go_package` if their code should show 
 Step 4: Generate `protobuf_sources` targets
 -------------------------------------------
 
-Run [`./pants tailor ::`](doc:initial-configuration#5-generate-build-files) for Pants to create a `protobuf_sources` target wherever you have `.proto` files:
+Run [`./pants tailor ::`](../../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files) for Pants to create a `protobuf_sources` target wherever you have `.proto` files:
 
 ```
 ❯ ./pants tailor ::
@@ -94,7 +94,7 @@ Created src/protos/BUILD:
   - Add protobuf_sources target protos
 ```
 
-Pants will use [dependency inference](doc:targets) for any `import` statements in your `.proto` files, which you can confirm by running `./pants dependencies path/to/file.proto`.
+Pants will use [dependency inference](../../using-pants/key-concepts/targets-and-build-files.mdx) for any `import` statements in your `.proto` files, which you can confirm by running `./pants dependencies path/to/file.proto`.
 
 If you want gRPC code generated for all files in the folder, set `grpc=True`.
 

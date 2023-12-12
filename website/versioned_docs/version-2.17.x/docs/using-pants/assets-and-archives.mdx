@@ -12,11 +12,11 @@ There are two ways to include asset files in your project: `resource` and `file`
 `resources`
 -----------
 
-A [`resource`](doc:reference-resource) target is for files that are members of code packages, and are loaded via language-specific mechanisms, such as Python's `importlib.resources.read_text()` or Java's `getResource()`.  
+A [`resource`](../../reference/targets/resource.mdx) target is for files that are members of code packages, and are loaded via language-specific mechanisms, such as Python's `importlib.resources.read_text()` or Java's `getResource()`.  
 
 Pants will make resources available on the appropriate runtime path, such as Python's `PYTHONPATH` or the JVM classpath. Resources can be loaded directly from a binary in which they are embedded, such as a Pex file, without first unpacking it.
 
-To reduce boilerplate, the [`resources`](doc:reference-resources) target generates a `resource` target per file in the `sources` field.
+To reduce boilerplate, the [`resources`](../../reference/targets/resources.mdx) target generates a `resource` target per file in the `sources` field.
 
 For example, to load resources in Python:
 
@@ -44,14 +44,14 @@ resource(
 {"k1": "v", "k2": "v"}
 ```
 
-[Source root](doc:source-roots) stripping applies to resources, just as it does for code. In the example above, Python loads the resource named `project/config`, rather than `src/python/project/config.json`. 
+[Source root](./key-concepts/source-roots.mdx) stripping applies to resources, just as it does for code. In the example above, Python loads the resource named `project/config`, rather than `src/python/project/config.json`. 
 
 `files`
 -------
 
 A `file` target is for loose files that are copied into the chroot where Pants runs your code. You can then load these files through direct mechanisms like Python's `open()` or Java's `FileInputStream`. The files are not associated with a code package, and must be extracted out of a deployed archive file before they can be loaded.
 
-To reduce boilerplate, the [`files`](doc:reference-files) target generates a `file` target per file in the `sources` field.
+To reduce boilerplate, the [`files`](../../reference/targets/files.mdx) target generates a `file` target per file in the `sources` field.
 
 For example, to load loose files in Python:
 

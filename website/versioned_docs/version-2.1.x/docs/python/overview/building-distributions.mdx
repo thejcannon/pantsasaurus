@@ -18,7 +18,7 @@ When run on appropriate targets, the `./pants package` goal will generate a `set
 See [here](https://packaging.python.org/tutorials/packaging-projects/) for more information about the `setup.py` file and the commands you can run with it.
 
 :::note See `package` for other package formats
-This page focuses on building sdists and wheels with the `./pants package` goal. See [package](doc:python-package-goal) for information on other formats that work with `./pants package`, such as PEX binaries and zip/tar archives.
+This page focuses on building sdists and wheels with the `./pants package` goal. See [package](../goals/package.mdx) for information on other formats that work with `./pants package`, such as PEX binaries and zip/tar archives.
 
 :::
 
@@ -87,7 +87,7 @@ You may want to write a plugin to do any of these things:
 * Read from the file system to dynamically determine kwargs, such as the `long_description` or `version`.
 * Run processes like Git to dynamically determine the `version` kwarg.
 
-Start by reading about the [Plugin API](doc:plugins-overview), then refer to the [Custom `setup_py()` kwargs](doc:plugins-setup-py) instructions.
+Start by reading about the [Plugin API](../../writing-plugins/overview.mdx), then refer to the [Custom `setup_py()` kwargs](../../writing-plugins/common-plugin-tasks/custom-`setup-py()`-kwargs.mdx) instructions.
 
 :::
 
@@ -144,6 +144,6 @@ For example, if `setup_py_commands=["bdist_wheel", "sdist"]`, then `./pants pack
 :::note How to upload your distributions to a package index
 Pants does not have a mechanism to upload your distributions. Instead, run `package` as described above to create the asset, such as the wheel, then use a tool like Twine to upload your package.
 
-Please let us know on [Slack](doc:community) or [GitHub issues](https://github.com/pantsbuild/pants/issues/new) if you would like this feature.
+Please let us know on [Slack](/community/members) or [GitHub issues](https://github.com/pantsbuild/pants/issues/new) if you would like this feature.
 
 :::

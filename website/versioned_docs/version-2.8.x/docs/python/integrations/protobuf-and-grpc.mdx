@@ -34,9 +34,9 @@ backend_packages.add = [
 ]
 ```
 
-This adds the new [`protobuf_source`](doc:reference-protobuf_source) target, which you can confirm by running `./pants help protobuf_source`. 
+This adds the new [`protobuf_source`](../../../reference/targets/protobuf-source.mdx) target, which you can confirm by running `./pants help protobuf_source`. 
 
-To reduce boilerplate, you can also use the [`protobuf_sources`](doc:reference-protobuf_sources) target, which generates one `protobuf_source` target per file in the `sources` field.
+To reduce boilerplate, you can also use the [`protobuf_sources`](../../../reference/targets/protobuf-sources.mdx) target, which generates one `protobuf_source` target per file in the `sources` field.
 ```python title="BUILD"
 protobuf_sources(name="protos", sources=["user.proto", "admin.proto"])
 
@@ -51,7 +51,7 @@ protobuf_sources(name="protos")
 
 
 :::note Enable the MyPy Protobuf plugin
-The [MyPy Protobuf plugin](https://github.com/dropbox/mypy-protobuf) generates [`.pyi` type stubs](https://mypy.readthedocs.io/en/stable/stubs.html). If you use MyPy through Pants's [check goal](doc:python-check-goal), this will ensure MyPy understands your generated code.
+The [MyPy Protobuf plugin](https://github.com/dropbox/mypy-protobuf) generates [`.pyi` type stubs](https://mypy.readthedocs.io/en/stable/stubs.html). If you use MyPy through Pants's [check goal](../goals/check.mdx), this will ensure MyPy understands your generated code.
 
 To activate, set `mypy_plugin = true` in the `[python-protobuf]` scope:
 
@@ -67,7 +67,7 @@ MyPy will use the generated `.pyi` type stub file, rather than looking at the `.
 
 
 :::caution Want to use other protocols, like Thrift?
-Please message us on [Slack](doc:community) if you would like support for more protocols. We would be happy to either add support to the core Pants distribution or to help you to write a plugin.
+Please message us on [Slack](/community/members) if you would like support for more protocols. We would be happy to either add support to the core Pants distribution or to help you to write a plugin.
 
 :::
 
@@ -75,7 +75,7 @@ Please message us on [Slack](doc:community) if you would like support for more p
 ## Step 2: Set up the `protobuf` and `grpcio` runtime libraries
 Generated Python files require the [`protobuf` dependency](https://pypi.org/project/protobuf/) for their imports to work properly. If you're using gRPC, you also need the [`grpcio` dependency](https://pypi.org/project/grpcio/).
 
-First, add `protobuf`—and `grpcio`, if relevant— to your project, e.g. your `requirements.txt` (see [Third-party dependencies](doc:python-third-party-dependencies)).
+First, add `protobuf`—and `grpcio`, if relevant— to your project, e.g. your `requirements.txt` (see [Third-party dependencies](../overview/third-party-dependencies.mdx)).
 ```text title="requirements.txt"
 grpcio==1.32.0
 protobuf>=3.12.1
@@ -91,7 +91,7 @@ runtime_dependencies = ["//:grpcio", "//:protobuf"]
 
 
 ## Step 3: Generate `protobuf_sources` target
-Run [`./pants tailor`](doc:create-initial-build-files) for Pants to create a `protobuf_sources` target wherever you have `.proto` files:
+Run [`./pants tailor`](../../getting-started/getting-started/create-initial-build-files.mdx) for Pants to create a `protobuf_sources` target wherever you have `.proto` files:
 
 ```
 $ ./pants tailor
@@ -99,7 +99,7 @@ Created src/protos/BUILD:
   - Add protobuf_sources target protos
 ```
 
-Pants will use [dependency inference](doc:targets) for any `import` statements in your `.proto` files, which you can confirm by running `./pants dependencies path/to/file.proto`. You can also manually add to the `dependencies` field.
+Pants will use [dependency inference](../../using-pants/key-concepts-to-know-about-pants/targets-and-build-files.mdx) for any `import` statements in your `.proto` files, which you can confirm by running `./pants dependencies path/to/file.proto`. You can also manually add to the `dependencies` field.
 
 If you want gRPC code generated for all files in the folder, set `grpc=True`.
 ```python title="src/proto/example/BUILD"
@@ -125,7 +125,7 @@ protobuf_sources(
 ## Step 4: Confirm Python imports are working
 Now, you can import the generated Python module in your Python code. For example, to import `project/example/f.proto`, add `import project.example.f_pb2` to your code. 
 
-If you have [source roots](doc:source-roots) other than the repository root, remove the source root from the import. For example, `src/protos/example/f.proto` gets stripped to `import example.f_pb2`. See the below section on source roots for more info.
+If you have [source roots](../../using-pants/key-concepts-to-know-about-pants/source-roots.mdx) other than the repository root, remove the source root from the import. For example, `src/protos/example/f.proto` gets stripped to `import example.f_pb2`. See the below section on source roots for more info.
 
 Pants's dependency inference will detect Python imports of Protobuf modules, which you can confirm by running `./pants dependencies path/to/file.py`.
 
@@ -154,7 +154,7 @@ See the below section "Protobuf and source roots" for how to generate into a dif
 
 
 ## Protobuf and source roots
-By default, generated code goes into the same [source root](doc:source-roots) as the `.proto` file from which it was generated. For example, a file `src/proto/example/f.proto` will generate `src/proto/example/f_pb2.py`. 
+By default, generated code goes into the same [source root](../../using-pants/key-concepts-to-know-about-pants/source-roots.mdx) as the `.proto` file from which it was generated. For example, a file `src/proto/example/f.proto` will generate `src/proto/example/f_pb2.py`. 
 
 However, this may not always be what you want. In particular, you may not want to have to add `__init__py` files under `src/proto` just so you can import Python code generated to that source root.
 

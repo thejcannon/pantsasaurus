@@ -25,19 +25,19 @@ Directories to cache
 In your CI's config file, we recommend caching these directories:
 
 - `$HOME/.cache/nce` (Linux) or `$HOME/Library/Caches/nce` (macOS)<br/>
-  This is the cache directory used by the [Pants launcher binary](doc:installation) to cache its embedded interpreter. Cache this against some static key that you can modify if you want to purge that cache.
+  This is the cache directory used by the [Pants launcher binary](../getting-started/getting-started/installing-pants.mdx) to cache its embedded interpreter. Cache this against some static key that you can modify if you want to purge that cache.
 - `$HOME/.cache/pants/setup`<br/>
   This is the Pants bootstrap directory. Cache this against the version, as specified in `pants.toml`.  See the [pantsbuild/example-python](https://github.com/pantsbuild/example-python/blob/main/.github/workflows/pants.yaml) repo for an example of how to generate an effective cache key for this directory in GitHub Actions.
 - `$HOME/.cache/pants/named_caches`<br/>
   Caches used by some underlying tools.  Cache this against the inputs to those tools. For the `pants.backend.python` backend, named caches are used by PEX, and therefore its inputs are your lockfiles. Again, see [pantsbuild/example-python]([pantsbuild/example-python](https://github.com/pantsbuild/example-python/blob/main/.github/workflows/pants.yaml)) for an example.
 
-If you're not using a fine-grained [remote caching](doc:remote-caching-execution) service, then you may also want to preserve the local Pants cache at `$HOME/.cache/pants/lmdb_store`. This has to be invalidated on any file that can affect any process, e.g., `hashFiles('**/*')` on GitHub Actions.
+If you're not using a fine-grained [remote caching](./remote-caching-&-execution/index.mdx) service, then you may also want to preserve the local Pants cache at `$HOME/.cache/pants/lmdb_store`. This has to be invalidated on any file that can affect any process, e.g., `hashFiles('**/*')` on GitHub Actions.
 
 Computing such a coarse hash, and saving and restoring large directories, can be unwieldy. So this may be impractical and slow on medium and large repos.
 
-A [remote cache service](doc:remote-caching-execution) integrates with Pants's fine-grained invalidation and avoids these problems, and is recommended for the best CI performance.
+A [remote cache service](./remote-caching-&-execution/index.mdx) integrates with Pants's fine-grained invalidation and avoids these problems, and is recommended for the best CI performance.
 
-See [Troubleshooting](doc:troubleshooting#how-to-change-your-cache-directory) for how to change these cache locations.
+See [Troubleshooting](./troubleshooting-common-issues.mdx#how-to-change-your-cache-directory) for how to change these cache locations.
 
 
 :::note Nuking the cache when too big
@@ -89,13 +89,13 @@ See [Troubleshooting](doc:troubleshooting#how-to-change-your-cache-directory) fo
       - No download and upload stage for your cache. 
       - No need to "nuke" your cache when it gets too big.
     
-    See [Remote Caching and Execution](doc:remote-caching-execution) for more information.
+    See [Remote Caching and Execution](./remote-caching-&-execution/index.mdx) for more information.
 :::
 
 Recommended commands
 --------------------
 
-With both approaches, you may want to shard the input targets into multiple CI jobs, for increased parallelism. See [Advanced Target Selection](doc:advanced-target-selection#sharding-the-input-targets). (This is typically less necessary when using [remote caching](doc:remote-caching-execution).)
+With both approaches, you may want to shard the input targets into multiple CI jobs, for increased parallelism. See [Advanced Target Selection](./advanced-target-selection.mdx#sharding-the-input-targets). (This is typically less necessary when using [remote caching](./remote-caching-&-execution/index.mdx).)
 
 ### Approach #1: only run over changed files
 
@@ -120,7 +120,7 @@ Because most linters do not care about a target's dependencies, we lint all chan
 
 Meanwhile, tests should be rerun when any changes are made to the tests _or_ to dependencies of those tests, so we use the option `--changed-dependents=transitive`. `check` should also run on any transitive changes.
 
-See [Advanced target selection](doc:advanced-target-selection) for more information on `--changed-since` and alternative techniques to select targets to run in CI.
+See [Advanced target selection](./advanced-target-selection.mdx) for more information on `--changed-since` and alternative techniques to select targets to run in CI.
 
 
 :::caution This will not handle all cases, like hooking up a new linter
@@ -170,12 +170,12 @@ Alternatively, you can simply run over all your code. Pants's caching means that
 
 However, when the cache gets too big, it should be nuked (see "Directories to cache"), so your CI may end up doing more work than Approach #1.
 
-This approach works particularly well if you are using [remote caching](doc:remote-caching).
+This approach works particularly well if you are using [remote caching](./remote-caching-&-execution/remote-caching.mdx).
 
 Configuring Pants for CI: `pants.ci.toml` (optional)
 ----------------------------------------------------
 
-Sometimes, you may want config specific to your CI, such as turning on test coverage reports. If you want CI-specific config, create a dedicated `pants.ci.toml` [config file](doc:options). For example:
+Sometimes, you may want config specific to your CI, such as turning on test coverage reports. If you want CI-specific config, create a dedicated `pants.ci.toml` [config file](./key-concepts/options.mdx). For example:
 
 ```toml title="pants.ci.toml"
 [GLOBAL]
@@ -205,14 +205,14 @@ Pants allows you to control its resource consumption. These options all have sen
 
 Concurrency options:
 
-- [`process_execution_local_parallelism`](doc:reference-global#section-process-execution-local-parallelism): number of concurrent processes that may be executed locally.
-- [`rule_threads_core`](doc:reference-global#section-rule-threads-core): number of threads to keep active to execute `@rule` logic.
-- [`rule_threads_max`](doc:reference-global#section-rule-threads-max): maximum number of threads to use to execute `@rule` logic.
+- [`process_execution_local_parallelism`](../../reference/global-options.mdx#section-process-execution-local-parallelism): number of concurrent processes that may be executed locally.
+- [`rule_threads_core`](../../reference/global-options.mdx#section-rule-threads-core): number of threads to keep active to execute `@rule` logic.
+- [`rule_threads_max`](../../reference/global-options.mdx#section-rule-threads-max): maximum number of threads to use to execute `@rule` logic.
 
 Memory usage options:
 
-- [`pantsd`](doc:reference-global#section-pantsd): enable or disable the Pants daemon, which uses an in-memory cache to speed up subsequent runs after the first run in CI.
-- [`pantsd_max_memory_usage`](doc:reference-global#section-pantsd-max-memory-usage): reduce or increase the size of Pantsd's in-memory cache.
+- [`pantsd`](../../reference/global-options.mdx#section-pantsd): enable or disable the Pants daemon, which uses an in-memory cache to speed up subsequent runs after the first run in CI.
+- [`pantsd_max_memory_usage`](../../reference/global-options.mdx#section-pantsd-max-memory-usage): reduce or increase the size of Pantsd's in-memory cache.
 
 The default test runners for these CI providers have the following resources. If you are using a custom runner, e.g. enterprise, check with your CI provider.
 

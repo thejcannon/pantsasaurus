@@ -24,7 +24,7 @@ While writing your binding, run `./pants help my_custom_target` to check that ev
 
 See [here](https://gist.github.com/Eric-Arellano/f83dcb8cfb891afe6af50f4b15707894) for an example of writing a binding.
 
-Please message us on [Slack](doc:community) if you have any questions or you would like help writing bindings! We are eager to help.
+Please message us on [Slack](/community/members) if you have any questions or you would like help writing bindings! We are eager to help.
 
 :::
 
@@ -32,7 +32,7 @@ Please message us on [Slack](doc:community) if you have any questions or you wou
 ## Targets and Fields - the core building blocks
 ### Definition of _target_
 
-As described in [Targets and BUILD files](doc:targets), a _target_ is a set of metadata describing some of your code.
+As described in [Targets and BUILD files](../../using-pants/concepts/targets-and-build-files.mdx), a _target_ is a set of metadata describing some of your code.
 
 For example, this BUILD file defines a `python_tests` target.
 ```python title="BUILD"
@@ -68,7 +68,7 @@ Precisely, a target is a combination of fields, along with a BUILD file alias.
 
 These fields should make sense together. For example, it does not make sense for a `python_library` target to have a `haskell_version` field.
 
-In fact, it only takes 3 lines of code to [create a new target](doc:target-api-new-targets):
+In fact, it only takes 3 lines of code to [create a new target](./creating-new-targets.mdx):
 ```python title="plugin_target_type.py"
 from pants.engine.target import Dependencies, Sources, Target, Tags
 

@@ -15,7 +15,7 @@ To see the current list of goals, run:
 ❯ ./pants help goals
 ```
 
-You'll see more goals activated as you activate more [backends](doc:enabling-backends).
+You'll see more goals activated as you activate more [backends](./backends.mdx).
 
 ## Running goals
 
@@ -74,7 +74,7 @@ Note the single-quotes around the file pattern `'**'`. This is so that your shel
 Goal arguments can be of one of two types:
 
 - *File arguments*: file paths and/or globs.
-- *Target arguments*: addresses and/or address globs of [targets](doc:targets).
+- *Target arguments*: addresses and/or address globs of [targets](./targets-and-build-files.mdx).
 
 Typically you can just use file arguments, and not worry about targets.
 
@@ -98,15 +98,15 @@ For example, `./pants list ::` will find every target in your project.
 
 
 :::note Tip: advanced target selection, such as running over changed files
-See [Advanced target selection](doc:advanced-target-selection) for alternative techniques to specify which files/targets to run on.
+See [Advanced target selection](../advanced-target-selection.mdx) for alternative techniques to specify which files/targets to run on.
 
 :::
 
 ### Goal options
 
-Many goals also have [options](doc:options) to change how they behave. Every option in Pants can be set via an environment variable, config file, and the command line.
+Many goals also have [options](./options.mdx) to change how they behave. Every option in Pants can be set via an environment variable, config file, and the command line.
 
-To see if a goal has any options, run `./pants help $goal` or `./pants help-advanced $goal`. See [Command Line Help](doc:getting-help) for more information.
+To see if a goal has any options, run `./pants help $goal` or `./pants help-advanced $goal`. See [Command Line Help](/community/getting-help) for more information.
 
 For example:
 

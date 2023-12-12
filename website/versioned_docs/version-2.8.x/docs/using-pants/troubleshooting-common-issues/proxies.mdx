@@ -11,13 +11,13 @@ How to configure Pants to work with proxies.
 :::note Asking for help
 It can be tricky to get a proxy working. It's also possible that Pants does not yet have all the mechanisms it'll need to work with your organization's specific setup, which we'd love to fix.
 
-Please reach out on [Slack](doc:community) or open a [GitHub issue](https://github.com/pantsbuild/pants/issues) for any help.
+Please reach out on [Slack](/community/members) or open a [GitHub issue](https://github.com/pantsbuild/pants/issues) for any help.
 
 :::
 
 
 ## Installing Pants
-The `./pants` script from [Installing Pants](doc:installation) uses PyPI to download and install the wheel `pantsbuild.pants` and all of Pants's dependencies. 
+The `./pants` script from [Installing Pants](../../getting-started/getting-started/installing-pants.mdx) uses PyPI to download and install the wheel `pantsbuild.pants` and all of Pants's dependencies. 
 
 If you cannot access PyPI, you may instead download Pants as a PEX binary from https://github.com/pantsbuild/pants/releases. After downloading the PEX artifact, you can rename the file to `./pants`, run `chmod +x ./pants`, then run `./pants --version` like you normally would. 
 
@@ -41,7 +41,7 @@ You can use lowercase or all-caps env var names.
 
 Note that if you leave of the env var's value, as for `https_proxy` above, Pants will use the value of the same variable in the environment in which it is invoked.
 ## Using a custom \"cheeseshop\" / index for Python
-See [Third-party dependencies](doc:python-third-party-dependencies#using-custom-repositories) for instructions. 
+See [Third-party dependencies](../../python/overview/third-party-dependencies.mdx#using-custom-repositories) for instructions. 
 ## Hosting binaries
 Pants downloads some binaries in order to run certain functionality, including:
 

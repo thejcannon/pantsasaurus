@@ -7,7 +7,7 @@ How to add your own logic to `python_artifact()`.
 
 ---
 
-Pants can build [Python distributions](doc:python-distributions), such as wheels and sdists, from information you provide in a [`python_distribution`](doc:reference-python_distribution) target. 
+Pants can build [Python distributions](../../python/python-overview/building-distributions.mdx), such as wheels and sdists, from information you provide in a [`python_distribution`](../../../reference/targets/python-distribution.mdx) target. 
 
 When doing so, and if you don't provide your own `setup.py` file, Pants generates one and passes it the kwargs provided in the `provides=python_artifact(...)` field to the `setup(...)` call (Pants also generates some of the kwargs, such as `install_requires` and `namespace_packages` by analyzing your code).
 
@@ -53,7 +53,7 @@ class CustomSetupKwargsRequest(SetupKwargsRequest):
         return target.address.spec.startswith("src/python/project1")
 ```
 
-Then, register your new `SetupKwargsRequest ` with a [`UnionRule`](doc:rules-api-unions) so that Pants knows your implementation exists:
+Then, register your new `SetupKwargsRequest ` with a [`UnionRule`](../the-rules-api/union-rules-(advanced).mdx) so that Pants knows your implementation exists:
 
 ```python
 from pants.engine.rules import collect_rules
@@ -89,7 +89,7 @@ def rules():
     )
     ```
     
-    To support this workflow, [create new target types](doc:target-api-new-targets).
+    To support this workflow, [create new target types](../the-target-api/creating-new-targets.mdx).
     
     ```python
     class PantsPythonDistribution(Target):
@@ -142,7 +142,7 @@ def rules():
 
 Then, run `./pants package path/to:python_distribution` and inspect the generated `setup.py`to confirm that your plugin worked correctly.
 
-Often, you will want to read from a file in your project to set kwargs like `version` or `long_description`. Use `await Get(DigestContents, PathGlobs)` to do this (see [File system](doc:rules-api-file-system)):
+Often, you will want to read from a file in your project to set kwargs like `version` or `long_description`. Use `await Get(DigestContents, PathGlobs)` to do this (see [File system](../the-rules-api/file-system.mdx)):
 
 ```python
 from pants.backend.python.goals.setup_py import SetupKwargs
@@ -219,6 +219,6 @@ async def setup_kwargs_plugin(request: CustomSetupKwargsRequest) -> SetupKwargs:
 
 Refer to these guides for additional things you may want to do in your plugin:
 
-- [Read from options](doc:rules-api-subsystems). Also see [here](https://github.com/pantsbuild/pants/blob/master/pants-plugins/internal_plugins/releases/register.py) for an example.
-- [Read values from the target](doc:rules-api-and-target-api) using the Target API.
-- [Run a `Process`](doc:rules-api-process), such as `git`. Also see [Installing tools](doc:rules-api-installing-tools).
+- [Read from options](../the-rules-api/options-and-subsystems.mdx). Also see [here](https://github.com/pantsbuild/pants/blob/master/pants-plugins/internal_plugins/releases/register.py) for an example.
+- [Read values from the target](../the-rules-api/rules-and-the-target-api.mdx) using the Target API.
+- [Run a `Process`](../the-rules-api/processes.mdx), such as `git`. Also see [Installing tools](../the-rules-api/installing-tools.mdx).

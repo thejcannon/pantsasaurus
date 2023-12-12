@@ -48,9 +48,9 @@ extra_requirements.add = [
 ]
 ```
 
-If you change either `version` or `extra_requirements`, Pants's default lockfile for Pytest will not work. Either set the `lockfile` option to a custom path or `"<none>"` to opt out. See [Third-party dependencies](doc:python-third-party-dependencies#tool-lockfiles).
+If you change either `version` or `extra_requirements`, Pants's default lockfile for Pytest will not work. Either set the `lockfile` option to a custom path or `"<none>"` to opt out. See [Third-party dependencies](../python-overview/third-party-dependencies.mdx#tool-lockfiles).
 
-Alternatively, if you only want to install the plugin for certain tests, you can add the plugin to the `dependencies` field of your `python_test` / `python_tests` target. See [Third-party dependencies](doc:python-third-party-dependencies) for how to install Python dependencies. For example:
+Alternatively, if you only want to install the plugin for certain tests, you can add the plugin to the `dependencies` field of your `python_test` / `python_tests` target. See [Third-party dependencies](../python-overview/third-party-dependencies.mdx) for how to install Python dependencies. For example:
 
 ```text title="requirements.txt"
 pytest-django==3.10.0
@@ -145,7 +145,7 @@ Pants will automatically include any relevant config files in the process's sand
 
 Pytest uses [`conftest.py` files](https://docs.pytest.org/en/stable/fixture.html#conftest-py-sharing-fixture-functions) to share fixtures and config across multiple distinct test files.
 
-The default `sources` value for the `python_test_utils` target includes `conftest.py`. You can run [`./pants tailor`](doc:initial-configuration#5-generate-build-files) to automatically add this target:
+The default `sources` value for the `python_test_utils` target includes `conftest.py`. You can run [`./pants tailor`](../../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files) to automatically add this target:
 
 ```
 ./pants tailor
@@ -311,7 +311,7 @@ If a target sets its `timeout` higher than `[pytest].timeout_maximum`, Pants wil
 
 Use the target type `python_source` for test utilities, rather than `python_test`.
 
-To reduce boilerplate, you can use either the [`python_sources`](doc:reference-python_sources) or [`python_test_utils`](doc:reference-python_test_utils) targets to generate `python_source` targets. These behave the same, except that `python_test_utils` has a different default `sources` to include `conftest.py` and type stubs for tests (like `test_foo.pyi`). Use [`./pants tailor`](doc:initial-configuration#5-generate-build-files) to generate both these targets automatically.
+To reduce boilerplate, you can use either the [`python_sources`](../../../reference/targets/python-sources.mdx) or [`python_test_utils`](../../../reference/targets/python-test-utils.mdx) targets to generate `python_source` targets. These behave the same, except that `python_test_utils` has a different default `sources` to include `conftest.py` and type stubs for tests (like `test_foo.pyi`). Use [`./pants tailor`](../../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files) to generate both these targets automatically.
 
 For example:
 
@@ -345,7 +345,7 @@ def test_app() -> None:
 
 ### Assets
 
-Refer to [Assets](doc:assets) for how to include asset files in your tests by adding to the `dependencies` field.
+Refer to [Assets](../../using-pants/assets-and-archives.mdx) for how to include asset files in your tests by adding to the `dependencies` field.
 
 It's often most convenient to use `file` / `files` and `relocated_files` targets in your test code, although you can also use `resource` / `resources` targets.
 
@@ -421,7 +421,7 @@ use_coverage = true
     
     `ignore_errors = True` means that those files will simply be left off of the final coverage report.
     
-    (Pants should autodiscover the config file `.coveragerc`. See [coverage-py](https://www.pantsbuild.org/docs/reference-coverage-py#section-config-discovery).)
+    (Pants should autodiscover the config file `.coveragerc`. See [coverage-py](../../../reference/subsystems/coverage-py.mdx#section-config-discovery).)
     
     There's a proposal for Pants to fix this by generating multiple reports when necessary: [https://github.com/pantsbuild/pants/issues/11137](https://github.com/pantsbuild/pants/issues/11137). We'd appreciate your feedback.
 :::

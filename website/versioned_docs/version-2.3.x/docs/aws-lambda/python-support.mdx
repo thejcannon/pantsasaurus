@@ -17,7 +17,7 @@ See [the Python example repository](https://github.com/pantsbuild/example-python
 
 
 :::note FYI: how Pants does this
-Under-the-hood, Pants uses the [Lambdex](https://github.com/wickman/lambdex) project. First, Pants will convert your code into a [Pex file](doc:pex-files). Then, Pants will use Lambdex to convert the Pex into a zip file understood by AWS.
+Under-the-hood, Pants uses the [Lambdex](https://github.com/wickman/lambdex) project. First, Pants will convert your code into a [Pex file](../python/overview/pex-files.mdx). Then, Pants will use Lambdex to convert the Pex into a zip file understood by AWS.
 
 :::
 
@@ -58,12 +58,12 @@ def example_handler(event, context):
     print("Hello AWS!")
 ```
 
-Pants will use [dependency inference](doc:targets) based on the `handler` field, which you can confirm by running `./pants dependencies path/to:lambda`. You can also manually add to the `dependencies` field.
+Pants will use [dependency inference](../using-pants/concepts/targets-and-build-files.mdx) based on the `handler` field, which you can confirm by running `./pants dependencies path/to:lambda`. You can also manually add to the `dependencies` field.
 
 You can optionally set the `output_path` field to change the generated zip file's path.
 
 :::caution Use `resources` instead of `files`
-`files` targets will not be included in the built AWS Lambda because filesystem APIs like `open()` would not load them as expected. Instead, use the `resources` target. See [Resources and archives](doc:resources) for further explanation.
+`files` targets will not be included in the built AWS Lambda because filesystem APIs like `open()` would not load them as expected. Instead, use the `resources` target. See [Resources and archives](../using-pants/resources-and-archives.mdx) for further explanation.
 
 :::
 

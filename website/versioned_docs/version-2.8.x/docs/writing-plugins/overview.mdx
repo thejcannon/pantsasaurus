@@ -26,9 +26,9 @@ Thanks to Pants's execution engine, your plugins will automatically bring you th
 - Remote execution.
 
 :::danger The Plugin API is not yet stable
-While we'll try our best to limit changes, the Plugin API does not yet follow the [Deprecation Policy](doc:deprecation-policy). Components of the API may change between minor versions—e.g. 2.7 to 2.8—without a deprecation.
+While we'll try our best to limit changes, the Plugin API does not yet follow the [Deprecation Policy](../releases/deprecation-policy.mdx). Components of the API may change between minor versions—e.g. 2.7 to 2.8—without a deprecation.
 
-We will document changes at [Plugin upgrade guide](doc:plugin-upgrade-guide).
+We will document changes at [Plugin upgrade guide](./common-plugin-tasks/plugin-upgrade-guide.mdx).
 
 :::
 
@@ -36,8 +36,8 @@ We will document changes at [Plugin upgrade guide](doc:plugin-upgrade-guide).
 ## Core concepts
 The plugin API is split into two main interfaces:
 
-1. [The Target API](doc:target-api-concepts): a declarative interface for creating new target types and extending existing targets.
-2. [The Rules API](doc:rules-api-concepts): where you define your logic and model each step of your build.
+1. [The Target API](./the-target-api/concepts.mdx): a declarative interface for creating new target types and extending existing targets.
+2. [The Rules API](./the-rules-api/concepts.mdx): where you define your logic and model each step of your build.
 
 Plugins are written in typed Python 3 code. You write your logic in Python, and then Pants will run your plugin in the Rust engine.
 ## Locating Plugin code
@@ -81,7 +81,7 @@ plugins = ["ansicolors==1.18.0"]
 
 However, be careful adding third-party dependencies that perform side-effects like reading from the filesystem or making network requests, as they will not work properly with the engine's caching model.
 ## Enabling Plugins with `register.py`
-A Pants [_backend_](doc:enabling-backends) is a Python package that implements some required functionality and uses hooks to register itself with Pants.  
+A Pants [_backend_](../using-pants/key-concepts-to-know-about-pants/backends.mdx) is a Python package that implements some required functionality and uses hooks to register itself with Pants.  
 
 A plugin will contain one or more backends, with the hooks for each one defined in a file called `register.py`.  To enable a custom plugin you add its backends to your `backend_packages` configuration:
 ```toml tab={"label":"pants.toml"}
@@ -109,9 +109,9 @@ def target_types():
 
 
 ## Building in-repo plugins with Pants
-Because plugin code is written in Python, you can use Pants's [Python backend](doc:python-backend) to build your plugin code. For example, you can use Pants to lint, format, and test your plugin code.
+Because plugin code is written in Python, you can use Pants's [Python backend](../python/overview/enabling-python-support.mdx) to build your plugin code. For example, you can use Pants to lint, format, and test your plugin code.
 
-To do so, set up Pants for [Python support](doc:python), and add your `pants-plugins` directory as a source root:
+To do so, set up Pants for [Python support](../python/overview/index.mdx), and add your `pants-plugins` directory as a source root:
 ```toml title="pants.toml"
 [source]
 root_patterns = [
@@ -129,11 +129,11 @@ A better way is to use the `pants_requirement()` macro, which uses the `pants_ve
 pants_requirement(name="pants", dist="pantsbuild.pants")
 ```
 
-Pants's [dependency inference](doc:targets) understands imports of the `pants` module and will automatically add dependencies on the `pants_requirement` where relevant.
+Pants's [dependency inference](../using-pants/key-concepts-to-know-about-pants/targets-and-build-files.mdx) understands imports of the `pants` module and will automatically add dependencies on the `pants_requirement` where relevant.
 
 :::caution `pants_requirement` cannot update a constraints file
 If you are using a lockfile—which we recommend for both correctness and performance—then you will need to remember to regenerate your `constraints.txt` file when upgrading Pants versions.
 
-See [Third-party dependencies](doc:python-third-party-dependencies).
+See [Third-party dependencies](../python/overview/third-party-dependencies.mdx).
 
 :::

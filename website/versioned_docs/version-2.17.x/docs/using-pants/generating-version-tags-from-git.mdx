@@ -47,7 +47,7 @@ This content will be available at test and run time, and be packaged along with 
 code and its dependencies. Your code can use the generated content (e.g., by importing
 it or reading it) and thus have access to a dynamically-generated version.
 
-Note that, similarly to how Pants handles other code generation tools (such as [Protobuf](doc:protobuf-python)),
+Note that, similarly to how Pants handles other code generation tools (such as [Protobuf](../python/integrations/protobuf-and-grpc.mdx)),
 this content is not written out as a file into your source tree. Instead, the content is materialized
 on the fly, as needed.  If you want to inspect the generated contents manually, you can use the
 `export-codegen` goal:
@@ -80,4 +80,4 @@ Pants delegates the version string computation to [setuptools_scm](https://githu
 See [here](https://github.com/pypa/setuptools_scm#default-versioning-scheme) for how it computes the version string from the Git state.
 
 We don't yet support any of the configuration options that control how the string is computed. Please
-[let us know](doc:getting-help) if you need such advanced functionality.
+[let us know](/community/getting-help) if you need such advanced functionality.

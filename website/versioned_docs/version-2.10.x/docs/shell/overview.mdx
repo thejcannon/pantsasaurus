@@ -15,9 +15,9 @@ Pants integrates with these tools to empower you to follow best practices with y
 
 Pants installs these tools deterministically and integrates them into the workflows you already use: `./pants fmt`, `./pants lint`, and `./pants test`.
 ## Initial setup: add `shell_sources` targets
-Pants uses [`shell_source`](doc:reference-shell_source) and [`shunit2_test`](doc:reference-shunit2_test) [targets](doc:targets) to know which Shell files you want to operate on and to set any metadata.
+Pants uses [`shell_source`](../../reference/targets/shell-source.mdx) and [`shunit2_test`](../../reference/targets/shunit2-test.mdx) [targets](../using-pants/key-concepts/targets-and-build-files.mdx) to know which Shell files you want to operate on and to set any metadata.
 
-To reduce boilerplate, the [`shell_sources`](doc:reference-shell_sources) target generates a `shell_source` target for each file in its `sources` field, and [`shunit2_tests`](doc:reference-shunit2_tests) generates a `shunit2_test` target for each file in its `sources` field.
+To reduce boilerplate, the [`shell_sources`](../../reference/targets/shell-sources.mdx) target generates a `shell_source` target for each file in its `sources` field, and [`shunit2_tests`](../../reference/targets/shunit2-tests.mdx) generates a `shunit2_test` target for each file in its `sources` field.
 ```python title="BUILD"
 shell_sources(name="lib", sources=["deploy.sh", "changelog.sh"])
 shell_tests(name="tests", sources=["changelog_test.sh"])
@@ -38,7 +38,7 @@ First, activate the Shell backend in your `pants.toml`:
 backend_packages = ["pants.backend.shell"]
 ```
 
-Then, run [`./pants tailor`](doc:create-initial-build-files) to generate BUILD files:
+Then, run [`./pants tailor`](../getting-started/getting-started/create-initial-build-files.mdx) to generate BUILD files:
 
 ```
 $ ./pants tailor
@@ -56,7 +56,7 @@ shell_source(name="script_without_a_extension", source="script_without_an_extens
 
 
 :::note Shell dependency inference
-Pants will [infer dependencies](doc:how-does-pants-work#dependency-inference) by looking for imports like `source script.sh` and `. script.sh`. You can check that the correct dependencies are inferred by running `./pants dependencies path/to/script.sh` and `./pants dependencies --transitive path/to/script.sh`.
+Pants will [infer dependencies](../introduction/how-does-pants-work.mdx#dependency-inference) by looking for imports like `source script.sh` and `. script.sh`. You can check that the correct dependencies are inferred by running `./pants dependencies path/to/script.sh` and `./pants dependencies --transitive path/to/script.sh`.
 
 Normally, Pants will not understand dynamic sources, e.g. using variable expansion. However, Pants uses Shellcheck for parsing, so you can use Shellcheck's syntax to give a hint to Pants:
 
@@ -130,7 +130,7 @@ Only run shfmt with `--lint-only` and `--fmt-only`:
 
 
 :::tip Benefit of Pants: shfmt runs in parallel with Python, Java, Scala, and Go formatters
-Normally, Pants runs formatters sequentially so that it can pipe the results of one formatter into the next. However, Pants will run shfmt in parallel to formatters for other languages, [like Python](doc:python-linters-and-formatters), because shfmt does not operate on those languages.
+Normally, Pants runs formatters sequentially so that it can pipe the results of one formatter into the next. However, Pants will run shfmt in parallel to formatters for other languages, [like Python](../python/overview/linters-and-formatters.mdx), because shfmt does not operate on those languages.
 
 You can see this concurrency through Pants's dynamic UI.
 
@@ -189,7 +189,7 @@ Only run Shellcheck with `--lint-only`:
 
 
 :::tip Benefit of Pants: Shellcheck runs in parallel with other linters
-Pants will attempt to run all activated linters and formatters at the same time for improved performance, including [Python](doc:python-linters-and-formatters), Go, Java, and Scala linters. You can see this through Pants's dynamic UI.
+Pants will attempt to run all activated linters and formatters at the same time for improved performance, including [Python](../python/overview/linters-and-formatters.mdx), Go, Java, and Scala linters. You can see this through Pants's dynamic UI.
 
 :::
 
@@ -202,8 +202,8 @@ To use shunit2 with Pants:
 1. Create a test file like `tests.sh`, `test_foo.sh`, or `foo_test.sh`.
    - Refer to https://github.com/kward/shunit2/ for how to write shUnit2 tests.
 2. Create a `shunit2_test` or `shunit2_tests` target in the directory's BUILD file.
-   - You can run [`./pants tailor`](doc:create-initial-build-files) to automate this step.
-3. Specify which shell to run your tests with, either by setting a shebang directly in the test file or by setting the field `shell` on the `shunit2_test` / `shunit2_tests` target. - See [here](doc:reference-shunit2_tests#codeshellcode) for all supported shells.
+   - You can run [`./pants tailor`](../getting-started/getting-started/create-initial-build-files.mdx) to automate this step.
+3. Specify which shell to run your tests with, either by setting a shebang directly in the test file or by setting the field `shell` on the `shunit2_test` / `shunit2_tests` target. - See [here](../../reference/targets/shunit2-tests.mdx#codeshellcode) for all supported shells.
    ```shell tab={"label":"scripts/tests.sh"}
 ##!/usr/bin/env bash
 
@@ -231,7 +231,7 @@ shunit2_tests(name="tests")
 
 Pants will download the `./shunit2` script and will add `source ./shunit2` with the correct relpath for you.
 
-You can import your production code by using `source`. Make sure the code belongs to a `shell_source` or `shell_sources` target. Pants's [dependency inference](doc:targets) will add the relevant dependencies, which you can confirm by running `./pants dependencies scripts/tests.sh`. You can also manually add to the `dependencies` field of your `shunit2_tests` target.
+You can import your production code by using `source`. Make sure the code belongs to a `shell_source` or `shell_sources` target. Pants's [dependency inference](../using-pants/key-concepts/targets-and-build-files.mdx) will add the relevant dependencies, which you can confirm by running `./pants dependencies scripts/tests.sh`. You can also manually add to the `dependencies` field of your `shunit2_tests` target.
 ```shell tab={"label":"scripts/tests.sh"}
 ##!/usr/bin/bash
 
@@ -332,7 +332,7 @@ shunit2_tests(
 )
 ```
 
-Unlike [with Python](doc:python-test-goal#timeouts), you cannot yet set a default or maximum timeout value, nor temporarily disable all timeouts. Please [let us know](doc:getting-help) if you would like this feature.
+Unlike [with Python](../python/goals/test.mdx#timeouts), you cannot yet set a default or maximum timeout value, nor temporarily disable all timeouts. Please [let us know](/community/getting-help) if you would like this feature.
 
 ### Testing your packaging pipeline
 
@@ -340,7 +340,7 @@ You can include the result of `./pants package` in your test through the `runtim
 
 This allows you to test your packaging pipeline by simply running `./pants test ::`, without needing custom integration test scripts.
 
-To depend on a built package, use the `runtime_package_dependencies` field on the `shunit2_test` / `shunit2_tests` targets, which is a list of addresses to targets that can be built with `./pants package`, such as [`pex_binary`](doc:python-package-goal), [`python_awslambda`](doc:awslambda-python), and [`archive`](doc:assets) targets. Pants will build the package before running your test, and insert the file into the test's chroot. It will use the same name it would normally use with `./pants package`, except without the `dist/` prefix.
+To depend on a built package, use the `runtime_package_dependencies` field on the `shunit2_test` / `shunit2_tests` targets, which is a list of addresses to targets that can be built with `./pants package`, such as [`pex_binary`](../python/goals/package.mdx), [`python_awslambda`](../python/integrations/aws-lambda.mdx), and [`archive`](../using-pants/assets-and-archives.mdx) targets. Pants will build the package before running your test, and insert the file into the test's chroot. It will use the same name it would normally use with `./pants package`, except without the `dist/` prefix.
 
 For example:
 ```python tab={"label":"helloworld/BUILD"}

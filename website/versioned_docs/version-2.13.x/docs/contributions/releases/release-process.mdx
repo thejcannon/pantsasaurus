@@ -7,7 +7,7 @@ How to release a new version of `pantsbuild.pants` and its plugins.
 
 ---
 
-This page covers the nitty-gritty of executing a release, and is probably only interesting for maintainers. If you're interested in when and why Pants is released, please see the [Release strategy](doc:release-strategy) page.
+This page covers the nitty-gritty of executing a release, and is probably only interesting for maintainers. If you're interested in when and why Pants is released, please see the [Release strategy](./release-strategy.mdx) page.
 
 Prerequisites
 -------------
@@ -199,11 +199,11 @@ Step 2: Update this docs site
 
 Go to the [documentation dashboard](https://dash.readme.com/). In the top left dropdown, where it says the current version, click "Manage versions". Click "Add new version" and use a "v" with the minor release number, e.g. "v2.9". Fork from the prior release. Mark this new version as public by clicking on "Is public?"
 
-Also, update the [Changelog](doc:changelog) page with the new release series at the top of the table. It's okay if there are no "highlights" yet.
+Also, update the [Changelog](../../releases/changelog.mdx) page with the new release series at the top of the table. It's okay if there are no "highlights" yet.
 
 ### Update the version in Installing Pants
 
-Update [Installing Pants](doc:installation) to use the version you're releasing in the `pants.toml` snippet.
+Update [Installing Pants](../../getting-started/getting-started/installing-pants.mdx) to use the version you're releasing in the `pants.toml` snippet.
 
 ### Regenerate the references
 
@@ -213,7 +213,7 @@ On the relevant release branch, run `./pants run build-support/bin/generate_docs
 
 The first stable release of a branch should update the "default" version of the docsite. For example: when releasing the stable `2.9.0`, the docsite would be changed to pointing from `v2.8` to pointing to `v2.9` by default.
 
-Also, update the [Changelog](doc:changelog)'s "highlights" column with a link to the blog summarizing the release. See the section "Announce the release" below for more info on the blog.
+Also, update the [Changelog](../../releases/changelog.mdx)'s "highlights" column with a link to the blog summarizing the release. See the section "Announce the release" below for more info on the blog.
 
 
 :::caution Don't have edit access?
@@ -305,7 +305,7 @@ If the release series' `.dev0` has already been released, reply to that email th
 >
 > And a special shout-out to first-time contributor Niki Fitch, with the PR [`Upgrade Rust to 1.63 (#9441)`](https://github.com/pantsbuild/pants/pull/9441). Thank you for your contribution!
 >
-> _(For more information on how Pants is released, please see the [release strategy](https://www.pantsbuild.org/docs/release-strategy) page.)_
+> _(For more information on how Pants is released, please see the [release strategy](./release-strategy.mdx) page.)_
 
 #### Alpha release
 
@@ -322,7 +322,7 @@ Reply to the email thread for the series' `dev` releases.
 >  Niki Fitch
 >  Mario Rozell
 >
-> _(For more information on how Pants is released, please see the [release strategy](https://www.pantsbuild.org/docs/release-strategy) page.)_
+> _(For more information on how Pants is released, please see the [release strategy](./release-strategy.mdx) page.)_
 
 #### Release candidate
 
@@ -357,4 +357,4 @@ For the first stable release in the series, first, write a blog post to summariz
 > Niki Fitch
 > Mario Rozell
 >
-> _(For more information on how Pants is released, please see the [release strategy](https://www.pantsbuild.org/docs/release-strategy) page.)_
+> _(For more information on how Pants is released, please see the [release strategy](./release-strategy.mdx) page.)_

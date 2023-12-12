@@ -7,7 +7,7 @@ How to add options to your plugin.
 
 ---
 
-As explained in [Options](doc:options), options are partitioned into named scopes, like `[test]` and `[isort]`. Each of these scopes corresponds to a _subsystem_.
+As explained in [Options](../../using-pants/key-concepts/options.mdx), options are partitioned into named scopes, like `[test]` and `[isort]`. Each of these scopes corresponds to a _subsystem_.
 
 To add new options:
 
@@ -54,7 +54,7 @@ def rules():
 The subsystem should now show up when you run `./pants help shellcheck`.
 
 :::note `GoalSubsystem`
-As explained in [Goal rules](doc:rules-api-goal-rules), goals use a subclass of  `Subsystem`: `GoalSubsystem` from `pants.engine.goal`.
+As explained in [Goal rules](./goal-rules.mdx), goals use a subclass of  `Subsystem`: `GoalSubsystem` from `pants.engine.goal`.
 
 `GoalSubsystem` behaves the same way as a normal subsystem, except that you set the class property `name` rather than `options_scope`. The `name` will auto-populate the `options_scope`.
 
@@ -81,7 +81,7 @@ If you leave this off, the `default` will depend on the `type` you specify.
 
 ### `type`
 
-Refer to [Options](doc:options#option-types) for how a user specifies these different types. 
+Refer to [Options](../../using-pants/key-concepts/options.mdx#option-types) for how a user specifies these different types. 
 | `type` | Default (if not overridden) | Other notes |
 | :--- | :--- | :--- |
 | `str` | `None` |  |

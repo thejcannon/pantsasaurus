@@ -211,7 +211,7 @@ This will prevent registration of the default "partitioner" rule, allowing you t
 
 ### `EnvironmentName` is now required to run processes, get environment variables, etc
 
-Pants 2.15 introduces the concept of ["Target Environments"](doc:environments), which allow Pants to execute processes in remote or local containerized environments (using Docker), and to specify configuration values for those environments. 
+Pants 2.15 introduces the concept of ["Target Environments"](../../using-pants/environments:-cross-platform-or-remote-builds.mdx), which allow Pants to execute processes in remote or local containerized environments (using Docker), and to specify configuration values for those environments. 
 
 In order to support the new environments feature, an `EnvironmentName` parameter is now required in order to:
 * Run a `Process`
@@ -418,7 +418,7 @@ Renames for `Spec` subclass:
 
 Those classes now have a keyword arg `error_if_no_target_matches`, rather than having a distinct class like `MaybeDescendantAddresses`.
 
-`AddressSpecs` was renamed to `SpecsWithoutFileOwners`, and `FilesystemSpecs` to `SpecsWithOnlyFileOwners`. But almost always, you should instead use the new `RawSpecs` class because it is simpler. See [Rules API and Target API](doc:rules-api-and-target-api#how-to-resolve-targets) for how to use `Get(Targets, RawSpecs)`, including its keyword arguments.
+`AddressSpecs` was renamed to `SpecsWithoutFileOwners`, and `FilesystemSpecs` to `SpecsWithOnlyFileOwners`. But almost always, you should instead use the new `RawSpecs` class because it is simpler. See [Rules API and Target API](../the-rules-api/rules-and-the-target-api.mdx#how-to-resolve-targets) for how to use `Get(Targets, RawSpecs)`, including its keyword arguments.
 
 If you were directly creating `Specs` objects before, you likely want to change to `RawSpecs`. `Specs` allows us to handle "ignore specs" like `-ignore_me/`, which is usually not necessary in rules. See the above paragraph for how to use `RawSpecs`.
 
@@ -448,7 +448,7 @@ You can also now specify multiple globs, e.g. `req.path_globs("*.py", "*.pyi")`.
 
 ### Banned short option names like `-x`
 
-You must now use a long option name when [defining options](doc:rules-api-subsystems). You can also now only specify a single option name per option.
+You must now use a long option name when [defining options](../the-rules-api/options-and-subsystems.mdx). You can also now only specify a single option name per option.
 
 (These changes allowed us to introduce ignore specs, like `pants list :: -ignore_me::`.)
 
@@ -461,7 +461,7 @@ See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.12.x
 
 Formatters no longer need to be installed in both the `FmtRequest` and `LintTargetsRequest` `@unions`: instead, installing in the `FmtRequest` union is sufficient to act as both a linter and formatter.
 
-See [Add a formatter](doc:plugins-fmt-goal) for more information.
+See [Add a formatter](./add-a-formatter.mdx) for more information.
 
 2.11
 ----
@@ -506,7 +506,7 @@ class MySubsystem(Subsystem):
 
 To access an option in rules, simply use `my_subsystem.my_opt` rather than `my_subsystem.options.my_opt`.
 
-See [Options and subsystems](doc:rules-api-subsystems) for more information, including the available types.
+See [Options and subsystems](../the-rules-api/options-and-subsystems.mdx) for more information, including the available types.
 
 ### Moved `BinaryPathRequest` to `pants.core.util_rules.system_binaries`
 
@@ -605,7 +605,7 @@ See [https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.8.x.
 
 Pants 2.8 cleaned up the modeling of targets. Now, there are targets that describe the atom of each language, like `python_test` and `python_source` which correspond to a single file. There are also target generators which exist solely for less boilerplate, like `python_tests` and `python_sources`.
 
-We recommend re-reading [Targets and BUILD files](doc:targets).
+We recommend re-reading [Targets and BUILD files](../../using-pants/key-concepts/targets-and-build-files.mdx).
 
 #### `SourcesField`
 
@@ -668,7 +668,7 @@ Use `TriBoolField` if you still want to be able to represent a trinary state: `F
 
 ### Added `RuleRunner.write_files()`
 
-This is a more declarative way to set up files than the older API of `RuleRunner.create_file()`, `.create_files()`, and `.add_to_build_files()`. See [Testing plugins](doc:rules-api-testing).
+This is a more declarative way to set up files than the older API of `RuleRunner.create_file()`, `.create_files()`, and `.add_to_build_files()`. See [Testing plugins](../the-rules-api/testing-plugins.mdx).
 
 2.4
 ---

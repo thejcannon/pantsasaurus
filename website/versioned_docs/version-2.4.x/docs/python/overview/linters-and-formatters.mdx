@@ -8,7 +8,7 @@ How to activate and use the Python linters and formatters bundled with Pants.
 ---
 
 ## Activating linters and formatters
-Linter/formatter support is implemented in separate [backends](doc:enabling-backends) so that they are easy to opt in to individually:
+Linter/formatter support is implemented in separate [backends](../../using-pants/concepts/backends.mdx) so that they are easy to opt in to individually:
 | Backend | Tool |
 | :--- | :--- |
 | `pants.backend.python.lint.bandit` | [Bandit](https://bandit.readthedocs.io/en/latest/): security linter |
@@ -46,7 +46,7 @@ All done! ✨ 🍰 ✨
 ```
 
 :::note How to activate MyPy
-MyPy is run with the [typecheck goal](doc:python-typecheck-goal), rather than `lint`.
+MyPy is run with the [typecheck goal](../goals/typecheck.mdx), rather than `lint`.
 
 :::
 
@@ -88,7 +88,7 @@ This was fixed in Pants 2.5.
 :::note How to use first-party Pylint plugins
 Pants supports custom Pylint plugins written by you. Run `./pants help-advanced pylint` for instructions with the `--pylint-source-plugins` option.
 
-If you want to write first-party plugins for other linters like Flake8, let us know on [Slack](doc:community).
+If you want to write first-party plugins for other linters like Flake8, let us know on [Slack](/community/members).
 
 :::
 
@@ -114,4 +114,4 @@ or
 $ ./pants --changed-since=main lint
 ```
 
-Pants will find which files have changed and only run over those files. See [Advanced target selection](doc:advanced-target-selection) for more information.
+Pants will find which files have changed and only run over those files. See [Advanced target selection](../../using-pants/advanced-target-selection.mdx) for more information.

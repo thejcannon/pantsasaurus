@@ -25,7 +25,7 @@ To run Pants, you need:
 
 :::note Restricted Internet access?
 
-    See [Restricted Internet access](doc:restricted-internet-access) for instructions.
+    See [Restricted Internet access](../../using-pants/restricted-internet-access.mdx) for instructions.
 :::
 
 System-specific notes
@@ -45,7 +45,7 @@ System-specific notes
 
     Pants for Linux is currently distributed as a manylinux wheel. Alpine Linux is not covered by manylinux (it uses MUSL libc while manylinux requires glibc), so at present Pants will not run on Alpine Linux. 
     
-    If you need to run Pants on Alpine, [let us know](doc:community), so we can prioritize this work. Meanwhile, you can try [building Pants yourself](#building-pants-from-sources) on Alpine.
+    If you need to run Pants on Alpine, [let us know](/community/members), so we can prioritize this work. Meanwhile, you can try [building Pants yourself](#building-pants-from-sources) on Alpine.
 :::
 
 
@@ -65,7 +65,7 @@ System-specific notes
     
     Given the lack of CI infrastructure for Apple Silicon, this support is best-effort and there may a delay in publishing this wheel compared to our normal releases.
     
-    If you have Python code, you may need to [set your interpreter constraints](doc:python-interpreter-compatibility) to Python 3.9+, as many tools like Black will not install correctly when using earlier Python versions.
+    If you have Python code, you may need to [set your interpreter constraints](../../python/python-overview/interpreter-compatibility.mdx) to Python 3.9+, as many tools like Black will not install correctly when using earlier Python versions.
     
     Some users have also had success with earlier versions using Rosetta by running `arch -x86_64 pants`.
     

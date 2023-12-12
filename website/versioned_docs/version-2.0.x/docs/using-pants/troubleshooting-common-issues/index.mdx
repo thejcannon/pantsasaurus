@@ -9,7 +9,7 @@ Common issues you may encounter.
 
 
 :::tip Asking for help
-See [Getting Help](doc:community). We would love to help!
+See [Getting Help](/community/members). We would love to help!
 
 If you are confused by something, likely someone else will run into the same issue. It is helpful for us to know what is going wrong so that we can improve Pants and improve this documentation.
 
@@ -25,7 +25,7 @@ When you encounter an exception, it can help to use the global options `--print-
 <<pantscmd>> --print-stacktrace -ldebug
 ```
 
-Once you have this stack trace, we recommend copying it into Pastebin or a GitHub Gist, then opening a GitHub issue or posting on Slack. Someone from the Pants team would be happy to help. See [Getting Help](doc:community).
+Once you have this stack trace, we recommend copying it into Pastebin or a GitHub Gist, then opening a GitHub issue or posting on Slack. Someone from the Pants team would be happy to help. See [Getting Help](/community/members).
 ## \"Out of space\" error: set an alternative tmpdir
 It may be necessary to explicitly set the directory Pants uses as a temporary directory. For example, if the system default temporary directory is a small partition, you may exhaust that temp space.
 
@@ -57,7 +57,7 @@ For `local_store_dir` and `named_caches_dir`, you may either specify an absolute
 
 It is safe to delete these folders to free up space.
 
-You can also change the cache used by the `./pants` script described in [Installing Pants](doc:installation), which defaults to `~/.pants/cache/setup`. Either set the environment variable `PANTS_SETUP_CACHE` or change the Bash script directly where it defines `PANTS_SETUP_CACHE`. You may use an absolute path or a path relative to the build root.
+You can also change the cache used by the `./pants` script described in [Installing Pants](../../introduction/getting-started/installing-pants.mdx), which defaults to `~/.pants/cache/setup`. Either set the environment variable `PANTS_SETUP_CACHE` or change the Bash script directly where it defines `PANTS_SETUP_CACHE`. You may use an absolute path or a path relative to the build root.
 ## \"Double requirement given\" error when resolving requirements
 This is an error from `pip`, and it means that the same 3rd-party Python requirement—with different version constraints—appears in your dependencies.
 
@@ -92,7 +92,7 @@ The macOS system Python interpreters are broken in several ways, such as sometim
 ERROR: Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Library/Python/3.7'
 ```
 
-You can set the option `interpreter_search_paths` in the `[python-setup]` scope to teach Pants to ignore the interpreters in `/usr/bin`. See [here](doc:python-interpreter-compatibility#changing-the-interpreter-search-path) for more information.
+You can set the option `interpreter_search_paths` in the `[python-setup]` scope to teach Pants to ignore the interpreters in `/usr/bin`. See [here](../../python/overview/interpreter-compatibility.mdx#changing-the-interpreter-search-path) for more information.
 ## \"Too many open files\" error
 You may encounter this error when running Pants:
 

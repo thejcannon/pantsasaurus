@@ -11,7 +11,7 @@ There are four main approaches to testing your plugin, ranging in terms of scope
 
 All approaches use [Pytest](https://docs.pytest.org/en/latest/)-style tests, rather than [`unittest`](https://docs.python.org/3/library/unittest.html)-style tests.
 
-You must also install the distribution `pantsbuild.pants.testutil`. We recommend using the [`pants_requirements` target to do this](doc:plugins-overview).
+You must also install the distribution `pantsbuild.pants.testutil`. We recommend using the [`pants_requirements` target to do this](../plugins-overview.mdx).
 
 Approach 1: normal unit tests
 -----------------------------
@@ -218,7 +218,7 @@ This means that you must register the rules you directly wrote, and also any rul
 
     It can be confusing figuring out what's wrong when setting up a `RuleRunner`. We know the error messages are not ideal and are working on improving them.
     
-    Please feel free to reach out on [Slack](doc:community) for help with figuring out how to get things working.
+    Please feel free to reach out on [Slack](/community/members) for help with figuring out how to get things working.
 :::
 
 ```python
@@ -366,7 +366,7 @@ Now that you have your `RuleRunner` set up, along with any options and the conte
 
 Unlike Approach #2, you will not explicitly say which `@rule` you want to run. Instead, look at the return type of your `@rule`. Use `rule_runner.request(MyOutput, [input1, ...])`, where `MyOutput` is the return type.
 
-`rule_runner.request()` is equivalent to how you would normally use `await Get(MyOuput, Input1, input1_instance)` in a rule (See [Concepts](doc:rules-api-concepts)). For example, if you would normally say `await Get(Digest, MergeDigests([digest1, digest2])`, you'd instead say `rule_runner.request(Digest, [MergeDigests([digest1, digest2])`.
+`rule_runner.request()` is equivalent to how you would normally use `await Get(MyOuput, Input1, input1_instance)` in a rule (See [Concepts](./concepts.mdx)). For example, if you would normally say `await Get(Digest, MergeDigests([digest1, digest2])`, you'd instead say `rule_runner.request(Digest, [MergeDigests([digest1, digest2])`.
 
 You will also need to add a `QueryRule` to your `RuleRunner` setup, which gives a hint to the engine for what requests you are going to make. The `QueryRule` takes the same form as your `rule_runner.request()`, except that the inputs are types, rather than instances of those types.
 
@@ -457,9 +457,9 @@ def test_bandit(rule_runner: RuleRunner) -> None:
     lint_results = rule_runner.request(LintResults, [bandit_request])
 ```
 
-Note that our `@rule` takes 3 parameters, but we only explicitly included `BanditRequest` in the inputs. This is possible because the engine knows how to compute all [Subsystems](doc:rules-api-subsystems) based on the initial input to the graph.  See [Concepts](doc:rules-api-concepts).
+Note that our `@rule` takes 3 parameters, but we only explicitly included `BanditRequest` in the inputs. This is possible because the engine knows how to compute all [Subsystems](./options-and-subsystems.mdx) based on the initial input to the graph.  See [Concepts](./concepts.mdx).
 
-We are happy [to help](doc:community) figure out what rules to register, and what inputs to pass to `rule_runner.request()`. It can also help to [visualize the rule graph](doc:rules-api-tips) when running your code in production. If you're missing an input that you need, the engine will error explaining that there is no way to compute your `OutputType`.
+We are happy [to help](/community/members) figure out what rules to register, and what inputs to pass to `rule_runner.request()`. It can also help to [visualize the rule graph](./tips-and-debugging.mdx) when running your code in production. If you're missing an input that you need, the engine will error explaining that there is no way to compute your `OutputType`.
 
 ### Testing `@goal_rule`s
 

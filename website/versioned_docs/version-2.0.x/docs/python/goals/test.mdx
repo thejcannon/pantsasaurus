@@ -44,7 +44,7 @@ pytest_plugins.add = [
 ]
 ```
 
-Alternatively, if you only want to install the plugin for certain tests, you can add the plugin to the `dependencies` field of your `python_tests`. See [Third-party dependencies](doc:python-third-party-dependencies) for how to install Python dependencies. For example:
+Alternatively, if you only want to install the plugin for certain tests, you can add the plugin to the `dependencies` field of your `python_tests`. See [Third-party dependencies](../overview/third-party-dependencies.mdx) for how to install Python dependencies. For example:
 ```text tab={"label":"requirements.txt"}
 pytest-django==3.10.0
 ```
@@ -328,7 +328,7 @@ def test_app() -> None:
 
 ### Depending on resources
 
-Refer to [Resources](doc:resources) for how to include resource files in your tests.
+Refer to [Resources](../../using-pants/resources-and-archives.mdx) for how to include resource files in your tests.
 
 It's often most convenient to use `files` and `relocated_files` targets in your test code, although you can also use `resources`.  
 

@@ -14,7 +14,7 @@ Macros are useful to reduce boilerplate in BUILD files. For example, if you keep
 
 However, also consider that introducing new symbols to BUILD files adds some indirection to your codebase, such as making it harder to follow along with the Pants docs. As with any tool, macros should be used judiciously.
 
-Often, you can instead use the [`parametrize`](doc:targets) mechanism:
+Often, you can instead use the [`parametrize`](../using-pants/key-concepts/targets-and-build-files.mdx) mechanism:
 
 ```python title="BUILD"
 shell_tests(
@@ -23,9 +23,9 @@ shell_tests(
 )
 ```
 
-If you instead want to add support for a new language, or do something more complex than a macro allows, create a new [target type](doc:target-api-new-targets).
+If you instead want to add support for a new language, or do something more complex than a macro allows, create a new [target type](./the-target-api/creating-new-targets.mdx).
 
-If you are already using a target type, but need to store additional metadata for your plugin, [add a new field to the target type](doc:target-api-extending-targets).
+If you are already using a target type, but need to store additional metadata for your plugin, [add a new field to the target type](./the-target-api/extending-existing-targets.mdx).
 
 How to add a macro
 ------------------
@@ -67,7 +67,7 @@ python3_sources(
 )
 ```
 
-A macro can create multiple targets—although often it's better to use [`parametrize`](doc:targets):
+A macro can create multiple targets—although often it's better to use [`parametrize`](../using-pants/key-concepts/targets-and-build-files.mdx):
 
 ```python title="pants-plugins/macros.py"
 def python23_tests(name, **kwargs):

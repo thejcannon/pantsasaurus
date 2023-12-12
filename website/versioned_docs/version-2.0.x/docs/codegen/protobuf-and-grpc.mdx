@@ -28,7 +28,7 @@ backend_packages.add = [
 This adds the new `protobuf_library` target, which you can confirm by running `./pants help protobuf_library`.
 
 :::note Enable the MyPy Protobuf plugin
-The [MyPy Protobuf plugin](https://github.com/dropbox/mypy-protobuf) generates [`.pyi` type stubs](https://mypy.readthedocs.io/en/stable/stubs.html). If you use MyPy through Pants's [typecheck goal](doc:python-typecheck-goal), this will ensure MyPy understands your generated code.
+The [MyPy Protobuf plugin](https://github.com/dropbox/mypy-protobuf) generates [`.pyi` type stubs](https://mypy.readthedocs.io/en/stable/stubs.html). If you use MyPy through Pants's [typecheck goal](../python/goals/typecheck.mdx), this will ensure MyPy understands your generated code.
 
 To activate, set `mypy_plugin = true` in the `[python-protobuf]` scope:
 
@@ -44,7 +44,7 @@ MyPy will use the generated `.pyi` type stub file, rather than looking at the `.
 
 
 :::caution Want to use other protocols, like Thrift?
-Please message us on [Slack](doc:community) if you would like support for more protocols. We would be happy to either add support to the core Pants distribution or to help you to write a plugin.
+Please message us on [Slack](/community/members) if you would like support for more protocols. We would be happy to either add support to the core Pants distribution or to help you to write a plugin.
 
 :::
 
@@ -52,7 +52,7 @@ Please message us on [Slack](doc:community) if you would like support for more p
 ## Step 2: Set up the `protobuf` and/or `grpcio` runtime libraries
 Generated Python files require the [`protobuf` library](https://pypi.org/project/protobuf/) for their imports to work properly. If you're using gRPC, you also need the [`grpcio` library](https://pypi.org/project/grpcio/).
 
-First, add `protobuf`—and `grpcio`, if relevant— to your `requirements.txt` (see [Third-party dependencies](doc:python-third-party-dependencies)).
+First, add `protobuf`—and `grpcio`, if relevant— to your `requirements.txt` (see [Third-party dependencies](../python/overview/third-party-dependencies.mdx)).
 ```text title="requirements.txt"
 grpcio==1.32.0
 protobuf>=3.12.1
@@ -113,7 +113,7 @@ from example.f_pb2 import Message
 # for how to use the generated code in your project.
 ```
 
-[Dependency inference](doc:targets) does not work with Protobuf. You must explicitly declare all dependencies on `protobuf_library` targets.
+[Dependency inference](../using-pants/concepts/targets-and-build-files.mdx) does not work with Protobuf. You must explicitly declare all dependencies on `protobuf_library` targets.
 
 :::caution You likely need to add empty `__init__.py` files
 By default, Pants will generate the Python files in the same directory as the `.proto` file. To get Python imports working properly, you will likely need to add an empty `__init__.py` in the same location, and possibly in ancestor directories. You do not need to add a `python_library()` target; Pants will automatically include the file.
@@ -143,7 +143,7 @@ Pants 2.2 adds support for dependency inference of:
 
 
 ## Protobuf and source roots
-By default, generated code goes into the same [source root](doc:source-roots) as the `.proto` file from which it was generated. For example, a file `src/proto/example/f.proto` will generate `src/proto/example/f_pb2.py`. 
+By default, generated code goes into the same [source root](../using-pants/concepts/source-roots.mdx) as the `.proto` file from which it was generated. For example, a file `src/proto/example/f.proto` will generate `src/proto/example/f_pb2.py`. 
 
 However this may not always be what you want. In particular, you may not want to have to add `__init__py` files under `src/proto` just so you can import Python code generated to that source root.
 

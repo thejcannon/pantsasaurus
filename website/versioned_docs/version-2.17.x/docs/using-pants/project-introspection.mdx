@@ -20,7 +20,7 @@ Pants provides several goals to provide insights into your project's structure.
     $ pants dependents project/util.py | xargs pants test
     ```
     
-    See [Advanced target selection](doc:advanced-target-selection) for more info and other techniques to use the results.
+    See [Advanced target selection](./advanced-target-selection.mdx) for more info and other techniques to use the results.
 :::
 
 `list` - find your project's targets
@@ -49,7 +49,7 @@ helloworld/greet/greeting_test.py:tests
 ```
 
 `list` often works well when paired with the `--filter` options from
-[Advanced Target Selection](doc:advanced-target-selection), e.g.
+[Advanced Target Selection](./advanced-target-selection.mdx), e.g.
 `pants --filter-target-type=python_test list ::` to find all your `python_test` targets.
 
 `dependencies` - find a target's dependencies

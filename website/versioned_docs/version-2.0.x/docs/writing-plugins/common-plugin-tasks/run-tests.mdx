@@ -19,7 +19,7 @@ Usually, you will want to add a "tests" target type for your language, such as `
 
 When creating a tests target, you should usually subclass the `Sources` field and set the `default`. You may also want to create a `Timeout` field, which should subclass `IntField`.
 
-See [Creating new targets](doc:target-api-new-targets) for a guide on how to define new target types. 
+See [Creating new targets](../the-target-api/creating-new-targets.mdx) for a guide on how to define new target types. 
 
 ```python
 from pants.engine.target import COMMON_TARGET_FIELDS, Dependencies, IntField, Sources, Target

@@ -58,7 +58,7 @@ The engine will find a path through the rules to satisfy the types that you are 
 If the engine cannot find a path, or if there is ambiguity due to multiple possible paths, the rule graph will fail to compile. This ensures that the rule graph is always unambiguous.
 
 :::caution Rule graph errors can be confusing
-We know that rule graph errors can be intimidating and confusing to understand. We are planning to improve them. In the meantime, please do not hesitate to ask for help in the #engine channel on [Slack](doc:community).
+We know that rule graph errors can be intimidating and confusing to understand. We are planning to improve them. In the meantime, please do not hesitate to ask for help in the #engine channel on [Slack](/community/members).
 
 :::
 
@@ -290,7 +290,7 @@ async def demo(requirements: RequirementStrings) -> Foo:
 
 You can optionally set the class property `sort_input`, which will often result in more cache hits with the Pantsd daemon.
 ## Registering rules in `register.py`
-To register a new rule, use the `rules()` hook in your [`register.py` file](doc:plugins-overview). This function expects a list of functions annotated with `@rule`.
+To register a new rule, use the `rules()` hook in your [`register.py` file](../overview.mdx). This function expects a list of functions annotated with `@rule`.
 ```python title="pants-plugins/plugin1/register.py"
 def rules():
     return [rule1, rule2]

@@ -35,7 +35,7 @@ async def demo(...) -> Foo:
 
 `BinaryPaths` also has a convenience property called `first_path: Optional[BinaryPath]`, which will return the first matching path, if any.
 
-In this example, the `search_path` are hardcoded. Instead, you may want to create a [subsystem](doc:rules-api-subsystems) to allow users to override the search path through a dedicated option. See [pex_environment.py](https://github.com/pantsbuild/pants/blob/57a47457bda0b0dfb0882d851ccd58a7535f15c1/src/python/pants/backend/python/rules/pex_environment.py#L60-L71) for an example that allows the user to use the special string `<PATH>` to read the user's `$PATH` environment variable.
+In this example, the `search_path` are hardcoded. Instead, you may want to create a [subsystem](./options-and-subsystems.mdx) to allow users to override the search path through a dedicated option. See [pex_environment.py](https://github.com/pantsbuild/pants/blob/57a47457bda0b0dfb0882d851ccd58a7535f15c1/src/python/pants/backend/python/rules/pex_environment.py#L60-L71) for an example that allows the user to use the special string `<PATH>` to read the user's `$PATH` environment variable.
 
 :::note Checking for valid binaries (recommended)
 When setting up a `BinaryPathsRequest`, you can optionally pass the argument `test: BinaryPathTest`. When discovering a binary, Pants will run your test and only use the binary if the return code is 0. Pants will also fingerprint the output and invalidate the cache if the output changes from before, such as because the user upgraded the version of the tool.
@@ -97,7 +97,7 @@ You must define the class properties `default_version` and `default_known_versio
 
 You must also define the methods `generate_url`, which is the URL to make a GET request to download the file, and `generate_exe`, which is the relative path to the binary in the downloaded digest. Both methods take `plat: Platform` as a parameter, which allows you to handle `Platform.linux` differently than `Platform.darwin`.
 
-Because an `ExternalTool` is a subclass of [`Subsystem`](doc:rules-api-subsystems), you must also define an `options_scope`. You may optionally register options by overriding the classmethod `register_options`.
+Because an `ExternalTool` is a subclass of [`Subsystem`](./options-and-subsystems.mdx), you must also define an `options_scope`. You may optionally register options by overriding the classmethod `register_options`.
 
 In your rules, include the `ExternalTool` as a parameter of the rule, then use `Get(DownloadedExternalTool, ExternalToolRequest)` to download and extract the tool.
 
@@ -159,7 +159,7 @@ Instead of the normal `Get(ProcessResult, Process)`, you should use `Get(Process
 `PexProcess` requires arguments for `pex: Pex`, `argv: Iterable[str]`, and `description: str`. It has several optional parameters that mirror the arguments to `Process`. If you specify `input_digest`, be careful to first use `Get(Digest, MergeDigests)` on the `pex.digest` and any of the other input digests.
 
 :::note Use `PythonToolBase` when you need a Subsystem
-Often, you will want to create a [`Subsystem`](doc:rules-api-subsystems) for your Python tool to allow users to set options like `--black-config`. You can subclass `PythonToolBase`—which subclasses `Subsystem`—to do this:
+Often, you will want to create a [`Subsystem`](./options-and-subsystems.mdx) for your Python tool to allow users to set options like `--black-config`. You can subclass `PythonToolBase`—which subclasses `Subsystem`—to do this:
 
 ```python
 

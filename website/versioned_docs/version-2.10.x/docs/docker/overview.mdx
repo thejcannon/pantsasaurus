@@ -24,9 +24,9 @@ backend_packages = [
 ## Adding `docker_image` targets
 A Docker image is built from a recipe specified by a [Dockerfile](https://docs.docker.com/engine/reference/builder/). When you build Docker images with Pants, instead of running `docker` on the Dockerfile directly, you let Pants do that for you.
 
-Pants uses [`docker_image`](doc:reference-docker_image) [targets](doc:targets) to indicate which Dockerfiles you want Pants to know about, and to add any necessary metadata.
+Pants uses [`docker_image`](../../reference/targets/docker-image.mdx) [targets](../using-pants/key-concepts/targets-and-build-files.mdx) to indicate which Dockerfiles you want Pants to know about, and to add any necessary metadata.
 
-You can generate initial BUILD files for your Docker images, using [tailor](doc:create-initial-build-files):
+You can generate initial BUILD files for your Docker images, using [tailor](../getting-started/getting-started/create-initial-build-files.mdx):
 
 ```
 ❯ ./pants tailor
@@ -41,7 +41,7 @@ Or you can add them manually, such as:
 docker_image(name="docker")
 ```
 
-Alternatively you may provide the Docker build instructions inline in your BUILD file as [`instructions`](doc:reference-docker_image#codeinstructionscode) on your `docker_image` if you don't want to create a `Dockerfile`.
+Alternatively you may provide the Docker build instructions inline in your BUILD file as [`instructions`](../../reference/targets/docker-image.mdx#codeinstructionscode) on your `docker_image` if you don't want to create a `Dockerfile`.
 ```python title="src/docker/app1/BUILD"
 docker_image(
  name="docker",
@@ -69,7 +69,7 @@ When you run `docker` directly, the context is usually a directory within your r
 
 Pants, however, takes care of assembling the context for you. It does so using the dependencies of the `docker_image` target.
 
-A [`docker_image`](doc:reference-docker_image) can depend on loose files belonging to [`file` / `files` targets](doc:assets#files), and on artifacts packaged from a variety of targets, such as [`pex_binary`](doc:reference-pex_binary) , [`python_distribution`](doc:reference-python_distribution), [`archive`](doc:reference-archive), or any other target that can be built via the [package](doc:reference-package) goal.
+A [`docker_image`](../../reference/targets/docker-image.mdx) can depend on loose files belonging to [`file` / `files` targets](../using-pants/assets-and-archives.mdx#files), and on artifacts packaged from a variety of targets, such as [`pex_binary`](../../reference/targets/pex-binary.mdx) , [`python_distribution`](../../reference/targets/python-distribution.mdx), [`archive`](../../reference/targets/archive.mdx), or any other target that can be built via the [package](../../reference/goals/package.mdx) goal.
 
 The context is assembled as follows:
 
@@ -120,7 +120,7 @@ ARG VAR3=default
 
 ### Target build stage
 
-When your `Dockerfile` is a multi stage build file, you may specify which stage to build with the [`--docker-build-target-stage`](doc:reference-docker#section-build-target-stage) for all images, or provide a per image setting with the `docker_image` field [`target_stage`](doc:reference-docker_image#codetarget_stagecode).
+When your `Dockerfile` is a multi stage build file, you may specify which stage to build with the [`--docker-build-target-stage`](../../reference/subsystems/docker.mdx#section-build-target-stage) for all images, or provide a per image setting with the `docker_image` field [`target_stage`](../../reference/targets/docker-image.mdx#codetarget_stagecode).
 ```dockerfile title="dockerfile"
 FROM python:3.8 AS base
 RUN <install required tools>
@@ -136,7 +136,7 @@ COPY files /
 
 ### Build time secrets
 
-Secrets are supported for `docker_image` targets with the [`secrets`](doc:reference-docker_image#codesecretscode) field. The defined secrets may then be mounted in the `Dockerfile` as [usual](https://docs.docker.com/develop/develop-images/build_enhancements/#new-docker-build-secret-information).
+Secrets are supported for `docker_image` targets with the [`secrets`](../../reference/targets/docker-image.mdx#codesecretscode) field. The defined secrets may then be mounted in the `Dockerfile` as [usual](https://docs.docker.com/develop/develop-images/build_enhancements/#new-docker-build-secret-information).
 ```python tab={"label":"BUILD"}
 docker_image(
  secrets={
@@ -164,7 +164,7 @@ very-secret-value
 :::note Secret file path
 Secrets should not be checked into version control. Use absolute paths to reference a file that is not in the project source tree. However, to keep the BUILD file as hermetic as possible, the files may be placed within the project source tree at build time for instance, and referenced with a path relative to the project root by default, or relative to the directory of the BUILD file when prefixed with `./`.
 
-See the example for the [`secrets`](doc:reference-docker_image#codesecretscode) field.
+See the example for the [`secrets`](../../reference/targets/docker-image.mdx#codesecretscode) field.
 
 :::
 
@@ -248,7 +248,7 @@ Pants can push your images to registries using `./pants publish`:
 # Will build the image and push it to all registries, with all tags.
 ```
 
-See [here](doc:tagging-docker-images) for how to set up registries.
+See [here](./tagging-docker-images.mdx) for how to set up registries.
 ## Docker configuration
 To configure the Docker binary, set `[docker].env_vars` in your `pants.toml` configuration file. You use that key to list environment variables such as `DOCKER_CONTEXT` or `DOCKER_HOST`, that will be set in the environment of the `docker` binary when Pants runs it. Each listed value can be of the form `NAME=value`, or just `NAME`, in which case the value will be inherited from the Pants process's own environment.
 ```toml title="pants.toml"

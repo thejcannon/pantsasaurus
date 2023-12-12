@@ -18,7 +18,7 @@ How we recommend staying up-to-date with Pants.
 Upgrade one minor release at a time
 -----------------------------------
 
-Per our [Deprecation policy](doc:deprecation-policy), deprecations must last a minimum of one minor release. For example, something may be deprecated in 2.1.0 and then removed in 2.2.0.
+Per our [Deprecation policy](./deprecation-policy.mdx), deprecations must last a minimum of one minor release. For example, something may be deprecated in 2.1.0 and then removed in 2.2.0.
 
 This means that it is helpful to upgrade one minor release at a time so that you can see all deprecation warnings.
 
@@ -31,7 +31,7 @@ First, see if Pants can automatically fix any safe deprecations for you:
 ❯ ./pants update-build-files --no-fmt ::
 ```
 
-You can add `update-build-files` to your [continuous integration](doc:using-pants-in-ci) so that developers don't accidentally use removed features:
+You can add `update-build-files` to your [continuous integration](../using-pants/using-pants-in-ci.mdx) so that developers don't accidentally use removed features:
 
 ```bash
 ❯ ./pants update-build-files --check ::
@@ -50,9 +50,9 @@ It is also helpful to spot-check that your main commands like `lint`, `package`,
 
 :::note Use dev releases for the newest
 
-    As described in our [Release strategy](doc:release-strategy), we make weekly dev releases with all the latest features and bug fixes we've been working on. While dev releases are less stable, they mean you get access to improvements sooner.
+    As described in our [Release strategy](../contributions/releases/release-strategy.mdx), we make weekly dev releases with all the latest features and bug fixes we've been working on. While dev releases are less stable, they mean you get access to improvements sooner.
     
-    If you encounter any blocking issues, you can easily roll back to a prior version by changing the `pants_version` option. (Please let us know the issue by opening a [GitHub issue](https://github.com/pantsbuild/pants/issues) or messaging us on [Slack](doc:community)).
+    If you encounter any blocking issues, you can easily roll back to a prior version by changing the `pants_version` option. (Please let us know the issue by opening a [GitHub issue](https://github.com/pantsbuild/pants/issues) or messaging us on [Slack](/community/members)).
 :::
 
 Ignore deprecation messages with `ignore_warnings`
@@ -78,4 +78,4 @@ Run `curl -L -o ./pants https://pantsbuild.github.io/setup/pants` to check if th
 Find any bugs or issues?
 ------------------------
 
-Please either open a [GitHub issue](https://github.com/pantsbuild/pants/issues) or head over to [Slack](doc:community). We'd be happy to help and would appreciate knowing about the issue!
+Please either open a [GitHub issue](https://github.com/pantsbuild/pants/issues) or head over to [Slack](/community/members). We'd be happy to help and would appreciate knowing about the issue!

@@ -13,7 +13,7 @@ You can follow along this tutorial in your own repository; you only need to be o
 
 ### Registering a plugin
 
-We'll be writing an [in-repo plugin](https://www.pantsbuild.org/docs/plugins-overview#in-repo-plugins), and expect you to have the `pants-plugins/project_version` directory as well as the `pants.toml` file with this configuration:
+We'll be writing an [in-repo plugin](../writing-plugins/plugins-overview.mdx#in-repo-plugins), and expect you to have the `pants-plugins/project_version` directory as well as the `pants.toml` file with this configuration:
 
 ```toml title="pants.toml"
 # Specifying the path to our plugin's top-level folder using the `pythonpath` option:
@@ -28,7 +28,7 @@ backend_packages = [
 
 ### Creating a new target
 
-Once you have become familiar with the [core concepts of Targets and Fields](https://www.pantsbuild.org/docs/target-api-concepts), you are ready to [create an own custom target](https://www.pantsbuild.org/docs/target-api-new-targets) that will represent the `VERSION` file:
+Once you have become familiar with the [core concepts of Targets and Fields](../writing-plugins/the-target-api/concepts.mdx), you are ready to [create an own custom target](../writing-plugins/the-target-api/creating-new-targets.mdx) that will represent the `VERSION` file:
 
 ```python title="pants-plugins/project_version/targets.py"
 from pants.engine.target import COMMON_TARGET_FIELDS, SingleSourceField, Target
@@ -40,9 +40,9 @@ class ProjectVersionTarget(Target):
     help = "A project version target representing the VERSION file."
 ```
 
-Our target has some common target fields such as `tags` and `description` available via the `COMMON_TARGET_FIELDS`; including those fields in your targets may be convenient if you decide to use tags and provide a description later. In addition, it also has the [`source` field](https://www.pantsbuild.org/docs/rules-api-and-target-api#sourcesfield) which will be used to provide path to the project's `VERSION` file. 
+Our target has some common target fields such as `tags` and `description` available via the `COMMON_TARGET_FIELDS`; including those fields in your targets may be convenient if you decide to use tags and provide a description later. In addition, it also has the [`source` field](../writing-plugins/the-rules-api/rules-and-the-target-api.mdx#sourcesfield) which will be used to provide path to the project's `VERSION` file. 
 
-We could [add a custom field](https://www.pantsbuild.org/docs/target-api-new-fields) to provide a file path, however, there are multiple advantages to  using the `source` field. You will learn more about them in the following tutorials. 
+We could [add a custom field](../writing-plugins/the-target-api/creating-new-fields.mdx) to provide a file path, however, there are multiple advantages to  using the `source` field. You will learn more about them in the following tutorials. 
 
 In order to start using a target, you only need to register it: 
 
@@ -112,9 +112,9 @@ $ pants peek myapp:main-project-version
 
 ### Creating a goal
 
-[Goals](https://www.pantsbuild.org/docs/goals) are the commands that Pants runs such as `fmt` or `lint`. Writing a plugin doesn't necessarily mean adding a new goal. Most users would likely only want to enrich their build metadata with new kinds of targets or extend behavior of existing Pants goals. See [Common plugin tasks](https://www.pantsbuild.org/docs/common-plugin-tasks) to learn more.
+[Goals](../using-pants/key-concepts/goals.mdx) are the commands that Pants runs such as `fmt` or `lint`. Writing a plugin doesn't necessarily mean adding a new goal. Most users would likely only want to enrich their build metadata with new kinds of targets or extend behavior of existing Pants goals. See [Common plugin tasks](../writing-plugins/common-plugin-tasks/index.mdx) to learn more.
 
-For the purposes of our tutorial, to be able to get a project version number (using a target we've just created), we need to [create a new goal](https://www.pantsbuild.org/docs/rules-api-goal-rules). The code below is the boilerplate necessary to create a goal, so it's not really necessary to understand how, for instance, subsystems work right now. The function decorated with the `@goal_rule` can be named anything, but it's helpful for the name to represent the functionality your goal provides. To make your goal part of the plugin's interface, add it to the `rules` function in the `register.py` module.
+For the purposes of our tutorial, to be able to get a project version number (using a target we've just created), we need to [create a new goal](../writing-plugins/the-rules-api/goal-rules.mdx). The code below is the boilerplate necessary to create a goal, so it's not really necessary to understand how, for instance, subsystems work right now. The function decorated with the `@goal_rule` can be named anything, but it's helpful for the name to represent the functionality your goal provides. To make your goal part of the plugin's interface, add it to the `rules` function in the `register.py` module.
 
 ```python title="pants-plugins/project_version/rules.py"
 from pants.engine.goal import Goal, GoalSubsystem
@@ -159,7 +159,7 @@ You can now run `pants project-version` to confirm the command exits with the ex
 
 At this point, we are ready to do something useful with the new target of ours. Goals generally run on targets, so they need to be passed as an argument in the command line. For instance, to format the `myproject` directory targets, you would run `pants fmt myproject`. To get the version of a project in your repository, it makes sense to pass to the `project-version` goal a project directory containing the `version_file` definition.
 
-To make a target passed as an argument accessible in the goal rule, we pass the [`Targets`](https://www.pantsbuild.org/docs/rules-api-goal-rules#how-to-operate-on-targets) as input arguments of the function along with the [`Console`](https://www.pantsbuild.org/docs/rules-api-goal-rules#console-output-to-stdoutstderr) object so that we can print the details of our target in the user terminal:
+To make a target passed as an argument accessible in the goal rule, we pass the [`Targets`](../writing-plugins/the-rules-api/goal-rules.mdx#how-to-operate-on-targets) as input arguments of the function along with the [`Console`](../writing-plugins/the-rules-api/goal-rules.mdx#console-output-to-stdoutstderr) object so that we can print the details of our target in the user terminal:
 
 ```python
 @goal_rule
@@ -192,7 +192,7 @@ $ pants project-version myapp
 
 You can think of the `@goal_rule` as of the `main` function in your Python program where you would call various functions that your program needs to complete. For auxiliary code, it makes sense to place it into standalone functions which is what `@rule`s are for.
 
-Let's create a rule that will return a data structure that we'll use to represent our project version. [Data classes](https://www.pantsbuild.org/docs/rules-api-concepts#dataclasses) work really well with Pants engine, so let's create one: 
+Let's create a rule that will return a data structure that we'll use to represent our project version. [Data classes](../writing-plugins/the-rules-api/concepts.mdx#dataclasses) work really well with Pants engine, so let's create one: 
 
 ```python
 @dataclass(frozen=True)
@@ -217,7 +217,7 @@ Now, we have our `@goal_rule`, but we cannot call the `get_project_version_file_
 * passes an object of the type that matches the type of the rule's input arguments
 * requests an object of the type that a rule returns (you can see that in a type hint)
 
-For this, you can use [`Get`](https://www.pantsbuild.org/docs/rules-api-concepts#await-get---awaiting-results-in-a-rule-body):
+For this, you can use [`Get`](../writing-plugins/the-rules-api/concepts.mdx#await-get---awaiting-results-in-a-rule-body):
 
 ```python
 @goal_rule
@@ -248,7 +248,7 @@ async def get_project_version_file_view(target: ProjectVersionTarget) -> Project
 
 
 :::note Understanding the requests and rules signatures
-In our basic usage, there's a 1:1 match between the `Get(output: B, input: A, obj)` request and the `@rule(input: A) -> B` function signature. This doesn't have to be the case! When you make a request (providing an input type and asking for an output type), Pants looks at all the [rules in the graph](https://www.pantsbuild.org/docs/rules-api-concepts#the-rule-graph) to find a way from the input to the output using all the available rules. 
+In our basic usage, there's a 1:1 match between the `Get(output: B, input: A, obj)` request and the `@rule(input: A) -> B` function signature. This doesn't have to be the case! When you make a request (providing an input type and asking for an output type), Pants looks at all the [rules in the graph](../writing-plugins/the-rules-api/concepts.mdx#the-rule-graph) to find a way from the input to the output using all the available rules. 
 :::
 
 Let's consider a following scenario where you have a few `@rule`s and a `Get()` request:
@@ -278,7 +278,7 @@ You would normally expect for a project to have only a single `version_file` tar
 
 ### Reading the `VERSION` file
 
-Let's read the `VERSION` file and print the version number in the terminal. The `source` field of our target needs to be ["hydrated"](https://www.pantsbuild.org/docs/rules-api-and-target-api#sourcesfield). [Reading a file](https://www.pantsbuild.org/docs/rules-api-file-system) is pretty straightforward as well. We use `Get()` to transform our inputs as needed. Knowing what class you need to request may be tricky, so make sure to review the documentation, and ask for help if you are stuck!    
+Let's read the `VERSION` file and print the version number in the terminal. The `source` field of our target needs to be ["hydrated"](../writing-plugins/the-rules-api/rules-and-the-target-api.mdx#sourcesfield). [Reading a file](../writing-plugins/the-rules-api/file-system.mdx) is pretty straightforward as well. We use `Get()` to transform our inputs as needed. Knowing what class you need to request may be tricky, so make sure to review the documentation, and ask for help if you are stuck!    
 
 ```python
 @rule
@@ -293,7 +293,7 @@ async def get_project_version_file_view(
     )
 ```
 
-If the `@goal_rule` would receive multiple `version_file` targets (which may happen if user would run the goal for multiple projects or provide a recursive glob pattern such as `::`), it would be required to iterate over the list of targets. For efficiency, it is generally encouraged to replace the `Get()` calls in the `for` loop with a [`MultiGet()` call](https://www.pantsbuild.org/docs/rules-api-tips#tip-use-multiget-for-increased-concurrency):
+If the `@goal_rule` would receive multiple `version_file` targets (which may happen if user would run the goal for multiple projects or provide a recursive glob pattern such as `::`), it would be required to iterate over the list of targets. For efficiency, it is generally encouraged to replace the `Get()` calls in the `for` loop with a [`MultiGet()` call](../writing-plugins/the-rules-api/tips-and-debugging.mdx#tip-use-multiget-for-increased-concurrency):
 
 ```python
 @goal_rule

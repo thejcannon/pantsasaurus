@@ -16,7 +16,7 @@ Targets and Fields - the core building blocks
 
 ### Definition of _target_
 
-As described in [Targets and BUILD files](doc:targets), a _target_ is an _addressable_ set of metadata describing some of your code.
+As described in [Targets and BUILD files](../../using-pants/key-concepts/targets-and-build-files.mdx), a _target_ is an _addressable_ set of metadata describing some of your code.
 
 For example, this BUILD file defines a `PythonTestTarget` target with `Address("project", target_name="app_test")`.
 
@@ -85,7 +85,7 @@ Idiomatic Pants plugins do not care about specific target types; they only care 
 
 For example, the Python formatter Black does not actually care whether you have a `python_source`, `python_test`, or `custom_target` target; all that it cares about is that your target type has the field `PythonSourceField`. 
 
-Targets are only [used by the Rules API](doc:rules-api-and-target-api) to get access to the underlying fields through the methods `.has_field()` and `.get()`:
+Targets are only [used by the Rules API](../the-rules-api/rules-and-the-target-api.mdx) to get access to the underlying fields through the methods `.has_field()` and `.get()`:
 
 ```python
 if target.has_field(PythonSourceField):

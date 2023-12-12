@@ -10,7 +10,7 @@ How to safely interact with the file system in your plugin.
 It is not safe to use functions like `open` or the non-pure operations of `pathlib.Path` like you normally might: this can break caching. Instead, Pants has several mechanisms to work with the file system in a safe and concurrent way.
 
 :::caution Missing certain file operations?
-If it would help you to have a certain file operation, please let us know by either opening a new [GitHub issue](https://github.com/pantsbuild/pants/issues) or by messaging us on [Slack](doc:community) in the #engine room.
+If it would help you to have a certain file operation, please let us know by either opening a new [GitHub issue](https://github.com/pantsbuild/pants/issues) or by messaging us on [Slack](/community/members) in the #engine room.
 
 :::
 
@@ -256,7 +256,7 @@ async def demo(...) -> Foo:
 
 `DownloadFile` expects a `url: str` parameter pointing to a stable URL for the asset, along with an `expected_digest: FileDigest` parameter. A `FileDigest` is like a normal `Digest`, but represents a single file, rather than a set of files/directories. To determine the `expected_digest`, manually download the file, then run `shasum -a 256` to compute the fingerprint and `wc -c` to compute the expected length of the downloaded file in bytes.
 
-Often, you will want to download a pre-compiled binary for a tool. When doing this, use `ExternalTool` instead for help with extracting the binary from the download. See [Installing tools](doc:rules-api-installing-tools).
+Often, you will want to download a pre-compiled binary for a tool. When doing this, use `ExternalTool` instead for help with extracting the binary from the download. See [Installing tools](./installing-tools.mdx).
 
 :::tip Want support for HTTP requests? Let us know.
 It is not safe to use `DownloadFile` for most HTTP requests, as it will never ping the server for updates once it is cached. It is also not safe to use the `requests` library or similar because it will not be cached safely.

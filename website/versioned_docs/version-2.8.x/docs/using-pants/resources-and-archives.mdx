@@ -9,11 +9,11 @@ How to include resources such as images and config files in your project.
 
 There are two ways to include resource files in your project: `resource` and `file` targets.
 ## `resources`
-A [`resource`](doc:reference-resource) target is for files that are members of code packages, and are loaded via language-specific mechanisms, such as Python's `pkgutil.get_data()` or Java's `getResource()`.  
+A [`resource`](../../reference/targets/resource.mdx) target is for files that are members of code packages, and are loaded via language-specific mechanisms, such as Python's `pkgutil.get_data()` or Java's `getResource()`.  
 
 Pants will make resources available on the appropriate runtime path, such as Python's `PYTHONPATH` or the JVM classpath. Resources can be loaded directly from a binary in which they are embedded, such as a Pex file, without first unpacking it.
 
-To reduce boilerplate, the [`resources`](doc:reference-resources) target generates a `resource` target per file in the `sources` field.
+To reduce boilerplate, the [`resources`](../../reference/targets/resources.mdx) target generates a `resource` target per file in the `sources` field.
 
 For example, to load resources in Python:
 ```python tab={"label":"src/python/project/app.py"}
@@ -42,11 +42,11 @@ resource(
 {"k1": "v", "k2": "v"} 
 ```
 
-[Source root](doc:source-roots) stripping applies to resources, just as it does for code. In the example above, Python loads the resource named `project/config`, rather than `src/python/project/config.json`. 
+[Source root](./key-concepts-to-know-about-pants/source-roots.mdx) stripping applies to resources, just as it does for code. In the example above, Python loads the resource named `project/config`, rather than `src/python/project/config.json`. 
 ## `files`
 A `file` target is for loose files that are copied into the chroot where Pants runs your code. You can then load these files through direct mechanisms like Python's `open()` or Java's `FileInputStream`. The files are not associated with a code package, and must be extracted out of a deployed archive file before they can be loaded.
 
-To reduce boilerplate, the [`files`](doc:reference-files) target generates a `file` target per file in the `sources` field.
+To reduce boilerplate, the [`files`](../../reference/targets/files.mdx) target generates a `file` target per file in the `sources` field.
 
 For example, to load loose files in Python:
 ```python tab={"label":"src/python/project/app_test.py"}
@@ -143,6 +143,6 @@ The format can be `zip`, `tar`, `tar.xz`, `tar.gz`, or `tar.bz2`.
 
 The `packages` field is a list of targets that can be built using `./pants package`, such as `pex_binary`, `python_awslambda`, and even other `archive` targets. Pants will build the packages as if you had run `./pants package`. It will include the results in your archive using the same name they would normally have, but without the `dist/` prefix.
 
-The `files` field is a list of `file`, `files`, and `relocated_files` targets. See [resources](doc:resources) for more details.
+The `files` field is a list of `file`, `files`, and `relocated_files` targets. See [resources](./resources-and-archives.mdx) for more details.
 
 You can optionally set the field `output_path` to change the generated archive's name.
