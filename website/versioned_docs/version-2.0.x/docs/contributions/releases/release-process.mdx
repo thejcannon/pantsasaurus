@@ -13,17 +13,17 @@ How to release a new version of `pantsbuild.pants` and its plugins.
 
 If you already have one, you can reuse it.
 
-You likely want to use the gpg implementation of pgp. On macOS, you can `brew install gpg`. Once gpg is installed, generate a new key: [www.gnupg.org/gph/en/manual/c14.html](www.gnupg.org/gph/en/manual/c14.html).
+You likely want to use the gpg implementation of pgp. On macOS, you can `brew install gpg`. Once gpg is installed, generate a new key: [www.gnupg.org/gph/en/manual/c14.html](https://www.gnupg.org/gph/en/manual/c14.html).
 
 ### 2. Configure Git to use your PGP key.
 
-See [help.github.com/articles/telling-git-about-your-gpg-key/](help.github.com/articles/telling-git-about-your-gpg-key/)
+See [help.github.com/articles/telling-git-about-your-gpg-key/](https://help.github.com/articles/telling-git-about-your-gpg-key/)
 
 Note: the last step is required on macOS.
 
 ### 3. Create a PyPI account
 
-[pypi.org/account/register](pypi.org/account/register).
+[pypi.org/account/register](https://pypi.org/account/register).
 
 ### 4. Get added to pantsbuild.pants PyPI
 
@@ -61,11 +61,7 @@ For dev and `rc0` releases, the release branch is `master`. For all other releas
 ### 0a. `dev0` - set up the release series
 
 1. Create a new file in ` src/python/pants/notes`, e.g. create `src/python/pants/notes/1.28.x.rst`.
-
-```
- 1. Copy the title and template over from the prior release, e.g. `1.27.x.rst`.
-```
-
+   1. Copy the title and template over from the prior release, e.g. `1.27.x.rst`.
 2. Add the new file to `pants.toml` in the `release_notes` section (scoped under `pants_releases`).
 
 ### 0b. `dev` - Check for any deprecations
@@ -183,11 +179,7 @@ This is a bit subjective, but some things you may want to highlight:
 - New features.
 - Major bug fixes.
 - Substantial API changes.
-
-```
-* You do not need to highlight small changes like "Upgrade from ansiolors 2.10 to ansicolors 2.12". This is what the changelog is for.
-
-```
+  - You do not need to highlight small changes like "Upgrade from ansiolors 2.10 to ansicolors 2.12". This is what the changelog is for.
 
 If there are any docs explaining the new features, link to those by using readme.io's markdown variant of `[Page title](doc:new-page)`.
 

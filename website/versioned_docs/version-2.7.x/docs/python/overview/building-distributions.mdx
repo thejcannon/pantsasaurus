@@ -13,7 +13,7 @@ Common distribution formats include [sdist](https://packaging.python.org/glossar
 
 Pants knows how to build distributions that you can then publish to PyPI or a private package index. It can use an existing `setup.py` file, or can generate one for you.
 
-A distribution is set up using a [`python_distribution`](../../../reference/targets/python-distribution.mdx) target. This target provides Pants with the information needed to build the distribution, such as the setuptools commands to run.
+A distribution is set up using a [`python_distribution`](../../../reference/targets/python_distribution.mdx) target. This target provides Pants with the information needed to build the distribution, such as the setuptools commands to run.
 
 See [here](https://packaging.python.org/tutorials/packaging-projects/) for more information about the `setup.py` file and the commands you can run with it.
 
@@ -37,18 +37,18 @@ In this case, the target will look like this:
 
 ```python title="BUILD"
 python_distribution(
- name="mydist",
- dependencies=[
- # Explicit dependencies on the code and resources that setup.py needs.
- # Including any .c files that are compiled into native extensions.
- # E.g., https://github.com/pantsbuild/pants/tree/main/testprojects/src/python/native
- ],
- provides=python_artifact(
- name="mydist",
- version="2.21.0",
- setup_script="setup.py", # Relative path from this BUILD file.
- )
- setup_py_commands=["sdist", "bdist_wheel", "--python-tag", "py36.py37"]
+    name="mydist",
+    dependencies=[
+        # Explicit dependencies on the code and resources that setup.py needs.
+        # Including any .c files that are compiled into native extensions.
+        # E.g., https://github.com/pantsbuild/pants/tree/main/testprojects/src/python/native
+    ],
+    provides=python_artifact(
+        name="mydist",
+        version="2.21.0",
+        setup_script="setup.py",  # Relative path from this BUILD file.
+    )
+    setup_py_commands=["sdist", "bdist_wheel", "--python-tag", "py36.py37"]
 )
 ```
 
@@ -62,20 +62,20 @@ In this case, the `python_distribution` target will look like this:
 
 ```python title="BUILD"
 python_distribution(
- name="mydist",
- dependencies=[
- ...
- ],
- provides=python_artifact(
- name="mydist",
- version="2.21.0",
- description="An example distribution built with Pants.",
- author="Pantsbuild",
- classifiers=[
- "Programming Language :: Python :: 3.7",
- ],
- ),
- setup_py_commands=["sdist", "bdist_wheel", "--python-tag", "py36.py37"]
+    name="mydist",
+    dependencies=[
+        ...
+    ],
+    provides=python_artifact(
+        name="mydist",
+        version="2.21.0",
+        description="An example distribution built with Pants.",
+        author="Pantsbuild",
+        classifiers=[
+            "Programming Language :: Python :: 3.7",
+        ],
+    ),
+    setup_py_commands=["sdist", "bdist_wheel", "--python-tag", "py36.py37"]
 )
 ```
 
@@ -86,9 +86,9 @@ You can use almost any [keyword argument](https://packaging.python.org/guides/di
 However, you cannot use `data_files`, `install_requires`, `namespace_packages`, `package_dir`, `package_data`, or `packages` because Pants will generate these for you, based on the data derived from your code and dependencies.
 
 :::note Use the `entry_points` field to register entry points like `console_scripts`
-The [`entry_points` field](../../../reference/targets/python-distribution.mdx#codeentry_pointscode) allows you to configure [setuptools-style entry points](https://packaging.python.org/specifications/entry-points/#entry-points-specification):
+The [`entry_points` field](../../../reference/targets/python_distribution.mdx#codeentry_pointscode) allows you to configure [setuptools-style entry points](https://packaging.python.org/specifications/entry-points/#entry-points-specification):
 
-`python
+```python
 python_distribution(
    name="my-dist",
    entry_points={
@@ -99,7 +99,7 @@ python_distribution(
        },
    provides=python_artifact(...),
 )
-`
+```
 
 Pants will infer dependencies on each entry point, which you can confirm by running `./pants dependencies path/to:python_dist`.
 
@@ -114,7 +114,7 @@ You may want to write a plugin to do any of these things:
 - Read from the file system to dynamically determine kwargs, such as the `long_description` or `version`.
 - Run processes like Git to dynamically determine the `version` kwarg.
 
-Start by reading about the [Plugin API](../../writing-plugins/overview.mdx), then refer to the [Custom `python_artifact()` kwargs](<../../writing-plugins/common-plugin-tasks/custom-`setup-py()`-kwargs.mdx>) instructions.
+Start by reading about the [Plugin API](../../writing-plugins/overview.mdx), then refer to the [Custom `python_artifact()` kwargs](../../writing-plugins/common-plugin-tasks/custom-setup-py-kwargs.mdx) instructions.
 
 :::
 
@@ -148,10 +148,10 @@ By default, Pants will use exact requirements for first-party dependencies, like
 
 For example:
 
-`toml
+```toml
 [setup-py-generation]
 first_party_depenency_version_scheme = "compatible"
-`
+```
 
 See https://www.python.org/dev/peps/pep-0440/#version-specifiers for more information on the `~=` specifier.
 

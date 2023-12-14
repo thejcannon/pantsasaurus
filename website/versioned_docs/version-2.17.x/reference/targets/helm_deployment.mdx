@@ -108,6 +108,7 @@ If true, then does not deploy the Custom Resource Definitions that are defined i
 Individual values to use when rendering a given deployment.
 
 Value names should be defined using dot-syntax as in the following example:
+
 ```
 helm_deployment(
     values={
@@ -118,6 +119,7 @@ helm_deployment(
 ```
 
 Values can be dynamically calculated using interpolation as shown in the following example:
+
 ```
 helm_deployment(
     values={
@@ -186,7 +188,5 @@ When more than one post-renderer is given, they will be combined into a single o
 Enables DNS lookups when using the `getHostByName` template function.
 
 </Field>
-
-
 
 </span>

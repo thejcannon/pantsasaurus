@@ -22,22 +22,22 @@ For example, to load resources in Python:
 ```python tab={"label":"src/python/project/app.py"}
 import pkgutil
 
-if **name** == "**main**":
- config = pkgutil.get_data("project", "config.json").decode("utf-8")
- print(f"Config: {config}")
+if __name__ == "__main__":
+    config = pkgutil.get_data("project", "config.json").decode("utf-8")
+    print(f"Config: {config}")
 ```
 
 ```python tab={"label":"src/python/project/BUILD"}
 python_source(
- name="app",
- source="app.py",
- # Pants cannot infer this dependency, so we explicitly add it.
- dependencies=[":config"],
+  name="app",
+  source="app.py",
+  # Pants cannot infer this dependency, so we explicitly add it.
+  dependencies=[":config"],
 )
 
 resource(
- name="config",
- source="config.json",
+  name="config",
+  source="config.json",
 )
 ```
 
@@ -57,22 +57,22 @@ For example, to load loose files in Python:
 
 ```python tab={"label":"src/python/project/app_test.py"}
 def test_open_file():
- with open("src/python/project/config.json") as f:
- content = f.read().decode()
- assert content == '{"k1": "v", "k2": "v"}'
+    with open("src/python/project/config.json") as f:
+        content = f.read().decode()
+    assert content == '{"k1": "v", "k2": "v"}'
 ```
 
 ```python tab={"label":"src/python/project/BUILD"}
 python_test(
- name="app_test",
- source="app_test.py",
- # Pants cannot infer this dependency, so we explicitly add it.
- dependencies=[":config"],
+    name="app_test",
+    source="app_test.py",
+    # Pants cannot infer this dependency, so we explicitly add it.
+    dependencies=[":config"],
 )
 
 file(
- name="config",
- source="config.json",
+    name="config",
+    source="config.json",
 )
 ```
 
@@ -117,16 +117,16 @@ You can use the `relocated_files` target to change the path used at runtime for 
 ```python title="src/assets/BUILD"
 # Original file target.
 file(
- name="logo",
- source="logo.png",
+    name="logo",
+    source="logo.png",
 )
 
 # At runtime, the file will be `imgs/logo.png`.
 relocated_files(
- name="relocated_logo",
- files_targets=[":logo"],
- src="src/assets",
- dest="imgs",
+    name="relocated_logo",
+    files_targets=[":logo"],
+    src="src/assets",
+    dest="imgs",
 )
 ```
 
@@ -144,10 +144,10 @@ For example:
 
 ```python title="project/BUILD"
 archive(
- name="app_with_config",
- packages=[":app"],
- files=[":production_config"],
- format="tar.xz",
+    name="app_with_config",
+    packages=[":app"],
+    files=[":production_config"],
+    format="tar.xz",
 )
 ```
 

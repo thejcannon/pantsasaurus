@@ -104,7 +104,7 @@ For example:
 14:15:31.23 [INFO] Wrote dist/src.py.project/bin/aarch64-apple-darwin/debug/install/bin
 ```
 
-By default, Pants will write the package using this scheme: `dist/{path.to.tgt_dir}/{tgt_name}/{platform}/{debug,release}/install/{tgt_name}`. You can change the first part of this path by setting the `output_path` field, although you risk name collisions with other `pyoxidizer_binary` targets in your project. See [pyoxidizer_binary](../../../reference/targets/pyoxidizer-binary.mdx) for more info.
+By default, Pants will write the package using this scheme: `dist/{path.to.tgt_dir}/{tgt_name}/{platform}/{debug,release}/install/{tgt_name}`. You can change the first part of this path by setting the `output_path` field, although you risk name collisions with other `pyoxidizer_binary` targets in your project. See [pyoxidizer_binary](../../../reference/targets/pyoxidizer_binary.mdx) for more info.
 
 :::caution `debug` vs `release` builds
 By default, PyOxidizer will build with Rust's "debug" mode, which results in much faster compile times but means that your binary will be slower to run. Instead, you can instruct PyOxidizer to build in [release mode](https://nnethercote.github.io/perf-book/build-configuration.html#release-builds) by adding this to `pants.toml`:

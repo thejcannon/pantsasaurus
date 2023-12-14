@@ -32,7 +32,7 @@ It may be necessary to explicitly set the directory Pants uses as a temporary di
 
 Use the global option `local_execution_root_dir` to change the tmpdir used by Pants.
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 local_execution_root_dir = "/mnt/large-partition/tmpdir"
 ```
@@ -41,7 +41,7 @@ local_execution_root_dir = "/mnt/large-partition/tmpdir"
 
 On Linux, Pants uses `inotify` to watch all files and directories related to any particular build. Some systems have limits configured for the maximum number of files watched. To adjust the limit on file watches, you can run:
 
-```shell title="shell"
+```shell title="title="shell""
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 ```
 
@@ -67,7 +67,7 @@ This is an error from `pip`, and it means that the same 3rd-party Python require
 
 You can use Pants to help identify why the same requirement is being used more than once:
 
-```shell title="Shell"
+```shell title="title="Shell""
 # List all requirement strings used in your project. Once you
 # find the problematic requirement strings, try grepping
 # for them to see where the targets are defined.
@@ -85,7 +85,7 @@ Almost always, this error happens because of the option `pants_ignore` in the `[
 
 To override something included in your `.gitignore`, add a new value to `pants_ignore` and prefix it with `!`, like the below. `pants_ignore` uses the [same syntax as gitignore](https://git-scm.com/docs/gitignore).
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 pants_ignore.add = ["!folder/"]
 ```

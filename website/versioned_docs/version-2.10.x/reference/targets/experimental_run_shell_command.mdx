@@ -10,6 +10,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 Run a script in the workspace, with all dependencies packaged/copied into a chroot.
 
 Example BUILD file:
+
 ```
 experimental_run_shell_command(
   command="./scripts/my-script.sh --data-files-dir={chroot}",
@@ -91,7 +92,5 @@ The command is executed as &#x27;bash -c &lt;command&gt;&#x27; by default.
 Sets the current working directory of the command, relative to the project root.
 
 </Field>
-
-
 
 </span>

@@ -17,14 +17,19 @@ Every deprecation message will include a description of how to respond to the ch
   - Deprecated options must behave the same as before.
 - Changing default option values without a deprecation.
 - Removing features without a deprecation.
-- Substantial performance regressions (slowdown of >= 10%). \* If a new feature results in this slowdown, it should be put behind a flag that is disabled by default.
-  ## Allowed changes
+- Substantial performance regressions (slowdown of >= 10%).
+  - If a new feature results in this slowdown, it should be put behind a flag that is disabled by default.
+
+## Allowed changes
+
 - Adding new options.
 - Adding new functionality.
 - Fixing bugs.
 - Changes that are required by law.
-  ## Plugin API deprecation policy
-  When [writing plugins](../writing-plugins/overview.mdx), Pants is used as a _library_, rather than a _binary_. That is, you import Pants code to write plugins. We try to make this API stable for your plugins.
+
+## Plugin API deprecation policy
+
+When [writing plugins](../writing-plugins/overview.mdx), Pants is used as a _library_, rather than a _binary_. That is, you import Pants code to write plugins. We try to make this API stable for your plugins.
 
 ### What is public?
 
@@ -38,7 +43,7 @@ All other code defaults to being a private API and does not need to follow this 
 
 Examples:
 
-```python title="deprecation_example.py"
+```python title="title="deprecation_example.py""
 """An example public module.
 
 This means that everything in this module is public, except for
@@ -48,28 +53,28 @@ values prefixed with `_`.
 """
 
 def demo_function(x: int) -> None:
- """An example public top-level function.
+    """An example public top-level function.
 
- :API: public
- """
- print(x)
+    :API: public
+    """
+    print(x)
 
 
 class Demo:
- """An example public class.
+    """An example public class.
 
- All methods and class properties are public, except for values
- prefixed with `_`.
+    All methods and class properties are public, except for values
+    prefixed with `_`.
 
- :API: public
- """
+    :API: public
+    """
 
- def demo_method(self, x: int) -> None:
- """An example public method.
+    def demo_method(self, x: int) -> None:
+        """An example public method.
 
- :API: public
- """
- print(x)
+        :API: public
+        """
+        print(x)
 
 ```
 

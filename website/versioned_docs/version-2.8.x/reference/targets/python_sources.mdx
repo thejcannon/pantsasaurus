@@ -99,6 +99,7 @@ Override the field values for generated `python_source` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
+
 ```
 overrides={
   "foo.py": {"skip_pylint": True]},
@@ -224,7 +225,5 @@ If true, don&#x27;t run Pylint on this target&#x27;s code.
 If true, don&#x27;t run yapf on this target&#x27;s code.
 
 </Field>
-
-
 
 </span>

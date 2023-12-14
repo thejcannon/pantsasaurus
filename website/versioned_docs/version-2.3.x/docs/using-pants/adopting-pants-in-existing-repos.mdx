@@ -90,17 +90,19 @@ Some example plugins that users have written:
 - Building a Docker image with packages built via `./pants package`
 - Custom `setup.py` logic to compute the `version` dynamically
 - Jupyter support
-  ## Migrating from other BUILD tools? Set custom BUILD file names
-  If you're migrating from another build tool that already uses the name `BUILD`, such as Bazel or Please, you can tell Pants to use a different file name than `BUILD` to avoid conflicts:
-  ```toml title="pants.toml"
-  [GLOBAL]
-  build_patterns = ["BUILD.pants"]
-  ```
 
-````
+## Migrating from other BUILD tools? Set custom BUILD file names
 
-  Alternatively, you can tell Pants to not look for BUILD files in certain locations. This can be helpful, for example, if you use a tool like Bazel for Java, but use Pants for Python:
-  ```toml title="pants.toml"
+If you're migrating from another build tool that already uses the name `BUILD`, such as Bazel or Please, you can tell Pants to use a different file name than `BUILD` to avoid conflicts:
+
+```toml title="pants.toml"
+[GLOBAL]
+build_patterns = ["BUILD.pants"]
+```
+
+Alternatively, you can tell Pants to not look for BUILD files in certain locations. This can be helpful, for example, if you use a tool like Bazel for Java, but use Pants for Python:
+
+```toml title="pants.toml"
 [GLOBAL]
 build_ignore = ["src/java"]
-````
+```

@@ -311,7 +311,7 @@ If a target sets its `timeout` higher than `[pytest].timeout_maximum`, Pants wil
 
 Use the target type `python_source` for test utilities, rather than `python_test`.
 
-To reduce boilerplate, you can use either the [`python_sources`](../../../reference/targets/python-sources.mdx) or [`python_test_utils`](../../../reference/targets/python-test-utils.mdx) targets to generate `python_source` targets. These behave the same, except that `python_test_utils` has a different default `sources` to include `conftest.py` and type stubs for tests (like `test_foo.pyi`). Use [`./pants tailor`](../../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files) to generate both these targets automatically.
+To reduce boilerplate, you can use either the [`python_sources`](../../../reference/targets/python_sources.mdx) or [`python_test_utils`](../../../reference/targets/python_test_utils.mdx) targets to generate `python_source` targets. These behave the same, except that `python_test_utils` has a different default `sources` to include `conftest.py` and type stubs for tests (like `test_foo.pyi`). Use [`./pants tailor`](../../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files) to generate both these targets automatically.
 
 For example:
 

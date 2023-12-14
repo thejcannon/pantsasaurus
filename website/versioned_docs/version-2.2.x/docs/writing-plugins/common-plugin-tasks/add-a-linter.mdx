@@ -120,7 +120,7 @@ class ShellcheckRequest(LintRequest):
     field_set_type = ShellcheckFieldSet
 ```
 
-Finally, register your new `LintRequest` with a [`UnionRule`](<../the-rules-api/union-rules-(advanced).mdx>) so that Pants knows your linter exists:
+Finally, register your new `LintRequest` with a [`UnionRule`](../the-rules-api/union-rules-advanced.mdx) so that Pants knows your linter exists:
 
 ```python
 from pants.engine.unions import UnionRule
@@ -260,7 +260,7 @@ async def run_shellcheck(
 
 Finally, update your plugin's `register.py` to activate this file's rules.
 
-```python title="pants-plugins/bash/register.py"
+```python title="title="pants-plugins/bash/register.py""
 from bash import shellcheck
 
 

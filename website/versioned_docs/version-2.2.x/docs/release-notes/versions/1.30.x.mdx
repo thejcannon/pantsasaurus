@@ -21,7 +21,7 @@ Pants can now read your Python source files to infer the `dependencies` field fo
 
 Add `dependency_inference = true` to your `pants.toml`, like this:
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 dependency_inference = true
 ```
@@ -34,7 +34,7 @@ Pants will assume that each of your dependencies exposes a module with the same 
 
 If you are using a `requirements.txt` and `python_requirements()` target, teach Pants about any unusual modules like this:
 
-```python title="3rdparty/BUILD"
+```python title="title="3rdparty/BUILD""
 python_library(
   module_mapping={
     "ansicolors": ["colors"],
@@ -46,7 +46,7 @@ python_library(
 
 For inline `python_requirement_library` targets, configure like this:
 
-```python title="3rdparty/BUILD"
+```python title="title="3rdparty/BUILD""
 python_requirement_library(
   name='setuptools',
   requirements=[

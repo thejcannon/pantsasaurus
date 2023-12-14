@@ -17,9 +17,9 @@ Pants installs these tools deterministically and integrates them into the workfl
 
 ## Initial setup: add `shell_sources` targets
 
-Pants uses [`shell_source`](../../reference/targets/shell-source.mdx) and [`shunit2_test`](../../reference/targets/shunit2-test.mdx) [targets](../using-pants/key-concepts/targets-and-build-files.mdx) to know which Shell files you want to operate on and to set any metadata.
+Pants uses [`shell_source`](../../reference/targets/shell_source.mdx) and [`shunit2_test`](../../reference/targets/shunit2_test.mdx) [targets](../using-pants/key-concepts/targets-and-build-files.mdx) to know which Shell files you want to operate on and to set any metadata.
 
-To reduce boilerplate, the [`shell_sources`](../../reference/targets/shell-sources.mdx) target generates a `shell_source` target for each file in its `sources` field, and [`shunit2_tests`](../../reference/targets/shunit2-tests.mdx) generates a `shunit2_test` target for each file in its `sources` field.
+To reduce boilerplate, the [`shell_sources`](../../reference/targets/shell_sources.mdx) target generates a `shell_source` target for each file in its `sources` field, and [`shunit2_tests`](../../reference/targets/shunit2_tests.mdx) generates a `shunit2_test` target for each file in its `sources` field.
 
 ```python title="BUILD"
 shell_sources(name="lib", sources=["deploy.sh", "changelog.sh"])
@@ -212,7 +212,7 @@ To use shunit2 with Pants:
 2. Create a `shunit2_test` or `shunit2_tests` target in the directory's BUILD file.
    - You can run [`pants tailor`](../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files) to automate this step.
 3. Specify which shell to run your tests with, either by setting a shebang directly in the test file or by setting the field `shell` on the `shunit2_test` / `shunit2_tests` target.
-   - See [here](../../reference/targets/shunit2-tests.mdx#codeshellcode) for all supported shells.
+   - See [here](../../reference/targets/shunit2_tests.mdx#codeshellcode) for all supported shells.
 
 ```shell title="scripts/tests.sh"
 #!/usr/bin/env bash

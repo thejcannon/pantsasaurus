@@ -12,13 +12,9 @@ As explained in [Options](../../using-pants/concepts/options.mdx), options are p
 To add new options:
 
 1. Define a subclass of `Subsystem` from `pants.subsystem.subsystem`.
-
-```
-1. Set the class property `options_scope` with the name of the subsystem.
-     * This value will be prepended to all options in the subsystem, e.g. `--skip` will become `--shellcheck-skip`.
-1. Set the class property `help`, which is used by `./pants help`.
-```
-
+   1. Set the class property `options_scope` with the name of the subsystem.
+      - This value will be prepended to all options in the subsystem, e.g. `--skip` will become `--shellcheck-skip`.
+   1. Set the class property `help`, which is used by `./pants help`.
 2. Add new options through the class method `register_options()`.
 3. Register the `Subsystem` in a `register.py` file.
 

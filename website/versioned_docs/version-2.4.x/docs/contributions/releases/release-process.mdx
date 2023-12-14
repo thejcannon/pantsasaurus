@@ -67,11 +67,7 @@ For dev and `rc0` releases, the release branch is `main`. For all other release 
 ### 0a. `dev0` - set up the release series
 
 1. Create a new file in ` src/python/pants/notes`, e.g. create `src/python/pants/notes/2.2.x.md`.
-
-```
- 1. Copy the title and template over from the prior release, e.g. `2.1.x.md`.
-```
-
+   1. Copy the title and template over from the prior release, e.g. `2.1.x.md`.
 2. Add the new file to `pants.toml` in the `release_notes` section.
 
 ### 0b. `dev` - Check for any deprecations
@@ -189,11 +185,7 @@ This is a bit subjective, but some things you may want to highlight:
 - New features.
 - Major bug fixes.
 - Substantial API changes.
-
-```
-* You do not need to highlight small changes like "Upgrade from ansiolors 2.10 to ansicolors 2.12". This is what the changelog is for.
-
-```
+  - You do not need to highlight small changes like "Upgrade from ansiolors 2.10 to ansicolors 2.12". This is what the changelog is for.
 
 If there are any docs explaining the new features, link to those by using readme.io's markdown variant of `[Page title](doc:new-page)`.
 

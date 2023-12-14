@@ -39,7 +39,7 @@ remote_instance_name = "main"
 
 The REAPI execution service selects a worker for a process by consulting the "platform properties" that are passed in a remote execution request. These platform properties are key/value pairs that are configured for particular workers in the server. Generally, you will configure these in the server (or be provided them by your server's administrator), and then configure Pants to match particular workers using their relevant platform properties.
 
-To define platform properties (as well as to configure any other settings which are specific to running on a remote worker), you should define a remote environment. Building on the first example earlier, you would add [`remote_environment` targets](../../../reference/targets/remote-environment.mdx) (see [environment](../environments:-cross-platform-or-remote-builds.mdx) for more information) corresponding to each set of distinct workers you want to use in the server. Assuming that the REAPI server is configured with a particular worker type labeled `docker-container=busybox:latest`, that might look like a `BUILD` file containing:
+To define platform properties (as well as to configure any other settings which are specific to running on a remote worker), you should define a remote environment. Building on the first example earlier, you would add [`remote_environment` targets](../../../reference/targets/remote_environment.mdx) (see [environment](../environments:-cross-platform-or-remote-builds.mdx) for more information) corresponding to each set of distinct workers you want to use in the server. Assuming that the REAPI server is configured with a particular worker type labeled `docker-container=busybox:latest`, that might look like a `BUILD` file containing:
 
 ```python
 remote_environment(
@@ -96,4 +96,4 @@ remote_ca_certs_path = "/etc/ssl/certs/ca-certificates.crt"
 
 For global options, run `pants help-advanced global` or refer to [Global options](../../../reference/global-options.mdx). Most remote execution and caching options begin with the prefix `--remote`.
 
-For environment-specific options, see `pants help-advanced remote_environment` or the [`remote_environment` target](../../../reference/targets/remote-environment.mdx).
+For environment-specific options, see `pants help-advanced remote_environment` or the [`remote_environment` target](../../../reference/targets/remote_environment.mdx).

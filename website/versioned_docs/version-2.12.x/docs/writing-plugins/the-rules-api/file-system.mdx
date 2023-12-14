@@ -313,6 +313,6 @@ Often, you will want to download a pre-compiled binary for a tool. When doing th
 
     It is not safe to use `DownloadFile` for mutable HTTP requests, as it will never ping the server for updates once it is cached. It is also not safe to use the `requests` library or similar because it will not be cached safely.
 
-:::
+    You can use a `Process` with uniquely identifying information in its arguments to run `/usr/bin/curl`.
 
-> You can use a `Process` with uniquely identifying information in its arguments to run `/usr/bin/curl`.
+:::

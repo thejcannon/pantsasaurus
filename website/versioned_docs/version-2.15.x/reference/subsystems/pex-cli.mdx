@@ -16,6 +16,7 @@ Config section: <span className="color--primary">`[pex-cli]`</span>
 <span className={styles.options}>
 
 ## Basic options
+
 None
 
 ## Advanced options
@@ -42,10 +43,10 @@ Supported pex versions: &gt;=2.1.111,&lt;3.0
   default_repr={`[\n  "v2.1.111|macos_arm64|9787e9712aba67ccc019415060a33e850675174be3331d35014e39219212b669|4063422",\n  "v2.1.111|macos_x86_64|9787e9712aba67ccc019415060a33e850675174be3331d35014e39219212b669|4063422",\n  "v2.1.111|linux_x86_64|9787e9712aba67ccc019415060a33e850675174be3331d35014e39219212b669|4063422",\n  "v2.1.111|linux_arm64|9787e9712aba67ccc019415060a33e850675174be3331d35014e39219212b669|4063422"\n]`}
 >
 
-
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
+
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -69,7 +70,6 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   one_of='error, warning'
   default_repr={`error`}
 >
-
 
 What action to take in case the requested version of pex is not supported.
 

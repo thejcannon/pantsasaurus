@@ -31,7 +31,7 @@ If there is no `pyproject.toml` with a `[build-system]` table available, Pants f
 
 ## The `python_distribution` target
 
-You configure a distribution using a [`python_distribution`](../../../reference/targets/python-distribution.mdx) target. This target provides Pants with the information needed to build the distribution.
+You configure a distribution using a [`python_distribution`](../../../reference/targets/python_distribution.mdx) target. This target provides Pants with the information needed to build the distribution.
 
 ### PEP 517
 
@@ -134,7 +134,7 @@ However, you cannot use `data_files`, `install_requires`, `namespace_packages`, 
 
 :::note Use the `entry_points` field to register entry points like `console_scripts`
 
-    The [`entry_points` field](../../../reference/targets/python-distribution.mdx#codeentry_pointscode) allows you to configure [setuptools-style entry points](https://packaging.python.org/specifications/entry-points/#entry-points-specification):
+    The [`entry_points` field](../../../reference/targets/python_distribution.mdx#codeentry_pointscode) allows you to configure [setuptools-style entry points](https://packaging.python.org/specifications/entry-points/#entry-points-specification):
 
     ```python
     python_distribution(
@@ -163,7 +163,7 @@ However, you cannot use `data_files`, `install_requires`, `namespace_packages`, 
     - Read from the file system to dynamically determine kwargs, such as the `long_description` or `version`.
     - Run processes like Git to dynamically determine the `version` kwarg.
 
-    Start by reading about the [Plugin API](../../writing-plugins/plugins-overview.mdx), then refer to the [Custom `python_artifact()` kwargs](../../writing-plugins/common-plugin-tasks/custom-`python-artifact()`-kwargs.mdx) instructions.
+    Start by reading about the [Plugin API](../../writing-plugins/plugins-overview.mdx), then refer to the [Custom `python_artifact()` kwargs](../../writing-plugins/common-plugin-tasks/custom-python-artifact-kwargs.mdx) instructions.
 
 :::
 
@@ -211,6 +211,6 @@ The generated `setup.py` will have its `install_requires` set to include the 3rd
 
 :::note How to publish your distributions to a package index
 
-:::
+    See [publish](../goals/publish.mdx) for example support publishing distributions using Twine.
 
-> See [publish](../goals/publish.mdx) for example support publishing distributions using Twine.
+:::

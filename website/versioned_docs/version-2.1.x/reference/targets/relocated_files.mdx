@@ -17,6 +17,7 @@ For example, you can relocate `src/resources/project1/data.json` to instead be
 `dependencies` field, rather than using the original `files` target.
 
 To remove a prefix:
+
 ```
 # Results in `data.json`.
 relocated_files(
@@ -27,6 +28,7 @@ relocated_files(
 ```
 
 To add a prefix:
+
 ```
 # Results in `images/logo.svg`.
 relocated_files(
@@ -37,6 +39,7 @@ relocated_files(
 ```
 
 To replace a prefix:
+
 ```
 # Results in `new_prefix/project1/data.json`.
 relocated_files(
@@ -101,7 +104,5 @@ The original prefix that you want to replace, such as `src/resources`. You can s
 The new prefix that you want to add to the beginning of the path, such as `data`. You can set this field to `""` to avoid adding any new values to the path; the value in the `src` field will then be stripped, rather than replaced.
 
 </Field>
-
-
 
 </span>

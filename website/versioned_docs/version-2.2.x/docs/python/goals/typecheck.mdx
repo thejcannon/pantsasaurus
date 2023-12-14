@@ -11,7 +11,7 @@ How to use MyPy.
 
 To opt-in, add `pants.backend.python.typecheck.mypy` to `backend_packages` in your config file.
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 backend_packages.add = [
   "pants.backend.python",
@@ -39,7 +39,7 @@ To turn this off, you can still set `python_version` in `mypy.ini` or `--python-
 
 Set the `config` option in the `[mypy]` scope:
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [mypy]
 config = "build-support/mypy.ini"
 ```
@@ -48,7 +48,7 @@ config = "build-support/mypy.ini"
 
 Use the `version` option in the `[mypy]` scope:
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [mypy]
 version = "mypy==0.782"
 ```
@@ -61,12 +61,12 @@ Pants's dependency inference knows to infer a dependency both on the implementat
 
 When writing stubs for third-party libraries, you may need the set up the `[source].root_patterns` option so that [source roots](../../using-pants/concepts/source-roots.mdx) are properly stripped. For example:
 
-```toml tab={"label":"pants.toml"}
+```toml title="tab={"label":"pants.toml"}"
 [source]
 root_patterns = ["mypy-stubs", "src/python"]
 ```
 
-```python tab={"label":"mypy-stubs/colors.pyi"}
+```python title="tab={"label":"mypy-stubs/colors.pyi"}"
 # Because we set `mypy-stubs` as a source root, this file will be
 # stripped to be simply `colors.pyi`. MyPy will look at this file for
 # imports of the `colors` module.
@@ -74,18 +74,18 @@ root_patterns = ["mypy-stubs", "src/python"]
 def red(s: str) -> str: ...
 ```
 
-```text tab={"label":"mypy-stubs/BUILD"}
+```text title="tab={"label":"mypy-stubs/BUILD"}"
 python_library()
 ```
 
-```python tab={"label":"src/python/project/app.py"}
+```python title="tab={"label":"src/python/project/app.py"}"
 from colors import red
 
 if __name__ == "__main__":
     print(red("I'm red!"))
 ```
 
-```python tab={"label":"src/python/project/BUILD"}
+```python title="tab={"label":"src/python/project/BUILD"}"
 # Pants will infer a dependency both on the `ansicolors` requirement
 # and our type stub.
 pex_binary(sources=["app.py"])
@@ -95,12 +95,12 @@ pex_binary(sources=["app.py"])
 
 Add the plugin to the `extra_requirements` option in the `[mypy]` scope, then update your `mypy.ini` to load the plugin:
 
-```toml tab={"label":"pants.toml"}
+```toml title="tab={"label":"pants.toml"}"
 [mypy]
 extra_requirements = ["pydantic==1.6.1"]
 ```
 
-```text tab={"label":"mypy.ini"}
+```text title="tab={"label":"mypy.ini"}"
 [mypy]
 plugins =
     pydantic.mypy
@@ -110,7 +110,7 @@ For some plugins, like `django-stubs`, you may need to always load certain sourc
 
 For example, to fully use the `django-stubs` plugin, your setup might look like this:
 
-```toml tab={"label":"pants.toml"}
+```toml title="tab={"label":"pants.toml"}"
 [source]
 root_patterns = ["src/python"]
 
@@ -119,7 +119,7 @@ extra_requirements = ["django-stubs==1.5.0"]
 source_plugins = ["src/python/project:django_settings"]
 ```
 
-```text tab={"label":"mypy.ini"}
+```text title="tab={"label":"mypy.ini"}"
 [mypy]
 plugins =
     mypy_django_plugin.main
@@ -128,7 +128,7 @@ plugins =
 django_settings_module = project.django_settings
 ```
 
-```python tab={"label":"src/python/project/django_settings.py"}
+```python title="tab={"label":"src/python/project/django_settings.py"}"
 from django.urls import URLPattern
 
 DEBUG = True
@@ -137,7 +137,7 @@ SECRET_KEY = "not so secret"
 MY_SETTING = URLPattern(pattern="foo", callback=lambda: None)
 ```
 
-```python tab={"label":"src/python/project/BUILD"}
+```python title="tab={"label":"src/python/project/BUILD"}"
 mypy_source_plugin(
     name="django-settings",
     sources=["django_settings.py"],
@@ -159,25 +159,25 @@ Finally, set the option `source_plugins` in the `[mypy]` scope to include this t
 
 For example:
 
-```toml tab={"label":"pants.toml"}
+```toml title="tab={"label":"pants.toml"}"
 [mypy]
 config = "mypy.ini"
 source_plugins = ["pants-plugins/mypy_plugins:plugin"]
 ```
 
-```text tab={"label":"mypy.ini"}
+```text title="tab={"label":"mypy.ini"}"
 plugins =
     mypy_plugins.change_return_type
 ```
 
-```python tab={"label":"pants-plugins/mypy_plugins/BUILD"}
+```python title="tab={"label":"pants-plugins/mypy_plugins/BUILD"}"
 mypy_source_plugin(
     name="plugin",
     sources=["change_return_type.py"],
 )
 ```
 
-```python tab={"label":"pants-plugins/mypy_plugins/change_return_type.py"}
+```python title="tab={"label":"pants-plugins/mypy_plugins/change_return_type.py"}"
 """A contrived plugin that changes the return type of any
 function ending in `__overriden_by_plugin` to return None."""
 

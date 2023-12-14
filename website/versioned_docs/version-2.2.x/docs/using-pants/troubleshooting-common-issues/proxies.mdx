@@ -26,7 +26,7 @@ You may want to check the binary into version control so that everyone in your o
 
 You may need to configure Pants to use a custom Certificate Authority (CA) bundle:
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 ca_certs_path = "/path/to/certs/file"
 ```
@@ -35,7 +35,7 @@ ca_certs_path = "/path/to/certs/file"
 
 You may need to set standard proxy-related environment variables, such as `http_proxy`, `https_proxy` and `all_proxy`, in executed subprocesses:
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [subprocess-environment]
 env_vars.add = ["http_proxy=http://myproxy", "https_proxy"]
 ```
@@ -73,7 +73,7 @@ For example, `./pants help-advanced protoc` gives us the template `https://githu
 
 Once you determine the full URL, you can download the original binary and host it yourself. Then, you can update the `url_template` option to point to your host:
 
-```python title="pants.toml"
+```python title="title="pants.toml""
 [protoc]
 url_template = "https://binaries.pantsbuild.org/bin/protoc/{version}/{platform}/protoc.zip"
 ```

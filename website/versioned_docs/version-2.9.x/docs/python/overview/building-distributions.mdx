@@ -30,7 +30,7 @@ If there is no `pyproject.toml` with a `[build-system]` table available, Pants f
 
 ## The `python_distribution` target
 
-You configure a distribution using a [`python_distribution`](../../../reference/targets/python-distribution.mdx) target. This target provides Pants with the information needed to build the distribution.
+You configure a distribution using a [`python_distribution`](../../../reference/targets/python_distribution.mdx) target. This target provides Pants with the information needed to build the distribution.
 
 ### PEP 517
 
@@ -40,23 +40,23 @@ If using a PEP 517 `pyproject.toml` file, you might have a target layout similar
 resource(name="pyproject", source="pyproject.toml")
 
 python_distribution(
- name="mydist",
- dependencies=[
- ":pyproject",
- # Dependencies on code to be packaged into the distribution.
- ],
- provides=python_artifact(
- name="mydist",
- version="2.21.0",
- ),
- # Example of setuptools config, other build backends may have other config.
- wheel_config_settings={"--global-option": ["--python-tag", "py37.py38.py39"]},
- # Don't use setuptools with a generated setup.py.
- # You can also turn this off globally in pants.toml:
- #
- # [setup-py-generation]
- # generate_setup_default = false
- generate_setup = False,
+    name="mydist",
+    dependencies=[
+        ":pyproject",
+        # Dependencies on code to be packaged into the distribution.
+    ],
+    provides=python_artifact(
+        name="mydist",
+        version="2.21.0",
+    ),
+    # Example of setuptools config, other build backends may have other config.
+    wheel_config_settings={"--global-option": ["--python-tag", "py37.py38.py39"]},
+    # Don't use setuptools with a generated setup.py.
+    # You can also turn this off globally in pants.toml:
+    #
+    # [setup-py-generation]
+    # generate_setup_default = false
+    generate_setup = False,
 )
 ```
 
@@ -70,15 +70,15 @@ If relying on legacy Setuptools behavior, you don't have a `pyproject.toml` reso
 
 ```python title="example/dists/BUILD"
 python_distribution(
- name="mydist",
- dependencies=[
- # Dependencies on code to be packaged into the distribution.
- ],
- provides=python_artifact(
- name="mydist",
- version="2.21.0",
- ),
- wheel_config_settings={"--global-option": ["--python-tag", "py37.py38.py39"]},
+    name="mydist",
+    dependencies=[
+        # Dependencies on code to be packaged into the distribution.
+    ],
+    provides=python_artifact(
+        name="mydist",
+        version="2.21.0",
+    ),
+    wheel_config_settings={"--global-option": ["--python-tag", "py37.py38.py39"]},
 )
 ```
 
@@ -107,20 +107,20 @@ In this case, you may want to add some information to the `provides= ` field in 
 
 ```python title="example/dists/BUILD"
 python_distribution(
- name="mydist",
- dependencies=[
- # Dependencies on code to be packaged into the distribution.
- ],
+    name="mydist",
+    dependencies=[
+        # Dependencies on code to be packaged into the distribution.
+    ],
 		provides=python_artifact(
- name="mydist",
- version="2.21.0",
- description="An example distribution built with Pants.",
- author="Pantsbuild",
- classifiers=[
- "Programming Language :: Python :: 3.7",
- ],
- ),
- wheel_config_settings={"--global-option": ["--python-tag", "py37.py38.py39"]},
+        name="mydist",
+        version="2.21.0",
+        description="An example distribution built with Pants.",
+        author="Pantsbuild",
+        classifiers=[
+            "Programming Language :: Python :: 3.7",
+        ],
+    ),
+    wheel_config_settings={"--global-option": ["--python-tag", "py37.py38.py39"]},
 )
 ```
 
@@ -131,9 +131,9 @@ You can use almost any [keyword argument](https://packaging.python.org/guides/di
 However, you cannot use `data_files`, `install_requires`, `namespace_packages`, `package_dir`, `package_data`, or `packages` because Pants will generate these for you, based on the data derived from your code and dependencies.
 
 :::note Use the `entry_points` field to register entry points like `console_scripts`
-The [`entry_points` field](../../../reference/targets/python-distribution.mdx#codeentry_pointscode) allows you to configure [setuptools-style entry points](https://packaging.python.org/specifications/entry-points/#entry-points-specification):
+The [`entry_points` field](../../../reference/targets/python_distribution.mdx#codeentry_pointscode) allows you to configure [setuptools-style entry points](https://packaging.python.org/specifications/entry-points/#entry-points-specification):
 
-`python
+```python
 python_distribution(
    name="my-dist",
    entry_points={
@@ -144,7 +144,7 @@ python_distribution(
        },
    provides=python_artifact(...),
 )
-`
+```
 
 Pants will infer dependencies on each entry point, which you can confirm by running `./pants dependencies path/to:python_dist`.
 
@@ -159,7 +159,7 @@ You may want to write a plugin to do any of these things:
 - Read from the file system to dynamically determine kwargs, such as the `long_description` or `version`.
 - Run processes like Git to dynamically determine the `version` kwarg.
 
-Start by reading about the [Plugin API](../../writing-plugins/overview.mdx), then refer to the [Custom `python_artifact()` kwargs](<../../writing-plugins/common-plugin-tasks/custom-`setup-py()`-kwargs.mdx>) instructions.
+Start by reading about the [Plugin API](../../writing-plugins/overview.mdx), then refer to the [Custom `python_artifact()` kwargs](../../writing-plugins/common-plugin-tasks/custom-setup-py-kwargs.mdx) instructions.
 
 :::
 
@@ -195,10 +195,10 @@ By default, Pants will use exact requirements for first-party dependencies, like
 
 For example:
 
-`toml
+```toml
 [setup-py-generation]
 first_party_depenency_version_scheme = "compatible"
-`
+```
 
 See https://www.python.org/dev/peps/pep-0440/#version-specifiers for more information on the `~=` specifier.
 

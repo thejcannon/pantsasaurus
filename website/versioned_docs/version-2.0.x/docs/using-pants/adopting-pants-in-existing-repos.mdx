@@ -69,7 +69,7 @@ In your CI, you may want to speed up your build by having Pants only run tests f
 
 ### 4. Set up `./pants package`
 
-You can use `./pants package` to package your code into various formats, such as a [PEX binary](../python/goals/package.mdx), a [wheel](../python/overview/building-distributions.mdx), an [AWS Lambda](../aws-lambda/python-support.mdx), or a [zip/tar archive](./resources-and-archives.mdx).
+You can use `./pants package` to package your code into various formats, such as a [PEX binary](../python/goals/package.mdx), a [wheel](../../reference/goals/setup-py.mdx), an [AWS Lambda](../aws-lambda/python-support.mdx), or a [zip/tar archive](./resources-and-archives.mdx).
 
 We recommend manually verifying that this step is working how you'd like by inspecting the built packages. Alternatively, you can [write automated tests](../python/goals/test.mdx) that will call the equivalent of `./pants package` for you, and insert the built package into your test environment.
 
@@ -85,17 +85,19 @@ Some example plugins that users have written:
 - Building a Docker image with packages built via `./pants package`
 - Custom `setup.py` logic to compute the `version` dynamically
 - Jupyter support
-  ## Migrating from other BUILD tools? Set custom BUILD file names
-  If you're migrating from another build tool that already uses the name `BUILD`, such as Bazel or Please, you can tell Pants to use a different file name than `BUILD` to avoid conflicts:
-  ```toml title="pants.toml"
-  [GLOBAL]
-  build_patterns = ["BUILD.pants"]
-  ```
 
-````
+## Migrating from other BUILD tools? Set custom BUILD file names
 
-  Alternatively, you can tell Pants to not look for BUILD files in certain locations. This can be helpful, for example, if you use a tool like Bazel for Java, but use Pants for Python:
-  ```toml title="pants.toml"
+If you're migrating from another build tool that already uses the name `BUILD`, such as Bazel or Please, you can tell Pants to use a different file name than `BUILD` to avoid conflicts:
+
+```toml title="pants.toml"
+[GLOBAL]
+build_patterns = ["BUILD.pants"]
+```
+
+Alternatively, you can tell Pants to not look for BUILD files in certain locations. This can be helpful, for example, if you use a tool like Bazel for Java, but use Pants for Python:
+
+```toml title="pants.toml"
 [GLOBAL]
 build_ignore = ["src/java"]
-````
+```

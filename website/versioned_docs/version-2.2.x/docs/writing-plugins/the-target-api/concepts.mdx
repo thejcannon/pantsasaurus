@@ -36,7 +36,7 @@ As described in [Targets and BUILD files](../../using-pants/concepts/targets-and
 
 For example, this BUILD file defines a `python_tests` target.
 
-```python title="BUILD"
+```python title="title="BUILD""
 python_tests(
     sources=['app_test.py'],
     compatibility='==3.7.*'
@@ -52,7 +52,7 @@ In the above example, `sources`, `compatibility`, and `timeout` are all fields.
 
 Each field has a Python class that defines its BUILD file alias, data type, and optional settings like default values. For example:
 
-```python title="example_fields.py"
+```python title="title="example_fields.py""
 from pants.engine.target import IntField, StringField
 
 class PythonInterpreterCompatibility(StringField):
@@ -72,7 +72,7 @@ These fields should make sense together. For example, it does not make sense for
 
 In fact, it only takes 3 lines of code to [create a new target](./creating-new-targets.mdx):
 
-```python title="plugin_target_type.py"
+```python title="title="plugin_target_type.py""
 from pants.engine.target import Dependencies, Sources, Target, Tags
 
 class CustomTarget(Target):
@@ -88,7 +88,7 @@ Because fields are stand-alone Python classes, the same field definition may be 
 
 For example, most target types have the `sources` field.
 
-```python title="BUILD"
+```python title="title="BUILD""
 resources(
     name="files_tgt",
     sources=["demo.txt"],

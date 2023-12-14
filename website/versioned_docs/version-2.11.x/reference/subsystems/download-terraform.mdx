@@ -16,6 +16,7 @@ Config section: <span className="color--primary">`[download-terraform]`</span>
 <span className={styles.options}>
 
 ## Basic options
+
 None
 
 ## Advanced options
@@ -40,10 +41,10 @@ Use this version of terraform.
   default_repr={`[\n  "1.0.7|macos_arm64 |cbab9aca5bc4e604565697355eed185bb699733811374761b92000cc188a7725|32071346",\n  "1.0.7|macos_x86_64|80ae021d6143c7f7cbf4571f65595d154561a2a25fd934b7a8ccc1ebf3014b9b|33020029",\n  "1.0.7|linux_x86_64|bc79e47649e2529049a356f9e60e06b47462bf6743534a10a4c16594f443be7b|32671441"\n]`}
 >
 
-
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
+
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -67,7 +68,6 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   one_of='error, warning'
   default_repr={`error`}
 >
-
 
 What action to take in case the requested version of terraform is not supported.
 

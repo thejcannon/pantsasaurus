@@ -9,8 +9,8 @@ Run a `pex_binary` target.
 
 To run an executable/script, use `./pants run` on one of the following target types:
 
-- [`pex_binary`](../../../reference/targets/pex-binary.mdx)
-- [`python_source`](../../../reference/targets/python-source.mdx)
+- [`pex_binary`](../../../reference/targets/pex_binary.mdx)
+- [`python_source`](../../../reference/targets/python_source.mdx)
 
 (See [package](./package.mdx) for more on the `pex_binary` target.)
 
@@ -97,6 +97,6 @@ On the other hand, if your app is short lived (like a script) and you'd like to 
 
     Run your executable with `./pants run` as usual.
 
-:::
+    Note: The first time you do so you may see some extra dependency resolution work, as `pydevd-pycharm` has now been added to the binary's dependencies, via inference. If you have dependency inference turned off in your repo, you will have to manually add a temporary explicit dependency in your binary target on the `pydevd-pycharm` target.
 
-> Note: The first time you do so you may see some extra dependency resolution work, as `pydevd-pycharm` has now been added to the binary's dependencies, via inference. If you have dependency inference turned off in your repo, you will have to manually add a temporary explicit dependency in your binary target on the `pydevd-pycharm` target.
+:::

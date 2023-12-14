@@ -33,9 +33,9 @@ backend_packages.add = [
 ]
 ```
 
-This adds the new [`protobuf_source`](../../../reference/targets/protobuf-source.mdx) target, which you can confirm by running `./pants help protobuf_source`.
+This adds the new [`protobuf_source`](../../../reference/targets/protobuf_source.mdx) target, which you can confirm by running `./pants help protobuf_source`.
 
-To reduce boilerplate, you can also use the [`protobuf_sources`](../../../reference/targets/protobuf-sources.mdx) target, which generates one `protobuf_source` target per file in the `sources` field.
+To reduce boilerplate, you can also use the [`protobuf_sources`](../../../reference/targets/protobuf_sources.mdx) target, which generates one `protobuf_source` target per file in the `sources` field.
 
 ```python title="BUILD"
 protobuf_sources(name="protos", sources=["user.proto", "admin.proto"])

@@ -206,6 +206,6 @@ To convert `SpecsPaths` into a [`Digest`](./file-system.mdx), use `await Get(Dig
 
 :::note Name clashing
 
-:::
+    It is very unlikely, but is still possible that adding a custom goal with an unfortunate name may cause issues when certain existing Pants options are passed in the command line. For instance, executing a goal named `local` with a particular option (in this case, the global `local_cache` option), e.g. `pants --no-local-cache local ...` would fail since there's no `--no-cache` flag defined for the `local` goal.
 
-> It is very unlikely, but is still possible that adding a custom goal with an unfortunate name may cause issues when certain existing Pants options are passed in the command line. For instance, executing a goal named `local` with a particular option (in this case, the global `local_cache` option), e.g. `pants --no-local-cache local ...` would fail since there's no `--no-cache` flag defined for the `local` goal.
+:::

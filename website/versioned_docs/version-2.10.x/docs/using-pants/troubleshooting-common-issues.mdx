@@ -80,27 +80,15 @@ Because Pants runs processes in hermetic sandboxes (temporary directories), Pant
 Usually, you do not need to tell Pants about your dependencies thanks to dependency inference, but sometimes dependency inference is not set up properly or cannot work. Dependency inference can fail for several reasons, which may require that you instead explicitly set the `dependencies` field:
 
 - Pants does not know about some of your project files because you do not have targets and BUILD files describing them.
-
-```
- * Tip: run [`./pants tailor`](../getting-started/getting-started/create-initial-build-files.mdx), which will generate targets for files without owners. Note that this will not add every target type, such as [`resources` and `files`](./assets-and-archives.mdx).
-```
-
+  - Tip: run [`./pants tailor`](../getting-started/getting-started/create-initial-build-files.mdx), which will generate targets for files without owners. Note that this will not add every target type, such as [`resources` and `files`](./assets-and-archives.mdx).
 - [Source roots](./key-concepts/source-roots.mdx) are not set up properly.
-
-```
- * Pants needs to know your source roots so that it can convert source files into their language's representation, e.g. the file `src/py/project/app.py` to the Python module `project.app`.
-```
-
+  - Pants needs to know your source roots so that it can convert source files into their language's representation, e.g. the file `src/py/project/app.py` to the Python module `project.app`.
 - \>1 target exports the same module, which means that Pants cannot safely infer which you want to use.
   - For third-party requirements, this usually happens when you have multiple targets referring to the same requirement and which belong to the same "resolve". It's valid to have conflicting versions of the same requirement, but they should belong to distinct resolves. See [Third-party dependencies](../python/overview/third-party-dependencies.mdx) for Python.
   - For first-party code, this usually happens when you have multiple targets with the same file in their `sources` field. Use `./pants list path/to/file.ext` to see all the "owners" of a particular file.
   - Pants will warn when this happens.
 - Third-party requirements might expose different modules than Pants thinks by default.
-
-```
-* For example, see [Third-party dependencies](../python/overview/third-party-dependencies.mdx) for how to use `module_mapping` with Python requirements.
-```
-
+  - For example, see [Third-party dependencies](../python/overview/third-party-dependencies.mdx) for how to use `module_mapping` with Python requirements.
 - Some targets can never be inferred and must always be explicitly added via the `dependencies` field, e.g. [`file` / `files` and `resource` / `resources` targets](./assets-and-archives.mdx).
 - For Python third-party requirements, check if they have any [undeclared dependencies](../python/overview/third-party-dependencies.mdx#advanced-usage).
 

@@ -92,7 +92,7 @@ Is the missing import from a third-party dependency? Common issues:
 - The dependency is missing from your third-party requirements list, e.g. `go.mod` or `requirements.txt`.
 - The dependency exposes a module different than the default Pants uses, e.g. Python's `ansicolors` exposing `colors`.
   - [Python](../python/python-overview/third-party-dependencies.mdx): set the `modules` field and `module_mapping` fields.
-  - [JVM](../../reference/targets/jvm-artifact.mdx): set the `packages` field on `jvm_artifact` targets.
+  - [JVM](../../reference/targets/jvm_artifact.mdx): set the `packages` field on `jvm_artifact` targets.
 - Python: check for any [undeclared transitive dependencies](../python/python-overview/third-party-dependencies.mdx#advanced-usage).
 
 Is the missing import from first-party code? Common issues:

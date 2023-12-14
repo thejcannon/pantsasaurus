@@ -16,7 +16,7 @@ See https://github.com/pantsbuild/example-python/blob/master/.travis.yml for an 
 
 If you have config that you want to only use in CI, it can be helpful to create a dedicated `pants.ci.toml` [config file](./concepts/options.mdx). For example:
 
-```toml title="pants.ci.toml"
+```toml title="title="pants.ci.toml""
 [GLOBAL]
 dynamic_ui = false
 # Ensure colors are used (if your CI provider supports it).
@@ -37,7 +37,7 @@ resolver_jobs = 2
 
 Then, in your CI script or config, set the environment variable `PANTS_CONFIG_FILES` to use this new config file, in addition to the default `pants.toml`. For example:
 
-```shell title="ci.sh"
+```shell title="title="ci.sh""
 export PANTS_CONFIG_FILES=pants.ci.toml
 
 # Then, your normal CI setup
@@ -86,7 +86,7 @@ Because Pants understands the dependencies of your code, you can use Pants to sp
 
 We recommend running these commands in CI:
 
-```shell title="ci.sh"
+```shell title="title="ci.sh""
 $ ./pants --version  # This will bootstrap Pants
 $ ./pants --changed-since=origin/main lint
 $ ./pants \
@@ -119,7 +119,7 @@ By default, Checkout will only fetch the latest commit, so you should set `fetch
 
 Alternatively, you can simply run over all your code. Pants's caching means that you will not need to rerun on changed files.
 
-```shell title="ci.sh"
+```shell title="title="ci.sh""
 $ ./pants --version  # This will bootstrap Pants
 $ ./pants lint typecheck test ::
 ```

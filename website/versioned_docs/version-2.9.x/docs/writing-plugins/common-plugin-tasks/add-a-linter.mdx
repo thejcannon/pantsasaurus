@@ -115,7 +115,7 @@ class ShellcheckRequest(LintRequest):
     field_set_type = ShellcheckFieldSet
 ```
 
-Finally, register your new `LintRequest` with a [`UnionRule`](<../the-rules-api/union-rules-(advanced).mdx>) so that Pants knows your linter exists:
+Finally, register your new `LintRequest` with a [`UnionRule`](../the-rules-api/union-rules-advanced.mdx) so that Pants knows your linter exists:
 
 ```python
 from pants.engine.unions import UnionRule

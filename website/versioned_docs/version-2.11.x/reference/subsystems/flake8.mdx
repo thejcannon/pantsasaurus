@@ -152,6 +152,7 @@ An optional list of `python_sources` target addresses to load first-party plugin
 You must set the plugin&#x27;s parent directory as a source root. For example, if your plugin is at `build-support/flake8/custom_plugin.py`, add &#x27;build-support/flake8&#x27; to `[source].root_patterns` in `pants.toml`. This is necessary for Pants to know how to tell Flake8 to discover your plugin. See https://www.pantsbuild.org/v2.11/docs/source-roots
 
 You must also set `[flake8:local-plugins]` in your Flake8 config file. For example:
+
 ```
 [flake8:local-plugins]
     extension =

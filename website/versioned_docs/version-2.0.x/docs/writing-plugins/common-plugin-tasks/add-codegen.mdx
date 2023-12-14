@@ -57,7 +57,7 @@ Instead of users having to explicitly add this dependency every time, you can dy
 To inject dependencies:
 
 1. Subclass the `Dependencies` field. Register this subclass on your protocol target type.
-2. Define a subclass of `InjectDependenciesRequest` and set the class property `inject_for` to the `Dependencies` subclass defined in the previous step. Register this new class with a [`UnionRule`](<../the-rules-api/union-rules-(advanced).mdx>) for `InjectDependenciesRequest`.
+2. Define a subclass of `InjectDependenciesRequest` and set the class property `inject_for` to the `Dependencies` subclass defined in the previous step. Register this new class with a [`UnionRule`](../the-rules-api/union-rules-advanced.mdx) for `InjectDependenciesRequest`.
 3. Create a new rule that takes your new `InjectDependenciesRequest` subclass as a parameter and returns `InjectedDependencies`.
 
 ```python
@@ -141,7 +141,7 @@ The `output` should typically be the `Sources` class corresponding to the "langu
 
 Note that your rule will not actually return an instance of the `output` type, e.g. `PythonSources`. Codegen rules only return a `Snapshot`, rather than a whole `Sources` field. The `output` field is only used as a signal of intent.
 
-Finally, register your new `GenerateSourcesRequest` with a [`UnionRule`](<../the-rules-api/union-rules-(advanced).mdx>).
+Finally, register your new `GenerateSourcesRequest` with a [`UnionRule`](../the-rules-api/union-rules-advanced.mdx).
 
 ```python
 from pants.engine.rules import collect_rules

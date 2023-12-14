@@ -34,7 +34,7 @@ class BashRepl(ReplImplementation):
     name = "bash"
 ```
 
-Then, register your new `ReplImplementation` with a [`UnionRule`](<../the-rules-api/union-rules-(advanced).mdx>) so that Pants knows your REPL implementation exists:
+Then, register your new `ReplImplementation` with a [`UnionRule`](../the-rules-api/union-rules-advanced.mdx) so that Pants knows your REPL implementation exists:
 
 ```python
 from pants.engine.rules import collect_rules

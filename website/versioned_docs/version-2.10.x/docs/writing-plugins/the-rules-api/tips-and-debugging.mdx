@@ -136,12 +136,8 @@ Once you've identified the smallest combination of backends that fail and you ha
 Some common sources of rule graph failures:
 
 - Dependent rules are not registered.
-
-```
- - This is especially common when you only have one backend activated entirely. We recommend trying to get each backend to be valid regardless of what other backends are activated. Use the above script to see if this is happening.
- - To fix this, see which types you're using in your `@rule` signatures and `Get`s. If they come from another backend, activate their rules. For example, if you use `await Get(Pex, PexRequest)`, you should activate `pants.backend.python.util_rules.pex.rules()` in your `register.py`.
-```
-
+  - This is especially common when you only have one backend activated entirely. We recommend trying to get each backend to be valid regardless of what other backends are activated. Use the above script to see if this is happening.
+  - To fix this, see which types you're using in your `@rule` signatures and `Get`s. If they come from another backend, activate their rules. For example, if you use `await Get(Pex, PexRequest)`, you should activate `pants.backend.python.util_rules.pex.rules()` in your `register.py`.
 - Not "newtyping".
   - It's possible and sometimes desirable to use types already defined in your plugin or core Pants. For example, you might want to define a new rule that goes from `MyCustomClass -> Process`. However, sometimes this makes the rule graph more complicated than it needs to be.
   - It's often helpful to create a result and request type for each of your `@rule`s, e.g. `MyPlugin` and `MyPluginRequest`.

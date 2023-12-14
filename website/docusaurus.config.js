@@ -1,6 +1,6 @@
 // @ts-check
 import versions from "./versions.json";
-import captionedCode from "./src/remark/captioned-code";
+import captionedCode from "./src/remark/captioned-code.js";
 
 import { themes as prismThemes } from "prism-react-renderer";
 
@@ -74,7 +74,7 @@ const config = {
                 }
               : {}),
           },
-          //remarkPlugins: [captionedCode],
+          remarkPlugins: [captionedCode],
           editUrl:
             "https://github.com/thejcannon/pantsasaurus/edit/main/website/",
         },
@@ -82,7 +82,7 @@ const config = {
           showReadingTime: true,
           editUrl:
             "https://github.com/thejcannon/pantsasaurus/edit/main/website/",
-          //remarkPlugins: [captionedCode],
+          remarkPlugins: [captionedCode],
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),

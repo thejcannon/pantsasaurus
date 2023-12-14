@@ -65,6 +65,7 @@ Override the field values for generated `{generated_target_name}` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
+
 ```
 overrides={
     "foo_test.sh": {"timeout": 120},
@@ -169,7 +170,5 @@ Pants will build the artifacts as if you had run `scie-pants-linux-x86_64 packag
 You can include anything that can be built by `scie-pants-linux-x86_64 package`, e.g. a `pex_binary`, `python_awslambda`, or an `archive`.
 
 </Field>
-
-
 
 </span>

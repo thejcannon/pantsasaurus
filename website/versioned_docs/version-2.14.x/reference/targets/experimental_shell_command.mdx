@@ -10,6 +10,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 Execute any external tool for its side effects.
 
 Example BUILD file:
+
 ```
 experimental_shell_command(
     command="./my-script.sh --flag",
@@ -140,7 +141,5 @@ Only the tools explicitly provided will be available on the search PATH, and the
 Additional environment variables to include in the shell process. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
 
 </Field>
-
-
 
 </span>

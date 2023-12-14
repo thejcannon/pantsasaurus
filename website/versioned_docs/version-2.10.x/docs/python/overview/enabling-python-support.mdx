@@ -24,9 +24,9 @@ backend_packages = [
 ]
 ```
 
-Pants use [`python_source`](../../../reference/targets/python-source.mdx) and [`python_test`](../../../reference/targets/python-test.mdx) targets to know which Python files to run on and to set any metadata.
+Pants use [`python_source`](../../../reference/targets/python_source.mdx) and [`python_test`](../../../reference/targets/python_test.mdx) targets to know which Python files to run on and to set any metadata.
 
-To reduce boilerplate, the [`python_sources`](../../../reference/targets/python-sources.mdx) target generates a `python_source` target for each file in its `sources` field, and [`python_tests`](../../../reference/targets/python-tests.mdx) generates a `python_test` target for each file in its `sources` field.
+To reduce boilerplate, the [`python_sources`](../../../reference/targets/python_sources.mdx) target generates a `python_source` target for each file in its `sources` field, and [`python_tests`](../../../reference/targets/python_tests.mdx) generates a `python_test` target for each file in its `sources` field.
 
 ```python title="BUILD"
 python_sources(name="lib", sources=["dirutil.py", "strutil.py"])

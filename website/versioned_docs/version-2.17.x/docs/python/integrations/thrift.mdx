@@ -43,9 +43,9 @@ You will also need to make sure that `thrift` is discoverable on your PATH, as P
 thrift_search_paths = ["/usr/bin"]
 ```
 
-This backend adds the new [`thrift_source`](../../../reference/targets/thrift-source.mdx) target, which you can confirm by running `pants help thrift_source`.
+This backend adds the new [`thrift_source`](../../../reference/targets/thrift_source.mdx) target, which you can confirm by running `pants help thrift_source`.
 
-To reduce boilerplate, you can also use the [`thrift_sources`](../../../reference/targets/thrift-sources.mdx) target, which generates one `thrift_source` target per file in the `sources` field.
+To reduce boilerplate, you can also use the [`thrift_sources`](../../../reference/targets/thrift_sources.mdx) target, which generates one `thrift_source` target per file in the `sources` field.
 
 ```python title="BUILD"
 thrift_sources(name="thrift", sources=["user.thrift", "admin.thrift"])

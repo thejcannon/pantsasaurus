@@ -95,11 +95,7 @@ Dependency rules are configured in the BUILD files along with targets and any ot
 - `__dependencies_rules__` declares the rules that applies to a targets dependencies.
 - `__dependents_rules__` declares the rules that applies to a targets dependents.
 
-```
-`A` `__dependencies_rules__` -> `__dependents_rules__` `B` `__dependencies_rules__` -> ...
-
-
-```
+  `A` `__dependencies_rules__` -> `__dependents_rules__` `B` `__dependencies_rules__` -> ...
 
 It may help to think about these terms in context of a sentence. For `__dependencies_rules__` it is "this X may only import from \<...\>", and for `__dependents_rules__` it is "this X may only be imported from \<...\>".
 

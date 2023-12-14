@@ -61,7 +61,7 @@ class BashRunFieldSet(BinaryFieldSet):
     sources: BashBinarySources
 ```
 
-Then, register your new `RunFieldSet` with a [`UnionRule`](<../the-rules-api/union-rules-(advanced).mdx>) so that Pants knows your binary implementation exists:
+Then, register your new `RunFieldSet` with a [`UnionRule`](../the-rules-api/union-rules-advanced.mdx) so that Pants knows your binary implementation exists:
 
 ```python
 from pants.engine.rules import collect_rules

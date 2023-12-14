@@ -102,24 +102,24 @@ You can set the class property `valid_choices` to limit what strings are accepta
 
 For example:
 
-`python
+```python
 class LeafyGreensField(StringField):
     alias = "leafy_greens"
     valid_choices = ("kale", "spinach", "chard")
-`
+```
 
 or:
 
-`python
+```python
 class LeafyGreens(Enum):
-KALE = "kale"
-SPINACH = "spinach"
-CHARD = "chard"
+    KALE = "kale"
+    SPINACH = "spinach"
+    CHARD = "chard"
 
 class LeafyGreensField(StringField):
-alias = "leafy_greens"
-valid_choices = LeafyGreens
-`
+    alias = "leafy_greens"
+    valid_choices = LeafyGreens
+```
 
 :::
 
@@ -229,51 +229,51 @@ Have a tricky field you're trying to write? We would love to help! See [Getting 
 from typing import Optional
 
 from pants.engine.target import (
- BoolField,
- IntField,
- InvalidFieldException,
- Sources,
- StringField
+    BoolField,
+    IntField,
+    InvalidFieldException,
+    Sources,
+    StringField
 )
 
 
 class FortranVersion(StringField):
- alias = "fortran_version"
- required = True
- valid_choices = ("f95", "f98")
- help = "Which version of Fortran should this use?"
+    alias = "fortran_version"
+    required = True
+    valid_choices = ("f95", "f98")
+    help = "Which version of Fortran should this use?"
 
 
 class CompressToggle(BoolField):
- alias = "compress"
- default = False
- help = "Whether to compress the generated file."
+    alias = "compress"
+    default = False
+    help = "Whether to compress the generated file."
 
 
 class UploadTimeout(IntField):
- alias = "upload_timeout"
- default = 100
- help = (
- "How long to upload (in seconds) before timing out.\n\n"
- "This must be between 10 and 300 seconds."
- )
+    alias = "upload_timeout"
+    default = 100
+    help = (
+      "How long to upload (in seconds) before timing out.\n\n"
+      "This must be between 10 and 300 seconds."
+    )
 
- @classmethod
- def compute_value(
- cls, raw_value: Optional[int], _, address: Address
- ) -> int:
- value_or_default = super().compute_value(raw_value, address=address)
- if value_or_default < 10 or value_or_default > 300:
- raise InvalidFieldException(
- f"The {repr(cls.alias)} field in target {address} must "
- f"be between 10 and 300, but was {value_or_default}."
- )
- return value_or_default
+    @classmethod
+    def compute_value(
+        cls, raw_value: Optional[int], *, address: Address
+    ) -> int:
+      value_or_default = super().compute_value(raw_value, address=address)
+      if value_or_default < 10 or value_or_default > 300:
+          raise InvalidFieldException(
+              f"The {repr(cls.alias)} field in target {address} must "
+              f"be between 10 and 300, but was {value_or_default}."
+          )
+      return value_or_default
 
 
 # Example of subclassing a pre-existing field.
 # We don't need to define `alias = sources` because the
 # parent class does this already.
 class FortranSources(Sources):
- default = ("_.f95",)
+    default = ("*.f95",)
 ```

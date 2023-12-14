@@ -102,7 +102,7 @@ To use the [`embed` directive](https://pkg.go.dev/embed), you must first teach P
 For example:
 
 ```python tab={"label":"pkg/runner/BUILD"}
-go*package(dependencies=[":embeds"])
+go_package(dependencies=[":embeds"])
 
 resources(name="embeds", sources=["hello.txt"])
 ```
@@ -110,7 +110,7 @@ resources(name="embeds", sources=["hello.txt"])
 ```go tab={"label":"pkg/runner/lib.go"}
 package runner
 
-import * "embed"
+import _ "embed"
 
 //go:embed hello.txt
 var s string
@@ -187,7 +187,7 @@ You can pass through arguments with `--`, e.g. `./pants test pkg/deploy: -- -v -
 To open files in your tests, use [`file` / `files` targets](../using-pants/assets-and-archives.mdx) targets and add them as `dependencies` to your `go_package`.
 
 ```python tab={"label":"pkg/runner/BUILD"}
-go*package(dependencies=[":testdata"])
+go_package(dependencies=[":testdata"])
 
 files(name="testdata", sources=["testdata/*"])
 ```
@@ -201,7 +201,7 @@ import (
 )
 
 func TestFilesAvailable(t *testing.T) {
-	*, err := os.Stat("testdata/f.txt")
+	_, err := os.Stat("testdata/f.txt")
 	if err != nil {
 		t.Fatalf("Could not stat pkg/runner/testdata/f.txt: %v", err)
 	}

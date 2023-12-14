@@ -71,7 +71,7 @@ Because Pants runs processes in hermetic chroots (temporary directories), Pants 
 Usually, you do not need to tell Pants about your dependencies thanks to dependency inference, but sometimes dependency inference is not set up properly or cannot work. Dependency inference can fail for several reasons, which may require that you instead explicitly set the `dependencies` field:
 
 - Pants does not know about some of your project files because you do not have targets and BUILD files describing them.
-  - Tip: run [`./pants tailor`](../../../reference/goals/tailor.mdx), which will generate targets for files without owners. Note that this will only teach Pants about your first-party code, but not third-party requirements, which need to be manually added.
+  - Tip: run [`./pants tailor`](../../python/goals/tailor.mdx), which will generate targets for files without owners. Note that this will only teach Pants about your first-party code, but not third-party requirements, which need to be manually added.
 - [Source roots](../key-concepts/source-roots.mdx) are not set up properly.
   - Pants needs to know your source roots so that it can convert source files into their language's representation, e.g. the file `src/py/project/app.py` to the Python module `project.app`.
 - \>1 target exports the same module, which means that Pants cannot safely infer which you want to use.

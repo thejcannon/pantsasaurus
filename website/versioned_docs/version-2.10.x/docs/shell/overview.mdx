@@ -17,9 +17,9 @@ Pants installs these tools deterministically and integrates them into the workfl
 
 ## Initial setup: add `shell_sources` targets
 
-Pants uses [`shell_source`](../../reference/targets/shell-source.mdx) and [`shunit2_test`](../../reference/targets/shunit2-test.mdx) [targets](../using-pants/key-concepts/targets-and-build-files.mdx) to know which Shell files you want to operate on and to set any metadata.
+Pants uses [`shell_source`](../../reference/targets/shell_source.mdx) and [`shunit2_test`](../../reference/targets/shunit2_test.mdx) [targets](../using-pants/key-concepts/targets-and-build-files.mdx) to know which Shell files you want to operate on and to set any metadata.
 
-To reduce boilerplate, the [`shell_sources`](../../reference/targets/shell-sources.mdx) target generates a `shell_source` target for each file in its `sources` field, and [`shunit2_tests`](../../reference/targets/shunit2-tests.mdx) generates a `shunit2_test` target for each file in its `sources` field.
+To reduce boilerplate, the [`shell_sources`](../../reference/targets/shell_sources.mdx) target generates a `shell_source` target for each file in its `sources` field, and [`shunit2_tests`](../../reference/targets/shunit2_tests.mdx) generates a `shunit2_test` target for each file in its `sources` field.
 
 ```python title="BUILD"
 shell_sources(name="lib", sources=["deploy.sh", "changelog.sh"])
@@ -63,33 +63,31 @@ Pants will [infer dependencies](../introduction/how-does-pants-work.mdx#dependen
 
 Normally, Pants will not understand dynamic sources, e.g. using variable expansion. However, Pants uses Shellcheck for parsing, so you can use Shellcheck's syntax to give a hint to Pants:
 
-`shell
+```shell
 another_script="dir/some_script.sh"
 
-## Normally Pants couldn't infer this, but we can give a hint like this:
-
-## shellcheck source=dir/some_script.sh
-
+# Normally Pants couldn't infer this, but we can give a hint like this:
+# shellcheck source=dir/some_script.sh
 source "${another_script}"
-`
+```
 
 Alternatively, you can explicitly add `dependencies` in the relevant BUILD file.
 
-`python
+```python
 shell_sources(dependencies=["path/to:shell_source_tgt"])
-`
+```
 
 :::
 
-### shfmt autoformatter
+## shfmt autoformatter
 
 To activate, add this to your `pants.toml`:
 
 ```toml title="pants.toml"
 [GLOBAL]
 backend_packages = [
- "pants.backend.shell",
- "pants.backend.shell.lint.shfmt",
+  "pants.backend.shell",
+  "pants.backend.shell.lint.shfmt",
 ]
 ```
 
@@ -141,15 +139,15 @@ You can see this concurrency through Pants's dynamic UI.
 
 :::
 
-### Shellcheck linter
+## Shellcheck linter
 
 To activate, add this to your `pants.toml`:
 
 ```toml title="pants.toml"
 [GLOBAL]
 backend_packages = [
- "pants.backend.shell",
- "pants.backend.shell.lint.shellcheck",
+  "pants.backend.shell",
+  "pants.backend.shell.lint.shellcheck",
 ]
 ```
 
@@ -198,7 +196,7 @@ Pants will attempt to run all activated linters and formatters at the same time 
 
 :::
 
-### shUnit2 test runner
+## shUnit2 test runner
 
 [shUnit2](https://github.com/kward/shunit2/) allows you to write lightweight unit tests for your Shell code.
 
@@ -208,31 +206,31 @@ To use shunit2 with Pants:
    - Refer to https://github.com/kward/shunit2/ for how to write shUnit2 tests.
 2. Create a `shunit2_test` or `shunit2_tests` target in the directory's BUILD file.
    - You can run [`./pants tailor`](../getting-started/getting-started/create-initial-build-files.mdx) to automate this step.
-3. Specify which shell to run your tests with, either by setting a shebang directly in the test file or by setting the field `shell` on the `shunit2_test` / `shunit2_tests` target. - See [here](../../reference/targets/shunit2-tests.mdx#codeshellcode) for all supported shells.
-   ```shell tab={"label":"scripts/tests.sh"}
-   ##!/usr/bin/env bash
-   ```
+3. Specify which shell to run your tests with, either by setting a shebang directly in the test file or by setting the field `shell` on the `shunit2_test` / `shunit2_tests` target.
+   - See [here](../../reference/targets/shunit2_tests.mdx#codeshellcode) for all supported shells.
+
+```shell tab={"label":"scripts/tests.sh"}
+#!/usr/bin/env bash
 
 testEquality() {
-assertEquals 1 1
+  assertEquals 1 1
 }
-
-````
+```
 
 ```python tab={"label":"scripts/BUILD"}
 shunit2_tests(name="tests")
-````
+```
 
 You can then run your tests like this:
 
 ```bash
-## Run all tests in the repository.
+# Run all tests in the repository.
 ./pants test ::
 
-## Run all the tests in the folder.
+# Run all the tests in the folder.
 ./pants test scripts:
 
-## Run just the tests in this file.
+# Run just the tests in this file.
 ./pants test scripts/tests.sh
 ```
 
@@ -241,18 +239,18 @@ Pants will download the `./shunit2` script and will add `source ./shunit2` with 
 You can import your production code by using `source`. Make sure the code belongs to a `shell_source` or `shell_sources` target. Pants's [dependency inference](../using-pants/key-concepts/targets-and-build-files.mdx) will add the relevant dependencies, which you can confirm by running `./pants dependencies scripts/tests.sh`. You can also manually add to the `dependencies` field of your `shunit2_tests` target.
 
 ```shell tab={"label":"scripts/tests.sh"}
-##!/usr/bin/bash
+#!/usr/bin/bash
 
 source scripts/lib.sh
 
 testAdd() {
- assertEquals $(add_one 4) 5
+    assertEquals $(add_one 4) 5
 }
 ```
 
 ```shell tab={"label":"scripts/lib.sh"}
 add_one() {
- echo $(($1 + 1))
+    echo $(($1 + 1))
 }
 ```
 
@@ -266,23 +264,20 @@ Pants allows you to run the same tests against multiple shells, e.g. Bash and Zs
 
 To test multiple shells, create a distinct `shunit2_test` or `shunit2_tests` target for each shell, like this:
 
-`python
+```python
 shunit2_tests(name="tests_bash", shell="bash")
 shunit2_tests(name="tests_zsh", shell="zsh")
-`
+```
 
 Then, use `./pants test`:
 
-`bash
-
+```bash
 # Run tests with both shells.
-
 ./pants test scripts/tests.sh
 
 # Run tests with only Zsh.
-
 ./pants test scripts/tests.sh:tests_zsh
-`
+```
 
 Pants 2.11 will add first-class support for this parametrization.
 
@@ -335,11 +330,11 @@ When you set `timeout` on the `shunit2_tests` target generator, the same timeout
 
 ```python title="BUILD"
 shunit2_tests(
- name="tests",
- overrides={
- "test_f1.sh": {"timeout": 20},
- ("test_f2.sh", "test_f3.sh"): {"timeout": 35},
- },
+    name="tests",
+    overrides={
+        "test_f1.sh": {"timeout": 20},
+        ("test_f2.sh", "test_f3.sh"): {"timeout": 35},
+    },
 )
 ```
 
@@ -360,9 +355,9 @@ python_source(name="py_src", source="say_hello.py")
 pex_binary(name="pex", entry_point="say_hello.py")
 
 shunit2_test(
- name="tests",
- source="tests.sh",
- runtime_package_dependencies=[":pex"],
+    name="tests",
+    source="tests.sh",
+    runtime_package_dependencies=[":pex"],
 )
 ```
 
@@ -371,9 +366,9 @@ print("Hello, test!")
 ```
 
 ```shell tab={"label":"helloworld/tests.sh"}
-##!/usr/bin/bash
+#!/usr/bin/bash
 
 testArchiveCreated() {
- assertTrue "[[-f helloworld/say_hello.pex]]"
+  assertTrue "[[ -f helloworld/say_hello.pex ]]"
 }
 ```

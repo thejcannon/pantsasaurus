@@ -78,7 +78,7 @@ class BashBinaryFieldSet(PackageFieldSet):
     output_path: OutputPathField
 ```
 
-Then, register your new `PackageFieldSet` with a [`UnionRule`](<../the-rules-api/union-rules-(advanced).mdx>) so that Pants knows your binary implementation exists:
+Then, register your new `PackageFieldSet` with a [`UnionRule`](../the-rules-api/union-rules-advanced.mdx) so that Pants knows your binary implementation exists:
 
 ```python
 from pants.engine.rules import collect_rules
@@ -169,7 +169,7 @@ Note that we use `field_set.output_path.value_or_default` to determine the outpu
 
 Finally, update your plugin's `register.py` to activate this file's rules.
 
-```python title="pants-plugins/bash/register.py"
+```python title="title="pants-plugins/bash/register.py""
 from bash import package_binary
 
 

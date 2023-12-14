@@ -23,7 +23,7 @@ Macros cannot import other modules, just like BUILD files cannot have import sta
 
 To define a new macro, add a function with `def` and the name of the new symbol. Usually, the last line of the macro will create a new target, like this:
 
-```python title="pants-plugins/macros.py"
+```python title="title="pants-plugins/macros.py""
 def python2_library(**kwargs):
     kwargs["interpreter_constraints"] = ["==2.7.*"]
     python_library(**kwargs)
@@ -35,7 +35,7 @@ def python3_library(**kwargs):
 
 Then, add this file to the option `build_file_prelude_globs` in the `[GLOBAL]` scope:
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 build_file_prelude_globs = [
   "pants-plugins/macros.py",
@@ -44,7 +44,7 @@ build_file_prelude_globs = [
 
 Now, in BUILD files, you can use the new macros:
 
-```python title="project/BUILD"
+```python title="title="project/BUILD""
 python2_library(
     name="app_py2",
     sources=["app_py2.py"],
@@ -58,7 +58,7 @@ python3_library(
 
 A macro can create multiple targets:
 
-```python title="pants-plugins/macros.py"
+```python title="title="pants-plugins/macros.py""
 def python23_tests(name, **kwargs):
     kwargs.pop("interpreter_constraints", None)
 
@@ -78,7 +78,7 @@ def python23_tests(name, **kwargs):
 
 A macro can perform validation:
 
-```python title="pants-plugins/macros.py"
+```python title="title="pants-plugins/macros.py""
 def custom_python_library(**kwargs):
     if "2.7" in kwargs.get("interpreter_constraints", ""):
         raise ValueError("Python 2.7 is banned!")
@@ -87,14 +87,14 @@ def custom_python_library(**kwargs):
 
 A macro can take new parameters to generate the target dynamically. For example:
 
-```python tab={"label":"pants-plugins/macros.py"}
+```python title="tab={"label":"pants-plugins/macros.py"}"
 def custom_python_library(has_type_hints: bool = True, **kwargs):
     if has_type_hints:
         kwargs["tags"] = kwargs.get("tags", []) + ["type_checked"]
     python_library(**kwargs)
 ```
 
-```python tab={"label":"project/BUILD"}
+```python title="tab={"label":"project/BUILD"}"
 custom_python_library(
     has_type_hints=False,
 )

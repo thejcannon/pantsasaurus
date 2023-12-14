@@ -57,7 +57,7 @@ When you run `docker` directly, the context is usually a directory within your r
 
 Pants, however, takes care of assembling the context for you. It does so using the dependencies of the `docker_image` target.
 
-A `docker_image` can depend on loose files belonging to [files targets](../using-pants/resources-and-archives.mdx#files), and on artifacts packaged from a variety of targets, such as [pex_binary](../../reference/targets/pex-binary.mdx) , [python_distribution](../../reference/targets/python-distribution.mdx), [archive](../../reference/targets/archive.mdx), or any other target that can be built via the [package](../../reference/goals/package.mdx) goal.
+A `docker_image` can depend on loose files belonging to [files targets](../using-pants/resources-and-archives.mdx#files), and on artifacts packaged from a variety of targets, such as [pex_binary](../../reference/targets/pex_binary.mdx) , [python_distribution](../../reference/targets/python_distribution.mdx), [archive](../../reference/targets/archive.mdx), or any other target that can be built via the [package](../../reference/goals/package.mdx) goal.
 
 The context is assembled as follows:
 

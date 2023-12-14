@@ -18,7 +18,7 @@ Enable the Python [backend](../../using-pants/concepts/backends.mdx) like this:
 [GLOBAL]
 ...
 backend_packages = [
- 'pants.backend.python'
+  'pants.backend.python'
 ]
 ```
 
@@ -28,16 +28,16 @@ You should now see some new goals available:
 $ ./pants help goals
 ...
 
-package Create a distributable package.
+package       Create a distributable package.
 
-repl Open a REPL with the specified code loadable.
+repl          Open a REPL with the specified code loadable.
 
 ...
 
-run Runs a binary target.
+run           Runs a binary target.
 ...
 
-test Run tests.
+test          Run tests.
 ```
 
 :::note Have content in your `__init__.py` files?
@@ -45,10 +45,10 @@ Pants automatically uses all relevant `__init__.py` files, even if dependency in
 
 This works if you have empty `__init__.py` files, like most Python projects do; but if you have actual code in your `__init__.py` files, you should turn on this option in your `pants.toml`:
 
-`toml
+```toml
 [python-infer]
 inits = true
-`
+```
 
 This option will cause Pants to infer "proper" dependencies on any ancestor `__init__.py` file. If you run `./pants dependencies project/util/foo.py`, you should see `project/__init__.py` and `project/util/__init__.py` show up. This will ensure that any of the `dependencies` of your `__init__.py` files are included.
 
@@ -68,15 +68,15 @@ Pants will prefer new Python versions, like 3.6.10 over 3.6.3. Because macOS sys
 
 However, if you run into issues, you can set the `interpreter_search_paths` option in the `[python-setup]` scope:
 
-``toml
+```toml
 [python-setup]
 interpreter_search_paths = [
     # This will use all interpreters in `$(pyenv root)/versions`.
     "<PYENV>",
-     # Brew usually installs Python here. 
+     # Brew usually installs Python here.
     "/usr/local/bin",
 ]
-``
+```
 
 See [here](./interpreter-compatibility.mdx#changing-the-interpreter-search-path) for more information.
 

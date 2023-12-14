@@ -45,7 +45,7 @@ Please message us on Slack or open a GitHub issue (see [Community](/community/ge
 
 Every target type has a field called `tags`, which allows you to add a sequence of strings. The strings can be whatever you'd like, such as `"integration_test"` or `"skip_lint"`.
 
-```python title="BUILD"
+```python title="title="BUILD""
 python_tests(
     name="integration",
     sources=["*_integration_test.py"],
@@ -79,11 +79,11 @@ Each entry must be separated by a new line.
 
 For example:
 
-```text tab={"label":"Shell"}
+```text title="tab={"label":"Shell"}"
 $ ./pants --spec-files=targets.txt list
 ```
 
-```text tab={"label":"targets.txt"}
+```text title="tab={"label":"targets.txt"}"
 helloworld/lang/*.py
 helloworld/util
 helloworld/util:tests

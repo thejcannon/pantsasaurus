@@ -491,21 +491,13 @@ Unlike when testing normal `@rules`, you do not need to define a `QueryRule` whe
 You will typically use three functions:
 
 - `setup_tmpdir()`, which is a [context manager](https://book.pythontips.com/en/latest/context_managers.html) that sets up temporary files in the build root to simulate a real project.
-
-```
- * It takes a single parameter `files: Mapping[str, str]`, which is a dictionary of file paths to file content.
-     * All file paths will be prefixed by the temporary directory.
-     * File content can include `{tmpdir}`, which will get substituted with the actual temporary directory.
- * It yields the temporary directory, relative to the test's current work directory.
-```
-
+  - It takes a single parameter `files: Mapping[str, str]`, which is a dictionary of file paths to file content.
+    - All file paths will be prefixed by the temporary directory.
+    - File content can include `{tmpdir}`, which will get substituted with the actual temporary directory.
+  - It yields the temporary directory, relative to the test's current work directory.
 - `run_pants()`, which runs Pants using the `List[str]` of arguments you pass, such as `["help"]`.
-
-```
- * It returns a `PantsResult` object, which has the fields `exit_code: int`, `stdout: str`, and `stderr: str`.
- * It accepts several other optional arguments, including `config`, `extra_env`, and any keyword argument accepted by `subprocess.Popen()`.
-```
-
+  - It returns a `PantsResult` object, which has the fields `exit_code: int`, `stdout: str`, and `stderr: str`.
+  - It accepts several other optional arguments, including `config`, `extra_env`, and any keyword argument accepted by `subprocess.Popen()`.
 - `PantsResult.assert_success()` or `PantsResult.assert_failure()`, which checks the exit code and prints a nice error message if unexpected.
 
 For example:

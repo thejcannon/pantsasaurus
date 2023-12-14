@@ -54,7 +54,7 @@ It's often convenient to use in-repo plugins, when the plugin is only relevant t
 
 You consume published plugins by adding them to the `plugins` option:
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 plugins = [
   "my.plugin==2.3.4",
@@ -67,7 +67,7 @@ Conventionally, in-repo plugins live in a folder called `pants-plugins`, althoug
 
 You must specify the path to your plugin's top-level folder using the `pythonpath` option:
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 pythonpath = ["%(buildroot)s/pants-plugins"]
 ```
@@ -79,7 +79,7 @@ In-repo plugin code should not depend on other in-repo code outside of the `pant
 
 You can depend on third-party dependencies in your in-repo plugin by adding them to the `plugins` option:
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 plugins = [
   "ansicolors==1.18.0",
@@ -92,7 +92,7 @@ Recall that a Pants [_backend_](../using-pants/concepts/backends.mdx) is a Pytho
 
 A plugin will contain one or more backends, with the hooks for each one defined in a file called `register.py`. To enable a custom plugin you add its backends to your `backend_packages` configuration:
 
-```toml tab={"label":"pants.toml"}
+```toml title="tab={"label":"pants.toml"}"
 [GLOBAL]
 pythonpath = ["%(buildroot)s/pants-plugins"]
 backend_packages.add = [
@@ -103,7 +103,7 @@ backend_packages.add = [
 ]
 ```
 
-```python tab={"label":"pants-plugins/plugin1/register.py"}
+```python title="tab={"label":"pants-plugins/plugin1/register.py"}"
 from plugin1.lib import CustomTargetType, rule1, rule2
 
 
@@ -121,7 +121,7 @@ Because plugin code is written in Python, you can use Pants's [Python backend](.
 
 To do so, set up Pants for [Python support](../python/overview/index.mdx), and add your `pants-plugins` directory as a source root:
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [source]
 root_patterns = [
   ..,
@@ -135,13 +135,13 @@ One way to express this is to add `pantsbuild.pants==<version>` to your `require
 
 A better way is to use the `pants_requirement()` macro, which uses the `pants_version` from your `pants.toml`:
 
-```python title="pants-plugins/BUILD"
+```python title="title="pants-plugins/BUILD""
 pants_requirement(name="pants", dist="pantsbuild.pants")
 ```
 
 Pants's [dependency inference](../using-pants/concepts/targets-and-build-files.mdx) understands imports of the `pants` module and will automatically add dependencies on the `pants_requirement` where relevant. You can also explicitly add it to the `dependencies` field:
 
-```python title="pants-plugins/bash/BUILD"
+```python title="title="pants-plugins/bash/BUILD""
 python_library(
     # This will be inferred, but can also be explicitly specified.
     dependencies=["pants-plugins:pants"],

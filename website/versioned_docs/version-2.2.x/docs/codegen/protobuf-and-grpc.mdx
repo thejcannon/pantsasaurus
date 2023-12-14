@@ -25,7 +25,7 @@ Thanks to fine-grained caching, Pants will regenerate the minimum amount of code
 
 Add this to your `pants.toml`:
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 backend_packages.add = [
   "pants.backend.codegen.protobuf.python",
@@ -60,14 +60,14 @@ Generated Python files require the [`protobuf` library](https://pypi.org/project
 
 First, add `protobuf`—and `grpcio`, if relevant— to your `requirements.txt` (see [Third-party dependencies](../python/overview/third-party-dependencies.mdx)).
 
-```text title="requirements.txt"
+```text title="title="requirements.txt""
 grpcio==1.32.0
 protobuf>=3.12.1
 ```
 
 Then, add the targets' addresses to the option `runtime_dependencies` in the `[python-protobuf]` scope. Pants will use this to automatically add the target(s) to the `dependencies` field for every `protobuf_library()` target you write.
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [python-protobuf]
 # Use the path to your 3rd-party requirements,
 # e.g. `3rdparty/python:protobuf`.
@@ -78,12 +78,12 @@ runtime_dependencies = ["//:grpcio", "//:protobuf"]
 
 Wherever you create your `.proto` files, add a `protobuf_library`.
 
-```python tab={"label":"project/example/BUILD"}
+```python title="tab={"label":"project/example/BUILD"}"
 # `sources` defaults to `['*.proto']`.
 protobuf_library()
 ```
 
-```text tab={"label":"project/example/f.proto"}
+```text title="tab={"label":"project/example/f.proto"}"
 syntax = "proto3";
 
 package project.example;
@@ -97,7 +97,7 @@ Pants will use [dependency inference](../using-pants/concepts/targets-and-build-
 
 If you want gRPC code generated, set `grpc=True`.
 
-```python title="src/proto/example/BUILD"
+```python title="title="src/proto/example/BUILD""
 protobuf_library(grpc=True)
 ```
 
@@ -136,7 +136,7 @@ However this may not always be what you want. In particular, you may not want to
 
 You can configure a different source root for generated code by setting the `python_source_root` field:
 
-```python title="src/proto/example/BUILD"
+```python title="title="src/proto/example/BUILD""
 protobuf_library(
   python_source_root='src/python'
 )

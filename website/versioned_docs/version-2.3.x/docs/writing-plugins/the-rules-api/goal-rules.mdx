@@ -27,33 +27,36 @@ There are four steps to creating a new [goal](../../using-pants/concepts/goals.m
 3. Define an `@goal_rule`, which must return the `Goal` from the previous step and set its `exit_code`.
    1. For most goals, simply return `MyGoal(exit_code=0)`. Some goals like `lint` and `test` will instead propagate the error code from the tools they run.
 4. Register the `@goal_rule` in a `register.py` file.
-   ```python tab={"label":"pants-plugins/example/hello_world.py"}
-   from pants.engine.goal import Goal, GoalSubsystem
-   from pants.engine.rules import collect_rules, goal_rule
-   ```
+
+```python tab={"label":"pants-plugins/example/hello_world.py"}
+from pants.engine.goal import Goal, GoalSubsystem
+from pants.engine.rules import collect_rules, goal_rule
+
 
 class HelloWorldSubsystem(GoalSubsystem):
-name = "hello-world"
-help = "An example goal."
+    name = "hello-world"
+    help = "An example goal."
+
 
 class HelloWorld(Goal):
-subsystem_cls = HelloWorldSubsystem
+    subsystem_cls = HelloWorldSubsystem
+
 
 @goal_rule
 async def hello_world() -> HelloWorld:
-return HelloWorld(exit_code=1)
+    return HelloWorld(exit_code=1)
+
 
 def rules():
-return collect_rules()
-
-````
+    return collect_rules()
+```
 
 ```python tab={"label":"pants-plugins/example/register.py"}
 from example import hello_world
 
 def rules():
- return [*hello_world.rules()]
-````
+    return [*hello_world.rules()]
+```
 
 You may now run `./pants hello-world`, which should cause Pants to return with an error code of 1 (run `echo $?` to verify). Precisely, this causes the engine to request the type `HelloWorld`, which results in running the `@goal_rule` `hello_world`.
 
@@ -67,24 +70,18 @@ from pants.engine.console import Console
 
 @goal_rule
 async def hello_world(console: Console) -> HelloWorld:
+    console.print_stdout("Hello!")
+    console.print_stderr("Uh oh, an error.")
+    return HelloWorld(exit_code=1)
 ```
-
-console.print_stdout("Hello!")
-console.print_stderr("Uh oh, an error.")
-return HelloWorld(exit_code=1)
-
-````
 
 ### Using colors
 
 You may output in color by using the methods `.blue()`, `.cyan()`, `.green()`, `.magenta()`, `.red()`, and `.yellow()`. The colors will only be used if the global option `--colors` is True.
 
 ```python
-````
-
 console.print_stderr(f"{console.red('𐄂')} Error encountered.")
-
-````
+```
 
 ### `Outputting` mixin (optional)
 
@@ -95,66 +92,42 @@ from pants.engine.goal import Goal, GoalSubsystem, Outputting
 from pants.engine.rules import goal_rule
 
 class HelloWorldSubsystem(Outputting, GoalSubystem):
-````
-
-name = "hello-world"
-help = "An example goal."
-
-```
+    name = "hello-world"
+    help = "An example goal."
 
 ...
 
 @goal_rule
 async def hello_world(
-```
-
-console: Console, hello_world_subsystem: HelloWorldSubsystem
-
-```
-
+    console: Console, hello_world_subsystem: HelloWorldSubsystem
 ) -> HelloWorld:
+    with hello_world_subsystem.output(console) as write_stdout:
+        write_stdout("Hello world!")
+    return HelloWorld(exit_code=0)
 ```
-
-with hello_world_subsystem.output(console) as write_stdout:
-write_stdout("Hello world!")
-return HelloWorld(exit_code=0)
-
-````
 
 ### `LineOriented` mixin (optional)
 
 If your goal's purpose is to emit output—and that output is naturally split by new lines—it may be helpful to use the mixin `LineOriented`. This subclasses `Outputting`, so will register both the options `--output-file` and `--sep`, which allows the user to change the separator to not be `\n`.
 
 ```python
-````
-
 from pants.engine.goal import Goal, GoalSubsystem, LineOriented
 from pants.engine.rules import goal_rule
 
 class HelloWorldSubsystem(LineOriented, GoalSubystem):
-
-```
-name = "hello-world"
-help = "An example goal."""
-
-```
+    name = "hello-world"
+    help = "An example goal."""
 
 ...
 
 @goal_rule
 async def hello_world(
-
-```
-console: Console, hello_world_subsystem: HelloWorldSubsystem
-```
-
+    console: Console, hello_world_subsystem: HelloWorldSubsystem
 ) -> HelloWorld:
-
-```
-with hello_world_subsystem.line_oriented(console) as print_stdout:
-    print_stdout("0")
-    print_stdout("1")
-return HelloWorld(exit_code=0)
+    with hello_world_subsystem.line_oriented(console) as print_stdout:
+        print_stdout("0")
+        print_stdout("1")
+    return HelloWorld(exit_code=0)
 ```
 
 ## How to operate on Targets
@@ -162,32 +135,23 @@ return HelloWorld(exit_code=0)
 Most goals will want to operate on targets. To do this, specify `Targets` as a parameter of your goal rule.
 
 ```python
-
-```
-
 from pants.engine.target import Targets
 ...
 
 @goal_rule
 async def hello_world(console: Console, targets: Targets) -> HelloWorld:
-
-```
-for target in targets:
-    console.print_stdout(target.address.spec)
-return HelloWorld(exit_code=0)
+    for target in targets:
+        console.print_stdout(target.address.spec)
+    return HelloWorld(exit_code=0)
 ```
 
 This example will print the address of any targets specified by the user, just as the `list` goal behaves.
 
 ```bash
-
-```
-
 $ ./pants hello-world helloworld/util::
 helloworld/util
 helloworld/util:tests
-
-````
+```
 
 See [Rules and the Target API](./rules-and-the-target-api.mdx) for detailed information on how to use these targets in your rules, including accessing the metadata specified in BUILD files.
 
@@ -196,11 +160,11 @@ You may alternatively request `Addresses` from `pants.engine.addresses` if you d
 :::caution Common mistake: requesting the type of target you want in the `@goal_rule` signature
 For example, if you are writing a `publish` goal, and you expect to operate on `python_distribution` targets, you might think to request `PythonDistribution` in your `@goal_rule` signature:
 
-`python
+```python
 @goal_rule
 def publish(distribution: PythonDistribution, console: Console) -> Publish:
    ...
-`
+```
 
 This will not work because the engine has no path in the rule graph to resolve a `PythonDistribution` type given the initial input types to the rule graph (the "roots").
 
@@ -208,7 +172,7 @@ Instead, request `Targets`, which will give you all of the targets that the user
 
 From here, filter out the relevant targets you want using the Target API (see [Rules and the Target API](./rules-and-the-target-api.mdx).
 
-`python
+```python
 from pants.engine.target import Targets
 
 @goal_rule
@@ -217,10 +181,9 @@ def publish(targets: Targets, console: Console) -> Publish:
        tgt for tgt in targets
        if tgt.has_fields([PythonSources, PythonPublishDestination])
     ]
-`
+```
 
 :::
-
 
 ### Only care about source files?
 
@@ -232,13 +195,9 @@ from pants.engine.fs import SpecsSnapshot
 
 @goal_rule
 async def hello_world(console: Console, specs_snapshot: SpecsSnapshot) -> HelloWorld:
-````
-
-for f in specs_snapshot.snapshot.files:
-console.print_stdout(f)
-return HelloWorld(exit_code=0)
-
+    for f in specs_snapshot.snapshot.files:
+        console.print_stdout(f)
+    return HelloWorld(exit_code=0)
 ```
 
 When users use address arguments like `::`, you will get all the sources belonging to the matched targets. When users use file arguments like `'**'`, you will get all matching files, even if the file doesn't have any owning target.
-```

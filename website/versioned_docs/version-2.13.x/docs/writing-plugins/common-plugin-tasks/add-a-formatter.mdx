@@ -97,7 +97,7 @@ class ShfmtRequest(FmtRequest):
     name = "shfmt"
 ```
 
-Finally, register your new `FmtRequest` with a [`UnionRule`](<../the-rules-api/union-rules-(advanced).mdx>) so that Pants knows your formatter exists:
+Finally, register your new `FmtRequest` with a [`UnionRule`](../the-rules-api/union-rules-advanced.mdx) so that Pants knows your formatter exists:
 
 ```python
 from pants.engine.unions import UnionRule

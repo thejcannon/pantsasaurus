@@ -33,7 +33,7 @@ Pants makes it ergonomic to create multiple distributions from the same reposito
 
 A distribution is set up using a `python_distribution` target, like this:
 
-```python title="BUILD"
+```python title="title="BUILD""
 python_distribution(
     name="mydist",
     dependencies=[
@@ -84,7 +84,7 @@ You may want to write a plugin to do any of these things:
 - Read from the file system to dynamically determine kwargs, such as the `long_description` or `version`.
 - Run processes like Git to dynamically determine the `version` kwarg.
 
-Start by reading about the [Plugin API](../../writing-plugins/overview.mdx), then refer to the [Custom `setup_py()` kwargs](<../../writing-plugins/common-plugin-tasks/custom-`setup-py()`-kwargs.mdx>) instructions.
+Start by reading about the [Plugin API](../../writing-plugins/overview.mdx), then refer to the [Custom `setup_py()` kwargs](../../writing-plugins/common-plugin-tasks/custom-setup-py-kwargs.mdx) instructions.
 
 :::
 

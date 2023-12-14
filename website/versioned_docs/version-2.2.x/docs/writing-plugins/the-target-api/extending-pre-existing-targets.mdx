@@ -21,7 +21,7 @@ If you want to reduce boilerplate in BUILD files, such as changing default value
 
 First, [define the field](./creating-new-fields.mdx). Then, register it by using `OriginalTarget.register_plugin_field(CustomField)`, like this:
 
-```python title="plugins/register.py"
+```python title="title="plugins/register.py""
 from pants.backend.codegen.protobuf.target_types import ProtobufLibrary
 from pants.engine.target import BoolField
 

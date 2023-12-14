@@ -47,14 +47,14 @@ You can port your tests incrementally with the `skip_tests` field:
 
 ```python title="project/BUILD"
 python_tests(
- name="tests",
- # Skip all tests in this folder.
- skip_tests=True,
- # Or, use `overrides` to only skip some test files.
- overrides={
- "dirutil_test.py": {"skip_tests": True},
- ("osutil_test.py", "strutil.py"): {"skip_tests": True},
- },
+    name="tests",
+    # Skip all tests in this folder.
+    skip_tests=True,
+    # Or, use `overrides` to only skip some test files.
+    overrides={
+        "dirutil_test.py": {"skip_tests": True},
+        ("osutil_test.py", "strutil.py"): {"skip_tests": True},
+    },
 )
 ```
 
@@ -86,8 +86,10 @@ Some example plugins that users have written:
 - Building a Docker image with packages built via `./pants package`
 - Custom `setup.py` logic to compute the `version` dynamically
 - Jupyter support
-  ## Migrating from other BUILD tools? Set custom BUILD file names
-  If you're migrating from another system that already uses the name `BUILD`, such as Bazel or Please, you have a few ways to avoid conflicts:
+
+## Migrating from other BUILD tools? Set custom BUILD file names
+
+If you're migrating from another system that already uses the name `BUILD`, such as Bazel or Please, you have a few ways to avoid conflicts:
 
 First, by default Pants recognizes `BUILD.extension` for any `extension` as a valid BUILD file. So you can use a name like `BUILD.pants` without changing configuration.
 

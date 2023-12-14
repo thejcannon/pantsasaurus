@@ -12,18 +12,13 @@ As explained in [Options](../../using-pants/key-concepts/options.mdx), options a
 To add new options:
 
 1. Define a subclass of `Subsystem` from `pants.subsystem.subsystem`.
-
-```
-1. Set the class property `options_scope` with the name of the subsystem.
-     * This value will be prepended to all options in the subsystem, e.g. `--skip` will become `--shellcheck-skip`.
-1. Set the class property `help`, which is used by `./pants help`.
-```
-
+   1. Set the class property `options_scope` with the name of the subsystem.
+      - This value will be prepended to all options in the subsystem, e.g. `--skip` will become `--shellcheck-skip`.
+   1. Set the class property `help`, which is used by `./pants help`.
 2. Add new options through the class method `register_options()`.
 3. Register the `Subsystem` with `SubsystemRule` and `register.py`.
+   - You don't need this if the `Subsystem` is used in an `@rule` because `collect_rules()` will recognize it. It doesn't hurt to keep this around, though.
 
-````
-- You don't need this if the `Subsystem` is used in an `@rule` because `collect_rules()` will recognize it. It doesn't hurt to keep this around, though.
 ```python tab={"label":"pants-plugins/example/shellcheck.py"}
 from pants.engine.rules import SubsystemRule
 from pants.option.subsystem import Subsystem
@@ -46,7 +41,7 @@ class ShellcheckSubsystem(Subsystem):
 
 def rules():
     return [SubsystemRule(ShellcheckSubsystem)]
-````
+```
 
 ```python tab={"label":"pants-plugins/example/register.py"}
 from example import shellcheck
@@ -55,19 +50,17 @@ def rules():
     return [*shellcheck.rules()]
 ```
 
-````
-
 The subsystem should now show up when you run `./pants help shellcheck`.
 
 :::note `GoalSubsystem`
-As explained in [Goal rules](./goal-rules.mdx), goals use a subclass of  `Subsystem`: `GoalSubsystem` from `pants.engine.goal`.
+As explained in [Goal rules](./goal-rules.mdx), goals use a subclass of `Subsystem`: `GoalSubsystem` from `pants.engine.goal`.
 
 `GoalSubsystem` behaves the same way as a normal subsystem, except that you set the class property `name` rather than `options_scope`. The `name` will auto-populate the `options_scope`.
 
 :::
 
-
 ## `register()` parameters
+
 ### Flag name
 
 The first argument to `register()` should be a string with the option name, like, `--example-option`.
@@ -81,6 +74,7 @@ You may also specify a short flag, like `-e`. You may pass multiple values, so y
 `metavar` changes what users see in `./pants help` as possible values for the flag. If unspecified, Pants will use a `metavar` based on the `type` you specify.
 
 ### `default`
+
 `default` will be used if the user does not specify the value.
 
 If you leave this off, the `default` will depend on the `type` you specify.
@@ -90,13 +84,13 @@ If you leave this off, the `default` will depend on the `type` you specify.
 Refer to [Options](../../using-pants/key-concepts/options.mdx#option-types) for how a user specifies these different types.
 | `type` | Default (if not overridden) | Other notes |
 | :--- | :--- | :--- |
-| `str` | `None` |  |
+| `str` | `None` | |
 | `int` | `None` | Will error if a user passes a `float`. |
 | `float` | `None` | Will convert an `int` into a `float`. |
-| `bool` | `False` <br/><br/>Set `default=UnsetBool` from `pants.option.custom_types` to represent a trinary state. If the user does not specify a value, the option will return `None`. |  |
+| `bool` | `False` <br/><br/>Set `default=UnsetBool` from `pants.option.custom_types` to represent a trinary state. If the user does not specify a value, the option will return `None`. | |
 | Enums | `None` | Create an `enum.Enum`, with the value for each member as a string.<br/><br/>See below for an example. |
 | `list` | `[]` (empty list) | You must also set `member_type` to one of `str`, `int`, `float`, `dict`, `dir_option`, `file_option`, `target_option`, `shell_str`, or an `Enum`. |
-| `dict` | `{}` (empty dictionary) |  |
+| `dict` | `{}` (empty dictionary) | |
 | `shell_str` | `[]` (empty list) | You must set `type=list` and `member_type=shell_str`.<br/><br/>Pants will ["shlex"](https://docs.python.org/3/library/shlex.html) the string passed by the user, i.e. to split on each space.<br/><br/>For example, `./pants --docformatter-args='--wrap-summaries 100 --wrap-descriptions 100'` will get converted into `["--wrap_summaries", "100", "--wrap-descriptions", "100"]`.<br/><br/>The type is from `pants.option.custom_types`. |
 | `target_option` | `None` | This behaves like `str`, but changes the `metavar` so that `./pants help` is more useful.<br/><br/>The type is from `pants.option.custom_types`. |
 | `file_option` | `None` | This behaves like `str`, but changes the `metavar` so that `./pants help` is more useful. It will also validate that the file exists.<br/><br/>The type is from `pants.option.custom_types`. |
@@ -117,7 +111,7 @@ register(
     default=LeafyGreens.KALE,
     help="Which veggie Pants should use.",
 )
-````
+```
 
 ### `passthrough`
 

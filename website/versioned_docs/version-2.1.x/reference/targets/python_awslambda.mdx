@@ -53,7 +53,7 @@ A list of files and globs that belong to this target. Paths are relative to the 
     type_repr={`field.type_hint`}
 >
 
-The Python interpreters this code is compatible with. Each element should be written in pip-style format, e.g. &#x27;CPython==2.7.*&#x27; or &#x27;CPython&gt;=3.6,&lt;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&gt;=2.7&#x27; will be expanded to &#x27;CPython&gt;=2.7&#x27;. Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7. If the field is not set, it will default to the option `[python-setup].interpreter_constraints]`. See https://www.pantsbuild.org/docs/python-interpreter-compatibility.
+The Python interpreters this code is compatible with. Each element should be written in pip-style format, e.g. &#x27;CPython==2.7._&#x27; or &#x27;CPython&gt;=3.6,&lt;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&gt;=2.7&#x27; will be expanded to &#x27;CPython&gt;=2.7&#x27;. Specify more than one element to OR the constraints, e.g. `['PyPy==3.7._', 'CPython==3.7.\*']`means either PyPy 3.7 _or_ CPython 3.7. If the field is not set, it will default to the option`[python-setup].interpreter_constraints]`. See https://www.pantsbuild.org/docs/python-interpreter-compatibility.
 
 </Field>
 
@@ -96,7 +96,5 @@ AWS Lambda handler entrypoint (module.dotted.name:handler_func).
 The identifier of the AWS Lambda runtime to target (pythonX.Y). See https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html.
 
 </Field>
-
-
 
 </span>

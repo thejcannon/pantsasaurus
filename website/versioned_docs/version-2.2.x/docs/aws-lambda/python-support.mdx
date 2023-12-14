@@ -23,7 +23,7 @@ Under-the-hood, Pants uses the [Lambdex](https://github.com/wickman/lambdex) pro
 
 Add this to your `pants.toml`:
 
-```toml title="pants.toml"
+```toml title="title="pants.toml""
 [GLOBAL]
 backend_packages.add = [
   "pants.backend.awslambda.python",
@@ -43,7 +43,7 @@ Add a `python_awslambda` target and define the `runtime` and `handler` fields. T
 
 For example:
 
-```python tab={"label":"project/BUILD"}
+```python title="tab={"label":"project/BUILD"}"
 # The default `sources` field will include our handler file.
 python_library()
 
@@ -55,7 +55,7 @@ python_awslambda(
 )
 ```
 
-```python tab={"label":"project/lambda_example.py"}
+```python title="tab={"label":"project/lambda_example.py"}"
 def example_handler(event, context):
     print("Hello AWS!")
 ```

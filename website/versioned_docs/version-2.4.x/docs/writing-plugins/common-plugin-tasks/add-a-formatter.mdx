@@ -202,7 +202,7 @@ class ShfmtRequest(BashFmtRequest, LintRequest):
     field_set_type = ShfmtFieldSet
 ```
 
-Finally, register your new `LintRequest`/`FmtRequest` with two [`UnionRule`s](<../the-rules-api/union-rules-(advanced).mdx>) so that Pants knows your formatter exists:
+Finally, register your new `LintRequest`/`FmtRequest` with two [`UnionRule`s](../the-rules-api/union-rules-advanced.mdx) so that Pants knows your formatter exists:
 
 ```python
 from pants.engine.unions import UnionRule

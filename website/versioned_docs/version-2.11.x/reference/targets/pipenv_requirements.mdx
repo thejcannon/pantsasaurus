@@ -93,6 +93,7 @@ Override the field values for generated `python_requirement` targets.
 Expects a dictionary of requirements to a dictionary for the overrides. You may either use a string for a single requirement, or a string tuple for multiple requirements. Each override is a dictionary of field names to the overridden value.
 
 For example:
+
 ```
 overrides={
   "django": {"dependencies": ["#setuptools"]]},
@@ -120,7 +121,5 @@ If not defined, will default to `[python].default_resolve`.
 When generating a lockfile for a particular resolve via the `generate-lockfiles` goal, it will include all requirements that are declared with that resolve. First-party targets like `python_source` and `pex_binary` then declare which resolve they use via their `resolve` field; so, for your first-party code to use a particular `python_requirement` target, that requirement must be included in the resolve used by that code.
 
 </Field>
-
-
 
 </span>

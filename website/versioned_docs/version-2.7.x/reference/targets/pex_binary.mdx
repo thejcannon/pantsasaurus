@@ -99,8 +99,8 @@ The entry point for the binary, i.e. what gets run when executing `./my_binary.p
 
 You can specify a full module like &#x27;path.to.module&#x27; and &#x27;path.to.module:func&#x27;, or use a shorthand to specify a file name, using the same syntax as the `sources` field:
 
-  1) &#x27;app.py&#x27;, Pants will convert into the module `path.to.app`;
-  2) &#x27;app.py:func&#x27;, Pants will convert into `path.to.app:func`.
+1. &#x27;app.py&#x27;, Pants will convert into the module `path.to.app`;
+2. &#x27;app.py:func&#x27;, Pants will convert into `path.to.app:func`.
 
 You must use the file name shorthand for file arguments to work with this target.
 
@@ -122,10 +122,10 @@ You can give a list of multiple platforms to create a multiplatform PEX, meaning
 
 Platforms should be in the format defined by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#platform), i.e. PLATFORM-IMPL-PYVER-ABI (e.g. &quot;linux_x86_64-cp-27-cp27mu&quot;, &quot;macosx_10.12_x86_64-cp-36-cp36m&quot;):
 
-  - PLATFORM: the host platform, e.g. &quot;linux-x86_64&quot;, &quot;macosx-10.12-x86_64&quot;.
-  - IMPL: the Python implementation abbreviation, e.g. &quot;cp&quot;, &quot;pp&quot;, &quot;jp&quot;.
-  - PYVER: a two-digit string representing the Python version, e.g. &quot;27&quot;, &quot;36&quot;.
-  - ABI: the ABI tag, e.g. &quot;cp36m&quot;, &quot;cp27mu&quot;, &quot;abi3&quot;, &quot;none&quot;.
+- PLATFORM: the host platform, e.g. &quot;linux-x86_64&quot;, &quot;macosx-10.12-x86_64&quot;.
+- IMPL: the Python implementation abbreviation, e.g. &quot;cp&quot;, &quot;pp&quot;, &quot;jp&quot;.
+- PYVER: a two-digit string representing the Python version, e.g. &quot;27&quot;, &quot;36&quot;.
+- ABI: the ABI tag, e.g. &quot;cp36m&quot;, &quot;cp27mu&quot;, &quot;abi3&quot;, &quot;none&quot;.
 
 </Field>
 
@@ -218,7 +218,5 @@ Whether to include Pex tools in the PEX bootstrap code.
 With tools included, the generated PEX file can be executed with `PEX_TOOLS=1 <pex file> --help` to gain access to all the available tools.
 
 </Field>
-
-
 
 </span>
