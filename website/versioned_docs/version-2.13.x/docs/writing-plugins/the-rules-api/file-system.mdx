@@ -12,9 +12,7 @@ It is not safe to use functions like `open` or the non-pure operations of `pathl
 Instead, Pants has several mechanisms to work with the file system in a safe and concurrent way.
 
 :::caution Missing certain file operations?
-
     If it would help you to have a certain file operation, please let us know by either opening a new [GitHub issue](https://github.com/pantsbuild/pants/issues) or by messaging us on [Slack](/community/members) in the #plugins room.
-
 :::
 
 ## Core abstractions: `Digest` and `Snapshot`
@@ -155,19 +153,15 @@ async def demo(...) -> Foo:
 The result will be a sequence of `FileContent` objects, which each have a property `path: str` and a property `content: bytes`. You may want to call `content.decode()` to convert to `str`.
 
 :::caution You may not need `DigestContents`
-
     Only use `DigestContents` if you need to read and operate on the content of files directly in your rule.
 
     - If you are running a `Process`, you only need to pass the `Digest` as input and that process will be able to read all the files in its environment. If you only need a list of files included in the digest, use `Get(Snapshot, Digest)`.
 
     - If you just need to manipulate the directory structure of a `Digest`, such as renaming files,  use `DigestEntries` with `CreateDigest` or use `AddPrefix` and `RemovePrefix`. These avoid reading the file content into memory.
-
 :::
 
 :::caution Does not handle empty directories in a `Digest`
-
     `DigestContents` does not have a way to represent empty directories in a `Digest` since it is only a sequence of `FileContent` objects. That is, passing the `FileContent` objects to `CreateDigest` will not result in the original `Digest` if there were empty directories in that original `Digest`. Use `DigestEntries` instead if your rule needs to handle empty directories in a `Digest`.
-
 :::
 
 ## `DigestEntries`: light-weight handles to files
@@ -310,9 +304,7 @@ async def demo(...) -> Foo:
 Often, you will want to download a pre-compiled binary for a tool. When doing this, use `ExternalTool` instead for help with extracting the binary from the download. See [Installing tools](./installing-tools.mdx).
 
 :::caution HTTP requests without digests are unsafe
-
     It is not safe to use `DownloadFile` for mutable HTTP requests, as it will never ping the server for updates once it is cached. It is also not safe to use the `requests` library or similar because it will not be cached safely.
 
     You can use a `Process` with uniquely identifying information in its arguments to run `/usr/bin/curl`.
-
 :::

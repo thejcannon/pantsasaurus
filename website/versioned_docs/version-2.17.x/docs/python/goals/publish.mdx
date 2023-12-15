@@ -50,11 +50,9 @@ repository: https://pypi.private.example.com
 Each repository is either a repository URL or, when prefixed with `@`, a reference to a repository configured in the `.pypirc` file.
 
 :::danger Keep Secrets Secret
-
     We strongly discourage the use of secrets verbatim in your configuration files.
 
     It is better to provide the required secrets using environment variables when running `pants publish`. Or, better yet, to use `keyring` as described in the [Twine documentation](https://twine.readthedocs.io/en/latest/#keyring-support)
-
 :::
 
 ## Environment variables

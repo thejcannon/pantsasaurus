@@ -8,17 +8,13 @@ Suggestions for how to use Pants to speed up your CI (continuous integration).
 ---
 
 :::note Examples
-
     See the example-python repository for an [example GitHub Actions worfklow](https://github.com/pantsbuild/example-python/blob/main/.github/workflows/pants.yaml).
-
 :::
 
 ## Directories to cache
 
 :::note The `init-pants` GitHub Action
-
     If you're using GitHub Actions to run your CI workflows, then you can use our [standard action](https://github.com/pantsbuild/actions/tree/main/init-pants) to set up and cache the Pants bootstrap state. Otherwise, read on to learn how to configure this manually.
-
 :::
 
 In your CI's config file, we recommend caching these directories:
@@ -39,7 +35,6 @@ A [remote cache service](./remote-caching-&-execution/index.mdx) integrates with
 See [Troubleshooting](./troubleshooting-common-issues.mdx#how-to-change-your-cache-directory) for how to change these cache locations.
 
 :::note Nuking the cache when too big
-
     In CI, the cache must be uploaded and downloaded every run. This takes time, so there is a tradeoff where too large a cache will slow down your CI.
 
     You can use this script to nuke the cache when it gets too big:
@@ -58,11 +53,9 @@ See [Troubleshooting](./troubleshooting-common-issues.mdx#how-to-change-your-cac
     nuke_if_too_big ~/.cache/pants/setup 256
     nuke_if_too_big ~/.cache/pants/named_caches 1024
     ```
-
 :::
 
 :::note Tip: check cache performance with `[stats].log`
-
     Set the option `[stats].log = true` in `pants.ci.toml` for Pants to print metrics of your cache's performance at the end of the run, including the number of cache hits and the total time saved thanks to caching, e.g.:
 
     ```
@@ -73,11 +66,9 @@ See [Troubleshooting](./troubleshooting-common-issues.mdx#how-to-change-your-cac
     ```
 
     You can also add `plugins = ["hdrhistogram"]` to the `[GLOBAL]` section of `pants.ci.toml` for Pants to print histograms of cache performance, e.g. the size of blobs cached.
-
 :::
 
 :::tip Remote caching
-
     Rather than storing your cache with your CI provider, remote caching stores the cache in the cloud, using gRPC and the open-source Remote Execution API for low-latency and fine-grained caching.
 
     This brings several benefits over local caching:
@@ -88,7 +79,6 @@ See [Troubleshooting](./troubleshooting-common-issues.mdx#how-to-change-your-cac
       - No need to "nuke" your cache when it gets too big.
 
     See [Remote Caching and Execution](./remote-caching-&-execution/index.mdx) for more information.
-
 :::
 
 ## Recommended commands
@@ -121,23 +111,18 @@ Meanwhile, tests should be rerun when any changes are made to the tests _or_ to 
 See [Advanced target selection](./advanced-target-selection.mdx) for more information on `--changed-since` and alternative techniques to select targets to run in CI.
 
 :::caution This will not handle all cases, like hooking up a new linter
-
     For example, if you add a new plugin to Flake8, Pants will still only run over changed files, meaning you may miss some new lint issues.
 
     For absolute correctness, you may want to use Approach #2. Alternatively, add conditional logic to your CI, e.g. that any changes to `pants.toml` trigger using Approach #2.
-
 :::
 
 :::note GitHub Actions: use `Checkout`
-
     To use `--changed-since`, you may want to use the [Checkout action](https://github.com/actions/checkout).
 
     By default, Checkout will only fetch the latest commit; you likely want to set `fetch-depth`  to fetch prior commits.
-
 :::
 
 :::note GitLab CI: disable shallow clones or fetch main branch
-
     GitLab's merge pipelines make a shallow clone by default, which only contains recent commits for the feature branch being merged. That severely limits `--changed-since`. There are two possible workarounds:
 
     1. Clone the entire repository by going to "CI / CD" settings and erase the number from the "Git shallow clone" field of the "General pipelines" section. Don't forget to "Save changes". This has the advantage of cloning everything, which also is the biggest long-term disadvantage.
@@ -151,7 +136,6 @@ See [Advanced target selection](./advanced-target-selection.mdx) for more inform
        ```
 
        The `git branch` commands are only included to print out all available branches before and after fetching `origin/main`.
-
 :::
 
 ### Approach #2: run over everything

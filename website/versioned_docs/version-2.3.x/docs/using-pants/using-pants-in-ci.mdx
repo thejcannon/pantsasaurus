@@ -9,7 +9,6 @@ Suggestions for how to use Pants to speed up your CI (continuous integration).
 
 :::note Example `.travis.yml`
 See https://github.com/pantsbuild/example-python/blob/main/.travis.yml for an example of how to configure Pants with Travis CI.
-
 :::
 
 ## `pants.ci.toml` (optional)
@@ -78,7 +77,6 @@ nuke_if_too_big ~/.cache/pants/lmdb_store 2048
 nuke_if_too_big ~/.cache/pants/setup 256
 nuke_if_too_big ~/.cache/pants/named_caches 1024
 ```
-
 :::
 
 ## Recommended commands
@@ -108,14 +106,12 @@ See [Advanced target selection](./advanced-target-selection.mdx) for more inform
 For example, if you add a new plugin to Flake8, Pants will still only run over changed files, meaning you may miss some new lint issues.
 
 For absolute correctness, you may want to use Approach #2. Alternatively, add conditional logic to your CI, e.g. that any changes to `pants.toml` trigger using Approach #2.
-
 :::
 
 :::note GitHub Actions: use `Checkout`
 To use `--changed-since`, you may want to use the [Checkout action](https://github.com/actions/checkout).
 
 By default, Checkout will only fetch the latest commit, so you should set `fetch-depth: 0`.
-
 :::
 
 ### Approach #2: run over everything

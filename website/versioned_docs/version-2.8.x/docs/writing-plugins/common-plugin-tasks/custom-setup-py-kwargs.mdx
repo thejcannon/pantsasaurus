@@ -21,7 +21,6 @@ Note: there may only be at most one applicable plugin per target customizing the
 
 :::note Example
 See [here](https://github.com/pantsbuild/pants/blob/master/pants-plugins/internal_plugins/releases/register.py) for an example that Pants uses internally for its `python_distribution` targets. This plugin demonstrates reading from the file system to set the `version` and `long_description` kwargs, along with adding hardcoded kwargs.
-
 :::
 
 ## 1. Set up a subclass of `SetupKwargsRequest`
@@ -103,7 +102,6 @@ class PantsSetupKwargsRequest(SetupKwargsRequest):
     def is_applicable(cls, target: Target) -> bool:
         return isinstance(target, PantsPythonDistribution)
 ```
-
 :::
 
 ## 2. Create a rule with your logic

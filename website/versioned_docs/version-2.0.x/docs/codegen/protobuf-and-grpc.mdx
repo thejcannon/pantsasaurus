@@ -11,7 +11,6 @@ When you depend on a `protobuf_library` in a Python target (like a `python_libra
 
 :::note Example repository
 See [the Python example repository](https://github.com/pantsbuild/example-python) for an example of using Protobuf to generate Python.
-
 :::
 
 ## Step 1: Activate the Protobuf Python backend
@@ -39,12 +38,10 @@ mypy_plugin = true
 ```
 
 MyPy will use the generated `.pyi` type stub file, rather than looking at the `.py` implementation file.
-
 :::
 
 :::caution Want to use other protocols, like Thrift?
 Please message us on [Slack](/community/members) if you would like support for more protocols. We would be happy to either add support to the core Pants distribution or to help you to write a plugin.
-
 :::
 
 ## Step 2: Set up the `protobuf` and/or `grpcio` runtime libraries
@@ -123,14 +120,12 @@ from example.f_pb2 import Message
 By default, Pants will generate the Python files in the same directory as the `.proto` file. To get Python imports working properly, you will likely need to add an empty `__init__.py` in the same location, and possibly in ancestor directories. You do not need to add a `python_library()` target; Pants will automatically include the file.
 
 See the below section "Protobuf and source roots" for how to generate into a different directory. If you use this option, you will still likely need an empty `__init__.py` file in the destination directory.
-
 :::
 
 :::tip Upcoming feature: `export-codegen` goal
 Pants 2.1 adds an `export-codegen` rule to write the files to the `dist/` dir.
 
 If you are not yet able to upgrade to 2.1, for now, you can add the `protobuf_library()` as a dependency of a `pex_binary()`, then run `./pants package` on the binary target, and finally inspect the built PEX by using `unzip`.
-
 :::
 
 :::tip Upcoming feature: dependency inference for Protobuf
@@ -138,7 +133,6 @@ Pants 2.2 adds support for dependency inference of:
 
 - Python imports of Protobuf files, including gRPC files.
 - Protobuf dependencies on other Protobuf files.
-
 :::
 
 ## Protobuf and source roots
@@ -161,5 +155,4 @@ Now `src/proto/example/f.proto` will generate `src/python/example/f_pb2.py`, i.e
 Remember that the `package` directive in your `.proto` file should be relative to the source root.
 
 For example, if you have a file at `src/proto/example/subdir/f.proto`, you'd set its `package` to `example.subdir`; and in your Python code, `from example.subdir import f_pb2`.
-
 :::

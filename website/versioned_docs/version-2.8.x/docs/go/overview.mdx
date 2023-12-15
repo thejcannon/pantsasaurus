@@ -11,7 +11,6 @@ Pants's support for Golang.
 We are done implementing the initial core functionality for Pants's initial Go support ([tracked here](https://github.com/pantsbuild/pants/projects/21)). However, there may be some edge cases we aren't yet handling. There are also some features that are not yet supported like Cgo files and vendoring, which we'd love your input on how to prioritize!
 
 Please share feedback for what you need to use Pants with your Go project by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](/community/members)!
-
 :::
 
 :::tip Why use Pants with Go?
@@ -22,17 +21,14 @@ Go's builtin tooling is already excellent! Many projects may be fine only using 
 - Caching, such as caching test results on a per-package basis.
 - [Remote execution and remote caching](../using-pants/remote-caching-&-execution/index.mdx).
 - [Advanced project introspection](../using-pants/project-introspection.mdx), such as finding all code that transitively depends on a certain package.
-
 :::
 
 :::note Example Go repository
 Check out [github.com/pantsbuild/example-golang](https://github.com/pantsbuild/example-golang) to try out Pants's Go support.
-
 :::
 
 :::caution Assumes you're using a single Go module
 We do not yet support multiple first-party Go modules. If you are using multiple modules, please feel free to share your use case on https://github.com/pantsbuild/pants/issues/13114. (For example, if you are using a `replace` directive.)
-
 :::
 
 ## Initial setup
@@ -83,7 +79,6 @@ cmd/runner:bin
 Pants does not yet update your `go.mod` and `go.sum` for you; it only reads these files when downloading modules.
 
 You will need to run `go mod download all` and/or `go mod tidy` to update these files when you add a new third-party module or change its version.
-
 :::
 
 ## Package and run binaries
@@ -115,7 +110,6 @@ go_binary(name="bin", output_path="deploy")
 
 :::caution `embed` support coming in Pants 2.9
 We're making progress on adding support for `resources` / the `embed` directive. See https://github.com/pantsbuild/pants/issues/13193.
-
 :::
 
 ## Compile code
@@ -154,7 +148,6 @@ You can pass through arguments with `--`, e.g. `./pants test pkg/deploy: -- -v -
 
 :::caution `testdata` folder not yet supported
 Please comment on https://github.com/pantsbuild/pants/issues/13200 if you need this feature for your project so that we can bump its priority.
-
 :::
 
 ## Gofmt

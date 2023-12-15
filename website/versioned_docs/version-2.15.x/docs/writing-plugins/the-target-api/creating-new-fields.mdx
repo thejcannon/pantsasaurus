@@ -54,11 +54,9 @@ class TimeoutField(IntField):
 If you set `required = True`, the `default` will be ignored.
 
 :::note Reminder: subclass existing fields to modify their behavior
-
     If you want to change how an existing field behaves, you should subclass the original field. For example, if you want to change a default value, subclass the original field. When doing this, you only need to override the properties you want to change.
 
     See [Concepts](./concepts.mdx) for how subclassing plays a key role in the Target API.
-
 :::
 
 ## Adding custom validation
@@ -91,11 +89,9 @@ class UploadTimeout(IntField):
 Be careful to use the same type hint for the parameter `raw_value` as used in the template. This is used to generate the documentation in `pants help my_target`.
 
 :::caution Cannot use new type hint syntax with `compute_value()` and `default`
-
     You cannot use the [new type hint syntax](https://mypy-lang.blogspot.com/2021/01/) with the Target API, i.e. `list[str] | None` instead of `Optional[List[str]]`. The new syntax breaks `pants help`.
 
     Otherwise, it's safe to use the new syntax when writing plugins.
-
 :::
 
 ## Available templates
@@ -123,7 +119,6 @@ Use this when you expect a float. This will reject integers.
 Use this when you expect a single string.
 
 :::note `StringField` can be like an enum
-
     You can set the class property `valid_choices` to limit what strings are acceptable. This class property can either be a tuple of strings or an `enum.Enum`.
 
     For example:
@@ -146,7 +141,6 @@ Use this when you expect a single string.
         alias = "leafy_greens"
         valid_choices = LeafyGreens
     ```
-
 :::
 
 ### `StringSequenceField`
@@ -224,9 +218,7 @@ class VersionField(Field):
 ```
 
 :::tip Asking for help
-
     Have a tricky field you're trying to write? We would love to help! See [Getting Help](/community/members).
-
 :::
 
 ## Examples

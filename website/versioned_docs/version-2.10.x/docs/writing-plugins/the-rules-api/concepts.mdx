@@ -72,7 +72,6 @@ If the engine cannot find a path, or if there is ambiguity due to multiple possi
 We know that rule graph errors can be intimidating and confusing to understand. We are planning to improve them. In the meantime, please do not hesitate to ask for help in the #plugins channel on [Slack](/community/getting-help).
 
 Also see [Tips and debugging](./tips-and-debugging.mdx#debugging-rule-graph-issues) for some tips for how to approach these errors.
-
 :::
 
 ## `await Get` - awaiting results in a rule body
@@ -138,7 +137,6 @@ However, the below is invalid because Pants's AST parser will not be able to see
 process = Process(["/bin/echo"])
 Get(ProcessResult, process)
 ```
-
 :::
 
 :::note Why only one input?
@@ -147,7 +145,6 @@ Currently, you can only give a single input. It is not possible to do something 
 Instead, it's common for rules to create a "Request" data class, such as `PexRequest` or `SourceFilesRequest`. This request centralizes all of the data it needs to operate into one data structure, which allows for call sites to say `await Get(SourceFiles, SourceFilesRequest, my_request)`, for example.
 
 See https://github.com/pantsbuild/pants/issues/7490 for the tracking issue.
-
 :::
 
 ### `MultiGet` for concurrency
@@ -230,7 +227,6 @@ async def demo(name: Name) -> Foo:
 
 :::caution Don't use `NamedTuple`
 `NamedTuple` behaves similarly to dataclasses, but it should not be used because the `__eq__()` implementation uses structural equality, rather than the nominal equality used by the engine.
-
 :::
 
 :::note Custom dataclass `__init__()`
@@ -256,7 +252,6 @@ class Example:
     def __init__(self, args: Iterable[str]) -> None:
         self.args = tuple(args)
 ```
-
 :::
 
 ### `Collection`: a newtype for `tuple`

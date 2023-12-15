@@ -10,11 +10,9 @@ Run tests with Pytest.
 Pants uses the [Pytest](https://docs.pytest.org/en/latest/) test runner to run Python tests. You may write your tests in Pytest-style, unittest-style, or mix and match both.
 
 :::tip Benefit of Pants: runs each file in parallel
-
     Each file gets run as a separate process, which gives you fine-grained caching and better parallelism. Given enough cores, Pants will be able to run all your tests at the same time.
 
     This also gives you fine-grained invalidation. If you run `pants test ::`, and then you only change one file, then only tests that depended on that changed file will need to rerun.
-
 :::
 
 ## Examples
@@ -87,7 +85,6 @@ output = "all"
 ```
 
 :::note Tip: Use Pytest options to make output more or less verbose
-
     See ["Passing arguments to Pytest"](#passing-arguments-to-pytest).
 
     For example:
@@ -102,7 +99,6 @@ output = "all"
     [pytest]
     args = ["--no-header"]
     ```
-
 :::
 
 ## Passing arguments to Pytest
@@ -121,19 +117,15 @@ args = ["-vv"]
 ```
 
 :::note Tip: some useful Pytest arguments
-
     See [https://docs.pytest.org/en/latest/usage.html](https://docs.pytest.org/en/latest/usage.html) for more information.
 
     - `-k expression`: only run tests matching the expression.
     - `-v`: verbose mode.
     - `-s`: always print the stdout and stderr of your code, even if a test passes.
-
 :::
 
 :::caution How to use Pytest's `--pdb` option
-
     You must run `pants test --debug` for this to work properly. See the section "Debugging Tests" for more information.
-
 :::
 
 ## Config files
@@ -184,7 +176,6 @@ python_tests(
 ```
 
 :::note Tip: avoiding collisions between concurrent `pytest` runs using env vars
-
     Sometimes your tests/code will need to reach outside of the sandbox, for example to initialize a test DB schema. In these cases you may see conflicts between concurrent `pytest` processes scheduled by Pants, when two or more tests try to set up / tear down the same resource concurrently. To avoid this issue, you can set `[pytest].execution_slot_var` to be a valid environment variable name. Pants will then inject a variable with that name into each `pytest` run, using the process execution slot ID (an integer) as the variable's value. You can then update your test code to check for the presence of the variable and incorporate its value into generated DB names / file paths. For example, in a project using `pytest-django` you could do:
 
     ```toml title="pants.toml"
@@ -201,7 +192,6 @@ python_tests(
         if "PANTS_EXECUTION_SLOT" in os.environ:
             _set_suffix_to_test_databases(os.environ["PANTS_EXECUTION_SLOT"])
     ```
-
 :::
 
 ## Batching and parallelism
@@ -227,7 +217,6 @@ Compatible tests _may not_ end up in the same `pytest` batch if:
 Compatible tests that _do_ end up in the same batch will run in a single `pytest` invocation. By default the tests will run sequentially, but they can be parallelized by enabling `pytest-xdist` (see below). A single success/failure result will be reported for the entire batch, and additional output files (i.e. XML results and coverage) will encapsulate all of the included Python test files.
 
 :::note Tip: finding failed tests in large batches
-
     It can sometimes be difficult to locate test failures in the logging output of a large `pytest` batch. You can pass the `-r` flag to `pytest` to make this investigation easier:
 
     ```bash
@@ -235,7 +224,6 @@ Compatible tests that _do_ end up in the same batch will run in a single `pytest
     ```
 
     This will cause `pytest` to print a "summary report" at the end of its output, including the names of all failed tests. See the `pytest` docs [here](https://docs.pytest.org/en/6.2.x/usage.html#detailed-summary-report) for more information.
-
 :::
 
 The high-level `pytest` fixtures that motivate batched testing are often defined in a `conftest.py` near the root of your repository, applying to every test in a directory tree. In these cases, you can mark all the tests in the directory tree as compatible using the [`__defaults__` builtin](../../using-pants/key-concepts/targets-and-build-files.mdx#field-default-values):
@@ -247,9 +235,7 @@ __defaults__({(python_test, python_tests): dict(batch_compatibility_tag="your-ta
 ```
 
 :::caution Caching batched tests
-
     Batched test results are cached together by Pants, meaning that if any file in the batch changes (or if a file is added to / removed from the batch) then the entire batch will be invalidated and need to re-run. Depending on the time it takes to execute your fixtures and the number of tests sharing those fixtures, you may see better performance overall by setting a lower value for `[test].batch_size`, improving your cache-hit rate to skip running tests more often.
-
 :::
 
 ### Parallelism via `pytest-xdist`
@@ -272,19 +258,15 @@ python_test(name="tests", source="tests.py", xdist_concurrency=4)
 To explicitly disable the use of `pytest-xdist` for a target, set `xdist_concurrency=0`. This can be necessary for tests that are not safe to run in parallel.
 
 :::caution Parallelism in multiple concurrent processes
-
     Pants will limit the total number of parallel tests running across _all_ scheduled processes so that it does not exceed the configured value of `[GLOBAL].process_execution_local_parallelism` (by default, the number of CPUs available on the machine running Pants). For example, if your machine has 8 CPUs and Pants schedules 8 concurrent `pytest` processes with `pytest-xdist` enabled, it will pass `-n 1` to each process so that the total concurrency is 8.
 
     It is possible to work around this behavior by marking all of your `python_test` targets as batch-compatible and setting a very large value for `[test].batch_size`. This will cause Pants to schedule fewer processes (containing more `python_test`s each) overall, allowing for larger values of `-n <concurrency>`. Note however that this approach will limit the cacheability of your tests.
-
 :::
 
 When `pytest-xdist` is in use, the `PYTEST_XDIST_WORKER` and `PYTEST_XDIST_WORKER_COUNT` environment variables will be automatically set. You can use those values (in addition to `[pytest].execution_slot_var`) to avoid collisions between parallel tests (i.e. by using the combination of `[pytest].execution_slot_var` and `PYTEST_XDIST_WORKER` as a suffix for generated database names / file paths).
 
 :::caution `pytest-xdist` and high-level fixtures
-
     Use of `pytest-xdist` may cause high-level `pytest` fixtures to execute more often than expected. See the `pytest-xdist` docs [here](https://pypi.org/project/pytest-xdist/#making-session-scoped-fixtures-execute-only-once) for more details, and tips on how to mitigate this.
-
 :::
 
 ## Force reruns with `--force`
@@ -323,7 +305,6 @@ test_debug_example.py
 If you use multiple files with `test --debug`, they will run sequentially rather than in parallel.
 
 :::note Tip: using `ipdb` in tests
-
     [`ipdb`](https://github.com/gotcha/ipdb) integrates IPython with the normal `pdb` debugger for enhanced features like autocomplete and improved syntax highlighting. `ipdb` is very helpful when debugging tests.
 
     To be able to access `ipdb` when running tests, add this to your `pants.toml`:
@@ -340,21 +321,17 @@ If you use multiple files with `test --debug`, they will run sequentially rather
     ```bash
     ❯ pants test --debug  <target>   -- -s
     ```
-
 :::
 
 :::note Tip: using the VS Code (or any [DAP](https://microsoft.github.io/debug-adapter-protocol/)-compliant editor) remote debugger in tests
-
     1. In your editor, set your breakpoints and any other debug settings (like break-on-exception).
     2. Run your test with `pants test --debug-adapter`.
     3. Connect your editor to the server. The server host and port are logged by Pants when executing `test --debug-adapter`. (They can also be configured using the `[debug-adapter]` subsystem).
-
 :::
 
 > Run your test with `pants test --debug` as usual.
 
 :::note Tip: using the IntelliJ/PyCharm remote debugger in tests
-
     First, add this to your `pants.toml`:
 
     ```toml
@@ -373,7 +350,6 @@ If you use multiple files with `test --debug`, they will run sequentially rather
     ```
 
     Run your test with `pants test --debug` as usual.
-
 :::
 
 ## Timeouts
@@ -409,13 +385,11 @@ timeout_maximum = 600
 If a target sets its `timeout` higher than `[test].timeout_maximum`, Pants will use the value in `[test].timeout_maximum`.
 
 :::note Tip: temporarily ignoring timeouts
-
     When debugging locally, such as with `pdb`, you might want to temporarily disable timeouts. To do this, set `--no-test-timeouts`:
 
     ```bash
     $ pants test project/app_test.py --no-test-timeouts
     ```
-
 :::
 
 ## Test utilities and resources
@@ -514,7 +488,6 @@ use_coverage = true
 ```
 
 :::caution Failure to parse files?
-
     Coverage defaults to running with Python 3.6+ when generating a report, which means it may fail to parse Python 2 syntax and Python 3.8+ syntax. You can fix this by changing the interpreter constraints for running Coverage:
 
     ```toml
@@ -536,7 +509,6 @@ use_coverage = true
     (Pants should autodiscover the config file `.coveragerc`. See [coverage-py](../../../reference/subsystems/coverage-py.mdx#section-config-discovery).)
 
     There's a proposal for Pants to fix this by generating multiple reports when necessary: [https://github.com/pantsbuild/pants/issues/11137](https://github.com/pantsbuild/pants/issues/11137). We'd appreciate your feedback.
-
 :::
 
 Coverage will report data on any files encountered during the tests. You can filter down the results by using the option `--coverage-py-filter` and passing the name(s) of modules you want coverage data for. Each module name is recursive, meaning submodules will be included. For example:
@@ -547,7 +519,6 @@ Coverage will report data on any files encountered during the tests. You can fil
 ```
 
 :::note Set `global_report` to include un-encountered files
-
     By default, coverage.py will only report on files encountered during the tests' run. This means
     that your coverage score may be misleading; even with a score of 100%, you may have files
     without any tests.
@@ -563,7 +534,6 @@ Coverage will report data on any files encountered during the tests. You can fil
     i.e. files at the root of the tree, or in directories with a `__init__.py` file. It may still omit
     files in [implicit namespace packages](https://peps.python.org/pep-0420/) that lack `__init__.py` files.
     This is a shortcoming of Coverage.py itself.
-
 :::
 
 Pants will default to writing the results to the console, but you can also output in HTML, XML, JSON, or the raw SQLite file:

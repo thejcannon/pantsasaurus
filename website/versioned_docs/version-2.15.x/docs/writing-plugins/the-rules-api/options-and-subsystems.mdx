@@ -52,11 +52,9 @@ def rules():
 The subsystem should now show up when you run `pants help shellcheck`.
 
 :::note `GoalSubsystem`
-
     As explained in [Goal rules](./goal-rules.mdx), goals use a subclass of  `Subsystem`: `GoalSubsystem` from `pants.engine.goal`.
 
     `GoalSubsystem` behaves the same way as a normal subsystem, except that you set the class property `name` rather than `options_scope`. The `name` will auto-populate the `options_scope`.
-
 :::
 
 ### Option types
@@ -99,7 +97,5 @@ async def demo(shellcheck: Shellcheck) -> LintResults:
 ```
 
 :::note Name clashing
-
     When adding custom options, make sure their name does not start with an existing goal name. For instance, passing a boolean option named `check_foobar` as `--check-foobar` in the command line would fail since Pants would think you are trying to pass the `--foobar` flag in the built-in `check` goal scope.
-
 :::

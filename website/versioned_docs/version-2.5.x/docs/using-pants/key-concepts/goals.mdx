@@ -82,7 +82,6 @@ TOML                         2        65       14        18       33          0
 
 :::note Quoting file patterns
 Note the single-quotes around the file pattern `'**'`. This is so that your shell doesn't attempt to expand the pattern, but instead passes it unaltered to Pants.
-
 :::
 
 ### File arguments vs. target arguments
@@ -110,12 +109,10 @@ For target arguments, you can use:
 - `dir:`, where `:` means every target in that directory, but not subdirectories.
 
 For example, `./pants list ::` will find every target in your project.
-
 :::
 
 :::note Tip: advanced target selection, such as running over changed files
 See [Advanced target selection](../advanced-target-selection.mdx) for alternative techniques to specify which files/targets to run on.
-
 :::
 
 ### Goal options

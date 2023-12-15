@@ -52,7 +52,6 @@ All done! ✨ 🍰 ✨
 
 :::note How to activate MyPy
 MyPy is run with the [check goal](../goals/check.mdx), rather than `lint`.
-
 :::
 
 ## Configuring the tools, e.g. adding plugins
@@ -90,7 +89,6 @@ Run `./pants help-advanced black`, `./pants help-advanced flake8`, and so on for
 For tools that autodiscover config files—such as Black, isort, Flake8, and Pylint—Pants will include any relevant config files in the process's sandbox when running the tool.
 
 If your config file is in a non-standard location, you must instead set the `--config` option, e.g. `[isort].config`. This will ensure that the config file is included in the process's sandbox and Pants will instruct the tool to load the config.
-
 :::
 
 ## Skipping a formatter or linter

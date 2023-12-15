@@ -52,7 +52,6 @@ lint          Run all linters and/or formatters in check mode.
 
 :::note How to activate MyPy
 MyPy is run with the [typecheck goal](../goals/typecheck.mdx), rather than `lint`.
-
 :::
 
 ## Configuring the tools and adding plugins
@@ -86,14 +85,12 @@ Run `./pants help-advanced black`, `./pants help-advanced flake8`, and so on for
 Many tools will automatically discover their config files if it's at a standard location, like isort looking for the file `.isort.cfg`. This auto-discovery does not work with Pants; you must explicitly set the `--config` option for Pants to use the correct config file.
 
 (Why? When running the linters and formatters, Pants copies over all the relevant files into a temporary directory. This allows Pants to safely cache the result and to run the process in the cloud through remote execution. Pants will only know to copy the config file into the temporary directory if you explicitly set it with the `--config` option.)
-
 :::
 
 :::note How to use first-party Pylint plugins
 Pants supports custom Pylint plugins written by you. Run `./pants help pylint_source_plugin` for instructions.
 
 If you want to write first-party plugins for other linters like Flake8, let us know on [Slack](/community/members).
-
 :::
 
 ## Temporarily skipping a formatter or linter

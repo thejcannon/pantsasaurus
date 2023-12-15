@@ -37,15 +37,11 @@ You may only run one target at a time.
 The program will have access to the same environment used by the parent `./pants` process, so you can set environment variables in the external environment, e.g. `FOO=bar ./pants run project/app.py`. (Pants will auto-set some values like `$PATH`).
 
 :::note Tip: check the return code
-
     Pants will propagate the return code from the underlying executable. Run `echo $?` after the Pants run to see the return code.
-
 :::
 
 :::caution Issues finding files?
-
     Run `./pants dependencies --transitive path/to/binary.py` to ensure that all the files you need are showing up, including for any [assets](../../using-pants/assets-and-archives.mdx) you intend to use.
-
 :::
 
 ## Execution Semantics
@@ -65,15 +61,12 @@ On the other hand, if your app is short lived (like a script) and you'd like to 
 ## Debugging
 
 :::note Tip: using the VS Code (or any [DAP](https://microsoft.github.io/debug-adapter-protocol/)-compliant editor) remote debugger
-
     1. In your editor, set your breakpoints and any other debug settings (like break-on-exception).
     2. Run your code with `./pants run --debug-adapter`.
     3. Connect your editor to the server. The server host and port are logged by Pants when executing `run --debug-adaptor`. (They can also be configured using the `[debug-adapter]` subsystem).
-
 :::
 
 :::note Tip: Using the IntelliJ/PyCharm remote debugger
-
     First, add the following target in some BUILD file (e.g., the one containing your other 3rd-party dependencies):
 
     ```
@@ -98,5 +91,4 @@ On the other hand, if your app is short lived (like a script) and you'd like to 
     Run your executable with `./pants run` as usual.
 
     Note: The first time you do so you may see some extra dependency resolution work, as `pydevd-pycharm` has now been added to the binary's dependencies, via inference. If you have dependency inference turned off in your repo, you will have to manually add a temporary explicit dependency in your binary target on the `pydevd-pycharm` target.
-
 :::

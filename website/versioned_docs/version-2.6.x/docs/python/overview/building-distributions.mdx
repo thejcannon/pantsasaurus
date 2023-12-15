@@ -19,14 +19,12 @@ See [here](https://packaging.python.org/tutorials/packaging-projects/) for more 
 
 :::note See `package` for other package formats
 This page focuses on building sdists and wheels with the `./pants package` goal. See [package](../goals/package.mdx) for information on other formats that work with `./pants package`, such as PEX binaries and zip/tar archives.
-
 :::
 
 :::tip Benefit of Pants: multiple distributions in the same repository
 Typically, repositories without sophisticated tooling end up with a single `setup.py`, which includes the entire repo in the distribution.
 
 Pants makes it ergonomic to create multiple distributions from the same repository. Because Pants understands your code's true dependencies, each distribution will only be built with the exact code and metadata that it needs to work.
-
 :::
 
 ## Configuring distributions
@@ -74,7 +72,6 @@ provides=setup_py(
 This will register a new `console_script` named `my_command`, which has the `entry_point` from the `pex_binary` target.
 
 You may register multiple binary targets by using a dictionary, such as `.with_binaries({"my_command": ":binary_target"})`.
-
 :::
 
 :::note Consider writing a plugin to dynamically generate the `setup()` keyword arguments
@@ -85,7 +82,6 @@ You may want to write a plugin to do any of these things:
 - Run processes like Git to dynamically determine the `version` kwarg.
 
 Start by reading about the [Plugin API](../../writing-plugins/overview.mdx), then refer to the [Custom `setup_py()` kwargs](../../writing-plugins/common-plugin-tasks/custom-setup-py-kwargs.mdx) instructions.
-
 :::
 
 ## Mapping libraries to distributions
@@ -124,7 +120,6 @@ first_party_depenency_version_scheme = "compatible"
 ```
 
 See https://www.python.org/dev/peps/pep-0440/#version-specifiers for more information on the `~=` specifier.
-
 :::
 
 ## Generating a `setup.py` file
@@ -143,5 +138,4 @@ For example, if `setup_py_commands=["bdist_wheel", "sdist"]`, then `./pants pack
 Pants does not have a mechanism to upload your distributions. Instead, run `package` as described above to create the asset, such as the wheel, then use a tool like Twine to upload your package.
 
 Please let us know on [Slack](/community/members) or [GitHub issues](https://github.com/pantsbuild/pants/issues/new) if you would like this feature.
-
 :::

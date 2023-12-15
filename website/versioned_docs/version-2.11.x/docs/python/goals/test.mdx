@@ -10,11 +10,9 @@ Run tests with Pytest.
 Pants uses the [Pytest](https://docs.pytest.org/en/latest/) test runner to run Python tests. You may write your tests in Pytest-style, unittest-style, or mix and match both.
 
 :::tip Benefit of Pants: runs each file in parallel
-
     Each file gets run as a separate process, which gives you fine-grained caching and better parallelism. Given enough cores, Pants will be able to run all your tests at the same time.
 
     This also gives you fine-grained invalidation. If you run `./pants test ::`, and then you only change one file, then only tests that depended on that changed file will need to rerun.
-
 :::
 
 ## Examples
@@ -71,9 +69,7 @@ python_tests(
 ```
 
 :::caution Avoid the `pytest-xdist` plugin
-
     We do not recommend using this plugin because its concurrency conflicts with Pants' own parallelism. Using Pants will bring you similar benefits to `pytest-xdist` already: Pants will run each test target in parallel.
-
 :::
 
 ## Controlling output
@@ -88,7 +84,6 @@ output = "all"
 ```
 
 :::note Tip: Use Pytest options to make output more or less verbose
-
     See ["Passing arguments to Pytest"](#passing-arguments-to-pytest).
 
     For example:
@@ -103,7 +98,6 @@ output = "all"
     [pytest]
     args = ["--no-header"]
     ```
-
 :::
 
 ## Passing arguments to Pytest
@@ -122,19 +116,15 @@ args = ["-vv"]
 ```
 
 :::note Tip: some useful Pytest arguments
-
     See [https://docs.pytest.org/en/latest/usage.html](https://docs.pytest.org/en/latest/usage.html) for more information.
 
     - `-k expression`: only run tests matching the expression.
     - `-v`: verbose mode.
     - `-s`: always print the stdout and stderr of your code, even if a test passes.
-
 :::
 
 :::caution How to use Pytest's `--pdb` option
-
     You must run `./pants test --debug` for this to work properly. See the section "Running tests interactively" for more information.
-
 :::
 
 ## Config files
@@ -220,7 +210,6 @@ test_debug_example.py
 If you use multiple files with `test --debug`, they will run sequentially rather than in parallel.
 
 :::note Tip: using `ipdb` in tests
-
     [`ipdb`](https://github.com/gotcha/ipdb) integrates IPython with the normal `pdb` debugger for enhanced features like autocomplete and improved syntax highlighting. `ipdb` is very helpful when debugging tests.
 
     To be able to access `ipdb` when running tests, add this to your `pants.toml`:
@@ -237,11 +226,9 @@ If you use multiple files with `test --debug`, they will run sequentially rather
     ```bash
     ❯ ./pants test --debug  <target>   -- -s
     ```
-
 :::
 
 :::note Tip: using the IntelliJ/PyCharm remote debugger in tests
-
     First, add this to your `pants.toml`:
 
     ```toml
@@ -260,7 +247,6 @@ If you use multiple files with `test --debug`, they will run sequentially rather
     ```
 
     Run your test with `./pants test --debug` as usual.
-
 :::
 
 ## Timeouts
@@ -296,13 +282,11 @@ timeout_maximum = 600
 If a target sets its `timeout` higher than `[pytest].timeout_maximum`, Pants will use the value in `[pytest].timeout_maximum`.
 
 :::note Tip: temporarily ignoring timeouts
-
     When debugging locally, such as with `pdb`, you might want to temporarily disable timeouts. To do this, set `--no-pytest-timeouts`:
 
     ```bash
     $ ./pants test project/app_test.py --no-pytest-timeouts
     ```
-
 :::
 
 ## Test utilities and resources
@@ -401,7 +385,6 @@ use_coverage = true
 ```
 
 :::caution Failure to parse files?
-
     Coverage defaults to running with Python 3.6+ when generating a report, which means it may fail to parse Python 2 syntax and Python 3.8+ syntax. You can fix this by changing the interpreter constraints for running Coverage:
 
     ```toml
@@ -423,7 +406,6 @@ use_coverage = true
     (Pants should autodiscover the config file `.coveragerc`. See [coverage-py](../../../reference/subsystems/coverage-py.mdx#section-config-discovery).)
 
     There's a proposal for Pants to fix this by generating multiple reports when necessary: [https://github.com/pantsbuild/pants/issues/11137](https://github.com/pantsbuild/pants/issues/11137). We'd appreciate your feedback.
-
 :::
 
 Coverage will report data on any files encountered during the tests. You can filter down the results by using the option `--coverage-py-filter` and passing the name(s) of modules you want coverage data for. Each module name is recursive, meaning submodules will be included. For example:
@@ -434,7 +416,6 @@ Coverage will report data on any files encountered during the tests. You can fil
 ```
 
 :::note Set `global_report` to include un-encountered files
-
     By default, coverage.py will only report on files encountered during the tests' run. This means
     that your coverage score may be misleading; even with a score of 100%, you may have files
     without any tests.
@@ -450,7 +431,6 @@ Coverage will report data on any files encountered during the tests. You can fil
     i.e. files at the root of the tree, or in directories with a `__init__.py` file. It may still omit
     files in [implicit namespace packages](https://peps.python.org/pep-0420/) that lack `__init__.py` files.
     This is a shortcoming of Coverage.py itself.
-
 :::
 
 Pants will default to writing the results to the console, but you can also output in HTML, XML, JSON, or the raw SQLite file:

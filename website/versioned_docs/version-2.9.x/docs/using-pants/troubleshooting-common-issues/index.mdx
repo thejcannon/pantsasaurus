@@ -11,7 +11,6 @@ Frequently asked questions (FAQs) and known issues you may encounter.
 See [Getting Help](/community/getting-help). We would love to help!
 
 If you are confused by something, likely someone else will run into the same issue. It is helpful for us to know what is going wrong so that we can improve Pants and improve this documentation.
-
 :::
 
 ## Debug tip: enable stack traces and increase logging
@@ -176,10 +175,8 @@ We recommend permanently setting this by either:
 3. Adding `ulimit -n 10000` to your global `.bashrc` or equivalent.
 
 The first two approaches have the benefit that they will be checked into version control, so every developer at your organization can use the same setting.
-
 :::
 
 :::caution macOS users: avoid `ulimit unlimited`
 Contrary to the name, this will not fix the issue. You must use `ulimit -n` instead.
-
 :::

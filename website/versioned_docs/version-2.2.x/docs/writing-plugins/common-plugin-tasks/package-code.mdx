@@ -15,7 +15,6 @@ Often, the asset is executable, but it need not be.
 This guide walks through adding a simple `package` implementation for Bash that simply puts all the relevant source files into a `.zip` file.
 
 This duplicates the `archive` target type, and is solely implemented for instructional purposes. See [here](https://github.com/pantsbuild/example-plugin/blob/main/pants-plugins/examples/bash/package_bash_binary.py) for the final implementation.
-
 :::
 
 ## 1. Set up a package target type (recommended)
@@ -56,7 +55,6 @@ Why do we recommend not having a `sources` field? It can be helpful with modelin
 However, sometimes it does make sense to have a `sources` field, such as a `dockerfile` target type. Likewise, this guide uses a `sources` field for simplicity.
 
 Warning: If you do have a `sources` field, set `expected_num_files` to `1` or `range(0, 2)`. Because Pants operates on a file-level, it would try to create one distinct package for each source file belonging to your target, even though you probably only wanted a single package built.
-
 :::
 
 ## 2. Set up a subclass of `PackageFieldSet`

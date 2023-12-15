@@ -35,9 +35,7 @@ To work correctly, Pants needs to know about the source roots in your repo. By d
 If your project has a different structure, see [Source roots](../../using-pants/key-concepts/source-roots.mdx) for how to configure them, and for examples of different project structures you can use Pants with.
 
 :::note Golang projects can skip this step
-
     Golang projects already use `go.mod` to indicate source roots.
-
 :::
 
 3. # Enable backends
@@ -68,9 +66,7 @@ If you use Git, we recommend adding these lines to your top-level `.gitignore` f
 ```
 
 :::note FYI: Pants will ignore all files in your `.gitignore` by default
-
     The `pants_ignore` option tells Pants which files to avoid looking at, but it additionally ignores all `.gitignore`d files by default. Occasionally, you will want to ignore something with Git, but still want Pants to work on the file. See [Troubleshooting / common issues](../../using-pants/troubleshooting-common-issues.mdx) for how to do this.
-
 :::
 
 5. # Generate BUILD files
@@ -99,7 +95,6 @@ You may also need to add some targets that Pants cannot generate, like [`resourc
 To ignore false positives, set `[tailor].ignore_paths` and `[tailor].ignore_adding_targets`. See [tailor](../../../reference/goals/tailor.mdx) for more detail.
 
 :::note Run `./pants tailor --check ::` in CI
-
     We recommend running `./pants tailor --check ::` in your [continuous integration](../../using-pants/using-pants-in-ci.mdx) so that you don't forget to add any targets and BUILD files (which might mean that tests aren't run or code isn't validated).
 
     ```
@@ -109,7 +104,6 @@ To ignore false positives, set `[tailor].ignore_paths` and `[tailor].ignore_addi
 
     To fix `tailor` failures, run `./pants tailor`.
     ```
-
 :::
 
 6. # Visit a language specific overview

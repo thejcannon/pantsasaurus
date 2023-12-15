@@ -10,17 +10,13 @@ How to generate Python from Protocol Buffers.
 When your Python code imports Protobuf generated files, Pants will detect the imports and run the Protoc compiler to generate those files.
 
 :::note Example repository
-
     See [the Python example repository](https://github.com/pantsbuild/example-codegen) for an example of using Protobuf to generate Python.
-
 :::
 
 :::tip Benefit of Pants: generated files are always up-to-date
-
     With Pants, there's no need to manually regenerate your code or check it into version control. Pants will ensure you are always using up-to-date files in your builds.
 
     Thanks to fine-grained caching, Pants will regenerate the minimum amount of code required when you do make changes.
-
 :::
 
 ## Step 1: Activate the Protobuf Python backend
@@ -51,7 +47,6 @@ protobuf_sources(name="protos")
 ```
 
 :::note Enable the MyPy Protobuf plugin
-
     The [MyPy Protobuf plugin](https://github.com/dropbox/mypy-protobuf) generates [`.pyi` type stubs](https://mypy.readthedocs.io/en/stable/stubs.html). If you use MyPy through Pants's [check goal](../goals/check.mdx), this will ensure MyPy understands your generated code.
 
     To activate, set `mypy_plugin = true` in the `[python-protobuf]` scope:
@@ -62,7 +57,6 @@ protobuf_sources(name="protos")
     ```
 
     MyPy will use the generated `.pyi` type stub file, rather than looking at the `.py` implementation file.
-
 :::
 
 ## Step 2: Set up the `protobuf` and `grpcio` runtime libraries
@@ -128,19 +122,15 @@ from project.example.f_pb2_grcp import GreeterServicer
 ```
 
 :::note Run `./pants export-codegen ::` to inspect the files
-
     `./pants export-codegen ::` will run all relevant code generators and write the files to `dist/codegen` using the same paths used normally by Pants.
 
     You do not need to run this goal for codegen to work when using Pants; `export-codegen` is only for external consumption outside of Pants.
-
 :::
 
 :::caution You likely need to add empty `**init**.py` files
-
     By default, Pants will generate the Python files in the same directory as the `.proto` file. To get Python imports working properly, you will likely need to add an empty `**init**.py` in the same location, and possibly in ancestor directories.
 
     See the below section "Protobuf and source roots" for how to generate into a different directory. If you use this option, you will still likely need an empty `**init**.py` file in the destination directory.
-
 :::
 
 ## Protobuf and source roots
@@ -161,11 +151,9 @@ protobuf_sources(
 Now `src/proto/example/f.proto` will generate `src/python/example/f_pb2.py`, i.e., the generated files will share a source root with your other Python code.
 
 :::note Set the `.proto` file's `package` relative to the source root
-
     Remember that the `package` directive in your `.proto` file should be relative to the source root.
 
     For example, if you have a file at `src/proto/example/subdir/f.proto`, you'd set its `package` to `example.subdir`; and in your Python code, `from example.subdir import f_pb2`.
-
 :::
 
 ## Multiple resolves

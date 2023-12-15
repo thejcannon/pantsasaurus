@@ -32,7 +32,6 @@ If you set the `version` lower than IPython 7, then you must set `[ipython].igno
 
 :::danger IPython does not yet work with Pantsd
 When using IPython, use the option `--no-pantsd` to turn off the Pants daemon, e.g. `./pants --no-pantsd repl --shell=ipython`. We are working to [fix this](https://github.com/pantsbuild/pants/issues/9939).
-
 :::
 
 :::note Python 2 support
@@ -54,7 +53,6 @@ extra_requirements.add = ["ipython<6 ; python_version == '2.7'"]
 lockfile = "3rdparty/python/ipython_lock.txt"
 ignore_cwd = false
 ```
-
 :::
 
 ## Examples
@@ -96,5 +94,4 @@ Out[1]: 84
 
 :::note Tip: how to exit the REPL
 Either type `exit()` and hit enter, or press `ctrl+d`.
-
 :::

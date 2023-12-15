@@ -60,9 +60,7 @@ Generated BUILD files may be even more verbose than handwritten ones, which bloa
 What we want, in practice, is very fine-grained dependency metadata, but coarse-grained metadata of other kinds. So we ended up rejecting BUILD file generation as the simplifying mechanism for dependency management.
 
 :::note
-
 Pants does do a bit of simple BUILD file generation, using the built-in `tailor` goal, to streamline onboarding. But these BUILD files are perfunctory and tiny, and notably don't contain dependencies!
-
 :::
 
 ### Dependency inference

@@ -15,7 +15,6 @@ You can run `./pants package ::` to build all artifacts in your project. Pants w
 
 :::tip Benefit of Pants: artifacts only include your true dependencies
 Because Pants understands the dependencies of your code, and the dependencies of those dependencies, the generated artifact will only include the exact code needed for your package to work. This results in smaller, more focused packages.
-
 :::
 
 :::tip Benefit of Pants: easily write automated tests of your packaging pipeline
@@ -24,7 +23,6 @@ You can depend on a package target in a `python_test` / `python_tests` target th
 This allows you to test your packaging pipeline by simply running `./pants test ::`, without needing custom integration test scripts.
 
 See [test](./test.mdx) for more information.
-
 :::
 
 ## Creating a PEX file from a `pex_binary` target
@@ -141,17 +139,14 @@ This does not work with file arguments; you must use the target address, like `.
 If your code's requirements include distributions that include native code, then the resulting PEX file will only run on the platform it was built on.
 
 However, if all native code requirements are available as [wheels](https://packaging.python.org/glossary/#term-wheel) for the target platform, then you can cross-build a PEX file on a different source platform by specifying the `platforms` field on the `pex_binary`, e.g. `platforms=["linux-x86_64-cp-37-cp37m", "macosx_10_15_x86_64-cp-38-cp38"]`.
-
 :::
 
 :::note Tip: inspect the `.pex` file with `unzip`
 Because a `.pex` file is simply a ZIP file, you can use the Unix tool `unzip` to inspect the contents. For example, run `unzip -l dist/app.pex` to see all file members.
-
 :::
 
 :::caution Use `resource` instead of `file`
 `file` and `files` targets will not be included in the built PEX because filesystem APIs like `open()` would not load them as expected. Instead, use the `resource` and `resources` target or wrap your `pex_binary` in an `archive` target. See [Resources and archives](../../using-pants/assets-and-archives.mdx) for further explanation.
-
 :::
 
 ### Examples

@@ -63,7 +63,6 @@ docker_image(
 Each `docker_image` uses a `Dockerfile` referred to by the `source` field, unless you have provided a value to the `instructions` field.
 
 When using the `instructions` field, make sure that the default value for `source` does not match a file, or there will be a conflict which information to use.
-
 :::
 
 ## Adding dependencies to your `docker_image` targets
@@ -171,7 +170,6 @@ very-secret-value
 Secrets should not be checked into version control. Use absolute paths to reference a file that is not in the project source tree. However, to keep the BUILD file as hermetic as possible, the files may be placed within the project source tree at build time for instance, and referenced with a path relative to the project root by default, or relative to the directory of the BUILD file when prefixed with `./`.
 
 See the example for the [`secrets`](../../reference/targets/docker_image.mdx#codesecretscode) field.
-
 :::
 
 ### Build Docker image example

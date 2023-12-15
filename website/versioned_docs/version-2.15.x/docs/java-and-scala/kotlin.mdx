@@ -8,21 +8,17 @@ Kotlin support for Pants.
 ---
 
 :::caution Kotlin support is alpha stage
-
     Kotlin support in Pants is still under active development, but currently supports compilation and testing. It has
     been tested with Kotlin v1.6.20.
 
     Please share feedback for what you need to use Pants with your Kotlin project by either
     [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose)
     or [joining our Slack](/community/members)!
-
 :::
 
 :::note Example Kotlin repository
-
     Check out [github.com/pantsbuild/example-kotlin](https://github.com/pantsbuild/example-kotlin) to try a
     sample Pants project with Kotlin support.
-
 :::
 
 ## Overview
@@ -115,12 +111,10 @@ To cross-build a set of Kotlin targets for multiple Kotlin versions, you can use
 [`parametrize` builtin](../using-pants/key-concepts/targets-and-build-files.mdx#parametrizing-targets) with the `resolve=` field of the target and its dependencies.
 
 :::caution `jvm_artifact` targets for the Kotlin runtime must be explicitly defined.
-
     The Kotlin backend currently requires that a `jvm_artifact` target for each Kotlin runtime jars be present in any
     resolve used for Kotlin. If any of the required `jvm_artifact` targets are missing, Pants will error. Pants will
     automatically inject a dependency on the runtime into Kotlin targets. (These targets may be automatically supplied by
     Pants in a future version, but that is not currently implemented.)
-
 :::
 
 ### Dependencies
@@ -154,14 +148,12 @@ will need to update affected lockfiles by running `pants generate-lockfiles`. Th
 [`[jvm].resolves` option](../../reference/subsystems/jvm.mdx#section-resolves).
 
 :::note Thirdparty symbols and the `packages` argument
-
     To efficiently determine which symbols are provided by third-party code (i.e., without hitting the network in order
     to compute dependencies in the common case), Pants relies on a static mapping of which artifacts provide which
     symbols, and defaults to treating each `jvm_artifact` as providing symbols within its `group`.
 
     The `packages` argument allows you to override which symbols a `jvm_artifact` provides. See the
     [`jvm_artifact` docs](../../reference/targets/jvm_artifact.mdx#codepackagescode) for more information.
-
 :::
 
 #### `resource` targets

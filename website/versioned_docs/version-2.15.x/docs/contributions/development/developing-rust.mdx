@@ -10,15 +10,11 @@ Hacking on the Pants engine in Rust.
 We welcome contributions to Rust! We use Rust to implement the Pants engine in a performant, safe, and ergonomic way.
 
 :::note Still learning Rust? Ask to get added to reviews
-
     We'd be happy to ping you on Rust changes we make for you to see how Rust is used in the wild. Please message us on the #engine channel in [Slack](/community/members) to let us know your interest.
-
 :::
 
 :::caution Recommendation: share your plan first
-
     Because changes to Rust deeply impact how Pants runs, it is especially helpful to share any plans to work on Rust before making changes. Please message us on [Slack](/community/members) in the #engine channel or open a [GitHub issue](https://github.com/pantsbuild/pants/issues).
-
 :::
 
 ## Code organization
@@ -54,11 +50,9 @@ Rather than using a global installation of Cargo, use the `./cargo` script.
 To check that the Rust code is valid, use `./cargo check`. To check that it integrates correctly with Pants' Python code, use `MODE=debug pants ...` as usual (which will `compile` first, and is slower than `check`).
 
 :::caution Set `MODE=debug` when iterating on Rust
-
     As described in [Setting up Pants](./setting-up-pants.mdx), we default to compiling Rust in release mode, rather than debug mode.
 
     When working on Rust, you typically should set the environment variable `MODE=debug` for substantially faster compiles.
-
 :::
 
 ### Run tests
@@ -82,7 +76,6 @@ To run for a specific test, use Cargo's filtering mechanism, e.g.:
 ```
 
 :::note Tip: enabling logging in tests
-
     When debugging, it can be helpful to capture logs with [`env_logger`](https://docs.rs/env_logger/0.6.1/env_logger/).
 
     To enable logging:
@@ -91,7 +84,6 @@ To run for a specific test, use Cargo's filtering mechanism, e.g.:
     2. At the start of your test, add `let _logger = env_logger::try_init();`.
     3. Add log statements wherever you'd like using `log::info!()` et al.
     4. Run your test with `RUST_LOG=trace ./cargo test -p $crate test_name -- --nocapture`, using one of `error`, `warn`, `info`, `debug`, or `trace`.
-
 :::
 
 ### Autoformat

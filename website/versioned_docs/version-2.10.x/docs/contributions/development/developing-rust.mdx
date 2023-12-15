@@ -11,12 +11,10 @@ We welcome contributions to Rust! We use Rust to implement the Pants engine in a
 
 :::note Still learning Rust? Ask to get added to reviews
 We'd be happy to ping you on Rust changes we make for you to see how Rust is used in the wild. Please message us on the #engine channel in [Slack](/community/members) to let us know your interest.
-
 :::
 
 :::caution Recommendation: share your plan first
 Because changes to Rust deeply impact how Pants runs, it is especially helpful to share any plans to work on Rust before making changes. Please message us on [Slack](/community/members) in the #engine channel or open a [GitHub issue](https://github.com/pantsbuild/pants/issues).
-
 :::
 
 ## Code organization
@@ -55,7 +53,6 @@ To check that the Rust code is valid, use `./cargo check`. To check that it inte
 As described in [Setting up Pants](./setting-up-pants.mdx), we default to compiling Rust in release mode, rather than debug mode.
 
 When working on Rust, you typically should set the environment variable `MODE=debug` for substantially faster compiles.
-
 :::
 
 ### Run tests
@@ -87,7 +84,6 @@ To enable logging:
 2. At the start of your test, add `let _logger = env_logger::try_init();`.
 3. Add log statements wherever you'd like using `log::info!()` et al.
 4. Run your test with `RUST_LOG=trace ./cargo test -p $crate test_name -- --nocapture`, using one of `error`, `warn`, `info`, `debug`, or `trace`.
-
 :::
 
 ### Autoformat

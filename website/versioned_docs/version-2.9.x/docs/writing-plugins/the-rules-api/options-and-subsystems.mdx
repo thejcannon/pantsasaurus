@@ -56,7 +56,6 @@ The subsystem should now show up when you run `./pants help shellcheck`.
 As explained in [Goal rules](./goal-rules.mdx), goals use a subclass of `Subsystem`: `GoalSubsystem` from `pants.engine.goal`.
 
 `GoalSubsystem` behaves the same way as a normal subsystem, except that you set the class property `name` rather than `options_scope`. The `name` will auto-populate the `options_scope`.
-
 :::
 
 ## `register()` parameters
@@ -171,5 +170,4 @@ class Shellcheck(Subsystem):
 ```
 
 This is optional. It can make your call sites simpler and safer thanks to MyPy, but it requires some boilerplate.
-
 :::

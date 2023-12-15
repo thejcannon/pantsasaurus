@@ -42,15 +42,11 @@ The command is limited to operating on the specific set of input files provided 
 In case there are resulting files that should be captured and passed to any consuming targets, list them in the `outputs` field. To capture directories, simply add the path to the directory, with a trailing slash (as in the example `”files/”`, above).
 
 :::note Idempotency requirement
-
     The shell command may be cancelled or retried any number of times, so it is important that any side effects are idempotent. That is, it should not matter if it is run several times, or only partially.
-
 :::
 
 :::note Running other Pants targets as commands
-
     See the [`adhoc_tool`](../ad-hoc-tools/integrating-new-tools-without-plugins.mdx) documentation for discussion of how to run source files, third-party tools, and version-matched system binaries from within the Pants sandbox.
-
 :::
 
 ## The `run_shell_command` target

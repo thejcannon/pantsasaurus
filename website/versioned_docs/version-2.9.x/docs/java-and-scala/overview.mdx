@@ -11,12 +11,10 @@ Pants's support for Java and Scala.
 We are done implementing the core functionality for Pants's initial Java and Scala support ([tracked here](https://github.com/pantsbuild/pants/projects/22)). However, there are likely to be use cases that we aren't yet handling.
 
 Please share feedback for what you need to use Pants with your JVM project by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](/community/members)!
-
 :::
 
 :::note Example Java and Scala repository
 Check out [github.com/pantsbuild/example-jvm](https://github.com/pantsbuild/example-jvm) to try out Pants's Java and Scala support.
-
 :::
 
 ## Initial setup
@@ -82,7 +80,6 @@ Pants requires use of a lockfile for thirdparty dependencies. After adding or ed
 To efficiently determine which symbols are provided by thirdparty code (i.e., without hitting the network in order to compute dependencies in the common case), Pants relies on a static mapping of which artifacts provide which symbols, and defaults to treating each `jvm_artifact` as providing symbols within its `group`.
 
 The `packages` argument allows you to override which symbols a `jvm_artifact` provides. See the [`jvm_artifact` docs](../../reference/targets/jvm_artifact.mdx#codepackagescode) for more information.
-
 :::
 
 ### `resource` targets

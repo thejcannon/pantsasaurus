@@ -61,7 +61,6 @@ Alternatively, you can explicitly add `dependencies` in the relevant BUILD file.
 ```python
 shell_library(dependencies=["path/to:shell_library"])
 ```
-
 :::
 
 ## shfmt autoformatter
@@ -113,7 +112,6 @@ Temporarily disable shfmt with `--shfmt-skip`:
 Normally, Pants runs formatters sequentially so that it can pipe the results of one formatter into the next. However, Pants will run shfmt in parallel to formatters for other languages, [like Python](../python/overview/linters-and-formatters.mdx), because shfmt does not operate on those languages.
 
 You can see this concurrency through Pants's dynamic UI.
-
 :::
 
 ## Shellcheck linter
@@ -162,7 +160,6 @@ Temporarily disable Shellcheck with `--shellcheck-skip`:
 
 :::tip Benefit of Pants: Shellcheck runs in parallel with other linters
 Pants will attempt to run all activated linters and formatters at the same time for improved performance, including [Python linters](../python/overview/linters-and-formatters.mdx). You can see this through Pants's dynamic UI.
-
 :::
 
 ## shUnit2 test runner
@@ -247,7 +244,6 @@ Then, use `./pants test`:
 # Run tests with only Zsh.
 ./pants test scripts/tests.sh:tests_zsh
 ```
-
 :::
 
 ### Controlling output

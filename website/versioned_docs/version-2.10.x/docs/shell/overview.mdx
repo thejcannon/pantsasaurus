@@ -76,7 +76,6 @@ Alternatively, you can explicitly add `dependencies` in the relevant BUILD file.
 ```python
 shell_sources(dependencies=["path/to:shell_source_tgt"])
 ```
-
 :::
 
 ## shfmt autoformatter
@@ -136,7 +135,6 @@ Only run shfmt with `--lint-only` and `--fmt-only`:
 Normally, Pants runs formatters sequentially so that it can pipe the results of one formatter into the next. However, Pants will run shfmt in parallel to formatters for other languages, [like Python](../python/overview/linters-and-formatters.mdx), because shfmt does not operate on those languages.
 
 You can see this concurrency through Pants's dynamic UI.
-
 :::
 
 ## Shellcheck linter
@@ -193,7 +191,6 @@ Only run Shellcheck with `--lint-only`:
 
 :::tip Benefit of Pants: Shellcheck runs in parallel with other linters
 Pants will attempt to run all activated linters and formatters at the same time for improved performance, including [Python](../python/overview/linters-and-formatters.mdx), Go, Java, and Scala linters. You can see this through Pants's dynamic UI.
-
 :::
 
 ## shUnit2 test runner
@@ -280,7 +277,6 @@ Then, use `./pants test`:
 ```
 
 Pants 2.11 will add first-class support for this parametrization.
-
 :::
 
 ### Controlling output

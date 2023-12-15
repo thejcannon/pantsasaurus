@@ -38,7 +38,6 @@ $ ./pants \
 
 :::caution Using a version control system other than Git?
 Please message us on Slack or open a GitHub issue (see [Community](/community/getting-help)). We would be happy to look into adding support for your VCS, such as helping you with a PR to add support.
-
 :::
 
 ## Tags: annotating targets
@@ -91,7 +90,6 @@ helloworld/util:tests
 
 :::note Tip: centralized allow/block lists
 Whereas `tags` are useful for _decentralized_ allow/block lists, `--spec-files` is useful when you want to define one single list of targets or files.
-
 :::
 
 ## Piping to other Pants runs
@@ -126,7 +124,6 @@ If you don't want to save the output to an actual file—such as to not pollute 
 $ TARGETS=$(./pants dependencies helloworld/util)
 $ ./pants --spec-files=<(echo $TARGETS) lint
 ```
-
 :::
 
 ## Sharding the input targets

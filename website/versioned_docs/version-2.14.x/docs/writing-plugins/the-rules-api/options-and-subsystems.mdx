@@ -52,11 +52,9 @@ def rules():
 The subsystem should now show up when you run `./pants help shellcheck`.
 
 :::note `GoalSubsystem`
-
     As explained in [Goal rules](./goal-rules.mdx), goals use a subclass of  `Subsystem`: `GoalSubsystem` from `pants.engine.goal`.
 
     `GoalSubsystem` behaves the same way as a normal subsystem, except that you set the class property `name` rather than `options_scope`. The `name` will auto-populate the `options_scope`.
-
 :::
 
 ### Option types

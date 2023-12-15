@@ -9,7 +9,6 @@ Suggestions for how to use Pants to speed up your CI (continuous integration).
 
 :::note Examples
 See the example-python repository for an [example .travis.yml](https://github.com/pantsbuild/example-python/blob/main/.travis.yml) and [example GitHub Actions worfklow](https://github.com/pantsbuild/example-python/blob/main/.github/workflows/pants.yaml).
-
 :::
 
 ## Directories to cache
@@ -42,7 +41,6 @@ nuke_if_too_big ~/.cache/pants/lmdb_store 2048
 nuke_if_too_big ~/.cache/pants/setup 256
 nuke_if_too_big ~/.cache/pants/named_caches 1024
 ```
-
 :::
 
 :::note Tip: check cache performance with `[stats].log`
@@ -56,7 +54,6 @@ Set the option `[stats].log = true` in `pants.ci.toml` for Pants to print metric
 ```
 
 You can also add `plugins = ["hdrhistogram"]` to the `[GLOBAL]` section of `pants.ci.toml` for Pants to print histograms of cache performance, e.g. the size of blobs cached.
-
 :::
 
 :::tip Remote caching
@@ -70,7 +67,6 @@ This brings several benefits over local caching:
   - No need to "nuke" your cache when it gets too big.
 
 See [Remote Caching](./remote-caching-&-execution/remote-caching.mdx) for more information.
-
 :::
 
 ## Recommended commands
@@ -100,14 +96,12 @@ See [Advanced target selection](./advanced-target-selection.mdx) for more inform
 For example, if you add a new plugin to Flake8, Pants will still only run over changed files, meaning you may miss some new lint issues.
 
 For absolute correctness, you may want to use Approach #2. Alternatively, add conditional logic to your CI, e.g. that any changes to `pants.toml` trigger using Approach #2.
-
 :::
 
 :::note GitHub Actions: use `Checkout`
 To use `--changed-since`, you may want to use the [Checkout action](https://github.com/actions/checkout).
 
 By default, Checkout will only fetch the latest commit; you likely want to set `fetch-depth` to fetch prior commits.
-
 :::
 
 :::note GitLab CI: disable shallow clones or fetch main branch
@@ -127,7 +121,6 @@ GitLab's merge pipelines make a shallow clone by default, which only contains re
 
     The `git branch` commands are only included to print out all available branches before
     and after fetching `origin/main`.
-
 :::
 
 ### Approach #2: run over everything

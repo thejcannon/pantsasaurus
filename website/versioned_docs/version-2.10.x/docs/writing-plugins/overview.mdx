@@ -29,7 +29,6 @@ Thanks to Pants's execution engine, your plugins will automatically bring you th
 While we'll try our best to limit changes, the Plugin API does not yet follow the [Deprecation Policy](../releases/deprecation-policy.mdx). Components of the API may change between minor versions—e.g. 2.7 to 2.8—without a deprecation.
 
 We will document changes at [Plugin upgrade guide](./common-plugin-tasks/plugin-upgrade-guide.mdx).
-
 :::
 
 ## Core concepts
@@ -72,7 +71,6 @@ pythonpath = ["%(buildroot)s/pants-plugins"]
 
 :::caution In-repo dependencies
 In-repo plugin code should not depend on other in-repo code outside of the `pants-plugins` folder. The `pants-plugins` folder helps isolate plugins from regular code, which is necessary due to how Pants's startup sequence works.
-
 :::
 
 You can depend on third-party dependencies in your in-repo plugin by adding them to the `plugins` option:

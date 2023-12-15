@@ -102,7 +102,6 @@ You can name the file whatever you want, and put it wherever makes the most sens
 In smaller repositories that only use Python, it's often convenient to put the file at the "build root" (top-level), as used on this page.
 
 For larger repositories or multilingual repositories, it's often useful to have a `3rdparty` or `3rdparty/python` directory. Rather than the target's address being `//:reqs#my_requirement`, its address would be `3rdparty/python:reqs#my_requirement`, for example; or `3rdparty/python#my_requirement` if you leave off the `name` field for `python_requirements`. See [Target Generation](../../using-pants/key-concepts/targets-and-build-files.mdx#target-generation).
-
 :::
 
 ### Poetry
@@ -249,7 +248,6 @@ As explained at the top of these docs, Pants only uses the subset of the "univer
 If you use lockfiles, Pants will optimize to only resolve your requirements one time for your project. Then, for each build, Pants will [extract](https://blog.pantsbuild.org/introducing-pants-2-5/) from that resolve the exact subset needed.
 
 This greatly speeds up performance and improves caching for goals like `test`, `run`, `package`, and `repl`.
-
 :::
 
 #### Multiple lockfiles
@@ -576,7 +574,6 @@ env_vars.add = [
   "SSH_AUTH_SOCK",
 ]
 ```
-
 :::
 
 ### Custom repositories

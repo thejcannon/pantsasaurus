@@ -38,7 +38,6 @@ The process will run in a temporary directory and is hermetic, meaning that it c
 Setting the [`--no-process-execution-cleanup-local-dirs`](docs:rules-api-tips#debugging-look-inside-the-chroot) flag will cause the sandboxes of `Process`es to be preserved and logged to the console for inspection.
 
 It can be very helpful while editing `Process` definitions!
-
 :::
 
 To populate the temporary directory with files, use the parameter `input_digest: Digest`. It's common to use [`MergeDigests`](docs:rules-api-file-system) to combine multiple `Digest`s into one single `input_digest`.
@@ -69,7 +68,6 @@ async def demo(...) -> Foo:
 ```
 
 `ProcessCacheScope` supports other options as well, including `PER_RESTART`.
-
 :::
 
 ### FallibleProcessResult

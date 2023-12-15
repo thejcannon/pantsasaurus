@@ -78,7 +78,6 @@ Note that we open the file with its full path, including the `src/python` prefix
 Pants will not include dependencies on `files` targets when creating binaries like `pex_binary` and `python_awslambda` via `./pants package`. Filesystem APIs like Python's `open()` are relative to the current working directory, and they would try to read the files from where the binary is executed, rather than reading from the binary itself.
 
 Instead, use `resources` targets or an `archive` target.
-
 :::
 
 ### When to use `resources`

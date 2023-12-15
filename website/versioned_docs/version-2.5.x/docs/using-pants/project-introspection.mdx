@@ -29,7 +29,6 @@ $ ./pants dependees project:lib | xargs ./pants test
 ```
 
 See [Advanced target selection](./advanced-target-selection.mdx) for more info and other techniques to use the results.
-
 :::
 
 ## `list` - find your project's targets
@@ -165,7 +164,6 @@ $ ./pants dependees --output-format=json helloworld/util helloworld/protos
 Running `./pants dependees --transitive --output-format=json ::` will allow you to find the most-depended on code in your project, such as util code. Often, you will want to convert these targets first.
 
 For example, do this when [migrating from Python 2 to Python 3](../python/overview/interpreter-compatibility.mdx), or adding an incremental type checker like MyPy or TypeScript to your project.
-
 :::
 
 ## `filedeps` - find which files a target owns
@@ -234,5 +232,4 @@ For example:
 [GLOBAL]
 pants_ignore.add = ["/ignore_this_dir/"]
 ```
-
 :::

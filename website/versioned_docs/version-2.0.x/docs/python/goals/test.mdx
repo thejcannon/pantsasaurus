@@ -10,11 +10,9 @@ Run tests with Pytest.
 Pants uses the popular [Pytest](https://docs.pytest.org/en/latest/) test runner to run Python tests. You may write your tests in Pytest-style, unittest-style, or mix and match both.
 
 :::tip Benefit of Pants: runs each file in parallel
-
     Each file gets run as a separate process, which gives you fine-grained caching and better parallelism. Given enough cores, Pants will be able to run all your tests at the same time.
 
     This also gives you fine-grained caching. If you run `./pants test ::`, and then you only change one file, then only tests that depended on that changed file will need to rerun.
-
 :::
 
 ## Examples
@@ -65,21 +63,15 @@ python_tests(
 ```
 
 :::caution Testing Python 2 code? Use Pytest 4.x
-
     By default, Pants uses Pytest 6.x, which only supports Python 3 code. If you need to run Python 2 tests, set the option `version` in the scope `pytest` to `pytest>=4.6,<5`.
-
 :::
 
 :::caution Avoid the `pytest-xdist` plugin
-
     We do not recommend using this plugin because its concurrency conflicts with Pants' own parallelism. Using Pants will bring you similar benefits to `pytest-xdist` already: Pants will run each test target in parallel.
-
 :::
 
 :::note Tip: plugins for better Pytest output
-
     Add [`pytest-icdiff`](https://github.com/hjwp/pytest-icdiff#usage) and [`pygments`](https://github.com/pygments/pygments) to the option `pytest_plugins` for better error messages and diffs from Pytest.
-
 :::
 
 ## Controlling output
@@ -94,7 +86,6 @@ output = "all"
 ```
 
 :::note Tip: Use Pytest options to make output more or less verbose
-
     See ["Passing arguments to Pytest"](#passing-arguments-to-pytest).
 
     For example:
@@ -109,7 +100,6 @@ output = "all"
     [pytest]
     args = ["--no-header"]
     ```
-
 :::
 
 ## Passing arguments to Pytest
@@ -128,19 +118,15 @@ args = ["-vv"]
 ```
 
 :::note Tip: some useful Pytest arguments
-
     See [https://docs.pytest.org/en/latest/usage.html](https://docs.pytest.org/en/latest/usage.html) for more information.
 
     - `-k expression`: only run tests matching the expression.
     - `-v`: verbose mode.
     - `-s`: always print the stdout and stderr of your code, even if a test passes.
-
 :::
 
 :::caution How to use Pytest's `--pdb` option
-
     You must run `./pants test --debug` for this to work properly. See the section "Running tests interactively" for more information.
-
 :::
 
 ## Setting environment variables
@@ -190,7 +176,6 @@ test_debug_example.py
 If you use multiple files with `test --debug`, they will run sequentially rather than in parallel.
 
 :::note Tip: using `ipdb` in tests
-
     [`ipdb`](https://github.com/gotcha/ipdb) integrates IPython with the normal `pdb` debugger for enhanced features like autocomplete and improved syntax highlighting. `ipdb` is very helpful when debugging tests.
 
     To be able to access `ipdb` when running tests, add this to your `pants.toml`:
@@ -201,11 +186,9 @@ If you use multiple files with `test --debug`, they will run sequentially rather
     ```
 
     Then, you can use `import ipdb; ipdb.set_trace()` in your tests.
-
 :::
 
 :::note Tip: using the IntelliJ/PyCharm remote debugger in tests
-
     First, add the following target in some BUILD file (e.g., the one containing your other 3rd-party dependencies):
 
     ```
@@ -231,7 +214,6 @@ If you use multiple files with `test --debug`, they will run sequentially rather
     Run your test with `./pants test --debug` as usual.
 
     Note: The first time you do so you may see some extra dependency resolution work, as `pydevd-pycharm` has now been added to the test's dependencies, via inference. If you have dependency inference turned off in your repo, you will have to manually add a temporary explicit dependency in your test target on the pydevd-pycharm target.
-
 :::
 
 ## Using timeouts
@@ -274,13 +256,11 @@ timeout_maximum = 600
 If a target sets its `timeout` higher than `--pytest-timeout-maximum`, Pants will use the value in `--pytest-timeout-maximum`.
 
 :::note Tip: temporarily ignoring timeouts
-
     When debugging locally, such as with `pdb`, you might want to temporarily disable timeouts. To do this, set `--no-pytest-timeouts`:
 
     ```bash
     $ ./pants test project/app_test.py --no-pytest-timeouts
     ```
-
 :::
 
 ## `conftest.py`
@@ -391,7 +371,6 @@ use_coverage = true
 ```
 
 :::caution Failure to parse files?
-
     Coverage defaults to running with Python 3.6+ when generating a report, which means it may fail to parse Python 2 syntax and Python 3.8+ syntax. You can fix this by changing the interpreter constraints for running Coverage:
 
     ```toml
@@ -417,7 +396,6 @@ use_coverage = true
     `ignore_errors = True` means that those files will simply be left off of the final coverage report.
 
     There's a proposal for Pants to fix this by generating multiple reports when necessary: [https://github.com/pantsbuild/pants/issues/11137](https://github.com/pantsbuild/pants/issues/11137). We'd appreciate your feedback.
-
 :::
 
 Coverage will report data on any files encountered during the tests. You can filter down the results by using the option `--coverage-py-filter` and passing the name(s) of modules you want coverage data for. Each module name is recursive, meaning submodules will be included. For example:
@@ -428,11 +406,9 @@ $ ./pants test --use-coverage helloworld/util/lang_test.py --coverage-py='["hell
 ```
 
 :::caution Coverage will not report on unencountered files
-
     Coverage will only report on files encountered during the tests' run. This means that your coverage score may be misleading; even with a score of 100%, you may have files without any tests.
 
     This is a shortcoming of Coverage itself.
-
 :::
 
 Pants will default to writing the results to the console, but you can also output in HTML, XML, JSON, or the raw SQLite file:

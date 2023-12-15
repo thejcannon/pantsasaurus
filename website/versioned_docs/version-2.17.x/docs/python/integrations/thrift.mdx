@@ -10,17 +10,13 @@ How to generate Python from Thrift.
 When your Python code imports Thrift generated files, Pants will detect the imports and run the Apache Thrift compiler to generate those files.
 
 :::note Example repository
-
     See [the codegen example repository](https://github.com/pantsbuild/example-codegen) for an example of using Thrift to generate Python.
-
 :::
 
 :::tip Benefit of Pants: generated files are always up-to-date
-
     With Pants, there's no need to manually regenerate your code or check it into version control. Pants will ensure you are always using up-to-date files in your builds.
 
     Thanks to fine-grained caching, Pants will regenerate the minimum amount of code required when you do make changes.
-
 :::
 
 ## Step 1: Activate the Thrift Python backend
@@ -106,21 +102,17 @@ python_sources(dependencies=["models:models"])
 ```
 
 :::note TIp: set `namespace py`
-
     Pants can handle Thrift regardless of whether you set `namespace py`.
 
     However, it's often a good idea to set the namespace because it can make your imports more predictable and declarative. It also reduces the risk of your Thrift file names conflicting with other Python modules used, such as those from third-party requirements.
 
     For example, compare `import user.ttypes` to `import codegen.models.user.ttypes`.
-
 :::
 
 :::note Run `pants export-codegen ::` to inspect the files
-
     `pants export-codegen ::` will run all relevant code generators and write the files to `dist/codegen` using the same paths used normally by Pants.
 
     You do not need to run this goal for codegen to work when using Pants; `export-codegen` is only for external consumption outside of Pants.
-
 :::
 
 ## Multiple resolves

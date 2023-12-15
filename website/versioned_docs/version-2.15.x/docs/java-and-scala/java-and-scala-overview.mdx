@@ -8,17 +8,13 @@ Pants's support for Java and Scala.
 ---
 
 :::caution Java and Scala support is beta stage
-
     We are done implementing most functionality for Pants's Java and Scala support ([tracked here](https://github.com/pantsbuild/pants/labels/lang-jvm)). However, there may be use cases that we aren't yet handling.
 
     Please share feedback for what you need to use Pants with your JVM project by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](/community/members)!
-
 :::
 
 :::note Example Java and Scala repository
-
     Check out [github.com/pantsbuild/example-jvm](https://github.com/pantsbuild/example-jvm) to try out Pants's Java and Scala support.
-
 :::
 
 ## Initial setup
@@ -79,9 +75,7 @@ To use multiple Scala versions in a repository, you would define multiple resolv
 To cross-build a set of Scala targets for multiple Scala versions, you can use the [`parametrize` builtin](../using-pants/key-concepts/targets-and-build-files.mdx#parametrizing-targets) with the `resolve=` field of the target and its dependencies.
 
 :::caution A jvm_artifact for scala-library artifact is explicitly required.
-
     The Scala backend currently requires that a `jvm_artifact` target for the `org.scala-lang:scala-library` Scala runtime be present in any resolve used for Scala. If such a jvm_artifact is missing, Pants will error. Pants will automatically inject a dependency on the runtime. (This target may be automatically supplied by Pants in a future version, but that is not currently implemented.)
-
 :::
 
 ### First-party dependencies
@@ -105,11 +99,9 @@ jvm_artifact(
 Pants requires use of a lockfile for thirdparty dependencies. After adding or editing `jvm_artifact` targets, you will need to update affected lockfiles by running `pants generate-lockfiles`. The default lockfile is located at `3rdparty/jvm/default.lock`, but it can be relocated (as well as additional resolves declared) via the [`[jvm].resolves` option](../../reference/subsystems/jvm.mdx#section-resolves).
 
 :::note Thirdparty symbols and the `packages` argument
-
     To efficiently determine which symbols are provided by thirdparty code (i.e., without hitting the network in order to compute dependencies in the common case), Pants relies on a static mapping of which artifacts provide which symbols, and defaults to treating each `jvm_artifact` as providing symbols within its `group`.
 
     The `packages` argument allows you to override which symbols a `jvm_artifact` provides. See the [`jvm_artifact` docs](../../reference/targets/jvm_artifact.mdx#codepackagescode) for more information.
-
 :::
 
 ### `resource` targets

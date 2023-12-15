@@ -49,7 +49,6 @@ When you run `./pants help my_target`, Pants will use your field definition to g
 If you want to change how a pre-existing field behaves, you should subclass the original field. For example, if you want to change a default value, subclass the original field.
 
 See [Concepts](./concepts.mdx) for how subclassing plays a key role in the Target API.
-
 :::
 
 ## Adding custom validation
@@ -124,7 +123,6 @@ class LeafyGreensField(StringField):
     alias = "leafy_greens"
     valid_choices = LeafyGreens
 ```
-
 :::
 
 ### `ScalarField` (advanced)
@@ -223,7 +221,6 @@ class VersionField(PrimitiveField):
 
 :::tip Asking for help
 Have a tricky field you're trying to write? We would love to help! See [Getting Help](/community/members).
-
 :::
 
 ## Examples

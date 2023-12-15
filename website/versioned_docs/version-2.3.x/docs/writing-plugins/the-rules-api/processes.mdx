@@ -40,7 +40,6 @@ To populate the temporary directory with files, use the parameter `input_digest:
 Setting the [`--no-process-execution-cleanup-local-dirs`](docs:rules-api-tips#debugging-look-inside-the-chroot) flag will cause the sandboxes of `Process`es to be preserved and logged to the console for inspection.
 
 It can be very helpful while editing `Process` definitions!
-
 :::
 
 To set environment variables, use the parameter `env: Mapping[str, str]`. You generally should not read from `os.environ` because this reduces reproducibility and breaks caching. Instead, hardcode the value or add a [`Subsystem` option](./options-and-subsystems.mdx) for the environment variable in question.
@@ -69,7 +68,6 @@ async def demo(...) -> Foo:
 ```
 
 `ProcessCacheScope` supports other options as well, including `PER_RESTART`.
-
 :::
 
 ### FallibleProcessResult

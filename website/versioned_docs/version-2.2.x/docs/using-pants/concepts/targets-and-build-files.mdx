@@ -51,14 +51,12 @@ Addresses are globally unique, which is guaranteed by the fact that target names
 
 :::note Address abbreviation
 If the target name is the same as the name of the directory containing it, then you can omit the target name. For example, `helloworld/greet` is an abbreviated form of `helloworld/greet:greet`.
-
 :::
 
 :::note Addresses at at the "build root"
 You may sometimes have a `BUILD` file at your build root, i.e. the top-level of your project. These addresses are prefixed with `//` for clarity.
 
 For example, `//:my_tgt` refers to a a target defined in `<build root>/BUILD` with the field `name="my_tgt"`.
-
 :::
 
 ## Sources
@@ -94,7 +92,6 @@ However, including the same file in the `sources` for multiple targets can resul
 - File arguments will run over all owning targets, e.g. `./pants test path/to/test.ext` would run both test targets as two separate subprocesses, even though you might only expect a single subprocess.
 
 You can run `./pants list path/to/file.ext` to see all "owning" targets to check if >1 target has the file in its `sources` field.
-
 :::
 
 ## Dependencies and dependency inference
@@ -133,7 +130,6 @@ python_library(
 You can use the prefix `!!` to _transitively_ exclude a dependency, meaning that even if a target's dependencies include the bad dependency, no matter what, the final result will not include the value.
 
 Transitive excludes can only be used in target types that conventionally are not dependend upon by other targets, such as `pex_binary` and `python_tests`. This is meant to limit confusion, as using `!!` in something like a `python_library` could result in surprising behavior for everything that depends on it. If you use `!!` when not allowed to, Pants will print a helpful error message saying where you can use it.
-
 :::
 
 :::note Explicit "file addresses"
@@ -165,7 +161,6 @@ resources(
 ```
 
 If the file is in a subdirectory from the original target definition, use `../` in the target_name section, e.g. `helloworld/util/f1.json:../json_resources`.
-
 :::
 
 ## The build graph and dependency cycles
@@ -194,5 +189,4 @@ python_tests(name="tests")
 
 :::note Tips on setting up initial BUILD files
 See [Adopting Pants in an Existing Repo](../adopting-pants-in-existing-repos.mdx) for tips on setting up Pants, including where to add BUILD files.
-
 :::

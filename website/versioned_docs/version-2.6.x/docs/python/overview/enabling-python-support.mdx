@@ -11,7 +11,6 @@ How to enable Pants's bundled Python backend package.
 See [here](https://github.com/pantsbuild/example-python) for examples of Pants's Python functionality.
 
 See [here](https://github.com/pantsbuild/example-django) for Django-specific examples.
-
 :::
 
 Enable the Python [backend](../../using-pants/key-concepts/backends.mdx) like this:
@@ -53,7 +52,6 @@ inits = true
 ```
 
 This option will cause Pants to infer "proper" dependencies on any ancestor `__init__.py` file. If you run `./pants dependencies project/util/foo.py`, you should see `project/__init__.py` and `project/util/__init__.py` show up. This will ensure that any of the `dependencies` of your `__init__.py` files are included.
-
 :::
 
 :::caution macOS users: you may need to change interpreter search paths
@@ -74,5 +72,4 @@ interpreter_search_paths = [
 ```
 
 See [here](./interpreter-compatibility.mdx#changing-the-interpreter-search-path) for more information.
-
 :::

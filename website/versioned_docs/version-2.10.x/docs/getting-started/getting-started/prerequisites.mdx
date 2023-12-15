@@ -16,12 +16,10 @@ To run Pants, you need:
 
 :::note Python 2 compatibility
 Pants requires Python 3.7, 3.8, or 3.9 to run itself, but it can build your Python 2 and Python 3.6 or earlier code, along with 3.10+.
-
 :::
 
 :::note Have restricted Internet access?
 See [Restricted Internet access](../../using-pants/restricted-internet-access.mdx) for instructions.
-
 :::
 
 ## System-specific notes
@@ -31,21 +29,18 @@ See [Restricted Internet access](../../using-pants/restricted-internet-access.md
 :::caution Some Linux distributions may need additional packages
 On Ubuntu you may need to run:
 `apt install -y python3-dev python3-distutils`.
-
 :::
 
 :::caution Alpine Linux is not yet supported
 Pants for Linux is currently distributed as a manylinux wheel. Alpine Linux is not covered by manylinux (it uses MUSL libc while manylinux requires glibc), so at present Pants will not run on Alpine Linux.
 
 If you need to run Pants on Alpine, [let us know](/community/members), so we can prioritize this work. Meanwhile, you can try [building Pants yourself](#building-pants-from-sources) on Alpine.
-
 :::
 
 :::caution Linux on ARM is not yet supported
 Pants for Linux is currently only distributed as an x86_64 wheel.
 
 If you need to run Pants on ARM, please [upvote or comment on this issue](https://github.com/pantsbuild/pants/issues/12183) so we can prioritize this work. Meanwhile, you can try [building Pants yourself](#building-pants-from-sources) on ARM.
-
 :::
 
 ### macOS
@@ -60,7 +55,6 @@ If you have Python code, you may need to [set your interpreter constraints](../.
 Some users have also had success with earlier versions using Rosetta by running `arch -x86_64 pants`.
 
 When using Docker from your M1, you will need to use `--no-watch-filesystem --no-pantsd`. (Although we don't recommend permanently setting this, as these options are crucial for performance when iterating.)
-
 :::
 
 ### Microsoft Windows
@@ -72,5 +66,4 @@ Pants runs on Windows 10 under the Windows Subsystem for Linux (WSL):
 - Install a recent Linux distribution under WSL 2 (we have tested with Ubuntu 20.04 LTS).
 - Run `sudo apt install unzip python3-dev python3-distutils python3-venv gcc` in the distribution.
 - You can then run Pants commands in a Linux shell, or in a Windows shell by prefixing with `wsl `.
-
 :::

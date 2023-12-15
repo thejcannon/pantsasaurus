@@ -59,7 +59,6 @@ You will often want to subclass either of these fields to give custom functional
 - set the `default`
 - set `expected_file_extensions`, e.g. to `(".json", ".txt")`
 - set `expected_num_files`, e.g. to `1` or `range(0, 5)` (i.e. 0 to 4 files)
-
 :::
 
 :::note Using the fields of an existing target type
@@ -87,7 +86,6 @@ class DjangoManagePyTarget(Target):
 ```
 
 In this example, we register all of the fields of `PexBinaryTarget`, except for the field `PexEntryPoint `. We instead register our custom field `DjangoEntryPointField `.
-
 :::
 
 ## Step 2: Register the target type in `register.py`

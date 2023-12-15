@@ -62,12 +62,10 @@ python_sources()
 ```
 
 You can refer to this target with either `helloworld/greet:greet` or the abbreviated form `helloworld/greet`.
-
 :::
 
 :::note Use `//:tgt` for the root of your repository
 Addressed defined in the `BUILD` file at the root of your repository are prefixed with `//`, e.g. `//:my_tgt`.
-
 :::
 
 ## `source` and `sources` field
@@ -110,7 +108,6 @@ However, including the same file in the `source` / `sources` field for multiple 
 - File arguments will run over all owning targets, e.g. `./pants test path/to/test.ext` would run both test targets as two separate subprocesses, even though you might only expect a single subprocess.
 
 You can run `./pants list path/to/file.ext` to see all "owning" targets to check if >1 target has the file in its `source` field.
-
 :::
 
 ## `dependencies` field
@@ -139,7 +136,6 @@ You only need to declare direct dependencies. Pants will pull in _transitive dep
 When depending on a target defined in the same BUILD file, you can simply use `:tgt_name`, rather than `helloworld/greet:tgt_name`, for example.
 
 Addresses for generated targets also support relative addresses in the `dependencies` field, as explained in the "Target Generation" section below.
-
 :::
 
 :::note Ignore dependencies with `!` and `!!`
@@ -155,7 +151,6 @@ python_sources(
 You can use the prefix `!!` to transitively exclude a dependency, meaning that even if a target's dependencies include the bad dependency, the final result will not include the value.
 
 Transitive excludes can only be used in target types that conventionally are not dependend upon by other targets, such as `pex_binary` and `python_test` / `python_tests`. This is meant to limit confusion, as using `!!` in something like a `python_source` / `python_sources` target could result in surprising behavior for everything that depends on it. (Pants will print a helpful error when using `!!` when it's not legal.)
-
 :::
 
 ## Target generation
@@ -213,5 +208,4 @@ However, we've found that it usually scales much better to use a single BUILD fi
 It's useful for metadata to be as fine-grained as feasible, such as by using the `overrides` field to only change the files you need to. Fine-grained metadata is key to having smaller cache keys (resulting in more cache hits), and allows you to more accurately reflect the status of your project. We have found that using one BUILD file per directory encourages fine-grained metadata by defining the metadata adjacent to where the code lives.
 
 [`./pants tailor`](../../getting-started/getting-started/create-initial-build-files.mdx) will automatically create targets that only apply metadata for the directory.
-
 :::

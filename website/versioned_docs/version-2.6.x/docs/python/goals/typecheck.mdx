@@ -32,7 +32,6 @@ MyPy determines which Python version to use based on its `python_version` option
 Instead, Pants will group your targets based on their [interpreter constraints](../overview/interpreter-compatibility.mdx), and run all the Python 2 targets together and all the Python 3 targets together. It will automatically set `python_version` to the minimum compatible interpreter, such as a constraint like `["==2.7.*", ">3.6"]` using `2.7`.
 
 To turn this off, you can still set `python_version` in `mypy.ini` or `--python-version`/`--py2` in `--mypy-args`; Pants will respect the value you set.
-
 :::
 
 ### Hook up a MyPy config file
@@ -161,7 +160,6 @@ python_library(
 
 :::note MyPy Protobuf support
 Add `mypy_plugin = true` to the `[python-protobuf]` scope. See [Protobuf](../integrations/protobuf-and-grpc.mdx) for more information.
-
 :::
 
 ### Add a first-party plugin

@@ -59,7 +59,6 @@ Each Pants run will send the following data:
 - We do not record the IP address or any other envelope information.
 
 :::caution In public repos the repo id may be public
-
     The anonymity properties above are ensured for private repos, where `pants.toml`, and therefore your `repo_id`, are private.
 
     For repos that are publicly visible, e.g., on GitHub, the `repo_id` will be visible in your `pants.toml`. So repo-level data is not anonymous. However machine- and user-level data is still anonymous (although somewhat more susceptible to dictionary attacks).
@@ -67,7 +66,6 @@ Each Pants run will send the following data:
     Developers in public repos are usually not concerned about this, since their entire development occurs in the open anyway, via publicly visible code, CI runs, pull request comments and so on. All the telemetry potentially exposes is various stats about Pants usage.
 
     If you still prefer not to expose these stats, you can set the `repo_id` to the empty string. This will remove repo, machine and user ids entirely from the telemetry.
-
 :::
 
 ## How we avoid exposing proprietary information

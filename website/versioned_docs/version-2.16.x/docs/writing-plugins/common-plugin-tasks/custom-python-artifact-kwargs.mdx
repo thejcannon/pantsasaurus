@@ -22,9 +22,7 @@ You can write a plugin to add custom kwarg generation logic.
 Note: there may only be at most one applicable plugin per target customizing the kwargs for the `setup()` function.
 
 :::note Example
-
     See [here](https://github.com/pantsbuild/pants/blob/master/pants-plugins/internal_plugins/releases/register.py) for an example that Pants uses internally for its `python_distribution` targets. This plugin demonstrates reading from the file system to set the `version` and `long_description` kwargs, along with adding hardcoded kwargs.
-
 :::
 
 1. Set up a subclass of `SetupKwargsRequest`
@@ -70,7 +68,6 @@ def rules():
 ```
 
 :::note Consider defining custom `python_distribution` target types
-
     If you don't want to always use a single custom implementation, an effective approach could be to create custom `python_distribution` target types so that your users decide which implementation they want to use in their BUILD files.
 
     For example, a user could do this:
@@ -109,7 +106,6 @@ def rules():
         def is_applicable(cls, target: Target) -> bool:
             return isinstance(target, PantsPythonDistribution)
     ```
-
 :::
 
 2. Create a rule with your logic

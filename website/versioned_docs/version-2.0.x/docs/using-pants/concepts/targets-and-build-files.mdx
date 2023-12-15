@@ -48,7 +48,6 @@ Addresses are globally unique, which is guaranteed by the fact that target names
 
 :::note Address Abbreviation
 If the target name is the same as the name of the directory containing it, then you can omit the target name. For example, `helloworld/greet` is an abbreviated form of `helloworld/greet:greet`.
-
 :::
 
 ## Sources
@@ -95,14 +94,12 @@ python_library(
 You can use the prefix `!!` to _transitively_ exclude a dependency, meaning that even if a target's dependencies include the bad dependency, no matter what, the final result will not include the value.
 
 Transitive excludes can only be used in target types that conventionally are not dependend upon by other targets, such `pex_binary` and `python_tests`. This is meant to limit confusion, as using `!!` in something like a `python_library` could result in surprising behavior for everything that depends on it. If you use `!!` when not allowed to, Pants will print a helpful error message saying where you can use it.
-
 :::
 
 :::caution Dependency inference will no-op if >2 targets refer to the same file
 If more than one target includes a certain file in their `sources` field, then Pants will not infer the dependency when that file is imported because Pants cannot safely decide which target you want to use. Instead, you will need to add an explicit dependency to the `dependencies` field.
 
 (Why would you ever have >1 target for the same file? Sometimes, it's helpful to have different metadata describing the same code. For example, you might want to have a `python_tests` target that runs with Python 2, and a `python_tests` target that runs the same tests, but with Python 3.)
-
 :::
 
 :::note Explicit "file addresses"
@@ -134,7 +131,6 @@ resources(
 ```
 
 If the file is in a subdirectory from the original target definition, use `../` in the target_name section, e.g. `helloworld/util/f1.json:../json_resources`.
-
 :::
 
 ## Default field values
@@ -186,5 +182,4 @@ python_tests(name="tests")
 
 :::note Tips on setting up initial BUILD files
 See [Adopting Pants in an Existing Repo](../adopting-pants-in-existing-repos.mdx) for tips on setting up Pants, including where to add BUILD files.
-
 :::

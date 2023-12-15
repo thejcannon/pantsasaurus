@@ -22,7 +22,6 @@ Pants provides several goals to provide insights into your project's structure.
 ></iframe>
 
 :::note Tip: Use `xargs` to pipe these goals into other Pants commands
-
     For example:
 
     ```bash
@@ -30,7 +29,6 @@ Pants provides several goals to provide insights into your project's structure.
     ```
 
     See [Advanced target selection](./advanced-target-selection.mdx) for more info and other techniques to use the results.
-
 :::
 
 ## `list` - find your project's targets
@@ -209,7 +207,6 @@ $ ./pants peek --exclude-defaults helloworld/util:tests
 ```
 
 :::note Piping peek output into jq
-
     `peek` can be particularly useful when paired with [JQ](https://stedolan.github.io/jq/) to query the JSON. For example, you can combine `./pants peek` with JQ to find all targets where you set the field `skip_flake8=True`:
 
     ```bash
@@ -218,11 +215,9 @@ $ ./pants peek --exclude-defaults helloworld/util:tests
     helloworld/greet:tests
     helloworld/util:lib
     ```
-
 :::
 
 :::note Piping other introspection commands into `./pants peek`
-
     Some introspection goals, such as `filter`, `dependencies` and `dependees` emit a flat list of target addresses. It's often useful to expand each of those into a full JSON structure with detailed properties of each target, by piping to `./pants peek`:
 
     ```bash
@@ -253,7 +248,6 @@ $ ./pants peek --exclude-defaults helloworld/util:tests
       }
     ]
     ```
-
 :::
 
 ## `paths` - find dependency paths
@@ -306,7 +300,6 @@ SCC has [dozens of options](https://github.com/boyter/scc#usage). You can pass t
 ```
 
 :::caution See unexpected results? Set `pants_ignore`.
-
     By default, Pants will ignore all globs specified in your `.gitignore`, along with `dist/` and any hidden files.
 
     To ignore additional files, add to the global option `pants_ignore` in your `pants.toml`, using the same [syntax](https://git-scm.com/docs/gitignore) as `.gitignore` files.
@@ -317,5 +310,4 @@ SCC has [dozens of options](https://github.com/boyter/scc#usage). You can pass t
     [GLOBAL]
     pants_ignore.add = ["/ignore_this_dir/"]
     ```
-
 :::

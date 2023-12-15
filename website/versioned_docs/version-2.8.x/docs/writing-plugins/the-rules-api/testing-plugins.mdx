@@ -80,7 +80,6 @@ Note that we did not put `"name": "tgt"` in the dictionary. `name` is a special 
 For Approach #3, you should instead use `rule_runner.write_files()` to write a BUILD file, followed by `rule_runner.get_target()`.
 
 For Approach #4, you should use `setup_tmpdir()` to set up BUILD files.
-
 :::
 
 ## Approach 2: `run_rule_with_mocks()` (unit tests for rules)
@@ -219,7 +218,6 @@ This means that you must register the rules you directly wrote, and also any rul
 It can be confusing figuring out what's wrong when setting up a `RuleRunner`. We know the error messages are not ideal and are working on improving them.
 
 Please feel free to reach out on [Slack](/community/members) for help with figuring out how to get things working.
-
 :::
 
 ```python

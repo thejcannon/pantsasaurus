@@ -12,7 +12,6 @@ How to set up Pants for local development.
 We use the popular forking workflow typically used by open source projects. See [https://guides.github.com/activities/forking/](https://guides.github.com/activities/forking/) for a guide on how to fork [pantsbuild/pants](https://github.com/pantsbuild/pants), then clone it to your local machine.
 
 :::caution macOS users: install a newer `openssl`
-
     Pants requires a more modern OpenSSL version than the one that comes with macOS. To get all dependencies to resolve correctly, run the below commands. If you are using Zsh, use `.zshrc` rather than `.bashrc`.
 
     ```bash
@@ -23,7 +22,6 @@ We use the popular forking workflow typically used by open source projects. See 
     ```
 
     (If you don't have `brew` installed, see [https://brew.sh](https://brew.sh))
-
 :::
 
 ## Step 2: Set up Git hooks
@@ -52,9 +50,7 @@ $ MODE=debug git commit ...
 ```
 
 :::note How to temporarily skip the pre-commit checks
-
     Use `git commit --no-verify` or `git commit -n` to skip the checks.
-
 :::
 
 ## Step 3: Bootstrap the Rust engine
@@ -64,27 +60,21 @@ Pants uses Rustup to install Rust. Run the command from [https://rustup.rs](http
 Then, run `./pants` to set up the Python virtual environment and compile the engine.
 
 :::caution This will take several minutes
-
     Rust compilation is really slow. Fortunately, this step gets cached, so you will only need to wait the first time.
-
 :::
 
 :::note Want a faster compile?
-
     We default to compiling with Rust's `release` mode, instead of its `debug` mode, because this makes Pants substantially faster.  However, this results in the compile taking 5-10x longer.
 
     If you are okay with Pants running much slower when iterating, set the environment variable `MODE=debug` and rerun `./pants` to compile in debug mode.
-
 :::
 
 :::caution Rust compilation can use lots of storage
-
     Compiling the engine typically results in several gigabytes of storage over time. We have not yet implemented automated garbage collection for building the engine because contributors are the only ones to need to compile Rust, not every-day users.
 
     To free up space, run `rm -rf src/rust/engine/target`.
 
     Warning: this will cause Rust to recompile everything.
-
 :::
 
 ## Configure your IDE (optional)

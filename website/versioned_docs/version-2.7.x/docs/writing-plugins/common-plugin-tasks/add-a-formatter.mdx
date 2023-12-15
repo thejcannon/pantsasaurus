@@ -11,7 +11,6 @@ In Pants, every formatter is (typically) also a linter, meaning that if you can 
 
 :::note Example repository
 This guide walks through each step of adding shfmt. See [here](https://github.com/pantsbuild/example-plugin/blob/main/pants-plugins/examples/bash/lint/shfmt) for the final result.
-
 :::
 
 This guide assumes that you are running a formatter that already exists outside of Pants as a stand-alone binary, such as running Black or Prettier.
@@ -85,7 +84,6 @@ However, it is safe to run formatters belonging to different languages in parall
 
 :::note New Python formatters can skip this step
 Pants already defines `PythonFmtTargets` and `PythonFmtRequest`, which are both defined in `pants.backend.python.lint.python_fmt`.
-
 :::
 
 To add support for a new language, copy the below code into a new file like `bash_formatters.py`, but change the names of the `LanguageFmtTargets`, `LanguageFmtRequest`, and the rule to match your new language. Update the `LanguageFmtTargets.required_fields` class property, and update the body of the rule to use your language.
