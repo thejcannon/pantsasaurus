@@ -7,13 +7,13 @@
 
 # Overview
 
-By default, Pants executes processes in a local [environment](doc:environments) on the system on which it is run, and caches the results of those processes locally as well. Besides this "local execution" mode of operation, Pants also supports two distributed modes of operation:
+By default, Pants executes processes in a local [environment](../environments:-cross-platform-or-remote-builds.mdx) on the system on which it is run, and caches the results of those processes locally as well. Besides this "local execution" mode of operation, Pants also supports two distributed modes of operation:
 
 1. "Remote caching" where Pants store results from local process execution in a remote cache and also consumes results from that remote cache; and
 
 2. "Remote execution" where Pants offloads execution of processes to a remote server (and consumes cached results from that remote server)
 
-Pants does this by using the "Remote Execution API" to converse with the remote cache or remote execution server. Pants also [supports some additional providers](doc:remote-caching) other than Remote Execution API that provide only remote caching, without execution.
+Pants does this by using the "Remote Execution API" to converse with the remote cache or remote execution server. Pants also [supports some additional providers](./remote-caching.mdx) other than Remote Execution API that provide only remote caching, without execution.
 
 ## What is Remote Execution API?
 

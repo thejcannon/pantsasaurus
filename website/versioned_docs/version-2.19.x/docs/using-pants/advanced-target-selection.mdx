@@ -7,10 +7,10 @@ Alternative techniques to tell Pants which files/targets to run on.
 
 ---
 
-See [Goal arguments](doc:goals#goal-arguments) for the normal techniques for telling Pants what to
+See [Goal arguments](./key-concepts/goals.mdx#goal-arguments) for the normal techniques for telling Pants what to
 run on.
 
-See [Project introspection](doc:project-introspection) for queries that you can run and then pipe
+See [Project introspection](./project-introspection.mdx) for queries that you can run and then pipe
 into another Pants run, such as finding the dependencies of a target or file.
 
 ## Running over changed files with `--changed-since`
@@ -29,7 +29,7 @@ To run against another branch, run:
 pants --changed-since=origin/main lint
 ```
 
-By default, `--changed-since` will only run over files directly changed. Often, though, you will want to run over any [dependents](doc:project-introspection) of those changed files, meaning any targets that depend on the changed files. Use ` --changed-dependents=direct` or ` --changed-dependents=transitive` for this:
+By default, `--changed-since` will only run over files directly changed. Often, though, you will want to run over any [dependents](./project-introspection.mdx) of those changed files, meaning any targets that depend on the changed files. Use ` --changed-dependents=direct` or ` --changed-dependents=transitive` for this:
 
 ```bash
 ❯ pants \
@@ -98,7 +98,7 @@ python_tests(
 )
 ```
 
-You can then filter by tags with the global `--tag` [option](doc:reference-global#section-tag), like this:
+You can then filter by tags with the global `--tag` [option](../../reference/global-options.mdx#section-tag), like this:
 
 ```bash
 pants --tag=integration_test list ::

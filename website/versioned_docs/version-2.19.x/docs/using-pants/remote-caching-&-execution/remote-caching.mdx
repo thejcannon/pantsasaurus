@@ -11,7 +11,7 @@ Remote caching allows Pants to store and retrieve the results of process executi
 
 Pants supports several remote caching providers:
 
-- [Remote Execution API](https://github.com/bazelbuild/remote-apis) ("REAPI"), which also supports [remote execution](doc:remote-execution)
+- [Remote Execution API](https://github.com/bazelbuild/remote-apis) ("REAPI"), which also supports [remote execution](./remote-execution.mdx)
 - GitHub Actions Cache
 - Local file system
 
@@ -19,7 +19,7 @@ Pants supports several remote caching providers:
 
 ## Server
 
-See the [REAPI server compatibility guide](doc:remote-caching-execution#server-compatibility) for more information about REAPI-compatible caches.
+See the [REAPI server compatibility guide](./index.mdx#server-compatibility) for more information about REAPI-compatible caches.
 
 ## Pants Configuration
 
@@ -39,4 +39,4 @@ If the endpoint is using TLS, then the `remote_store_address` option would be sp
 
 # Reference
 
-Run `pants help-advanced global` or refer to [Global options](doc:reference-global). Most remote execution and caching options begin with the prefix `--remote`.
+Run `pants help-advanced global` or refer to [Global options](../../../reference/global-options.mdx). Most remote execution and caching options begin with the prefix `--remote`.

@@ -9,7 +9,7 @@ Validating your code's dependencies.
 
 Visibility rules are the mechanism by which to control who may depend on whom. It is an implementation of Pants's dependency rules API. With these rules a dependency between two files (or targets) may be set for entire directory trees down to single files. A target may be selected not only by its file path but also by target type, name, and tags.
 
-To jump right in, start with [enabling the backend](doc:validating-dependencies#enable-visibility-backend) and add some rules to your BUILD files.
+To jump right in, start with [enabling the backend](./validating-dependencies.mdx#enable-visibility-backend) and add some rules to your BUILD files.
 
 ## Example visibility rules
 
@@ -51,7 +51,7 @@ __dependents_rules__(
 )
 ```
 
-First things first, it is a good idea to get familiar with the terminology used here for [dependencies and dependents](doc:validating-dependencies#dependencies-and-dependents). The syntax for `__dependencies_rules__` and `__dependents_rules__` is the same for both directives. They accept any number of input [Rule sets](doc:validating-dependencies#rule-sets). In the above example there are two _rule sets_ in each directive both have the generic "all everything" rule set of `("*", "*")`.
+First things first, it is a good idea to get familiar with the terminology used here for [dependencies and dependents](./validating-dependencies.mdx#dependencies-and-dependents). The syntax for `__dependencies_rules__` and `__dependents_rules__` is the same for both directives. They accept any number of input [Rule sets](./validating-dependencies.mdx#rule-sets). In the above example there are two _rule sets_ in each directive both have the generic "all everything" rule set of `("*", "*")`.
 
 The dependencies rules above reads: All `python_sources` targets may depend on everything from the subtree rooted in `src/a/` the source file `src/b/lib.py` and nothing else. For all other targets everything is allowed.
 
@@ -95,7 +95,7 @@ Dependency rules are configured in the BUILD files along with targets and any ot
 
 It may help to think about these terms in context of a sentence. For `__dependencies_rules__` it is "this X may only import from \<...\>", and for `__dependents_rules__` it is "this X may only be imported from \<...\>".
 
-For each dependency there may be up to 2 sets of rules consulted to determine if it should be `allowed` or `denied` (or just `warn`, see [Rule Actions](doc:targets#rule-actions)), one for each end of the dependency link. The rules themselves are merely [path globs](doc:targets#glob-syntax) applied in order until a matching rule is found. It is an error for there to not be any matching rule, if any rules are defined. That is, you may have a dependency without any rules and that will be allowed, but as soon as there are rules in play there must exist at least one that is a match for the dependency link that dictates the outcome. It is valid to declare either dependency rules or dependent rules you don't have to have both when using visibility rules.
+For each dependency there may be up to 2 sets of rules consulted to determine if it should be `allowed` or `denied` (or just `warn`, see [Rule Actions](./key-concepts/targets-and-build-files.mdx#rule-actions)), one for each end of the dependency link. The rules themselves are merely [path globs](./key-concepts/targets-and-build-files.mdx#glob-syntax) applied in order until a matching rule is found. It is an error for there to not be any matching rule, if any rules are defined. That is, you may have a dependency without any rules and that will be allowed, but as soon as there are rules in play there must exist at least one that is a match for the dependency link that dictates the outcome. It is valid to declare either dependency rules or dependent rules you don't have to have both when using visibility rules.
 
 :::caution There are no default rules
 When you setup a set of rules, it must be comprehensive or Pants will throw an error when it fails to find a matching rule for a dependency/dependent.
@@ -115,7 +115,7 @@ python_sources(dependencies=["src/b/lib.py"], tags=["apps"])
 python_sources(tags=["libs"])
 ```
 
-The dependency `src/a/main.py` -> `src/b/lib.py` would consult the `__dependencies_rules__` in `src/a/BUILD` for a rule that matches `src/b/lib.py` and the `__dependents_rules__` in `src/b/BUILD` for a rule that matches `src/a/main.py`. See [rule sets](doc:targets#rule-sets) for more details on how this works.
+The dependency `src/a/main.py` -> `src/b/lib.py` would consult the `__dependencies_rules__` in `src/a/BUILD` for a rule that matches `src/b/lib.py` and the `__dependents_rules__` in `src/b/BUILD` for a rule that matches `src/a/main.py`. See [rule sets](./key-concepts/targets-and-build-files.mdx#rule-sets) for more details on how this works.
 
 When declaring your rules, you not only provide the rules for the current directory, but also set the default rules for all the subdirectories as well. When overriding such default rules in a child BUILD file, there is a `extend=True` kwarg you may use if you want the default rules to still apply after the ones declared in the current BUILD file.
 
@@ -148,7 +148,7 @@ __dependencies_rules__(
 ```
 
 :::note Any rule globs using the declaration path anchoring mode that is inherited using `extend=True` will be anchored to the path of the current BUILD file, not the original one where the rule was extended from.
-See [glob syntax](doc:targets#glob-syntax) for details on anchoring modes.
+See [glob syntax](./key-concepts/targets-and-build-files.mdx#glob-syntax) for details on anchoring modes.
 :::
 
 For example:
@@ -211,11 +211,11 @@ consulted.
 
 The **target rule spec** has four properties: `type`, `name`, `tags`, and `path`. From the above example, when determining which rule set to apply for the dependencies of `src/a/main.py` Pants will look for the first selector for `src/a/BUILD` that satisifies the properties `type=python_sources`, `tags=["apps"]`, and `path=src/a/main.py`. The selection is based on exclusion so only when there is a property value and it doesn't match the target's property it will move on to the next selector; the lack of a property will be considered to match anything. Consequently an empty target spec would match all targets, but this is disallowed and will raise an error if used because it is conceptually not very clear when reading the rules.
 
-The values of a **target rule spec** supports wildcard patterns (or globs) in order to have a single selector match multiple different targets, as described in [glob syntax](doc:targets#glob-syntax). When listing multiple values for the `tags` property, the target must have all of them in order to match. Spread the tags over multiple selectors in order to switch from _AND_ to _OR_ as required. The target `type` to match against will be that of the type used in the BUILD file, as the path (and target address) may refer to a generated target it is the target generators type that will be used during the selector matching process.
+The values of a **target rule spec** supports wildcard patterns (or globs) in order to have a single selector match multiple different targets, as described in [glob syntax](./key-concepts/targets-and-build-files.mdx#glob-syntax). When listing multiple values for the `tags` property, the target must have all of them in order to match. Spread the tags over multiple selectors in order to switch from _AND_ to _OR_ as required. The target `type` to match against will be that of the type used in the BUILD file, as the path (and target address) may refer to a generated target it is the target generators type that will be used during the selector matching process.
 
 The selectors are matched against the target in the order they are defined in the BUILD file, and the first rule set with a selector that is a match will be selected. The rules from the selected rule set is then matched in order against the path of the **target on the other end** of the dependency link. This is worth reading again; Using the above example, the rules defined in `src/a/BUILD` will be matched against `src/b/lib.py` while the `path` selector will be matched against `src/a/main.py`.
 
-Providing some example rule sets for the above example (see [rule actions](doc:targets#rule-actions) on how to mark a rule as "allow" or "deny"):
+Providing some example rule sets for the above example (see [rule actions](./key-concepts/targets-and-build-files.mdx#rule-actions) on how to mark a rule as "allow" or "deny"):
 
 ```python
 # src/a/BUILD  (continued from previous example)
@@ -399,4 +399,4 @@ The rule action is specified as a prefix on the rule glob:
 
 - `!` - Sets the rule's action to `DENY`.
 - `?` - Sets the rule's action to `WARN`.
-- Any other value is part of the [rule glob](doc:targets#glob-syntax).
+- Any other value is part of the [rule glob](./key-concepts/targets-and-build-files.mdx#glob-syntax).
