@@ -13,13 +13,13 @@ To set up third-party dependencies in your project, use a regular [`requirements
 
 Then, in the same directory, create a `BUILD` file that invokes the `python_requirements()` macro:
 
-```text title="tab={"label":"requirements.txt"}"
+```text tab={"label":"requirements.txt"}
 flask>=1.1.2,<1.3
 requests[security]==2.23.0
 dataclasses ; python_version<'3.7'
 ```
 
-```python title="tab={"label":"BUILD"}"
+```python tab={"label":"BUILD"}
 python_requirements()
 ```
 
@@ -27,13 +27,13 @@ Pants will use the `python_requirements()` macro to create a distinct `python_re
 
 Pants will then use [dependency inference](../../using-pants/concepts/targets-and-build-files.mdx) by looking at your Python import statements to automatically add those targets to the `dependencies` field. For example:
 
-```shell title="tab={"label":"shell"}"
+```shell tab={"label":"shell"}
 $ ./pants dependencies project/app.py
 //:flask
 //:requests
 ```
 
-```python title="tab={"label":"project/app.py"}"
+```python tab={"label":"project/app.py"}
 import flask
 import requests
 
@@ -42,7 +42,7 @@ import requests
 
 If any of your dependencies expose modules with names different than the project name (i.e. having a requirement named `ansicolors` that is imported as `colors`), you can teach Pants about it by setting `module_mapping`:
 
-```python title="title="BUILD""
+```python title="BUILD"
 python_requirements(
     module_mapping={
         "ansicolors": ["colors"],
@@ -53,7 +53,7 @@ python_requirements(
 
 You can also add an explicit dependency by adding the `python_requirement_library` target to the `dependencies` field for a target. This will make sure that the dependency is included regardless of if dependency inference can infer it or not. For example:
 
-```python title="title="project/BUILD""
+```python title="project/BUILD"
 python_library(
     dependencies=[
         # We don't have an import statement for this dep, so inference
@@ -79,6 +79,7 @@ python_requirements(
     requirements_relpath="custom-requirements.txt",
 )
 ```
+
 :::
 
 :::caution Multiple requirements files
@@ -137,12 +138,12 @@ To use this feature, create a `constraints.txt` file that pins versions of all y
 
 Then tell Pants about the file with the `requirement_constraints` option in the `[python-setup]` scope, like this:
 
-```toml title="tab={"label":"pants.toml"}"
+```toml tab={"label":"pants.toml"}
 [python-setup]
 requirement_constraints = "constraints.txt"
 ```
 
-```text title="tab={"label":"constraints.txt"}"
+```text tab={"label":"constraints.txt"}
 certifi==2019.6.16
 chardet==3.0.2
 idna==2.7
@@ -168,7 +169,7 @@ Sometimes you may want to use a certain dependency without adding it to your `re
 
 Pants allows you to define inline requirements with the target type `python_requirement_library`, like this:
 
-```python title="title="project/BUILD""
+```python title="project/BUILD"
 python_requirement_library(
     name="old_requests",
     requirements=["requests==2.8.0"],
@@ -185,7 +186,7 @@ pex_binary(
 
 If any of your dependencies expose modules with names different than the project name, you can teach Pants about it by setting `module_mapping`:
 
-```python title="title="project/BUILD""
+```python title="project/BUILD"
 python_requirement_library(
     name="old_requests",
     requirements=["ansicolors=1.18.0"],
@@ -197,7 +198,7 @@ python_requirement_library(
 
 If you host your own wheels at a custom index (aka "cheese shop"), you can instruct Pants to use it with the option `indexes` in the `[python-repos]` scope.
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [python-repos]
 indexes.add = ["https://custom-cheeseshop.net/simple"]
 ```
@@ -212,7 +213,7 @@ You can create a virtualenv using standard Python tooling—such as [Python's bu
 
 For example, this script will first create a venv, and then generate a `constraints.txt` file.
 
-```shell title="title="build-support/generate_constraints.sh""
+```shell title="build-support/generate_constraints.sh"
 #!/usr/bin/env bash
 
 set -euo pipefail

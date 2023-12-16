@@ -20,7 +20,7 @@ Linter/formatter support is implemented in separate [backends](../../using-pants
 
 To enable linters/formatters, add the appropriate ones in `pants.toml`:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [GLOBAL]
 ...
 backend_packages = [
@@ -32,7 +32,7 @@ backend_packages = [
 
 You'll now see `lint` and `fmt` goals in the output of `./pants goals`.
 
-```text title="title="Shell""
+```text title="Shell"
 $ ./pants goals
 
 Goals
@@ -65,7 +65,7 @@ Each formatter and linter allows you to configure
 
 For example:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [black]
 config = "pyproject.toml"
 

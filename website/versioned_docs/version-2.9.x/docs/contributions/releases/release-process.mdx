@@ -7,7 +7,11 @@ How to release a new version of `pantsbuild.pants` and its plugins.
 
 ---
 
-## Prerequisites
+[block:api-header]
+{
+"title": "Prerequisites"
+}
+[/block]
 
 ### 1. Create a PGP signing key
 
@@ -51,8 +55,11 @@ password: <fill me in>
 EOF
 ```
 
-## Step 1: Prepare the release
-
+[block:api-header]
+{
+"title": "Step 1: Prepare the release"
+}
+[/block]
 The release is automated, outside of these steps:
 
 1. Removing any completed deprecations
@@ -109,16 +116,21 @@ From the `main` branch, run `./pants run build-support/bin/changelog.py -- --pri
 Use your best judgment when classifying commits. If you are uncertain, you can either message the author on Slack or, in your PR, add a comment for the entry to ask for input from others.
 
 Each entry should have exactly one blank line between it. You are encouraged to fix typos and tweak PR titles for clarity to users.
+[block:callout]
+{
+"type": "warning",
+"title": "Reminder: always do this against the `main` branch",
+"body": "Even if you are preparing notes for a release candidate, always prepare the notes in a branch based on `main` and, later, target your PR to merge with `main`."
+}
+[/block]
 
-:::caution Reminder: always do this against the `main` branch
-Even if you are preparing notes for a release candidate, always prepare the notes in a branch based on `main` and, later, target your PR to merge with `main`.
-:::
-
-:::note See any weird PR titles?
-Sometimes, committers accidentally use the wrong title when squashing and merging because GitHub pulls the title from the commit title when there is only one commit.
-
-If you see a vague or strange title like "fix bug", open the original PR to see if the PR title is more descriptive. If it is, please use the more descriptive title instead.
-:::
+[block:callout]
+{
+"type": "info",
+"title": "See any weird PR titles?",
+"body": "Sometimes, committers accidentally use the wrong title when squashing and merging because GitHub pulls the title from the commit title when there is only one commit. \n\nIf you see a vague or strange title like \"fix bug\", open the original PR to see if the PR title is more descriptive. If it is, please use the more descriptive title instead."
+}
+[/block]
 
 ### 2. Update `CONTRIBUTORS.md`
 
@@ -141,14 +153,13 @@ Change `src/python/pants/VERSION` to the new release, e.g. 2.9.0.dev0.
 Open a pull request on GitHub to merge into `main`. Post the PR to the [#development channel](slack://pantsbuild.slack.com/messages/development/) in Slack.
 
 Merge once approved and green.
-
-:::caution Watch out for any recently landed PRs
-From the time you put up your release prep until you hit "merge", be careful that no one merges any commits into main.
-
-If they do—and you're doing a dev or `rc0` release—you should merge `main` into your PR and update the changelog with their changes. It's okay if the changes were internal only, but any public changes must be added to the changelog.
-
-Once you click "merge", it is safe for people to merge changes again.
-:::
+[block:callout]
+{
+"type": "warning",
+"title": "Watch out for any recently landed PRs",
+"body": "From the time you put up your release prep until you hit \"merge\", be careful that no one merges any commits into main. \n\nIf they do—and you're doing a dev or `rc0` release—you should merge `main` into your PR and update the changelog with their changes. It's okay if the changes were internal only, but any public changes must be added to the changelog.\n\nOnce you click \"merge\", it is safe for people to merge changes again."
+}
+[/block]
 
 ### 5a. `rc0` - create a new Git branch
 
@@ -164,8 +175,11 @@ $ git push upstream 2.9.x
 1. Checkout from `main` into the release branch, e.g. `2.9.x`.
 2. Cherry-pick the release prep using `git cherry-pick <sha>`.
 3. Bump the `VERSION` in `src/python/pants/VERSION`, e.g. to `2.9.0rc1`. Push this as a new commit directly to the release branch - you do not need to open a pull request.
-
-## Step 2: Update this docs site
+   [block:api-header]
+   {
+   "title": "Step 2: Update this docs site"
+   }
+   [/block]
 
 ### `dev0` - set up the new version
 
@@ -186,25 +200,35 @@ On the relevant release branch, run `./pants run build-support/bin/generate_docs
 The first stable release of a branch should update the "default" version of the docsite. For example: when releasing the stable `2.9.0`, the docsite would be changed to pointing from `v2.8` to pointing to `v2.9` by default.
 
 Also, update the [Changelog](../../releases/changelog.mdx)'s "highlights" column with a link to the blog summarizing the release. See the section "Announce the release" below for more info on the blog.
+[block:callout]
+{
+"type": "warning",
+"title": "Don't have edit access?",
+"body": "Ping someone in the [#maintainers channel](slack://pantsbuild.slack.com/messages/maintainers/) in Slack to be added. Alternatively, you can \"Suggest edits\" in the top right corner."
+}
+[/block]
 
-:::caution Don't have edit access?
-Ping someone in the [#maintainers channel](slack://pantsbuild.slack.com/messages/maintainers/) in Slack to be added. Alternatively, you can "Suggest edits" in the top right corner.
-:::
-
-## Step 3: Wait for CI to build the wheels
-
+[block:api-header]
+{
+"title": "Step 3: Wait for CI to build the wheels"
+}
+[/block]
 Once you have merged the `VERSION` bump—which will be on `main` for `dev` and `rc0` releases and the release branch for release candidates—CI will start building the wheels you need to finish the release.
 
 Head to https://github.com/pantsbuild/pants/actions and find your relevant build. You need the "Build wheels and fs_util" jobs to pass.
-
-## Step 4: Run `release.sh`
-
+[block:api-header]
+{
+"title": "Step 4: Run `release.sh`"
+}
+[/block]
 First, ensure that you are on your release branch at your version bump commit.
-
-:::note Tip: if new commits have landed after your release commit
-You can reset to your release commit by running `git reset --hard <sha>`.
-:::
-
+[block:callout]
+{
+"type": "info",
+"title": "Tip: if new commits have landed after your release commit",
+"body": "You can reset to your release commit by running `git reset --hard <sha>`."
+}
+[/block]
 Then, run:
 
 ```bash
@@ -220,9 +244,11 @@ PANTS_PEX_RELEASE=STABLE ./build-support/bin/release.sh build-universal-pex
 ```
 
 Then go to https://github.com/pantsbuild/pants/tags, find your release's tag, click `Edit tag`, and upload the PEX located at `dist/pex.pants.<version>.pex`.
-
-## Step 5: Test the release
-
+[block:api-header]
+{
+"title": "Step 5: Test the release"
+}
+[/block]
 Run this script as a basic smoke test:
 
 ```bash
@@ -230,9 +256,11 @@ Run this script as a basic smoke test:
 ```
 
 You should also [check PyPI](https://pypi.org/pypi/pantsbuild.pants) to ensure everything looks good. Click "Release history" to find the version you released, then click it and confirm the changelog is correct on the "Project description" page and that the `macOS` and `manylinux` wheels show up in the "Download files" page.
-
-## Step 6: Announce the change
-
+[block:api-header]
+{
+"title": "Step 6: Announce the change"
+}
+[/block]
 Announce the release to:
 
 1. the [pants-devel](https://groups.google.com/forum/#!forum/pants-devel) list
@@ -246,11 +274,13 @@ You can get a contributor list by running the following, where `<tag>` is the ta
 ./pants run ./build-support/bin/contributors.py -- -s <tag>
 ```
 
-:::danger Update these templates!
-Google Groups does not support markdown. You must manually create links and remove the markdown syntax.
-
-Also, make sure that you are using the correct version everywhere. When adding a link, use "Test this link" to ensure it loads properly.
-:::
+[block:callout]
+{
+"type": "danger",
+"title": "Update these templates!",
+"body": "Google Groups does not support markdown. You must manually create links and remove the markdown syntax.\n\nAlso, make sure that you are using the correct version everywhere. When adding a link, use \"Test this link\" to ensure it loads properly."
+}
+[/block]
 
 #### Dev release
 

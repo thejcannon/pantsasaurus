@@ -64,7 +64,7 @@ TOML                         2        65       14        18       33          0
 ```
 
 :::note Quoting file patterns
-    Note the single-quotes around the file pattern `'**'`. This is so that your shell doesn't attempt to expand the pattern, but instead passes it unaltered to Pants.
+Note the single-quotes around the file pattern `'**'`. This is so that your shell doesn't attempt to expand the pattern, but instead passes it unaltered to Pants.
 :::
 
 ## File arguments vs. target arguments
@@ -82,18 +82,18 @@ Any goal can take either type of argument:
 - If a file argument is given, Pants will map the file back to its containing target to read any necessary metadata.
 
 :::note File/target globs
-    For file arguments, use `'*'` and `'**'`, with the same semantics as the shell. Reminder: quote the argument if you want Pants to evaluate the glob, rather than your shell.
+For file arguments, use `'*'` and `'**'`, with the same semantics as the shell. Reminder: quote the argument if you want Pants to evaluate the glob, rather than your shell.
 
-    For target arguments, you can use:
+For target arguments, you can use:
 
-    - `dir::`, where `::` means every target in the current directory and recursively in subdirectories.
-    - `dir:`, where `:` means every target in that directory, but not subdirectories.
+- `dir::`, where `::` means every target in the current directory and recursively in subdirectories.
+- `dir:`, where `:` means every target in that directory, but not subdirectories.
 
-    For example, `./pants list ::` will find every target in your project.
+For example, `./pants list ::` will find every target in your project.
 :::
 
 :::note Tip: advanced target selection, such as running over changed files
-    See [Advanced target selection](../advanced-target-selection.mdx) for alternative techniques to specify which files/targets to run on.
+See [Advanced target selection](../advanced-target-selection.mdx) for alternative techniques to specify which files/targets to run on.
 :::
 
 ## Goal options

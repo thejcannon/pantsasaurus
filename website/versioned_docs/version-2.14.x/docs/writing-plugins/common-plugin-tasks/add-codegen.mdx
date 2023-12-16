@@ -12,7 +12,7 @@ Pants supports code generators that convert a protocol language like Protobuf in
 Pants will not actually write the generated files to disk, except when running `./pants export-codegen`. Instead, any targets that depend on the protocol targets will cause their code to be generated, and those generated files will be copied over into the "chroot" (temporary directory) where Pants executes.
 
 :::note Example: Protobuf -> Python
-    This guide walks through each step of adding Protobuf to generate Python sources. See [here](https://github.com/pantsbuild/pants/tree/master/src/python/pants/backend/codegen/protobuf) for the final result.
+This guide walks through each step of adding Protobuf to generate Python sources. See [here](https://github.com/pantsbuild/pants/tree/master/src/python/pants/backend/codegen/protobuf) for the final result.
 :::
 
 This guide assumes that you are running a code generator that already exists outside of Pants as a stand-alone binary, such as running Protoc or Thrift.
@@ -283,7 +283,7 @@ def rules():
 ```
 
 :::note Tip: use `export-codegen` to test it works
-    Run `./pants export-codegen path/to/file.ext` to ensure Pants is correctly generating the file. This will write the generated file(s) under the `dist/` directory, using the same path that will be used during Pants runs.
+Run `./pants export-codegen path/to/file.ext` to ensure Pants is correctly generating the file. This will write the generated file(s) under the `dist/` directory, using the same path that will be used during Pants runs.
 :::
 
 5. Audit call sites to ensure they've enabled codegen

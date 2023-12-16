@@ -5,8 +5,11 @@
 
 ---
 
-## Creating the launch script
-
+[block:api-header]
+{
+"title": "Creating the launch script"
+}
+[/block]
 Pants is invoked via a launch script named `./pants` , saved at the root of the repository. This script will install Pants and handle upgrades.
 
 First, set up a minimal `pants.toml` config file to instruct the script to download the latest 2.9 release:
@@ -27,29 +30,45 @@ Now, run this to bootstrap Pants and to verify the version it installs:
 ./pants --version
 ```
 
-:::note Tip: add `./pants` to version control
-We strongly recommend checking the `./pants` script into your repo. This will allow all users to use Pants without having to manually set up this script themselves.
-:::
+[block:callout]
+{
+"type": "info",
+"title": "Tip: add `./pants` to version control",
+"body": "We strongly recommend checking the `./pants` script into your repo. This will allow all users to use Pants without having to manually set up this script themselves."
+}
+[/block]
 
-:::tip Upgrading Pants
-The `./pants` script will automatically install and use the Pants version specified in `pants.toml`, so upgrading Pants is as simple as editing the version in that file.
-:::
+[block:callout]
+{
+"type": "success",
+"body": "The `./pants` script will automatically install and use the Pants version specified in `pants.toml`, so upgrading Pants is as simple as editing the version in that file.",
+"title": "Upgrading Pants"
+}
+[/block]
 
-## Running Pants from unreleased builds
-
-To use an unreleased build of Pants from the [pantsbuild/pants](https://github.com/pantsbuild/pants) main branch, locate the main branch SHA, set PANTS_SHA=\<SHA> in the environment, and run `./pants` as usual:
+[block:api-header]
+{
+"title": "Running Pants from unreleased builds"
+}
+[/block]
+To use an unreleased build of Pants from the [pantsbuild/pants](https://github.com/pantsbuild/pants) main branch, locate the main branch SHA, set PANTS_SHA=<SHA> in the environment, and run `./pants` as usual:
 
 ```bash
 PANTS_SHA=22c566e78b4dd982958429813c82e9f558957817 ./pants --version
 ```
 
-## Building Pants from sources
-
+[block:api-header]
+{
+"title": "Building Pants from sources"
+}
+[/block]
 We currently distribute Pants for Linux (x86_64) and macOS.
 
 If you need to run Pants on some other platform, such as Linux on ARM or Alpine Linux, you can try building it yourself by checking out the [Pants repo](https://github.com/pantsbuild/pants), and running `./pants package src/python/pants:pants-packaged` to build a wheel.
-
-## Running Pants from sources
-
+[block:api-header]
+{
+"title": "Running Pants from sources"
+}
+[/block]
 See [here](../../contributions/development/running-pants-from-sources.mdx) for instructions on how to run Pants directly from its sources.
 This is useful when making changes directly to Pants, to see how those changes impact your repo.

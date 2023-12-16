@@ -89,14 +89,14 @@ Some example plugins that users have written:
 
 If you're migrating from another build tool that already uses the name `BUILD`, such as Bazel or Please, you can tell Pants to use a different file name than `BUILD` to avoid conflicts:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [GLOBAL]
 build_patterns = ["BUILD.pants"]
 ```
 
 Alternatively, you can tell Pants to not look for BUILD files in certain locations. This can be helpful, for example, if you use a tool like Bazel for Java, but use Pants for Python:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [GLOBAL]
 build_ignore = ["src/java"]
 ```

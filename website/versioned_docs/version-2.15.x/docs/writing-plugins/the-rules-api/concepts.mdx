@@ -64,9 +64,9 @@ The engine will find a path through the rules to satisfy the types that you are 
 If the engine cannot find a path, or if there is ambiguity due to multiple possible paths, the rule graph will fail to compile. This ensures that the rule graph is always unambiguous.
 
 :::caution Rule graph errors can be confusing
-    We know that rule graph errors can be intimidating and confusing to understand. We are planning to improve them. In the meantime, please do not hesitate to ask for help in the #plugins channel on [Slack](/community/getting-help).
+We know that rule graph errors can be intimidating and confusing to understand. We are planning to improve them. In the meantime, please do not hesitate to ask for help in the #plugins channel on [Slack](/community/getting-help).
 
-    Also see [Tips and debugging](./tips-and-debugging.mdx#debugging-rule-graph-issues) for some tips for how to approach these errors.
+Also see [Tips and debugging](./tips-and-debugging.mdx#debugging-rule-graph-issues) for some tips for how to approach these errors.
 :::
 
 ## `await Get` - awaiting results in a rule body
@@ -119,27 +119,28 @@ async def call_fibonacci(...) -> Foo:
 ```
 
 :::note `Get` constructor shorthand
-    The verbose constructor for a `Get` object takes three parameters: `Get(OutputType, InputType, input)`, where `OutputType` and `InputType` are both types, and `input` is an instance of `InputType`.
+The verbose constructor for a `Get` object takes three parameters: `Get(OutputType, InputType, input)`, where `OutputType` and `InputType` are both types, and `input` is an instance of `InputType`.
 
-    Instead, you can use `Get(OutputType, InputType(constructor arguments))`. These two are equivalent:
+Instead, you can use `Get(OutputType, InputType(constructor arguments))`. These two are equivalent:
 
-    - `Get(ProcessResult, Process, Process(["/bin/echo"]))`
-    - `Get(ProcessResult, Process(["/bin/echo"]))`
+- `Get(ProcessResult, Process, Process(["/bin/echo"]))`
+- `Get(ProcessResult, Process(["/bin/echo"]))`
 
-    However, the below is invalid because Pants's AST parser will not be able to see what the `InputType` is:
+However, the below is invalid because Pants's AST parser will not be able to see what the `InputType` is:
 
-    ```python
-    process = Process(["/bin/echo"])
-    Get(ProcessResult, process)
-    ```
+```python
+process = Process(["/bin/echo"])
+Get(ProcessResult, process)
+```
+
 :::
 
 :::note Why only one input?
-    Currently, you can only give a single input. It is not possible to do something like `Get(OutputType, InputType1(...), InputType2(...))`.
+Currently, you can only give a single input. It is not possible to do something like `Get(OutputType, InputType1(...), InputType2(...))`.
 
-    Instead, it's common for rules to create a "Request" data class, such as `PexRequest` or `SourceFilesRequest`. This request centralizes all the data it needs to operate into one data structure, which allows for call sites to say `await Get(SourceFiles, SourceFilesRequest, my_request)`, for example.
+Instead, it's common for rules to create a "Request" data class, such as `PexRequest` or `SourceFilesRequest`. This request centralizes all the data it needs to operate into one data structure, which allows for call sites to say `await Get(SourceFiles, SourceFilesRequest, my_request)`, for example.
 
-    See [https://github.com/pantsbuild/pants/issues/7490](https://github.com/pantsbuild/pants/issues/7490) for the tracking issue.
+See [https://github.com/pantsbuild/pants/issues/7490](https://github.com/pantsbuild/pants/issues/7490) for the tracking issue.
 :::
 
 ### `MultiGet` for concurrency
@@ -221,32 +222,33 @@ async def demo(name: Name) -> Foo:
 ```
 
 :::caution Don't use `NamedTuple`
-    `NamedTuple` behaves similarly to dataclasses, but it should not be used because the `__eq__()` implementation uses structural equality, rather than the nominal equality used by the engine.
+`NamedTuple` behaves similarly to dataclasses, but it should not be used because the `__eq__()` implementation uses structural equality, rather than the nominal equality used by the engine.
 :::
 
 :::note Custom dataclass `__init__()`
-    Sometimes, you may want to have a custom `__init__()` constructor. For example, you may want your dataclass to store a `tuple[str, ...]`, but for your constructor to take the more flexible `Iterable[str]` which you then convert to an immutable tuple sequence.
+Sometimes, you may want to have a custom `__init__()` constructor. For example, you may want your dataclass to store a `tuple[str, ...]`, but for your constructor to take the more flexible `Iterable[str]` which you then convert to an immutable tuple sequence.
 
-    Normally, `@dataclass(frozen=True)` will not allow you to have a custom `__init__()`. But, if you do not set `frozen=True`, then your dataclass would be mutable, which is dangerous with the engine.
+Normally, `@dataclass(frozen=True)` will not allow you to have a custom `__init__()`. But, if you do not set `frozen=True`, then your dataclass would be mutable, which is dangerous with the engine.
 
-    Instead, we added a decorator called `@frozen_after_init`, which can be combined with `@dataclass(unsafe_hash=True)`.
+Instead, we added a decorator called `@frozen_after_init`, which can be combined with `@dataclass(unsafe_hash=True)`.
 
-    ```python
-    from __future__ import annotations
+```python
+from __future__ import annotations
 
-    from dataclasses import dataclass
-    from typing import Iterable
+from dataclasses import dataclass
+from typing import Iterable
 
-    from pants.util.meta import frozen_after_init
+from pants.util.meta import frozen_after_init
 
-    @frozen_after_init
-    @dataclass(unsafe_hash=True)
-    class Example:
-        args: tuple[str, ...]
+@frozen_after_init
+@dataclass(unsafe_hash=True)
+class Example:
+args: tuple[str, ...]
 
-        def __init__(self, args: Iterable[str]) -> None:
-            self.args = tuple(args)
-    ```
+def __init__(self, args: Iterable[str]) -> None:
+self.args = tuple(args)
+```
+
 :::
 
 ### `Collection`: a newtype for `tuple`

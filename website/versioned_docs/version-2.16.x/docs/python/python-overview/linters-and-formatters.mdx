@@ -8,17 +8,18 @@ How to activate and use the Python linters and formatters bundled with Pants.
 ---
 
 :::tip Benefit of Pants: consistent interface
-    `pants lint` and `pants fmt` will consistently and correctly run all your linters and formatters. No need to remember how to invoke each tool, and no need to write custom scripts.
+`pants lint` and `pants fmt` will consistently and correctly run all your linters and formatters. No need to remember how to invoke each tool, and no need to write custom scripts.
 
-    This consistent interface even works with multiple languages, like running Python linters at the same time as Go, Shell, Java, and Scala.
+This consistent interface even works with multiple languages, like running Python linters at the same time as Go, Shell, Java, and Scala.
 :::
 
 :::tip Benefit of Pants: concurrency
-    Pants does several things to speed up running formatters and linters:
+Pants does several things to speed up running formatters and linters:
 
-    - Automatically configures tools that support concurrency (e.g. a `--jobs` option) based on your number of cores and what else is already running.
-    - Runs everything in parallel with the `lint` goal (although not the `fmt` goal, which pipes the results of one formatter to the next for correctness).
-    - Runs in batches of 256 files by default, which gives parallelism even for tools that don't have a `--jobs` option. This also increases cache reuse.
+- Automatically configures tools that support concurrency (e.g. a `--jobs` option) based on your number of cores and what else is already running.
+- Runs everything in parallel with the `lint` goal (although not the `fmt` goal, which pipes the results of one formatter to the next for correctness).
+- Runs in batches of 256 files by default, which gives parallelism even for tools that don't have a `--jobs` option. This also increases cache reuse.
+
 :::
 
 ## Activating linters and formatters
@@ -67,7 +68,7 @@ All done! ✨ 🍰 ✨
 ```
 
 :::note How to activate MyPy
-    MyPy is run with the [check goal](../goals/check.mdx), rather than `lint`.
+MyPy is run with the [check goal](../goals/check.mdx), rather than `lint`.
 :::
 
 ## Configuring the tools, for example, adding plugins
@@ -123,9 +124,9 @@ $ pants generate-lockfiles --resolve=flake8
 Run `pants help-advanced black`, `pants help-advanced flake8`, and so on for more information.
 
 :::note Config files are normally auto-discovered
-    For tools that autodiscover config files—such as Black, isort, Flake8, and Pylint—Pants will include any relevant config files in the process's sandbox when running the tool.
+For tools that autodiscover config files—such as Black, isort, Flake8, and Pylint—Pants will include any relevant config files in the process's sandbox when running the tool.
 
-    If your config file is in a non-standard location, you must instead set the `--config` option, e.g. `[isort].config`. This will ensure that the config file is included in the process's sandbox and Pants will instruct the tool to load the config.
+If your config file is in a non-standard location, you must instead set the `--config` option, e.g. `[isort].config`. This will ensure that the config file is included in the process's sandbox and Pants will instruct the tool to load the config.
 :::
 
 ## Running only certain formatters or linters

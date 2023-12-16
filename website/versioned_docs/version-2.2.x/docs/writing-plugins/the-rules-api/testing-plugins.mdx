@@ -13,7 +13,7 @@ All approaches use [Pytest](https://docs.pytest.org/en/latest/)-style tests, rat
 
 You must also install the distribution `pantsbuild.pants.testutil`. We recommend using the `pants_requirement()` macro to do this, similar to how you may have [installed Pants as a library](../overview.mdx) when writing your plugin. This will read your `pants_version` from `pants.toml` to ensure that you're using the correct distribution.
 
-```python title="title="pants-plugins/BUILD""
+```python title="pants-plugins/BUILD"
 pants_requirement(name="pants.testutil", dist="pantsbuild.pants.testutil")
 ```
 

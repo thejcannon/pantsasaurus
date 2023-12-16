@@ -26,7 +26,7 @@ To define a new target:
 
 For `core_fields`, we recommend including `COMMON_TARGET_FIELDS` to add the useful `tags` and `description` fields. You will also often want to add `Dependencies` and/or `Sources`.
 
-```python title="title="plugins/target_types.py""
+```python title="plugins/target_types.py"
 from pants.engine.target import (
     COMMON_TARGET_FIELDS,
     Dependencies,
@@ -88,7 +88,7 @@ In this example, we register all of the fields of `PythonBinary`, except for the
 
 Now, in your [`register.py`](../overview.mdx), add the target type to the `def target_types()` entry point.
 
-```python title="title="plugins/register.py""
+```python title="plugins/register.py"
 from plugins.target_types import CustomTarget
 
 def target_types():

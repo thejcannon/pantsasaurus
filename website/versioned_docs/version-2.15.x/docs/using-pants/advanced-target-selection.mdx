@@ -137,7 +137,7 @@ helloworld/util:tests
 ```
 
 :::note Tip: centralized allow/block lists
-    Whereas `tags` are useful for _decentralized_ allow/block lists, `--spec-files` is useful when you want to define one single list of targets or files.
+Whereas `tags` are useful for _decentralized_ allow/block lists, `--spec-files` is useful when you want to define one single list of targets or files.
 :::
 
 ## Piping to other Pants runs
@@ -158,21 +158,22 @@ You can, of course, pipe multiple times:
 ```
 
 :::note Alternative: use `--spec-files`
-    Sometimes, you may want to reuse the output of a Pants run for multiple subsequent Pants runs. Rather than repeating `xargs` multiple times, you can generate a file through stdout redirection and `--spec-files`.
+Sometimes, you may want to reuse the output of a Pants run for multiple subsequent Pants runs. Rather than repeating `xargs` multiple times, you can generate a file through stdout redirection and `--spec-files`.
 
-    For example:
+For example:
 
-    ```bash
-    $ pants dependencies helloworld/util > util_dependencies.txt
-    $ pants --spec-files=util_dependencies.txt lint
-    ```
+```bash
+$ pants dependencies helloworld/util > util_dependencies.txt
+$ pants --spec-files=util_dependencies.txt lint
+```
 
-    If you don't want to save the output to an actual file—such as to not pollute version control—you can use a variable and a named pipe:
+If you don't want to save the output to an actual file—such as to not pollute version control—you can use a variable and a named pipe:
 
-    ```bash
-    $ TARGETS=$(pants dependencies helloworld/util)
-    $ pants --spec-files=<(echo $TARGETS) lint
-    ```
+```bash
+$ TARGETS=$(pants dependencies helloworld/util)
+$ pants --spec-files=<(echo $TARGETS) lint
+```
+
 :::
 
 ## Sharding the input targets

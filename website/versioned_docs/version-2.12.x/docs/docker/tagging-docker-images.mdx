@@ -215,9 +215,9 @@ $ GIT_COMMIT=$(git rev-parse HEAD) ./pants package src/example:demo
 the value from the environment will be used.
 
 :::note Generating dynamic tags in a plugin
-    If you don't want to use the environment variable method described above, you'll need to write some custom plugin code. Don't hesitate to [reach out](/community/getting-help) for help with this.
+If you don't want to use the environment variable method described above, you'll need to write some custom plugin code. Don't hesitate to [reach out](/community/getting-help) for help with this.
 
-    We are looking into making some common dynamic data, such as the git sha, automatically available in the core Docker plugin in the future.
+We are looking into making some common dynamic data, such as the git sha, automatically available in the core Docker plugin in the future.
 :::
 
 ## All together: Registries, Repositories and Tags
@@ -255,5 +255,5 @@ The interpolation context (the available placeholder values) depends on which fi
 See [Setting a repository name](./tagging-docker-images.mdx#setting-a-repository-name) for placeholders specific to the `repository` field.
 
 :::note The `{pants.hash}` stability guarantee
-    The calculated hash value _may_ change between stable versions of Pants for the otherwise same input sources.
+The calculated hash value _may_ change between stable versions of Pants for the otherwise same input sources.
 :::

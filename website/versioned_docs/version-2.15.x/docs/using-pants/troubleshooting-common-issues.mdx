@@ -8,9 +8,9 @@ Frequently asked questions (FAQs) and known issues you may encounter.
 ---
 
 :::tip We love giving help!
-    See [Getting Help](/community/getting-help). We would love to help!
+See [Getting Help](/community/getting-help). We would love to help!
 
-    If you are confused by something, likely someone else will run into the same issue. It is helpful for us to know what is going wrong so that we can improve Pants and improve this documentation.
+If you are confused by something, likely someone else will run into the same issue. It is helpful for us to know what is going wrong so that we can improve Pants and improve this documentation.
 :::
 
 ## Debug tip: enable stack traces and increase logging
@@ -196,17 +196,17 @@ This sometimes happens because Pants uses lots of file handles to read and write
 This can be fixed by setting `ulimit -n 10000`. (10,000 should work in all cases, but feel free to lower or increase this number as desired.)
 
 :::note Tip: permanently configuring `ulimit -n`
-    We recommend permanently setting this by either:
+We recommend permanently setting this by either:
 
-    1. Adding `ulimit -n 10000` to your `pants` script.
-    2. Using a tool like [Direnv](https://direnv.net) to run `ulimit -n 10000` everytime the project is loaded.
-    3. Adding `ulimit -n 10000` to your global `.bashrc` or equivalent.
+1.  Adding `ulimit -n 10000` to your `pants` script.
+2.  Using a tool like [Direnv](https://direnv.net) to run `ulimit -n 10000` everytime the project is loaded.
+3.  Adding `ulimit -n 10000` to your global `.bashrc` or equivalent.
 
-    The first two approaches have the benefit that they will be checked into version control, so every developer at your organization can use the same setting.
+The first two approaches have the benefit that they will be checked into version control, so every developer at your organization can use the same setting.
 :::
 
 :::caution macOS users: avoid `ulimit unlimited`
-    Contrary to the name, this will not fix the issue. You must use `ulimit -n` instead.
+Contrary to the name, this will not fix the issue. You must use `ulimit -n` instead.
 :::
 
 ## Controlling (test) parallelism

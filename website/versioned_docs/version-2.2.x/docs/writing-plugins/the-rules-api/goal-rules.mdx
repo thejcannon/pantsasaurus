@@ -28,7 +28,7 @@ There are four steps to creating a new [goal](../../using-pants/concepts/goals.m
    1. For most goals, simply return `MyGoal(exit_code=0)`. Some goals like `lint` and `test` will instead propagate the error code from the tools they run.
 4. Register the `@goal_rule` in a `register.py` file.
 
-```python title="tab={"label":"pants-plugins/example/hello_world.py"}"
+```python tab={"label":"pants-plugins/example/hello_world.py"}
 from pants.engine.goal import Goal, GoalSubsystem
 from pants.engine.rules import collect_rules, goal_rule
 
@@ -51,7 +51,7 @@ def rules():
     return collect_rules()
 ```
 
-```python title="tab={"label":"pants-plugins/example/register.py"}"
+```python tab={"label":"pants-plugins/example/register.py"}
 from example import hello_world
 
 def rules():
@@ -182,6 +182,7 @@ def publish(targets: Targets, console: Console) -> Publish:
        if tgt.has_fields([PythonSources, PythonPublishDestination])
     ]
 ```
+
 :::
 
 ### Only care about source files?

@@ -10,19 +10,19 @@ How to generate Go from Protocol Buffers.
 When your Go code imports Protobuf generated files, Pants will detect the imports and run the Protoc compiler to generate then compile those files.
 
 :::note Example repository
-    See [the codegen example repository](https://github.com/pantsbuild/example-codegen) for an example of using Protobuf to generate Go.
+See [the codegen example repository](https://github.com/pantsbuild/example-codegen) for an example of using Protobuf to generate Go.
 :::
 
 :::tip Benefit of Pants: generated files are always up-to-date
-    With Pants, there's no need to manually regenerate your code or check it into version control. Pants will ensure you are always using up-to-date files in your builds.
+With Pants, there's no need to manually regenerate your code or check it into version control. Pants will ensure you are always using up-to-date files in your builds.
 
-    Thanks to fine-grained caching, Pants will regenerate the minimum amount of code required when you do make changes.
+Thanks to fine-grained caching, Pants will regenerate the minimum amount of code required when you do make changes.
 :::
 
 :::caution `go mod tidy` will complain about missing modules
-    Because Pants does not save generated code to disk, `go mod tidy` will error that it cannot find the generated packages.
+Because Pants does not save generated code to disk, `go mod tidy` will error that it cannot find the generated packages.
 
-    One workaround is to run `./pants export-codegen ::` to save the generated files.
+One workaround is to run `./pants export-codegen ::` to save the generated files.
 :::
 
 ## Step 1: Activate the Protobuf Go backend
@@ -133,9 +133,9 @@ func TestGenerateUuid(t *testing.T) {
 Pants's dependency inference will detect Go imports of Protobuf packages, which you can confirm by running `./pants dependencies path/to/file.go`. You can also run `./pants check path/to/file.go` to confirm that everything compiles.
 
 :::note Run `./pants export-codegen ::` to inspect the files
-    `./pants export-codegen ::` will run all relevant code generators and write the files to `dist/codegen` using the same paths used normally by Pants.
+`./pants export-codegen ::` will run all relevant code generators and write the files to `dist/codegen` using the same paths used normally by Pants.
 
-    You do not need to run this goal for codegen to work when using Pants; `export-codegen` is only for external consumption outside of Pants, e.g. to get `go mod tidy` working.
+You do not need to run this goal for codegen to work when using Pants; `export-codegen` is only for external consumption outside of Pants, e.g. to get `go mod tidy` working.
 :::
 
 ## Buf: format and lint Protobuf

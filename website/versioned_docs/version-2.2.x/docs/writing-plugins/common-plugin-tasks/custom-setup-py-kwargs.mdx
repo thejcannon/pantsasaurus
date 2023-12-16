@@ -100,6 +100,7 @@ class PantsSetupKwargsRequest(SetupKwargsRequest):
     def is_applicable(cls, target: Target) -> bool:
         return isinstance(target, PantsPythonDistribution)
 ```
+
 :::
 
 ## 2. Create a rule with your logic
@@ -123,7 +124,7 @@ async def setup_kwargs_plugin(request: CustomSetupKwargsRequest) -> SetupKwargs:
 
 Update your plugin's `register.py` to activate this file's rules.
 
-```python title="title="pants-plugins/python_plugins/register.py""
+```python title="pants-plugins/python_plugins/register.py"
 from python_plugins import custom_setup_py
 
 def rules():

@@ -26,9 +26,9 @@ backend_packages.add = [
 This adds the new `pyoxidizer_binary` target, which you can confirm by running `pants help pyoxidizer_binary`.
 
 :::caution This backend is experimental
-    We are still discovering the best ways to provide PyOxidizer support, such as how to make our [default template more useful](https://github.com/pantsbuild/pants/pull/14183/files#r788253973). This backend does not follow the normal [deprecation policy](../../releases/deprecation-policy.mdx), although we will do our best to minimize breaking changes.
+We are still discovering the best ways to provide PyOxidizer support, such as how to make our [default template more useful](https://github.com/pantsbuild/pants/pull/14183/files#r788253973). This backend does not follow the normal [deprecation policy](../../releases/deprecation-policy.mdx), although we will do our best to minimize breaking changes.
 
-    We would [love your feedback](/community/getting-help) on this backend!
+We would [love your feedback](/community/getting-help) on this backend!
 :::
 
 ## Step 2: Define a `python_distribution` target
@@ -113,26 +113,26 @@ Hello, world!
 By default, with the `package` goal, Pants will write the package using this scheme: `dist/{path.to.tgt_dir}/{tgt_name}/{platform}/{debug,release}/install/{tgt_name}`. You can change the first part of this path by setting the `output_path` field, although you risk name collisions with other `pyoxidizer_binary` targets in your project. See [pyoxidizer_binary](../../../reference/targets/pyoxidizer_binary.mdx) for more info.
 
 :::caution `debug` vs `release` builds
-    By default, PyOxidizer will build with Rust's "debug" mode, which results in much faster compile times but means that your binary will be slower to run. Instead, you can instruct PyOxidizer to build in [release mode](https://nnethercote.github.io/perf-book/build-configuration.html#release-builds) by adding this to `pants.toml`:
+By default, PyOxidizer will build with Rust's "debug" mode, which results in much faster compile times but means that your binary will be slower to run. Instead, you can instruct PyOxidizer to build in [release mode](https://nnethercote.github.io/perf-book/build-configuration.html#release-builds) by adding this to `pants.toml`:
 
-    ```toml
-    [pyoxidizer]
-    args = ["--release"]
-    ```
+```toml
+[pyoxidizer]
+args = ["--release"]
+```
 
-    Or by using the command line flag `pants --pyoxidizer-args='--release' package path/to:tgt`.
+Or by using the command line flag `pants --pyoxidizer-args='--release' package path/to:tgt`.
 :::
 
 ## Advanced use cases
 
 :::tip Missing functionality? Let us know!
-    We would like to keep improving Pants's PyOxidizer support. We encourage you to let us know what features are missing through [Slack or GitHub](/community/getting-help)!
+We would like to keep improving Pants's PyOxidizer support. We encourage you to let us know what features are missing through [Slack or GitHub](/community/getting-help)!
 :::
 
 :::caution `[python-repos]` not yet supported for custom indexes
-    Currently, PyOxidizer can only resolve dependencies from PyPI and your first-party code. If you need support for custom indexes, please let us know by commenting on [https://github.com/pantsbuild/pants/issues/14619](https://github.com/pantsbuild/pants/issues/14619).
+Currently, PyOxidizer can only resolve dependencies from PyPI and your first-party code. If you need support for custom indexes, please let us know by commenting on [https://github.com/pantsbuild/pants/issues/14619](https://github.com/pantsbuild/pants/issues/14619).
 
-    (We'd be happy to help mentor someone through this change, although please still comment either way!)
+(We'd be happy to help mentor someone through this change, although please still comment either way!)
 :::
 
 ### `python_distribution`s that implicitly depend on each other

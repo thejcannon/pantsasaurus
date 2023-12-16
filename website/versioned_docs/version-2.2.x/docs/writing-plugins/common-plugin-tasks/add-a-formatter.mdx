@@ -345,7 +345,7 @@ Use `Get(Digest, MergeDigests)` to combine the different inputs together, such a
 
 Finally, update your plugin's `register.py` to activate this file's rules. Note that we must register the rules added in Step 2, as well.
 
-```python title="title="pants-plugins/bash/register.py""
+```python title="pants-plugins/bash/register.py"
 from bash import bash_formatters, shfmt
 
 

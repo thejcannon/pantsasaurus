@@ -11,7 +11,7 @@ How to configure which Python version(s) your project should use.
 
 Configure your default Python interpreter compatibility constraints in `pants.toml` like this:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [python-setup]
 interpreter_constraints = ["CPython==3.8.*"]
 ```
@@ -32,7 +32,7 @@ Pants also allows you to specify the interpreter compatibility for particular ta
 
 Use the `interpreter_constraints` field on a Python target, like this:
 
-```python title="title="BUILD""
+```python title="BUILD"
 python_library(
     name="python2_target",
     interpreter_constraints=["==2.7.*"],
@@ -90,7 +90,7 @@ This quickly gets tedious to write in BUILD files, so we recommend [defining a m
 
 We recommend adding `pants.backend.python.mixed_interpreter_constraints` to `backend_packages` in the `[GLOBAL]` scope, which will add the new goal `py-constraints`.
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [GLOBAL]
 backend_packages = [
   "pants.backend.python",
@@ -151,7 +151,7 @@ You can specify absolute paths to interpreter binaries and/or to directories con
 
 For example:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [python-setup]
 interpreter_search_paths = ["<PYENV>", "/opt/python3"]
 ```

@@ -18,7 +18,7 @@ To add new options:
 2. Add new options through the class method `register_options()`.
 3. Register the `Subsystem` in a `register.py` file.
 
-```python title="tab={"label":"pants-plugins/example/shellcheck.py"}"
+```python tab={"label":"pants-plugins/example/shellcheck.py"}
 from pants.engine.rules import collect_rules
 from pants.option.subystem import Subsystem
 
@@ -42,7 +42,7 @@ def rules():
     return collect_rules()
 ```
 
-```python title="tab={"label":"pants-plugins/example/register.py"}"
+```python tab={"label":"pants-plugins/example/register.py"}
 from example import shellcheck
 
 def rules():

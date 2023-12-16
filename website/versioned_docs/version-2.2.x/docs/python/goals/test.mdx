@@ -37,7 +37,7 @@ To change the Pytest version, set the `version` option in the `[pytest]` scope.
 
 To install any [plugins](https://docs.pytest.org/en/latest/plugins.html), add the pip requirement string to `pytest_plugins` in the `[pytest]` scope, like this:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [pytest]
 version = "pytest>=5.4"
 pytest_plugins.add = [
@@ -48,11 +48,11 @@ pytest_plugins.add = [
 
 Alternatively, if you only want to install the plugin for certain tests, you can add the plugin to the `dependencies` field of your `python_tests`. See [Third-party dependencies](../overview/third-party-dependencies.mdx) for how to install Python dependencies. For example:
 
-```text title="tab={"label":"requirements.txt"}"
+```text tab={"label":"requirements.txt"}
 pytest-django==3.10.0
 ```
 
-```python title="tab={"label":"helloworld/util/BUILD"}"
+```python tab={"label":"helloworld/util/BUILD"}
 python_tests(
    name="tests",
    # Normally, Pants infers dependencies based on imports.
@@ -80,7 +80,7 @@ By default, Pants only shows output for failed tests. You can change this by set
 
 You can permanently set the output format in your `pants.toml` like this:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [test]
 output = "all"
 ```
@@ -100,6 +100,7 @@ You may want to permanently set the Pytest option `--no-header` to avoid printin
 [pytest]
 args = ["--no-header"]
 ```
+
 :::
 
 ## Passing arguments to Pytest
@@ -112,7 +113,7 @@ $ ./pants test project/app_test.py -- -k test_function1 -vv -s
 
 You can also use the `args` option in the `[pytest]` scope, like this:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [pytest]
 args = ["-vv"]
 ```
@@ -123,6 +124,7 @@ See https://docs.pytest.org/en/latest/usage.html for more information.
 - `-k expression`: only run tests matching the expression.
 - `-v`: verbose mode.
 - `-s`: always print the stdout and stderr of your code, even if a test passes.
+
 :::
 
 :::caution How to use Pytest's `--pdb` option
@@ -135,7 +137,7 @@ Test runs are _hermetic_, meaning that they are stripped of the parent `./pants`
 
 To add any arbitrary environment variable back to the process, use the option `extra_env_vars` in the `[test]` options scope. You can hardcode a value for the option, or leave off a value to "allowlist" it and read from the parent `./pants` process's environment.
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [test]
 extra_env_vars = ["VAR1", "VAR2=hardcoded_value"]
 ```
@@ -150,13 +152,13 @@ Because Pants runs multiple test targets in parallel, you will not see your test
 
 Instead, if you want to run a test interactively—such as to use a debugger like `pdb`—run your tests with `./pants test --debug`. For example:
 
-```python title="tab={"label":"test_debug_example.py"}"
+```python tab={"label":"test_debug_example.py"}
 def test_debug():
     import pdb; pdb.set_trace()
     assert 1 + 1 == 2
 ```
 
-```text title="tab={"label":"Shell"}"
+```text tab={"label":"Shell"}
 $ <<pantscmd>> test --debug test_debug_example.py
 
 ===================================================== test session starts =====================================================
@@ -192,6 +194,7 @@ To run the tests you will need to add `-- -s` to the test call. Since ipdb will 
 ```bash
 ./pants test --debug  <target>   -- -s
 ```
+
 :::
 
 :::note Tip: using the IntelliJ/PyCharm remote debugger in tests
@@ -228,7 +231,7 @@ Pants can cancel tests which take too long. This is useful to prevent tests from
 
 To add a timeout for a particular `python_tests` target, set the `timeout` field to an integer value of seconds, like this:
 
-```python title="title="BUILD""
+```python title="BUILD"
 python_tests(
     name="tests",
     timeout=120, # seconds.
@@ -237,7 +240,7 @@ python_tests(
 
 This timeout will apply to each file belonging to the `python_tests` target, meaning that `test_f1.py` will have a timeout of 120 seconds and `test_f2.py` will have a timeout of 120 seconds. If you want finer-grained timeouts, create a dedicated `python_tests` target for each file:
 
-```python title="title="BUILD""
+```python title="BUILD"
 python_tests(
     name="test_f1",
     sources=["test_f1.py"],
@@ -253,7 +256,7 @@ python_tests(
 
 You can also set a default value and a maximum value in `pants.toml`:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [pytest]
 timeout_default = 60
 timeout_maximum = 600
@@ -267,6 +270,7 @@ When debugging locally, such as with `pdb`, you might want to temporarily disabl
 ```bash
 $ ./pants test project/app_test.py --no-pytest-timeouts
 ```
+
 :::
 
 ## `conftest.py`
@@ -295,7 +299,7 @@ Use the target type `python_library` for test utilities, rather than `python_tes
 
 For example:
 
-```python title="tab={"label":"helloworld/BUILD"}"
+```python tab={"label":"helloworld/BUILD"}
 python_library(
     name="testutils",
     sources=["testutils.py"]
@@ -306,7 +310,7 @@ python_library(
 python_tests(name="tests")
 ```
 
-```python title="tab={"label":"helloworld/testutils.py"}"
+```python tab={"label":"helloworld/testutils.py"}
 ...
 
 @contextmanager
@@ -316,7 +320,7 @@ def setup_tmpdir(files: Mapping[str, str]) -> Iterator[str]:
         yield rel_tmpdir
 ```
 
-```python title="tab={"label":"helloworld/app_test.py"}"
+```python tab={"label":"helloworld/app_test.py"}
 from helloworld.testutils import setup_tmpdir
 
 def test_app() -> None:
@@ -338,7 +342,7 @@ To depend on a built package, use the `runtime_package_dependencies` field on th
 
 For example:
 
-```python title="tab={"label":"helloworld/BUILD"}"
+```python tab={"label":"helloworld/BUILD"}
 # This target teaches Pants about our non-test Python files, so that
 # dependency inference will work for the pex_binary target.
 python_library(
@@ -356,11 +360,11 @@ python_tests(
 )
 ```
 
-```python title="tab={"label":"helloworld/say_hello.py"}"
+```python tab={"label":"helloworld/say_hello.py"}
 print("Hello, test!")
 ```
 
-```python title="tab={"label":"helloworld/test_binary.py"}"
+```python tab={"label":"helloworld/test_binary.py"}
 import subprocess
 
 def test_say_hello():
@@ -377,7 +381,7 @@ $ ./pants test --use-coverage helloworld/util/lang_test.py
 
 Or to permanently use coverage, set in your config file:
 
-```toml title="title="pants.ci.toml""
+```toml title="pants.ci.toml"
 [test]
 use_coverage = true
 ```
@@ -425,7 +429,7 @@ This is a shortcoming of Coverage itself.
 
 Pants will default to writing the results to the console, but you can also output in HTML, XML, JSON, or the raw SQLite file:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [coverage-py]
 report = ["raw", "xml", "html", "json", "console"]
 ```
@@ -434,12 +438,12 @@ You can change the output dir with the `output_dir` option in the `[coverage-py]
 
 You may use a custom `.coveragerc` config file by setting the option `coverage` in the `[coverage-py]` scope. You must include `relative_files = True` in the `[run]` section for Pants to work.
 
-```toml title="tab={"label":"pants.toml"}"
+```toml tab={"label":"pants.toml"}
 [coverage-py]
 config = ".coveragerc"
 ```
 
-```text title="tab={"label":".coveragerc"}"
+```text tab={"label":".coveragerc"}
 [run]
 relative_files = True
 branch = True
@@ -453,7 +457,7 @@ Pytest can generate [JUnit XML result files](https://docs.pytest.org/en/latest/u
 
 To save JUnit XML result files, set the option `junit_xml_dir` in the `[pytest]` scope, like this:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [pytest]
 junit_xml_dir = "dist/pytest_results"
 ```

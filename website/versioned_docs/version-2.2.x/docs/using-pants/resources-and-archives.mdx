@@ -17,7 +17,7 @@ Pants will make resources available on the appropriate runtime path, such as Pyt
 
 For example, to load resources in Python:
 
-```python title="tab={"label":"src/python/project/app.py"}"
+```python tab={"label":"src/python/project/app.py"}
 import pkgutil
 
 if __name__ == "__main__":
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     print(f"Config: {config}")
 ```
 
-```python title="tab={"label":"src/python/project/BUILD"}"
+```python tab={"label":"src/python/project/BUILD"}
 python_library(
   # Pants cannot infer this dependency, so we explicitly add it.
   dependencies=[":config"],
@@ -37,7 +37,7 @@ resources(
 )
 ```
 
-```json title="tab={"label":"src/python/project/config.json"}"
+```json tab={"label":"src/python/project/config.json"}
 { "k1": "v", "k2": "v" }
 ```
 
@@ -49,14 +49,14 @@ A `files` target is for loose files that are copied into the chroot where Pants 
 
 For example, to load loose files in Python:
 
-```python title="tab={"label":"src/python/project/app_test.py"}"
+```python tab={"label":"src/python/project/app_test.py"}
 def test_open_file():
     with open("src/python/project/config.json") as f:
         content = f.read().decode()
     assert content == '{"k1": "v", "k2": "v"}'
 ```
 
-```text title="tab={"label":"src/python/project/BUILD"}"
+```text tab={"label":"src/python/project/BUILD"}
 python_tests(
   # Pants cannot infer this dependency, so we explicitly add it.
   dependencies=[":config"],
@@ -68,7 +68,7 @@ files(
 )
 ```
 
-```json title="tab={"label":"src/python/project/config.json"}"
+```json tab={"label":"src/python/project/config.json"}
 { "k1": "v", "k2": "v" }
 ```
 
@@ -103,7 +103,7 @@ However, you may want to change the path to something else. For example, when cr
 
 You can use the `relocated_files` target to change the path used at runtime for the files. Your other targets can then add this target to their `dependencies` field, rather than using the original `files` target:
 
-```python title="title="src/assets/BUILD""
+```python title="src/assets/BUILD"
 # Original files target.
 files(
   name="logo",
@@ -131,7 +131,7 @@ Running `./pants package` on an `archive` target will create a zip or tar file w
 
 For example:
 
-```python title="title="project/BUILD""
+```python title="project/BUILD"
 archive(
     name="app_with_config",
     packages=[":app"],

@@ -49,7 +49,7 @@ Global options are set using the environment variable `PANTS_{OPTION_NAME}`:
 PANTS_LEVEL=debug ./pants ...
 ```
 
-Subsystem options are set using the environment variable
+Subsystem options are set using the environment variable  
 `PANTS_{SCOPE}_{OPTION_NAME}`:
 
 ```bash
@@ -228,24 +228,24 @@ will set the value to `[2, 3, 4]`, and
 will set the value to `[3, 4]`.
 
 :::note Add/remove syntax in .toml files
-    The +/- syntax works in .toml files, but the entire value must be quoted:
+The +/- syntax works in .toml files, but the entire value must be quoted:
 
-    ```toml title="pants.toml"
-    [scope]
-    listopt = "+[1,2],-[3,4]"
-    ```
+```toml title="pants.toml"
+[scope]
+listopt = "+[1,2],-[3,4]"
+```
 
-    This means that TOML treats the value as a string, instead of a TOML list.
+This means that TOML treats the value as a string, instead of a TOML list.
 
-    Alternatively, you can use this syntactic sugar, which allows the values to be regular TOML lists:
+Alternatively, you can use this syntactic sugar, which allows the values to be regular TOML lists:
 
-    ```toml title="pants.toml"
-    [scope]
-    listopt.add = [1, 2]
-    listopt.remove = [3, 4]
-    ```
+```toml title="pants.toml"
+[scope]
+listopt.add = [1, 2]
+listopt.remove = [3, 4]
+```
 
-    But note that this only works in Pants's `.toml` config files, not in environment variables or command-line flags.
+But note that this only works in Pants's `.toml` config files, not in environment variables or command-line flags.
 :::
 
 ## Dict values
@@ -336,11 +336,11 @@ PANTS_SCOPE_OPTION=@path/to/file.json
 ```
 
 :::caution Gotcha: If you modify the value file, you must manually restart pantsd
-    Until we resolve [this issue](https://github.com/pantsbuild/pants/issues/10360), changing
-    the value in a file used with the `@` syntax as described above will not invalidate the build.
-    For now, if such a file changes you will have to restart the Pants daemon manually. You can
-    do so by `kill`ing it (after using `ps -ef | grep pantsd` to find its pid), or by running
-    Pants once with `--no-pantsd`.
+Until we resolve [this issue](https://github.com/pantsbuild/pants/issues/10360), changing
+the value in a file used with the `@` syntax as described above will not invalidate the build.
+For now, if such a file changes you will have to restart the Pants daemon manually. You can
+do so by `kill`ing it (after using `ps -ef | grep pantsd` to find its pid), or by running
+Pants once with `--no-pantsd`.
 :::
 
 # `.pants.rc` file

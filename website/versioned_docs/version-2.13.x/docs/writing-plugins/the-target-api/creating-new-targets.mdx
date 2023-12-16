@@ -52,40 +52,41 @@ class CustomTarget(Target):
 ```
 
 :::note Tip: subclass `SingleSourceField` or `MultipleSourcesField`
-    Use `SingleSourceField` for `source: str` and `MultipleSourcesField` for `sources: Iterable[str]`.
+Use `SingleSourceField` for `source: str` and `MultipleSourcesField` for `sources: Iterable[str]`.
 
-    You will often want to subclass either of these fields to give custom functionality:
+You will often want to subclass either of these fields to give custom functionality:
 
-    - set the `default`
-    - set `expected_file_extensions`, e.g. to `(".json", ".txt")`
-    - set `expected_num_files`, e.g. to `1` or `range(0, 5)` (i.e. 0 to 4 files)
+- set the `default`
+- set `expected_file_extensions`, e.g. to `(".json", ".txt")`
+- set `expected_num_files`, e.g. to `1` or `range(0, 5)` (i.e. 0 to 4 files)
+
 :::
 
 :::note Using the fields of an existing target type
-    Sometimes, you may want to create a new target type that behaves similarly to one that already exists, except for some small changes.
+Sometimes, you may want to create a new target type that behaves similarly to one that already exists, except for some small changes.
 
-    For example, you might like how `pex_binary` behaves in general, but you have a Django application and keep writing `entry_point="manage.py"`. Normally, you should write a [macro](../macros.mdx) to set this default value; but, here, you also want to add new Django-specific fields, so you decide to create a new target type.
+For example, you might like how `pex_binary` behaves in general, but you have a Django application and keep writing `entry_point="manage.py"`. Normally, you should write a [macro](../macros.mdx) to set this default value; but, here, you also want to add new Django-specific fields, so you decide to create a new target type.
 
-    Rather than subclassing the original target type, use this pattern:
+Rather than subclassing the original target type, use this pattern:
 
-    ```python
-    from pants.backend.python.target_types import PexBinaryTarget, PexEntryPointField
-    from pants.engine.target import Target
-    from pants.util.ordered_set import FrozenOrderedSet
+```python
+from pants.backend.python.target_types import PexBinaryTarget, PexEntryPointField
+from pants.engine.target import Target
+from pants.util.ordered_set import FrozenOrderedSet
 
-    class DjangoEntryPointField(PexEntryPointField):
-       default = "manage.py"
+class DjangoEntryPointField(PexEntryPointField):
+default = "manage.py"
 
 
-    class DjangoManagePyTarget(Target):
-       alias = "django_manage_py"
-       core_fields = (
-           *(FrozenOrderedSet(PexBinaryTarget.core_fields) - {PexEntryPoint}),
-           DjangoEntryPointField,
-       )
-    ```
+class DjangoManagePyTarget(Target):
+alias = "django_manage_py"
+core_fields = (
+*(FrozenOrderedSet(PexBinaryTarget.core_fields) - {PexEntryPoint}),
+DjangoEntryPointField,
+)
+```
 
-    In this example, we register all of the fields of `PexBinaryTarget`, except for the field `PexEntryPoint `. We instead register our custom field `DjangoEntryPointField `.
+In this example, we register all of the fields of `PexBinaryTarget`, except for the field `PexEntryPoint `. We instead register our custom field `DjangoEntryPointField `.
 :::
 
 ## Step 2: Register the target type in `register.py`

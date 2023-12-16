@@ -10,7 +10,7 @@ Create a Cloud Function with Python.
 Pants can create a Google Cloud Function-compatible zip file from your Python code, allowing you to develop your functions in your repository.
 
 :::note FYI: how Pants does this
-    Under-the-hood, Pants uses the [PEX](https://github.com/pantsbuild/pex) project, to select the appropriate third-party requirements and first-party sources and lay them out in a zip file, in the format recommended by Google Cloud Functions.
+Under-the-hood, Pants uses the [PEX](https://github.com/pantsbuild/pex) project, to select the appropriate third-party requirements and first-party sources and lay them out in a zip file, in the format recommended by Google Cloud Functions.
 :::
 
 ## Step 1: Activate the Python Google Cloud Function backend
@@ -28,12 +28,13 @@ backend_packages.add = [
 This adds the new `python_google_cloud_function` target, which you can confirm by running `pants help python_google_cloud_function `
 
 :::caution Set `layout = "zip"` for Pants 2.17
-    Pants 2.17 is transitioning to a new, better layout, but defaults to the old Lambdex layout for backwards compatibility (see [below](#migrating-from-pants-216-and-earlier) for more details). To silence the warnings and be ready for Pants 2.18, add the following to the end of your `pants.toml`:
+Pants 2.17 is transitioning to a new, better layout, but defaults to the old Lambdex layout for backwards compatibility (see [below](#migrating-from-pants-216-and-earlier) for more details). To silence the warnings and be ready for Pants 2.18, add the following to the end of your `pants.toml`:
 
-    ```toml title="pants.toml"
-    [lambdex]
-    layout = "zip"
-    ```
+```toml title="pants.toml"
+[lambdex]
+layout = "zip"
+```
+
 :::
 
 ## Step 2: Define a `python_google_cloud_function ` target
@@ -69,7 +70,7 @@ Pants will use [dependency inference](../../using-pants/key-concepts/targets-and
 You can optionally set the `output_path` field to change the generated zip file's path.
 
 :::caution Use `resource` instead of `file`
-    `file` / `files` targets will not be included in the built Cloud Function because filesystem APIs like `open()` would not load them as expected. Instead, use the `resource` / `resources` target. See [Assets and archives](../../using-pants/assets-and-archives.mdx) for further explanation.
+`file` / `files` targets will not be included in the built Cloud Function because filesystem APIs like `open()` would not load them as expected. Instead, use the `resource` / `resources` target. See [Assets and archives](../../using-pants/assets-and-archives.mdx) for further explanation.
 :::
 
 ## Step 3: Run `package`
@@ -85,9 +86,9 @@ Wrote dist/project/cloud_function.zip
 ```
 
 :::caution Running from macOS and failing to build?
-    Cloud Functions must run on Linux, so Pants tells PEX and Pip to build for Linux when resolving your third party dependencies. This means that you can only use pre-built [wheels](https://packaging.python.org/glossary/#term-wheel) (bdists). If your project requires any source distributions ([sdists](https://packaging.python.org/glossary/#term-source-distribution-or-sdist)) that must be built locally, PEX and pip will fail to run.
+Cloud Functions must run on Linux, so Pants tells PEX and Pip to build for Linux when resolving your third party dependencies. This means that you can only use pre-built [wheels](https://packaging.python.org/glossary/#term-wheel) (bdists). If your project requires any source distributions ([sdists](https://packaging.python.org/glossary/#term-source-distribution-or-sdist)) that must be built locally, PEX and pip will fail to run.
 
-    If this happens, you must either change your dependencies to only use dependencies with pre-built [wheels](https://pythonwheels.com) or find a Linux environment to run `pants package`.
+If this happens, you must either change your dependencies to only use dependencies with pre-built [wheels](https://pythonwheels.com) or find a Linux environment to run `pants package`.
 :::
 
 ## Step 4: Upload to Google Cloud

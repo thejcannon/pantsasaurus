@@ -44,7 +44,7 @@ Please message us on Slack or open a GitHub issue (see [Community](/community/ge
 
 Every target type has a field called `tags`, which allows you to add a sequence of strings. The strings can be whatever you'd like, such as `"integration_test"` or `"skip_lint"`.
 
-```python title="title="BUILD""
+```python title="BUILD"
 python_tests(
     name="integration",
     sources=["*_integration_test.py"],
@@ -78,11 +78,11 @@ Each entry must be separated by a new line.
 
 For example:
 
-```text title="tab={"label":"Shell"}"
+```text tab={"label":"Shell"}
 $ ./pants --spec-files=targets.txt list
 ```
 
-```text title="tab={"label":"targets.txt"}"
+```text tab={"label":"targets.txt"}
 helloworld/lang/*.py
 helloworld/util
 helloworld/util:tests
@@ -124,4 +124,5 @@ If you don't want to save the output to an actual file—such as to not pollute 
 $ TARGETS=$(./pants dependencies helloworld/util)
 $ ./pants --spec-files=<(echo $TARGETS) lint
 ```
+
 :::

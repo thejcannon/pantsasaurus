@@ -100,6 +100,7 @@ You may want to permanently set the Pytest option `--no-header` to avoid printin
 [pytest]
 args = ["--no-header"]
 ```
+
 :::
 
 ## Passing arguments to Pytest
@@ -123,6 +124,7 @@ See https://docs.pytest.org/en/latest/usage.html for more information.
 - `-k expression`: only run tests matching the expression.
 - `-v`: verbose mode.
 - `-s`: always print the stdout and stderr of your code, even if a test passes.
+
 :::
 
 :::caution How to use Pytest's `--pdb` option
@@ -212,6 +214,7 @@ To run the tests you will need to add `-- -s` to the test call. Since ipdb will 
 ```bash
 ./pants test --debug  <target>   -- -s
 ```
+
 :::
 
 :::note Tip: using the IntelliJ/PyCharm remote debugger in tests
@@ -287,6 +290,7 @@ When debugging locally, such as with `pdb`, you might want to temporarily disabl
 ```bash
 $ ./pants test project/app_test.py --no-pytest-timeouts
 ```
+
 :::
 
 ## `conftest.py`

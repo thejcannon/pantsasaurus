@@ -137,6 +137,7 @@ However, the below is invalid because Pants's AST parser will not be able to see
 process = Process(["/bin/echo"])
 Get(ProcessResult, process)
 ```
+
 :::
 
 :::note Why only one input?
@@ -252,6 +253,7 @@ class Example:
     def __init__(self, args: Iterable[str]) -> None:
         self.args = tuple(args)
 ```
+
 :::
 
 ### `Collection`: a newtype for `tuple`

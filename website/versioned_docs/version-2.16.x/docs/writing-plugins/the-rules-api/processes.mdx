@@ -37,9 +37,9 @@ This will return a `ProcessResult` object, which has the fields `stdout: bytes`,
 The process will run in a temporary directory and is hermetic, meaning that it cannot read any arbitrary file from your project and that it will be stripped of environment variables. This sandbox is important for reproducibility and to allow running your `Process` anywhere, such as through remote execution.
 
 :::note Debugging a `Process`
-    Setting the [`--keep-sandboxes=always`](./tips-and-debugging.mdx#debugging-look-inside-the-chroot) flag will cause the sandboxes of `Process`es to be preserved and logged to the console for inspection.
+Setting the [`--keep-sandboxes=always`](./tips-and-debugging.mdx#debugging-look-inside-the-chroot) flag will cause the sandboxes of `Process`es to be preserved and logged to the console for inspection.
 
-    It can be very helpful while editing `Process` definitions!
+It can be very helpful while editing `Process` definitions!
 :::
 
 ### Input Files
@@ -75,24 +75,24 @@ To capture output files from the process, set `output_files: Iterable[str]` and/
 To use a timeout, set the `timeout_seconds: int` field. Otherwise, the process will never time out, unless the user cancels Pants.
 
 :::note `Process` caching
-    By default, a `Process` will be cached to `~/.cache/pants/lmdb_store` if the `exit_code` is `0`.
+By default, a `Process` will be cached to `~/.cache/pants/lmdb_store` if the `exit_code` is `0`.
 
-    If it's not safe to cache your `Process` -- usually the case when you know that a process accesses files outside its sandbox -- you can change the cacheability of your `Process` using the `ProcessCacheScope` parameter:
+If it's not safe to cache your `Process` -- usually the case when you know that a process accesses files outside its sandbox -- you can change the cacheability of your `Process` using the `ProcessCacheScope` parameter:
 
-    ```python
-    from pants.engine.process import Process, ProcessCacheScope, ProcessResult
+```python
+from pants.engine.process import Process, ProcessCacheScope, ProcessResult
 
-    @rule
-    async def demo(...) -> Foo:
-        process = Process(
-            argv=["/bin/echo", "hello world"],
-            description="Not persisted between Pants runs ('sessions').",
-            cache_scope=ProcessCacheScope.PER_SESSION,
-        )
-        ...
-    ```
+@rule
+async def demo(...) -> Foo:
+process = Process(
+argv=["/bin/echo", "hello world"],
+description="Not persisted between Pants runs ('sessions').",
+cache_scope=ProcessCacheScope.PER_SESSION,
+)
+...
+```
 
-    `ProcessCacheScope` supports other options as well, including `ALWAYS`.
+`ProcessCacheScope` supports other options as well, including `ALWAYS`.
 :::
 
 ### FallibleProcessResult

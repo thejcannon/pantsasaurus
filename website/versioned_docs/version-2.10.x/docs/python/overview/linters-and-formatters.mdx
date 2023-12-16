@@ -19,6 +19,7 @@ Pants does several things to speed up running formatters and linters:
 - Automatically configures tools that support concurrency (e.g. a `--jobs` option) based on your number of cores and what else is already running.
 - Runs everything in parallel with the `lint` goal (although not the `fmt` goal, which pipes the results of one formatter to the next for correctness).
 - Runs in batches of 256 files by default, which gives parallelism even for tools that don't have a `--jobs` option. This also increases cache reuse.
+
 :::
 
 ## Activating linters and formatters

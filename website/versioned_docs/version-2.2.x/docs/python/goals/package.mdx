@@ -47,7 +47,7 @@ For the first two approaches, Pants will use [dependency inference](../../using-
 
 You can specify a file name, which Pants will convert into a well-formed entry point. Like with the `sources` field, file paths are relative to the BUILD file, rather than the build root.
 
-```python title="title="helloworld/BUILD""
+```python title="helloworld/BUILD"
 # The default `sources` field will include `main.py`.
 python_library()
 
@@ -70,7 +70,7 @@ This approach has an added benefit that you can use file arguments, e.g. `./pant
 
 You can directly specify the entry point in the format `path.to.module` or `path.to.module:my_func`. This allows you to use an entry point for a third-party requirement or the Python standard library.
 
-```python title="title="helloworld/BUILD""
+```python title="helloworld/BUILD"
 # The default `sources` field will include `main.py`.
 python_library()
 
@@ -100,7 +100,7 @@ Set `entry_point="<none>"` to leave off an entry point. This will create a PEX t
 
 Note that Pants cannot use dependency inference in this case, so you must manually add to the `dependencies` field if you want to include first-party code and/or third-party requirements in the binary.
 
-```python title="title="helloworld/BUILD""
+```python title="helloworld/BUILD"
 python_library(name="lib")
 
 pex_binary(
@@ -126,7 +126,7 @@ Because a `.pex` file is simply a ZIP file, you can use the Unix tool `unzip` to
 
 ### Examples
 
-```text title="title="Shell""
+```text title="Shell"
 $ ./pants package helloworld/main.py
 
 17:36:42 [INFO] Wrote dist/helloworld/helloworld.pex
@@ -134,7 +134,7 @@ $ ./pants package helloworld/main.py
 
 We can also build the same Pex by using the address of the `pex_binary` target, as described [here](../../using-pants/concepts/targets-and-build-files.mdx).
 
-```text title="title="Shell""
+```text title="Shell"
 $ ./pants package helloworld:app
 
 17:36:42 [INFO] Wrote dist/helloworld/helloworld.pex

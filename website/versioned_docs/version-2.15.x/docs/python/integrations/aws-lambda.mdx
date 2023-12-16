@@ -10,7 +10,7 @@ Create a Lambda with Python code.
 Pants can create a Lambda-compatible zip file from your Python code, allowing you to develop your Lambdas in your repository instead of using the online Cloud9 editor.
 
 :::note FYI: how Pants does this
-    Under-the-hood, Pants uses the [Lambdex](https://github.com/pantsbuild/lambdex) project. First, Pants will convert your code into a [Pex file](../python-overview/pex-files.mdx). Then, Pants will use Lambdex to convert the Pex into a zip file understood by AWS.
+Under-the-hood, Pants uses the [Lambdex](https://github.com/pantsbuild/lambdex) project. First, Pants will convert your code into a [Pex file](../python-overview/pex-files.mdx). Then, Pants will use Lambdex to convert the Pex into a zip file understood by AWS.
 :::
 
 ## Step 1: Activate the Python AWS Lambda backend
@@ -59,7 +59,7 @@ Pants will use [dependency inference](../../using-pants/key-concepts/targets-and
 You can optionally set the `output_path` field to change the generated zip file's path.
 
 :::caution Use `resource` instead of `file`
-    `file` / `files` targets will not be included in the built AWS Lambda because filesystem APIs like `open()` would not load them as expected. Instead, use the `resource` and `resources` target. See [Assets and archives](../../using-pants/assets-and-archives.mdx) for further explanation.
+`file` / `files` targets will not be included in the built AWS Lambda because filesystem APIs like `open()` would not load them as expected. Instead, use the `resource` and `resources` target. See [Assets and archives](../../using-pants/assets-and-archives.mdx) for further explanation.
 :::
 
 ## Step 3: Run `package`
@@ -76,9 +76,9 @@ Wrote code bundle to dist/project.zip
 ```
 
 :::caution Running from macOS and failing to build?
-    AWS Lambdas must run on Linux, so Pants tells PEX and Pip to build for Linux when resolving your third party dependencies. This means that you can only use pre-built [wheels](https://packaging.python.org/glossary/#term-wheel) (bdists). If your project requires any source distributions ([sdists](https://packaging.python.org/glossary/#term-source-distribution-or-sdist)) that must be built locally, PEX and pip will fail to run.
+AWS Lambdas must run on Linux, so Pants tells PEX and Pip to build for Linux when resolving your third party dependencies. This means that you can only use pre-built [wheels](https://packaging.python.org/glossary/#term-wheel) (bdists). If your project requires any source distributions ([sdists](https://packaging.python.org/glossary/#term-source-distribution-or-sdist)) that must be built locally, PEX and pip will fail to run.
 
-    If this happens, you must either change your dependencies to only use dependencies with pre-built [wheels](https://pythonwheels.com) or find a Linux environment to run `pants package`.
+If this happens, you must either change your dependencies to only use dependencies with pre-built [wheels](https://pythonwheels.com) or find a Linux environment to run `pants package`.
 :::
 
 ## Step 4: Upload to AWS

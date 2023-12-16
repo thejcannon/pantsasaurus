@@ -19,7 +19,7 @@ Targets are defined in files with the name `BUILD`.
 
 For example, this `BUILD` file defines two targets:
 
-```python title="title="helloworld/greet/BUILD""
+```python title="helloworld/greet/BUILD"
 python_tests(
     name="tests",
     sources=["test_*.py"],
@@ -104,7 +104,7 @@ However, dependency inference cannot infer everything. For example, dependency i
 
 To add a new explicit dependency, add the address to the target:
 
-```python title="title="helloworld/greet/BUILD""
+```python title="helloworld/greet/BUILD"
 python_library(
     dependencies=[
         "3rdparty/python:ansicolors",

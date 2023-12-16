@@ -37,7 +37,7 @@ Copy over your original `pants.toml` into a new TOML config file. You can call i
 
 We recommend deactivating the Python backend package and any Python plugins like `pantsbuild.pants.contrib.mypy` so that you do not accidentally use your v1 script to run Python code.
 
-```toml title="title="pants.v1.toml""
+```toml title="pants.v1.toml"
 [GLOBAL]
 pants_version = "1.30.1"
 # Instead of using backend_packages.remove, you may alternatively
@@ -51,7 +51,7 @@ plugins = [
 
 Finally, tell Pants to ignore the BUILD files for your Python code. This is important because Pants 1.x may not understand BUILD files from Pants 2.x, such as if Pants 2.x adds a new target type.
 
-```toml title="title="pants.v1.toml""
+```toml title="pants.v1.toml"
 [GLOBAL]
 # Replace this with the paths to your Python code.
 build_ignore = ["src/python", "tests/python"]
@@ -61,7 +61,7 @@ build_ignore = ["src/python", "tests/python"]
 
 Rather than using the script `./pants`, you will use this script to run Pants for other languages. You can name this script whatever you'd like, such as `./v1`, `./pants_jvm`, or `./jvm`.
 
-```shell title="title="./v1""
+```shell title="./v1"
 export PANTS_TOML=pants.v1.toml
 export PANTS_CONFIG_FILES="[\"$PANTS_TOML}\"]"
 export PANTS_BIN_NAME=./v1
@@ -76,7 +76,7 @@ Now update your main `pants.toml` to remove from `backend_packages` and `plugins
 
 Set `build_ignore` to tell Pants to ignore the BUILD files with any non-Python target types.
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [GLOBAL]
 pants_version = "1.30.1"
 # Instead of using backend_packages.remove, you may alternatively
@@ -107,7 +107,7 @@ Now that the v1 engine is removed, some of the option names changed.
 
 Before:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [GLOBAL]
 pants_version = "1.30.1"
 v1 = false
@@ -125,7 +125,7 @@ enable_pantsd = true
 
 After:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [GLOBAL]
 pants_version = "2.0.1rc0"
 backend_packages = [
@@ -149,6 +149,7 @@ ignore_pants_warnings = [
   "DEPRECATED: Use the target type `pex_binary`",
 ]
 ```
+
 :::
 
 ## Step 5: Tweak your CI's caching (recommended)
@@ -293,14 +294,14 @@ Because linters and formatters now run in a chroot (temporary directory), you mu
 
 Before:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [GLOBAL]
 plugins = ["pantsbuild.pants.contrib.mypy"]
 ```
 
 After:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [GLOBAL]
 backend_packages = [
   "pants.backend.python",
@@ -316,14 +317,14 @@ See [typecheck](../../python/goals/typecheck.mdx) for more information.
 
 Before:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [repl.py]
 ipython = true
 ```
 
 After:
 
-```toml title="title="pants.toml""
+```toml title="pants.toml"
 [repl]
 shell = "ipython"
 ```

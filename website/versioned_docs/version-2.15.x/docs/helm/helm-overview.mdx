@@ -6,9 +6,9 @@
 ---
 
 :::caution Helm support is in alpha stage
-    Pants has good support for the most common operations for managing Helm charts sources. However there may be use cases not covered yet.
+Pants has good support for the most common operations for managing Helm charts sources. However there may be use cases not covered yet.
 
-    Please share feedback for what you need to use Pants with your Helm charts by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](/community/getting-help)!
+Please share feedback for what you need to use Pants with your Helm charts by either [opening a GitHub issue](https://github.com/pantsbuild/pants/issues/new/choose) or [joining our Slack](/community/getting-help)!
 :::
 
 # Initial setup
@@ -52,7 +52,7 @@ version: 0.1.0
 ```
 
 :::note Using `helm create`
-    You can use the `helm create` command to create an initial skeleton for your chart but be sure you have properly configured your source root patterns (as shown in the previous section) since the `helm create` command will create a folder name with the name of your chart and place the sources inside.
+You can use the `helm create` command to create an initial skeleton for your chart but be sure you have properly configured your source root patterns (as shown in the previous section) since the `helm create` command will create a folder name with the name of your chart and place the sources inside.
 :::
 
 Then run [`pants tailor ::`](../getting-started/getting-started/initial-configuration.mdx#5-generate-build-files) to generate `BUILD` files. This will scan your source repository in search of `Chart.yaml` or `Chart.yml` files and create a `helm_chart` target for each of them.
@@ -257,9 +257,9 @@ tests:
 ```
 
 :::caution Using `file`, `files` and `relocated_files` targets
-    Other file-centric targets are also supported, just be aware that `file` and `files` targets are
-    not affected by the source roots setting. When using `relocated_files`, the files will be relative
-    to the value set in the `dest` field.
+Other file-centric targets are also supported, just be aware that `file` and `files` targets are
+not affected by the source roots setting. When using `relocated_files`, the files will be relative
+to the value set in the `dest` field.
 :::
 
 ### Timeouts
@@ -375,7 +375,7 @@ default_registry_repository = "charts"
 Helm charts can depend on other charts, whether first-party charts defined in the same repo, or third-party charts published in a registry. Pants uses this dependency information to know when work needs to be re-run.
 
 :::note Chart.yaml version
-    To benefit from Pants dependency management and inference in your Helm charts, you will need to use `apiVersion: v2` in your `Chart.yaml` file.
+To benefit from Pants dependency management and inference in your Helm charts, you will need to use `apiVersion: v2` in your `Chart.yaml` file.
 :::
 
 ## `Chart.yaml` dependencies

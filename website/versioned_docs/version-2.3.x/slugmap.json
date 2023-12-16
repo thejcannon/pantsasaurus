@@ -165,6 +165,7 @@
   "reference-test": "reference/goals/test.mdx",
   "reference-typecheck": "reference/goals/typecheck.mdx",
   "reference-validate": "reference/goals/validate.mdx",
+  "reference-all-goals": "reference/goals",
   "reference-all-subsystems": "reference/subsystems",
   "reference-all-targets": "reference/targets",
   "reference-archive": "reference/targets/archive.mdx",
