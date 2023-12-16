@@ -35,23 +35,15 @@ To fix `tailor` failures, run `./pants tailor`.
 ```
 
 To ignore false positives, set `[tailor].ignore_paths` and `[tailor].ignore_adding_targets`. See [tailor](../../../reference/goals/tailor.mdx) for more detail.
-[block:code]
-{
-"codes": [
-{
-"code": "[tailor]\nignore_paths = [\"src/py/ignore_me/**\"]\nignore_adding_targets = [\"src/py/project:tgt\"]",
-"language": "toml",
-"name": "pants.toml"
-}
-]
-}
-[/block]
 
-[block:api-header]
-{
-"title": "Formatting BUILD files with Black"
-}
-[/block]
+```toml title="pants.toml"
+[tailor]
+ignore_paths = ["src/py/ignore_me/**"]
+ignore_adding_targets = ["src/py/project:tgt"]
+```
+
+## Formatting BUILD files with Black
+
 `./pants run update-build-files` will format your BUILD files with the Black Python formatter. The goal will also fix any safe Pants deprecations like renaming target types.
 
 ```

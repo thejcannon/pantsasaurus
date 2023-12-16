@@ -12,27 +12,20 @@ Some highlights:
 - Pants now logs when certain steps of your build are done. This improves, in particular, the experience when you have `--no-dynamic-ui` enabled, such as in CI.
 
 See [here](https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/1.30.x.rst) for a detailed change log.
-[block:api-header]
-{
-"title": "Experimental dependency inference feature"
-}
-[/block]
+
+## Experimental dependency inference feature
+
 Pants can now read your Python source files to infer the `dependencies` field for your Python targets, meaning that you can now leave off the `dependencies` field for most of your BUILD files.
 
 ### How to activate
 
 Add `dependency_inference = true` to your `pants.toml`, like this:
-[block:code]
-{
-"codes": [
-{
-"code": "[GLOBAL]\ndependency_inference = true",
-"language": "toml",
-"name": "pants.toml"
-}
-]
-}
-[/block]
+
+```toml title="pants.toml"
+[GLOBAL]
+dependency_inference = true
+```
+
 To test that it is working, find a sample target, then delete the `dependencies` field from its BUILD file and run `./pants dependencies path/to:target`.
 
 ### Teach Pants about your third party dependencies (recommended)
@@ -40,29 +33,27 @@ To test that it is working, find a sample target, then delete the `dependencies`
 Pants will assume that each of your dependencies exposes a module with the same name; for example, the requirement `Django>=2.0` would expose the module `"django"`. However, sometimes the module is different, like `setuptools` exposing `pkg_resources`.
 
 If you are using a `requirements.txt` and `python_requirements()` target, teach Pants about any unusual modules like this:
-[block:code]
-{
-"codes": [
-{
-"code": "python_library(\n module_mapping={\n \"ansicolors\": [\"colors\"],\n \"beautifulsoup4\": [\"bs4\"],\n \"setuptools\": [\"pkg_resources\"],\n },\n)",
-"language": "python",
-"name": "3rdparty/BUILD"
-}
-]
-}
-[/block]
+
+```python title="3rdparty/BUILD"
+python_library(
+  module_mapping={
+    "ansicolors": ["colors"],
+    "beautifulsoup4": ["bs4"],
+    "setuptools": ["pkg_resources"],
+  },
+)
+```
+
 For inline `python_requirement_library` targets, configure like this:
-[block:code]
-{
-"codes": [
-{
-"code": "python_requirement_library(\n name='setuptools',\n requirements=[\n python_requirement('setuptools', modules=['pkg_resources']),\n ],\n)\n",
-"language": "python",
-"name": "3rdparty/BUILD"
-}
-]
-}
-[/block]
+
+```python title="3rdparty/BUILD"
+python_requirement_library(
+  name='setuptools',
+  requirements=[
+    python_requirement('setuptools', modules=['pkg_resources']),
+  ],
+)
+```
 
 ### Known limitations
 

@@ -7,11 +7,8 @@ Some conventions we encourage.
 
 ---
 
-[block:api-header]
-{
-"title": "Reminder: running the autoformatters and linters"
-}
-[/block]
+## Reminder: running the autoformatters and linters
+
 Most of Pants' style is enforced via Black, isort, Docformatter, Flake8, and MyPy. Run these commands frequently when developing:
 
 ```bash
@@ -19,19 +16,37 @@ $ ./pants --changed-since=HEAD fmt
 $ build-support/githooks/pre-commit
 ```
 
-[block:callout]
-{
-"type": "info",
-"title": "Tip: improving Black's formatting by wrapping in `()`",
-"body": "Sometimes, Black will split code over multiple lines awkwardly. For example:\n\n`python\nregister(\n    \"--pants-bin-name\",\n    advanced=True,\n    default=\"./pants\",\n    help=\"The name of the script or binary used to invoke pants. \"\n    \"Useful when printing help messages.\",\n)\n`\n\nOften, you can improve Black's formatting by wrapping the expression in parentheses, then rerunning `fmt`:\n\n`python\nregister(\n    \"--pants-bin-name\",\n    advanced=True,\n    default=\"./pants\",\n    help=(\n        \"The name of the script or binary used to invoke pants. \"\n        \"Useful when printing help messages.\"\n    ),\n)\n`\n\nThis is not mandatory, only encouraged."
-}
-[/block]
+:::note Tip: improving Black's formatting by wrapping in `()`
+Sometimes, Black will split code over multiple lines awkwardly. For example:
 
-[block:api-header]
-{
-"title": "Comments"
-}
-[/block]
+```python
+register(
+    "--pants-bin-name",
+    advanced=True,
+    default="./pants",
+    help="The name of the script or binary used to invoke pants. "
+    "Useful when printing help messages.",
+)
+```
+
+Often, you can improve Black's formatting by wrapping the expression in parentheses, then rerunning `fmt`:
+
+```python
+register(
+    "--pants-bin-name",
+    advanced=True,
+    default="./pants",
+    help=(
+        "The name of the script or binary used to invoke pants. "
+        "Useful when printing help messages."
+    ),
+)
+```
+
+This is not mandatory, only encouraged.
+:::
+
+## Comments
 
 ### Style
 
@@ -94,11 +109,7 @@ For example:
 # TODO(#5427): Remove this block once we can get rid of the `globs` feature.
 ```
 
-[block:api-header]
-{
-"title": "Strings"
-}
-[/block]
+## Strings
 
 ### Use `f-strings`
 
@@ -113,11 +124,7 @@ f"Hello {name}!"
 "Hello %s" % name
 ```
 
-[block:api-header]
-{
-"title": "Conditionals"
-}
-[/block]
+## Conditionals
 
 ### Prefer conditional expressions (ternary expressions)
 
@@ -156,11 +163,8 @@ def safe_divide(dividend: int, divisor: int) -> Optional[int]:
 ```
 
 Why prefer this? It reduces nesting and reduces the cognitive load of readers. See [here](https://medium.com/@scadge/if-statements-design-guard-clauses-might-be-all-you-need-67219a1a981a) for more explanation.
-[block:api-header]
-{
-"title": "Collections"
-}
-[/block]
+
+## Collections
 
 ### Use collection literals
 
@@ -230,11 +234,8 @@ There are some exceptions, including, but not limited to:
 - If mutations are involved, use a `for` loop.
 - If constructing multiple collections by iterating over the same original collection, use a `for` loop for performance.
 - If the comprehension gets too complex, a `for` loop may be appropriate. Although, first consider refactoring with a helper function.
-  [block:api-header]
-  {
-  "title": "Classes"
-  }
-  [/block]
+
+## Classes
 
 ### Prefer dataclasses
 
@@ -290,11 +291,8 @@ class Example:
         self.values = tuple(values)
 ```
 
-[block:api-header]
-{
-"title": "Type hints"
-}
-[/block]
+## Type hints
+
 Refer to [MyPy documentation](https://mypy.readthedocs.io/en/stable/introduction.html) for an explanation of type hints, including some advanced features you may encounter in our codebase like `Protocol` and `@overload`.
 
 ### Annotate all new code
@@ -312,13 +310,12 @@ def test_demo():
 ```
 
 Precisely, all function definitions should have annotations for their parameters and their return type. MyPy will then tell you which other lines need annotations.
-[block:callout]
-{
-"type": "info",
-"title": "Interacting with legacy code? Consider adding type hints.",
-"body": "Pants did not widely use type hints until the end of 2019. So, a substantial portion of the codebase is still untyped.\n\nIf you are working with legacy code, it is often valuable to start by adding type hints. This will both help you to understand that code and to improve the quality of the codebase. Land those type hints as a precursor to your main PR."
-}
-[/block]
+
+:::note Interacting with legacy code? Consider adding type hints.
+Pants did not widely use type hints until the end of 2019. So, a substantial portion of the codebase is still untyped.
+
+If you are working with legacy code, it is often valuable to start by adding type hints. This will both help you to understand that code and to improve the quality of the codebase. Land those type hints as a precursor to your main PR.
+:::
 
 ### Prefer `cast()` to override annotations
 
@@ -393,11 +390,8 @@ merge_constraints([constraint for constraint in all_constraints if constraint.st
 ```
 
 The return type, however, should usually be as precise as possible so that call sites have better type inference.
-[block:api-header]
-{
-"title": "Tests"
-}
-[/block]
+
+## Tests
 
 ### Use Pytest-style instead of `unittest`
 

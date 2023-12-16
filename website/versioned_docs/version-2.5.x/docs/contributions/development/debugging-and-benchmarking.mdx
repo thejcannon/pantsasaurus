@@ -7,19 +7,11 @@ Some techniques to figure out why Pants is behaving the way it is.
 
 ---
 
-[block:api-header]
-{
-"title": "Benchmarking Pants runs with `multitime`"
-}
-[/block]
+## Benchmarking Pants runs with `multitime`
 
-[block:api-header]
-{
-"title": "Doing ... with PySpy"
-}
-[/block]
+## Doing ... with PySpy
 
-# Obtaining Full Thread Backtraces
+## Obtaining Full Thread Backtraces
 
 Pants runs as a Python program that calls into a native Rust library. In debugging locking and deadlock issues, it is useful to capture dumps of the thread stacks in order to figure out where a deadlock may be occurring.
 
