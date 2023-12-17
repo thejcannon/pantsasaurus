@@ -8,7 +8,7 @@ function getCurrentVersion() {
   const lastReleasedVersion = versions[0];
   const version = parseInt(
     lastReleasedVersion.replace("2.", "").replace(".x", ""),
-    10,
+    10
   );
   return `2.${version + 1}.x`;
 }
@@ -65,14 +65,14 @@ const config = {
               label: `${currentVersion} 🚧`,
               path: currentVersion,
             },
-            ...(latestVersion
-              ? {
-                  [latestVersion]: {
-                    label: latestVersion,
-                    path: latestVersion,
-                  },
-                }
-              : {}),
+            ...versions.reduce((acc, version, index) => {
+              acc[version] = {
+                label: index < 3 ? version : `${version} 🛑`,
+                banner: index < 3 ? "none" : "unmaintained",
+                noIndex: index >= 3,
+              };
+              return acc;
+            }, {}),
           },
           remarkPlugins: [captionedCode],
           editUrl:
