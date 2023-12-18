@@ -67,9 +67,10 @@ const config = {
             },
             ...versions.reduce((acc, version, index) => {
               acc[version] = {
-                label: index < 3 ? version : `${version} 🛑`,
+                label: index < 3 ? version : `${version} 🌇`,
                 banner: index < 3 ? "none" : "unmaintained",
                 noIndex: index >= 3,
+                path: version,
               };
               return acc;
             }, {}),
@@ -121,6 +122,10 @@ const config = {
             type: "docsVersionDropdown",
             position: "right",
             dropdownActiveClassDisabled: true,
+            dropdownItemsAfter: [
+              { type: "html", value: '<hr class="dropdown-separator">' },
+              { to: "/versions", label: "All Versions" },
+            ],
           },
           {
             type: "dropdown",
