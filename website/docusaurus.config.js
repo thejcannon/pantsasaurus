@@ -58,7 +58,7 @@ const config = {
           routeBasePath: "/",
           disableVersioning,
           onlyIncludeVersions,
-          lastVersion: undefined,
+          lastVersion: onlyIncludeVersions ? undefined : versions[1],
           versions: {
             current: {
               label: `${currentVersion} (dev)`,
@@ -70,11 +70,16 @@ const config = {
                   acc[version] = {
                     label:
                       index === 0
-                        ? `${version} (prerelease)`
+                        ? `${version} 🚧`
                         : index < 3
                           ? version
-                          : `${version} (sunset)`,
-                    banner: index < 3 ? "none" : "unmaintained",
+                          : `${version} 🌇`,
+                    banner:
+                      index == 0
+                        ? "unreleased"
+                        : index < 3
+                          ? "none"
+                          : "unmaintained",
                     noIndex: index >= 3,
                     path: version,
                   };
