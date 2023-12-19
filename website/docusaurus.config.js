@@ -70,10 +70,10 @@ const config = {
                   acc[version] = {
                     label:
                       index === 0
-                        ? `${version} 🚧`
+                        ? `${version} (prerelease)`
                         : index < 3
                           ? version
-                          : `${version} 🌇`,
+                          : `${version} (deprecated)`,
                     banner:
                       index == 0
                         ? "unreleased"
