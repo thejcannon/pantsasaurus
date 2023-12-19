@@ -39,7 +39,9 @@ export default function DocsVersionDropdownNavbarItem({
   });
   const items = [
     ...dropdownItemsBefore,
-    ...versionLinks.slice(1, 3),
+    // !!!!! SIGNPOST: This is the only change from the original code
+    ...versionLinks.slice(1, 5),
+    // !!!!!
     ...dropdownItemsAfter,
   ];
   const dropdownVersion = useDocsVersionCandidates(docsPluginId)[0];
