@@ -15,19 +15,18 @@ function getCurrentVersion() {
 
 // Controls for how much to build:
 //  - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version"), and no blog.
-//  - PANTSASAURUS_INCLUDE_VERSION=<version> -> Use current version and version specified
+//  - PANTSASAURUS_INCLUDE_VERSIONS=<version>,<version> -> Use current version and versions specified
 //  - PANTSASAURUS_INCLUDE_BLOG=1 -> Include the blog.
 // Note that `NODE_ENV === 'production' builds _everything_.
 const isDev = process.env.NODE_ENV === "development";
 const disableVersioning =
-  isDev && process.env.PANTSASAURUS_INCLUDE_VERSION === undefined;
-const latestVersion = disableVersioning
-  ? undefined
-  : process.env.PANTSASAURUS_INCLUDE_VERSION
-    ? process.env.PANTSASAURUS_INCLUDE_VERSION
-    : versions[0];
+  isDev && process.env.PANTSASAURUS_INCLUDE_VERSIONS === undefined;
 const onlyIncludeVersions = isDev
-  ? ["current"].concat(latestVersion ? [latestVersion] : [])
+  ? process.env.PANTSASAURUS_INCLUDE_VERSIONS
+    ? ["current"].concat(
+        (process.env.PANTSASAURUS_INCLUDE_VERSIONS || "").split(",")
+      )
+    : ["current"]
   : undefined;
 const currentVersion = getCurrentVersion();
 const includeBlog = process.env.PANTSASAURUS_INCLUDE_BLOG === "1" || !isDev;
@@ -59,21 +58,28 @@ const config = {
           routeBasePath: "/",
           disableVersioning,
           onlyIncludeVersions,
-          lastVersion: latestVersion,
+          lastVersion: undefined,
           versions: {
             current: {
-              label: `${currentVersion} 🚧`,
+              label: `${currentVersion} (dev)`,
               path: currentVersion,
             },
-            ...versions.reduce((acc, version, index) => {
-              acc[version] = {
-                label: index < 3 ? version : `${version} 🌇`,
-                banner: index < 3 ? "none" : "unmaintained",
-                noIndex: index >= 3,
-                path: version,
-              };
-              return acc;
-            }, {}),
+            ...(disableVersioning
+              ? {}
+              : versions.reduce((acc, version, index) => {
+                  acc[version] = {
+                    label:
+                      index === 0
+                        ? `${version} (prerelease)`
+                        : index < 3
+                          ? version
+                          : `${version} (sunset)`,
+                    banner: index < 3 ? "none" : "unmaintained",
+                    noIndex: index >= 3,
+                    path: version,
+                  };
+                  return acc;
+                }, {})),
           },
           remarkPlugins: [captionedCode],
           editUrl:
