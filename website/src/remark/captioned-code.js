@@ -1,12 +1,12 @@
 import { visit } from "unist-util-visit";
 
-const plugin = (options) => {
+const plugin = () => {
   return (tree, file) => {
     visit(tree, "code", (node, index, parent) => {
       const metaString = `${node.lang ?? ""} ${node.meta ?? ""}`.trim();
       if (!metaString) return;
       const [caption] = metaString.match(
-        /(?<=caption=("|'))(.*?)(?=("|'))/,
+        /(?<=caption=("|'))(.*?)(?=("|'))/
       ) ?? [""];
       if (!caption && metaString.includes("caption=")) {
         file.message("Invalid caption", node, "remark-code-caption");
